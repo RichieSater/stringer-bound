@@ -8,6 +8,7 @@ authors:
     affiliation: Independent Researcher
 version: 1.0.0
 date-released: 2026-08-08
+doi: 10.5281/zenodo.21850820
 license: MIT
 repository-code: "https://github.com/RichieSater/stringer-bound"
 url: "https://github.com/RichieSater/stringer-bound"

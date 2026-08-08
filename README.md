@@ -1,5 +1,7 @@
 # The Stringer Bound Conjecture
 
+[![DOI](https://zenodo.org/badge/1327724172.svg)](https://doi.org/10.5281/zenodo.21850819)
+
 > **Conjecture (finite-sample conservatism, open since 1963).** For every
 > taint distribution \(F\) on \([0,1]\), every sample size \(n\), and
 > standard confidence levels such as \(95\%\), the Stringer bound covers the
