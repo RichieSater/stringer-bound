@@ -1,0 +1,15 @@
+n=30   alpha=0.63 binomial min coverage = 0.3700000000  (nominal 0.3700, slack +1.325e-13)  at v=(1.0000, 0.4655) q=(0.164311, 0.835689)
+n=50   alpha=0.63 binomial min coverage = 0.3700000000  (nominal 0.3700, slack +4.252e-13)  at v=(1.0000, 0.9000) q=(0.289946, 0.710054)
+n=100  alpha=0.63 binomial min coverage = 0.3700000000  (nominal 0.3700, slack +3.945e-13)  at v=(1.0000, 0.0500) q=(0.290551, 0.709449)
+
+global minimum screening coverage: 0.3700000000 (nominal 0.3700)
+n=30   alpha=0.65 binomial min coverage = 0.3500000000  (nominal 0.3500, slack +1.172e-13)  at v=(1.0000, 0.5545) q=(0.416051, 0.583949)
+n=50   alpha=0.65 binomial min coverage = 0.3500000000  (nominal 0.3500, slack +5.708e-13)  at v=(1.0000, 0.9900) q=(0.582616, 0.000000)
+n=100  alpha=0.65 binomial min coverage = 0.3500000000  (nominal 0.3500, slack +1.926e-13)  at v=(1.0000, 0.5545) q=(0.416232, 0.583768)
+
+global minimum screening coverage: 0.3500000000 (nominal 0.3500)
+n=30   alpha=0.68 binomial min coverage = 0.3200000000  (nominal 0.3200, slack +4.056e-13)  at v=(1.0000, 0.1091) q=(0.743843, 0.256157)
+n=50   alpha=0.68 binomial min coverage = 0.3200000000  (nominal 0.3200, slack +4.318e-13)  at v=(1.0000, 0.0500) q=(0.477040, 0.522960)
+n=100  alpha=0.68 binomial min coverage = 0.3095631213  (nominal 0.3200, slack -1.044e-02)  at v=(0.9900, 0.4655) q=(0.129346, 0.761990)
+
+global minimum screening coverage: 0.3095631213 (nominal 0.3200)

@@ -1,0 +1,3 @@
+n=1  MC CP = 0.99001 +/- 0.00015  hand CP = 0.99000  Pbar = 1.000000  [MC agrees: True; CP < Pbar: True]
+n=2  MC CP = 0.98007 +/- 0.00021  hand CP = 0.98010  Pbar = 0.999359  [MC agrees: True; CP < Pbar: True]
+bimpeh_continuous_check: all checks passed

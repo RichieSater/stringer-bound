@@ -1,0 +1,4 @@
+alpha=0.05  min[SB - Gaffke] = -1.6838e-09 at (np.float64(1.0), np.float64(1.0))  -> SB dominates
+alpha=0.10  min[SB - Gaffke] = -1.5768e-09 at (np.float64(0.1), np.float64(1.0))  -> SB dominates
+alpha=0.70  min[SB - Gaffke] = -3.1778e-02 at (np.float64(0.0), np.float64(0.5085))  -> domination fails
+gaffke_domination_check: matches recorded findings

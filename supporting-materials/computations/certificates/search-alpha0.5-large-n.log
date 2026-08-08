@@ -1,0 +1,5 @@
+n=150  alpha=0.5 binomial min coverage = 0.5000004863  (nominal 0.5000, slack +4.863e-07)  at v=(1.0000, 0.0500) q=(0.124175, 0.875825)
+n=200  alpha=0.5 binomial min coverage = 0.5000000000  (nominal 0.5000, slack +1.832e-13)  at v=(1.0000, 0.7327) q=(0.527454, 0.000000)
+n=300  alpha=0.5 binomial min coverage = 0.5006430049  (nominal 0.5000, slack +6.430e-04)  at v=(1.0000, 0.9900) q=(0.541667, 0.458333)
+
+global minimum screening coverage: 0.5000000000 (nominal 0.5000)

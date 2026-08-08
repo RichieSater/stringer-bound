@@ -1,0 +1,21 @@
+n=10   alpha=0.05 poisson  min coverage = 0.9715797837  (nominal 0.9500, slack +2.158e-02)  at v=(1.0000, 0.9900) q=(0.299573, 0.000000)
+n=25   alpha=0.05 poisson  min coverage = 0.9588686662  (nominal 0.9500, slack +8.869e-03)  at v=(1.0000, 0.9000) q=(0.119829, 0.000000)
+n=50   alpha=0.05 poisson  min coverage = 0.9572796081  (nominal 0.9500, slack +7.280e-03)  at v=(1.0000, 0.3764) q=(0.094877, 0.000000)
+n=75   alpha=0.05 poisson  min coverage = 0.9552686275  (nominal 0.9500, slack +5.269e-03)  at v=(0.9900, 0.0100) q=(0.040581, 0.000132)
+n=100  alpha=0.05 poisson  min coverage = 0.9549226731  (nominal 0.9500, slack +4.923e-03)  at v=(1.0000, 0.5000) q=(0.062958, 0.000000)
+
+global minimum screening coverage: 0.9549226731 (nominal 0.9500)
+n=10   alpha=0.10 binomial min coverage = 0.9000000000  (nominal 0.9000, slack +1.569e-13)  at v=(1.0000, 0.0500) q=(0.449604, 0.550396)
+n=25   alpha=0.10 binomial min coverage = 0.9000000000  (nominal 0.9000, slack +1.589e-13)  at v=(1.0000, 0.1982) q=(0.248018, 0.751982)
+n=50   alpha=0.10 binomial min coverage = 0.9000000000  (nominal 0.9000, slack +3.906e-13)  at v=(1.0000, 0.0100) q=(0.749427, 0.250573)
+n=75   alpha=0.10 binomial min coverage = 0.9000000000  (nominal 0.9000, slack +7.778e-12)  at v=(1.0000, 0.0500) q=(0.663646, 0.336354)
+n=100  alpha=0.10 binomial min coverage = 0.9000000000  (nominal 0.9000, slack +2.154e-13)  at v=(1.0000, 0.0500) q=(0.260685, 0.739315)
+
+global minimum screening coverage: 0.9000000000 (nominal 0.9000)
+n=10   alpha=0.10 poisson  min coverage = 0.9269788000  (nominal 0.9000, slack +2.698e-02)  at v=(1.0000, 0.8218) q=(0.230259, 0.000000)
+n=25   alpha=0.10 poisson  min coverage = 0.9182409454  (nominal 0.9000, slack +1.824e-02)  at v=(1.0000, 0.9000) q=(0.155589, 0.000000)
+n=50   alpha=0.10 poisson  min coverage = 0.9090340540  (nominal 0.9000, slack +9.034e-03)  at v=(1.0000, 0.9109) q=(0.077794, 0.000000)
+n=75   alpha=0.10 poisson  min coverage = 0.9145135583  (nominal 0.9000, slack +1.451e-02)  at v=(1.0000, 0.9000) q=(0.123662, 0.000000)
+n=100  alpha=0.10 poisson  min coverage = 0.9093040862  (nominal 0.9000, slack +9.304e-03)  at v=(1.0000, 0.9109) q=(0.079936, 0.000000)
+
+global minimum screening coverage: 0.9090340540 (nominal 0.9000)

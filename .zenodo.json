@@ -1,0 +1,25 @@
+{
+  "title": "The Stringer Bound Conjecture: Proofs, Computations, and Exact Certificates",
+  "description": "A certificate-backed investigation of finite-sample conservatism for the Stringer monetary-unit-sampling bound. This release includes a proof for n = 2 at every confidence level, exact rational counterexamples at low confidence, a documented gap in the strongest prior finite-sample certification, reproducible search and certification code, and machine-checkable certificates.",
+  "creators": [
+    {
+      "name": "Sater, Richie",
+      "affiliation": "Independent Researcher",
+      "type": "ProjectLeader"
+    }
+  ],
+  "version": "1.0.0",
+  "access_right": "open",
+  "license": "mit",
+  "upload_type": "software",
+  "language": "eng",
+  "keywords": [
+    "Stringer bound",
+    "monetary-unit sampling",
+    "audit sampling",
+    "finite-sample coverage",
+    "Clopper-Pearson",
+    "exact arithmetic",
+    "computer-assisted proof"
+  ]
+}

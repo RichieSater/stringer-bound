@@ -1,0 +1,579 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1.2in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs}
+\usepackage[hidelinks]{hyperref}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\SB}{\mathrm{SB}}
+\newcommand{\pr}{\mathbb{P}}
+\newcommand{\E}{\mathbb{E}}
+
+\title{The Stringer bound at $n=2$: a first finite-sample\\ conservatism theorem, exact counterexamples\\ at low confidence, and a gap in the literature}
+\author{Richie Sater\thanks{Certified Public Accountant. Email: \texttt{richiesater@gmail.com}. Code, exact-arithmetic certificates, and verification scripts for every claim are available in the accompanying repository.}}
+\date{August 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The Stringer bound (Stringer, 1963) is the standard evaluation of
+monetary-unit samples in auditing. Its defining property --- that its
+finite-sample coverage is at least the nominal confidence level --- has
+remained unproven for six decades: Bickel (1992) and Pap and van Zuijlen
+(1996) established asymptotic conservatism for $\alpha\le 1/2$ and
+asymptotic anti-conservatism for $\alpha>1/2$, but no finite-sample proof
+beyond $n=1$ exists. We contribute three results. First, we prove the
+conjecture at $n=2$: for every taint distribution on $[0,1]$ and
+\emph{every} confidence level, the Stringer bound with binomial factors is
+conservative, and the bound is sharp (the supremum of the failure
+probability equals $\alpha$, approached but not attained). To our
+knowledge this is the first finite-sample proof at any $n\ge 2$ free of
+hypotheses on the distribution; a second, structurally different proof of
+the key inequality is sketched. Second, we exhibit the first exact
+(non-simulation) finite-sample counterexamples at explicit parameters:
+certified in rational arithmetic, coverage falls below the nominal level
+at confidence levels $30\%$--$37\%$ for $n$ between $50$ and $400$, with
+the shortfall growing in $n$ --- while at $50\%$ and above no violation is
+found, with the searched infimum equal to the nominal level exactly.
+Third, we refute the only claimed finite-sample certification in the
+literature (Bimpeh, 2008), which asserted conservatism for all $F$ at
+$n\le 11$ for $\alpha=0.05$ and claimed a proof for $n\le2$: its
+band-containment inequality fails for continuous and atomic
+distributions alike, and the corrected containment probability can
+never exceed $1-\alpha$, so the method could not have certified
+conservatism at any $n$ --- making the present theorem the first
+correct finite-sample proof at $n=2$.
+\end{abstract}
+
+\section{Introduction}
+
+Monetary-unit sampling (MUS) draws $n$ dollar units at random from an
+audited population; the \emph{taint} of a drawn unit is
+$T\in[0,1]$, the overstated fraction of the line item owning that
+dollar. With taints $t_{(1)}\ge\cdots\ge t_{(n)}$ sorted decreasingly,
+the Stringer bound at nominal confidence $1-\alpha$ is
+\begin{equation}\label{eq:sb}
+\SB \;=\; p_n(0) \;+\; \sum_{j=1}^{n}\bigl(p_n(j)-p_n(j-1)\bigr)\,t_{(j)},
+\end{equation}
+where $p_n(j)$ is the upper Clopper--Pearson limit for $j$ successes in
+$n$ trials, i.e.\ the root of $\sum_{i=0}^{j}\binom{n}{i}p^i(1-p)^{n-i}
+=\alpha$, with $p_n(n)=1$; audit practice frequently substitutes Poisson
+limits, which dominate the binomial ones. The method's justification has
+always been the belief that
+\begin{equation}\label{eq:conj}
+\pr\bigl(\SB \ge \mu(F)\bigr) \;\ge\; 1-\alpha
+\qquad\text{for all } n \text{ and all } F \text{ on } [0,1],
+\end{equation}
+where $T_1,\dots,T_n$ are i.i.d.\ $F$ with mean $\mu(F)$ --- the standard
+i.i.d.\ model in which all published analyses of the bound are set. As
+the National Research Council's panel observed, ``the formulation of the
+Stringer bound has never been satisfactorily explained''
+\cite{panel1989}. What is known: Bickel \cite{bickel1992} proved
+\eqref{eq:conj} for $n=1$, gave the lower bound $(1-\alpha)^{n+1}$ for
+$n\ge2$ under conditions on $F$, and derived the expansion
+$\SB = \bar T + c(F)z_{1-\alpha}n^{-1/2}+o_p(n^{-1/2})$ with
+$c^2(F)\ge\operatorname{Var}(T)$; Pap and van Zuijlen
+\cite{papvz1996} made the expansion almost sure and concluded that the
+bound is asymptotically conservative for $\alpha\in(0,\tfrac12]$ and
+asymptotically \emph{anti}-conservative for $\alpha\in(\tfrac12,1)$, and
+in \cite{papvz1995} exhibited non-conservatism for uniform-type taints at
+sub-$50\%$ confidence via exact recursions. De Jager, Pap and van
+Zuijlen \cite{djpvz1997} proved that on $\{0,1\}$-supported taints the
+bound reduces to Clopper--Pearson (where \eqref{eq:conj} holds exactly)
+and that Stringer's coefficients are minimal with that property. A 2021
+survey of confidence bounds for bounded means lists the Stringer bound
+among ``bounds conjectured to have guaranteed coverage,'' its coverage
+for $\alpha<0.5$ ``unknown'' \cite{phan2021}.
+
+This paper makes three contributions.
+
+\emph{(1) A theorem at $n=2$} (Section~\ref{sec:thm}): the conjecture
+\eqref{eq:conj} holds at $n=2$ for every $F$ and every
+$\alpha\in(0,1)$ --- including $\alpha>1/2$, so the known asymptotic
+failures are strictly a large-$n$ phenomenon --- and it is sharp.
+
+\emph{(2) Exact counterexamples at low confidence}
+(Section~\ref{sec:counter}): thirty-three certified two-atom
+counterexamples at confidence levels $30\%$--$37\%$, $n=50$--$400$,
+evaluated in exact rational arithmetic with margin certificates; and
+exhaustive-search evidence that at $90\%$, $95\%$, and $50\%$ the
+infimum over two- and three-atom populations equals the nominal level
+exactly at every $n$ searched.
+
+\emph{(3) A correction to the record} (Section~\ref{sec:bimpeh}): the
+only claimed finite-sample certification beyond $n\le2$
+\cite{bimpeh2008} rests on an index error; we refute its central
+inequality by hand-checkable counterexamples and prove that its method,
+corrected, cannot certify conservatism at any $n$.
+
+\section{The theorem at $n=2$}\label{sec:thm}
+
+For $n=2$ the factors are explicit: $p_2(0)=1-\sqrt{\alpha}$,
+$p_2(1)=\sqrt{1-\alpha}$, $p_2(2)=1$. Write
+\[
+\beta=\sqrt{\alpha},\quad \gamma=\sqrt{1-\alpha}\quad(\beta^2+\gamma^2=1),
+\qquad A = \beta+\gamma-1,\quad B=1-\gamma,
+\]
+so $A,B>0$ and $A+B=\beta$.
+
+\begin{theorem}\label{thm:n2}
+Let $\alpha\in(0,1)$ and let $T_1,T_2$ be i.i.d.\ from any distribution
+$F$ on $[0,1]$ with mean $\mu$. Then
+$\pr(\SB\ge\mu)\ge 1-\alpha$. Moreover
+$\sup_F \pr(\SB<\mu)=\alpha$, and the supremum is not attained.
+\end{theorem}
+
+\subsection{Reduction}
+
+Substituting $U_i=1-T_i$, $w=1-\mu=\E[U]$, $m=\min(U_1,U_2)$,
+$M=\max(U_1,U_2)$ into \eqref{eq:sb} and telescoping gives
+\begin{equation}\label{eq:red}
+\SB \;=\; 1-\bigl(A\,m+B\,M\bigr),
+\end{equation}
+so $\SB\ge\mu\iff Am+BM\le w$. The theorem is implied by the
+\emph{wedge inequality}: for $U_1,U_2$ i.i.d.\ on $[0,1]$ with mean
+$w>0$,
+\begin{equation}\label{eq:wedge}
+\pr\bigl(Am+BM< w\bigr)\;\ge\;\gamma^2 .
+\end{equation}
+(If $w=0$ then $U\equiv0$ a.s.\ and $\SB=1\ge\mu$ surely. The strict
+form \eqref{eq:wedge} is in fact equivalent to the theorem, by applying
+the weak form to $(1-\varepsilon)U$ and letting
+$\varepsilon\downarrow0$; only the stated implication is used.)
+
+If $w>\beta$ the event $\{Am+BM\ge w\}$ is empty, since the left side
+is at most $A+B=\beta$; if $w=\beta$ it is exactly $\{U_1=U_2=1\}$
+(as $A,B>0$), of probability $\pr(U=1)^2\le w^2=\alpha$ by Markov's
+inequality. \textbf{Assume henceforth $0<w<\beta$.}
+
+\subsection{Rectangle bounds}
+
+Let $F(x)=\pr(U\le x)$, $G=1-F$, and recall $w=\int_0^1G$. Define
+\[
+u^*=\frac{w}{\beta}\in(0,1),\qquad
+a_0=\max\Bigl(0,\frac{w-B}{A}\Bigr),\qquad
+T^\dagger=\min\Bigl(\frac{w}{B},1\Bigr),
+\]
+and note $a_0<u^*<T^\dagger$.
+
+\begin{lemma}[Rectangle lemma]\label{lem:rect}
+If $0\le a\le b\le 1$ and $Aa+Bb<w$, then
+$\pr(Am+BM<w)\ge 2F(a)F(b)-F(a)^2$.
+\end{lemma}
+
+\begin{proof}
+On $\{U_1\le a,U_2\le b\}\cup\{U_1\le b,U_2\le a\}$ we have $m\le a$,
+$M\le b$, hence $Am+BM\le Aa+Bb<w$ (using $A,B\ge0$). By
+inclusion--exclusion (the intersection is $\{U_1\le a, U_2\le a\}$
+since $a\le b$) the union has probability $2F(a)F(b)-F(a)^2$.
+\end{proof}
+
+Assume for contradiction that \eqref{eq:wedge} fails. Then
+\begin{equation}\label{eq:H}
+\tag{H}
+2F(a)F(b)-F(a)^2<\gamma^2
+\quad\text{whenever } 0\le a\le b\le 1,\; Aa+Bb<w .
+\end{equation}
+Three families of admissible rectangles give pointwise bounds on $G$:
+
+\emph{(i) Squares.} For $t<u^*$, $(a,b)=(t,t)$ gives $F(t)^2<\gamma^2$,
+i.e.\ $G(t)>1-\gamma=B$ for all $t\in[0,u^*)$.
+
+\emph{(ii) Full-height rectangles} (nonvacuous iff $w>B$). For $a<a_0$,
+$(a,1)$ gives $1-G(a)^2<\gamma^2$, i.e.\ $G(a)>\beta$ on $[0,a_0)$.
+
+\emph{(iii) Boundary pairs.} Let $h(g)=\dfrac{\beta^2-g^2}{2(1-g)}$ on
+$[0,1)$. For $b\in(u^*,T^\dagger)$ set $\bar a(b)=(w-Bb)/A\in
+(a_0,u^*)$. Every $a'<\bar a(b)$ is admissible with $b$; letting
+$a'\uparrow\bar a(b)$ and writing $g=G(\bar a(b)^-)<1$,
+inequality \eqref{eq:H} rearranges to
+\[
+G(b)\;\ge\;h\bigl(G(\bar a(b)^-)\bigr)
+\qquad\text{for all } b\in(u^*,T^\dagger)
+\]
+(the numerator algebra: $2(1-g)-\gamma^2-(1-g)^2=\beta^2-g^2$). If
+$g=1$ the bound $G(b)\ge0$ is used instead, consistent with the
+convention $h_+(1)=0$ below.
+
+\subsection{Potential function and budget}
+
+Let $h_+=\max(h,0)$, extended continuously by $h_+(1)=0$, and define
+\[
+\tilde k(g)\;=\;g+\frac{A}{B}\,h_+(g),\qquad g\in(B,1].
+\]
+
+\begin{lemma}\label{lem:pot}
+$\tilde k(g)\ge\beta$ on $(B,1]$, with equality only at $g=\beta$.
+\end{lemma}
+
+\begin{proof}
+Since $\beta^2-B^2=\alpha-(1-\gamma)^2=2\gamma(1-\gamma)$, we get
+$h(B)=B$, hence $\tilde k(B^+)\to B+\frac{A}{B}B=A+B=\beta$; also
+$h(\beta)=0$ so $\tilde k(\beta)=\beta$. Differentiating,
+$h'(g)=\frac{(1-g)^2-\gamma^2}{2(1-g)^2}$, so $h$ has its unique
+critical point at $g=B$ (where $(1-g)^2=\gamma^2$) and decreases on
+$(B,1)$; hence $h\ge0$ on $[B,\beta]$ (it decreases from $B>0$ to $0$)
+and $h<0$ on $(\beta,1)$. Further
+$h''(g)=-\gamma^2/(1-g)^3<0$: $h$, and therefore
+$\tilde k=g+\frac{A}{B}h$, is strictly concave on $[B,\beta]$. A
+strictly concave function with equal endpoint values $\beta$ satisfies
+$\tilde k\ge\beta$ on $[B,\beta]$, strictly on the interior. On
+$(\beta,1]$, $h_+=0$ and $\tilde k(g)=g>\beta$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:n2}]
+Assume \eqref{eq:H}. The substitution $t=b(a)=(w-Aa)/B$ maps
+$[a_0,u^*]$ decreasingly onto $[u^*,T^\dagger]$ with
+$|dt|=(A/B)\,da$ (endpoints: $b(u^*)=u^*$; $b(a_0)=1=T^\dagger$ if
+$w\ge B$, $b(0)=w/B=T^\dagger$ if $w\le B$). Using
+$w=\int_0^1G\ge\int_0^{a_0}G+\int_{a_0}^{u^*}G+\int_{u^*}^{T^\dagger}G$,
+bound the tail by (iii) (the left-limit $G(a^-)$ agrees with $G(a)$
+for all but countably many $a$, so the integrals coincide):
+\[
+\int_{u^*}^{T^\dagger}G
+=\frac{A}{B}\int_{a_0}^{u^*}G(b(a))\,da
+\;\ge\;\frac{A}{B}\int_{a_0}^{u^*}h_+\bigl(G(a)\bigr)\,da .
+\]
+By (i), $G>B$ pointwise on $[a_0,u^*)$, so Lemma~\ref{lem:pot} applies
+under the integral:
+\[
+w\;\ge\;\int_0^{a_0}G+\int_{a_0}^{u^*}\tilde k\bigl(G(a)\bigr)\,da
+\;\ge\;\beta a_0+\beta(u^*-a_0)\;=\;\beta u^*\;=\;w,
+\]
+where $\int_0^{a_0}G\ge\beta a_0$ by (ii). Equality is forced
+throughout; we exhibit a strict inequality in every case:
+\begin{itemize}
+\item If $a_0>0$: (ii) is pointwise strict on $[0,a_0)$, so
+$\int_0^{a_0}G>\beta a_0$.
+\item If $a_0=0$ and $G\ne\beta$ on a positive-measure subset of
+$(0,u^*)$: there $\tilde k(G)>\beta$ strictly
+(Lemma~\ref{lem:pot}), so $\int_0^{u^*}\tilde k(G)>\beta u^*$.
+\item If $a_0=0$ and $G=\beta$ a.e.\ on $(0,u^*)$: for each
+$b\in(u^*,T^\dagger)$ choose $a'<\bar a(b)$ with $G(a')=\beta$
+(possible, as such $a'$ have full measure in a nonempty interval);
+the \emph{strict} inequality \eqref{eq:H} at the admissible corner
+$(a',b)$ reads $(1-\beta)(1+\beta-2G(b))<\gamma^2=(1-\beta)(1+\beta)$,
+forcing $G(b)>0$ for every $b\in(u^*,T^\dagger)$; hence
+$\int_{u^*}^{T^\dagger}G>0$ and $w\ge\int_0^{u^*}G+
+\int_{u^*}^{T^\dagger}G>\beta u^*=w$.
+\end{itemize}
+Each case contradicts $w=w$; so \eqref{eq:H} is impossible, proving
+\eqref{eq:wedge} and the coverage statement.
+
+\emph{Sharpness.} Two-point distributions $F=(1-q)\delta_0+q\delta_u$
+give failure probability $q^2$ when $q<\beta$ (the pair $(u,u)$, since
+$\beta u> qu=w$) and additionally the mixed pairs when $q<B$
+(since $Bu>qu$), totalling $1-(1-q)^2$; letting $q\uparrow\beta$ and
+$q\uparrow B$ respectively yields failure probabilities approaching
+$\beta^2=\alpha$ and $1-\gamma^2=\alpha$. Hence $\sup_F\pr(\SB<\mu)
+=\alpha$.
+
+\emph{Non-attainment.} If some $F$ attained it, the weak form of
+\eqref{eq:H} would hold, and rerunning the budget with weak
+inequalities forces $G=\beta$ a.e.\ on $(0,u^*)$ (by strictness of
+$\tilde k$ off $\beta$) and $G=0$ a.e.\ beyond $u^*$; right-continuous
+monotonicity then pins $F=(1-\beta)\delta_0+\beta\delta_{u^*}$, whose
+largest value of $Am+BM$ is $\beta u^*=w$ exactly, so
+$\pr(Am+BM>w)=0\ne\alpha$ --- a contradiction.
+\end{proof}
+
+\begin{remark}[Relation to known inequalities]\label{rem:known}
+The equal-weights case of \eqref{eq:wedge} --- bounding
+$\pr(X_1+X_2\ge t)$ for nonnegative i.i.d.\ variables with given
+mean --- is the classical sharp inequality of Hoeffding and Shrikhande
+\cite{hs1955} (extended to general $k$ in \cite{lms2016}); the wedge
+inequality is its order-statistic-weighted analogue, with genuinely
+unequal weights $A\ne B$ for all $\alpha\in(0,1)$. The sharp-bound
+literature for order statistics and L-statistics under moment
+conditions (see \cite{balrych2024}) concerns expectations, or
+distribution functions of single order statistics, not
+mean-constrained tail probabilities of weighted combinations; we are
+not aware of a prior result implying \eqref{eq:wedge}. Separately, the
+valid-mean-bound literature offers an instructive comparison: Gaffke's
+bound \cite{gaffke2005}, whose finite-sample validity for independent
+variables was proved only recently \cite{vlassis2026}, is pointwise
+dominated by the $n=2$ Stringer bound at $\alpha=0.05$ (numerically:
+minimum gap $0$, attained exactly on the two extremal families ---
+equal taints, and one taint equal to $1$), so at standard confidence
+levels conservatism at $n=2$ would alternatively follow from
+\cite{vlassis2026} \emph{given} a proof of that domination; but the
+domination fails at $\alpha>1/2$ (e.g.\ by $-0.032$ at $\alpha=0.7$),
+where Theorem~\ref{thm:n2} still holds, so the present proof is
+strictly stronger and self-contained. Anderson's bound
+\cite{anderson1969} does not dominate or get dominated similarly.
+\end{remark}
+
+\begin{remark}[Second proof]\label{rem:second}
+An independent verification produced a structurally different proof of
+\eqref{eq:wedge}: decompose the failure probability as
+$g^2+2\int_{[0,u^*)}G(h(u))\,dF(u)$ with $g=G(u^*)$, bound the tail
+survival by mass counting, majorize linearly in the high-part mean, and
+check two endpoints. Its closing inequality,
+$J(g)=A(\beta+g)-2B(1-g)\ge0$ on $[B,\beta]$ with $J(B)=\beta^2+
+\gamma^2-1=0$, is algebraically equivalent to Lemma~\ref{lem:pot}. Two
+different arguments hinging on the same tight inequality, with the same
+equality points $g\in\{B,\beta\}$ matching the two extremal families,
+corroborate the sharpness structure.
+\end{remark}
+
+\begin{corollary}
+For $n=2$ the Stringer bound with Poisson (AICPA) factors is
+conservative for every $F$ and every $\alpha$ for which the Poisson
+factors dominate the binomial ones; the domination is verified with
+rigorous enclosures for standard levels in the repository.
+\end{corollary}
+
+\begin{proposition}[Single nonzero taint value]\label{prop:twopoint}
+For every $n$, $\alpha$, and $F$ supported on $\{0,v\}$ with
+$v\in(0,1]$: $\pr(\SB\ge\mu)\ge1-\alpha$.
+\end{proposition}
+
+\begin{proof}
+With $K$ the number of nonzero taints, $K\sim\mathrm{Bin}(n,q)$,
+$\SB=(1-v)p_n(0)+v\,p_n(K)\ge v\,p_n(K)$ and $\mu=qv$; on the
+Clopper--Pearson coverage event $\{p_n(K)\ge q\}$, of probability at
+least $1-\alpha$, we get $\SB\ge vq=\mu$.
+\end{proof}
+
+\section{Exact counterexamples at low confidence}\label{sec:counter}
+
+Theorem~\ref{thm:n2} covers every confidence level, so the asymptotic
+anti-conservatism at $\alpha>1/2$ \cite{papvz1996} must manifest only at
+larger $n$. We locate it precisely. All claims below are certified: the
+taint distribution's parameters are exact dyadic rationals, coverage is
+computed as an exact rational by full multinomial enumeration, and a
+margin certificate verifies that no comparison $\SB\ge\mu$ was decided
+within the numerical error of the confidence factors (which are enclosed
+in bisection brackets of width $10^{-40}$).
+
+\begin{table}[h]\centering
+\begin{tabular}{lrrr}
+\toprule
+confidence & $n$ & worst certified coverage & certified examples\\
+\midrule
+$30\%$ & $50$ & $0.29888$ & $3$\\
+$32\%$ & $100$ & $0.30956$ & $9$\\
+$35\%$ & $200$ & $0.33668$ & $1$\\
+$35\%$ & $400$ & $0.32630$ & $1$\\
+$37\%$ & $200$ & $0.36079$ & $6$\\
+$37\%$ & $400$ & $0.35508$ & $13$\\
+\bottomrule
+\end{tabular}
+\caption{Certified finite-sample violations (binomial factors,
+two-atom taint distributions). The shortfall grows with $n$ at fixed
+confidence, and the onset $n$ grows as confidence approaches the
+asymptotic threshold $50\%$.}\label{tab:counter}
+\end{table}
+
+A representative certificate: at nominal confidence $30\%$
+($\alpha=0.7$), $n=50$, taints $v_1\approx0.99$, $v_2\approx0.4655$
+with probabilities $q_1\approx0.246$, $q_2\approx0.592$ (exact dyadic
+values in the repository), the exact coverage is
+$0.29888\ldots<0.30$, with minimum margin $\min|\SB-\mu|\approx
+2\times10^{-17}$ against a factor-error bound of $5\times10^{-39}$.
+These are, to our knowledge, the first exact counterexamples at
+explicit parameters in the literature; \cite{papvz1995} established
+existence for uniform-type taints via recursions but the present
+examples are two-atom, elementary to re-verify, and map the failure
+boundary.
+
+At and above $50\%$ confidence the picture reverses. Grid-plus-optimizer
+searches over two-atom populations ($n\le100$ at $95\%$ and $90\%$;
+$n\le300$ at $50\%$) and three-atom populations ($n\le25$ at $95\%$)
+find \emph{no} violation; at every $n$ the screened infimum equals the
+nominal level to $10^{-10}$ or better, approached as the top taint
+$v_1\to1$ --- consistent with Proposition~\ref{prop:twopoint} and with
+the $\{0,1\}$-support minimality of \cite{djpvz1997}, and evidence that
+the conjecture, if true, is exactly tight. For the Poisson factors used
+in practice the worst-case coverage stays strictly above nominal, e.g.\
+at $95\%$: $0.9716$ ($n=10$), $0.9573$ ($n=50$), $0.9549$ ($n=100$) ---
+a finite-sample cushion that erodes as $n$ grows.
+
+\section{The gap in the claimed certification}\label{sec:bimpeh}
+
+Bimpeh \cite{bimpeh2008} writes the Stringer bound as
+$\SB=\int_0^1[1-\widehat F_{n,L}(t)]\,dt$, where $\widehat F_{n,L}$ is
+the stepwise band of lower Clopper--Pearson limits $q_n(i-1)$ on
+$[t_{i-1:n},t_{i:n})$, and derives
+\begin{equation}\label{eq:bimpeh}
+\mathrm{CP}\;\ge\;\bar P_n\;=\;\pr\bigl(U_{i:n}\le p_n(i),\ 1\le i\le
+n\bigr),
+\end{equation}
+computing $\bar P_n$ by Bolshev's recursion and concluding that
+\eqref{eq:conj} holds for all $F$ when $\bar P_n\ge1-\alpha$ --- e.g.\
+$n\le11$ at $\alpha=0.05$ --- and, since
+$\bar P_2 = 2\sqrt{1-\alpha}-(1-\alpha)\ge1-\alpha$ for all $\alpha$,
+claiming in particular a proof of \eqref{eq:conj} for $n\le2$. This is
+the only finite-sample certification claimed anywhere in the
+literature; to our knowledge it has never been cited critically, so
+the error identified below has gone unnoticed since 2008.
+
+\begin{proposition}\label{prop:bimpehwrong}
+Inequality \eqref{eq:bimpeh} is false, for continuous and for atomic
+$F$.
+\end{proposition}
+
+\begin{proof}
+Let $\alpha=0.05$ and let $F$ put mass $0.99$ uniformly on
+$(0.99,1)$ and $0.01$ uniformly on $(0,0.01)$, so $\mu=0.9851$. For
+$n=1$: $\SB=0.95+0.05\,T_1$ and $\bar P_1=\pr(U\le p_1(1))=1$; but
+$\SB<\mu\iff T_1<0.702$, an event of probability exactly $0.01$, so
+$\mathrm{CP}=0.99<1=\bar P_1$. For $n=2$: $\bar
+P_2=2\sqrt{0.95}-0.95=0.99936$, while the pair (one high taint, one
+low) fails, giving $\mathrm{CP}=1-2(0.99)(0.01)-0.01^2=0.9801<\bar
+P_2$. An atomic example at $n=5$: $F$ with
+$\pr(T=1)=\tfrac12$, $\pr(T=\tfrac1{10})=\pr(T=0)=\tfrac14$ has exact
+coverage $\tfrac{31}{32}=0.96875<\bar P_5=0.98746$ (the failure event
+is precisely the $2^{-5}$-probability event of drawing no taint-$1$
+unit).
+\end{proof}
+
+The error is an index shift: pointwise domination $F\ge\widehat
+F_{n,L}$ on $[0,1]$ is equivalent to $F(t_{i:n})\ge q_n(i)$ for all
+$i$ --- the band's value \emph{at} the jump points --- whereas
+\cite{bimpeh2008} substitutes the left limits $q_n(i-1)$, dropping in
+particular the top constraint $F(t_{n:n})\ge q_n(n)=\alpha^{1/n}$.
+Moreover the method cannot be repaired:
+
+\begin{proposition}\label{prop:cannot}
+For every continuous $F$ and every $n$, the corrected containment
+probability satisfies
+$\pr\bigl(F(t_{i:n})\ge q_n(i)\ \forall i\bigr)
+=\pr\bigl(U_{i:n}\ge q_n(i)\ \forall i\bigr)\le
+\pr\bigl(U_{n:n}\ge\alpha^{1/n}\bigr)=1-\alpha$.
+\end{proposition}
+
+\noindent Thus the pointwise-band route yields at most $1-\alpha$ and
+can certify conservatism at no $n$: if \eqref{eq:conj} is true, it is
+true because the integral inequality $\int\widehat F_{n,L}\le\int F$
+holds on a strictly larger event than pointwise domination. (The values
+of $\bar P_n$ themselves, and Bimpeh's Table 5.1, reproduce exactly;
+they are simply not coverage bounds.) In particular the $n=1,2$
+counterexamples of Proposition~\ref{prop:bimpehwrong} refute
+\eqref{eq:bimpeh} at precisely the sample sizes for which
+\cite{bimpeh2008} claimed an analytic proof, so that claim is invalid
+and Theorem~\ref{thm:n2} is, to our knowledge, the first correct
+finite-sample proof at $n=2$. The proven record therefore reduces to
+$n=1$ \cite{bickel1992}, $\{0,1\}$ supports \cite{djpvz1997},
+single-value supports (Proposition~\ref{prop:twopoint}), and now $n=2$
+(Theorem~\ref{thm:n2}).
+
+\section{Discussion}
+
+Three observations orient future work. First, the reformulation behind
+\eqref{eq:red} generalizes: with $u_{(1)}\le\cdots\le u_{(n)}$ the
+increasing order statistics of $U_i=1-T_i$,
+\[
+\SB\;=\;1-\sum_{j=1}^{n}e_j\,u_{(j)},\qquad
+e_j=p_n(j)-p_n(j-1),
+\]
+so \eqref{eq:conj} is a family of weighted order-statistic exceedance
+inequalities, with all audit content absorbed into the decreasing
+weights $e_j$. Second, the $n=2$ proof's architecture --- rectangle
+lower bounds on the covering event, a survival-integral budget, and a
+concave potential with equal endpoint values --- does not obviously
+depend on $n=2$ except through the explicit factor algebra; the
+$n\ge3$ factors lack closed forms, so the endpoint identities
+(Lemma~\ref{lem:pot}) would need structural rather than algebraic
+proofs. Third, the empirical sharpness at every $n$ and the certified
+failures below $50\%$ confidence suggest the true statement is exactly
+\eqref{eq:conj} for $\alpha\le1/2$, with the infimum equal to
+$1-\alpha$ at every $n$ --- a conjecture now precise enough to attack.
+
+For practice: the binomial Stringer bound has no worst-case safety
+margin at all ($95\%$ means exactly $95\%$ against adversarial
+populations), the Poisson tables retain a quantifiable but eroding
+cushion, and evaluations below $50\%$ confidence are provably
+anti-conservative at audit-relevant sample sizes.
+
+\section*{Reproducibility}
+
+Every numerical claim is backed by machine-verifiable artifacts in the
+accompanying repository: exact rational coverage computations with
+margin certificates, rigorous factor enclosures, the search logs, a
+four-layer verification of Theorem~\ref{thm:n2} (reduction identity,
+symbolic identities, potential bound, and a $\sim$200{,}000-distribution
+stress test), and records of two independent adversarial reviews of the
+proof, one containing the alternative argument of
+Remark~\ref{rem:second}.
+
+\section*{AI disclosure}
+
+Anthropic Claude was used for mathematical exploration, generation and
+adversarial criticism of candidate arguments, code, literature search,
+and manuscript drafting, directed and reviewed by the author, who
+accepts responsibility for the contents. AI review is not a substitute
+for independent human verification; the proofs are written to be
+checked by hand.
+
+\begin{thebibliography}{99}
+
+\bibitem{anderson1969} T.~W. Anderson, Confidence limits for the
+expected value of an arbitrary bounded random variable with a
+continuous distribution function, \emph{Bulletin of the International
+Statistical Institute} \textbf{43} (1969), 249--251.
+
+\bibitem{balrych2024} N.~Balakrishnan and T.~Rychlik, \emph{Sharp
+Inequalities for Ordered Random Variables in Statistics and
+Reliability}, Vol.~I, Springer, 2024.
+
+\bibitem{bickel1992} P.~J. Bickel, Inference and auditing: the Stringer
+bound, \emph{International Statistical Review} \textbf{60} (1992),
+197--209.
+
+\bibitem{bimpeh2008} Y.~Bimpeh, \emph{Statistical modelling and
+inference for financial auditing}, PhD thesis, Dublin City University,
+2008.
+
+\bibitem{djpvz1997} N.~G. de~Jager, G.~Pap and M.~C.~A. van~Zuijlen,
+Facts, phantasies, and a new proposal concerning the Stringer bound,
+\emph{Computers \& Mathematics with Applications} \textbf{33} (1997),
+37--54.
+
+\bibitem{gaffke2005} N.~Gaffke, Three test statistics for a nonparametric
+one-sided hypothesis on the mean of a nonnegative variable,
+\emph{Mathematical Methods of Statistics} \textbf{14} (2005), 451--467.
+
+\bibitem{hs1955} W.~Hoeffding and S.~S. Shrikhande, Bounds for the
+distribution function of a sum of independent, identically distributed
+random variables, \emph{Annals of Mathematical Statistics} \textbf{26}
+(1955), 439--449.
+
+\bibitem{lms2016} T.~{\L}uczak, K.~Mieczkowska and M.~\v{S}ileikis, On
+maximal tail probability of sums of nonnegative, independent and
+identically distributed random variables, arXiv:1602.03547 (2016).
+
+\bibitem{panel1989} Panel on Nonstandard Mixtures of Distributions,
+Statistical models and analysis in auditing, \emph{Statistical Science}
+\textbf{4} (1989), 2--33.
+
+\bibitem{papvz1995} G.~Pap and M.~C.~A. van~Zuijlen, The Stringer bound
+in case of uniform taintings, \emph{Computers \& Mathematics with
+Applications} \textbf{29} (1995), 51--59.
+
+\bibitem{papvz1996} G.~Pap and M.~C.~A. van~Zuijlen, On the asymptotic
+behaviour of the Stringer bound, \emph{Statistica Neerlandica}
+\textbf{50} (1996), 367--389.
+
+\bibitem{phan2021} M.~Phan, P.~Thomas and E.~Learned-Miller, Towards
+practical mean bounds for small samples, \emph{Proceedings of the 38th
+International Conference on Machine Learning} (2021).
+
+\bibitem{stringer1963} K.~W. Stringer, Practical aspects of statistical
+sampling in auditing, \emph{Proceedings of the Business and Economic
+Statistics Section, American Statistical Association} (1963), 405--411.
+
+\bibitem{vlassis2026} N.~Vlassis and P.~S. Thomas, A proof of Gaffke's
+conjecture on the validity of a nonparametric confidence bound for the
+mean, arXiv:2607.08415 (2026).
+
+\end{thebibliography}
+
+\end{document}

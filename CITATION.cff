@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+message: "If you use this research software, please cite the archived Zenodo release."
+title: "The Stringer Bound Conjecture: Proofs, Computations, and Exact Certificates"
+type: software
+authors:
+  - family-names: Sater
+    given-names: Richie
+    affiliation: Independent Researcher
+version: 1.0.0
+date-released: 2026-08-08
+license: MIT
+repository-code: "https://github.com/RichieSater/stringer-bound"
+url: "https://github.com/RichieSater/stringer-bound"
+abstract: >-
+  A certificate-backed investigation of finite-sample conservatism for the
+  Stringer monetary-unit-sampling bound, including a proof for n = 2, exact
+  rational counterexamples at low confidence, reproducible computation code,
+  and machine-checkable certificates.
+keywords:
+  - Stringer bound
+  - monetary-unit sampling
+  - audit sampling
+  - finite-sample coverage
+  - exact arithmetic
+  - computer-assisted proof

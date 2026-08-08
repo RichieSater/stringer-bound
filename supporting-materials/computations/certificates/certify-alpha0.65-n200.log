@@ -1,0 +1,22 @@
+{
+ "input": {
+  "n": 200,
+  "alpha": "0.65",
+  "method": "binomial",
+  "v1": 0.95,
+  "v2": 0.4655,
+  "q1": 0.245959,
+  "q2": 0.591584,
+  "coverage": 0.3366754543
+ },
+ "exact_coverage_float": 0.3372908203937432,
+ "nominal": 0.35,
+ "shortfall": 0.012709179606256808,
+ "theta": "82597014283202545693212110394069/162259276829213363391578010288128",
+ "min_margin": 3.4417547890057294e-06,
+ "margin_error_bound": 1.8458934727756234e-38,
+ "margin_certified": true,
+ "confirmed_counterexample": true
+}
+exact coverage num digits: 3310
+CONFIRMED

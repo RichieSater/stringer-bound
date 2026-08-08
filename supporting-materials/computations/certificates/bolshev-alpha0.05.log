@@ -1,0 +1,36 @@
+n    Pbar_n           Pbar_n >= 1-alpha?
+1    1.000000000000   yes
+2    0.999358868962   yes
+3    0.996774957704   yes
+4    0.992613936197   yes
+5    0.987458028280   yes
+6    0.981738959560   yes
+7    0.975738826993   yes
+8    0.969635928457   yes
+9    0.963541669455   yes
+10   0.957524965916   yes
+11   0.951627670664   yes
+12   0.945874273758   no
+13   0.940278049201   no
+14   0.934844996002   no
+15   0.929576396417   no
+16   0.924470495499   no
+17   0.919523614349   no
+18   0.914730893366   no
+19   0.910086790733   no
+20   0.905585417159   no
+21   0.901220760026   no
+22   0.896986832271   no
+23   0.892877769706   no
+24   0.888887892884   no
+25   0.885011744554   no
+
+Pbar_n >= 1-alpha for n <= 11 at alpha = 0.05, matching Bimpeh's Table 5.1 (n <= 11 at 0.05). NOTE: Pbar_n is NOT a lower bound on Stringer coverage -- his (5.16) is refuted in audit/BIMPEH-GAP.md -- so this frontier certifies nothing.
+
+containment test against exact two-atom (i.e. atomic) coverage -- failures here are the PIT gap, not a bug:
+  n=5   v=('3/4', '1/4') q=('1/5', '2/5') cov=1.0000000000 vs Pbar=0.9874580283 [containment holds]
+  n=5   v=('1', '1/10') q=('1/2', '1/4') cov=0.9687500000 vs Pbar=0.9874580283 [containment FAILS for this atomic F (expected)]
+  n=8   v=('3/4', '1/4') q=('1/5', '2/5') cov=1.0000000000 vs Pbar=0.9696359285 [containment holds]
+  n=8   v=('1', '1/10') q=('1/2', '1/4') cov=0.9648437500 vs Pbar=0.9696359285 [containment FAILS for this atomic F (expected)]
+  n=10  v=('3/4', '1/4') q=('1/5', '2/5') cov=1.0000000000 vs Pbar=0.9575249659 [containment holds]
+  n=10  v=('1', '1/10') q=('1/2', '1/4') cov=0.9877128601 vs Pbar=0.9575249659 [containment holds]

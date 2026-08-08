@@ -1,0 +1,9 @@
+n=5    alpha=0.05 m=3 min coverage = 0.9500000004 (nominal 0.9500, slack +4.375e-10) at v=(np.float64(1.0), 0.95, 0.25) q=(0.45072, 0.0, 0.54928)
+n=8    alpha=0.05 m=3 min coverage = 0.9500354051 (nominal 0.9500, slack +3.541e-05) at v=(np.float64(1.0), 0.9, np.float64(0.185714)) q=(0.47074, 0.0, 0.52899)
+n=10   alpha=0.05 m=3 min coverage = 0.9500028125 (nominal 0.9500, slack +2.813e-06) at v=(np.float64(1.0), 0.9, np.float64(0.728571)) q=(0.25886, 1e-05, 0.0)
+n=12   alpha=0.05 m=3 min coverage = 0.9500173555 (nominal 0.9500, slack +1.736e-05) at v=(np.float64(1.0), np.float64(0.592857), 0.1) q=(0.43813, 0.0, 0.56165)
+n=15   alpha=0.05 m=3 min coverage = 0.9500000835 (nominal 0.9500, slack +8.352e-08) at v=(np.float64(1.0), np.float64(0.864286), np.float64(0.321429)) q=(0.2794, 0.0, 0.7206)
+n=20   alpha=0.05 m=3 min coverage = 0.9501027713 (nominal 0.9500, slack +1.028e-04) at v=(np.float64(1.0), 0.95, np.float64(0.321429)) q=(0.28273, 0.0, 0.71727)
+n=25   alpha=0.05 m=3 min coverage = 0.9500881790 (nominal 0.9500, slack +8.818e-05) at v=(np.float64(1.0), 0.9, np.float64(0.321429)) q=(0.2818, 0.0, 0.71816)
+
+global minimum screening coverage: 0.9500000004 (nominal 0.9500)
