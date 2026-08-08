@@ -1,5 +1,7 @@
 # Supporting materials: verification guide
 
+**Canonical repository:** [github.com/RichieSater/stringer-bound](https://github.com/RichieSater/stringer-bound) · **Archived release:** [doi:10.5281/zenodo.21850820](https://doi.org/10.5281/zenodo.21850820)
+
 All computations are Python 3.9+ with `mpmath`, `numpy`, `scipy`. Every
 number that supports a claim comes from exact arithmetic; float64 appears
 only in screening searches whose output is never cited directly.

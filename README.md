@@ -2,6 +2,8 @@
 
 [![DOI](https://zenodo.org/badge/1327724172.svg)](https://doi.org/10.5281/zenodo.21850819)
 
+**Repository:** [github.com/RichieSater/stringer-bound](https://github.com/RichieSater/stringer-bound) · **Archived v1.0.0:** [doi:10.5281/zenodo.21850820](https://doi.org/10.5281/zenodo.21850820)
+
 > **Conjecture (finite-sample conservatism, open since 1963).** For every
 > taint distribution \(F\) on \([0,1]\), every sample size \(n\), and
 > standard confidence levels such as \(95\%\), the Stringer bound covers the

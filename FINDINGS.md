@@ -1,5 +1,7 @@
 # Findings for practitioners: stress-testing the Stringer bound
 
+**Project links:** [GitHub repository](https://github.com/RichieSater/stringer-bound) · [Zenodo archive (doi:10.5281/zenodo.21850820)](https://doi.org/10.5281/zenodo.21850820)
+
 *Plain-language summary of what this repository establishes about the
 monetary-unit-sampling evaluation method used across the audit profession.
 Every number below is backed by an exact-arithmetic certificate or a
