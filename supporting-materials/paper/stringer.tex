@@ -32,9 +32,10 @@ binomial factors is conservative for every distribution on $[0,1]$ and
 every nominal confidence level. The result is sharp: the supremum of the
 noncoverage probability is $\alpha$, although no distribution attains
 it. We also give explicit finite-sample counterexamples at larger sample
-sizes and low nominal confidence levels. At nominal confidence levels
-from $30\%$ to $37\%$ and sample sizes from $50$ to $400$, exact rational
-certificates establish coverage below nominal. In searches at $50\%$,
+sizes and low nominal confidence levels. At selected nominal confidence
+levels between $30\%$ and $37\%$, and for sample sizes between $50$ and
+$400$, exact rational certificates show that coverage falls below the
+nominal level. In searches at $50\%$,
 $90\%$, and $95\%$, we found no violations; the smallest coverage found
 agreed with nominal coverage to within $10^{-10}$. Finally, we revisit a
 previous finite-sample certification and identify an index shift in its
@@ -42,11 +43,11 @@ band-containment argument. The corrected containment event has
 probability at most $1-\alpha$, so that argument cannot establish the
 desired coverage guarantee. These results establish distribution-free
 finite-sample conservatism at $n=2$, provide explicit certified failures
-at larger $n$, and sharpen the remaining conjecture.
+at larger $n$, and narrow the unresolved finite-sample regime.
 \end{abstract}
 
-\noindent\textbf{Keywords:} monetary-unit sampling; Stringer bound;\\
-finite-sample coverage; bounded means; Clopper--Pearson limits.
+\noindent\textbf{Keywords:} Stringer bound; finite-sample coverage;
+bounded means; monetary-unit sampling; Clopper--Pearson limits.
 
 \section{Introduction}
 
@@ -63,8 +64,8 @@ where $p_n(j)$ is the upper Clopper--Pearson limit for $j$ successes in
 $n$ trials, i.e.\ the root of $\sum_{i=0}^{j}\binom{n}{i}p^i(1-p)^{n-i}
 =\alpha$, with $p_n(n)=1$. Audit guidance also tabulates Poisson-based
 confidence factors for MUS evaluation \cite[Appendix~C]{aicpa2012}; the
-corresponding limits dominate the binomial ones. The method's justification has
-always been the belief that
+corresponding limits dominate the binomial ones. The method is commonly
+justified by the conjecture that
 \begin{equation}\label{eq:conj}
 \pr\bigl(\SB \ge \mu(F)\bigr) \;\ge\; 1-\alpha
 \qquad\text{for all } n \text{ and all } F \text{ on } [0,1],
@@ -78,13 +79,15 @@ are as follows. Bickel \cite{bickel1992} proved
 \eqref{eq:conj} for $n=1$, gave the lower bound $(1-\alpha)^{n+1}$ for
 $n\ge2$ under conditions on $F$, and derived the expansion
 $\SB = \bar T + c(F)z_{1-\alpha}n^{-1/2}+o_p(n^{-1/2})$ with
-$c^2(F)\ge\operatorname{Var}(T)$; Pap and van Zuijlen
-\cite{papvz1996} made the expansion almost sure and concluded that the
+$c^2(F)\ge\operatorname{Var}(T)$. Pap and van Zuijlen
+\cite{papvz1996} established an almost-sure version of this expansion
+and concluded that the
 bound is asymptotically conservative for $\alpha\in(0,\tfrac12]$ and
-asymptotically \emph{anti}-conservative for $\alpha\in(\tfrac12,1)$, and
-in \cite{papvz1995} exhibited non-conservatism for uniform-type taints at
-sub-$50\%$ confidence via exact recursions. De Jager, Pap and van
-Zuijlen \cite{djpvz1997} proved that on $\{0,1\}$-supported taints the
+asymptotically \emph{anti}-conservative for $\alpha\in(\tfrac12,1)$.
+In \cite{papvz1995}, they exhibited non-conservatism for uniform-type
+taints at sub-$50\%$ confidence using exact recursions. De Jager, Pap,
+and van Zuijlen \cite{djpvz1997} proved that, for taint distributions
+supported on $\{0,1\}$, the
 bound reduces to Clopper--Pearson (where \eqref{eq:conj} holds exactly)
 and that Stringer's coefficients are minimal with that property. A 2021
 survey of confidence bounds for bounded means categorized the Stringer
@@ -104,12 +107,12 @@ $n=2$.
 \emph{(2) Exact counterexamples at low confidence}
 (Section~\ref{sec:counter}). Thirty-three certified three-point
 distributions, each with two nonzero taint values and an atom at zero,
-give counterexamples at confidence levels $30\%$--$37\%$ and sample
-sizes $n=50$--$400$. Their coverage is evaluated in exact rational
-arithmetic with margin certificates. In searches at $50\%$, $90\%$,
-and $95\%$, no violation was found. At every sample size searched, the
-smallest coverage found agreed with the nominal level to within
-$10^{-10}$.
+give counterexamples at selected nominal confidence levels between
+$30\%$ and $37\%$, for sample sizes $n=50,100,200,$ and $400$. Their
+coverage is evaluated in exact rational arithmetic with margin
+certificates. In searches at $50\%$, $90\%$, and $95\%$, no violation
+was found. At every sample size searched, the smallest coverage found
+agreed with the nominal level to within $10^{-10}$.
 
 \emph{(3) Reassessment of a previous certification}
 (Section~\ref{sec:bimpeh}). A proposed finite-sample certification
@@ -119,7 +122,7 @@ containment inequality fails and examine the corrected event.
 
 \section{Finite-sample conservatism at \texorpdfstring{$n=2$}{n=2}}\label{sec:thm}
 
-For $n=2$ the factors are explicit: $p_2(0)=1-\sqrt{\alpha}$,
+For $n=2$, the factors are explicit: $p_2(0)=1-\sqrt{\alpha}$,
 $p_2(1)=\sqrt{1-\alpha}$, $p_2(2)=1$. Write
 \[
 \beta=\sqrt{\alpha},\quad \gamma=\sqrt{1-\alpha}\quad(\beta^2+\gamma^2=1),
@@ -250,7 +253,7 @@ decreasing bijection from $[a_0,u^*]$ onto $[u^*,T^\dagger]$, with
 $|dt|=(A/B)\,da$ (endpoints: $b(u^*)=u^*$; $b(a_0)=1=T^\dagger$ if
 $w\ge B$, $b(0)=w/B=T^\dagger$ if $w\le B$). Using
 $w=\int_0^1G\ge\int_0^{a_0}G+\int_{a_0}^{u^*}G+\int_{u^*}^{T^\dagger}G$,
-bound the tail by (iii) (the left-limit $G(a^-)$ agrees with $G(a)$
+we bound the tail with (iii) (the left-limit $G(a^-)$ agrees with $G(a)$
 for all but countably many $a$, so the integrals coincide):
 \[
 \int_{u^*}^{T^\dagger}G
@@ -293,8 +296,9 @@ $q\uparrow B$ respectively yields failure probabilities approaching
 $\beta^2=\alpha$ and $1-\gamma^2=\alpha$. Hence $\sup_F\pr(\SB<\mu)
 =\alpha$.
 
-\emph{Non-attainment.} If some $F$ attained it, the weak form of
-\eqref{eq:H} would hold, and repeating the integral argument with weak
+\emph{Non-attainment.} If some distribution $F$ attained the supremum,
+the weak form of \eqref{eq:H} would hold, and repeating the integral
+argument with weak
 inequalities forces $G=\beta$ a.e.\ on $(0,u^*)$ (by strictness of
 $\tilde k$ off $\beta$) and $G=0$ a.e.\ beyond $u^*$; right-continuous
 monotonicity then forces $F=(1-\beta)\delta_0+\beta\delta_{u^*}$, whose
@@ -310,7 +314,7 @@ mean, is the classical sharp inequality of Hoeffding and Shrikhande
 inequality is its order-statistic-weighted analogue, with genuinely
 unequal weights $A\ne B$ for all $\alpha\in(0,1)$. The sharp-bound
 literature for order statistics and L-statistics under moment
-conditions (see \cite{balrych2024}) concerns expectations, or
+conditions (see \cite{balrych2024}) concerns expectations or
 distribution functions of single order statistics, not
 mean-constrained tail probabilities of weighted combinations; we are
 not aware of a prior result implying \eqref{eq:wedge}. Other
@@ -324,8 +328,9 @@ Theorem~\ref{thm:n2} is self-contained.
 \begin{corollary}
 For $n=2$ the Stringer bound with Poisson (AICPA) factors is
 conservative for every $F$ and every $\alpha$ for which the Poisson
-factors dominate the binomial ones; the domination is verified with
-rigorous enclosures for standard levels in the repository.
+factors dominate the binomial ones. The repository verifies this
+domination, using rigorous enclosures, for the confidence levels
+evaluated there.
 \end{corollary}
 
 \begin{proposition}[One nonzero taint value]\label{prop:twopoint}
@@ -334,17 +339,22 @@ $n$ and $\alpha$, $\pr(\SB\ge\mu)\ge1-\alpha$.
 \end{proposition}
 
 \begin{proof}
-With $K$ the number of nonzero taints, $K\sim\mathrm{Bin}(n,q)$,
-$\SB=(1-v)p_n(0)+v\,p_n(K)\ge v\,p_n(K)$ and $\mu=qv$; on the
-Clopper--Pearson coverage event $\{p_n(K)\ge q\}$, of probability at
-least $1-\alpha$, we get $\SB\ge vq=\mu$.
+Let $K$ denote the number of nonzero taints. Then
+$K\sim\mathrm{Bin}(n,q)$,
+\[
+\SB=(1-v)p_n(0)+v\,p_n(K)\ge v\,p_n(K),
+\qquad \mu=qv.
+\]
+The Clopper--Pearson coverage event
+$\{p_n(K)\ge q\}$ has probability at least $1-\alpha$; on that
+event, $\SB\ge vq=\mu$.
 \end{proof}
 
 \section{Exact counterexamples at low confidence}\label{sec:counter}
 
 Theorem~\ref{thm:n2} covers every confidence level, so the asymptotic
-anti-conservatism at $\alpha>1/2$ \cite{papvz1996} must manifest only at
-larger $n$. We give explicit finite-sample counterexamples. Each
+anti-conservatism at $\alpha>1/2$ \cite{papvz1996} must manifest itself
+only at larger $n$. We give explicit finite-sample counterexamples. Each
 counterexample below is certified: its distributional parameters are
 exact dyadic rationals, its coverage is computed as an exact rational by
 full multinomial enumeration, and a margin certificate verifies that no
@@ -386,20 +396,20 @@ The complete distribution is
 $\pr(T=v_1)=q_1$, $\pr(T=v_2)=q_2$, and $\pr(T=0)=q_0$.
 Thus the two nonzero taint values are $1$ and approximately $0.465455$,
 and the corresponding probabilities are approximately $0.249367$ and
-$0.626390$. The exact rational coverage, printed in full in the third
-record of the
+$0.626390$. These parameters appear in the third record of the
 \href{https://github.com/RichieSater/stringer-bound/blob/v1.0.0/supporting-materials/computations/certificates/certified-alpha0.7-n50.json}{archived $n=50$, $\alpha=0.7$ certificate}
-(\path{certified-alpha0.7-n50.json}),
-is approximately $0.2988790828<0.30$. The minimum comparison margin is
-approximately $2.10\times10^{-14}$, against a factor-error bound of
-approximately $4.68\times10^{-39}$. Pap and van Zuijlen
+(\path{certified-alpha0.7-n50.json}). The certificate prints the exact
+rational coverage in full. Its decimal value is approximately
+$0.2988790828$, below the nominal level $0.30$. The minimum comparison
+margin is approximately $2.10\times10^{-14}$, whereas the factor-error
+bound is approximately $4.68\times10^{-39}$. Pap and van Zuijlen
 \cite{papvz1995} established non-conservatism for uniform-type taints
 through exact recursions; the finite-support examples here are readily
 reproducible and illustrate the onset of failure in the examined
 parameter ranges.
 
 By contrast, searches at nominal confidence levels $50\%$, $90\%$, and
-$95\%$ found no violation. Grid-plus-optimizer searches covered
+$95\%$ found no violation. Grid-plus-optimizer searches examined
 distributions with two nonzero taint values ($n\le100$ at $95\%$ and
 $90\%$; $n\le300$ at $50\%$) and distributions with three nonzero taint
 values ($n\le25$ at $95\%$), in each case allowing mass at zero. At every
@@ -407,8 +417,8 @@ sample size searched, the smallest coverage found agreed with the
 nominal level to within $10^{-10}$. Near-minimizers occurred as the
 largest taint approached $1$, consistent with
 Proposition~\ref{prop:twopoint}, the $\{0,1\}$-support minimality result
-of \cite{djpvz1997}, and a conjecture that is exactly tight. For the
-Poisson factors, the smallest coverage found in the corresponding
+of \cite{djpvz1997}, and the conjectured coverage infimum $1-\alpha$.
+For the Poisson factors, the smallest coverage found in the corresponding
 searches remained above nominal. At $95\%$, for example, the values were
 approximately $0.9716$ ($n=10$), $0.9573$ ($n=50$), and $0.9549$
 ($n=100$), a positive numerical cushion that decreases over the listed
@@ -442,7 +452,7 @@ order statistics, Bimpeh proposes the lower bound
 C_n(F)\;\ge\;\bar P_n
 \;:=\;\pr\bigl(V_{i:n}\le p_n(i),\ 1\le i\le n\bigr).
 \end{equation}
-The value $\bar P_n$ is evaluated with Bolshev's recursion for uniform
+Bimpeh evaluates $\bar P_n$ using Bolshev's recursion for uniform
 order-statistic boundary-crossing probabilities
 \cite[pp.~366--367]{shorackwellner1986}. Because the computed values
 satisfy $\bar P_n\ge1-\alpha$ for $n\le11$ when $\alpha=0.05$, the
@@ -508,11 +518,11 @@ Thus the corrected pointwise-containment event has probability no
 greater than nominal coverage. The integral inequality
 $\int\widehat F_{n,L}\le\int F$ may hold on a larger event than
 pointwise domination, but the cited containment argument does not
-establish that fact. We reproduce the values of $\bar P_n$ and
-Bimpeh's Table~5.1 exactly; those values are boundary-crossing
-probabilities, not established coverage bounds. Consequently, the cited
-argument does not establish finite-sample conservatism at $n=2$.
-Theorem~\ref{thm:n2} supplies that result directly.
+establish that fact. Our implementation reproduces the values of
+$\bar P_n$ and Bimpeh's Table~5.1 exactly; those values are
+boundary-crossing probabilities, not established coverage bounds.
+Consequently, the cited argument does not establish finite-sample
+conservatism at $n=2$. Theorem~\ref{thm:n2} supplies that result directly.
 
 \section{Discussion}
 
@@ -524,25 +534,26 @@ increasing order statistics of $U_i=1-T_i$,
 e_j=p_n(j)-p_n(j-1),
 \]
 so \eqref{eq:conj} is a family of weighted order-statistic exceedance
-inequalities, with all audit content absorbed into the decreasing
-weights $e_j$. Second, the $n=2$ proof combines rectangle lower bounds
-on the covering event, a survival-integral budget, and a concave
-potential with equal endpoint values. This architecture does not
-obviously depend on $n=2$ except through the explicit factor algebra; the
-$n\ge3$ factors lack closed forms, so the endpoint identities
-(Lemma~\ref{lem:pot}) would need structural rather than algebraic
-proofs. Third, the numerical sharpness observed at every searched $n$
-and the certified failures at several confidence levels below $50\%$
-suggest that \eqref{eq:conj} may hold for $\alpha\le1/2$, with coverage
-infimum $1-\alpha$ at every $n$. This is a concrete conjecture for
-future work.
+inequalities, with the audit-specific confidence-factor structure
+encoded in the decreasing weights $e_j$. Second, the $n=2$ proof
+combines rectangle lower bounds on the covering event, a
+survival-integral budget, and a concave potential with equal endpoint
+values. This architecture does not obviously depend on $n=2$ except
+through the explicit factor algebra; the $n\ge3$ factors lack closed
+forms, so the endpoint identities (Lemma~\ref{lem:pot}) would need
+structural rather than algebraic proofs. Third, the near-equality
+observed at every searched $n$, together with the certified failures at
+several nominal confidence levels below $50\%$, suggests that
+\eqref{eq:conj} may hold whenever nominal confidence is at least $50\%$,
+equivalently whenever $\alpha\le1/2$, with coverage infimum $1-\alpha$
+at every $n$. This is a concrete conjecture for future work.
 
 From an auditing perspective, the binomial Stringer bound has no uniform
 safety margin above nominal coverage: at $n=2$, its coverage infimum is
 $1-\alpha$. The Poisson factors examined here retain a positive but
 decreasing numerical cushion. The certified examples also show that
 anti-conservatism can occur at several nominal confidence levels below
-$50\%$ and at sample sizes between $50$ and $400$.
+$50\%$, at sample sizes $n=50,100,200,$ and $400$.
 
 \section*{Reproducibility}
 
