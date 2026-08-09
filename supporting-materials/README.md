@@ -3,15 +3,16 @@
 **Canonical repository:** [github.com/RichieSater/stringer-bound](https://github.com/RichieSater/stringer-bound) · **Archived release:** [doi:10.5281/zenodo.21850820](https://doi.org/10.5281/zenodo.21850820)
 
 All computations are Python 3.9+ with `mpmath`, `numpy`, `scipy`. Every
-number that supports a claim comes from exact arithmetic; float64 appears
-only in screening searches whose output is never cited directly.
+certified binomial counterexample is decided by rational arithmetic;
+float64 appears in screening searches and in separately labeled numerical
+Poisson checks.
 
 ## Layers
 
 | Layer | Role | Trust status |
 |---|---|---|
-| `stringer.py` | Confidence factors by bisection on provably monotone tails; each factor carries a rigorous bracket width (\(10^{-40}\)) | proof-essential |
-| `coverage.py` / `coverage_exact` | Coverage as an exact `Fraction` by full multinomial enumeration, with a minimum-margin certificate | proof-essential |
+| `stringer.py` | Numerical factors for searches; for certification, dyadic binomial-factor intervals whose endpoint CDF signs are evaluated exactly with integers | proof-essential |
+| `coverage.py` / `coverage_exact` | Exact multinomial weights and rational propagation of factor intervals through every Stringer comparison | proof-essential |
 | `two_point_lemma.py` | Written proof that single-value supports cannot under-cover, plus machine checks | proof-essential |
 | `certify.py` | The only source of claims: exact coverage, exact nominal comparison, margin certificate | proof-essential |
 | `search_two_value.py`, `search_multi_value.py` | float64 screening only | heuristic |
@@ -23,7 +24,7 @@ only in screening searches whose output is never cited directly.
 ```sh
 cd computations/python
 
-# Lemma: single-value supports cannot under-cover; Poisson factors dominate
+# Lemma: single-value supports; high-precision Poisson comparison
 python3 two_point_lemma.py --alpha 0.05 --n-max 40
 
 # Known finite-sample violation at low confidence (machinery true-positive)
@@ -36,18 +37,34 @@ python3 certify.py /tmp/c95.json  # expect "nothing to certify" if no dips
 
 # Richer supports
 python3 search_multi_value.py --alpha 0.05 --m 3 --n 10 20 --out /tmp/c3.json
+
+# Exact-sign, interval-propagation, and table-generation regression tests
+python3 -m unittest discover -s ../tests -v
 ```
 
 Certified run logs are committed under `computations/certificates/`.
+`summarize_certificates.py` regenerates the rows used in the manuscript:
+
+```sh
+python3 summarize_certificates.py \
+  --out ../certificates/certificate-summary.json
+```
 
 ## Certificate semantics
 
-A `CONFIRMED` line from `certify.py` states: for the exact rational taint
-distribution printed, the exact rational coverage is below the exact
-nominal level, and the smallest \(|SB - \theta|\) over all count vectors
-exceeds \((n+1)\) times the largest factor-bracket width, so no comparison
-was decided by numerical error. Trusted inputs: Python, mpmath's arithmetic
-on `mpf`, and the hardware.
+A `CONFIRMED` line from `certify.py` states: for the printed rational taint
+distribution, the exact rational coverage is below the exact nominal level.
+For each binomial factor, the code locates adjacent dyadic endpoints and
+evaluates the sign of the binomial CDF minus \(\alpha\) at both endpoints
+with integer arithmetic. It then propagates those rational intervals through
+each Stringer-bound comparison. If an interval overlaps the exact rational
+mean, certification stops and requests a finer dyadic grid. The numerical
+root locator affects speed only; its proposed bracket is checked exactly and
+an exact grid bisection is the fallback.
+
+Poisson-factor comparisons are high-precision numerical checks, not formal
+interval certificates; see
+`computations/certificates/poisson-domination-standard-levels.log`.
 
 ## What screening output does NOT establish
 

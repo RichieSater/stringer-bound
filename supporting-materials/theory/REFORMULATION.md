@@ -25,17 +25,16 @@ telescoping (using \(p_n = 1\)):
 \]
 
 (both orderings reverse together: the \(j\)-th largest taint pairs with
-the \(j\)-th smallest clean fraction). The factor spacings \(e_j\)
-decrease in \(j\), so the *largest* clean observations get the
-*smallest* weights, and
+the \(j\)-th smallest clean fraction). The positive factor increments
+\(e_j\) encode the confidence-factor structure, and
 
 \[
-P(\mathrm{SB} < \mu) \;=\; P\Big( \sum_i d_i\, U_{(i)} > w \Big).
+P(\mathrm{SB} < \mu) \;=\; P\Big( \sum_i e_i\, U_{(i)} > w \Big).
 \]
 
 **The conjecture, reformulated.** For \(U_1,\dots,U_n\) i.i.d. on
-\([0,1]\) with mean \(w\), and the specific weights \(d_i\) above:
-\(P\big(\sum_i d_i U_{(i)} > w\big) \le \alpha\) for every distribution
+\([0,1]\) with mean \(w\), and the specific weights \(e_i\) above:
+\(P\big(\sum_i e_i U_{(i)} > w\big) \le \alpha\) for every distribution
 and every \(w \in [0,1]\), when \(\alpha \le 1/2\).
 
 This is a pure weighted-order-statistic exceedance inequality; the
@@ -54,15 +53,14 @@ For \(n = 2\): \(p_0 = 1-\beta\), \(p_1 = \gamma\), \(p_2 = 1\) with
 \qquad A = \beta + \gamma - 1,\; B = 1 - \gamma,\; A + B = \beta .
 \]
 
-**Wedge inequality (open kernel of the n = 2 case).** For \(U_1, U_2\)
+**Wedge inequality (now proved).** For \(U_1, U_2\)
 i.i.d. on \([0,1]\) with mean \(w\):
 
 \[
 P\big( A \min(U_1,U_2) + B \max(U_1,U_2) > w \big) \;\le\; \beta^2 = \alpha .
 \]
 
-Status of what is actually proved about it (each by short arguments
-recorded here):
+The following were the partial checks that preceded the full proof:
 
 - **\(w \ge \beta\)** (i.e. \(\mu \le p_0\); also covers the trivial
   regime): failure requires \(\min U > (w-B)/A\) (from
@@ -78,15 +76,12 @@ recorded here):
   \(1-q^2 \to 1-\gamma^2\) as \(q \downarrow \gamma\)). So the supremum
   over this family is exactly \(\alpha\), approached, never attained.
   Proved (and machine-checked against `coverage_exact`).
-- **General \(w < \beta\)**: open. Naive Markov/union bounds provably
-  fall short (they give \(O(\beta)\), not \(\beta^2\), on part of the
-  range); the failure region is the wedge
-  \(\{A u + B v > w\} \cap \{u \le v\}\) reflected, whose product-measure
-  probability must be beaten by \(\alpha\) exactly at two-point
-  distributions. A finite-atom reduction (influence-function /
-  moment-problem argument bounding the support size of an extremal
-  \(F\)) looks like the right route and would make the statement
-  certifiable per \(\alpha\) by interval arithmetic.
+- **General \(0<w<\beta\)**: now proved in
+  [`N2-PROOF.md`](N2-PROOF.md). Rectangle bounds on the covering event,
+  a survival-integral budget, and a concave potential rule out every
+  strict failure of the wedge inequality. Naive Markov/union bounds alone
+  remain insufficient; they give \(O(\beta)\), rather than \(\beta^2\),
+  on part of the range.
 
 **A cautionary note.** A tempting shortcut — "failure forces the small
 order statistic below a threshold whose Markov bound closes the
@@ -95,13 +90,11 @@ argument" — fails: the implication "failure \(\Rightarrow T_{\min} <
 equal, moderately sized). We record this because it is the first thing
 one tries and it silently gives a wrong theorem for all \(n\).
 
-## Why this frontier matters
+## Why this case matters
 
-The \(n = 2\) wedge inequality is the smallest instance of the
-conjecture not settled by the literature (Bickel's n = 1 aside, and his
-\((1-\alpha)^{n+1}\) bound only, under unverified hypotheses, for
-n ≥ 2). Every ingredient is explicit — two i.i.d. variables, linear
-boundary, exact constants with \(\beta^2 + \gamma^2 = 1\) — and the
-extremal structure is completely understood empirically. It is a
-concrete, self-contained target for a first-ever finite-sample proof at
-\(n \ge 2\).
+The \(n = 2\) wedge inequality was the smallest instance not settled by
+the prior literature. Every ingredient is explicit—two i.i.d. variables,
+a linear boundary, and exact constants with
+\(\beta^2 + \gamma^2 = 1\)—yet the proof still requires information about
+the entire survival function. The resulting rectangle-budget-potential
+argument is now a concrete starting point for work at larger \(n\).

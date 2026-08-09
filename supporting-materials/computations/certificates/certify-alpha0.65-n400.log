@@ -1,2 +1,2 @@
-coverage float: 0.3263008397162035 margin_certified: True
-CONFIRMED
+[CONFIRMED] n=400  binomial alpha=0.65 coverage=0.3263008397 shortfall=+2.370e-02 certified-gap=1.77e-08 factor-width<=8.27e-25:True
+1/1 candidates confirmed as exact counterexamples

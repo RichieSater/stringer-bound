@@ -1,4 +1,4 @@
-# Refutation of Bimpeh's finite-sample certification of the Stringer bound
+# Reassessment of Bimpeh's finite-sample certification of the Stringer bound
 
 **Claim under audit.** Bimpeh (PhD thesis, Dublin City University, 2008,
 ch. 5, [full text](https://doras.dcu.ie/600/1/YawThesis.PDF)) derives, for
@@ -9,12 +9,11 @@ lower bound
 
 for taint distributions F on [0,1], computes P̄ₙ by Bolshev's recursion,
 and concludes that the conservatism conjecture holds for n ≤ 11 at
-α = 0.05 (n ≤ 10 at 0.1; …; n ≤ 7 at 0.5) — the only finite-sample
-certification beyond n ≤ 2 anywhere in the literature.
+α = 0.05 (n ≤ 10 at 0.1; …; n ≤ 7 at 0.5).
 
-**Verdict: inequality (5.16) is false — for atomic *and* for continuous
-F — and the corrected version of the argument can never certify
-conservatism at any n.** P̄ₙ itself is correctly computed (this
+**Verdict: inequality (5.16) fails for both atomic and continuous F, and
+the corrected containment event does not recover the claimed finite-sample
+range.** P̄ₙ itself is correctly computed (this
 repository reproduces his Table 5.1 to all printed digits;
 `bolshev.py`), but it is not a lower bound on coverage.
 
@@ -39,7 +38,7 @@ constraint entirely. The correct containment event is
 
 whose i = n constraint is F(t_{n:n}) ≥ qₙ(n) = α^{1/n}.
 
-## The corrected bound cannot work
+## The corrected containment event
 
 For continuous F (where F(t_{i:n}) = U_{i:n} is legitimate), the correct
 containment probability satisfies
@@ -47,9 +46,9 @@ containment probability satisfies
     P( U_{i:n} ≥ qₙ(i) ∀i ) ≤ P( U_{n:n} ≥ α^{1/n} ) = 1 − α,
 
 since P(U_{n:n} < x) = xⁿ. So the pointwise-band route yields at most
-1−α, with strict inequality once any other constraint binds (every
-n ≥ 2): **it can certify conservatism for no n whatsoever.** If the
-conjecture is true, it is true because the *integral* inequality
+1−α. Thus the corrected pointwise event does not supply the claimed
+strict numerical cushion above nominal. If the conjecture is true more
+generally, it may be because the *integral* inequality
 ∫F̂ₙ,L ≤ ∫F holds on a strictly larger event than pointwise
 domination.
 
@@ -84,17 +83,17 @@ Stringer bound.
 
 ## Consequences
 
-1. Bimpeh's Table 5.1 frontier ("reliable for n ≤ 11 at α ≤ 0.05")
-   certifies nothing, for any class of F. His n ≤ 2 "analytic proof"
+1. Bimpeh's Table 5.1 frontier ("reliable for n ≤ 11 at α ≤ 0.05") does
+   not certify the stated class of all F. His n ≤ 2 "analytic proof"
    establishes P̄₂ ≥ 1−α, a true statement about a quantity that is not
-   a coverage bound.
-2. The literature's proven finite-sample knowledge of the conjecture
-   reduces to: n = 1 (Bickel 1992), P(SB ≥ μ) ≥ (1−α)^{n+1} for n ≥ 2
-   "under certain conditions on F" (Bickel 1992, hypotheses unverified),
-   the {0,1}-support case (de Jager–Pap–van Zuijlen 1997), and the
-   single-nonzero-atom case (`two_point_lemma.py`, this repository).
-   **Every other (n, F) at every confidence level is open.**
-3. The exact searches in this repository (two- and three-atom supports,
-   n ≤ 100, α = 0.05: infimum exactly 1−α, never below) are, as far as
-   we can determine, the strongest finite-sample evidence for the
-   conjecture at 95% now on record.
+   the claimed coverage bound.
+2. Apart from the \(n=2\) theorem proved in this repository, the established
+   finite-sample cases include n = 1 (Bickel 1992),
+   P(SB ≥ μ) ≥ (1−α)^{n+1} for n ≥ 2 "under certain conditions on F"
+   (Bickel 1992, hypotheses unverified), the {0,1}-support case
+   (de Jager–Pap–van Zuijlen 1997), and the single-nonzero-taint case
+   (`two_point_lemma.py`, this repository).
+3. Numerical searches in this repository over distributions with two and
+   three nonzero taint values (allowing mass at zero) found no violation at
+   α = 0.05 for the reported sample sizes. The smallest coverage found
+   agreed with 1−α to search precision.

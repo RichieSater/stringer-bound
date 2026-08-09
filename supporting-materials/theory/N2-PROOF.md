@@ -17,9 +17,10 @@ of Stringer conservatism at any \(n \ge 2\) free of hypotheses on \(F\)
 for **all** \(\alpha \in (0,1)\), including \(\alpha > 1/2\) where the
 bound is asymptotically anti-conservative — so the known violations
 (Pap–van Zuijlen 1995; exact certificates in this repository at
-\(n \ge 50\)) are strictly a large-\(n\) phenomenon. (3) Poisson-factor
+\(n \ge 50\)) do not occur at \(n=2\). (3) The Poisson-factor
 version follows a fortiori wherever the Poisson factors dominate the
-binomial ones (checked rigorously per \(n\) in `two_point_lemma.py`).
+binomial ones. `two_point_lemma.py` checks that domination numerically at
+high precision for the standard confidence levels evaluated there.
 
 Throughout write \(\beta = \sqrt{\alpha}\), \(\gamma = \sqrt{1-\alpha}\)
 (so \(\beta^2 + \gamma^2 = 1\)), and
@@ -45,10 +46,7 @@ implied by: **for \(U_1,U_2\) i.i.d. on \([0,1]\) with mean
 
 \[ P\big(A m + B M < w\big) \;\ge\; \gamma^2 . \tag{&#42;} \]
 
-(Indeed \(P(\mathrm{SB} \ge \mu) = P(Am+BM \le w) \ge P(Am+BM<w)\).
-The strict-inequality form (&#42;) is in fact equivalent to the theorem —
-apply the weak form to \((1-\varepsilon)U\) and let
-\(\varepsilon \downarrow 0\) — but only the stated implication is used.)
+(Indeed \(P(\mathrm{SB} \ge \mu) = P(Am+BM \le w) \ge P(Am+BM<w)\).)
 
 Degenerate regimes. If \(w = 0\) then \(U \equiv 0\) a.s. and
 \(\mathrm{SB} = 1 \ge \mu\) surely. If \(w > \beta\) the event
@@ -119,10 +117,11 @@ on \([0,1]\); this convention covers the \(F(\bar a^-) = 0\) case of
 (iii), where the bound \(G(b) \ge 0 = h_+(1)\) is what the budget below
 actually uses). Define
 
-\[ \tilde k(g) \;=\; g + \frac{A}{B}\, h_+(g), \qquad g \in (B, 1]. \]
+\[ \tilde k(g) \;=\; g + \frac{A}{B}\, h_+(g), \qquad g \in [B, 1]. \]
 
-**Claim: \(\tilde k(g) \ge \beta\) on \((B, 1]\), with equality only at
-\(g = \beta\).** Verified facts (symbolic, `n2_proof_check.py`):
+**Claim: \(\tilde k(g) \ge \beta\) on \([B, 1]\), with equality exactly
+at \(g \in \{B,\beta\}\).** Verified facts (symbolic,
+`n2_proof_check.py`):
 
 - \(\beta^2 - B^2 = 2\gamma(1-\gamma)\), whence \(h(B) = B\) and so
   \(\tilde k(B) = B + \tfrac{A}{B}B = A + B = \beta\);
@@ -172,7 +171,8 @@ inequality in every case:
   of positive measure integrates to strictly more). Contradiction.
 - **If \(a_0 = 0\)** (\(w \le B\)) **and \(G \ne \beta\) on a
   positive-measure subset of \((0, u^*)\)**: there \(\tilde k(G) >
-  \beta\) strictly (Claim), so \(\int_0^{u^*}\tilde k(G) > \beta u^*\).
+  \beta\) strictly because \(G>B\) (Claim), so
+  \(\int_0^{u^*}\tilde k(G) > \beta u^*\).
   Contradiction.
 - **If \(a_0 = 0\) and \(G = \beta\) a.e. on \((0, u^*)\)**: for each
   \(b \in (u^*, T)\) choose \(a' < \bar a(b)\) with \(G(a') = \beta\)
@@ -205,21 +205,48 @@ failure probability \(< \alpha\) throughout and \(= \alpha\) in both
 limits.
 
 **Non-attainment.** No \(F\) attains \(P(\mathrm{SB} < \mu) = \alpha\).
-Suppose some \(F\) did; then \(P(Am+BM > w) = \alpha\), so
-\(P(Am+BM < w) = \gamma^2 - P(Am+BM = w) \le \gamma^2\), and the weak
-form of (H) holds (every rectangle bound is \(\le \gamma^2\)). Rerunning
-the budget chain with weak inequalities forces equality in every link:
-equality in \(\int_0^{a_0} G = \beta a_0\) (where now \(G \ge \beta\)
-pointwise) and in \(\int_{a_0}^{u^*}\tilde k(G) = \beta(u^*-a_0)\)
-forces \(G = \beta\) a.e. on \((0, u^*)\) regardless of the value of
-\(a_0\) (since \(\tilde k > \beta\) strictly off \(g = \beta\), which
-survives weakening); equality in the tail forces
-\(G = h_+(\beta) = 0\) a.e. on \((u^*, T)\) and \(\int_T^1 G = 0\). A
-right-continuous monotone \(G\) equal to \(\beta\) a.e. on \((0,u^*)\)
-and \(0\) a.e. beyond is exactly \(F = (1-\beta)\delta_0 +
-\beta\delta_{u^*}\). But for that \(F\) the largest value of
-\(Am + BM\) is \(\beta u^* = w\), attained by the pair \((u^*, u^*)\),
-so \(P(Am+BM > w) = 0 \ne \alpha\). Contradiction. ∎
+Suppose some \(F\) did. It must have \(0<w<\beta\), since the strict
+failure event is empty in the boundary regimes handled above. The result
+just proved gives
+\(P(Am+BM<w)\ge\gamma^2\). Since
+\(P(Am+BM>w)=\alpha\) and \(\alpha+\gamma^2=1\), attainment would force
+
+\[ P(Am+BM<w)=\gamma^2, \qquad P(Am+BM=w)=0. \tag{E} \]
+
+The weak form of (H) therefore holds. Rerunning the budget chain with
+weak inequalities forces equality in every link. Equality on the first
+interval gives \(G=\beta\) a.e. on \((0,a_0)\); equality in the potential
+bound gives \(G\in\{B,\beta\}\) a.e. on \((a_0,u^*)\). Because \(G\) is
+nonincreasing, there is a \(c\in[a_0,u^*]\) such that the
+almost-everywhere level is \(\beta\) before \(c\) and \(B\) after \(c\). Set
+\(d=b(c)=(w-Ac)/B\). Equality in the tail comparison gives
+\(G(b(a))=0\) for almost every \(a\in(a_0,c)\) and \(G(b(a))=B\) for
+almost every \(a\in(c,u^*)\), because \(h_+(\beta)=0\) and
+\(h_+(B)=B\). Since \(b\) is decreasing, this is the corresponding
+switch at \(d\) on the other side of \(u^*\). Equality in the discarded
+tail and right-continuity then force
+
+\[
+G(x)=
+\begin{cases}
+\beta,&0\le x<c,\\
+B,&c\le x<d,\\
+0,&d\le x\le1,
+\end{cases}
+\qquad Ac+Bd=w. \tag{S}
+\]
+
+The change of variables gives \(c\le u^*\le d\). Every distribution in
+(S) has positive mass on the boundary \(Am+BM=w\):
+
+- if \(0<c<d\), the masses \(A\) at \(c\) and \(B\) at \(d\) give the
+  mixed boundary pair \((c,d)\) probability \(2AB>0\);
+- if \(c=0<d\), the atoms at \(0\) and \(d\), of masses \(1-B\) and
+  \(B\), give a mixed boundary pair of positive probability;
+- if \(c=d\), then \(c=d=u^*\), and \((u^*,u^*)\) is a boundary pair of
+  probability \(\beta^2>0\).
+
+Every case contradicts (E). Hence the supremum is not attained. ∎
 
 ## Verification
 

@@ -1,0 +1,19 @@
+High-precision numerical factor comparison (not interval-certified).
+Checked every coordinate 0 <= j <= n with 80 decimal digits.
+Function: two_point_lemma.check_poisson_dominates(n, alpha, dps=80)
+
+alpha=0.05 n=2   poisson_dominates_binomial=True
+alpha=0.05 n=10  poisson_dominates_binomial=True
+alpha=0.05 n=25  poisson_dominates_binomial=True
+alpha=0.05 n=50  poisson_dominates_binomial=True
+alpha=0.05 n=75  poisson_dominates_binomial=True
+alpha=0.05 n=100 poisson_dominates_binomial=True
+alpha=0.10 n=2   poisson_dominates_binomial=True
+alpha=0.10 n=10  poisson_dominates_binomial=True
+alpha=0.10 n=25  poisson_dominates_binomial=True
+alpha=0.10 n=50  poisson_dominates_binomial=True
+alpha=0.10 n=75  poisson_dominates_binomial=True
+alpha=0.10 n=100 poisson_dominates_binomial=True
+
+Qualification check from the mathematical audit:
+alpha=0.70 n=2   poisson_dominates_binomial=False

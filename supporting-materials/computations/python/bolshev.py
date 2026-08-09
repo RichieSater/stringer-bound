@@ -16,8 +16,8 @@ by Bolshev's recursion (Shorack--Wellner, Section 9.1): with boundaries
 where ``Q_m`` uses the first ``m`` boundaries of the fixed sequence.
 
 Status of the containment (established in this repository; see
-``audit/BIMPEH-GAP.md``): **(5.16) is FALSE** -- for continuous F
-(hand counterexamples at n = 1, 2, corroborated by
+``audit/BIMPEH-GAP.md``): (5.16) fails for continuous F (hand
+counterexamples at n = 1, 2, corroborated by
 ``bimpeh_continuous_check.py``) and for atomic F (exact machine
 counterexample at n = 5: coverage 31/32 = 0.96875 < Pbar_5 = 0.98746,
 reproduced by ``--crosscheck``).  The derivation substitutes the band's
@@ -25,7 +25,8 @@ left limit ``q_n(i-1)`` for its value ``q_n(i)`` at the order
 statistics, dropping in particular the top constraint
 ``F(t_{n:n}) >= alpha^{1/n}``; the corrected containment probability is
 at most ``P(U_{n:n} >= alpha^{1/n}) = 1 - alpha`` for every continuous
-F, so the pointwise-band method cannot certify conservatism at any n.
+F.  Thus the corrected event does not provide the claimed numerical
+cushion above nominal coverage.
 
 ``Pbar_n`` itself is computed correctly here (Bimpeh's Table 5.1
 reproduces to all printed digits); it is simply not a coverage bound.
@@ -65,7 +66,7 @@ def main(argv=None):
     ap.add_argument("--alpha", default="0.05")
     ap.add_argument("--n-max", type=int, default=25)
     ap.add_argument("--crosscheck", action="store_true",
-                    help="verify Pbar_n <= exact two-atom coverage")
+                    help="compare Pbar_n with exact atomic coverage")
     args = ap.parse_args(argv)
 
     nominal = 1 - mpf(args.alpha)
@@ -78,14 +79,14 @@ def main(argv=None):
             frontier = n
         print("%-4d %.12f   %s" % (n, float(p), "yes" if ok else "no"))
     print("\nPbar_n >= 1-alpha for n <= %d at alpha = %s, matching Bimpeh's "
-          "Table 5.1 (n <= 11 at 0.05). NOTE: Pbar_n is NOT a lower bound "
-          "on Stringer coverage -- his (5.16) is refuted in "
-          "audit/BIMPEH-GAP.md -- so this frontier certifies nothing."
+          "Table 5.1 (n <= 11 at 0.05). NOTE: Pbar_n is not a lower bound "
+          "on Stringer coverage; see the reassessment of (5.16) in "
+          "audit/BIMPEH-GAP.md."
           % (frontier, args.alpha))
 
     if args.crosscheck:
-        print("\ncontainment test against exact two-atom (i.e. atomic) "
-              "coverage -- failures here are the PIT gap, not a bug:")
+        print("\ncomparison with exact coverage for selected atomic "
+              "distributions:")
         for n in (5, 8, 10):
             p = pbar(n, args.alpha)
             for v, q in (((Fraction(3, 4), Fraction(1, 4)),
@@ -94,10 +95,10 @@ def main(argv=None):
                           (Fraction(1, 2), Fraction(1, 4)))):
                 cov, _t, _m = coverage_exact(list(v), list(q), n, args.alpha)
                 holds = mpf(cov.numerator) / cov.denominator >= p
-                tag = ("holds" if holds
-                       else "FAILS for this atomic F (expected)")
+                tag = ("proposed lower-bound inequality holds" if holds
+                       else "proposed lower-bound inequality fails")
                 print("  n=%-3d v=%s q=%s cov=%.10f vs Pbar=%.10f "
-                      "[containment %s]"
+                      "[%s]"
                       % (n, tuple(map(str, v)), tuple(map(str, q)),
                          float(cov), float(p), tag))
     return 0

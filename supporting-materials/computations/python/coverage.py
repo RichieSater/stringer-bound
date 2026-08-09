@@ -17,12 +17,12 @@ vector, so
 
 Two evaluators are provided.
 
-``coverage_exact``  rational arithmetic (``fractions.Fraction``) for the
-                    multinomial weights, high-precision mpmath for ``SB``.
-                    Returns the coverage as an exact rational together with
-                    the smallest ``|SB - theta|`` seen, which certifies that
-                    every comparison was decided far outside the numerical
-                    error of the confidence factors.
+``coverage_exact``  rational arithmetic throughout the binomial certificate:
+                    exact multinomial weights, dyadic factor intervals whose
+                    binomial-CDF endpoint signs are evaluated with integers,
+                    and rational interval propagation through ``SB``.  It
+                    returns the exact coverage and the smallest certified gap
+                    between a bound interval and ``theta``.
 
 ``coverage_fast``   float64/numpy, specialised to support ``{v1 > v2 > 0}``
                     plus an atom at 0.  Used for search; every candidate it
@@ -32,14 +32,12 @@ Two evaluators are provided.
 from __future__ import annotations
 
 from fractions import Fraction
-from itertools import product
-from math import comb
-from typing import List, Sequence, Tuple
+from math import comb, lcm
+from typing import Sequence, Tuple
 
 import numpy as np
-from mpmath import mp, mpf
-
-from stringer import bound_from_counts, factors
+from stringer import (EXACT_FACTOR_BITS, exact_binomial_factor_brackets,
+                      factors)
 
 
 def float_factors(n: int, alpha: str, method: str = "binomial") -> np.ndarray:
@@ -61,18 +59,66 @@ def _count_vectors(n: int, m: int):
             yield (head,) + tail
 
 
+class UncertifiedComparison(RuntimeError):
+    """A rational factor interval overlaps the comparison threshold."""
+
+
+def _bound_interval_from_counts(
+        values: Sequence[Fraction], counts: Sequence[int],
+        brackets: Sequence[Tuple[Fraction, Fraction]]
+) -> Tuple[Fraction, Fraction]:
+    """Rational enclosure of the Stringer bound for one count vector."""
+    # Only the cumulative-count indices can have nonzero coefficients.  A
+    # sparse representation matters here: for three-point populations there
+    # are at most three such indices, whereas a dense length-(n+1) vector in
+    # every one of O(n^2) count-vector iterations is needlessly expensive.
+    coefficients = {0: Fraction(1)}
+    cumulative = 0
+    for value, count in zip(values, counts):
+        if count:
+            previous = cumulative
+            cumulative += count
+            coefficients[cumulative] = (coefficients.get(
+                cumulative, Fraction(0)) + value)
+            coefficients[previous] = (coefficients.get(
+                previous, Fraction(0)) - value)
+
+    lower = Fraction(0)
+    upper = Fraction(0)
+    for index, coefficient in coefficients.items():
+        if coefficient == 0:
+            continue
+        factor_lower, factor_upper = brackets[index]
+        if coefficient >= 0:
+            lower += coefficient * factor_lower
+            upper += coefficient * factor_upper
+        else:
+            lower += coefficient * factor_upper
+            upper += coefficient * factor_lower
+    return lower, upper
+
+
 def coverage_exact(values: Sequence[Fraction], probs: Sequence[Fraction],
                    n: int, alpha: str, method: str = "binomial",
-                   dps: int = 50) -> Tuple[Fraction, object, object]:
+                   factor_bits: int = EXACT_FACTOR_BITS
+                   ) -> Tuple[Fraction, Fraction, Fraction]:
     """Exact coverage for a finitely supported taint distribution.
 
     ``values``  strictly decreasing positive rational taints.
     ``probs``   their probabilities; ``1 - sum(probs)`` is the atom at 0.
 
-    Returns ``(coverage, theta, min_margin)`` where ``coverage`` is an exact
-    ``Fraction``, ``theta`` is the exact mean taint, and ``min_margin`` is
-    ``min |SB - theta|`` over all enumerated count vectors.
+    Returns ``(coverage, theta, min_gap)``.  The first two values are exact
+    ``Fraction`` objects.  ``min_gap`` is the smallest rational separation
+    between ``theta`` and the certified Stringer-bound interval on the
+    appropriate side of the comparison.
+
+    Formal interval certification is currently implemented for binomial
+    factors only.  Poisson computations remain high-precision numerical
+    calculations in :mod:`stringer`.
     """
+    if method != "binomial":
+        raise ValueError("exact certification is implemented only for "
+                         "binomial factors")
     values = [Fraction(v) for v in values]
     probs = [Fraction(p) for p in probs]
     if any(values[i] <= values[i + 1] for i in range(len(values) - 1)):
@@ -84,32 +130,60 @@ def coverage_exact(values: Sequence[Fraction], probs: Sequence[Fraction],
         raise ValueError("probabilities must be nonnegative and sum to <= 1")
 
     theta = sum(v * p for v, p in zip(values, probs))
-    p = [v for v, _ in factors(n, alpha, method, dps)]
+    brackets = exact_binomial_factor_brackets(n, alpha, factor_bits)
 
     m = len(values)
-    covered = Fraction(0)
-    min_margin = None
-    with mp.workdps(dps):
-        theta_mp = mpf(theta.numerator) / mpf(theta.denominator)
-        for counts in _count_vectors(n, m):
-            k0 = n - sum(counts)
-            weight = Fraction(1)
-            rem = n
-            for c in counts:
-                weight *= comb(rem, c)
-                rem -= c
-            for c, pr in zip(counts, probs):
-                weight *= pr ** c
-            weight *= q0 ** k0
-            if weight == 0:
-                continue
-            sb = bound_from_counts(values, counts, p)
-            margin = abs(sb - theta_mp)
-            if min_margin is None or margin < min_margin:
-                min_margin = margin
-            if sb >= theta_mp:
-                covered += weight
-    return covered, theta, min_margin
+
+    # Put every multinomial probability over one common denominator.  Adding
+    # Fraction objects inside the count-vector loop repeatedly computes gcds
+    # of integers with thousands of digits.  The common-denominator form is
+    # the same exact arithmetic but reduces only once, after enumeration.
+    probability_denominator = 1
+    for probability in [q0] + probs:
+        probability_denominator = lcm(
+            probability_denominator, probability.denominator)
+    probability_numerators = [
+        int(probability * probability_denominator)
+        for probability in probs
+    ]
+    q0_numerator = int(q0 * probability_denominator)
+    powers = [
+        [numerator ** exponent for exponent in range(n + 1)]
+        for numerator in probability_numerators
+    ]
+    q0_powers = [q0_numerator ** exponent for exponent in range(n + 1)]
+    common_weight_denominator = probability_denominator ** n
+
+    covered_numerator = 0
+    min_gap = None
+    for counts in _count_vectors(n, m):
+        k0 = n - sum(counts)
+        multinomial = 1
+        rem = n
+        for c in counts:
+            multinomial *= comb(rem, c)
+            rem -= c
+        weight_numerator = multinomial * q0_powers[k0]
+        for c, probability_powers in zip(counts, powers):
+            weight_numerator *= probability_powers[c]
+        if weight_numerator == 0:
+            continue
+
+        sb_lower, sb_upper = _bound_interval_from_counts(
+            values, counts, brackets)
+        if sb_lower >= theta:
+            covered_numerator += weight_numerator
+            gap = sb_lower - theta
+        elif sb_upper < theta:
+            gap = theta - sb_upper
+        else:
+            raise UncertifiedComparison(
+                "factor interval overlaps theta for counts=%r; increase "
+                "factor_bits above %d" % (counts, factor_bits))
+        if min_gap is None or gap < min_gap:
+            min_gap = gap
+    covered = Fraction(covered_numerator, common_weight_denominator)
+    return covered, theta, min_gap
 
 
 # --------------------------------------------------------------------------
@@ -171,4 +245,9 @@ def _xlogy(k, q):
     return k * np.log(q)
 
 
-__all__ = ["float_factors", "coverage_exact", "TwoValueGrid"]
+__all__ = [
+    "float_factors",
+    "coverage_exact",
+    "TwoValueGrid",
+    "UncertifiedComparison",
+]

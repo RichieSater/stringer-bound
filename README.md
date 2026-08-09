@@ -10,9 +10,9 @@
 > population mean taint with probability at least the nominal level:
 > \(P(\mathrm{SB} \ge \theta) \ge 1-\alpha\).
 
-Every audit firm evaluates monetary-unit samples with the Stringer bound
-(Stringer 1963). Its defining property — that it is *conservative* in finite
-samples — has never been proven. Bickel (1992) proved asymptotic
+The Stringer bound is widely used to evaluate monetary-unit samples
+(Stringer 1963). Its conjectured *conservatism* in finite samples has not
+been proved in full generality. Bickel (1992) proved asymptotic
 conservatism; Pap and van Zuijlen showed via higher-order expansions that
 asymptotic conservatism holds only above a confidence threshold, leaving the
 finite-sample question at standard levels like 95% open. This repository is
@@ -24,8 +24,9 @@ dips below nominal) or structural evidence for the conjecture.
 
 Monetary-unit sampling draws \(n\) dollar units i.i.d. from the population;
 the taint of a drawn unit is \(T \in [0,1]\) with distribution \(F\), and
-the parameter is \(\theta = E[T]\). With observed taints sorted decreasingly
-\(t_{(1)} \ge \dots \ge t_{(n)}\), the Stringer bound at nominal confidence
+the parameter is \(\theta = E[T]\). With observed taints arranged in
+nonincreasing order, \(t_{(1)} \ge \dots \ge t_{(n)}\), the Stringer bound
+at nominal confidence
 \(1-\alpha\) is
 
 ```
@@ -45,9 +46,9 @@ finite-sample proof of Stringer conservatism at any \(n \ge 2\), for all
 taint distributions and all confidence levels. The general-\(n\)
 conjecture at 95% remains open.**
 
-Openness verified against the literature (details and sources in
-[`OPENNESS.md`](supporting-materials/audit/OPENNESS.md)): no proof and no
-counterexample exists at any confidence level ≥ 50%. The asymptotic
+Openness was checked against the literature (details and sources in
+[`OPENNESS.md`](supporting-materials/audit/OPENNESS.md)): no general proof
+or counterexample at confidence levels ≥ 50% was found. The asymptotic
 threshold is exactly \(\alpha = 1/2\) (Pap–van Zuijlen 1996); the only
 published finite-sample counterexamples live at sub-50% confidence; and
 the strongest finite-sample partial result (Bimpeh 2008: certification for
@@ -64,11 +65,10 @@ certificate or a written proof:
   \(\{v_1 > v_2 > 0\}\) plus an atom at 0 is the smallest support that can
   carry a counterexample.
 - **The bound genuinely fails at low confidence in finite samples**:
-  twelve exact rational counterexamples, margin-certified — at nominal
-  level 30% (\(n=50\)) and 32% (\(n=100\)), binomial factors. The failure
-  onset moves to larger \(n\) as confidence rises, matching the
-  \(\alpha = 1/2\) asymptotic threshold.
-- **The only finite-sample certification in the literature is refuted**
+  thirty-three exact rational counterexamples with rational factor-interval
+  certificates — at selected nominal levels from 30% through 37% and
+  sample sizes \(n=50,100,200,400\), using binomial factors.
+- **A previous finite-sample certification is reassessed**
   ([`BIMPEH-GAP.md`](supporting-materials/audit/BIMPEH-GAP.md)): Bimpeh's
   (2008) coverage lower bound \(\bar P_n\) — the basis of the belief that
   the 95% conjecture was settled for \(n \le 11\) — rests on an
@@ -76,15 +76,16 @@ certificate or a written proof:
   counterexamples with *continuous* \(F\) at \(n = 1, 2\), an exact
   atomic one at \(n = 5\) (coverage \(31/32 < \bar P_5\)), and a proof
   that the corrected containment probability never exceeds \(1-\alpha\),
-  so the method could never have worked. His Table 5.1 itself reproduces
+  so that containment argument cannot establish the desired guarantee.
+  His Table 5.1 itself reproduces
   exactly ([`bolshev.py`](supporting-materials/computations/python/bolshev.py)).
-  Consequence: the proven finite-sample record reduces to \(n = 1\),
-  \(\{0,1\}\) supports, and single-atom supports — the conjecture is
-  **more open than the literature believed**.
-- **At 95% the conjecture holds everywhere searched, and is tight**: over
-  two-atom supports (\(n \le 100\)) and three-atom supports
-  (\(n \le 25\)), the coverage infimum is exactly \(1-\alpha\) at every
-  \(n\), approached as \(v_1 \to 1\) and never crossed — consistent with
+  The cited argument therefore does not add a proven finite-sample range.
+- **At 95% no violation was found in the reported searches**: over
+  distributions with two nonzero taint values (\(n \le 100\)) and three
+  nonzero taint values (\(n \le 25\)), each allowing an atom at zero, the
+  smallest coverage found agrees with
+  \(1-\alpha\) to numerical precision at every searched \(n\), approached
+  as \(v_1 \to 1\) and never crossed — consistent with
   the de Jager–Pap–van Zuijlen minimality theorem on \(\{0,1\}\)
   supports. Single-value populations already reach exact coverage
   \(0.9500302\) (\(n=10\), \(v=1\), \(q=0.85\)).
@@ -96,26 +97,26 @@ certificate or a written proof:
   a wedge-exceedance inequality proved by combining three families of
   rectangle bounds with the mean budget \(\int G = w\) and a concavity
   argument for a potential function with equal endpoint values. Valid
-  for every \(F\) and every \(\alpha \in (0,1)\) — so the certified
-  violations at low confidence are strictly a large-\(n\) phenomenon.
+  for every \(F\) and every \(\alpha \in (0,1)\), so the certified
+  low-confidence violations do not occur at \(n=2\).
   Sharp: the supremum of the failure probability is exactly \(\alpha\),
-  approached, never attained. Machine-verified in four layers
+  approached, never attained. The algebra is symbolically checked and the
+  statement is stress-tested in four computational layers
   ([`n2_proof_check.py`](supporting-materials/computations/python/n2_proof_check.py)).
 
 **Next steps**: extend the rectangle-budget-concavity method to
 \(n \ge 3\) (the reformulation \(\mathrm{SB} = 1 - \sum_j e_j u_{(j)}\)
-is in place), a certified branch-and-bound over the two-atom parameter
-space for larger \(n\), and an atoms-reduction argument.
+is in place), a certified branch-and-bound over the parameter space with two
+nonzero taint values for larger \(n\), and an atoms-reduction argument.
 
 ## Method
 
 Float64 screening over parametric families of taint distributions
 (grid + Nelder–Mead refinement), followed by exact recertification of every
-candidate: multinomial weights in rational arithmetic
-(`fractions.Fraction`), confidence factors enclosed in rigorous bisection
-brackets (width \(10^{-40}\)), and a margin certificate proving that no
-coverage comparison was decided inside the numerical noise. Nothing is
-claimed from screening output; only
+candidate: multinomial weights in rational arithmetic, confidence factors
+enclosed between dyadic rationals with binomial-CDF endpoint signs evaluated
+exactly by integer arithmetic, and rational interval propagation through
+every coverage comparison. Nothing is claimed from screening output; only
 [`certify.py`](supporting-materials/computations/python/certify.py) verdicts
 count.
 
@@ -124,9 +125,9 @@ count.
 ```text
 supporting-materials/
 └── computations/python/
-    ├── stringer.py           the bound and its confidence factors (mpmath,
-    │                         rigorous bisection brackets)
-    ├── coverage.py           exact rational coverage + fast float screener
+    ├── stringer.py           numerical factors for searches + exact-sign
+    │                         dyadic binomial factor intervals
+    ├── coverage.py           rational interval certification + float screener
     ├── two_point_lemma.py    proof + machine check: single-value supports
     │                         cannot under-cover
     ├── search_two_value.py   screening search over {v1 > v2 > 0} supports
@@ -154,9 +155,9 @@ a resolution hides in the modified-Stringer-bound literature — is tracked in
 
 ## AI disclosure
 
-Anthropic Claude is used for mathematical exploration, code, literature
-search, and verification workflows, directed and reviewed by the author, who
-accepts responsibility for the contents.
+Anthropic Claude and OpenAI Codex assisted with mathematical exploration,
+code, literature searches, and verification workflows. The author directed
+and reviewed the work and accepts responsibility for the contents.
 
 ## License
 

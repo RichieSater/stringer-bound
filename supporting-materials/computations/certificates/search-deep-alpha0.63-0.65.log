@@ -1,3 +1,5 @@
+# FLOAT64 SCREENING ONLY; these values are not certified coverage results.
+# See certificate-summary.json for the exact recertified table entries.
 n=200  alpha=0.65 binomial min coverage = 0.3366754543  (nominal 0.3500, slack -1.332e-02)  at v=(0.9500, 0.4655) q=(0.245959, 0.591584)
 n=400  alpha=0.65 binomial min coverage = 0.3263037393  (nominal 0.3500, slack -2.370e-02)  at v=(0.9500, 0.4655) q=(0.161958, 0.717903)
 

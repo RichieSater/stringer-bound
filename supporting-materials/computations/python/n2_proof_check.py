@@ -5,7 +5,7 @@ Four layers:
    direct Stringer definition (random samples);
 2. every symbolic identity used in the proof (sympy): beta^2 - B^2 =
    2 gamma (1-gamma); h(B) = B; h(beta) = 0; k(B) = k(beta) = beta;
-   h'' = -gamma^2/(1-g)^3; A >= 0; beta - B = A;
+   h'' = -gamma^2/(1-g)^3; beta - B = A; and A = B at alpha = 16/25;
 3. the potential bound k(g) >= beta on [B, beta] numerically across
    alpha (concavity + equal endpoints makes this rigorous; the numeric
    scan guards against algebra slips);
@@ -59,6 +59,7 @@ def check_identities() -> bool:
         sp.simplify(k.subs(g, beta) - beta) == 0,
         sp.simplify(sp.diff(h, g, 2) + gamma ** 2 / (1 - g) ** 3) == 0,
         sp.simplify(beta - B - A) == 0,
+        sp.simplify((A - B).subs(a, sp.Rational(16, 25))) == 0,
         sp.simplify(sp.expand((beta + gamma) ** 2 - 1
                               - 2 * sp.sqrt(a) * sp.sqrt(1 - a))) == 0,
     ]

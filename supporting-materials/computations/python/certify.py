@@ -1,4 +1,4 @@
-"""Recertify screening candidates in exact rational arithmetic.
+"""Certify binomial screening candidates in exact rational arithmetic.
 
 ``search_two_value.py`` screens in float64 and writes any parameter point
 whose screened coverage falls below the nominal level to a JSON file.  This
@@ -8,11 +8,12 @@ program is the only place a claim is allowed to come from:
   (``Fraction(float)`` is exact -- every float64 is a dyadic rational);
 * the coverage is recomputed as an exact ``Fraction`` by full enumeration
   of multinomial count vectors (``coverage.coverage_exact``);
-* every ``SB >= theta`` comparison is certified: the smallest observed
-  ``|SB - theta|`` must exceed a rigorous bound on the numerical error of
-  ``SB``, namely ``(sum of factor bracket widths) * max taint <= (n+1) w``
-  with ``w`` the largest bisection bracket width (``~1e-40`` at default
-  precision), so no comparison can have been decided inside the noise;
+* every binomial confidence factor is enclosed between dyadic rationals;
+  the binomial-CDF signs at both endpoints are evaluated exactly with
+  integer arithmetic;
+* those rational factor intervals are propagated through every Stringer
+  comparison, and a candidate is rejected if an interval overlaps the exact
+  rational mean;
 * the verdict compares the exact rational coverage to the exact rational
   nominal level.
 
@@ -30,13 +31,22 @@ import json
 import sys
 from fractions import Fraction
 
-from mpmath import mp, mpf
-
 from coverage import coverage_exact
-from stringer import max_factor_width
+from stringer import EXACT_FACTOR_BITS
 
 
-def certify(cand: dict, dps: int = 50) -> dict:
+# Exact n=400 multinomial probabilities can have more than 4,300 decimal
+# digits.  Python 3.11's defensive integer-to-string limit is inappropriate
+# for a program whose requested output is precisely those audited integers.
+if hasattr(sys, "set_int_max_str_digits"):
+    sys.set_int_max_str_digits(0)
+
+
+def _fraction_text(value: Fraction) -> str:
+    return "%d/%d" % (value.numerator, value.denominator)
+
+
+def certify(cand: dict, factor_bits: int = EXACT_FACTOR_BITS) -> dict:
     n = cand["n"]
     alpha = cand["alpha"]
     method = cand.get("method", "binomial")
@@ -47,23 +57,40 @@ def certify(cand: dict, dps: int = 50) -> dict:
         values = [Fraction(cand["v1"]), Fraction(cand["v2"])]
         probs = [Fraction(cand["q1"]), Fraction(cand["q2"])]
 
-    cov, theta, min_margin = coverage_exact(values, probs, n, alpha,
-                                            method, dps)
-    nominal = 1 - Fraction(alpha)
-    with mp.workdps(dps):
-        err = (n + 1) * max_factor_width(n, alpha, method, dps)
-        margin_ok = min_margin is not None and min_margin > err
+    if method != "binomial":
+        raise ValueError("formal certification is implemented only for "
+                         "binomial factors")
 
+    cov, theta, min_gap = coverage_exact(
+        values, probs, n, alpha, method, factor_bits)
+    nominal = 1 - Fraction(str(alpha))
+    margin_ok = min_gap is not None and min_gap >= 0
     confirmed = cov < nominal and margin_ok
+    factor_width = Fraction(1, 1 << factor_bits)
+    q0 = Fraction(1) - sum(probs)
     return {
+        "certificate_version": 2,
         "input": cand,
-        "exact_coverage": "%d/%d" % (cov.numerator, cov.denominator),
+        "exact_distribution": {
+            "positive_taint_values": [_fraction_text(v) for v in values],
+            "probabilities": [_fraction_text(q) for q in probs],
+            "zero_taint_probability": _fraction_text(q0),
+        },
+        "exact_coverage": _fraction_text(cov),
         "exact_coverage_float": float(cov),
+        "exact_nominal": _fraction_text(nominal),
         "nominal": float(nominal),
         "shortfall": float(nominal - cov),
-        "theta": "%d/%d" % (theta.numerator, theta.denominator),
-        "min_margin": float(min_margin) if min_margin is not None else None,
-        "margin_error_bound": float(err),
+        "theta": _fraction_text(theta),
+        "factor_interval_method": (
+            "dyadic brackets with exact integer binomial-CDF signs"),
+        "factor_bracket_bits": factor_bits,
+        "max_factor_bracket_width": _fraction_text(factor_width),
+        "max_factor_bracket_width_float": float(factor_width),
+        "min_certified_comparison_gap": (
+            _fraction_text(min_gap) if min_gap is not None else None),
+        "min_certified_comparison_gap_float": (
+            float(min_gap) if min_gap is not None else None),
         "margin_certified": bool(margin_ok),
         "confirmed_counterexample": bool(confirmed),
     }
@@ -72,7 +99,7 @@ def certify(cand: dict, dps: int = 50) -> dict:
 def main(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument("candidates", help="JSON file from search_two_value.py")
-    ap.add_argument("--dps", type=int, default=50)
+    ap.add_argument("--factor-bits", type=int, default=EXACT_FACTOR_BITS)
     ap.add_argument("--out", default=None)
     args = ap.parse_args(argv)
 
@@ -88,15 +115,16 @@ def main(argv=None):
 
     results, confirmed = [], 0
     for cand in cands:
-        r = certify(cand, args.dps)
+        r = certify(cand, args.factor_bits)
         results.append(r)
         tag = "CONFIRMED" if r["confirmed_counterexample"] else "rejected "
-        print("[%s] n=%-4d %s alpha=%s cov=%s (%.10f, shortfall %+.3e) "
-              "margin=%.2e>err=%.2e:%s"
+        print("[%s] n=%-4d %s alpha=%s coverage=%.10f "
+              "shortfall=%+.3e certified-gap=%.2e "
+              "factor-width<=%.2e:%s"
               % (tag, cand["n"], cand.get("method", "binomial"),
-                 cand["alpha"], r["exact_coverage"],
-                 r["exact_coverage_float"], -r["shortfall"],
-                 r["min_margin"] or 0.0, r["margin_error_bound"],
+                 cand["alpha"], r["exact_coverage_float"], r["shortfall"],
+                 r["min_certified_comparison_gap_float"] or 0.0,
+                 r["max_factor_bracket_width_float"],
                  r["margin_certified"]))
         confirmed += r["confirmed_counterexample"]
 

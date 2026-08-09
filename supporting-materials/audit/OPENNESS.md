@@ -1,10 +1,11 @@
 # Openness verification
 
-**Verdict (verified 2026-08-07): the finite-sample conservatism conjecture
-for the Stringer bound at confidence levels ≥ 50% — including 95% — is
-open.** No proof and no counterexample exists in the literature at α ≤ 1/2.
-The strongest partial results, and where a resolution could have hidden,
-are recorded below with sources.
+**Verdict (verified 2026-08-07): the general finite-sample conservatism
+conjecture for the Stringer bound at confidence levels ≥ 50% — including
+95% — remains open for \(n\ge3\).** The present repository proves the case
+\(n=2\); no general proof or counterexample at α ≤ 1/2 was found in the
+prior literature. The strongest partial results, and where a resolution
+could have hidden, are recorded below with sources.
 
 ## What is proved
 
@@ -14,15 +15,17 @@ are recorded below with sources.
 | Bickel's expansion: SB = T̄ + c(F) z₁₋α/√n + o(n^{-1/2}), with c²(F) ≥ Var(T), equality iff F is supported on ≤ 2 points | Bickel, *Int. Statist. Rev.* 60 (1992) 197–209; made rigorous in Pap–vZ 1996 | asymptotic |
 | P(SB ≥ μ) ≥ (1−α)^{n+1} under conditions on F (hypotheses unverified — JSTOR original not yet read) | Bickel 1992 | finite n, weak bound |
 | Conjecture holds **exactly** for taints supported on {0,1} (SB reduces to Clopper–Pearson); Stringer coefficients are minimal with this property | de Jager, Pap & van Zuijlen, *Comput. Math. Appl.* 33 (1997) 37–54 | finite n, {0,1} supports |
-| Claimed certification at n ≤ 11, α = 0.05 via the lower bound P̄ₙ = P(U_{i:n} ≤ p_n(i) ∀i) (Bolshev recursion). **Refuted in this repository**: the containment CP ≥ P̄ₙ (his eq. 5.16) rests on an off-by-one in the band constraints, dropping F(t_{n:n}) ≥ α^{1/n}; hand counterexamples with continuous F at n = 1, 2 and an exact atomic one at n = 5, and the corrected containment probability is ≤ 1−α for every continuous F, so the method can certify nothing. See [`BIMPEH-GAP.md`](BIMPEH-GAP.md). His Table 5.1 values reproduce exactly; they are just not coverage bounds | Bimpeh, PhD thesis, DCU 2008, ch. 5 ([full text](https://doras.dcu.ie/600/1/YawThesis.PDF)); apparently never journal-published; refutation: this repository | **invalid — the finite-sample record reduces to n = 1 (Bickel), {0,1} supports, and single-atom supports** |
+| Claimed certification at n ≤ 11, α = 0.05 via the lower bound P̄ₙ = P(U_{i:n} ≤ p_n(i) ∀i) (Bolshev recursion). **Reassessed in this repository**: the containment CP ≥ P̄ₙ (his eq. 5.16) rests on an off-by-one in the band constraints, dropping F(t_{n:n}) ≥ α^{1/n}; hand counterexamples with continuous F at n = 1, 2 and an exact atomic one at n = 5 show that P̄ₙ is not the stated coverage bound. The corrected containment probability is ≤ 1−α for every continuous F. See [`BIMPEH-GAP.md`](BIMPEH-GAP.md). | Bimpeh, PhD thesis, DCU 2008, ch. 5 ([full text](https://doras.dcu.ie/600/1/YawThesis.PDF)); apparently never journal-published; reassessment: this repository | the cited argument does not establish the claimed finite-sample range |
 | Exact counterexamples at **sub-50% confidence**: uniform-type taints, α > 1/2, n ≳ 17 | Pap & van Zuijlen, *Comput. Math. Appl.* 29 (1995) 51–59 (exact recursions, not Monte Carlo) | finite n, α > 1/2 only |
 
-This repository adds (see `computations/certificates/`): exact rational
-two-atom counterexamples at α = 0.7 (n = 50) and α = 0.68 (n = 100),
-margin-certified; and screening evidence that over two- and three-atom
-supports at α = 0.05, n ≤ 100, the infimum of coverage is exactly 1−α,
-approached on the {0,1}-boundary (v₁ → 1) — consistent with the
-de Jager–Pap–van Zuijlen minimality theorem.
+This repository adds (see `theory/N2-PROOF.md` and
+`computations/certificates/`): a distribution-free proof at \(n=2\), and
+33 exact rational counterexamples supported on three points (two nonzero
+taint values and zero) at selected nominal confidence levels from 30% to
+37% and sample sizes 50, 100, 200, and 400. Numerical searches at α = 0.05
+found smallest coverage agreeing with \(1-\alpha\) to search precision,
+approached on the {0,1}-boundary (\(v_1\to1\)); this is evidence, not an
+infimum proof.
 
 ## Where a resolution could hide (checked, none found)
 

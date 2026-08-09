@@ -25,12 +25,12 @@ n    Pbar_n           Pbar_n >= 1-alpha?
 24   0.888887892884   no
 25   0.885011744554   no
 
-Pbar_n >= 1-alpha for n <= 11 at alpha = 0.05, matching Bimpeh's Table 5.1 (n <= 11 at 0.05). NOTE: Pbar_n is NOT a lower bound on Stringer coverage -- his (5.16) is refuted in audit/BIMPEH-GAP.md -- so this frontier certifies nothing.
+Pbar_n >= 1-alpha for n <= 11 at alpha = 0.05, matching Bimpeh's Table 5.1 (n <= 11 at 0.05). NOTE: Pbar_n is not a lower bound on Stringer coverage; see the reassessment of (5.16) in audit/BIMPEH-GAP.md.
 
-containment test against exact two-atom (i.e. atomic) coverage -- failures here are the PIT gap, not a bug:
-  n=5   v=('3/4', '1/4') q=('1/5', '2/5') cov=1.0000000000 vs Pbar=0.9874580283 [containment holds]
-  n=5   v=('1', '1/10') q=('1/2', '1/4') cov=0.9687500000 vs Pbar=0.9874580283 [containment FAILS for this atomic F (expected)]
-  n=8   v=('3/4', '1/4') q=('1/5', '2/5') cov=1.0000000000 vs Pbar=0.9696359285 [containment holds]
-  n=8   v=('1', '1/10') q=('1/2', '1/4') cov=0.9648437500 vs Pbar=0.9696359285 [containment FAILS for this atomic F (expected)]
-  n=10  v=('3/4', '1/4') q=('1/5', '2/5') cov=1.0000000000 vs Pbar=0.9575249659 [containment holds]
-  n=10  v=('1', '1/10') q=('1/2', '1/4') cov=0.9877128601 vs Pbar=0.9575249659 [containment holds]
+comparison with exact coverage for selected atomic distributions:
+  n=5   v=('3/4', '1/4') q=('1/5', '2/5') cov=1.0000000000 vs Pbar=0.9874580283 [proposed lower-bound inequality holds]
+  n=5   v=('1', '1/10') q=('1/2', '1/4') cov=0.9687500000 vs Pbar=0.9874580283 [proposed lower-bound inequality fails]
+  n=8   v=('3/4', '1/4') q=('1/5', '2/5') cov=1.0000000000 vs Pbar=0.9696359285 [proposed lower-bound inequality holds]
+  n=8   v=('1', '1/10') q=('1/2', '1/4') cov=0.9648437500 vs Pbar=0.9696359285 [proposed lower-bound inequality fails]
+  n=10  v=('3/4', '1/4') q=('1/5', '2/5') cov=1.0000000000 vs Pbar=0.9575249659 [proposed lower-bound inequality holds]
+  n=10  v=('1', '1/10') q=('1/2', '1/4') cov=0.9877128601 vs Pbar=0.9575249659 [proposed lower-bound inequality holds]

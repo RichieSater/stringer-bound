@@ -1,0 +1,56 @@
+[
+ {
+  "n": 200,
+  "alpha": "0.65",
+  "method": "binomial",
+  "min_coverage": 0.3366754543,
+  "argmin": [
+   0.95,
+   0.4655,
+   0.245959,
+   0.591584
+  ],
+  "nominal": 0.35,
+  "n_below": 1,
+  "below": [
+   {
+    "n": 200,
+    "alpha": "0.65",
+    "method": "binomial",
+    "v1": 0.95,
+    "v2": 0.4655,
+    "q1": 0.245959,
+    "q2": 0.591584,
+    "coverage": 0.3366754543
+   }
+  ],
+  "search_description": "Targeted float64 candidates retained for exact recertification; the minimum is among the listed candidates."
+ },
+ {
+  "n": 400,
+  "alpha": "0.65",
+  "method": "binomial",
+  "min_coverage": 0.3263037393,
+  "argmin": [
+   0.95,
+   0.4655,
+   0.161958,
+   0.717903
+  ],
+  "nominal": 0.35,
+  "n_below": 1,
+  "below": [
+   {
+    "n": 400,
+    "alpha": "0.65",
+    "method": "binomial",
+    "v1": 0.95,
+    "v2": 0.4655,
+    "q1": 0.161958,
+    "q2": 0.717903,
+    "coverage": 0.3263037393
+   }
+  ],
+  "search_description": "Targeted float64 candidates retained for exact recertification; the minimum is among the listed candidates."
+ }
+]

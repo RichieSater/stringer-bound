@@ -26,8 +26,8 @@ load-bearing for both claims and is machine-checked.
 - **Closest relative**: Hoeffding & Shrikhande (1955) solved the
   equal-weights case (sharp bound for P(X₁+X₂ ≥ t), nonnegative iid,
   given mean); Łuczak–Mieczkowska–Šileikis (arXiv:1602.03547) extended
-  to general k. The wedge inequality has genuinely unequal min/max
-  weights. Both now cited.
+  to general k. The wedge inequality has unequal min/max weights except
+  at the interior value α = 16/25. Both now cited.
 - **Valid-mean-bound genre** (Anderson 1969; Gaffke 2005;
   Learned-Miller–Thomas; Phan et al. 2021; Bentkus–van Zuijlen 2003;
   Vlassis–Thomas 2026 proof of Gaffke's conjecture): none proves or
@@ -59,9 +59,10 @@ literature.
 
 The only published counterexamples remain Pap–van Zuijlen 1995
 (uniform-type taints, existence via recursions, α > 1/2, n > 16); every
-later source refers back to them. No prior two-atom examples, no
-certified rational-arithmetic coverage, and no violations published in
-the 30–37% confidence band. Since Pap–van Zuijlen 1996 proved
+later source refers back to them. No prior three-point examples with two
+nonzero taint values, no certified rational-arithmetic coverage, and no
+violations published in the 30–37% confidence band. Since Pap–van Zuijlen
+1996 proved
 *asymptotic* conservatism for α ≤ 1/2, certified finite-n violations
 approaching the 50% threshold from below sharpen the known picture.
 

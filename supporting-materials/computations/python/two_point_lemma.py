@@ -24,10 +24,9 @@ is why ``search_two_value.py`` starts there.
 Poisson factors.  The same argument gives conservatism for the Poisson
 (AICPA) factors whenever ``p_j^pois >= p_j^binom`` for all ``j``, since then
 ``SB_pois >= SB_binom`` pointwise on every sample.  That domination is not
-proved here in general; this module CHECKS it numerically, with rigorous
-bisection brackets, for every ``n`` in the requested range, and separately
-brute-forces the lemma's conclusion on a grid as an independent test of the
-coverage machinery.
+proved here in general; this module checks it at high precision for every
+``n`` in the requested range, and separately brute-forces the lemma's
+conclusion on a grid as an independent test of the coverage machinery.
 
 Usage:
     python3 two_point_lemma.py --alpha 0.05 --n-max 100
@@ -46,15 +45,15 @@ from stringer import factors
 
 
 def check_poisson_dominates(n: int, alpha: str, dps: int = 50) -> bool:
-    """True if p_j^pois - width > p_j^binom + width for all j < n.
+    """Numerically check separated factor brackets for all ``0 <= j <= n``.
 
-    Comparing bracket endpoints (not midpoints) makes the check rigorous
-    up to the correctness of the tail evaluations themselves.
+    This is a high-precision check, not a directed-rounding or interval-
+    arithmetic proof of the tail evaluations.
     """
     fb = factors(n, alpha, "binomial", dps)
     fp = factors(n, alpha, "poisson", dps)
     with mp.workdps(dps):
-        for j in range(n):
+        for j in range(n + 1):
             pb, wb = fb[j]
             pp, wp = fp[j]
             if not (pp - wp > pb + wb):
@@ -75,7 +74,7 @@ def brute_force_two_point(n: int, alpha: str, v_steps: int = 20,
         for iq in range(1, q_steps):
             q = Fraction(iq, q_steps)
             cov, _theta, _margin = coverage_exact([v], [q], n, alpha,
-                                                  "binomial", dps)
+                                                  "binomial")
             if worst is None or cov < worst[0]:
                 worst = (cov, v, q)
     return worst
@@ -91,14 +90,14 @@ def main(argv=None):
 
     nominal = 1 - Fraction(args.alpha)
 
-    print("Poisson-dominates-binomial factor check (rigorous brackets):")
+    print("Poisson-dominates-binomial high-precision factor check:")
     bad = [n for n in range(1, args.n_max + 1)
            if not check_poisson_dominates(n, args.alpha)]
     if bad:
         print("  DOMINATION FAILS for n in %r -- the Poisson lemma does NOT "
               "follow for these n" % bad)
     else:
-        print("  p_j^poisson > p_j^binomial for all j < n, all n <= %d: OK"
+        print("  p_j^poisson > p_j^binomial for all j <= n, all n <= %d: OK"
               % args.n_max)
 
     print("Exact brute-force of the lemma conclusion (binomial factors):")
