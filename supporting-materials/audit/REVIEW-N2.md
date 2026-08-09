@@ -76,3 +76,17 @@ both the manuscript and `N2-PROOF.md`.
 tests the theorem over approximately 200,000 atomic distributions. Those
 computations can expose implementation or algebra errors; they do not replace
 the proof.
+
+## Re-audit at commit `cd95cdd`
+
+A subsequent re-audit cleared the earlier major-revision recommendation and
+reported that no remaining issue changed a theorem, counterexample verdict,
+or table value. It also reported separate exact reproductions of the
+representative coverages at \((n,\alpha)=(50,0.70)\), \((200,0.65)\), and
+\((400,0.65)\).
+
+The re-audit requested three minor consistency edits, all now incorporated:
+the sharpness note distinguishes the diagonal-only range from the wing range;
+the stress checker labels its event as the closed wedge tail rather than
+noncoverage; and the README qualifies its novelty statement with “to our
+knowledge.”

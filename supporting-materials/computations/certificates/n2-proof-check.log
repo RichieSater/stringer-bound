@@ -1,5 +1,5 @@
 reduction identity SB = 1 - (A minU + B maxU): OK
 symbolic identities (h(B)=B, k endpoints, h'' concavity, ...): OK
 potential k(g) >= beta on [B, beta] across alpha: OK
-theorem stress test: max[P(fail) - alpha] over atomic F = -3.28e-05 OK
+theorem stress test: max[P(Am+BM >= w) - alpha] over atomic F = -3.28e-05 OK
 n2_proof_check: all checks passed

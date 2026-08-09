@@ -191,14 +191,15 @@ and the theorem. ∎
 Two families approach equality (exact case analysis, machine-checked):
 
 - *Diagonal*: mass \(q\) at \(u\) and \(1-q\) at \(0\) (taints
-  \(\{1, 1-u\}\), mean \(w = qu\)): the failure event is
-  \(\{U_1 = U_2 = u\}\) precisely when \(\beta u > qu\), i.e.
-  \(q < \beta\); failure probability \(q^2 \uparrow \beta^2 = \alpha\)
-  as \(q \uparrow \beta\).
+  \(\{1, 1-u\}\), mean \(w = qu\)): for \(B\le q<\beta\), the only
+  failing sample is \((u,u)\), with probability \(q^2\). Thus the failure
+  probability approaches \(\beta^2=\alpha\) as \(q\uparrow\beta\). For
+  \(q<B\), the mixed samples also fail, producing the wing regime
+  described next.
 - *Wing*: mass \(q\) at \(u\) and \(1-q\) at \(0\) with \(q < B\): the
-  pair \(\{0, u\}\) fails precisely when \(Bu > qu\), i.e. \(q < B\),
-  giving failure probability \(1-(1-q)^2 \uparrow 1-\gamma^2 = \alpha\)
-  as \(q \uparrow B\).
+  mixed samples fail because \(Bu>qu\), and \((u,u)\) also fails because
+  \(\beta u>qu\). The total failure probability is
+  \(1-(1-q)^2\uparrow1-\gamma^2=\alpha\) as \(q\uparrow B\).
 
 A one-parameter three-atom family interpolates between them with
 failure probability \(< \alpha\) throughout and \(= \alpha\) in both

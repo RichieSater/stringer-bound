@@ -41,10 +41,10 @@ repository states which variant it uses.
 ## Status
 
 **Partial resolution: the \(n = 2\) case is proved
-([`N2-PROOF.md`](supporting-materials/theory/N2-PROOF.md)) — the first
-finite-sample proof of Stringer conservatism at any \(n \ge 2\), for all
-taint distributions and all confidence levels. The general-\(n\)
-conjecture at 95% remains open.**
+([`N2-PROOF.md`](supporting-materials/theory/N2-PROOF.md)) — to our
+knowledge, the first finite-sample proof of Stringer conservatism at any
+\(n \ge 2\), for all taint distributions and all confidence levels. The
+general-\(n\) conjecture at 95% remains open.**
 
 Openness was checked against the literature (details and sources in
 [`OPENNESS.md`](supporting-materials/audit/OPENNESS.md)): no general proof
