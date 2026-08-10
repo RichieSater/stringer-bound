@@ -4,7 +4,9 @@ An adversarial literature pass (~20 targeted searches, OpenAlex citation
 tracing, primary-source reading including the full Bimpeh thesis, the
 2021 Statistical Papers MUS survey, the Dutch statistical-auditing essay
 collection, and the 2024 Balakrishnan–Rychlik monograph) tested each of
-the paper's four novelty claims. Date: 2026-08-07.
+the paper's novelty claims. Initial date: 2026-08-07; updated 2026-08-10
+for the new \(n=3\) theorem. Priority statements remain qualified by the
+scope and date of this search.
 
 ## Claim 1 — first unconditional finite-sample proof at n = 2: HOLDS, with a caveat now addressed
 
@@ -46,7 +48,27 @@ load-bearing for both claims and is machine-checked.
     still holds. The theorem is strictly stronger and self-contained.
     Check script: `computations/python/gaffke_domination_check.py`.
 
-## Claim 3 — first identification of Bimpeh's error: HOLDS, strongly
+## Claim 3 — exact conventional-level theorem at n = 3: NO PREDECESSOR FOUND
+
+The 2026 proof of Gaffke's test by Vlassis–Thomas and its bounded-mean
+inversion described by Learned-Miller–Thomas and Ming et al. supply a valid
+comparison limit. No source found in the review compares that limit
+pointwise with Stringer, proves the resulting uniform-simplex cap
+inequality, or establishes Stringer coverage at \(n=3\) and 90%, 95%, and
+99% confidence. The repository's contribution is the Stringer-specific
+comparison and exact rational Bernstein proof; validity of the Gaffke limit
+is credited to those sources. The manuscript does not make an unqualified
+priority claim for this result.
+
+## Claim 4 — all-n Poisson-over-binomial factor transfer: DERIVED FROM A CLASSICAL INEQUALITY
+
+The probability comparison is due to Anderson–Samuels (1967). The paper's
+contribution is to specialize it to the factor roots and use summation by
+parts to compare the complete Stringer bounds for every observed sample.
+This should be presented as a new audit-specific consequence of a classical
+inequality, not as a new probability inequality.
+
+## Claim 5 — first identification of Bimpeh's error: HOLDS, strongly
 
 The thesis has exactly one recorded citation (a 2019 paper with no
 engagement with ch. 5); no published criticism, correction, or erratum
@@ -55,7 +77,7 @@ chapter-5 material. The error went unnoticed for 18 years; this
 repository is the thesis's first substantive engagement in the
 literature.
 
-## Claim 4 — first exact explicit counterexample parameters: HOLDS
+## Claim 6 — first exact explicit counterexample parameters: HOLDS
 
 The only published counterexamples remain Pap–van Zuijlen 1995
 (uniform-type taints, existence via recursions, α > 1/2, n > 16); every
@@ -70,6 +92,7 @@ approaching the 50% threshold from below sharpen the known picture.
 
 Added to the manuscript: Anderson 1969; Balakrishnan–Rychlik 2024;
 Gaffke 2005; Hoeffding–Shrikhande 1955; Łuczak–Mieczkowska–Šileikis
-2016; Vlassis–Thomas 2026. Already present: Bickel 1992; Bimpeh 2008;
+2016; Learned-Miller–Thomas 2020; Ming et al. 2026; Vlassis–Thomas 2026.
+Already present: Bickel 1992; Bimpeh 2008;
 de Jager–Pap–van Zuijlen 1997; NRC Panel 1989; Pap–van Zuijlen 1995,
 1996; Phan et al. 2021; Stringer 1963.

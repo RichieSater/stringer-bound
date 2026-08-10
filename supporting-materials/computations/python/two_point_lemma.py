@@ -23,10 +23,14 @@ is why ``search_two_value.py`` starts there.
 
 Poisson factors.  The same argument gives conservatism for the Poisson
 (AICPA) factors whenever ``p_j^pois >= p_j^binom`` for all ``j``, since then
-``SB_pois >= SB_binom`` pointwise on every sample.  That domination is not
-proved here in general; this module checks it at high precision for every
-``n`` in the requested range, and separately brute-forces the lemma's
-conclusion on a grid as an independent test of the coverage machinery.
+``SB_pois >= SB_binom`` pointwise on every sample.  Anderson--Samuels
+(1967) proves the required factor domination for every sample size when
+``alpha < exp(-1)``, equivalently when nominal confidence exceeds about
+63.2%; see ``theory/POISSON-DOMINATION.md``.  This module retains a
+high-precision numerical comparison as a regression check and separately
+brute-forces the lemma's conclusion on a grid as an independent test of the
+coverage machinery.  Outside the proved confidence range, domination can
+fail (for example, at ``n=2, alpha=0.70``).
 
 Usage:
     python3 two_point_lemma.py --alpha 0.05 --n-max 100

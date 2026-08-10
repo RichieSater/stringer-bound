@@ -1,10 +1,12 @@
 # The Stringer Bound Conjecture
 
 [![DOI](https://zenodo.org/badge/1327724172.svg)](https://doi.org/10.5281/zenodo.21850819)
+[![Verify paper and certificates](https://github.com/RichieSater/stringer-bound/actions/workflows/verify.yml/badge.svg)](https://github.com/RichieSater/stringer-bound/actions/workflows/verify.yml)
 
 **Repository:** [github.com/RichieSater/stringer-bound](https://github.com/RichieSater/stringer-bound) · **Archived v1.0.0:** [doi:10.5281/zenodo.21850820](https://doi.org/10.5281/zenodo.21850820)
 
-> **Conjecture (finite-sample conservatism, open since 1963).** For every
+> **Longstanding finite-sample validity question for a bound introduced in
+> 1963.** For every
 > taint distribution \(F\) on \([0,1]\), every sample size \(n\), and
 > standard confidence levels such as \(95\%\), the Stringer bound covers the
 > population mean taint with probability at least the nominal level:
@@ -40,23 +42,55 @@ repository states which variant it uses.
 
 ## Status
 
-**Partial resolution: the \(n = 2\) case is proved
-([`N2-PROOF.md`](supporting-materials/theory/N2-PROOF.md)) — to our
-knowledge, the first finite-sample proof of Stringer conservatism at any
-\(n \ge 2\), for all taint distributions and all confidence levels. The
+**Two finite-sample cases are now resolved. The \(n=2\) bound is proved
+conservative for every taint distribution and every confidence level
+([`N2-PROOF.md`](supporting-materials/theory/N2-PROOF.md)). At \(n=3\),
+an exact computer-assisted proof establishes conservatism at 90%, 95%, and
+99% confidence
+([`N3-CONVENTIONAL.md`](supporting-materials/theory/N3-CONVENTIONAL.md)).
+At those three levels, \(n=4\) is the first unresolved sample size. The
 general-\(n\) conjecture at 95% remains open.**
 
 Openness was checked against the literature (details and sources in
 [`OPENNESS.md`](supporting-materials/audit/OPENNESS.md)): no general proof
 or counterexample at confidence levels ≥ 50% was found. The asymptotic
 threshold is exactly \(\alpha = 1/2\) (Pap–van Zuijlen 1996); the only
-published finite-sample counterexamples live at sub-50% confidence; and
-the strongest finite-sample partial result (Bimpeh 2008: certification for
-all \(F\) at \(n \le 11\), \(\alpha = 0.05\)) turns out to have an
-essential gap — see below.
+published finite-sample counterexamples found in the review are at sub-50%
+confidence; and the strongest previously claimed finite-sample range
+(Bimpeh 2008: all \(F\) at \(n \le 11\), \(\alpha = 0.05\)) rests on an
+index shift in its containment argument — see below.
 
 Established so far in this repository, each backed by an exact-arithmetic
 certificate or a written proof:
+
+- **The \(n = 2\) case is proved in full**
+  ([`N2-PROOF.md`](supporting-materials/theory/N2-PROOF.md)): for every
+  \(F\) and every \(\alpha\in(0,1)\). The supremum noncoverage probability
+  is exactly \(\alpha\), approached but never attained.
+
+- **Conventional confidence levels are certified at \(n=3\)**
+  ([`N3-CONVENTIONAL.md`](supporting-materials/theory/N3-CONVENTIONAL.md)):
+  at 90%, 95%, and 99% confidence, the binomial Stringer bound pointwise
+  dominates the recently validated Gaffke bounded-mean upper limit. The
+  proof reduces the comparison to uniform-simplex cap inequalities and
+  certifies them with exact rational Bernstein coefficients. The symbolic
+  derivation and every sign certificate are regenerated from source by
+  the top-level reproduction command. This is a theorem at the three listed
+  levels, not search evidence.
+
+- **All-sample-size Poisson-factor domination at practical confidence
+  levels**
+  ([`POISSON-DOMINATION.md`](supporting-materials/theory/POISSON-DOMINATION.md)):
+  whenever nominal confidence exceeds \(1-e^{-1}\approx63.2\%\), the
+  Poisson factors used in audit practice dominate the binomial
+  Clopper--Pearson factors coordinatewise for every \(n\). A
+  summation-by-parts argument then proves that the complete Poisson
+  Stringer bound is pointwise at least the binomial version on every
+  observed sample. This replaces the former finite-range numerical
+  comparison at 90% and 95% with an analytic result; it does not by itself
+  resolve general-\(n\) coverage. It does transfer the proved binomial
+  guarantees at \(n=2\), and at \(n=3\) for 90%, 95%, and 99%, to the
+  Poisson-factor bound.
 
 - **Two-point lemma** (proof in
   [`two_point_lemma.py`](supporting-materials/computations/python/two_point_lemma.py)):
@@ -90,24 +124,12 @@ certificate or a written proof:
   supports. Single-value populations already reach exact coverage
   \(0.9500302\) (\(n=10\), \(v=1\), \(q=0.85\)).
 
-- **The \(n = 2\) case is proved in full**
-  ([`N2-PROOF.md`](supporting-materials/theory/N2-PROOF.md)): via the
-  substitution \(U = 1-T\) the bound becomes \(\mathrm{SB} = 1 - (A\min U
-  + B\max U)\) with \(A+B = \sqrt{\alpha}\), and conservatism reduces to
-  a wedge-exceedance inequality proved by combining three families of
-  rectangle bounds with the mean budget \(\int G = w\) and a concavity
-  argument for a potential function with equal endpoint values. Valid
-  for every \(F\) and every \(\alpha \in (0,1)\), so the certified
-  low-confidence violations do not occur at \(n=2\).
-  Sharp: the supremum of the failure probability is exactly \(\alpha\),
-  approached, never attained. The algebra is symbolically checked and the
-  statement is stress-tested in four computational layers
-  ([`n2_proof_check.py`](supporting-materials/computations/python/n2_proof_check.py)).
-
-**Next steps**: extend the rectangle-budget-concavity method to
-\(n \ge 3\) (the reformulation \(\mathrm{SB} = 1 - \sum_j e_j u_{(j)}\)
-is in place), a certified branch-and-bound over the parameter space with two
-nonzero taint values for larger \(n\), and an atoms-reduction argument.
+**Next steps**: extend the Gaffke/simplex-cap comparison and exact Bernstein
+machinery to \(n=4\), where the geometry becomes three-dimensional; seek a
+dimension-free cap or majorization argument; and develop a certified
+branch-and-bound or atoms-reduction argument for ordinary audit sample sizes.
+The immediate mathematical target is \(n=4\) at 90%, 95%, and 99%, not more
+unstructured grid search.
 
 ## Method
 
@@ -124,28 +146,41 @@ count.
 
 ```text
 supporting-materials/
+├── claim-evidence.json       machine-readable claim-to-evidence map
+├── theory/
+│   ├── N2-PROOF.md           complete n=2 proof
+│   ├── N3-CONVENTIONAL.md    exact n=3 proof at 90%, 95%, and 99%
+│   └── POISSON-DOMINATION.md all-n practical-level factor comparison
 └── computations/python/
     ├── stringer.py           numerical factors for searches + exact-sign
     │                         dyadic binomial factor intervals
     ├── coverage.py           rational interval certification + float screener
     ├── two_point_lemma.py    proof + machine check: single-value supports
     │                         cannot under-cover
+    ├── derive_n3_bernstein_formulas.py
+    │                         symbolic derivation of the n=3 certificate
+    ├── n3_gaffke_certificate.py
+    │                         exact rational n=3 sign certificate
     ├── search_two_value.py   screening search over {v1 > v2 > 0} supports
     └── certify.py            exact recertification of screening candidates
 ```
 
 ## Reproduction
 
-Requires Python 3.9+ with `mpmath`, `numpy`, `scipy`.
+The canonical environment is pinned in `pyproject.toml` and `uv.lock`
+(Python 3.12, `uv` 0.11.14). Tectonic 0.17.0 builds the manuscript.
+The single top-level verification command is:
 
 ```sh
-cd supporting-materials/computations/python
-python3 two_point_lemma.py --alpha 0.05 --n-max 40      # lemma checks
-python3 search_two_value.py --alpha 0.7 --n 50 --out c.json   # known violation
-python3 certify.py c.json                                # exact confirmation
-python3 search_two_value.py --alpha 0.05 --n 2 30 --range --out c95.json
-python3 certify.py c95.json
+make reproduce
 ```
+
+This runs the unit tests, the \(n=2\) symbolic proof checker, source
+regeneration of the \(n=3\) Bernstein formulas and exact sign certificate,
+the generated counterexample-table check, claim-to-evidence link validation,
+and the manuscript build. Individual search and recertification commands
+remain documented in
+[`supporting-materials/README.md`](supporting-materials/README.md).
 
 ## Openness
 

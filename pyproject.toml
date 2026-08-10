@@ -1,0 +1,14 @@
+[project]
+name = "stringer-bound-reproducibility"
+version = "1.1.0"
+description = "Reproducibility environment for the Stringer-bound paper"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+  "mpmath==1.3.0",
+  "numpy==2.5.2",
+  "scipy==1.18.0",
+  "sympy==1.14.0",
+]
+
+[tool.uv]
+package = false

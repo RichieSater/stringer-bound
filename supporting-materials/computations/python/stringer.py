@@ -22,6 +22,9 @@ proportion after observing ``j`` errors in ``n`` trials, i.e. the root of
 Audit practice usually substitutes the Poisson limits (the AICPA "MUS
 factors"), ``p_j = m_j / n`` with ``sum_{i<=j} e^{-m} m^i / i! = alpha``.
 Both are provided; every claim in this repository states which one it uses.
+For ``alpha < exp(-1)``, Anderson--Samuels (1967) implies that the Poisson
+factors dominate the binomial factors for every ``n`` and ``j``; see
+``supporting-materials/theory/POISSON-DOMINATION.md``.
 
 The search routines compute numerical factors in ``mpmath``.  Formal
 binomial certificates use a separate exact routine: it bisects on a dyadic

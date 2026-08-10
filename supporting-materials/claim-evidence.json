@@ -1,0 +1,302 @@
+{
+  "schema_version": 1,
+  "as_of": "2026-08-10",
+  "manuscript": "supporting-materials/paper/stringer.tex",
+  "claims": [
+    {
+      "id": "binomial-n2-conservatism",
+      "classification": "proved_theorem",
+      "statement": "For n=2, the binomial-factor Stringer bound has coverage at least 1-alpha for every distribution on [0,1] and every alpha in (0,1).",
+      "manuscript_labels": [
+        "thm:n2"
+      ],
+      "evidence": [
+        {
+          "path": "supporting-materials/theory/N2-PROOF.md",
+          "role": "complete written proof",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/python/n2_proof_check.py",
+          "role": "symbolic identities and stress tests",
+          "trust": "corroboration_only"
+        },
+        {
+          "path": "supporting-materials/audit/REVIEW-N2.md",
+          "role": "recorded adversarial proof review",
+          "trust": "review_record"
+        }
+      ],
+      "verification_commands": [
+        "make proof-check"
+      ],
+      "limitations": "The written proof, not the stress test, establishes the theorem. Independent human review remains requested before submission."
+    },
+    {
+      "id": "binomial-n2-sharpness-nonattainment",
+      "classification": "proved_theorem",
+      "statement": "At n=2 the supremum noncoverage probability is alpha, and no distribution attains it.",
+      "manuscript_labels": [
+        "thm:n2",
+        "eq:equalitysurvival"
+      ],
+      "evidence": [
+        {
+          "path": "supporting-materials/theory/N2-PROOF.md",
+          "role": "sharpness construction and equality-case proof",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/audit/REVIEW-N2.md",
+          "role": "review record including repaired equality analysis",
+          "trust": "review_record"
+        }
+      ],
+      "verification_commands": [
+        "make proof-check"
+      ],
+      "limitations": "Non-attainment depends on the explicit boundary-mass analysis in the written proof."
+    },
+    {
+      "id": "binomial-n3-conventional-conservatism",
+      "classification": "proved_theorem",
+      "statement": "For n=3 and alpha in {0.10, 0.05, 0.01}, the binomial-factor Stringer bound pointwise dominates the valid Gaffke bounded-mean upper confidence limit and therefore has coverage at least 1-alpha for every distribution on [0,1].",
+      "manuscript_labels": [
+        "sec:n3",
+        "thm:n3",
+        "tab:n3certificate"
+      ],
+      "evidence": [
+        {
+          "path": "supporting-materials/theory/N3-CONVENTIONAL.md",
+          "role": "complete reduction from Gaffke validity to the certified simplex-cap inequalities",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/certificates/n3-gaffke-bernstein-formulas.json",
+          "role": "machine-readable exact symbolic Bernstein formulas",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/python/derive_n3_bernstein_formulas.py",
+          "role": "symbolic regeneration of all 42 middle-region coefficient formulas from the cap-volume expression",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/certificates/n3-gaffke-certificate.json",
+          "role": "exact rational factor brackets and coefficient-sign certificate at all three levels",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/python/n3_gaffke_certificate.py",
+          "role": "integer endpoint checks and exact Fraction interval propagation",
+          "trust": "proof_essential"
+        }
+      ],
+      "verification_commands": [
+        "make n3-formula-check n3-certificate-check"
+      ],
+      "limitations": "This is an exact computer-assisted theorem only for n=3 and the three specified alpha values. It relies on the published finite-sample validity of the Gaffke test and does not establish every confidence level at n=3 or any n>=4."
+    },
+    {
+      "id": "poisson-practical-factor-domination",
+      "classification": "proved_theorem",
+      "statement": "For every n and alpha<exp(-1), Poisson audit factors dominate binomial Clopper-Pearson factors coordinatewise, so the Poisson Stringer bound is pointwise no smaller for every sample.",
+      "manuscript_labels": [
+        "sec:poisson",
+        "prop:poissondomination"
+      ],
+      "evidence": [
+        {
+          "path": "supporting-materials/theory/POISSON-DOMINATION.md",
+          "role": "written specialization of the Anderson-Samuels inequalities and summation-by-parts proof",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/certificates/poisson-domination-standard-levels.log",
+          "role": "high-precision regression checks at 90% and 95%, plus an out-of-range failure case",
+          "trust": "corroboration_only"
+        }
+      ],
+      "verification_commands": [
+        "uv run --frozen python supporting-materials/computations/python/two_point_lemma.py --alpha 0.05 --n-max 100 --brute-n"
+      ],
+      "limitations": "This is a factor and sample-wise bound comparison, not a proof of general-n coverage. The theorem does not claim domination for alpha>=exp(-1)."
+    },
+    {
+      "id": "poisson-proved-small-n-coverage",
+      "classification": "proved_theorem",
+      "statement": "The Poisson-factor Stringer bound is distribution-free conservative at n=2 for alpha<exp(-1), and at n=3 for alpha in {0.10, 0.05, 0.01}.",
+      "manuscript_labels": [
+        "cor:poissoncoverage"
+      ],
+      "evidence": [
+        {
+          "path": "supporting-materials/theory/POISSON-DOMINATION.md",
+          "role": "pointwise Poisson-over-binomial domination",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/theory/N2-PROOF.md",
+          "role": "binomial coverage theorem at n=2",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/theory/N3-CONVENTIONAL.md",
+          "role": "binomial coverage theorem at n=3 for the three specified levels",
+          "trust": "proof_essential"
+        }
+      ],
+      "verification_commands": [
+        "make proof-check n3-certificate-check"
+      ],
+      "limitations": "The n=2 transfer is stated only in the range covered by the all-n factor-domination theorem. The n=3 statement covers only 90%, 95%, and 99%; it is not a general-n audit-practice guarantee."
+    },
+    {
+      "id": "one-nonzero-taint-value",
+      "classification": "proved_theorem",
+      "statement": "A taint distribution supported on {0,v} cannot under-cover under binomial Stringer factors, for any n, alpha, and v in (0,1].",
+      "manuscript_labels": [
+        "prop:twopoint"
+      ],
+      "evidence": [
+        {
+          "path": "supporting-materials/computations/python/two_point_lemma.py",
+          "role": "written Clopper-Pearson reduction and machine checks",
+          "trust": "proof_essential"
+        }
+      ],
+      "verification_commands": [
+        "uv run --frozen python supporting-materials/computations/python/two_point_lemma.py --alpha 0.05 --n-max 40"
+      ],
+      "limitations": "This does not cover distributions with two distinct nonzero taint values."
+    },
+    {
+      "id": "certified-low-confidence-counterexamples",
+      "classification": "exact_computational_certificate",
+      "statement": "Thirty-three exact three-point counterexamples establish binomial-factor undercoverage at the six selected (confidence,n) combinations in the counterexample table.",
+      "manuscript_labels": [
+        "sec:counter",
+        "tab:counter"
+      ],
+      "evidence": [
+        {
+          "path": "supporting-materials/computations/certificates/certificate-summary.json",
+          "role": "machine-readable table generated from version-2 certificates",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/python/certify.py",
+          "role": "exact recertification driver",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/python/coverage.py",
+          "role": "exact multinomial enumeration and rational interval propagation",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/python/stringer.py",
+          "role": "exact-sign dyadic binomial-factor enclosures",
+          "trust": "proof_essential"
+        }
+      ],
+      "verification_commands": [
+        "make test certificate-summary-check"
+      ],
+      "limitations": "The examples establish existence only at the listed confidence levels and sample sizes; they do not characterize every level below 50%."
+    },
+    {
+      "id": "standard-confidence-searches",
+      "classification": "numerical_search_evidence",
+      "statement": "No violation was found in the reported searches at nominal confidence 50%, 90%, and 95%; the smallest binomial coverage found agreed with nominal to within 1e-10.",
+      "manuscript_labels": [
+        "sec:counter"
+      ],
+      "evidence": [
+        {
+          "path": "supporting-materials/computations/certificates/search-alpha0.05-n35-100.log",
+          "role": "two-nonzero-value search log at 95%",
+          "trust": "heuristic_search"
+        },
+        {
+          "path": "supporting-materials/computations/certificates/search-practical-poisson-90-95.log",
+          "role": "standard-confidence binomial and Poisson search log",
+          "trust": "heuristic_search"
+        },
+        {
+          "path": "supporting-materials/computations/certificates/search-alpha0.5-large-n.log",
+          "role": "50% search log",
+          "trust": "heuristic_search"
+        }
+      ],
+      "verification_commands": [],
+      "limitations": "These are finite grid-plus-optimizer searches, not exhaustive optimization and not a proof of coverage or of the infimum."
+    },
+    {
+      "id": "poisson-search-cushion",
+      "classification": "numerical_search_evidence",
+      "statement": "The reported two-nonzero-value Poisson searches at 90% and 95% found coverage above nominal, with a decreasing positive cushion over the listed sample sizes.",
+      "manuscript_labels": [
+        "sec:counter"
+      ],
+      "evidence": [
+        {
+          "path": "supporting-materials/computations/certificates/search-practical-poisson-90-95.log",
+          "role": "high-precision search output",
+          "trust": "heuristic_search"
+        }
+      ],
+      "verification_commands": [],
+      "limitations": "The reported minimum is only the smallest value found in the searched family, not a global worst case."
+    },
+    {
+      "id": "bimpeh-containment-reassessment",
+      "classification": "proved_literature_correction",
+      "statement": "The cited Bimpeh band-containment inequality fails; the corrected pointwise-containment event has probability at most 1-alpha for continuous distributions and therefore does not establish the desired coverage guarantee.",
+      "manuscript_labels": [
+        "sec:bimpeh",
+        "prop:bimpehwrong",
+        "prop:cannot"
+      ],
+      "evidence": [
+        {
+          "path": "supporting-materials/audit/BIMPEH-GAP.md",
+          "role": "complete derivation and hand-checkable counterexamples",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/python/bolshev.py",
+          "role": "reproduction of the boundary-crossing values",
+          "trust": "corroboration_only"
+        },
+        {
+          "path": "supporting-materials/computations/certificates/bolshev-alpha0.05.log",
+          "role": "committed reproduction log",
+          "trust": "corroboration_only"
+        }
+      ],
+      "verification_commands": [
+        "uv run --frozen python supporting-materials/computations/python/bolshev.py"
+      ],
+      "limitations": "The conclusion concerns the cited containment argument; it does not claim that no different proof of coverage could exist."
+    },
+    {
+      "id": "general-n-standard-confidence-status",
+      "classification": "date_stamped_literature_status",
+      "statement": "General finite-sample coverage for arbitrary n and arbitrary taint distributions at conventional confidence levels remains unresolved in the reviewed literature; at 90%, 95%, and 99%, this repository resolves n<=3 and leaves n=4 as the first open sample size.",
+      "manuscript_labels": [
+        "eq:conj"
+      ],
+      "evidence": [
+        {
+          "path": "supporting-materials/audit/OPENNESS.md",
+          "role": "dated literature and scope audit",
+          "trust": "literature_review"
+        }
+      ],
+      "verification_commands": [],
+      "limitations": "This is a qualified, date-stamped literature conclusion, not a mathematical theorem or a guarantee of exhaustive priority searching. The n=3 proof covers only the three specified confidence levels."
+    }
+  ]
+}

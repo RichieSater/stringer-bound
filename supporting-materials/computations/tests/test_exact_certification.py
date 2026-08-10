@@ -14,6 +14,7 @@ sys.path.insert(0, str(PYTHON_DIR))
 
 import stringer  # noqa: E402
 from coverage import coverage_exact  # noqa: E402
+from n3_gaffke_certificate import build_certificate  # noqa: E402
 from summarize_certificates import default_paths, summarize  # noqa: E402
 from two_point_lemma import check_poisson_dominates  # noqa: E402
 
@@ -101,6 +102,31 @@ class ExactCoverageTests(unittest.TestCase):
 
 
 class CertificateSummaryTests(unittest.TestCase):
+    def test_n3_conventional_level_certificate(self):
+        certificate = build_certificate()
+        self.assertEqual(
+            [level["alpha"] for level in certificate["levels"]],
+            ["0.01", "0.05", "0.10"],
+        )
+        for level in certificate["levels"]:
+            self.assertIn("pointwise dominates", level["conclusion"])
+            self.assertTrue(all(
+                Fraction(int(value["lower"]["numerator"]),
+                         int(value["lower"]["denominator"])) > 0
+                for value in level["region_c_am_gm_margins"].values()
+            ))
+            for region in (
+                level["region_a"],
+                level["region_b_y_equals_1_boundary"],
+            ):
+                enclosure = region["structural_zero_enclosure"]
+                lower = Fraction(int(enclosure["lower"]["numerator"]),
+                                 int(enclosure["lower"]["denominator"]))
+                upper = Fraction(int(enclosure["upper"]["numerator"]),
+                                 int(enclosure["upper"]["denominator"]))
+                self.assertLessEqual(lower, 0)
+                self.assertGreaterEqual(upper, 0)
+
     def test_generated_rows_match_the_manuscript_table(self):
         rows = summarize(default_paths())
         observed = [

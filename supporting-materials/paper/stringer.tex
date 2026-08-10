@@ -15,7 +15,7 @@
 \newcommand{\pr}{\mathbb{P}}
 \newcommand{\E}{\mathbb{E}}
 
-\title{Finite-sample behavior of the Stringer bound: conservatism at $n=2$ and exact counterexamples at low nominal confidence}
+\title{Finite-sample conservatism of the Stringer bound: sharpness at $n=2$ and conventional confidence levels at $n=3$}
 \author{Richie Sater\\
 \small Independent researcher, Silver Spring, Maryland, USA\\
 \small \texttt{richiesater@gmail.com}}
@@ -31,7 +31,13 @@ general. We prove that, for sample size $n=2$, the Stringer bound with
 binomial factors is conservative for every distribution on $[0,1]$ and
 every nominal confidence level. The result is sharp: the supremum of the
 noncoverage probability is $\alpha$, although no distribution attains
-it. We also give explicit finite-sample counterexamples at larger sample
+it. At $n=3$, exact rational Bernstein certificates prove conservatism at
+$90\%$, $95\%$, and $99\%$ nominal confidence. The proof establishes
+pointwise domination of a recently validated distribution-free bound for
+the mean of a bounded variable. At every sample size and every nominal confidence level greater than
+$1-e^{-1}\approx63.2\%$, the Poisson factors used in audit practice
+dominate the binomial factors coordinatewise and therefore give a
+pointwise no-smaller Stringer bound. We also give explicit finite-sample counterexamples at larger sample
 sizes and low nominal confidence levels. At selected nominal confidence
 levels between $30\%$ and $37\%$, and for sample sizes between $50$ and
 $400$, exact rational certificates show that coverage falls below the
@@ -42,7 +48,8 @@ previous finite-sample certification and identify an index shift in its
 band-containment argument. The corrected containment event has
 probability at most $1-\alpha$, so that argument cannot establish the
 desired coverage guarantee. These results establish distribution-free
-finite-sample conservatism at $n=2$, provide explicit certified failures
+finite-sample conservatism at every level for $n=2$, establish exact
+conventional-level guarantees at $n=3$, provide explicit certified failures
 at larger $n$, and narrow the unresolved finite-sample regime.
 \end{abstract}
 
@@ -63,10 +70,10 @@ $1-\alpha$ is
 where $p_n(j)$ is the upper Clopper--Pearson limit for $j$ successes in
 $n$ trials, i.e.\ the root of $\sum_{i=0}^{j}\binom{n}{i}p^i(1-p)^{n-i}
 =\alpha$, with $p_n(n)=1$. Audit guidance also tabulates Poisson-based
-confidence factors for MUS evaluation \cite[Appendix~C]{aicpa2012}; the
-repository's high-precision calculations find that the corresponding
-limits dominate the binomial ones at the standard confidence levels
-evaluated there. The method is commonly
+confidence factors for MUS evaluation \cite[Appendix~C]{aicpa2012}.
+Proposition~\ref{prop:poissondomination} below proves that these factors
+dominate the binomial factors, at every sample size, whenever nominal
+confidence exceeds $1-e^{-1}\approx63.2\%$. The method is commonly
 justified by the conjecture that
 \begin{equation}\label{eq:conj}
 \pr\bigl(\SB \ge \mu(F)\bigr) \;\ge\; 1-\alpha
@@ -96,8 +103,14 @@ survey of confidence bounds for bounded means categorized the Stringer
 bound among methods conjectured to have guaranteed coverage and
 described its coverage for $\alpha<0.5$ as unknown
 \cite[p.~8569]{phan2021}.
+Vlassis and Thomas \cite{vlassis2026} recently proved the finite-sample
+validity of Gaffke's distribution-free mean test \cite{gaffke2005}.
+Inversion for observations in $[0,1]$ gives an upper confidence limit that
+is a quantile of a uniform Dirichlet average
+\cite{learnedmiller2020,ming2026}. This development supplies the valid
+comparison bound used for our $n=3$ result.
 
-This paper makes three contributions.
+This paper makes five contributions.
 
 \emph{(1) A theorem at $n=2$} (Section~\ref{sec:thm}). The conjecture
 \eqref{eq:conj} holds at $n=2$ for every $F$ and every
@@ -106,7 +119,21 @@ failures do not occur at $n=2$, and the result is sharp. To our
 knowledge, this is the first distribution-free finite-sample proof for
 $n=2$.
 
-\emph{(2) Exact counterexamples at low confidence}
+\emph{(2) Conventional confidence levels at $n=3$}
+(Section~\ref{sec:n3}). At nominal confidence $90\%$, $95\%$, and $99\%$,
+the binomial Stringer bound pointwise dominates the valid Gaffke upper
+limit. The comparison is proved by exact rational Bernstein certificates
+for the relevant uniform-simplex cap volumes. It yields distribution-free
+finite-sample conservatism at each of these levels.
+
+\emph{(3) An all-$n$ comparison of the factors used in practice}
+(Section~\ref{sec:poisson}). Whenever nominal confidence exceeds
+$1-e^{-1}\approx63.2\%$, the Poisson factors dominate the binomial
+factors coordinatewise for every $n$. A summation-by-parts identity then
+shows that the Poisson-factor Stringer bound is pointwise no smaller on
+every observed sample.
+
+\emph{(4) Exact counterexamples at low confidence}
 (Section~\ref{sec:counter}). Thirty-three certified three-point
 distributions, each with two nonzero taint values and an atom at zero,
 give counterexamples at selected nominal confidence levels between
@@ -116,7 +143,7 @@ certificates. In searches at $50\%$, $90\%$, and $95\%$, no violation
 was found. At every sample size searched, the smallest coverage found
 agreed with the nominal level to within $10^{-10}$.
 
-\emph{(3) Reassessment of a previous certification}
+\emph{(5) Reassessment of a previous certification}
 (Section~\ref{sec:bimpeh}). A proposed finite-sample certification
 \cite{bimpeh2008} contains an index shift in its band-containment
 argument. We give hand-checkable examples for which the stated
@@ -358,14 +385,245 @@ finite-sample validity for independent variables was proved recently
 Theorem~\ref{thm:n2} is self-contained.
 \end{remark}
 
-\begin{corollary}
-For $n=2$ the Stringer bound with Poisson (AICPA) factors is
-conservative for every $F$ and every $\alpha$ for which the Poisson
-factors dominate the binomial ones. The repository verifies this
-domination numerically at high precision for the standard confidence
-levels evaluated there
-(\path{poisson-domination-standard-levels.log}).
+\section{Conventional confidence levels at
+\texorpdfstring{$n=3$}{n=3}}\label{sec:n3}
+
+The recent validity proof for Gaffke's mean test \cite{vlassis2026}
+provides a second route to finite-sample coverage. For a real random
+variable $X$, write $Q_q(X)=\inf\{z:\Pr(X\le z)\ge q\}$. Given three
+observed taints $t_1,t_2,t_3$, define
+\[
+G_\alpha(t_1,t_2,t_3)
+=Q_{1-\alpha}\!\left(D_0+\sum_{i=1}^3t_iD_i\right),
+\qquad (D_0,D_1,D_2,D_3)\sim\operatorname{Dirichlet}(1,1,1,1).
+\]
+This is the one-sided Gaffke--Learned-Miller--Thomas upper limit
+\cite{gaffke2005,learnedmiller2020,ming2026}; it has coverage at least
+$1-\alpha$ for independent observations from every distribution on
+$[0,1]$. We prove that Stringer is pointwise no smaller at three
+conventional confidence levels.
+
+\begin{theorem}\label{thm:n3}
+Let $n=3$ and let $T_1,T_2,T_3$ be i.i.d. with common distribution $F$
+on $[0,1]$ and mean $\mu$. If
+$\alpha\in\{0.10,0.05,0.01\}$, then
+\[
+\SB\ge G_\alpha(T_1,T_2,T_3)
+\quad\text{for every observed sample},
+\qquad
+\Pr_F(\SB\ge\mu)\ge1-\alpha.
+\]
+Thus the binomial Stringer bound is distribution-free conservative at
+$90\%$, $95\%$, and $99\%$ nominal confidence when $n=3$.
+\end{theorem}
+
+\begin{proof}
+Put
+\[
+a=1-p_3(2),\quad b=p_3(2)-p_3(1),\quad
+c=p_3(1)-p_3(0),\quad d=p_3(0).
+\]
+For ascending sample taints $t_1\le t_2\le t_3$,
+$\SB=at_1+bt_2+ct_3+d$. The four coefficients are positive and sum to
+one. Unless $t_1=1$, affine equivariance permits subtraction of $t_1$
+and division by $1-t_1$. It therefore suffices to use the four knots
+$(0,x,y,1)$, where $0\le x\le y\le1$, and the Stringer threshold
+\[
+s=bx+cy+d.
+\]
+By exchangeability of the Dirichlet weights, pointwise domination of
+$G_\alpha$ is equivalent to
+\begin{equation}\label{eq:n3capgoal}
+V(x,y):=\Pr_D\{xD_1+yD_2+D_3>s\}\le\alpha.
+\end{equation}
+The uniform-simplex cap formula gives
+\begin{equation}\label{eq:n3caps}
+V(x,y)=
+\begin{cases}
+\dfrac{(1-s)^3}{(1-x)(1-y)},&s\ge y,\\[6pt]
+\dfrac{1}{1-y}\left\{
+\dfrac{(1-s)^3}{1-x}-\dfrac{(y-s)^3}{y(y-x)}\right\},
+&x\le s\le y,\\[8pt]
+1-\dfrac{s^3}{xy},&s\le x,
+\end{cases}
+\end{equation}
+with boundary values defined by continuity. The Clopper--Pearson
+equations imply
+\begin{equation}\label{eq:n3identities}
+(a+b+c)^3=\alpha,\qquad (b+c+d)^3=1-\alpha,\qquad
+(a+b)^2\{3-2(a+b)\}=\alpha.
+\end{equation}
+
+We verify \eqref{eq:n3capgoal} in the three regions of
+\eqref{eq:n3caps}. If $s\le x$, put $g=b+c+d=(1-\alpha)^{1/3}$.
+The exact factor enclosures certify $b,c\le g/3$ at each of the three
+values of $\alpha$. Weighted AM--GM therefore gives
+\[
+\frac{s}{g}=\frac bgx+\frac cgy+\frac dg
+\ge x^{b/g}y^{c/g}\ge(xy)^{1/3},
+\]
+and the third line of \eqref{eq:n3caps} is at most $\alpha$.
+
+For $s\ge y$, set $X=1-x$, $Y=1-y$, $L=1-s=a+bX+cY$, and
+$A=1-b-c=a+d$. The domain is the triangle with vertices
+\[
+\left(\frac aA,\frac aA\right),\qquad (1,1),\qquad
+\left(1,\frac{a+b}{1-c}\right).
+\]
+On that triangle the desired inequality is
+\begin{equation}\label{eq:n3regiona}
+P_A(X,Y):=\alpha XY-(a+bX+cY)^3\ge0.
+\end{equation}
+After an affine map from the standard triangle, all degree-three
+Bernstein coefficients of $P_A$ are positive except the coefficient at
+$(X,Y)=(1,1)$, which is zero by the first identity in
+\eqref{eq:n3identities}. The coefficient signs are certified by exact
+rational intervals as described below.
+
+It remains to consider $x\le s\le y$. Write
+$\rho=s-x\ge0$ and $\tau=y-s\ge0$. Solving for $x,y$ shows that the
+$(\rho,\tau)$ domain is the quadrilateral with vertices
+\[
+(0,0),\quad\left(\frac d{1-c},0\right),\quad
+(c+d,a+b),\quad\left(0,\frac a{1-b}\right).
+\]
+Triangulate it along the diagonal from $(0,0)$ to $(c+d,a+b)$.
+Differentiating the middle line of \eqref{eq:n3caps} and cancelling common
+factors gives
+\[
+\frac{\partial V}{\partial y}
+=\frac{Q(x,y)}{y^2(1-x)(y-x)^2},
+\]
+where $Q$ is a degree-five polynomial. On both triangles, every
+degree-five Bernstein coefficient of $A^3Q$ is nonnegative. Three on each
+triangle are structural zeros, and all remaining coefficients are
+strictly positive. Hence $V$ is nondecreasing in $y$ at fixed $x$.
+Increasing $y$ preserves both middle-region inequalities, so it is enough
+to take the limit $y\uparrow1$.
+
+At $y=1$, put $q=1-x$. The constraint is
+$q\ge q_0:=a/(1-b)$, and direct simplification yields
+\[
+V(x,1)=
+\frac{(a+bq)^2\{3q-(a+bq)(1+q)\}}{q^2}.
+\]
+After mapping $[q_0,1]$ to $[0,1]$, the degree-four Bernstein
+coefficients of
+\[
+\alpha q^2-(a+bq)^2\{3q-(a+bq)(1+q)\}
+\]
+are positive except the coefficient at $q=1$, which is zero by the final
+identity in \eqref{eq:n3identities}. This completes
+\eqref{eq:n3capgoal}.
+
+For completeness, Table~\ref{tab:n3certificate} reports the smallest
+positive Bernstein lower bound in each exact check. The factors are
+enclosed on a dyadic grid of width $2^{-120}$; endpoint signs of their
+binomial CDF equations and every subsequent coefficient sign are evaluated
+with integer or rational arithmetic. The symbolic derivation starts from
+\eqref{eq:n3caps} and regenerates all coefficient formulas. Both the
+derivation and sign certificate are reproduced by the repository commands
+\texttt{make n3-formula-check} and
+\texttt{make n3-certificate-check}. Thus this is an exact
+computer-assisted proof, not a grid search. Finally, validity of
+$G_\alpha$ gives the stated coverage inequality.
+\end{proof}
+
+\begin{table}[htbp]\centering
+\begin{tabular}{lrrrr}
+\toprule
+$\alpha$ & region $s\ge y$ & middle triangle 1 & middle triangle 2
+& $y=1$ boundary\\
+\midrule
+$0.01$ & $1.04\times10^{-7}$ & $9.45\times10^{-5}$
+& $1.37\times10^{-9}$ & $3.67\times10^{-8}$\\
+$0.05$ & $1.63\times10^{-5}$ & $1.38\times10^{-4}$
+& $7.52\times10^{-8}$ & $4.40\times10^{-6}$\\
+$0.10$ & $1.45\times10^{-4}$ & $1.04\times10^{-4}$
+& $3.27\times10^{-7}$ & $3.28\times10^{-5}$\\
+\bottomrule
+\end{tabular}
+\caption{Smallest positive exact rational lower bound among the relevant
+Bernstein coefficients in the $n=3$ certificate. Displayed values are
+decimal approximations; the complete rational bounds are in the
+machine-readable certificate.}\label{tab:n3certificate}
+\end{table}
+
+\section{Poisson factors at conventional audit confidence levels}
+\label{sec:poisson}
+
+For $0\le j\le n$, let $p_n^{\mathrm B}(j)$ denote the binomial factor
+used above, and let
+\[
+p_n^{\mathrm P}(j)=\frac{\lambda_j}{n},
+\qquad
+\sum_{i=0}^{j}e^{-\lambda_j}\frac{\lambda_j^i}{i!}=\alpha,
+\]
+denote its Poisson analogue. The Poisson factors are not truncated at
+one; as in audit factor tables, a factor may exceed one.
+
+\begin{proposition}[All-$n$ factor domination]
+\label{prop:poissondomination}
+If $0<\alpha<e^{-1}$, then
+\[
+p_n^{\mathrm P}(j)\ge p_n^{\mathrm B}(j),
+\qquad j=0,\ldots,n,\quad n\ge1.
+\]
+Consequently, the Poisson-factor Stringer bound is at least the
+binomial-factor Stringer bound for every observed sample.
+\end{proposition}
+
+\begin{proof}
+Write $B(j;n,p)=\Pr\{\operatorname{Bin}(n,p)\le j\}$ and
+$P(j;\lambda)=\Pr\{\operatorname{Pois}(\lambda)\le j\}$.
+Anderson and Samuels \cite[Corollary~2.1 and Section~4.2]{andsam1967}
+show that
+\[
+B(j;n,\lambda/n)<P(j;\lambda)
+\quad\text{when }j<\lambda-1\text{ and }\lambda<n.
+\]
+Because $P(j;\lambda_j)=\alpha<e^{-1}=P(0;1)$, their
+Theorem~4.1 gives $\lambda_j>j+1$. If $\lambda_j<n$, the displayed
+inequality yields
+$B(j;n,p_n^{\mathrm P}(j))<\alpha$; since $B(j;n,p)$ is decreasing in
+$p$, its root satisfies
+$p_n^{\mathrm B}(j)<p_n^{\mathrm P}(j)$. If $\lambda_j\ge n$, the
+conclusion follows instead from
+$p_n^{\mathrm P}(j)\ge1\ge p_n^{\mathrm B}(j)$.
+
+For the pointwise comparison, put
+$d_j=p_n^{\mathrm P}(j)-p_n^{\mathrm B}(j)\ge0$. If
+$t_{(1)}\ge\cdots\ge t_{(n)}$, summation by parts gives
+\[
+\SB_{\mathrm P}-\SB_{\mathrm B}
+=d_0(1-t_{(1)})
+ +\sum_{j=1}^{n-1}d_j(t_{(j)}-t_{(j+1)})
+ +d_n t_{(n)}\ge0.
+\]
+\end{proof}
+
+\begin{corollary}\label{cor:poissoncoverage}
+The Poisson-factor Stringer bound is distribution-free conservative
+at $n=2$ whenever $0<\alpha<e^{-1}$, and at $n=3$ for
+$\alpha\in\{0.10,0.05,0.01\}$.
 \end{corollary}
+
+\begin{proof}
+Combine Proposition~\ref{prop:poissondomination} with
+Theorems~\ref{thm:n2} and \ref{thm:n3}.
+\end{proof}
+
+Thus the factor comparison previously checked numerically at $90\%$ and
+$95\%$ is analytic and holds at every sample size. In particular,
+Theorem~\ref{thm:n2} implies finite-sample conservatism of the
+Poisson-factor Stringer bound at $n=2$ throughout this confidence range.
+Theorem~\ref{thm:n3} gives the same conclusion at $n=3$ and the three
+certified conventional levels.
+More generally, any distributional class for which the binomial-factor
+bound is proved conservative inherits the same conclusion for the
+Poisson-factor bound. Proposition~\ref{prop:poissondomination} does not,
+by itself, settle coverage in the remaining cases, because the
+binomial-factor conjecture remains unresolved there.
 
 \begin{proposition}[One nonzero taint value]\label{prop:twopoint}
 If $F$ is supported on $\{0,v\}$ with $v\in(0,1]$, then, for every
@@ -575,10 +833,12 @@ inequalities, with the audit-specific confidence-factor structure
 encoded in the positive increments $e_j$. Second, the $n=2$ proof
 combines rectangle lower bounds on the covering event, a
 survival-integral budget, and a concave potential with equal endpoint
-values. This architecture does not obviously depend on $n=2$ except
-through the explicit factor algebra; the $n\ge3$ factors lack closed
-forms, so the endpoint identities (Lemma~\ref{lem:pot}) would need
-structural rather than algebraic proofs. Third, the near-equality
+values. The $n=3$ proof uses a different route: it compares Stringer with
+a valid Dirichlet-average bound and certifies the resulting simplex-cap
+inequality. In higher dimensions, the analogous pointwise comparison is
+a concrete geometric problem for caps of a uniform simplex. At $90\%$,
+$95\%$, and $99\%$ confidence, $n=4$ is now the first unresolved sample
+size. Third, the near-equality
 observed at every searched $n$, together with the certified failures at
 several nominal confidence levels below $50\%$, suggests that
 \eqref{eq:conj} may hold whenever nominal confidence is at least $50\%$,
@@ -587,19 +847,26 @@ at every $n$. This is a concrete conjecture for future work.
 
 From an auditing perspective, the binomial Stringer bound has no uniform
 safety margin above nominal coverage: at $n=2$, its coverage infimum is
-$1-\alpha$. The Poisson factors examined here retain a positive but
-decreasing numerical cushion. The certified examples also show that
+$1-\alpha$. Theorem~\ref{thm:n3} supplies an exact guarantee at the
+three conventional levels for $n=3$. At conventional confidence levels, the Poisson version
+pointwise dominates the binomial version by
+Proposition~\ref{prop:poissondomination}; the reported Poisson searches
+also retain a positive but decreasing numerical cushion. The certified examples show that
 anti-conservatism can occur at several nominal confidence levels below
-$50\%$, at sample sizes $n=50,100,200,$ and $400$.
+$50\%$, at sample sizes $n=50,100,200,$ and $400$. Coverage for ordinary
+audit sample sizes at conventional confidence remains an open problem, so
+the search evidence alone does not justify a change in audit guidance.
 
 \section*{Reproducibility}
 
 The repository contains exact rational coverage calculations, margin
 certificates, exact-sign dyadic enclosures for the binomial confidence
-factors, high-precision Poisson calculations, search logs, symbolic checks
-of the identities used in the proof, and stress tests over approximately
-$200{,}000$ distributions. It also contains records of two separate
-adversarial review passes.
+factors, an exact rational Bernstein certificate for Theorem~\ref{thm:n3},
+a symbolic regeneration check for its simplex-cap formulas, high-precision
+Poisson calculations, search logs, symbolic checks of the identities used
+in the $n=2$ proof, and stress tests over approximately $200{,}000$
+distributions. It also contains records of two separate adversarial review
+passes.
 
 The canonical source repository is
 \url{https://github.com/RichieSater/stringer-bound}. Release v1.0.0 is
@@ -635,6 +902,12 @@ expected value of an arbitrary bounded random variable with a
 continuous distribution function, \emph{Bulletin of the International
 Statistical Institute} \textbf{43} (1969), 249--251.
 
+\bibitem{andsam1967} T.~W. Anderson and S.~M. Samuels, Some
+inequalities among binomial and Poisson probabilities, in
+\emph{Proceedings of the Fifth Berkeley Symposium on Mathematical
+Statistics and Probability}, Vol.~1, University of California Press,
+Berkeley, 1967, pp.~1--12.
+
 \bibitem{balrych2024} N.~Balakrishnan and T.~Rychlik, \emph{Sharp
 Inequalities for Ordered Random Variables in Statistics and
 Reliability}, Vol.~I, Springer, 2024.
@@ -665,6 +938,14 @@ random variables, \emph{Annals of Mathematical Statistics} \textbf{26}
 maximal tail probability of sums of nonnegative, independent and
 identically distributed random variables, arXiv:1602.03547 (2016).
 
+\bibitem{learnedmiller2020} E.~Learned-Miller and P.~S. Thomas, A new
+confidence interval for the mean of a bounded random variable,
+arXiv:1905.06208v2 (2020).
+
+\bibitem{ming2026} J.~Ming, A.~Ramdas, Y.~Shen, R.~Wang and
+I.~Waudby-Smith, Gaffke's confidence interval for the mean of bounded data
+is inadmissible but asymptotically efficient, arXiv:2607.18661 (2026).
+
 \bibitem{panel1989} Panel on Nonstandard Mixtures of Distributions,
 Statistical models and analysis in auditing, \emph{Statistical Science}
 \textbf{4} (1989), 2--33.
@@ -686,13 +967,13 @@ Machine Learning Research} \textbf{139} (2021), 8567--8576.
 \emph{Empirical Processes with Applications to Statistics}, Wiley, New
 York, 1986.
 
+\bibitem{vlassis2026} N.~Vlassis and P.~S. Thomas, An exact
+distribution-free test for means of nonnegative random variables,
+arXiv:2607.08415 (2026).
+
 \bibitem{stringer1963} K.~W. Stringer, Practical aspects of statistical
 sampling in auditing, \emph{Proceedings of the Business and Economic
 Statistics Section, American Statistical Association} (1963), 405--411.
-
-\bibitem{vlassis2026} N.~Vlassis and P.~S. Thomas, A proof of Gaffke's
-conjecture on the validity of a nonparametric confidence bound for the
-mean, arXiv:2607.08415 (2026).
 
 \end{thebibliography}
 

@@ -2,10 +2,17 @@
 
 **Canonical repository:** [github.com/RichieSater/stringer-bound](https://github.com/RichieSater/stringer-bound) · **Archived release:** [doi:10.5281/zenodo.21850820](https://doi.org/10.5281/zenodo.21850820)
 
-All computations are Python 3.9+ with `mpmath`, `numpy`, `scipy`. Every
+The code is written for Python 3.9+, and the canonical reproducibility
+environment pins Python 3.12 and every dependency in the root
+`pyproject.toml` and `uv.lock`. Every
 certified binomial counterexample is decided by rational arithmetic;
 float64 appears in screening searches and in separately labeled numerical
-Poisson checks.
+Poisson checks. The all-sample-size Poisson-versus-binomial factor theorem
+at nominal confidence above \(1-e^{-1}\) is a written analytic result, not a
+numerical certificate; see `theory/POISSON-DOMINATION.md`. The \(n=3\)
+guarantee at 90%, 95%, and 99% is an exact computer-assisted theorem: its
+symbolic formulas and rational sign certificate are regenerated from
+independent source scripts; see `theory/N3-CONVENTIONAL.md`.
 
 ## Layers
 
@@ -14,6 +21,10 @@ Poisson checks.
 | `stringer.py` | Numerical factors for searches; for certification, dyadic binomial-factor intervals whose endpoint CDF signs are evaluated exactly with integers | proof-essential |
 | `coverage.py` / `coverage_exact` | Exact multinomial weights and rational propagation of factor intervals through every Stringer comparison | proof-essential |
 | `two_point_lemma.py` | Written proof that single-value supports cannot under-cover, plus machine checks | proof-essential |
+| `theory/N3-CONVENTIONAL.md` | Complete reduction of the \(n=3\) theorem to simplex-cap inequalities | proof-essential |
+| `derive_n3_bernstein_formulas.py` | Symbolically derives and regenerates the 42 middle-region Bernstein formulas from the cap volume | proof-essential |
+| `n3_gaffke_certificate.py` | Exact rational interval proof of every coefficient sign at 90%, 95%, and 99% | proof-essential |
+| `theory/POISSON-DOMINATION.md` | Written proof that practical-level Poisson factors dominate binomial factors for every sample size | proof-essential |
 | `certify.py` | The only source of claims: exact coverage, exact nominal comparison, margin certificate | proof-essential |
 | `search_two_value.py`, `search_multi_value.py` | float64 screening only | heuristic |
 | `bolshev.py` | Reproduces Bimpeh's Table 5.1 and demonstrates that his coverage bound (5.16) is not a coverage bound (`audit/BIMPEH-GAP.md`) | proof-essential |
@@ -21,32 +32,44 @@ Poisson checks.
 
 ## Commands
 
+From the repository root, the complete core check is:
+
 ```sh
-cd computations/python
+make reproduce
+```
+
+For individual computations:
+
+```sh
+# Exact n=3 theorem: derive formulas, then regenerate all sign certificates
+make n3-formula-check
+make n3-certificate-check
+
+cd supporting-materials/computations/python
 
 # Lemma: single-value supports; high-precision Poisson comparison
-python3 two_point_lemma.py --alpha 0.05 --n-max 40
+uv run --frozen python two_point_lemma.py --alpha 0.05 --n-max 40
 
 # Known finite-sample violation at low confidence (machinery true-positive)
-python3 search_two_value.py --alpha 0.7 --n 50 --out /tmp/c.json
-python3 certify.py /tmp/c.json    # expect CONFIRMED lines
+uv run --frozen python search_two_value.py --alpha 0.7 --n 50 --out /tmp/c.json
+uv run --frozen python certify.py /tmp/c.json    # expect CONFIRMED lines
 
 # The conjecture at 95% over two-value supports
-python3 search_two_value.py --alpha 0.05 --n 2 30 --range --out /tmp/c95.json
-python3 certify.py /tmp/c95.json  # expect "nothing to certify" if no dips
+uv run --frozen python search_two_value.py --alpha 0.05 --n 2 30 --range --out /tmp/c95.json
+uv run --frozen python certify.py /tmp/c95.json  # expect "nothing to certify" if no dips
 
 # Richer supports
-python3 search_multi_value.py --alpha 0.05 --m 3 --n 10 20 --out /tmp/c3.json
+uv run --frozen python search_multi_value.py --alpha 0.05 --m 3 --n 10 20 --out /tmp/c3.json
 
 # Exact-sign, interval-propagation, and table-generation regression tests
-python3 -m unittest discover -s ../tests -v
+uv run --frozen python -m unittest discover -s ../tests -v
 ```
 
 Certified run logs are committed under `computations/certificates/`.
 `summarize_certificates.py` regenerates the rows used in the manuscript:
 
 ```sh
-python3 summarize_certificates.py \
+uv run --frozen python summarize_certificates.py \
   --out ../certificates/certificate-summary.json
 ```
 
@@ -62,9 +85,29 @@ mean, certification stops and requests a finer dyadic grid. The numerical
 root locator affects speed only; its proposed bracket is checked exactly and
 an exact grid bisection is the fallback.
 
-Poisson-factor comparisons are high-precision numerical checks, not formal
-interval certificates; see
-`computations/certificates/poisson-domination-standard-levels.log`.
+The committed Poisson-factor comparison log is a high-precision regression
+check, not the proof of domination. The all-\(n\) theorem for
+\(\alpha<e^{-1}\) is proved analytically in
+`theory/POISSON-DOMINATION.md`. Outside that confidence range, no general
+domination claim is made; the log includes a case where domination fails.
+
+## The n = 3 theorem certificate
+
+The \(n=3\) proof is separate from both screening and finite-support
+counterexample certification. It first reduces pointwise domination of the
+valid Gaffke upper limit to three uniform-simplex cap inequalities. Two are
+polynomial nonnegativity problems on triangles and one reduces to a
+one-dimensional boundary polynomial.
+
+`derive_n3_bernstein_formulas.py` differentiates the middle cap formula,
+performs both triangle substitutions, and derives all 42 degree-five
+Bernstein coefficients with SymPy. `n3_gaffke_certificate.py` encloses the
+Clopper--Pearson factors on a \(2^{-120}\) dyadic grid, verifies every
+binomial-CDF endpoint sign with integer arithmetic, and propagates the
+enclosures through every coefficient using exact `Fraction` interval
+arithmetic. Floating point is used only for readable decimal summaries.
+The two committed JSON files are regenerated byte-for-byte by
+`make n3-formula-check n3-certificate-check`.
 
 ## What screening output does NOT establish
 
