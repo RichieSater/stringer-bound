@@ -5,8 +5,8 @@ tracing, primary-source reading including the full Bimpeh thesis, the
 2021 Statistical Papers MUS survey, the Dutch statistical-auditing essay
 collection, and the 2024 Balakrishnan–Rychlik monograph) tested each of
 the paper's novelty claims. Initial date: 2026-08-07; updated 2026-08-10
-for the new \(n=3\) theorem. Priority statements remain qualified by the
-scope and date of this search.
+for the new \(n=3\) and \(n=4\) theorems. Priority statements remain
+qualified by the scope and date of this search.
 
 ## Claim 1 — first unconditional finite-sample proof at n = 2: HOLDS, with a caveat now addressed
 
@@ -48,17 +48,18 @@ load-bearing for both claims and is machine-checked.
     still holds. The theorem is strictly stronger and self-contained.
     Check script: `computations/python/gaffke_domination_check.py`.
 
-## Claim 3 — exact conventional-level theorem at n = 3: NO PREDECESSOR FOUND
+## Claim 3 — exact conventional-level theorems at n = 3 and n = 4: NO PREDECESSOR FOUND
 
 The 2026 proof of Gaffke's test by Vlassis–Thomas and its bounded-mean
 inversion described by Learned-Miller–Thomas and Ming et al. supply a valid
 comparison limit. No source found in the review compares that limit
 pointwise with Stringer, proves the resulting uniform-simplex cap
 inequality, or establishes Stringer coverage at \(n=3\) and 90%, 95%, and
-99% confidence. The repository's contribution is the Stringer-specific
-comparison and exact rational Bernstein proof; validity of the Gaffke limit
-is credited to those sources. The manuscript does not make an unqualified
-priority claim for this result.
+99% confidence, much less the corresponding \(n=4\) result. The repository's
+contribution is the Stringer-specific comparison and exact rational
+Bernstein proofs; validity of the Gaffke limit is credited to those sources.
+The manuscript does not make an unqualified priority claim for these
+results.
 
 ## Claim 4 — all-n Poisson-over-binomial factor transfer: DERIVED FROM A CLASSICAL INEQUALITY
 

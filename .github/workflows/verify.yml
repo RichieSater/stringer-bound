@@ -34,7 +34,9 @@ jobs:
         run: make test
 
       - name: Regenerate symbolic and exact proof certificates
-        run: make proof-check n3-formula-check n3-certificate-check
+        run: |
+          make proof-check n3-formula-check n3-certificate-check \
+            n4-structure-check n4-certificate-check
 
       - name: Verify generated certificate summary and claim manifest
         run: make certificate-summary-check claim-manifest-check

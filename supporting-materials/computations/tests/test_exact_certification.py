@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 import sys
 import unittest
 from fractions import Fraction
@@ -126,6 +127,45 @@ class CertificateSummaryTests(unittest.TestCase):
                                  int(enclosure["upper"]["denominator"]))
                 self.assertLessEqual(lower, 0)
                 self.assertGreaterEqual(upper, 0)
+
+    def test_n4_conventional_level_certificate_artifact(self):
+        certificate_path = (PYTHON_DIR.parent / "certificates"
+                            / "n4-gaffke-certificate.json")
+        certificate = json.loads(certificate_path.read_text())
+        self.assertEqual(
+            [level["alpha"] for level in certificate["levels"]],
+            ["0.01", "0.05", "0.10"],
+        )
+        for level in certificate["levels"]:
+            self.assertIn("pointwise dominates", level["conclusion"])
+            minimum = level["minimum_positive_bernstein_coefficient"]
+            self.assertGreater(
+                Fraction(int(minimum["lower"]["numerator"]),
+                         int(minimum["lower"]["denominator"])),
+                0,
+            )
+        expected_region_minima = {
+            "0.01": ("3.10e-10", "4.78e-14", "5.84e-12"),
+            "0.05": ("3.47e-07", "2.66e-10", "4.60e-09"),
+            "0.10": ("7.74e-06", "1.18e-08", "7.93e-08"),
+        }
+        for level in certificate["levels"]:
+            observed = []
+            for region_name in ("A", "B", "C"):
+                tetrahedra = level["polynomial_regions"][region_name][
+                    "tetrahedra"]
+                minima = [
+                    Fraction(
+                        int(item["minimum_positive_coefficient"]["lower"]
+                            ["numerator"]),
+                        int(item["minimum_positive_coefficient"]["lower"]
+                            ["denominator"]),
+                    )
+                    for item in tetrahedra
+                ]
+                observed.append(f"{float(min(minima)):.2e}")
+            self.assertEqual(
+                tuple(observed), expected_region_minima[level["alpha"]])
 
     def test_generated_rows_match_the_manuscript_table(self):
         rows = summarize(default_paths())

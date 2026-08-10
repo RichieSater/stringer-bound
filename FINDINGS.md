@@ -8,23 +8,24 @@ Exact claims are backed by rational certificates or written proofs; search
 results are labeled as numerical evidence. See the README for the technical
 statements.*
 
-## 1. Exact conventional-level guarantees now reach n = 3
+## 1. Exact conventional-level guarantees now reach n = 4
 
-For samples of size **n = 3**, the binomial-factor Stringer bound is proved
-conservative for every taint distribution on [0,1] at **90%, 95%, and 99%
-nominal confidence**. The proof shows, sample by sample, that Stringer is no
-smaller than a valid distribution-free upper confidence limit for a bounded
-mean. Uniform-simplex cap inequalities are verified with exact rational
-Bernstein certificates; this is a computer-assisted proof, not a numerical
-search
-([proof and reproduction details](supporting-materials/theory/N3-CONVENTIONAL.md)).
+For samples of size **n = 3 and n = 4**, the binomial-factor Stringer bound
+is proved conservative for every taint distribution on [0,1] at **90%, 95%,
+and 99% nominal confidence**. The proofs show, sample by sample, that Stringer
+is no smaller than a valid distribution-free upper confidence limit for a
+bounded mean. Uniform-simplex cap inequalities are verified with exact
+rational Bernstein certificates; these are computer-assisted proofs, not
+numerical searches
+([n = 3 proof](supporting-materials/theory/N3-CONVENTIONAL.md),
+[n = 4 proof](supporting-materials/theory/N4-CONVENTIONAL.md)).
 
 The same guarantees hold for the Poisson-factor version used in professional
 MUS tables because those factors pointwise dominate the binomial factors at
 all three confidence levels. Together with the all-level theorem at n = 2,
-this makes **n = 4 the first unresolved sample size at 90%, 95%, and 99%**.
+this makes **n = 5 the first unresolved sample size at 90%, 95%, and 99%**.
 
-This is a meaningful finite-sample advance, but n = 3 is far smaller than an
+This is a meaningful finite-sample advance, but n = 4 is far smaller than an
 ordinary audit sample. It does not yet justify a change in audit guidance.
 
 ## 2. The general finite-sample guarantee remains open
@@ -32,16 +33,16 @@ ordinary audit sample. It does not yet justify a change in audit guidance.
 The Stringer bound is commonly expected to cover the population mean at
 least as often as its nominal confidence level, but the claim has not been
 proved for arbitrary sample size and arbitrary taint distributions. At 90%,
-95%, and 99%, the first open case is now n = 4; coverage for the larger sample
+95%, and 99%, the first open case is now n = 5; coverage for the larger sample
 sizes used in practice remains unresolved.
 
 A previous finite-sample certification (Bimpeh 2008: reliability through
 n = 11 at 95%) contains an index shift in its confidence-band argument. The
 cited argument therefore does not establish that range
 ([details](supporting-materials/audit/BIMPEH-GAP.md)). Proven cases now
-include n = 1; n = 2 at every confidence level; n = 3 at the three levels
-above; populations supported on {0,1}; and populations with one nonzero
-taint value
+include n = 1; n = 2 at every confidence level; n = 3 and n = 4 at the
+three levels above; populations supported on {0,1}; and populations with one
+nonzero taint value
 ([proof](supporting-materials/computations/python/two_point_lemma.py)).
 
 ## 3. No violation was found in the reported 90% and 95% searches
@@ -51,8 +52,8 @@ taint values (n up to 100 in the reported standard-confidence searches)
 found no coverage below nominal. The smallest values found were close to
 nominal in the examined parameter ranges, with near-minimizers occurring as
 the largest taint approaches 1. These are numerical search results, not an
-exhaustive proof. The exact n = 2 and n = 3 results above do not depend on
-these searches.
+exhaustive proof. The exact n = 2, n = 3, and n = 4 results above do not
+depend on these searches.
 
 ## 4. Practical-level Poisson factor domination is proved for every n
 
@@ -122,5 +123,5 @@ uniform positive safety margin above nominal.
 
 The proof uses a change of variables that turns the bound into a weighted
 order-statistic inequality, followed by a rectangle-and-budget argument.
-The n = 3 proof uses a different, geometric route. Extending that
-simplex-cap comparison to n = 4 is the repository's next mathematical target.
+The n = 3 and n = 4 proofs use a different, geometric route. Extending that
+simplex-cap comparison to n = 5 is the repository's next mathematical target.

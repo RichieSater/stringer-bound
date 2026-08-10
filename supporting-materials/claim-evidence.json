@@ -96,7 +96,48 @@
       "verification_commands": [
         "make n3-formula-check n3-certificate-check"
       ],
-      "limitations": "This is an exact computer-assisted theorem only for n=3 and the three specified alpha values. It relies on the published finite-sample validity of the Gaffke test and does not establish every confidence level at n=3 or any n>=4."
+      "limitations": "This is an exact computer-assisted theorem only for n=3 and the three specified alpha values. It relies on the published finite-sample validity of the Gaffke test and does not establish every confidence level at n=3."
+    },
+    {
+      "id": "binomial-n4-conventional-conservatism",
+      "classification": "proved_theorem",
+      "statement": "For n=4 and alpha in {0.10, 0.05, 0.01}, the binomial-factor Stringer bound pointwise dominates the valid Gaffke bounded-mean upper confidence limit and therefore has coverage at least 1-alpha for every distribution on [0,1].",
+      "manuscript_labels": [
+        "sec:n3",
+        "thm:n4",
+        "tab:n4certificate"
+      ],
+      "evidence": [
+        {
+          "path": "supporting-materials/theory/N4-CONVENTIONAL.md",
+          "role": "complete reduction from Gaffke validity to the four certified simplex-cap regions",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/certificates/n4-gaffke-bernstein-structure.json",
+          "role": "machine-readable exact residual polynomials, tetrahedral substitutions, and structural-zero indices",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/python/derive_n4_bernstein_structure.py",
+          "role": "exact symbolic regeneration of the residual factorizations and tetrahedral Bernstein structure",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/certificates/n4-gaffke-certificate.json",
+          "role": "exact rational factor brackets and coefficient-sign certificate at all three levels",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/python/n4_gaffke_certificate.py",
+          "role": "integer endpoint checks and exact Fraction interval propagation",
+          "trust": "proof_essential"
+        }
+      ],
+      "verification_commands": [
+        "make n4-structure-check n4-certificate-check"
+      ],
+      "limitations": "This is an exact computer-assisted theorem only for n=4 and the three specified alpha values. It relies on the published finite-sample validity of the Gaffke test and does not establish every confidence level at n=4 or any n>=5."
     },
     {
       "id": "poisson-practical-factor-domination",
@@ -126,7 +167,7 @@
     {
       "id": "poisson-proved-small-n-coverage",
       "classification": "proved_theorem",
-      "statement": "The Poisson-factor Stringer bound is distribution-free conservative at n=2 for alpha<exp(-1), and at n=3 for alpha in {0.10, 0.05, 0.01}.",
+      "statement": "The Poisson-factor Stringer bound is distribution-free conservative at n=2 for alpha<exp(-1), and at n=3 and n=4 for alpha in {0.10, 0.05, 0.01}.",
       "manuscript_labels": [
         "cor:poissoncoverage"
       ],
@@ -145,12 +186,17 @@
           "path": "supporting-materials/theory/N3-CONVENTIONAL.md",
           "role": "binomial coverage theorem at n=3 for the three specified levels",
           "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/theory/N4-CONVENTIONAL.md",
+          "role": "binomial coverage theorem at n=4 for the three specified levels",
+          "trust": "proof_essential"
         }
       ],
       "verification_commands": [
-        "make proof-check n3-certificate-check"
+        "make proof-check n3-certificate-check n4-certificate-check"
       ],
-      "limitations": "The n=2 transfer is stated only in the range covered by the all-n factor-domination theorem. The n=3 statement covers only 90%, 95%, and 99%; it is not a general-n audit-practice guarantee."
+      "limitations": "The n=2 transfer is stated only in the range covered by the all-n factor-domination theorem. The n=3 and n=4 statements cover only 90%, 95%, and 99%; they are not general-n audit-practice guarantees."
     },
     {
       "id": "one-nonzero-taint-value",
@@ -284,7 +330,7 @@
     {
       "id": "general-n-standard-confidence-status",
       "classification": "date_stamped_literature_status",
-      "statement": "General finite-sample coverage for arbitrary n and arbitrary taint distributions at conventional confidence levels remains unresolved in the reviewed literature; at 90%, 95%, and 99%, this repository resolves n<=3 and leaves n=4 as the first open sample size.",
+      "statement": "General finite-sample coverage for arbitrary n and arbitrary taint distributions at conventional confidence levels remains unresolved in the reviewed literature; at 90%, 95%, and 99%, this repository resolves n<=4 and leaves n=5 as the first open sample size.",
       "manuscript_labels": [
         "eq:conj"
       ],
@@ -296,7 +342,7 @@
         }
       ],
       "verification_commands": [],
-      "limitations": "This is a qualified, date-stamped literature conclusion, not a mathematical theorem or a guarantee of exhaustive priority searching. The n=3 proof covers only the three specified confidence levels."
+      "limitations": "This is a qualified, date-stamped literature conclusion, not a mathematical theorem or a guarantee of exhaustive priority searching. The n=3 and n=4 proofs cover only the three specified confidence levels."
     }
   ]
 }

@@ -4,9 +4,10 @@
 > theorem — see [`N2-PROOF.md`](N2-PROOF.md) for the complete proof
 > (all F, all confidence levels). This note is kept as the derivation
 > of the reformulation and the record of the partial results that led
-> there. A separate Gaffke/simplex-cap argument now proves the cases
-> n = 3 at 90%, 95%, and 99%; see
-> [`N3-CONVENTIONAL.md`](N3-CONVENTIONAL.md).**
+> there. Separate Gaffke/simplex-cap arguments now prove the cases
+> n = 3 and n = 4 at 90%, 95%, and 99%; see
+> [`N3-CONVENTIONAL.md`](N3-CONVENTIONAL.md) and
+> [`N4-CONVENTIONAL.md`](N4-CONVENTIONAL.md).**
 
 *Everything in this note is elementary algebra plus case analysis; each
 claim states its verification status. Nothing here is a proof of the
