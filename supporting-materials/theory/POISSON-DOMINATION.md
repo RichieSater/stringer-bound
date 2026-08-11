@@ -112,6 +112,13 @@ It does **not** prove general-(n) conservatism, because pointwise
 domination alone cannot supply the still-unproved binomial-factor
 coverage guarantee for arbitrary distributions when (n\ge3).
 
+A separate corrected simultaneous-band argument proves direct Poisson
+coverage for every `n<=8` at 90%, every `n<=11` at 95%, and every `n<=20`
+at 99% confidence; see
+[`POISSON-SIMULTANEOUS-BAND.md`](POISSON-SIMULTANEOUS-BAND.md). That result
+does not rely on transferring a binomial theorem and likewise does not claim
+general-`n` coverage.
+
 ## Source
 
 T. W. Anderson and S. M. Samuels, “Some inequalities among binomial and

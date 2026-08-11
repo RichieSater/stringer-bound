@@ -5,7 +5,8 @@ tracing, primary-source reading including the full Bimpeh thesis, the
 2021 Statistical Papers MUS survey, the Dutch statistical-auditing essay
 collection, and the 2024 Balakrishnan–Rychlik monograph) tested each of
 the paper's novelty claims. Initial date: 2026-08-07; updated 2026-08-11
-for the new results through \(n=5\). Priority statements remain
+for the new results through \(n=5\) and the direct Poisson coverage ranges.
+Priority statements remain
 qualified by the scope and date of this search.
 
 ## Claim 1 — first unconditional finite-sample proof at n = 2: HOLDS, with a caveat now addressed
@@ -69,7 +70,19 @@ parts to compare the complete Stringer bounds for every observed sample.
 This should be presented as a new audit-specific consequence of a classical
 inequality, not as a new probability inequality.
 
-## Claim 5 — first identification of Bimpeh's error: HOLDS, strongly
+## Claim 5 — direct Poisson simultaneous-band ranges: NO PREDECESSOR FOUND
+
+The proof combines a standard randomized probability integral transform,
+the correctly shifted survival-band constraints, and Bolshev's classical
+uniform-order-statistic recursion. No reviewed Stringer source applies that
+corrected event to the untruncated Poisson audit factors or obtains the
+level-dependent ranges \(n\le8\), \(n\le11\), and \(n\le20\). The exact
+rational treatment of the Poisson limits and event probabilities is also new
+in the reviewed literature. Because the ingredients are classical and the
+priority search was not exhaustive, the manuscript states the theorem
+without an unqualified first-priority claim.
+
+## Claim 6 — first identification of Bimpeh's error: HOLDS, strongly
 
 The thesis has exactly one recorded citation (a 2019 paper with no
 engagement with ch. 5); no published criticism, correction, or erratum
@@ -78,7 +91,7 @@ chapter-5 material. The error went unnoticed for 18 years; this
 repository is the thesis's first substantive engagement in the
 literature.
 
-## Claim 6 — first exact explicit counterexample parameters: HOLDS
+## Claim 7 — first exact explicit counterexample parameters: HOLDS
 
 The only published counterexamples remain Pap–van Zuijlen 1995
 (uniform-type taints, existence via recursions, α > 1/2, n > 16); every

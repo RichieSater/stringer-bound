@@ -46,6 +46,14 @@ this repository prove that the rule is ordinary Stringer on every possible
 sample.  At other sample sizes, the Gaffke component is a valid floor while
 the Stringer conjecture remains open.
 
+A separate theorem validates the ordinary **Poisson-factor** Stringer bound
+for every `n<=8` at 90%, every `n<=11` at 95%, and every `n<=20` at 99%
+confidence. It uses a corrected simultaneous survival band rather than the
+Gaffke comparison. Consequently, it proves coverage in those ranges but does
+not assert that the safeguard's Gaffke component is pointwise inactive there.
+Beyond those ranges, the safeguard remains the proved all-sample-size option
+under the stated model.
+
 ## Reproducible command
 
 From the repository root, with zero taints omitted from the input list but
@@ -141,8 +149,10 @@ controls.
 ## Relationship to the research program
 
 The safeguard creates an all-sample-size valid reporting option, but it does
-not end the mathematical program.  Proving ordinary Stringer conservative at
-conventional levels for all `n` could show that the floor is never active and
-would directly validate existing practice.  Extending the exact pointwise
-comparison beyond `n=5`, or finding a dimension-free simplex-cap argument,
-therefore remains the central theoretical objective.
+not end the mathematical program. Proving ordinary Stringer conservative at
+conventional levels for all `n` would validate the familiar calculation
+without the floor and could show that the floor is never active. The direct
+Poisson theorem now reaches `n=8`, `n=11`, and `n=20` at 90%, 95%, and 99%,
+respectively, but audit sample sizes can be larger. Extending the
+exact pointwise comparison beyond `n=5`, or finding a dimension-free
+simplex-cap argument, therefore remains the central theoretical objective.

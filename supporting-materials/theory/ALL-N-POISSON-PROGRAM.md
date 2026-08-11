@@ -5,6 +5,13 @@
 > continues to state that ordinary Stringer coverage is unresolved for
 > arbitrary `n`.
 
+A separate corrected simultaneous-band argument now proves ordinary Poisson
+Stringer coverage for every `n<=8` at 90%, every `n<=11` at 95%, and every
+`n<=20` at 99% confidence; see
+[`POISSON-SIMULTANEOUS-BAND.md`](POISSON-SIMULTANEOUS-BAND.md). The sufficient
+band event is already below nominal at the next sample size in each row, so
+that finite-range theorem does not replace the dimension-free program here.
+
 An all-sample-size theorem for the Poisson factors used in audit practice
 would have substantially greater practice relevance than extending the exact
 Bernstein certificates one dimension at a time.  The reductions below turn

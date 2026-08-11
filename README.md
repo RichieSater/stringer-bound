@@ -42,16 +42,21 @@ repository states which variant it uses.
 
 ## Status
 
-**Exact finite-sample guarantees now reach \(n=5\). The \(n=2\) bound is
-proved conservative for every taint distribution and every confidence level
+**Exact binomial-factor guarantees now reach \(n=5\), while direct
+Poisson-factor guarantees reach \(n=8\) at 90%, \(n=11\) at 95%, and
+\(n=20\) at 99% confidence.** The \(n=2\) bound is proved conservative for
+every taint distribution and every confidence level
 ([`N2-PROOF.md`](supporting-materials/theory/N2-PROOF.md)). From \(n=3\)
 through \(n=5\), exact computer-assisted proofs establish conservatism at 90%,
 95%, and 99% confidence
 ([`N3-CONVENTIONAL.md`](supporting-materials/theory/N3-CONVENTIONAL.md),
 [`N4-CONVENTIONAL.md`](supporting-materials/theory/N4-CONVENTIONAL.md),
 and [`N5-CONVENTIONAL.md`](supporting-materials/theory/N5-CONVENTIONAL.md)).
-At those three levels, \(n=6\) is the first unresolved sample size. The
-general-\(n\) conjecture at 95% remains open.**
+For the binomial factors, \(n=6\) is the first unresolved sample size at
+those levels. A separate corrected simultaneous-band proof establishes the
+larger Poisson ranges
+([`POISSON-SIMULTANEOUS-BAND.md`](supporting-materials/theory/POISSON-SIMULTANEOUS-BAND.md)).
+The general-\(n\) conjecture at 95% remains open.
 
 **A validated all-sample-size reporting safeguard is also available.**
 Pre-specify the reported upper bound as the maximum of the familiar
@@ -106,6 +111,18 @@ certificate or a written proof:
   guarantees at \(n=2\), and from \(n=3\) through \(n=5\) for 90%, 95%, and
   99%, to the Poisson-factor bound.
 
+- **Direct Poisson-factor coverage beyond \(n=5\)**
+  ([`POISSON-SIMULTANEOUS-BAND.md`](supporting-materials/theory/POISSON-SIMULTANEOUS-BAND.md)):
+  a corrected simultaneous survival-band event proves distribution-free
+  coverage for every \(n\le8\) at 90%, every \(n\le11\) at 95%, and every
+  \(n\le20\) at 99% confidence. The proof includes atomic distributions via
+  a randomized probability integral transform. Poisson limits have exact
+  dyadic brackets whose endpoint signs are certified with rational
+  exponential-series bounds, and the uniform-order-statistic event is
+  evaluated exactly by Bolshev's recursion. The event falls below nominal at
+  the next sample size in each row; that limits this proof route, not the
+  Stringer bound.
+
 - **All-sample-size safeguarded reporting rule**
   ([`GAFFKE-SAFEGUARD.md`](supporting-materials/theory/GAFFKE-SAFEGUARD.md)):
   for either factor convention, report
@@ -151,9 +168,9 @@ certificate or a written proof:
   supports. Single-value populations already reach exact coverage
   \(0.9500302\) (\(n=10\), \(v=1\), \(q=0.85\)).
 
-**Next steps**: determine whether the Gaffke/simplex-cap comparison extends
-to \(n=6\), where direct Bernstein certification becomes substantially
-larger; pursue the two dimension-free weighted-exponential and
+**Next steps**: determine whether the binomial Gaffke/simplex-cap comparison
+extends to \(n=6\), where direct Bernstein certification becomes
+substantially larger; pursue the two dimension-free weighted-exponential and
 Dirichlet-Poissonization inequalities isolated in
 [`ALL-N-POISSON-PROGRAM.md`](supporting-materials/theory/ALL-N-POISSON-PROGRAM.md);
 and develop a
@@ -187,6 +204,7 @@ supporting-materials/
 │   ├── N4-CONVENTIONAL.md    exact n=4 proof at 90%, 95%, and 99%
 │   ├── N5-CONVENTIONAL.md    exact n=5 proof at 90%, 95%, and 99%
 │   ├── POISSON-DOMINATION.md all-n practical-level factor comparison
+│   ├── POISSON-SIMULTANEOUS-BAND.md direct exact Poisson coverage ranges
 │   ├── GAFFKE-SAFEGUARD.md   all-n valid reporting floor and exact computation
 │   └── ALL-N-POISSON-PROGRAM.md exact reductions for the open all-n target
 └── computations/python/
@@ -207,6 +225,8 @@ supporting-materials/
     │                         exact n=5 residual, face-ideal, and four-simplex structure
     ├── n5_gaffke_certificate.py
     │                         directed-dyadic n=5 sign certificate
+    ├── poisson_band_certificate.py
+    │                         exact Poisson limits + boundary-crossing proof
     ├── gaffke.py             exact-sign Gaffke endpoint + safeguarded report
     ├── all_n_poisson_reductions.py
     │                         exact algebra and rejected-shortcut check for all-n route
@@ -225,7 +245,8 @@ make reproduce
 ```
 
 This runs the unit tests, the \(n=2\) symbolic proof checker, the exact
-algebra checks for the explicitly open all-\(n\) Poisson route, source
+Poisson simultaneous-band certificate, the algebra checks for the explicitly
+open all-\(n\) Poisson route, source
 regeneration of the \(n=3\) through \(n=5\) Bernstein structures and exact
 sign certificates, the generated counterexample-table check,
 claim-to-evidence link validation, and the manuscript build. Individual

@@ -245,6 +245,48 @@
       "limitations": "The n=2 transfer is stated only in the range covered by the all-n factor-domination theorem. The n=3 through n=5 statements cover only 90%, 95%, and 99%; they are not general-n audit-practice guarantees."
     },
     {
+      "id": "poisson-simultaneous-band-coverage",
+      "classification": "proved_theorem",
+      "statement": "For arbitrary distributions on [0,1], the Poisson-factor Stringer bound has coverage at least 1-alpha for every n<=8 at 90%, every n<=11 at 95%, and every n<=20 at 99% nominal confidence.",
+      "manuscript_labels": [
+        "lem:poissonband",
+        "thm:poissonband",
+        "eq:bolshev-corrected"
+      ],
+      "evidence": [
+        {
+          "path": "supporting-materials/theory/POISSON-SIMULTANEOUS-BAND.md",
+          "role": "complete randomized-survival-band reduction and exact-certificate specification",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/python/poisson_band_certificate.py",
+          "role": "exact Fraction evaluation of Poisson-limit signs and Bolshev boundary-crossing probabilities",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/certificates/poisson-simultaneous-band-certificate.json",
+          "role": "machine-readable exact dyadic limit brackets and rational probability comparisons for every claimed sample size",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/python/stringer.py",
+          "role": "exact rational exponential enclosures and dyadic Poisson-limit brackets",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/tests/test_poisson_band_certificate.py",
+          "role": "special-case, endpoint-sign, frontier, and next-size regression tests",
+          "trust": "corroboration_only"
+        }
+      ],
+      "verification_commands": [
+        "make poisson-band-certificate-check",
+        "make test"
+      ],
+      "limitations": "This is a finite-range theorem for the Poisson factors, not a general-n result and not a new binomial-factor guarantee beyond n=5. The sufficient simultaneous-band event is certified below nominal at n=9, 12, and 21 for 90%, 95%, and 99%, respectively; that limits this proof route but does not show Stringer undercoverage. The model assumes independent observations with a common distribution on [0,1]."
+    },
+    {
       "id": "all-n-stringer-gaffke-safeguard",
       "classification": "proved_theorem",
       "statement": "For every n and alpha in (0,1), the pre-specified maximum of either Stringer factor convention and the valid Gaffke bounded-mean upper limit has coverage at least 1-alpha for independent [0,1]-valued observations with a common mean.",
@@ -406,7 +448,7 @@
     {
       "id": "general-n-standard-confidence-status",
       "classification": "date_stamped_literature_status",
-      "statement": "General finite-sample coverage for arbitrary n and arbitrary taint distributions at conventional confidence levels remains unresolved in the reviewed literature; at 90%, 95%, and 99%, this repository resolves n<=5 and leaves n=6 as the first open sample size.",
+      "statement": "General finite-sample coverage for arbitrary n and arbitrary taint distributions at conventional confidence levels remains unresolved in the reviewed literature. At 90%, 95%, and 99%, this repository proves the binomial-factor result through n=5 and the Poisson-factor result through n=8, n=11, and n=20, respectively.",
       "manuscript_labels": [
         "eq:conj"
       ],
@@ -420,12 +462,17 @@
           "path": "supporting-materials/theory/ALL-N-POISSON-PROGRAM.md",
           "role": "exact reduction of a possible all-n Poisson proof to two explicitly unproved quantile inequalities",
           "trust": "corroboration_only"
+        },
+        {
+          "path": "supporting-materials/theory/POISSON-SIMULTANEOUS-BAND.md",
+          "role": "proved finite Poisson ranges and exact limitation of the sufficient-event route",
+          "trust": "proof_essential"
         }
       ],
       "verification_commands": [
         "make all-n-reduction-check"
       ],
-      "limitations": "This is a qualified, date-stamped literature conclusion, not a mathematical theorem or a guarantee of exhaustive priority searching. The n=3 through n=5 proofs cover only the three specified confidence levels."
+      "limitations": "This is a qualified, date-stamped literature conclusion, not a mathematical theorem or a guarantee of exhaustive priority searching. The binomial n=3 through n=5 proofs and the level-dependent Poisson ranges cover only the three specified confidence levels."
     }
   ]
 }

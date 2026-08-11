@@ -15,7 +15,7 @@
 \newcommand{\pr}{\mathbb{P}}
 \newcommand{\E}{\mathbb{E}}
 
-\title{Finite-sample conservatism of the Stringer bound: sharpness at $n=2$ and conventional confidence levels through $n=5$}
+\title{Finite-sample conservatism of the Stringer bound: sharpness at $n=2$ and certified guarantees at conventional confidence levels}
 \author{Richie Sater\\
 \small Independent researcher, Silver Spring, Maryland, USA\\
 \small \texttt{richiesater@gmail.com}}
@@ -32,34 +32,28 @@ binomial factors is conservative for every distribution on $[0,1]$ and
 every nominal confidence level. The result is sharp: the supremum of the
 noncoverage probability is $\alpha$, although no distribution attains
 it. At $n=3$, $n=4$, and $n=5$, exact Bernstein certificates prove
-conservatism at $90\%$, $95\%$, and $99\%$ nominal confidence. The proofs
-establish pointwise domination of a recently validated distribution-free
-bound for the mean of a bounded variable. For arbitrary sample size, the
-maximum of Stringer and this valid comparison bound is therefore a
-distribution-free safeguarded report; it agrees with ordinary Stringer
-whenever the pointwise comparison holds. At every sample size and every
-nominal confidence level greater than
-$1-e^{-1}\approx63.2\%$, the Poisson factors used in audit practice
-dominate the binomial factors coordinatewise and therefore give a
-pointwise no-smaller Stringer bound. We also give explicit finite-sample
-counterexamples at larger sample
-sizes and low nominal confidence levels. At selected nominal confidence
-levels between $30\%$ and $37\%$, and for sample sizes between $50$ and
-$400$, exact rational certificates show that coverage falls below the
-nominal level. In searches at $50\%$,
-$90\%$, and $95\%$, we found no violations; the smallest coverage found
-agreed with nominal coverage to within $10^{-10}$. Finally, we revisit a
-previous finite-sample certification and identify an index shift in its
-band-containment argument. The corrected containment event has
-probability at most $1-\alpha$, so that argument cannot establish the
-desired coverage guarantee. These results establish distribution-free
-finite-sample conservatism at every level for $n=2$, establish exact
-conventional-level guarantees through $n=5$, provide explicit certified failures
-at larger $n$, and narrow the unresolved finite-sample regime.
+binomial-factor conservatism at $90\%$, $95\%$, and $99\%$ nominal
+confidence. For the Poisson factors used in audit practice, a corrected
+simultaneous-survival-band argument and exact rational boundary-crossing
+certificates establish conservatism for every $n\le8$ at $90\%$, every
+$n\le11$ at $95\%$, and every $n\le20$ at $99\%$ confidence. For arbitrary
+sample size, the maximum of Stringer and a validated distribution-free
+bounded-mean limit supplies a safeguarded report. We also give explicit
+finite-sample counterexamples at larger sample sizes and low nominal
+confidence levels. At selected nominal confidence levels between $30\%$
+and $37\%$, and for sample sizes between $50$ and $400$, exact rational
+certificates show that binomial-factor coverage falls below nominal. In
+searches at $50\%$, $90\%$, and $95\%$, we found no violations; the
+smallest coverage found agreed with nominal coverage to within $10^{-10}$.
+Finally, we identify an index shift in a previous finite-sample
+certification. These results give sharp distribution-free theory at
+$n=2$, extend proved conventional-level coverage for the factors used in
+practice, and narrow the unresolved finite-sample regime.
 \end{abstract}
 
 \noindent\textbf{Keywords:} Stringer bound; finite-sample coverage;
-bounded means; monetary-unit sampling; Clopper--Pearson limits.
+bounded means; monetary-unit sampling; Poisson confidence factors;
+simultaneous bands; Clopper--Pearson limits.
 
 \section{Introduction}
 
@@ -136,12 +130,15 @@ Stringer and the valid Gaffke limit
 retains Stringer whenever it is larger and has distribution-free coverage
 without assuming the unresolved conjecture.
 
-\emph{(3) An all-$n$ comparison of the factors used in practice}
+\emph{(3) Guarantees for the factors used in practice}
 (Section~\ref{sec:poisson}). Whenever nominal confidence exceeds
 $1-e^{-1}\approx63.2\%$, the Poisson factors dominate the binomial
 factors coordinatewise for every $n$. A summation-by-parts identity then
 shows that the Poisson-factor Stringer bound is pointwise no smaller on
-every observed sample.
+every observed sample. A separate corrected simultaneous-band argument,
+certified by exact rational boundary-crossing calculations, proves
+Poisson-factor coverage for every $n\le8$ at $90\%$, every $n\le11$ at
+$95\%$, and every $n\le20$ at $99\%$ confidence.
 
 \emph{(4) Exact counterexamples at low confidence}
 (Section~\ref{sec:counter}). Thirty-three certified three-point
@@ -941,13 +938,135 @@ Combine Proposition~\ref{prop:poissondomination} with
 Theorems~\ref{thm:n2}, \ref{thm:n3}, \ref{thm:n4}, and \ref{thm:n5}.
 \end{proof}
 
+The factor comparison is not the only route to a Poisson guarantee. The
+following lemma uses a simultaneous survival band with the index required
+at the right side of each sample point.
+
+\begin{lemma}[Simultaneous-band lower bound]\label{lem:poissonband}
+Let $T_1,\ldots,T_n$ be i.i.d.\ with common distribution $F$ on $[0,1]$
+and mean $\mu$, and let $t_{(1)}\ge\cdots\ge t_{(n)}$ be the observed order
+statistics. Let $0\le c_0\le\cdots\le c_n$ with $c_n\ge1$, and form
+\[
+L_c=c_0+\sum_{j=1}^n(c_j-c_{j-1})t_{(j)}.
+\]
+Put $a_i=\min\{1,c_{i-1}\}$ and let
+\[
+Q_n(a_1,\ldots,a_n)
+=\Pr\{V_{i:n}\le a_i,\ i=1,\ldots,n\},
+\]
+where $V_{1:n}\le\cdots\le V_{n:n}$ are uniform order statistics. Then
+\[
+\Pr_F\{L_c\ge\mu\}\ge Q_n(a_1,\ldots,a_n).
+\]
+\end{lemma}
+
+\begin{proof}
+Write $G(x)=\Pr_F\{T>x\}$ and
+$N_x=\#\{r:T_r>x\}$. Apart from the finitely many sampled values, which
+do not affect the integral,
+\begin{equation}\label{eq:integral-band}
+L_c=\int_0^1c_{N_x}\,dx,
+\qquad \mu=\int_0^1G(x)\,dx.
+\end{equation}
+To include atomic $F$, augment the experiment with independent
+$R_r\sim\operatorname{Unif}(0,1)$ and define
+\[
+V_r=\Pr_F\{T>T_r\}+R_r\Pr_F\{T=T_r\}.
+\]
+The randomized probability integral transform makes the $V_r$ i.i.d.
+uniform. If $N_x=j<n$, the $j$ observations above $x$ have $V_r\le G(x)$
+and the remaining observations have $V_r\ge G(x)$. Hence
+$G(x)\le V_{j+1:n}$. On the event in the definition of $Q_n$, this gives
+$G(x)\le a_{j+1}\le c_j$. If $N_x=n$, use $G(x)\le1\le c_n$.
+Integration in \eqref{eq:integral-band} proves the event inclusion and
+hence the result. The coverage event depends only on the original sample,
+so its probability in the augmented experiment is its ordinary sampling
+probability.
+\end{proof}
+
+For nondecreasing boundaries $a_1,\ldots,a_n$, Bolshev's recursion
+\cite[pp.~366--367]{shorackwellner1986} evaluates the probability in the
+lemma exactly. With $Q_0=1$, it is
+\begin{equation}\label{eq:bolshev-corrected}
+Q_m=1-\sum_{i=1}^m\binom mi(1-a_{m-i+1})^iQ_{m-i},
+\qquad m=1,\ldots,n.
+\end{equation}
+
+\begin{theorem}[Poisson guarantees beyond $n=5$]
+\label{thm:poissonband}
+Let the observations be i.i.d.\ with an arbitrary common distribution $F$
+on $[0,1]$. The Poisson-factor Stringer bound is conservative throughout
+the following ranges:
+\[
+\begin{array}{c|c}
+\text{nominal confidence}&\text{every certified sample size}\\ \hline
+90\%&1\le n\le8\\
+95\%&1\le n\le11\\
+99\%&1\le n\le20.
+\end{array}
+\]
+The conclusion also holds if the Poisson factors are capped at one before
+forming the bound.
+\end{theorem}
+
+\begin{proof}
+Use Lemma~\ref{lem:poissonband} with
+$c_j=p_n^{\mathrm P}(j)=\lambda_j/n$; these factors are increasing in $j$.
+At the listed levels,
+$\alpha<e^{-1}$, so $\lambda_n>n+1$ by the argument in
+Proposition~\ref{prop:poissondomination}; hence $c_n>1$.
+
+For each required $j$, the certificate encloses $\lambda_j$ between
+adjacent dyadic rationals $L_j<U_j$ on the grid $2^{-80}\mathbb Z$.
+The endpoint signs
+\[
+e^{-L_j}\sum_{k=0}^j\frac{L_j^k}{k!}>\alpha,
+\qquad
+e^{-U_j}\sum_{k=0}^j\frac{U_j^k}{k!}<\alpha
+\]
+are checked with exact rational bounds for the exponential. Thus
+$L_j<\lambda_j<U_j$. Substitution of the smaller boundaries
+$a_i^- =\min\{1,L_{i-1}/n\}$ into
+\eqref{eq:bolshev-corrected} gives an exact rational lower bound for the
+event probability in Lemma~\ref{lem:poissonband}. The certificate checks
+every positive $n$ in the three stated ranges. At the largest $n$ its
+lower bounds are as follows; the displayed decimals summarize exact
+rationals.
+\begin{center}
+\begin{tabular}{rrrr}
+\toprule
+$\alpha$ & largest $n$ & $Q_n(a_1^-,\ldots,a_n^-)$
+& margin over $1-\alpha$\\
+\midrule
+$0.10$ & $8$  & $0.9028501343687063$ & $0.0028501343687063$\\
+$0.05$ & $11$ & $0.9532937128380234$ & $0.0032937128380234$\\
+$0.01$ & $20$ & $0.9906297230587641$ & $0.0006297230587641$\\
+\bottomrule
+\end{tabular}
+\end{center}
+Lemma~\ref{lem:poissonband} completes the proof. Replacing each $c_j$ by
+$\min(1,c_j)$ preserves the same pointwise-band argument.
+\end{proof}
+
+All arithmetic in this certificate is exact. After power-of-two range
+reduction to $[0,1]$, consecutive odd and even partial sums of the
+alternating exponential series enclose $e^{-x}$; the code then evaluates
+\eqref{eq:bolshev-corrected} with rational arithmetic. At the next sample
+size, even the upper endpoint brackets give simultaneous-event probabilities
+$0.8903656999$, $0.9482646529$, and $0.9899786984$, respectively, each
+below nominal. This limits the sufficient-event proof, not the Stringer
+bound: the integral inequality can hold when the pointwise band crosses
+$G$.
+
 Thus the factor comparison previously checked numerically at $90\%$ and
 $95\%$ is analytic and holds at every sample size. In particular,
 Theorem~\ref{thm:n2} implies finite-sample conservatism of the
 Poisson-factor Stringer bound at $n=2$ throughout this confidence range.
 Theorems~\ref{thm:n3}, \ref{thm:n4}, and \ref{thm:n5} give the same
 conclusion at $n=3$, $n=4$, and $n=5$ for the three certified
-conventional levels.
+conventional levels. Theorem~\ref{thm:poissonband} extends the proved
+Poisson ranges to $n=8$, $n=11$, and $n=20$ at $90\%$, $95\%$, and
+$99\%$, respectively.
 More generally, any distributional class for which the binomial-factor
 bound is proved conservative inherits the same conclusion for the
 Poisson-factor bound. Proposition~\ref{prop:poissondomination} does not,
@@ -1208,9 +1327,10 @@ survival-integral budget, and a concave potential with equal endpoint
 values. The $n=3$, $n=4$, and $n=5$ proofs use a different route: they compare
 Stringer with a valid Dirichlet-average bound and certify the resulting
 simplex-cap inequalities. In higher dimensions, the analogous pointwise comparison is
-a concrete geometric problem for caps of a uniform simplex. At $90\%$,
-$95\%$, and $99\%$ confidence, $n=6$ is now the first unresolved sample
-size. A dimension-free route recorded in the repository writes the Poisson
+a concrete geometric problem for caps of a uniform simplex. For the
+binomial factors at $90\%$, $95\%$, and $99\%$ confidence, $n=6$ is now
+the first unresolved sample size. A dimension-free route recorded in the
+repository writes the Poisson
 bound as an ordered interpolation of gamma quantiles and reduces its
 pointwise Gaffke comparison to two high-quantile inequalities for weighted
 exponentials and uniform Dirichlet averages. Those inequalities remain
@@ -1227,8 +1347,12 @@ $1-\alpha$. Theorems~\ref{thm:n3}, \ref{thm:n4}, and \ref{thm:n5}
 supply exact guarantees at the three conventional levels for $n=3$,
 $n=4$, and $n=5$. At conventional confidence levels, the Poisson version
 pointwise dominates the binomial version by
-Proposition~\ref{prop:poissondomination}; the reported Poisson searches
-also retain a positive but decreasing numerical cushion. The certified examples show that
+Proposition~\ref{prop:poissondomination}. The corrected simultaneous-band
+argument in Theorem~\ref{thm:poissonband} extends the rigorous Poisson
+guarantees to every $n\le8$ at $90\%$, every $n\le11$ at $95\%$, and every
+$n\le20$ at $99\%$ confidence; the reported Poisson searches at larger
+sizes retain a positive but decreasing numerical cushion. The certified
+examples show that
 anti-conservatism can occur at several nominal confidence levels below
 $50\%$, at sample sizes $n=50,100,200,$ and $400$. Coverage for ordinary
 audit sample sizes at conventional confidence remains an open problem, so
@@ -1246,8 +1370,9 @@ The repository contains exact rational coverage calculations, margin
 certificates, exact-sign dyadic enclosures for the binomial confidence
 factors, exact Bernstein certificates for Theorems~\ref{thm:n3},
 \ref{thm:n4}, and \ref{thm:n5}, symbolic regeneration checks for
-their simplex-cap formulas, high-precision
-Poisson calculations, exact-sign rational brackets for the all-sample-size
+their simplex-cap formulas, exact rational Poisson-limit and
+boundary-crossing certificates for Theorem~\ref{thm:poissonband},
+high-precision Poisson search calculations, exact-sign rational brackets for the all-sample-size
 Gaffke safeguard, search logs, symbolic checks of the identities used
 in the $n=2$ proof, and stress tests over approximately $200{,}000$
 distributions. It also contains records of two separate adversarial review

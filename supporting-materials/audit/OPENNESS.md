@@ -5,9 +5,11 @@ conjecture for the Stringer bound at confidence levels ≥ 50% — including
 95% — remains open.** The present repository proves the case \(n=2\) at
 every confidence level and gives exact computer-assisted proofs from
 \(n=3\) through \(n=5\) for 90%, 95%, and 99% confidence. Thus \(n=6\)
-is the first unresolved sample size at those three levels. This does not
-resolve every confidence level from \(n=3\) through \(n=5\), nor arbitrary
-\(n\). No prior general proof or
+is the first unresolved binomial-factor sample size at those three levels.
+For the Poisson factors used in audit practice, a separate exact
+simultaneous-band argument proves coverage through \(n=8\), \(n=11\), and
+\(n=20\), respectively. This does not resolve every confidence level from
+\(n=3\) through \(n=5\), nor arbitrary \(n\). No prior general proof or
 counterexample at α ≤ 1/2 was found in the reviewed literature. The
 strongest partial results, and where a resolution could have hidden, are
 recorded below with sources.
@@ -22,16 +24,19 @@ recorded below with sources.
 | Conjecture holds **exactly** for taints supported on {0,1} (SB reduces to Clopper–Pearson); Stringer coefficients are minimal with this property | de Jager, Pap & van Zuijlen, *Comput. Math. Appl.* 33 (1997) 37–54 | finite n, {0,1} supports |
 | Binomial Stringer is distribution-free conservative at \(n=2\) for every α, sharply; from \(n=3\) through \(n=5\), it pointwise dominates the valid Gaffke bounded-mean upper limit at α = 0.10, 0.05, and 0.01 | this repository: [`N2-PROOF.md`](../theory/N2-PROOF.md), [`N3-CONVENTIONAL.md`](../theory/N3-CONVENTIONAL.md), [`N4-CONVENTIONAL.md`](../theory/N4-CONVENTIONAL.md), [`N5-CONVENTIONAL.md`](../theory/N5-CONVENTIONAL.md), and exact certificates | finite n; all levels at \(n=2\), 90%, 95%, and 99% at \(n=3,4,5\) |
 | Poisson audit factors dominate binomial Clopper–Pearson factors coordinatewise whenever nominal confidence exceeds \(1-e^{-1}\approx63.2\%\); hence the Poisson Stringer bound pointwise dominates the binomial version | Anderson–Samuels (1967), specialized to the Stringer formula in [`POISSON-DOMINATION.md`](../theory/POISSON-DOMINATION.md) | every n; factor and bound comparison, not a general coverage proof |
+| A corrected simultaneous survival band proves Poisson-factor Stringer coverage for every \(n\le8\) at 90%, every \(n\le11\) at 95%, and every \(n\le20\) at 99% confidence | [`POISSON-SIMULTANEOUS-BAND.md`](../theory/POISSON-SIMULTANEOUS-BAND.md) and exact rational certificate | finite ranges; arbitrary continuous or atomic taint distributions |
 | The pre-specified maximum of either Stringer calculation and the valid Gaffke limit has coverage at least \(1-\alpha\) | [`GAFFKE-SAFEGUARD.md`](../theory/GAFFKE-SAFEGUARD.md) and the Vlassis–Thomas validity theorem | every n and level, but a safeguarded procedure rather than proof of ordinary Stringer |
 | Claimed certification at n ≤ 11, α = 0.05 via the lower bound P̄ₙ = P(U_{i:n} ≤ p_n(i) ∀i) (Bolshev recursion). **Reassessed in this repository**: the containment CP ≥ P̄ₙ (his eq. 5.16) rests on an off-by-one in the band constraints, dropping F(t_{n:n}) ≥ α^{1/n}; hand counterexamples with continuous F at n = 1, 2 and an exact atomic one at n = 5 show that P̄ₙ is not the stated coverage bound. The corrected containment probability is ≤ 1−α for every continuous F. See [`BIMPEH-GAP.md`](BIMPEH-GAP.md). | Bimpeh, PhD thesis, DCU 2008, ch. 5 ([full text](https://doras.dcu.ie/600/1/YawThesis.PDF)); apparently never journal-published; reassessment: this repository | the cited argument does not establish the claimed finite-sample range |
 | Exact counterexamples at **sub-50% confidence**: uniform-type taints, α > 1/2, n ≳ 17 | Pap & van Zuijlen, *Comput. Math. Appl.* 29 (1995) 51–59 (exact recursions, not Monte Carlo) | finite n, α > 1/2 only |
 
 This repository adds (see `theory/N2-PROOF.md`,
 `theory/N3-CONVENTIONAL.md`, `theory/N4-CONVENTIONAL.md`,
-`theory/N5-CONVENTIONAL.md`, and
+`theory/N5-CONVENTIONAL.md`,
+`theory/POISSON-SIMULTANEOUS-BAND.md`, and
 `computations/certificates/`): a
 distribution-free proof at \(n=2\); exact computer-assisted proofs from
-\(n=3\) through \(n=5\) for α = 0.10, 0.05, and 0.01; and 33 exact rational
+\(n=3\) through \(n=5\) for α = 0.10, 0.05, and 0.01; direct exact
+Poisson-factor guarantees through the level-dependent ranges above; and 33 exact rational
 counterexamples supported on three points (two nonzero taint values and
 zero) at selected nominal confidence levels from 30% to 37% and sample
 sizes 50, 100, 200, and 400. Numerical searches at α = 0.05 found smallest
@@ -82,8 +87,8 @@ validates a different, pre-specified maximum rule.
    exact two-atom coverage (`bolshev.py`).
 4. Pyke 1994, one-sided minimax KS bands (*J. Appl. Prob.* 31A, 291–308):
    possibly the right lens for larger \(n\).
-5. Extension of the Gaffke/simplex-cap comparison to \(n=6\), the first
-   unresolved case at 90%, 95%, and 99%; a dimension-free geometric
+5. Extension of the binomial Gaffke/simplex-cap comparison to \(n=6\), the
+   first unresolved binomial case at 90%, 95%, and 99%; a dimension-free geometric
    comparison would have direct consequences for ordinary audit sample
    sizes. [`ALL-N-POISSON-PROGRAM.md`](../theory/ALL-N-POISSON-PROGRAM.md)
    records an exact reduction to two explicitly unproved high-quantile

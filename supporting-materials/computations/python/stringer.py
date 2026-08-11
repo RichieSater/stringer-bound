@@ -29,7 +29,10 @@ factors dominate the binomial factors for every ``n`` and ``j``; see
 The search routines compute numerical factors in ``mpmath``.  Formal
 binomial certificates use a separate exact routine: it bisects on a dyadic
 grid, evaluates the binomial-CDF sign with integer arithmetic, and returns
-rational lower and upper bounds for every factor.
+rational lower and upper bounds for every factor.  Formal Poisson
+certificates are also available.  They enclose ``exp(-x)`` by exact rational
+alternating-series bounds after power-of-two range reduction, so the signs
+at the dyadic endpoints do not depend on floating-point arithmetic.
 """
 
 from __future__ import annotations
@@ -46,6 +49,8 @@ DEFAULT_DPS = 50
 BISECT_DIGITS = 40
 #: denominator of the default exact dyadic factor brackets is ``2**bits``.
 EXACT_FACTOR_BITS = 80
+#: number of positive/negative term pairs in the exact ``exp(-x)`` bound.
+EXACT_EXP_PAIRS = 48
 
 METHODS = ("binomial", "poisson")
 
@@ -230,6 +235,178 @@ def exact_binomial_factor_brackets(
     return tuple(out)
 
 
+def exact_exp_neg_bounds(x: Fraction, pairs: int = EXACT_EXP_PAIRS
+                         ) -> Tuple[Fraction, Fraction]:
+    """Return exact rational lower and upper bounds for ``exp(-x)``.
+
+    The argument is divided by a power of two until it lies in ``[0, 1]``.
+    On that interval, consecutive odd and even partial sums of the
+    alternating exponential series bracket ``exp(-x)``.  Raising the two
+    positive bounds to the range-reduction power preserves their order.
+
+    This routine deliberately uses :class:`fractions.Fraction` throughout.
+    It is intended for proof certificates at moderate Poisson counts, not as
+    a replacement for the numerical factor routine used in searches.
+    """
+    x = Fraction(x)
+    if x < 0:
+        raise ValueError("x must be nonnegative")
+    if pairs < 1:
+        raise ValueError("pairs must be positive")
+    if x == 0:
+        return Fraction(1), Fraction(1)
+
+    power = 1
+    while x > power:
+        power *= 2
+    y = x / power
+
+    term = Fraction(1)
+    partial = term
+    # The even partial sum S_(2*pairs) is an upper bound.  Adding the next
+    # (negative) term gives the adjacent odd partial sum and a lower bound.
+    for k in range(1, 2 * pairs + 1):
+        term *= -y / k
+        partial += term
+    upper_small = partial
+    term *= -y / (2 * pairs + 1)
+    lower_small = partial + term
+    if not 0 < lower_small <= upper_small:
+        raise ArithmeticError("alternating exponential enclosure failed")
+    return lower_small ** power, upper_small ** power
+
+
+def exact_poisson_cdf_bounds(x: Fraction, j: int,
+                             pairs: int = EXACT_EXP_PAIRS
+                             ) -> Tuple[Fraction, Fraction]:
+    """Enclose ``P(Poisson(x) <= j)`` by exact rational numbers."""
+    x = Fraction(x)
+    if x < 0:
+        raise ValueError("x must be nonnegative")
+    if j < 0:
+        raise ValueError("j must be nonnegative")
+    exp_lower, exp_upper = exact_exp_neg_bounds(x, pairs)
+    term = Fraction(1)
+    polynomial = term
+    for i in range(1, j + 1):
+        term *= x / i
+        polynomial += term
+    return exp_lower * polynomial, exp_upper * polynomial
+
+
+def _poisson_cdf_sign_dyadic(k: int, bits: int, j: int,
+                             alpha: Fraction,
+                             pairs: int = EXACT_EXP_PAIRS) -> int:
+    """Certify the sign of a Poisson-CDF comparison at ``k/2**bits``.
+
+    Returns ``+1`` when the CDF is strictly above ``alpha`` and ``-1`` when
+    it is strictly below.  A zero return is unnecessary here: for positive
+    rational ``x`` and rational ``alpha`` equality cannot occur, and at
+    ``x=0`` the sign is immediate.  If the rational exponential enclosure
+    is too wide to decide the sign, an :class:`ArithmeticError` is raised
+    rather than trusting a numerical evaluation.
+    """
+    if k < 0:
+        raise ValueError("dyadic numerator must be nonnegative")
+    if bits < 1:
+        raise ValueError("bits must be positive")
+    if k == 0:
+        return 1
+    lower, upper = exact_poisson_cdf_bounds(
+        Fraction(k, 1 << bits), j, pairs)
+    if lower > alpha:
+        return 1
+    if upper < alpha:
+        return -1
+    raise ArithmeticError(
+        "rational exponential enclosure is too wide to determine the sign")
+
+
+def _approx_poisson_root(j: int, alpha: Fraction, bits: int):
+    """Locate a Poisson limit at high precision before exact sign checks."""
+    dps = max(DEFAULT_DPS, ceil((bits + 40) * 0.30103) + 25)
+    with mp.workdps(dps):
+        a = mpf(alpha.numerator) / alpha.denominator
+        lo, hi = mpf(0), mpf(1)
+        while _tail_poisson(hi, j) > a:
+            hi *= 2
+        target = mp.power(2, -(bits + 30))
+        while hi - lo > target:
+            mid = (lo + hi) / 2
+            if _tail_poisson(mid, j) > a:
+                lo = mid
+            else:
+                hi = mid
+        return +(lo + hi) / 2
+
+
+@lru_cache(maxsize=None)
+def exact_poisson_lambda_brackets(
+        alpha: str, maximum_j: int, bits: int = EXACT_FACTOR_BITS,
+        pairs: int = EXACT_EXP_PAIRS
+) -> Tuple[Tuple[Fraction, Fraction], ...]:
+    """Return rigorous dyadic brackets for Poisson limits ``lambda_j``.
+
+    ``lambda_j`` is the unique positive solution of
+
+    ``P(Poisson(lambda_j) <= j) = alpha``.
+
+    High-precision bisection merely proposes nearby grid points.  Each final
+    endpoint sign is proved using :func:`exact_poisson_cdf_bounds`; a small
+    integer-grid bisection is used if the proposal is not already adjacent
+    to the root.
+    """
+    if maximum_j < 0:
+        raise ValueError("maximum_j must be nonnegative")
+    if bits < 1:
+        raise ValueError("bits must be positive")
+    if pairs < 1:
+        raise ValueError("pairs must be positive")
+    a = Fraction(str(alpha))
+    if not 0 < a < 1:
+        raise ValueError("alpha must lie strictly between 0 and 1")
+
+    denominator = 1 << bits
+    output = []
+    for j in range(maximum_j + 1):
+        approximate = _approx_poisson_root(j, a, bits)
+        with mp.workdps(max(DEFAULT_DPS, ceil((bits + 40) * 0.30103) + 25)):
+            center = int(mp.floor(approximate * denominator))
+
+        lo = max(0, center - 2)
+        hi = center + 3
+        sign_lo = _poisson_cdf_sign_dyadic(
+            lo, bits, j, a, pairs)
+        sign_hi = _poisson_cdf_sign_dyadic(
+            hi, bits, j, a, pairs)
+        step = max(1, hi - lo)
+        while sign_lo < 0:
+            hi = lo
+            lo = max(0, lo - step)
+            step *= 2
+            sign_lo = _poisson_cdf_sign_dyadic(
+                lo, bits, j, a, pairs)
+        step = max(1, hi - lo)
+        while sign_hi > 0:
+            lo = hi
+            hi += step
+            step *= 2
+            sign_hi = _poisson_cdf_sign_dyadic(
+                hi, bits, j, a, pairs)
+
+        while hi - lo > 1:
+            mid = (lo + hi) // 2
+            sign_mid = _poisson_cdf_sign_dyadic(
+                mid, bits, j, a, pairs)
+            if sign_mid > 0:
+                lo = mid
+            else:
+                hi = mid
+        output.append((Fraction(lo, denominator),
+                       Fraction(hi, denominator)))
+    return tuple(output)
+
+
 @lru_cache(maxsize=None)
 def factor_prefix(n: int, alpha: str, maximum_j: int,
                   method: str = "binomial",
@@ -238,8 +415,9 @@ def factor_prefix(n: int, alpha: str, maximum_j: int,
 
     ``alpha`` is passed as a string (e.g. ``"0.05"``) so the cache key and the
     decimal value are both exact.  These values are used for screening and
-    Poisson calculations, not for formal binomial certificates.  Use
-    :func:`exact_binomial_factor_brackets` for the latter.
+    Poisson calculations, not for formal factor certificates. Use
+    :func:`exact_binomial_factor_brackets` or
+    :func:`exact_poisson_lambda_brackets` for formal enclosures.
 
     Computing only a prefix matters in audit samples with few nonzero
     taints: the Stringer formula then needs only ``p_0,...,p_k`` rather than
@@ -340,6 +518,10 @@ __all__ = [
     "stringer_bound",
     "bound_from_counts",
     "exact_binomial_factor_brackets",
+    "exact_exp_neg_bounds",
+    "exact_poisson_cdf_bounds",
+    "exact_poisson_lambda_brackets",
     "EXACT_FACTOR_BITS",
+    "EXACT_EXP_PAIRS",
     "METHODS",
 ]

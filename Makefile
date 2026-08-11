@@ -4,7 +4,7 @@ TEST_DIR := supporting-materials/computations/tests
 CERT_DIR := supporting-materials/computations/certificates
 PAPER_DIR := supporting-materials/paper
 
-.PHONY: sync test proof-check all-n-reduction-check n3-formula-check n3-certificate-check n4-structure-check n4-certificate-check n5-structure-check n5-certificate-check certificate-summary-check claim-manifest-check paper reproduce
+.PHONY: sync test proof-check all-n-reduction-check poisson-band-certificate-check n3-formula-check n3-certificate-check n4-structure-check n4-certificate-check n5-structure-check n5-certificate-check certificate-summary-check claim-manifest-check paper reproduce
 
 sync:
 	uv sync --frozen
@@ -17,6 +17,12 @@ proof-check:
 
 all-n-reduction-check:
 	$(PYTHON) $(PY_DIR)/all_n_poisson_reductions.py
+
+poisson-band-certificate-check:
+	@tmp=$$(mktemp); \
+	$(PYTHON) $(PY_DIR)/poisson_band_certificate.py --out $$tmp; \
+	cmp $(CERT_DIR)/poisson-simultaneous-band-certificate.json $$tmp; \
+	rm -f $$tmp
 
 n3-formula-check:
 	@tmp=$$(mktemp); \
@@ -67,5 +73,5 @@ paper:
 	cd $(PAPER_DIR) && tectonic -X compile stringer.tex --keep-logs --keep-intermediates
 	@! grep -Eq "Warning|Overfull|Underfull|undefined|multiply defined" $(PAPER_DIR)/stringer.log
 
-reproduce: sync test proof-check all-n-reduction-check n3-formula-check n3-certificate-check n4-structure-check n4-certificate-check n5-structure-check n5-certificate-check certificate-summary-check claim-manifest-check paper
-	@echo "Core proofs, all-n reductions, n=3 through n=5 Bernstein certificates, counterexample summaries, claim links, tests, and manuscript build passed."
+reproduce: sync test proof-check all-n-reduction-check poisson-band-certificate-check n3-formula-check n3-certificate-check n4-structure-check n4-certificate-check n5-structure-check n5-certificate-check certificate-summary-check claim-manifest-check paper
+	@echo "Core proofs, all-n reductions, Poisson simultaneous-band certificate, n=3 through n=5 Bernstein certificates, counterexample summaries, claim links, tests, and manuscript build passed."

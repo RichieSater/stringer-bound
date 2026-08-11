@@ -37,7 +37,8 @@ jobs:
         run: |
           make proof-check n3-formula-check n3-certificate-check \
             n4-structure-check n4-certificate-check \
-            n5-structure-check n5-certificate-check
+            n5-structure-check n5-certificate-check \
+            poisson-band-certificate-check
 
       - name: Verify generated certificate summary and claim manifest
         run: make certificate-summary-check claim-manifest-check

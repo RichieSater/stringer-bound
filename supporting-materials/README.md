@@ -14,6 +14,10 @@ from \(n=3\) through \(n=5\) at 90%, 95%, and 99% are exact computer-assisted
 theorems: their symbolic formulas and rational sign certificates are
 regenerated from source scripts; see `theory/N3-CONVENTIONAL.md`,
 `theory/N4-CONVENTIONAL.md`, and `theory/N5-CONVENTIONAL.md`.
+For the Poisson factors used in practice, a separate exact corrected-band
+certificate proves coverage for every \(n\le8\) at 90%, every \(n\le11\) at
+95%, and every \(n\le20\) at 99%; see
+`theory/POISSON-SIMULTANEOUS-BAND.md`.
 For arbitrary sample size, `theory/GAFFKE-SAFEGUARD.md` defines a
 distribution-free valid reporting rule obtained by taking the maximum of
 Stringer and the valid Gaffke limit. Its implementation brackets the Gaffke
@@ -23,7 +27,7 @@ quantile with exact rational tail-sign checks.
 
 | Layer | Role | Trust status |
 |---|---|---|
-| `stringer.py` | Numerical factors for searches; for certification, dyadic binomial-factor intervals whose endpoint CDF signs are evaluated exactly with integers | proof-essential |
+| `stringer.py` | Numerical factors for searches; exact dyadic binomial-factor intervals with integer CDF signs; exact dyadic Poisson-limit intervals with rational exponential enclosures | proof-essential |
 | `coverage.py` / `coverage_exact` | Exact multinomial weights and rational propagation of factor intervals through every Stringer comparison | proof-essential |
 | `two_point_lemma.py` | Written proof that single-value supports cannot under-cover, plus machine checks | proof-essential |
 | `theory/N3-CONVENTIONAL.md` | Complete reduction of the \(n=3\) theorem to simplex-cap inequalities | proof-essential |
@@ -36,6 +40,8 @@ quantile with exact rational tail-sign checks.
 | `derive_n5_bernstein_structure.py` | Exactly derives the residual factorizations, four-simplex substitutions, and face-ideal structural-zero proofs for \(n=5\) | proof-essential |
 | `n5_gaffke_certificate.py` | Integer-directed dyadic interval proof of every nonzero \(n=5\) Bernstein coefficient sign at 90%, 95%, and 99% | proof-essential |
 | `theory/POISSON-DOMINATION.md` | Written proof that practical-level Poisson factors dominate binomial factors for every sample size | proof-essential |
+| `theory/POISSON-SIMULTANEOUS-BAND.md` | Written randomized-survival-band proof of the direct Poisson coverage ranges | proof-essential |
+| `poisson_band_certificate.py` | Exact rational Poisson-limit signs and Bolshev boundary-crossing probabilities at 90%, 95%, and 99% | proof-essential |
 | `theory/GAFFKE-SAFEGUARD.md` | Written all-sample-size coverage argument and exact divided-difference computation of the Gaffke floor | proof-essential |
 | `theory/ALL-N-POISSON-PROGRAM.md` | Exact weighted-exponential reductions, sharp convexity obstruction, and explicitly conjectural all-`n` route | research roadmap |
 | `gaffke.py` | Exact-rational Dirichlet tail signs, certified dyadic Gaffke bracket, and safeguarded Stringer report | proof-essential for the implemented floor |
@@ -69,6 +75,9 @@ make n4-certificate-check
 # Exact n=5 theorem: derive four-simplex/face-ideal structure, then certify
 make n5-structure-check
 make n5-certificate-check
+
+# Direct Poisson theorem: exact limits and boundary-crossing probabilities
+make poisson-band-certificate-check
 
 # Exact algebra behind the explicitly conjectural all-n Poisson program
 make all-n-reduction-check
@@ -122,6 +131,13 @@ check, not the proof of domination. The all-\(n\) theorem for
 \(\alpha<e^{-1}\) is proved analytically in
 `theory/POISSON-DOMINATION.md`. Outside that confidence range, no general
 domination claim is made; the log includes a case where domination fails.
+
+The direct Poisson coverage certificate is different: its limit brackets
+and boundary-crossing probabilities are formal exact-arithmetic evidence.
+At dyadic endpoints, `stringer.py` encloses the exponential between rational
+alternating-series partial sums after power-of-two range reduction. Then
+`poisson_band_certificate.py` evaluates Bolshev's recursion with exact
+`Fraction` arithmetic. Numerical root finding proposes endpoints only.
 
 ## The all-sample-size reporting safeguard
 

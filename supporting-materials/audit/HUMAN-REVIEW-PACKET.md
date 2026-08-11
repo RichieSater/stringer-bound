@@ -99,7 +99,34 @@ Questions:
 5. Are the paper's coverage transfers limited to binomial cases already
    proved?
 
-## Review D: the all-sample-size reporting safeguard
+## Review D: the direct Poisson simultaneous-band theorem
+
+Primary files:
+
+- [`../theory/POISSON-SIMULTANEOUS-BAND.md`](../theory/POISSON-SIMULTANEOUS-BAND.md)
+- [`../computations/python/poisson_band_certificate.py`](../computations/python/poisson_band_certificate.py)
+- [`../computations/python/stringer.py`](../computations/python/stringer.py),
+  especially the exact rational Poisson-limit enclosures
+- manuscript Lemma~`lem:poissonband` and Theorem~`thm:poissonband`
+
+Questions:
+
+1. Does the randomized survival transform remain uniform for arbitrary
+   atomic distributions, and does it give the claimed order-statistic
+   inequality for every threshold?
+2. Is the integral identity for a generic nondecreasing factor sequence
+   correct, including zero taints and sample-point conventions?
+3. Is the index in the sufficient event `V_(i:n) <= p(i-1)` correct?
+4. Is Bolshev's recursion stated and implemented with the correct boundary
+   sequence and sample-size indices?
+5. Do the odd/even rational exponential partial sums, range reduction, and
+   dyadic endpoint signs rigorously enclose every required Poisson limit?
+6. Does use of lower limit endpoints give a valid lower bound on the event
+   probability, and are all sample sizes in each stated range checked?
+7. Is the below-nominal event probability at the next size clearly
+   distinguished from Stringer undercoverage?
+
+## Review E: the all-sample-size reporting safeguard
 
 Primary files:
 
@@ -154,6 +181,7 @@ Review A disposition:
 Review B disposition (n=3 / n=4 / n=5):
 Review C disposition:
 Review D disposition:
+Review E disposition:
 
 Issues found and exact locations:
 Corrections rechecked:
