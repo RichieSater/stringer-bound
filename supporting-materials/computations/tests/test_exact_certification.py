@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
 import sys
 import unittest
@@ -16,6 +17,7 @@ sys.path.insert(0, str(PYTHON_DIR))
 import stringer  # noqa: E402
 from coverage import coverage_exact  # noqa: E402
 from n3_gaffke_certificate import build_certificate  # noqa: E402
+from n5_gaffke_certificate import Interval as N5Interval  # noqa: E402
 from summarize_certificates import default_paths, summarize  # noqa: E402
 from two_point_lemma import check_poisson_dominates  # noqa: E402
 
@@ -70,6 +72,29 @@ class ExactFactorTests(unittest.TestCase):
     def test_poisson_domination_is_confidence_level_dependent(self):
         self.assertTrue(check_poisson_dominates(2, "0.05", dps=80))
         self.assertFalse(check_poisson_dominates(2, "0.70", dps=80))
+
+    def test_n5_directed_dyadic_intervals_enclose_exact_arithmetic(self):
+        values = (
+            Fraction(-7, 13), Fraction(-2, 7),
+            Fraction(2, 7), Fraction(7, 13), Fraction(4, 9),
+        )
+        for left in values:
+            x = N5Interval(left)
+            self.assertLessEqual(x.lower, left)
+            self.assertGreaterEqual(x.upper, left)
+            if left:
+                reciprocal = x.reciprocal()
+                self.assertLessEqual(reciprocal.lower, 1 / left)
+                self.assertGreaterEqual(reciprocal.upper, 1 / left)
+            for right in values:
+                y = N5Interval(right)
+                for enclosure, exact in (
+                    (x + y, left + right),
+                    (x - y, left - right),
+                    (x * y, left * right),
+                ):
+                    self.assertLessEqual(enclosure.lower, exact)
+                    self.assertGreaterEqual(enclosure.upper, exact)
 
 
 class ExactCoverageTests(unittest.TestCase):
@@ -162,6 +187,80 @@ class CertificateSummaryTests(unittest.TestCase):
                             ["denominator"]),
                     )
                     for item in tetrahedra
+                ]
+                observed.append(f"{float(min(minima)):.2e}")
+            self.assertEqual(
+                tuple(observed), expected_region_minima[level["alpha"]])
+
+    def test_n5_conventional_level_certificate_artifacts(self):
+        certificate_dir = PYTHON_DIR.parent / "certificates"
+        structure_path = (certificate_dir
+                          / "n5-gaffke-bernstein-structure.json")
+        certificate_path = certificate_dir / "n5-gaffke-certificate.json"
+        structure_bytes = structure_path.read_bytes()
+        structure = json.loads(structure_bytes)
+        certificate = json.loads(certificate_path.read_text())
+
+        self.assertEqual(
+            structure["face_order_verification"],
+            "exact_polynomial_ideal_membership",
+        )
+        self.assertEqual(
+            certificate["structure_sha256"],
+            hashlib.sha256(structure_bytes).hexdigest(),
+        )
+        self.assertEqual(
+            [level["alpha"] for level in certificate["levels"]],
+            ["0.01", "0.05", "0.10"],
+        )
+        self.assertEqual(
+            {
+                region: [simplex["structural_zero_count"]
+                         for simplex in record["simplices"]]
+                for region, record in structure["regions"].items()
+            },
+            {
+                "A": [1],
+                "B": [66, 15, 39],
+                "C": [59, 35, 92, 59, 92],
+                "D": [15, 39, 66],
+                "E": [1],
+            },
+        )
+        expected_region_minima = {
+            "0.01": ("8.16e-13", "7.45e-20", "3.23e-21",
+                     "7.81e-16", "3.47e-04"),
+            "0.05": ("6.70e-09", "1.89e-14", "6.24e-16",
+                     "3.57e-12", "1.38e-03"),
+            "0.10": ("3.81e-07", "4.93e-12", "1.36e-13",
+                     "1.34e-10", "2.20e-03"),
+        }
+        for level in certificate["levels"]:
+            self.assertEqual(level["factor_bits"], 240)
+            self.assertEqual(level["interval_bits"], 256)
+            observed = []
+            for region_name in ("A", "B", "C", "D", "E"):
+                simplices = level["polynomial_regions"][region_name][
+                    "simplices"]
+                for item in simplices:
+                    determinant = item["affine_determinant"]
+                    lower = Fraction(
+                        int(determinant["lower"]["numerator"]),
+                        int(determinant["lower"]["denominator"]),
+                    )
+                    upper = Fraction(
+                        int(determinant["upper"]["numerator"]),
+                        int(determinant["upper"]["denominator"]),
+                    )
+                    self.assertFalse(lower <= 0 <= upper)
+                minima = [
+                    Fraction(
+                        int(item["minimum_positive_coefficient"]["lower"]
+                            ["numerator"]),
+                        int(item["minimum_positive_coefficient"]["lower"]
+                            ["denominator"]),
+                    )
+                    for item in simplices
                 ]
                 observed.append(f"{float(min(minima)):.2e}")
             self.assertEqual(

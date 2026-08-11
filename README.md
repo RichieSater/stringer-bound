@@ -42,14 +42,15 @@ repository states which variant it uses.
 
 ## Status
 
-**Exact finite-sample guarantees now reach \(n=4\). The \(n=2\) bound is
+**Exact finite-sample guarantees now reach \(n=5\). The \(n=2\) bound is
 proved conservative for every taint distribution and every confidence level
-([`N2-PROOF.md`](supporting-materials/theory/N2-PROOF.md)). At \(n=3\) and
-\(n=4\), exact computer-assisted proofs establish conservatism at 90%,
+([`N2-PROOF.md`](supporting-materials/theory/N2-PROOF.md)). From \(n=3\)
+through \(n=5\), exact computer-assisted proofs establish conservatism at 90%,
 95%, and 99% confidence
 ([`N3-CONVENTIONAL.md`](supporting-materials/theory/N3-CONVENTIONAL.md),
-[`N4-CONVENTIONAL.md`](supporting-materials/theory/N4-CONVENTIONAL.md)).
-At those three levels, \(n=5\) is the first unresolved sample size. The
+[`N4-CONVENTIONAL.md`](supporting-materials/theory/N4-CONVENTIONAL.md),
+and [`N5-CONVENTIONAL.md`](supporting-materials/theory/N5-CONVENTIONAL.md)).
+At those three levels, \(n=6\) is the first unresolved sample size. The
 general-\(n\) conjecture at 95% remains open.**
 
 Openness was checked against the literature (details and sources in
@@ -69,12 +70,13 @@ certificate or a written proof:
   \(F\) and every \(\alpha\in(0,1)\). The supremum noncoverage probability
   is exactly \(\alpha\), approached but never attained.
 
-- **Conventional confidence levels are certified at \(n=3\) and \(n=4\)**
+- **Conventional confidence levels are certified from \(n=3\) through \(n=5\)**
   ([`N3-CONVENTIONAL.md`](supporting-materials/theory/N3-CONVENTIONAL.md),
-  [`N4-CONVENTIONAL.md`](supporting-materials/theory/N4-CONVENTIONAL.md)):
+  [`N4-CONVENTIONAL.md`](supporting-materials/theory/N4-CONVENTIONAL.md),
+  [`N5-CONVENTIONAL.md`](supporting-materials/theory/N5-CONVENTIONAL.md)):
   at 90%, 95%, and 99% confidence, the binomial Stringer bound pointwise
-  dominates the recently validated Gaffke bounded-mean upper limit for both
-  sample sizes. The proofs reduce the comparisons to uniform-simplex cap
+  dominates the recently validated Gaffke bounded-mean upper limit for all
+  three sample sizes. The proofs reduce the comparisons to uniform-simplex cap
   inequalities and certify them with exact rational Bernstein coefficients.
   The symbolic derivations and every sign certificate are regenerated from
   source by the top-level reproduction command. These are theorems at the
@@ -91,7 +93,7 @@ certificate or a written proof:
   observed sample. This replaces the former finite-range numerical
   comparison at 90% and 95% with an analytic result; it does not by itself
   resolve general-\(n\) coverage. It does transfer the proved binomial
-  guarantees at \(n=2\), and at \(n=3\) and \(n=4\) for 90%, 95%, and
+  guarantees at \(n=2\), and from \(n=3\) through \(n=5\) for 90%, 95%, and
   99%, to the Poisson-factor bound.
 
 - **Two-point lemma** (proof in
@@ -126,11 +128,12 @@ certificate or a written proof:
   supports. Single-value populations already reach exact coverage
   \(0.9500302\) (\(n=10\), \(v=1\), \(q=0.85\)).
 
-**Next steps**: extend the Gaffke/simplex-cap comparison and exact Bernstein
-machinery to \(n=5\), where the cap geometry becomes four-dimensional; seek a
-dimension-free cap or majorization argument; and develop a certified
+**Next steps**: determine whether the Gaffke/simplex-cap comparison extends
+to \(n=6\), where direct Bernstein certification becomes substantially
+larger; seek a dimension-free cap or majorization argument; and develop a
+certified
 branch-and-bound or atoms-reduction argument for ordinary audit sample sizes.
-The immediate mathematical target is \(n=5\) at 90%, 95%, and 99%, not more
+The immediate mathematical target is \(n=6\) at 90%, 95%, and 99%, not more
 unstructured grid search.
 
 ## Method
@@ -153,6 +156,7 @@ supporting-materials/
 │   ├── N2-PROOF.md           complete n=2 proof
 │   ├── N3-CONVENTIONAL.md    exact n=3 proof at 90%, 95%, and 99%
 │   ├── N4-CONVENTIONAL.md    exact n=4 proof at 90%, 95%, and 99%
+│   ├── N5-CONVENTIONAL.md    exact n=5 proof at 90%, 95%, and 99%
 │   └── POISSON-DOMINATION.md all-n practical-level factor comparison
 └── computations/python/
     ├── stringer.py           numerical factors for searches + exact-sign
@@ -168,6 +172,10 @@ supporting-materials/
     │                         exact n=4 residual and tetrahedral structure
     ├── n4_gaffke_certificate.py
     │                         exact rational n=4 sign certificate
+    ├── derive_n5_bernstein_structure.py
+    │                         exact n=5 residual, face-ideal, and four-simplex structure
+    ├── n5_gaffke_certificate.py
+    │                         directed-dyadic n=5 sign certificate
     ├── search_two_value.py   screening search over {v1 > v2 > 0} supports
     └── certify.py            exact recertification of screening candidates
 ```
@@ -183,7 +191,7 @@ make reproduce
 ```
 
 This runs the unit tests, the \(n=2\) symbolic proof checker, source
-regeneration of the \(n=3\) and \(n=4\) Bernstein structures and exact
+regeneration of the \(n=3\) through \(n=5\) Bernstein structures and exact
 sign certificates, the generated counterexample-table check,
 claim-to-evidence link validation, and the manuscript build. Individual
 search and recertification commands
