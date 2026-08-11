@@ -167,7 +167,7 @@ Random Jensen tests conducted during exploration found no violation of (A)
 at or below (8) in dimensions through 12 and found the predicted failures
 just above (8) in dimension two.  These are heuristic checks only.
 
-## 4. A kernel and localization target for route B
+## 4. A constrained divided-difference target for route B
 
 For `y>0`, set
 
@@ -194,19 +194,42 @@ The sign-changing kernel in (13) has the exact antiderivative identity
 
 A nondegenerate projection of the uniform `n`-simplex has a
 `1/(n-1)`-concave density; equivalently its probability law is
-`1/n`-concave.  A natural route is therefore a one-dimensional
-`s`-concave localization theorem.  It should reduce the sign of (13), under
-the relevant tail constraint, to densities proportional to
+`1/n`-concave. A generic one-dimensional `s`-concave localization theorem
+reduces a linear extremal problem to densities proportional to
 
 \[
 (A+By)^{n-1}\mathbf1_{[\ell,r]}(y).                              \tag{15}
 \]
 
 For (15), integrating (14) by parts `n` times leaves only endpoint terms.
-Exploratory checks of these endpoint expressions and random Dirichlet
-profiles support (B) for `alpha<=1/2`.  Turning that observation into a
-complete localization statement, including every endpoint and degenerate
-case, is the remaining task.
+That enlarged class is nevertheless too broad: at `n=10` the explicit
+density proportional to
+
+\[
+ \left(\frac34+\frac{3y}{16}\right)^9
+ \mathbf 1_{[0,4/3]}(y)
+\]
+
+has `Pr(Y>1)>1/2` but `Pr(SY>10)<1/2` for an independent
+`S~Gamma(11,1)`. Both comparisons are certified exactly. Thus unrestricted
+`s`-affine endpoint checks cannot prove (B), even at `alpha=1/2`.
+
+The actual Dirichlet-average structure yields a sharper target. After
+scaling a threshold to `n`, write the simplex-projection knots as
+`y_0,...,y_n`. At conventional levels they satisfy `sum_i y_i<=n`, and the
+Hermite--Genocchi formula turns (13)--(14) into
+
+\[
+ [y_0,\ldots,y_n]H_n\ge0,
+ \qquad
+ H_n(y)=y^ne^{-n/y}-(y-1)_+^n.                         \tag{16}
+\]
+
+This constrained divided-difference inequality is proved when the positive
+knots form one equal block and the remaining knots are zero: it reduces to
+the Anderson--Samuels binomial--Poisson comparison. The general case is
+open. See [`DIRICHLET-POISSONIZATION.md`](DIRICHLET-POISSONIZATION.md) for
+the full reduction, the exact obstruction, and the proved family.
 
 ## 5. Shortcuts that do not work
 
@@ -232,11 +255,10 @@ seemingly simpler but false domination claim.
 
 1. Prove the high-tail monotonicity in (11), or find the first exact
    counterexample to (A) below `4e^-3`.
-2. State and verify the precise one-dimensional localization theorem needed
-   for (13), including whether the tail constraint is preserved under
-   localization.
-3. Reduce the `s`-affine endpoint expression from (14)--(15) to a single
-   sign inequality and identify its sharp tail threshold.
+2. Prove the constrained divided-difference inequality (16), or find an
+   actual B-spline counterexample satisfying the sum-of-knots constraint.
+3. Determine whether knot merging or gamma-convolution single-crossing
+   reduces (16) to the already proved equal-block profiles.
 4. Only after both analytic steps pass, connect (6)--(7) to the published
    Gaffke validity theorem and state the resulting all-`n` Poisson coverage
    corollary.

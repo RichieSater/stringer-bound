@@ -1,0 +1,2845 @@
+{
+  "divided_difference_target": "For y_i>=0 with sum_i y_i<=n, prove [y_0,...,y_n]H_n>=0, where H_n(y)=y^n exp(-n/y)-(y-1)_+^n.",
+  "equal_block_profiles": {
+    "analytic_basis": "Anderson--Samuels (1967), with continuity at lambda=k",
+    "regression_checks": [
+      {
+        "certified_lower_margin": {
+          "decimal": "0.117879441171442322",
+          "denominator_bits": 494,
+          "numerator_bits": 491,
+          "sha256_canonical_binary": "d10e29aac427052f3ca7dab87f34ec5ebd0b8cb062af7c4041f9e2fb69630405"
+        },
+        "common_positive_coordinate": {
+          "decimal": "2.000000000000000000",
+          "denominator": "1",
+          "numerator": "2"
+        },
+        "dirichlet_tail": {
+          "decimal": "0.250000000000000000",
+          "denominator": "4",
+          "numerator": "1"
+        },
+        "lambda": {
+          "decimal": "1.000000000000000000",
+          "denominator": "1",
+          "numerator": "1"
+        },
+        "n": 2,
+        "poisson_tail_lower_bound": {
+          "decimal": "0.367879441171442322",
+          "denominator_bits": 494,
+          "numerator_bits": 492,
+          "sha256_canonical_binary": "af0134b8bf0ff18954ec36b0e188c693655605028859b817ead64d1e6a0b4a7f"
+        },
+        "poisson_tail_upper_bound": {
+          "decimal": "0.367879441171442322",
+          "denominator_bits": 492,
+          "numerator_bits": 491,
+          "sha256_canonical_binary": "80ab704a3a26923326146a65b48ce73bdb0673026d21736200a71ac4e0147de3"
+        },
+        "positive_coordinates": 1
+      },
+      {
+        "certified_lower_margin": {
+          "decimal": "0.160630160148429829",
+          "denominator_bits": 1252,
+          "numerator_bits": 1250,
+          "sha256_canonical_binary": "9bf546eb90c0b7273163f07b1939494fc20cc0bf7664c611b4606e05fff51a24"
+        },
+        "common_positive_coordinate": {
+          "decimal": "1.333333333333333333",
+          "denominator": "3",
+          "numerator": "4"
+        },
+        "dirichlet_tail": {
+          "decimal": "0.062500000000000000",
+          "denominator": "16",
+          "numerator": "1"
+        },
+        "lambda": {
+          "decimal": "1.500000000000000000",
+          "denominator": "2",
+          "numerator": "3"
+        },
+        "n": 2,
+        "poisson_tail_lower_bound": {
+          "decimal": "0.223130160148429829",
+          "denominator_bits": 1252,
+          "numerator_bits": 1250,
+          "sha256_canonical_binary": "30e04ba0c95f2f61ceac62a5f3df663fbeb6ce7c9a2ebcc0af1b2bbe3b659e2e"
+        },
+        "poisson_tail_upper_bound": {
+          "decimal": "0.223130160148429829",
+          "denominator_bits": 1235,
+          "numerator_bits": 1233,
+          "sha256_canonical_binary": "761da3cdc3886bf2ea69741c8c14d409071043bf53c7c7e6d391a50d648fa69a"
+        },
+        "positive_coordinates": 1
+      },
+      {
+        "certified_lower_margin": {
+          "decimal": "0.406005849709838076",
+          "denominator_bits": 985,
+          "numerator_bits": 984,
+          "sha256_canonical_binary": "fb18bde972d0374f58cc09dcb55818a50e9100e067e74fc2d9f7b4bee31fd75f"
+        },
+        "common_positive_coordinate": {
+          "decimal": "1.000000000000000000",
+          "denominator": "1",
+          "numerator": "1"
+        },
+        "dirichlet_tail": {
+          "decimal": "0.000000000000000000",
+          "denominator": "1",
+          "numerator": "0"
+        },
+        "lambda": {
+          "decimal": "2.000000000000000000",
+          "denominator": "1",
+          "numerator": "2"
+        },
+        "n": 2,
+        "poisson_tail_lower_bound": {
+          "decimal": "0.406005849709838076",
+          "denominator_bits": 985,
+          "numerator_bits": 984,
+          "sha256_canonical_binary": "fb18bde972d0374f58cc09dcb55818a50e9100e067e74fc2d9f7b4bee31fd75f"
+        },
+        "poisson_tail_upper_bound": {
+          "decimal": "0.406005849709838076",
+          "denominator_bits": 982,
+          "numerator_bits": 981,
+          "sha256_canonical_binary": "d6641bd8b62d92c1abc5637fa140e09a3c60c502e390247b45b267f232dbedc1"
+        },
+        "positive_coordinates": 2
+      },
+      {
+        "certified_lower_margin": {
+          "decimal": "0.071583144875146025",
+          "denominator_bits": 494,
+          "numerator_bits": 490,
+          "sha256_canonical_binary": "66aeb11ae4235cf33781d0f7c23c6e5fb6a2285d092caa4fa3b1831c3c2e1789"
+        },
+        "common_positive_coordinate": {
+          "decimal": "3.000000000000000000",
+          "denominator": "1",
+          "numerator": "3"
+        },
+        "dirichlet_tail": {
+          "decimal": "0.296296296296296296",
+          "denominator": "27",
+          "numerator": "8"
+        },
+        "lambda": {
+          "decimal": "1.000000000000000000",
+          "denominator": "1",
+          "numerator": "1"
+        },
+        "n": 3,
+        "poisson_tail_lower_bound": {
+          "decimal": "0.367879441171442322",
+          "denominator_bits": 494,
+          "numerator_bits": 492,
+          "sha256_canonical_binary": "af0134b8bf0ff18954ec36b0e188c693655605028859b817ead64d1e6a0b4a7f"
+        },
+        "poisson_tail_upper_bound": {
+          "decimal": "0.367879441171442322",
+          "denominator_bits": 492,
+          "numerator_bits": 491,
+          "sha256_canonical_binary": "80ab704a3a26923326146a65b48ce73bdb0673026d21736200a71ac4e0147de3"
+        },
+        "positive_coordinates": 1
+      },
+      {
+        "certified_lower_margin": {
+          "decimal": "0.098298246199575655",
+          "denominator_bits": 987,
+          "numerator_bits": 984,
+          "sha256_canonical_binary": "cf467cac83de20bcb4f98dff885f14904af7304da24f0fadd4ffb2dda3d80e3c"
+        },
+        "common_positive_coordinate": {
+          "decimal": "1.500000000000000000",
+          "denominator": "2",
+          "numerator": "3"
+        },
+        "dirichlet_tail": {
+          "decimal": "0.037037037037037037",
+          "denominator": "27",
+          "numerator": "1"
+        },
+        "lambda": {
+          "decimal": "2.000000000000000000",
+          "denominator": "1",
+          "numerator": "2"
+        },
+        "n": 3,
+        "poisson_tail_lower_bound": {
+          "decimal": "0.135335283236612692",
+          "denominator_bits": 987,
+          "numerator_bits": 984,
+          "sha256_canonical_binary": "d729c7288a25d7823199030f925796c98902f424e1f65ec314275867e7eee5ea"
+        },
+        "poisson_tail_upper_bound": {
+          "decimal": "0.135335283236612692",
+          "denominator_bits": 984,
+          "numerator_bits": 981,
+          "sha256_canonical_binary": "276bae06e6181d5ad56bf08fb8043f9c96a59c06552a31b970baebddb85c5047"
+        },
+        "positive_coordinates": 1
+      },
+      {
+        "certified_lower_margin": {
+          "decimal": "0.146746590450578816",
+          "denominator_bits": 985,
+          "numerator_bits": 983,
+          "sha256_canonical_binary": "bdbdc30156a9136fb9f39940683d27ac81bb531adf39aaf55344a45d9e41b59a"
+        },
+        "common_positive_coordinate": {
+          "decimal": "1.500000000000000000",
+          "denominator": "2",
+          "numerator": "3"
+        },
+        "dirichlet_tail": {
+          "decimal": "0.259259259259259259",
+          "denominator": "27",
+          "numerator": "7"
+        },
+        "lambda": {
+          "decimal": "2.000000000000000000",
+          "denominator": "1",
+          "numerator": "2"
+        },
+        "n": 3,
+        "poisson_tail_lower_bound": {
+          "decimal": "0.406005849709838076",
+          "denominator_bits": 985,
+          "numerator_bits": 984,
+          "sha256_canonical_binary": "fb18bde972d0374f58cc09dcb55818a50e9100e067e74fc2d9f7b4bee31fd75f"
+        },
+        "poisson_tail_upper_bound": {
+          "decimal": "0.406005849709838076",
+          "denominator_bits": 982,
+          "numerator_bits": 981,
+          "sha256_canonical_binary": "d6641bd8b62d92c1abc5637fa140e09a3c60c502e390247b45b267f232dbedc1"
+        },
+        "positive_coordinates": 2
+      },
+      {
+        "certified_lower_margin": {
+          "decimal": "0.213223421109571709",
+          "denominator_bits": 2972,
+          "numerator_bits": 2969,
+          "sha256_canonical_binary": "3992d603c2aa653b21d1b799cd961d0ab0cc3bd9dda28bbdf920f035e765d8ff"
+        },
+        "common_positive_coordinate": {
+          "decimal": "1.200000000000000000",
+          "denominator": "5",
+          "numerator": "6"
+        },
+        "dirichlet_tail": {
+          "decimal": "0.074074074074074074",
+          "denominator": "27",
+          "numerator": "2"
+        },
+        "lambda": {
+          "decimal": "2.500000000000000000",
+          "denominator": "2",
+          "numerator": "5"
+        },
+        "n": 3,
+        "poisson_tail_lower_bound": {
+          "decimal": "0.287297495183645783",
+          "denominator_bits": 2972,
+          "numerator_bits": 2970,
+          "sha256_canonical_binary": "410c7663fc8fcc9fc6d0bef15700999f95045306306415a633a4fb9599b4f785"
+        },
+        "poisson_tail_upper_bound": {
+          "decimal": "0.287297495183645783",
+          "denominator_bits": 2898,
+          "numerator_bits": 2896,
+          "sha256_canonical_binary": "78ee679f6f7cfe5063e69e89429da5ffc4513b0cb6395c87589befb0d0115529"
+        },
+        "positive_coordinates": 2
+      },
+      {
+        "certified_lower_margin": {
+          "decimal": "0.423190081126843515",
+          "denominator_bits": 2501,
+          "numerator_bits": 2500,
+          "sha256_canonical_binary": "daef87f015953b87b6a4c600dd7a487507e909779eeb27ebf6328e4a5f768e41"
+        },
+        "common_positive_coordinate": {
+          "decimal": "1.000000000000000000",
+          "denominator": "1",
+          "numerator": "1"
+        },
+        "dirichlet_tail": {
+          "decimal": "0.000000000000000000",
+          "denominator": "1",
+          "numerator": "0"
+        },
+        "lambda": {
+          "decimal": "3.000000000000000000",
+          "denominator": "1",
+          "numerator": "3"
+        },
+        "n": 3,
+        "poisson_tail_lower_bound": {
+          "decimal": "0.423190081126843515",
+          "denominator_bits": 2501,
+          "numerator_bits": 2500,
+          "sha256_canonical_binary": "daef87f015953b87b6a4c600dd7a487507e909779eeb27ebf6328e4a5f768e41"
+        },
+        "poisson_tail_upper_bound": {
+          "decimal": "0.423190081126843515",
+          "denominator_bits": 2467,
+          "numerator_bits": 2466,
+          "sha256_canonical_binary": "51609db7a9182a7302cb7d9e76a718f3742634d81c5849a6194a1e43102ccc70"
+        },
+        "positive_coordinates": 3
+      },
+      {
+        "certified_lower_margin": {
+          "decimal": "0.040199441171442322",
+          "denominator_bits": 494,
+          "numerator_bits": 489,
+          "sha256_canonical_binary": "adb6d154d8e0d82743bd7d26f86e04a5bbf7fe18a6b5f26ef1d152394afd6788"
+        },
+        "common_positive_coordinate": {
+          "decimal": "5.000000000000000000",
+          "denominator": "1",
+          "numerator": "5"
+        },
+        "dirichlet_tail": {
+          "decimal": "0.327680000000000000",
+          "denominator": "3125",
+          "numerator": "1024"
+        },
+        "lambda": {
+          "decimal": "1.000000000000000000",
+          "denominator": "1",
+          "numerator": "1"
+        },
+        "n": 5,
+        "poisson_tail_lower_bound": {
+          "decimal": "0.367879441171442322",
+          "denominator_bits": 494,
+          "numerator_bits": 492,
+          "sha256_canonical_binary": "af0134b8bf0ff18954ec36b0e188c693655605028859b817ead64d1e6a0b4a7f"
+        },
+        "poisson_tail_upper_bound": {
+          "decimal": "0.367879441171442322",
+          "denominator_bits": 492,
+          "numerator_bits": 491,
+          "sha256_canonical_binary": "80ab704a3a26923326146a65b48ce73bdb0673026d21736200a71ac4e0147de3"
+        },
+        "positive_coordinates": 1
+      },
+      {
+        "certified_lower_margin": {
+          "decimal": "0.039547068367863943",
+          "denominator_bits": 2504,
+          "numerator_bits": 2500,
+          "sha256_canonical_binary": "3c6af28311c3712905455d78cfb4e64b88f9387d096b49736e5b2a70d98a4401"
+        },
+        "common_positive_coordinate": {
+          "decimal": "1.666666666666666667",
+          "denominator": "3",
+          "numerator": "5"
+        },
+        "dirichlet_tail": {
+          "decimal": "0.010240000000000000",
+          "denominator": "3125",
+          "numerator": "32"
+        },
+        "lambda": {
+          "decimal": "3.000000000000000000",
+          "denominator": "1",
+          "numerator": "3"
+        },
+        "n": 5,
+        "poisson_tail_lower_bound": {
+          "decimal": "0.049787068367863943",
+          "denominator_bits": 2504,
+          "numerator_bits": 2500,
+          "sha256_canonical_binary": "471f4e298d0a803366e464981feeb89ef4ee6ab8e357bb6483d2f2c44bd0b4ff"
+        },
+        "poisson_tail_upper_bound": {
+          "decimal": "0.049787068367863943",
+          "denominator_bits": 2470,
+          "numerator_bits": 2466,
+          "sha256_canonical_binary": "d805cb8f8c3d71ca79feb233d864695253bee4326fbda254032517514cc8ca4c"
+        },
+        "positive_coordinates": 1
+      },
+      {
+        "certified_lower_margin": {
+          "decimal": "0.069045849709838076",
+          "denominator_bits": 985,
+          "numerator_bits": 982,
+          "sha256_canonical_binary": "aaeefd75d615902603709d5343e7bd31bdbe340cbce9cba6cb3da2d09867fe72"
+        },
+        "common_positive_coordinate": {
+          "decimal": "2.500000000000000000",
+          "denominator": "2",
+          "numerator": "5"
+        },
+        "dirichlet_tail": {
+          "decimal": "0.336960000000000000",
+          "denominator": "3125",
+          "numerator": "1053"
+        },
+        "lambda": {
+          "decimal": "2.000000000000000000",
+          "denominator": "1",
+          "numerator": "2"
+        },
+        "n": 5,
+        "poisson_tail_lower_bound": {
+          "decimal": "0.406005849709838076",
+          "denominator_bits": 985,
+          "numerator_bits": 984,
+          "sha256_canonical_binary": "fb18bde972d0374f58cc09dcb55818a50e9100e067e74fc2d9f7b4bee31fd75f"
+        },
+        "poisson_tail_upper_bound": {
+          "decimal": "0.406005849709838076",
+          "denominator_bits": 982,
+          "numerator_bits": 981,
+          "sha256_canonical_binary": "d6641bd8b62d92c1abc5637fa140e09a3c60c502e390247b45b267f232dbedc1"
+        },
+        "positive_coordinates": 2
+      },
+      {
+        "certified_lower_margin": {
+          "decimal": "0.105108225400433253",
+          "denominator_bits": 3015,
+          "numerator_bits": 3012,
+          "sha256_canonical_binary": "2105dab32e5dbebcd2a555498c8f8ca58d95c81d377cf49e34c49a7abe84044d"
+        },
+        "common_positive_coordinate": {
+          "decimal": "1.428571428571428571",
+          "denominator": "7",
+          "numerator": "10"
+        },
+        "dirichlet_tail": {
+          "decimal": "0.030780000000000000",
+          "denominator": "50000",
+          "numerator": "1539"
+        },
+        "lambda": {
+          "decimal": "3.500000000000000000",
+          "denominator": "2",
+          "numerator": "7"
+        },
+        "n": 5,
+        "poisson_tail_lower_bound": {
+          "decimal": "0.135888225400433253",
+          "denominator_bits": 3015,
+          "numerator_bits": 3012,
+          "sha256_canonical_binary": "2f174acafc9ffe661488eaa2a7f406300acb57e9b1c765201532621142779824"
+        },
+        "poisson_tail_upper_bound": {
+          "decimal": "0.135888225400433253",
+          "denominator_bits": 2986,
+          "numerator_bits": 2983,
+          "sha256_canonical_binary": "defc7c9503d457d520bb9d6987969d3022996d9600e2f7f9aee901e3154c71ed"
+        },
+        "positive_coordinates": 2
+      },
+      {
+        "certified_lower_margin": {
+          "decimal": "0.105750081126843515",
+          "denominator_bits": 2501,
+          "numerator_bits": 2498,
+          "sha256_canonical_binary": "8710ded73dd6abf3ab4b5c281a2a6ea3e944c389f5c89d753f7964e63bf8adce"
+        },
+        "common_positive_coordinate": {
+          "decimal": "1.666666666666666667",
+          "denominator": "3",
+          "numerator": "5"
+        },
+        "dirichlet_tail": {
+          "decimal": "0.317440000000000000",
+          "denominator": "3125",
+          "numerator": "992"
+        },
+        "lambda": {
+          "decimal": "3.000000000000000000",
+          "denominator": "1",
+          "numerator": "3"
+        },
+        "n": 5,
+        "poisson_tail_lower_bound": {
+          "decimal": "0.423190081126843515",
+          "denominator_bits": 2501,
+          "numerator_bits": 2500,
+          "sha256_canonical_binary": "daef87f015953b87b6a4c600dd7a487507e909779eeb27ebf6328e4a5f768e41"
+        },
+        "poisson_tail_upper_bound": {
+          "decimal": "0.423190081126843515",
+          "denominator_bits": 2467,
+          "numerator_bits": 2466,
+          "sha256_canonical_binary": "51609db7a9182a7302cb7d9e76a718f3742634d81c5849a6194a1e43102ccc70"
+        },
+        "positive_coordinates": 3
+      },
+      {
+        "certified_lower_margin": {
+          "decimal": "0.180183305553544344",
+          "denominator_bits": 1970,
+          "numerator_bits": 1967,
+          "sha256_canonical_binary": "8b709c67f15251a88f90e8eb43e3a8b401b59082331f499907e7d194d2b51caa"
+        },
+        "common_positive_coordinate": {
+          "decimal": "1.250000000000000000",
+          "denominator": "4",
+          "numerator": "5"
+        },
+        "dirichlet_tail": {
+          "decimal": "0.057920000000000000",
+          "denominator": "3125",
+          "numerator": "181"
+        },
+        "lambda": {
+          "decimal": "4.000000000000000000",
+          "denominator": "1",
+          "numerator": "4"
+        },
+        "n": 5,
+        "poisson_tail_lower_bound": {
+          "decimal": "0.238103305553544344",
+          "denominator_bits": 1970,
+          "numerator_bits": 1968,
+          "sha256_canonical_binary": "b788bddd0e8f14b148a6af7bbff19e7e4ee8c7a70d97b60cecef961e68f31b5e"
+        },
+        "poisson_tail_upper_bound": {
+          "decimal": "0.238103305553544344",
+          "denominator_bits": 1964,
+          "numerator_bits": 1962,
+          "sha256_canonical_binary": "28f9a9d6aa562892c5c256fac7678bbdd096c8ad8c3bf2e314744014e0a5a4c3"
+        },
+        "positive_coordinates": 3
+      },
+      {
+        "certified_lower_margin": {
+          "decimal": "0.170750120366708934",
+          "denominator_bits": 1969,
+          "numerator_bits": 1966,
+          "sha256_canonical_binary": "d4f5db4a4e88a8d3a4654daddfb088f0a3413a730e5f598e7b7adc64b6264e84"
+        },
+        "common_positive_coordinate": {
+          "decimal": "1.250000000000000000",
+          "denominator": "4",
+          "numerator": "5"
+        },
+        "dirichlet_tail": {
+          "decimal": "0.262720000000000000",
+          "denominator": "3125",
+          "numerator": "821"
+        },
+        "lambda": {
+          "decimal": "4.000000000000000000",
+          "denominator": "1",
+          "numerator": "4"
+        },
+        "n": 5,
+        "poisson_tail_lower_bound": {
+          "decimal": "0.433470120366708934",
+          "denominator_bits": 1969,
+          "numerator_bits": 1968,
+          "sha256_canonical_binary": "5dfd861ba0d89cdfc8fd6dd06edc15671c4315120af63c12a3eeac3d0cac7107"
+        },
+        "poisson_tail_upper_bound": {
+          "decimal": "0.433470120366708934",
+          "denominator_bits": 1963,
+          "numerator_bits": 1962,
+          "sha256_canonical_binary": "8624f860e007828004ef247fb97f0978bac9c9313fe4025fdaf0a4a9c5e7202f"
+        },
+        "positive_coordinates": 4
+      },
+      {
+        "certified_lower_margin": {
+          "decimal": "0.260835955834591069",
+          "denominator_bits": 6537,
+          "numerator_bits": 6535,
+          "sha256_canonical_binary": "87f553c10c48cb6acaa550367cbdb459a96f0dbfd1559af398f9f52bf86f916f"
+        },
+        "common_positive_coordinate": {
+          "decimal": "1.111111111111111111",
+          "denominator": "9",
+          "numerator": "10"
+        },
+        "dirichlet_tail": {
+          "decimal": "0.081460000000000000",
+          "denominator": "50000",
+          "numerator": "4073"
+        },
+        "lambda": {
+          "decimal": "4.500000000000000000",
+          "denominator": "2",
+          "numerator": "9"
+        },
+        "n": 5,
+        "poisson_tail_lower_bound": {
+          "decimal": "0.342295955834591069",
+          "denominator_bits": 6537,
+          "numerator_bits": 6535,
+          "sha256_canonical_binary": "8232fc000724bb6c303da525377616fc6082bc3e6df04c8dafc919b60f1170a0"
+        },
+        "poisson_tail_upper_bound": {
+          "decimal": "0.342295955834591069",
+          "denominator_bits": 6441,
+          "numerator_bits": 6439,
+          "sha256_canonical_binary": "3b4b674b61dc921c9d1cce98e891a523d602d424dd7160d44a1edd0450c3cf5b"
+        },
+        "positive_coordinates": 4
+      },
+      {
+        "certified_lower_margin": {
+          "decimal": "0.440493285065212411",
+          "denominator_bits": 5949,
+          "numerator_bits": 5948,
+          "sha256_canonical_binary": "fe1a3f9e2440e201d7df9fc7ff5c0b0a3233a409586a3b59db3216ed389ab909"
+        },
+        "common_positive_coordinate": {
+          "decimal": "1.000000000000000000",
+          "denominator": "1",
+          "numerator": "1"
+        },
+        "dirichlet_tail": {
+          "decimal": "0.000000000000000000",
+          "denominator": "1",
+          "numerator": "0"
+        },
+        "lambda": {
+          "decimal": "5.000000000000000000",
+          "denominator": "1",
+          "numerator": "5"
+        },
+        "n": 5,
+        "poisson_tail_lower_bound": {
+          "decimal": "0.440493285065212411",
+          "denominator_bits": 5949,
+          "numerator_bits": 5948,
+          "sha256_canonical_binary": "fe1a3f9e2440e201d7df9fc7ff5c0b0a3233a409586a3b59db3216ed389ab909"
+        },
+        "poisson_tail_upper_bound": {
+          "decimal": "0.440493285065212411",
+          "denominator_bits": 5802,
+          "numerator_bits": 5801,
+          "sha256_canonical_binary": "340a0f23a421c881871e3d6d20ffa90b6799b9415936ad75b6f1e0d6d3daa14a"
+        },
+        "positive_coordinates": 5
+      },
+      {
+        "certified_lower_margin": {
+          "decimal": "0.019201001071442322",
+          "denominator_bits": 494,
+          "numerator_bits": 488,
+          "sha256_canonical_binary": "b54eb7357bf75e45f7a5a7964e743de5a94f9d7a7611964e3ef2c9acdf9dc1b0"
+        },
+        "common_positive_coordinate": {
+          "decimal": "10.000000000000000000",
+          "denominator": "1",
+          "numerator": "10"
+        },
+        "dirichlet_tail": {
+          "decimal": "0.348678440100000000",
+          "denominator": "10000000000",
+          "numerator": "3486784401"
+        },
+        "lambda": {
+          "decimal": "1.000000000000000000",
+          "denominator": "1",
+          "numerator": "1"
+        },
+        "n": 10,
+        "poisson_tail_lower_bound": {
+          "decimal": "0.367879441171442322",
+          "denominator_bits": 494,
+          "numerator_bits": 492,
+          "sha256_canonical_binary": "af0134b8bf0ff18954ec36b0e188c693655605028859b817ead64d1e6a0b4a7f"
+        },
+        "poisson_tail_upper_bound": {
+          "decimal": "0.367879441171442322",
+          "denominator_bits": 492,
+          "numerator_bits": 491,
+          "sha256_canonical_binary": "80ab704a3a26923326146a65b48ce73bdb0673026d21736200a71ac4e0147de3"
+        },
+        "positive_coordinates": 1
+      },
+      {
+        "certified_lower_margin": {
+          "decimal": "0.003746265149303911",
+          "denominator_bits": 6870,
+          "numerator_bits": 6862,
+          "sha256_canonical_binary": "d5e911a0782cf447dacaffbb271f77d543e5877c34a490a2af6db00b33268ad6"
+        },
+        "common_positive_coordinate": {
+          "decimal": "1.818181818181818182",
+          "denominator": "11",
+          "numerator": "20"
+        },
+        "dirichlet_tail": {
+          "decimal": "0.000340506289160156",
+          "denominator": "10240000000000",
+          "numerator": "3486784401"
+        },
+        "lambda": {
+          "decimal": "5.500000000000000000",
+          "denominator": "2",
+          "numerator": "11"
+        },
+        "n": 10,
+        "poisson_tail_lower_bound": {
+          "decimal": "0.004086771438464067",
+          "denominator_bits": 6870,
+          "numerator_bits": 6862,
+          "sha256_canonical_binary": "f1059b1612deb326b043347ba79f031128d0b5a2d6b1b01812bc7ff24f0988b5"
+        },
+        "poisson_tail_upper_bound": {
+          "decimal": "0.004086771438464067",
+          "denominator_bits": 6819,
+          "numerator_bits": 6811,
+          "sha256_canonical_binary": "d71cd5f293821e0555462a86533931ff65e93729e4af61754b5e91daeae66516"
+        },
+        "positive_coordinates": 1
+      },
+      {
+        "certified_lower_margin": {
+          "decimal": "0.030196211309838076",
+          "denominator_bits": 985,
+          "numerator_bits": 980,
+          "sha256_canonical_binary": "e1675e763a1eb87926023b16ec4667421c2b0d1868754449a496fc7d50ded115"
+        },
+        "common_positive_coordinate": {
+          "decimal": "5.000000000000000000",
+          "denominator": "1",
+          "numerator": "5"
+        },
+        "dirichlet_tail": {
+          "decimal": "0.375809638400000000",
+          "denominator": "9765625",
+          "numerator": "3670016"
+        },
+        "lambda": {
+          "decimal": "2.000000000000000000",
+          "denominator": "1",
+          "numerator": "2"
+        },
+        "n": 10,
+        "poisson_tail_lower_bound": {
+          "decimal": "0.406005849709838076",
+          "denominator_bits": 985,
+          "numerator_bits": 984,
+          "sha256_canonical_binary": "fb18bde972d0374f58cc09dcb55818a50e9100e067e74fc2d9f7b4bee31fd75f"
+        },
+        "poisson_tail_upper_bound": {
+          "decimal": "0.406005849709838076",
+          "denominator_bits": 982,
+          "numerator_bits": 981,
+          "sha256_canonical_binary": "d6641bd8b62d92c1abc5637fa140e09a3c60c502e390247b45b267f232dbedc1"
+        },
+        "positive_coordinates": 2
+      },
+      {
+        "certified_lower_margin": {
+          "decimal": "0.015673543636664509",
+          "denominator_bits": 5005,
+          "numerator_bits": 4999,
+          "sha256_canonical_binary": "c02321e79b0d87cab350d5e6d7eb0d181caa19dc5ca6bdbc07eb57544a65eaa8"
+        },
+        "common_positive_coordinate": {
+          "decimal": "1.666666666666666667",
+          "denominator": "3",
+          "numerator": "5"
+        },
+        "dirichlet_tail": {
+          "decimal": "0.001677721600000000",
+          "denominator": "9765625",
+          "numerator": "16384"
+        },
+        "lambda": {
+          "decimal": "6.000000000000000000",
+          "denominator": "1",
+          "numerator": "6"
+        },
+        "n": 10,
+        "poisson_tail_lower_bound": {
+          "decimal": "0.017351265236664509",
+          "denominator_bits": 5005,
+          "numerator_bits": 5000,
+          "sha256_canonical_binary": "4f2e0ed1ff3bcfe6589c7026a4fa29580a2759215f0f2bb91eda357a8cb2bfa5"
+        },
+        "poisson_tail_upper_bound": {
+          "decimal": "0.017351265236664509",
+          "denominator_bits": 4937,
+          "numerator_bits": 4931,
+          "sha256_canonical_binary": "df3cae5219f73b37848b60badfd28262e70caa4f9e8ec0e53238c08e41b92e24"
+        },
+        "positive_coordinates": 2
+      },
+      {
+        "certified_lower_margin": {
+          "decimal": "0.040407294726843515",
+          "denominator_bits": 2501,
+          "numerator_bits": 2497,
+          "sha256_canonical_binary": "0b97fcbca89ba976ad519664bad6683b3f76d08cd2de1a178a9515da4545a453"
+        },
+        "common_positive_coordinate": {
+          "decimal": "3.333333333333333333",
+          "denominator": "3",
+          "numerator": "10"
+        },
+        "dirichlet_tail": {
+          "decimal": "0.382782786400000000",
+          "denominator": "1250000000",
+          "numerator": "478478483"
+        },
+        "lambda": {
+          "decimal": "3.000000000000000000",
+          "denominator": "1",
+          "numerator": "3"
+        },
+        "n": 10,
+        "poisson_tail_lower_bound": {
+          "decimal": "0.423190081126843515",
+          "denominator_bits": 2501,
+          "numerator_bits": 2500,
+          "sha256_canonical_binary": "daef87f015953b87b6a4c600dd7a487507e909779eeb27ebf6328e4a5f768e41"
+        },
+        "poisson_tail_upper_bound": {
+          "decimal": "0.423190081126843515",
+          "denominator_bits": 2467,
+          "numerator_bits": 2466,
+          "sha256_canonical_binary": "51609db7a9182a7302cb7d9e76a718f3742634d81c5849a6194a1e43102ccc70"
+        },
+        "positive_coordinates": 3
+      },
+      {
+        "certified_lower_margin": {
+          "decimal": "0.038214681687654886",
+          "denominator_bits": 6820,
+          "numerator_bits": 6815,
+          "sha256_canonical_binary": "a8f97e70717b85f75b6a9151b8a58dc8d906f51370189313ac2afbbad9e37c61"
+        },
+        "common_positive_coordinate": {
+          "decimal": "1.538461538461538462",
+          "denominator": "13",
+          "numerator": "20"
+        },
+        "dirichlet_tail": {
+          "decimal": "0.004821265211328125",
+          "denominator": "2560000000000",
+          "numerator": "12342438941"
+        },
+        "lambda": {
+          "decimal": "6.500000000000000000",
+          "denominator": "2",
+          "numerator": "13"
+        },
+        "n": 10,
+        "poisson_tail_lower_bound": {
+          "decimal": "0.043035946898983011",
+          "denominator_bits": 6820,
+          "numerator_bits": 6816,
+          "sha256_canonical_binary": "50e993bc32ff341b2d1d1ba6bab57fa81fae0bf818da461b9f2e964173ea66ad"
+        },
+        "poisson_tail_upper_bound": {
+          "decimal": "0.043035946898983011",
+          "denominator_bits": 6809,
+          "numerator_bits": 6804,
+          "sha256_canonical_binary": "f115c9cd41cee3cb69506f36a673682672c8fb90799eb47844ff64d69ced362d"
+        },
+        "positive_coordinates": 3
+      },
+      {
+        "certified_lower_margin": {
+          "decimal": "0.051189518766708934",
+          "denominator_bits": 1969,
+          "numerator_bits": 1965,
+          "sha256_canonical_binary": "4bca8c3e5462c586774bdf0a267bdd4152a305ab306ed290a51b11c8fd1a439a"
+        },
+        "common_positive_coordinate": {
+          "decimal": "2.500000000000000000",
+          "denominator": "2",
+          "numerator": "5"
+        },
+        "dirichlet_tail": {
+          "decimal": "0.382280601600000000",
+          "denominator": "9765625",
+          "numerator": "3733209"
+        },
+        "lambda": {
+          "decimal": "4.000000000000000000",
+          "denominator": "1",
+          "numerator": "4"
+        },
+        "n": 10,
+        "poisson_tail_lower_bound": {
+          "decimal": "0.433470120366708934",
+          "denominator_bits": 1969,
+          "numerator_bits": 1968,
+          "sha256_canonical_binary": "5dfd861ba0d89cdfc8fd6dd06edc15671c4315120af63c12a3eeac3d0cac7107"
+        },
+        "poisson_tail_upper_bound": {
+          "decimal": "0.433470120366708934",
+          "denominator_bits": 1963,
+          "numerator_bits": 1962,
+          "sha256_canonical_binary": "8624f860e007828004ef247fb97f0978bac9c9313fe4025fdaf0a4a9c5e7202f"
+        },
+        "positive_coordinates": 4
+      },
+      {
+        "certified_lower_margin": {
+          "decimal": "0.071173337844721620",
+          "denominator_bits": 6036,
+          "numerator_bits": 6032,
+          "sha256_canonical_binary": "01cd63f7bb35b2018a7f11c53e491cac2d2e9d2cba3fd489fa9311c8220f7ded"
+        },
+        "common_positive_coordinate": {
+          "decimal": "1.428571428571428571",
+          "denominator": "7",
+          "numerator": "10"
+        },
+        "dirichlet_tail": {
+          "decimal": "0.010592078400000000",
+          "denominator": "625000000",
+          "numerator": "6620049"
+        },
+        "lambda": {
+          "decimal": "7.000000000000000000",
+          "denominator": "1",
+          "numerator": "7"
+        },
+        "n": 10,
+        "poisson_tail_lower_bound": {
+          "decimal": "0.081765416244721620",
+          "denominator_bits": 6036,
+          "numerator_bits": 6032,
+          "sha256_canonical_binary": "378e0d3e8512f048e34264373e16b23dc5e8d7934affe0926939a3cfebcd960c"
+        },
+        "poisson_tail_upper_bound": {
+          "decimal": "0.081765416244721620",
+          "denominator_bits": 5978,
+          "numerator_bits": 5974,
+          "sha256_canonical_binary": "eb00d54f9f4f601b50fce2c5a446dda1d6a40bd42f66fccf15aa68302bc1710d"
+        },
+        "positive_coordinates": 4
+      },
+      {
+        "certified_lower_margin": {
+          "decimal": "0.063540160065212411",
+          "denominator_bits": 5949,
+          "numerator_bits": 5945,
+          "sha256_canonical_binary": "d7330b8e97a00c5c35928c2bdaefbf5c3b9cbdb4e7c05720b9ca52395602bfef"
+        },
+        "common_positive_coordinate": {
+          "decimal": "2.000000000000000000",
+          "denominator": "1",
+          "numerator": "2"
+        },
+        "dirichlet_tail": {
+          "decimal": "0.376953125000000000",
+          "denominator": "512",
+          "numerator": "193"
+        },
+        "lambda": {
+          "decimal": "5.000000000000000000",
+          "denominator": "1",
+          "numerator": "5"
+        },
+        "n": 10,
+        "poisson_tail_lower_bound": {
+          "decimal": "0.440493285065212411",
+          "denominator_bits": 5949,
+          "numerator_bits": 5948,
+          "sha256_canonical_binary": "fe1a3f9e2440e201d7df9fc7ff5c0b0a3233a409586a3b59db3216ed389ab909"
+        },
+        "poisson_tail_upper_bound": {
+          "decimal": "0.440493285065212411",
+          "denominator_bits": 5802,
+          "numerator_bits": 5801,
+          "sha256_canonical_binary": "340a0f23a421c881871e3d6d20ffa90b6799b9415936ad75b6f1e0d6d3daa14a"
+        },
+        "positive_coordinates": 5
+      },
+      {
+        "certified_lower_margin": {
+          "decimal": "0.112334149378540920",
+          "denominator_bits": 6155,
+          "numerator_bits": 6152,
+          "sha256_canonical_binary": "54e68589dcba71a3a50d237ca920ac6f47488071e38e90f6df0c065b71ba695f"
+        },
+        "common_positive_coordinate": {
+          "decimal": "1.333333333333333333",
+          "denominator": "3",
+          "numerator": "4"
+        },
+        "dirichlet_tail": {
+          "decimal": "0.019727706909179688",
+          "denominator": "524288",
+          "numerator": "10343"
+        },
+        "lambda": {
+          "decimal": "7.500000000000000000",
+          "denominator": "2",
+          "numerator": "15"
+        },
+        "n": 10,
+        "poisson_tail_lower_bound": {
+          "decimal": "0.132061856287720608",
+          "denominator_bits": 6155,
+          "numerator_bits": 6152,
+          "sha256_canonical_binary": "f2d4d1811a96d3eb9e9809ce1472d523b63f3f9173f080a5467d9d5dbfcf0da6"
+        },
+        "poisson_tail_upper_bound": {
+          "decimal": "0.132061856287720608",
+          "denominator_bits": 6070,
+          "numerator_bits": 6067,
+          "sha256_canonical_binary": "2b32d252cadd4f13668cada3d2b1aadbac1d1858d708e4e122d3f77abf6ebb01"
+        },
+        "positive_coordinates": 5
+      },
+      {
+        "certified_lower_margin": {
+          "decimal": "0.078782898964611244",
+          "denominator_bits": 5001,
+          "numerator_bits": 4997,
+          "sha256_canonical_binary": "39f8f201cd81b15bcce53d31d7826e31d97801c71005dad4cfeffa9f45b195a8"
+        },
+        "common_positive_coordinate": {
+          "decimal": "1.666666666666666667",
+          "denominator": "3",
+          "numerator": "5"
+        },
+        "dirichlet_tail": {
+          "decimal": "0.366896742400000000",
+          "denominator": "9765625",
+          "numerator": "3582976"
+        },
+        "lambda": {
+          "decimal": "6.000000000000000000",
+          "denominator": "1",
+          "numerator": "6"
+        },
+        "n": 10,
+        "poisson_tail_lower_bound": {
+          "decimal": "0.445679641364611244",
+          "denominator_bits": 5001,
+          "numerator_bits": 5000,
+          "sha256_canonical_binary": "83d17a350a59e66bff7c8a389bf23da9ca1c2b92edd037314c7376b4ca701f66"
+        },
+        "poisson_tail_upper_bound": {
+          "decimal": "0.445679641364611244",
+          "denominator_bits": 4932,
+          "numerator_bits": 4931,
+          "sha256_canonical_binary": "ebad7ef61e98822f7d4a82b18caad9b15fb86819e15a0d999b34cfe48729a1c3"
+        },
+        "positive_coordinates": 6
+      },
+      {
+        "certified_lower_margin": {
+          "decimal": "0.158442564479625249",
+          "denominator_bits": 3946,
+          "numerator_bits": 3944,
+          "sha256_canonical_binary": "edfc38669ad1762e86a241fb54094913cd32e126da9df61c10aafc349a744c82"
+        },
+        "common_positive_coordinate": {
+          "decimal": "1.250000000000000000",
+          "denominator": "4",
+          "numerator": "5"
+        },
+        "dirichlet_tail": {
+          "decimal": "0.032793497600000000",
+          "denominator": "9765625",
+          "numerator": "320249"
+        },
+        "lambda": {
+          "decimal": "8.000000000000000000",
+          "denominator": "1",
+          "numerator": "8"
+        },
+        "n": 10,
+        "poisson_tail_lower_bound": {
+          "decimal": "0.191236062079625249",
+          "denominator_bits": 3946,
+          "numerator_bits": 3944,
+          "sha256_canonical_binary": "2ea33c17b9be103a6775c99750f0f6accb64dbdf94f2b85a7c04e8bfa44f2da5"
+        },
+        "poisson_tail_upper_bound": {
+          "decimal": "0.191236062079625249",
+          "denominator_bits": 3934,
+          "numerator_bits": 3932,
+          "sha256_canonical_binary": "993eb6d23edbb76411733edcf3fced2a5a8e92c389b4fc5e37614e42f32d82fc"
+        },
+        "positive_coordinates": 6
+      },
+      {
+        "certified_lower_margin": {
+          "decimal": "0.099321774248698847",
+          "denominator_bits": 6038,
+          "numerator_bits": 6035,
+          "sha256_canonical_binary": "cc5fae407eceab222bfdc10b4c1f1af57fd336ff1fc075101885e4518ab86bd1"
+        },
+        "common_positive_coordinate": {
+          "decimal": "1.428571428571428571",
+          "denominator": "7",
+          "numerator": "10"
+        },
+        "dirichlet_tail": {
+          "decimal": "0.350389281600000000",
+          "denominator": "625000000",
+          "numerator": "218993301"
+        },
+        "lambda": {
+          "decimal": "7.000000000000000000",
+          "denominator": "1",
+          "numerator": "7"
+        },
+        "n": 10,
+        "poisson_tail_lower_bound": {
+          "decimal": "0.449711055848698847",
+          "denominator_bits": 6038,
+          "numerator_bits": 6037,
+          "sha256_canonical_binary": "46a1bf039fffb9252777980a4c0b587c257fb61345a911f7238da6a1ed50727b"
+        },
+        "poisson_tail_upper_bound": {
+          "decimal": "0.449711055848698847",
+          "denominator_bits": 5980,
+          "numerator_bits": 5979,
+          "sha256_canonical_binary": "1cfba1ea08384f1b1babe0f6e904ff005bc291bd6307e71cb4517ca50dc6a2fd"
+        },
+        "positive_coordinates": 7
+      },
+      {
+        "certified_lower_margin": {
+          "decimal": "0.206208062284416292",
+          "denominator_bits": 15499,
+          "numerator_bits": 15497,
+          "sha256_canonical_binary": "4eefb8ef1f89180ca76340722e2023d3d4a880871bc45ea23f695cd8388d50ad"
+        },
+        "common_positive_coordinate": {
+          "decimal": "1.176470588235294118",
+          "denominator": "17",
+          "numerator": "20"
+        },
+        "dirichlet_tail": {
+          "decimal": "0.049969798878515625",
+          "denominator": "2560000000000",
+          "numerator": "127922685129"
+        },
+        "lambda": {
+          "decimal": "8.500000000000000000",
+          "denominator": "2",
+          "numerator": "17"
+        },
+        "n": 10,
+        "poisson_tail_lower_bound": {
+          "decimal": "0.256177861162931917",
+          "denominator_bits": 15499,
+          "numerator_bits": 15497,
+          "sha256_canonical_binary": "e0209df62bb33c340e029e8c4f506d753a20331e8eb0cc8189439b53dc55fbba"
+        },
+        "poisson_tail_upper_bound": {
+          "decimal": "0.256177861162931917",
+          "denominator_bits": 15301,
+          "numerator_bits": 15300,
+          "sha256_canonical_binary": "93c4c1fb3b4065cd542d0b62f4e7d9d58fabe6552c847ec51c219288387ad745"
+        },
+        "positive_coordinates": 7
+      },
+      {
+        "certified_lower_margin": {
+          "decimal": "0.130760335886994485",
+          "denominator_bits": 3936,
+          "numerator_bits": 3933,
+          "sha256_canonical_binary": "d34b270c484ec0f60f72c53349aedeeda056a0f3be5e3e1a064d85429038170d"
+        },
+        "common_positive_coordinate": {
+          "decimal": "1.250000000000000000",
+          "denominator": "4",
+          "numerator": "5"
+        },
+        "dirichlet_tail": {
+          "decimal": "0.322200473600000000",
+          "denominator": "9765625",
+          "numerator": "3146489"
+        },
+        "lambda": {
+          "decimal": "8.000000000000000000",
+          "denominator": "1",
+          "numerator": "8"
+        },
+        "n": 10,
+        "poisson_tail_lower_bound": {
+          "decimal": "0.452960809486994485",
+          "denominator_bits": 3936,
+          "numerator_bits": 3935,
+          "sha256_canonical_binary": "3efb8a78bc304f9ab552b8b4df3d6b120bc1cc043de646d160ed527c3279effe"
+        },
+        "poisson_tail_upper_bound": {
+          "decimal": "0.452960809486994485",
+          "denominator_bits": 3924,
+          "numerator_bits": 3923,
+          "sha256_canonical_binary": "61000fa726f6cb70f80ae165b2973c7b6a5503b922667f6cbec2eeeb14d2f41a"
+        },
+        "positive_coordinates": 8
+      },
+      {
+        "certified_lower_margin": {
+          "decimal": "0.253706137912896050",
+          "denominator_bits": 13090,
+          "numerator_bits": 13088,
+          "sha256_canonical_binary": "b7369002b920fe891eaaa3a870af9b16a206ed96fed96028297f2ce202840ec6"
+        },
+        "common_positive_coordinate": {
+          "decimal": "1.111111111111111111",
+          "denominator": "9",
+          "numerator": "10"
+        },
+        "dirichlet_tail": {
+          "decimal": "0.070190826400000000",
+          "denominator": "1250000000",
+          "numerator": "87738533"
+        },
+        "lambda": {
+          "decimal": "9.000000000000000000",
+          "denominator": "1",
+          "numerator": "9"
+        },
+        "n": 10,
+        "poisson_tail_lower_bound": {
+          "decimal": "0.323896964312896050",
+          "denominator_bits": 13090,
+          "numerator_bits": 13088,
+          "sha256_canonical_binary": "32c1a3cdc55c920d23ffe5b28093e4346cf4c27e746bd2c6049e09b4e1c9643a"
+        },
+        "poisson_tail_upper_bound": {
+          "decimal": "0.323896964312896050",
+          "denominator_bits": 12898,
+          "numerator_bits": 12897,
+          "sha256_canonical_binary": "bed8ad70aaa6ebb3e35e0d4af162b2dfcb3687740fe15cf016db1c4c25331d32"
+        },
+        "positive_coordinates": 8
+      },
+      {
+        "certified_lower_margin": {
+          "decimal": "0.191751533422418728",
+          "denominator_bits": 13091,
+          "numerator_bits": 13089,
+          "sha256_canonical_binary": "842008ac4d8bd1939525367e5de4dece0ddc81076a8dd3256df998fcc9bef6f8"
+        },
+        "common_positive_coordinate": {
+          "decimal": "1.111111111111111111",
+          "denominator": "9",
+          "numerator": "10"
+        },
+        "dirichlet_tail": {
+          "decimal": "0.263901070900000000",
+          "denominator": "10000000000",
+          "numerator": "2639010709"
+        },
+        "lambda": {
+          "decimal": "9.000000000000000000",
+          "denominator": "1",
+          "numerator": "9"
+        },
+        "n": 10,
+        "poisson_tail_lower_bound": {
+          "decimal": "0.455652604322418728",
+          "denominator_bits": 13091,
+          "numerator_bits": 13090,
+          "sha256_canonical_binary": "3453f719e2999b59397e3d4d9548b2b2a310853d0d87f4bd1554eec416126b7a"
+        },
+        "poisson_tail_upper_bound": {
+          "decimal": "0.455652604322418728",
+          "denominator_bits": 12899,
+          "numerator_bits": 12898,
+          "sha256_canonical_binary": "d5d46eaaf903392fe9c82b64e98d9b91652999f39af70a3c12c8834be4bfafaa"
+        },
+        "positive_coordinates": 9
+      },
+      {
+        "certified_lower_margin": {
+          "decimal": "0.305685126645623115",
+          "denominator_bits": 15444,
+          "numerator_bits": 15442,
+          "sha256_canonical_binary": "2096dddbdbc9ad9cf9d6bae7b3f13178262c1f2ef9e92f6e96592189f8f0dbd2"
+        },
+        "common_positive_coordinate": {
+          "decimal": "1.052631578947368421",
+          "denominator": "19",
+          "numerator": "20"
+        },
+        "dirichlet_tail": {
+          "decimal": "0.086138355899316406",
+          "denominator": "10240000000000",
+          "numerator": "882056764409"
+        },
+        "lambda": {
+          "decimal": "9.500000000000000000",
+          "denominator": "2",
+          "numerator": "19"
+        },
+        "n": 10,
+        "poisson_tail_lower_bound": {
+          "decimal": "0.391823482544939521",
+          "denominator_bits": 15444,
+          "numerator_bits": 15443,
+          "sha256_canonical_binary": "4cc35a1f298e8315f96a2022cc1657206f8fbbbc51b2670305444e2aa9718b07"
+        },
+        "poisson_tail_upper_bound": {
+          "decimal": "0.391823482544939521",
+          "denominator_bits": 15331,
+          "numerator_bits": 15329,
+          "sha256_canonical_binary": "7d4c7287d1cdc0c1b90ae1c0b66e7f280483c097020a9f314216bc7f4c584793"
+        },
+        "positive_coordinates": 9
+      },
+      {
+        "certified_lower_margin": {
+          "decimal": "0.457929714471852208",
+          "denominator_bits": 11898,
+          "numerator_bits": 11896,
+          "sha256_canonical_binary": "f978729c57ee802d1dd06ef5556a845181d85ccbd890481abab29c676119dffc"
+        },
+        "common_positive_coordinate": {
+          "decimal": "1.000000000000000000",
+          "denominator": "1",
+          "numerator": "1"
+        },
+        "dirichlet_tail": {
+          "decimal": "0.000000000000000000",
+          "denominator": "1",
+          "numerator": "0"
+        },
+        "lambda": {
+          "decimal": "10.000000000000000000",
+          "denominator": "1",
+          "numerator": "10"
+        },
+        "n": 10,
+        "poisson_tail_lower_bound": {
+          "decimal": "0.457929714471852208",
+          "denominator_bits": 11898,
+          "numerator_bits": 11896,
+          "sha256_canonical_binary": "f978729c57ee802d1dd06ef5556a845181d85ccbd890481abab29c676119dffc"
+        },
+        "poisson_tail_upper_bound": {
+          "decimal": "0.457929714471852208",
+          "denominator_bits": 11603,
+          "numerator_bits": 11601,
+          "sha256_canonical_binary": "5b08182fe1b7a681f4d2d6b6a3ee40dfcbd61f918ef84c669d0bf394d8e89d97"
+        },
+        "positive_coordinates": 10
+      },
+      {
+        "certified_lower_margin": {
+          "decimal": "0.009393518762900087",
+          "denominator_bits": 494,
+          "numerator_bits": 487,
+          "sha256_canonical_binary": "a108ebf8415b698084353178234448da06d0d5270f06fa40c1a1eb2bcc6a81f2"
+        },
+        "common_positive_coordinate": {
+          "decimal": "20.000000000000000000",
+          "denominator": "1",
+          "numerator": "20"
+        },
+        "dirichlet_tail": {
+          "decimal": "0.358485922408542234",
+          "denominator": "104857600000000000000000000",
+          "numerator": "37589973457545958193355601"
+        },
+        "lambda": {
+          "decimal": "1.000000000000000000",
+          "denominator": "1",
+          "numerator": "1"
+        },
+        "n": 20,
+        "poisson_tail_lower_bound": {
+          "decimal": "0.367879441171442322",
+          "denominator_bits": 494,
+          "numerator_bits": 492,
+          "sha256_canonical_binary": "af0134b8bf0ff18954ec36b0e188c693655605028859b817ead64d1e6a0b4a7f"
+        },
+        "poisson_tail_upper_bound": {
+          "decimal": "0.367879441171442322",
+          "denominator_bits": 492,
+          "numerator_bits": 491,
+          "sha256_canonical_binary": "80ab704a3a26923326146a65b48ce73bdb0673026d21736200a71ac4e0147de3"
+        },
+        "positive_coordinates": 1
+      },
+      {
+        "certified_lower_margin": {
+          "decimal": "0.000027194570532753",
+          "denominator_bits": 13951,
+          "numerator_bits": 13935,
+          "sha256_canonical_binary": "04da67171f9d1ba4a65e4e228084096f28e2cb1db50af46787a19a967ed59133"
+        },
+        "common_positive_coordinate": {
+          "decimal": "1.904761904761904762",
+          "denominator": "21",
+          "numerator": "40"
+        },
+        "dirichlet_tail": {
+          "decimal": "0.000000341878816994",
+          "denominator": "109951162777600000000000000000000",
+          "numerator": "37589973457545958193355601"
+        },
+        "lambda": {
+          "decimal": "10.500000000000000000",
+          "denominator": "2",
+          "numerator": "21"
+        },
+        "n": 20,
+        "poisson_tail_lower_bound": {
+          "decimal": "0.000027536449349747",
+          "denominator_bits": 13951,
+          "numerator_bits": 13936,
+          "sha256_canonical_binary": "b0d85b26145594ea8a1e9f954e7b533159b22092092cd5e4f945bb9f143aedc0"
+        },
+        "poisson_tail_upper_bound": {
+          "decimal": "0.000027536449349747",
+          "denominator_bits": 13858,
+          "numerator_bits": 13842,
+          "sha256_canonical_binary": "c0c11b0669ad81d07c25101e72879c5107995d06a478bd70009d0df2f2a6002f"
+        },
+        "positive_coordinates": 1
+      },
+      {
+        "certified_lower_margin": {
+          "decimal": "0.014258851584670370",
+          "denominator_bits": 985,
+          "numerator_bits": 979,
+          "sha256_canonical_binary": "f1770f371ce9b13eb8e61aa318760da26d052c69280c0f89d4498d8c24dc6e98"
+        },
+        "common_positive_coordinate": {
+          "decimal": "10.000000000000000000",
+          "denominator": "1",
+          "numerator": "10"
+        },
+        "dirichlet_tail": {
+          "decimal": "0.391746998125167706",
+          "denominator": "100000000000000000000",
+          "numerator": "39174699812516770581"
+        },
+        "lambda": {
+          "decimal": "2.000000000000000000",
+          "denominator": "1",
+          "numerator": "2"
+        },
+        "n": 20,
+        "poisson_tail_lower_bound": {
+          "decimal": "0.406005849709838076",
+          "denominator_bits": 985,
+          "numerator_bits": 984,
+          "sha256_canonical_binary": "fb18bde972d0374f58cc09dcb55818a50e9100e067e74fc2d9f7b4bee31fd75f"
+        },
+        "poisson_tail_upper_bound": {
+          "decimal": "0.406005849709838076",
+          "denominator_bits": 982,
+          "numerator_bits": 981,
+          "sha256_canonical_binary": "d6641bd8b62d92c1abc5637fa140e09a3c60c502e390247b45b267f232dbedc1"
+        },
+        "positive_coordinates": 2
+      },
+      {
+        "certified_lower_margin": {
+          "decimal": "0.000197470265255471",
+          "denominator_bits": 13736,
+          "numerator_bits": 13724,
+          "sha256_canonical_binary": "8ba620fec5c41c3c30d2ef004f25a56bc2c12493aa2e4f0ced9637b55cec3233"
+        },
+        "common_positive_coordinate": {
+          "decimal": "1.818181818181818182",
+          "denominator": "11",
+          "numerator": "20"
+        },
+        "dirichlet_tail": {
+          "decimal": "0.000002950144227477",
+          "denominator": "104857600000000000000000000",
+          "numerator": "309345043347115188381"
+        },
+        "lambda": {
+          "decimal": "11.000000000000000000",
+          "denominator": "1",
+          "numerator": "11"
+        },
+        "n": 20,
+        "poisson_tail_lower_bound": {
+          "decimal": "0.000200420409482948",
+          "denominator_bits": 13736,
+          "numerator_bits": 13724,
+          "sha256_canonical_binary": "a2cfd938d29aa6985f5e8798429b4eec8f4dde30eb20b91a61b4b55e98a27504"
+        },
+        "poisson_tail_upper_bound": {
+          "decimal": "0.000200420409482948",
+          "denominator_bits": 13633,
+          "numerator_bits": 13621,
+          "sha256_canonical_binary": "1f03a275fb656ff99577c2a4ed5bf23e180d32a8730325148c5dae33ce31c2e6"
+        },
+        "positive_coordinates": 2
+      },
+      {
+        "certified_lower_margin": {
+          "decimal": "0.018293803119408081",
+          "denominator_bits": 2501,
+          "numerator_bits": 2496,
+          "sha256_canonical_binary": "0bbf89f5fd3a5520a014766013411dab4e4f34acd3a715eb1452c4ea6f376c28"
+        },
+        "common_positive_coordinate": {
+          "decimal": "6.666666666666666667",
+          "denominator": "3",
+          "numerator": "20"
+        },
+        "dirichlet_tail": {
+          "decimal": "0.404896278007435434",
+          "denominator": "104857600000000000000000000",
+          "numerator": "42456451960792461747856171"
+        },
+        "lambda": {
+          "decimal": "3.000000000000000000",
+          "denominator": "1",
+          "numerator": "3"
+        },
+        "n": 20,
+        "poisson_tail_lower_bound": {
+          "decimal": "0.423190081126843515",
+          "denominator_bits": 2501,
+          "numerator_bits": 2500,
+          "sha256_canonical_binary": "daef87f015953b87b6a4c600dd7a487507e909779eeb27ebf6328e4a5f768e41"
+        },
+        "poisson_tail_upper_bound": {
+          "decimal": "0.423190081126843515",
+          "denominator_bits": 2467,
+          "numerator_bits": 2466,
+          "sha256_canonical_binary": "51609db7a9182a7302cb7d9e76a718f3742634d81c5849a6194a1e43102ccc70"
+        },
+        "positive_coordinates": 3
+      },
+      {
+        "certified_lower_margin": {
+          "decimal": "0.000782585912366669",
+          "denominator_bits": 15418,
+          "numerator_bits": 15407,
+          "sha256_canonical_binary": "dc53d585481ebe974ee52f1cdb424d866ce68686087ca8d2d386a9517902f2ae"
+        },
+        "common_positive_coordinate": {
+          "decimal": "1.739130434782608696",
+          "denominator": "23",
+          "numerator": "40"
+        },
+        "dirichlet_tail": {
+          "decimal": "0.000013892696825671",
+          "denominator": "109951162777600000000000000000000",
+          "numerator": "1527518170099144220798406571"
+        },
+        "lambda": {
+          "decimal": "11.500000000000000000",
+          "denominator": "2",
+          "numerator": "23"
+        },
+        "n": 20,
+        "poisson_tail_lower_bound": {
+          "decimal": "0.000796478609192340",
+          "denominator_bits": 15418,
+          "numerator_bits": 15407,
+          "sha256_canonical_binary": "6444522178f2e36721df045ac9ff0e1583118348d188e1fb246ef35bc1171bec"
+        },
+        "poisson_tail_upper_bound": {
+          "decimal": "0.000796478609192340",
+          "denominator_bits": 15239,
+          "numerator_bits": 15228,
+          "sha256_canonical_binary": "d3a6ef17d6687edfd2069027a8d3e0a03159bdc198dbf90b4cb108f274626df4"
+        },
+        "positive_coordinates": 3
+      },
+      {
+        "certified_lower_margin": {
+          "decimal": "0.022021258410140419",
+          "denominator_bits": 1969,
+          "numerator_bits": 1963,
+          "sha256_canonical_binary": "cc7ba175c572c693d7b751d4808000bb461aa339072fb598b1d0703fafb279d6"
+        },
+        "common_positive_coordinate": {
+          "decimal": "5.000000000000000000",
+          "denominator": "1",
+          "numerator": "5"
+        },
+        "dirichlet_tail": {
+          "decimal": "0.411448861956568515",
+          "denominator": "95367431640625",
+          "numerator": "39238821216256"
+        },
+        "lambda": {
+          "decimal": "4.000000000000000000",
+          "denominator": "1",
+          "numerator": "4"
+        },
+        "n": 20,
+        "poisson_tail_lower_bound": {
+          "decimal": "0.433470120366708934",
+          "denominator_bits": 1969,
+          "numerator_bits": 1968,
+          "sha256_canonical_binary": "5dfd861ba0d89cdfc8fd6dd06edc15671c4315120af63c12a3eeac3d0cac7107"
+        },
+        "poisson_tail_upper_bound": {
+          "decimal": "0.433470120366708934",
+          "denominator_bits": 1963,
+          "numerator_bits": 1962,
+          "sha256_canonical_binary": "8624f860e007828004ef247fb97f0978bac9c9313fe4025fdaf0a4a9c5e7202f"
+        },
+        "positive_coordinates": 4
+      },
+      {
+        "certified_lower_margin": {
+          "decimal": "0.002244446237099388",
+          "denominator_bits": 10016,
+          "numerator_bits": 10007,
+          "sha256_canonical_binary": "4b530f3f71f8416c328644207f49419cd73e50c5bea89c793dbc53c3ec82fbd8"
+        },
+        "common_positive_coordinate": {
+          "decimal": "1.666666666666666667",
+          "denominator": "3",
+          "numerator": "5"
+        },
+        "dirichlet_tail": {
+          "decimal": "0.000047344970692035",
+          "denominator": "95367431640625",
+          "numerator": "4515168256"
+        },
+        "lambda": {
+          "decimal": "12.000000000000000000",
+          "denominator": "1",
+          "numerator": "12"
+        },
+        "n": 20,
+        "poisson_tail_lower_bound": {
+          "decimal": "0.002291791207791422",
+          "denominator_bits": 10016,
+          "numerator_bits": 10007,
+          "sha256_canonical_binary": "ffecaeb9473bf95b7f660c2c29a363c465c74ebaff0715d7c0a3f87331d318b8"
+        },
+        "poisson_tail_upper_bound": {
+          "decimal": "0.002291791207791422",
+          "denominator_bits": 9878,
+          "numerator_bits": 9870,
+          "sha256_canonical_binary": "c0bf860102d2978657fff2155bca214c085c34280475ef3861c8620d7d5af2e9"
+        },
+        "positive_coordinates": 4
+      },
+      {
+        "certified_lower_margin": {
+          "decimal": "0.025651782535032261",
+          "denominator_bits": 5949,
+          "numerator_bits": 5944,
+          "sha256_canonical_binary": "b35e8cbaf2715576add7ea39fb11cab9c3e379fc8f4fef4cc8e252b1b01d5711"
+        },
+        "common_positive_coordinate": {
+          "decimal": "4.000000000000000000",
+          "denominator": "1",
+          "numerator": "4"
+        },
+        "dirichlet_tail": {
+          "decimal": "0.414841502530180151",
+          "denominator": "274877906944",
+          "numerator": "114030763929"
+        },
+        "lambda": {
+          "decimal": "5.000000000000000000",
+          "denominator": "1",
+          "numerator": "5"
+        },
+        "n": 20,
+        "poisson_tail_lower_bound": {
+          "decimal": "0.440493285065212411",
+          "denominator_bits": 5949,
+          "numerator_bits": 5948,
+          "sha256_canonical_binary": "fe1a3f9e2440e201d7df9fc7ff5c0b0a3233a409586a3b59db3216ed389ab909"
+        },
+        "poisson_tail_upper_bound": {
+          "decimal": "0.440493285065212411",
+          "denominator_bits": 5802,
+          "numerator_bits": 5801,
+          "sha256_canonical_binary": "340a0f23a421c881871e3d6d20ffa90b6799b9415936ad75b6f1e0d6d3daa14a"
+        },
+        "positive_coordinates": 5
+      },
+      {
+        "certified_lower_margin": {
+          "decimal": "0.005214782549876623",
+          "denominator_bits": 15021,
+          "numerator_bits": 15013,
+          "sha256_canonical_binary": "50243afc95768353d8b79cc694373b60025b09139881e46d19bdfafe0f4b550f"
+        },
+        "common_positive_coordinate": {
+          "decimal": "1.600000000000000000",
+          "denominator": "5",
+          "numerator": "8"
+        },
+        "dirichlet_tail": {
+          "decimal": "0.000130722937257442",
+          "denominator": "288230376151711744",
+          "numerator": "37678321377369"
+        },
+        "lambda": {
+          "decimal": "12.500000000000000000",
+          "denominator": "2",
+          "numerator": "25"
+        },
+        "n": 20,
+        "poisson_tail_lower_bound": {
+          "decimal": "0.005345505487134064",
+          "denominator_bits": 15021,
+          "numerator_bits": 15013,
+          "sha256_canonical_binary": "b56785b7f8cbeb178276fb71990d5c79d3237297baa37430c3926b0244aaf8db"
+        },
+        "poisson_tail_upper_bound": {
+          "decimal": "0.005345505487134064",
+          "denominator_bits": 14835,
+          "numerator_bits": 14828,
+          "sha256_canonical_binary": "b44da88fbe20224420effb32b427531fa1b7e850c1cc3b03d26bb054cbe94b2b"
+        },
+        "positive_coordinates": 5
+      },
+      {
+        "certified_lower_margin": {
+          "decimal": "0.029308811917129861",
+          "denominator_bits": 5001,
+          "numerator_bits": 4996,
+          "sha256_canonical_binary": "198a4f2fba5f841e843027eeca4c610239df40a18d30d3c0b089f634f6d7e62f"
+        },
+        "common_positive_coordinate": {
+          "decimal": "3.333333333333333333",
+          "denominator": "3",
+          "numerator": "10"
+        },
+        "dirichlet_tail": {
+          "decimal": "0.416370829447481384",
+          "denominator": "25000000000000000000",
+          "numerator": "10409270736187034593"
+        },
+        "lambda": {
+          "decimal": "6.000000000000000000",
+          "denominator": "1",
+          "numerator": "6"
+        },
+        "n": 20,
+        "poisson_tail_lower_bound": {
+          "decimal": "0.445679641364611244",
+          "denominator_bits": 5001,
+          "numerator_bits": 5000,
+          "sha256_canonical_binary": "83d17a350a59e66bff7c8a389bf23da9ca1c2b92edd037314c7376b4ca701f66"
+        },
+        "poisson_tail_upper_bound": {
+          "decimal": "0.445679641364611244",
+          "denominator_bits": 4932,
+          "numerator_bits": 4931,
+          "sha256_canonical_binary": "ebad7ef61e98822f7d4a82b18caad9b15fb86819e15a0d999b34cfe48729a1c3"
+        },
+        "positive_coordinates": 6
+      },
+      {
+        "certified_lower_margin": {
+          "decimal": "0.010423314989600375",
+          "denominator_bits": 13640,
+          "numerator_bits": 13633,
+          "sha256_canonical_binary": "007c18aacf9ae5f2fa42ab3fdeb398d09d7052110ec229c474d4c1cdc2956843"
+        },
+        "common_positive_coordinate": {
+          "decimal": "1.538461538461538462",
+          "denominator": "13",
+          "numerator": "20"
+        },
+        "dirichlet_tail": {
+          "decimal": "0.000310574970428038",
+          "denominator": "26214400000000000000000000",
+          "numerator": "8141536504788768391093"
+        },
+        "lambda": {
+          "decimal": "13.000000000000000000",
+          "denominator": "1",
+          "numerator": "13"
+        },
+        "n": 20,
+        "poisson_tail_lower_bound": {
+          "decimal": "0.010733889960028414",
+          "denominator_bits": 13640,
+          "numerator_bits": 13633,
+          "sha256_canonical_binary": "0229e835baa9aa68ddedc882e94b2af8c00e1f1ea5d9d70d8695f7ef4f43661f"
+        },
+        "poisson_tail_upper_bound": {
+          "decimal": "0.010733889960028414",
+          "denominator_bits": 13617,
+          "numerator_bits": 13610,
+          "sha256_canonical_binary": "55760a44f9cde59b20f9e4af11976708fe34078a4c0e0b5ace075b1346d4a112"
+        },
+        "positive_coordinates": 6
+      },
+      {
+        "certified_lower_margin": {
+          "decimal": "0.033085637629466324",
+          "denominator_bits": 6038,
+          "numerator_bits": 6033,
+          "sha256_canonical_binary": "13ee5285d0d722d8a63583c213166af74bd9fa34b1438a35028a4c20295651f9"
+        },
+        "common_positive_coordinate": {
+          "decimal": "2.857142857142857143",
+          "denominator": "7",
+          "numerator": "20"
+        },
+        "dirichlet_tail": {
+          "decimal": "0.416625418219232523",
+          "denominator": "26214400000000000000000000",
+          "numerator": "10921585363366249039713583"
+        },
+        "lambda": {
+          "decimal": "7.000000000000000000",
+          "denominator": "1",
+          "numerator": "7"
+        },
+        "n": 20,
+        "poisson_tail_lower_bound": {
+          "decimal": "0.449711055848698847",
+          "denominator_bits": 6038,
+          "numerator_bits": 6037,
+          "sha256_canonical_binary": "46a1bf039fffb9252777980a4c0b587c257fb61345a911f7238da6a1ed50727b"
+        },
+        "poisson_tail_upper_bound": {
+          "decimal": "0.449711055848698847",
+          "denominator_bits": 5980,
+          "numerator_bits": 5979,
+          "sha256_canonical_binary": "1cfba1ea08384f1b1babe0f6e904ff005bc291bd6307e71cb4517ca50dc6a2fd"
+        },
+        "positive_coordinates": 7
+      },
+      {
+        "certified_lower_margin": {
+          "decimal": "0.018594816614103846",
+          "denominator_bits": 14680,
+          "numerator_bits": 14674,
+          "sha256_canonical_binary": "22a3da998981c34b2375f464a26af1ec84a46c862e6d4f555dd97b0b9f88b7b2"
+        },
+        "common_positive_coordinate": {
+          "decimal": "1.481481481481481481",
+          "denominator": "27",
+          "numerator": "40"
+        },
+        "dirichlet_tail": {
+          "decimal": "0.000658803464363546",
+          "denominator": "27487790694400000000000000000000",
+          "numerator": "18109051737170766889544399983"
+        },
+        "lambda": {
+          "decimal": "13.500000000000000000",
+          "denominator": "2",
+          "numerator": "27"
+        },
+        "n": 20,
+        "poisson_tail_lower_bound": {
+          "decimal": "0.019253620078467393",
+          "denominator_bits": 14680,
+          "numerator_bits": 14674,
+          "sha256_canonical_binary": "9cc056cc996d8e98b6c9d00186161c18955d3c015be2f8fcef9f84f7db0c815e"
+        },
+        "poisson_tail_upper_bound": {
+          "decimal": "0.019253620078467393",
+          "denominator_bits": 14356,
+          "numerator_bits": 14351,
+          "sha256_canonical_binary": "718f7e17466283090e8f7c93dacef19744157cd6993da74823c4864957b27042"
+        },
+        "positive_coordinates": 7
+      },
+      {
+        "certified_lower_margin": {
+          "decimal": "0.037067871929458864",
+          "denominator_bits": 3936,
+          "numerator_bits": 3931,
+          "sha256_canonical_binary": "83250dce840511a3a899fbeedeb774c9c18483733c6a504cdbacef6f89869edf"
+        },
+        "common_positive_coordinate": {
+          "decimal": "2.500000000000000000",
+          "denominator": "2",
+          "numerator": "5"
+        },
+        "dirichlet_tail": {
+          "decimal": "0.415892937557535621",
+          "denominator": "95367431640625",
+          "numerator": "39662641292337"
+        },
+        "lambda": {
+          "decimal": "8.000000000000000000",
+          "denominator": "1",
+          "numerator": "8"
+        },
+        "n": 20,
+        "poisson_tail_lower_bound": {
+          "decimal": "0.452960809486994485",
+          "denominator_bits": 3936,
+          "numerator_bits": 3935,
+          "sha256_canonical_binary": "3efb8a78bc304f9ab552b8b4df3d6b120bc1cc043de646d160ed527c3279effe"
+        },
+        "poisson_tail_upper_bound": {
+          "decimal": "0.452960809486994485",
+          "denominator_bits": 3924,
+          "numerator_bits": 3923,
+          "sha256_canonical_binary": "61000fa726f6cb70f80ae165b2973c7b6a5503b922667f6cbec2eeeb14d2f41a"
+        },
+        "positive_coordinates": 8
+      },
+      {
+        "certified_lower_margin": {
+          "decimal": "0.030340776033164112",
+          "denominator_bits": 12072,
+          "numerator_bits": 12067,
+          "sha256_canonical_binary": "4d24be62cf23b72d6c00907972b998f1dacd19072ac3040aa7e137c90e8b76bc"
+        },
+        "common_positive_coordinate": {
+          "decimal": "1.428571428571428571",
+          "denominator": "7",
+          "numerator": "10"
+        },
+        "dirichlet_tail": {
+          "decimal": "0.001278879604220220",
+          "denominator": "25000000000000000000",
+          "numerator": "31971990105505503"
+        },
+        "lambda": {
+          "decimal": "14.000000000000000000",
+          "denominator": "1",
+          "numerator": "14"
+        },
+        "n": 20,
+        "poisson_tail_lower_bound": {
+          "decimal": "0.031619655637384332",
+          "denominator_bits": 12072,
+          "numerator_bits": 12067,
+          "sha256_canonical_binary": "6e44ba9ae2745a451b175ff3e730fcb1f27a921a15969c7e4357af6a8241f567"
+        },
+        "poisson_tail_upper_bound": {
+          "decimal": "0.031619655637384332",
+          "denominator_bits": 11956,
+          "numerator_bits": 11951,
+          "sha256_canonical_binary": "7c19caf86fe6451fc1ef400b86f6e6e1278f17c5ae14852a1895dd60b653a377"
+        },
+        "positive_coordinates": 8
+      },
+      {
+        "certified_lower_margin": {
+          "decimal": "0.041346370206303035",
+          "denominator_bits": 13091,
+          "numerator_bits": 13086,
+          "sha256_canonical_binary": "35173a2690522d1029331f600c3631ace79ff84733745cb0be3cadde2dfb585e"
+        },
+        "common_positive_coordinate": {
+          "decimal": "2.222222222222222222",
+          "denominator": "9",
+          "numerator": "20"
+        },
+        "dirichlet_tail": {
+          "decimal": "0.414306234116115693",
+          "denominator": "52428800000000000000000000",
+          "numerator": "21721578687227006436006191"
+        },
+        "lambda": {
+          "decimal": "9.000000000000000000",
+          "denominator": "1",
+          "numerator": "9"
+        },
+        "n": 20,
+        "poisson_tail_lower_bound": {
+          "decimal": "0.455652604322418728",
+          "denominator_bits": 13091,
+          "numerator_bits": 13090,
+          "sha256_canonical_binary": "3453f719e2999b59397e3d4d9548b2b2a310853d0d87f4bd1554eec416126b7a"
+        },
+        "poisson_tail_upper_bound": {
+          "decimal": "0.455652604322418728",
+          "denominator_bits": 12899,
+          "numerator_bits": 12898,
+          "sha256_canonical_binary": "d5d46eaaf903392fe9c82b64e98d9b91652999f39af70a3c12c8834be4bfafaa"
+        },
+        "positive_coordinates": 9
+      },
+      {
+        "certified_lower_margin": {
+          "decimal": "0.046067204970655878",
+          "denominator_bits": 15461,
+          "numerator_bits": 15457,
+          "sha256_canonical_binary": "4ed783ab439d46bbf0d828fc58971f5e6a12731aecc540ce2d39d556bf7d5d6c"
+        },
+        "common_positive_coordinate": {
+          "decimal": "1.379310344827586207",
+          "denominator": "29",
+          "numerator": "40"
+        },
+        "dirichlet_tail": {
+          "decimal": "0.002311858667682335",
+          "denominator": "54975581388800000000000000000000",
+          "numerator": "127095774344572958895787273391"
+        },
+        "lambda": {
+          "decimal": "14.500000000000000000",
+          "denominator": "2",
+          "numerator": "29"
+        },
+        "n": 20,
+        "poisson_tail_lower_bound": {
+          "decimal": "0.048379063638338213",
+          "denominator_bits": 15461,
+          "numerator_bits": 15457,
+          "sha256_canonical_binary": "4a2b79c9db81c194aea6b0965807a157fda18e9b67babb057a6db60b741e4309"
+        },
+        "poisson_tail_upper_bound": {
+          "decimal": "0.048379063638338213",
+          "denominator_bits": 15443,
+          "numerator_bits": 15439,
+          "sha256_canonical_binary": "5ac27e588d6bd61fb247a461677b8c4f425140f395e4b4960055563e5deda3c6"
+        },
+        "positive_coordinates": 9
+      },
+      {
+        "certified_lower_margin": {
+          "decimal": "0.046028240472828771",
+          "denominator_bits": 11898,
+          "numerator_bits": 11893,
+          "sha256_canonical_binary": "3af3292b50f6b949ae37606e2772d4509917f2460bfeb63b4baa64e3c14196d3"
+        },
+        "common_positive_coordinate": {
+          "decimal": "2.000000000000000000",
+          "denominator": "1",
+          "numerator": "2"
+        },
+        "dirichlet_tail": {
+          "decimal": "0.411901473999023438",
+          "denominator": "524288",
+          "numerator": "215955"
+        },
+        "lambda": {
+          "decimal": "10.000000000000000000",
+          "denominator": "1",
+          "numerator": "10"
+        },
+        "n": 20,
+        "poisson_tail_lower_bound": {
+          "decimal": "0.457929714471852208",
+          "denominator_bits": 11898,
+          "numerator_bits": 11896,
+          "sha256_canonical_binary": "f978729c57ee802d1dd06ef5556a845181d85ccbd890481abab29c676119dffc"
+        },
+        "poisson_tail_upper_bound": {
+          "decimal": "0.457929714471852208",
+          "denominator_bits": 11603,
+          "numerator_bits": 11601,
+          "sha256_canonical_binary": "5b08182fe1b7a681f4d2d6b6a3ee40dfcbd61f918ef84c669d0bf394d8e89d97"
+        },
+        "positive_coordinates": 10
+      },
+      {
+        "certified_lower_margin": {
+          "decimal": "0.065911519035326303",
+          "denominator_bits": 12302,
+          "numerator_bits": 12298,
+          "sha256_canonical_binary": "c8263ea76c47d13d7dee121da4c423b49d9d58994e37d5b1359ece375387fd01"
+        },
+        "common_positive_coordinate": {
+          "decimal": "1.333333333333333333",
+          "denominator": "3",
+          "numerator": "4"
+        },
+        "dirichlet_tail": {
+          "decimal": "0.003942141664083465",
+          "denominator": "549755813888",
+          "numerator": "2167215299"
+        },
+        "lambda": {
+          "decimal": "15.000000000000000000",
+          "denominator": "1",
+          "numerator": "15"
+        },
+        "n": 20,
+        "poisson_tail_lower_bound": {
+          "decimal": "0.069853660699409768",
+          "denominator_bits": 12302,
+          "numerator_bits": 12298,
+          "sha256_canonical_binary": "300c0b46884bf3530b7fe6fcf6b06a95563e8b76113abcae0a5171bfaece706e"
+        },
+        "poisson_tail_upper_bound": {
+          "decimal": "0.069853660699409768",
+          "denominator_bits": 12132,
+          "numerator_bits": 12128,
+          "sha256_canonical_binary": "5cebb508238f13b74665701383589664d30f77eb6ac2c9f3f5b3e3e463066fe9"
+        },
+        "positive_coordinates": 10
+      },
+      {
+        "certified_lower_margin": {
+          "decimal": "0.051249887365314006",
+          "denominator_bits": 13749,
+          "numerator_bits": 13745,
+          "sha256_canonical_binary": "1a590d40c7b696a798da239fd4c19373a1932fdf60530c35660d91e305e8db9b"
+        },
+        "common_positive_coordinate": {
+          "decimal": "1.818181818181818182",
+          "denominator": "11",
+          "numerator": "20"
+        },
+        "dirichlet_tail": {
+          "decimal": "0.408638815328372533",
+          "denominator": "52428800000000000000000000",
+          "numerator": "21424442721088177877533389"
+        },
+        "lambda": {
+          "decimal": "11.000000000000000000",
+          "denominator": "1",
+          "numerator": "11"
+        },
+        "n": 20,
+        "poisson_tail_lower_bound": {
+          "decimal": "0.459888702693686539",
+          "denominator_bits": 13749,
+          "numerator_bits": 13748,
+          "sha256_canonical_binary": "c6da5f0d889c496db682903212a8674e64d89f9c9cea1a9e7c01c01da036f15c"
+        },
+        "poisson_tail_upper_bound": {
+          "decimal": "0.459888702693686539",
+          "denominator_bits": 13647,
+          "numerator_bits": 13646,
+          "sha256_canonical_binary": "f576c37f60e6a53d16389c706d3fe01f2fe9591254ccd618ff040accf87ee7b6"
+        },
+        "positive_coordinates": 11
+      },
+      {
+        "certified_lower_margin": {
+          "decimal": "0.089712529912113423",
+          "denominator_bits": 15594,
+          "numerator_bits": 15590,
+          "sha256_canonical_binary": "f4ba3f6311ee2d224dc0c96f32eb7bdb00e16ce9dc9e290bc08e5930693fe23e"
+        },
+        "common_positive_coordinate": {
+          "decimal": "1.290322580645161290",
+          "denominator": "31",
+          "numerator": "40"
+        },
+        "dirichlet_tail": {
+          "decimal": "0.006403000909260748",
+          "denominator": "54975581388800000000000000000000",
+          "numerator": "352008697619624668387171837389"
+        },
+        "lambda": {
+          "decimal": "15.500000000000000000",
+          "denominator": "2",
+          "numerator": "31"
+        },
+        "n": 20,
+        "poisson_tail_lower_bound": {
+          "decimal": "0.096115530821374171",
+          "denominator_bits": 15594,
+          "numerator_bits": 15590,
+          "sha256_canonical_binary": "2b121a8d61b9ad26968f6aedb6b4efb6392808b1eb995544b7a4471094b71970"
+        },
+        "poisson_tail_upper_bound": {
+          "decimal": "0.096115530821374171",
+          "denominator_bits": 15386,
+          "numerator_bits": 15383,
+          "sha256_canonical_binary": "d50e5cce94000e7467f47935555cf67aba5466bd541a0c2642e5589acd0cea4a"
+        },
+        "positive_coordinates": 11
+      },
+      {
+        "certified_lower_margin": {
+          "decimal": "0.057196058375843153",
+          "denominator_bits": 10027,
+          "numerator_bits": 10023,
+          "sha256_canonical_binary": "36d89712b404c353ffe1760049adad0a702c223d9d5fdaa4de0ab17696cf69f2"
+        },
+        "common_positive_coordinate": {
+          "decimal": "1.666666666666666667",
+          "denominator": "3",
+          "numerator": "5"
+        },
+        "dirichlet_tail": {
+          "decimal": "0.404401274687775048",
+          "denominator": "95367431640625",
+          "numerator": "38566710919168"
+        },
+        "lambda": {
+          "decimal": "12.000000000000000000",
+          "denominator": "1",
+          "numerator": "12"
+        },
+        "n": 20,
+        "poisson_tail_lower_bound": {
+          "decimal": "0.461597333063618201",
+          "denominator_bits": 10027,
+          "numerator_bits": 10026,
+          "sha256_canonical_binary": "6b02ce7c369cb2215ff9cff523e29ccbb7e2849ce3e5da79a33bccdd91dc9bca"
+        },
+        "poisson_tail_upper_bound": {
+          "decimal": "0.461597333063618201",
+          "denominator_bits": 9889,
+          "numerator_bits": 9888,
+          "sha256_canonical_binary": "0431f069be81dc86b080c92ba56a2c5245a33a6328cd752b73d75ca6f316f129"
+        },
+        "positive_coordinates": 12
+      },
+      {
+        "certified_lower_margin": {
+          "decimal": "0.117010883745620104",
+          "denominator_bits": 7899,
+          "numerator_bits": 7896,
+          "sha256_canonical_binary": "a921ea81d460b749007884a1deeafd9f432f426341f909764d626498025d475c"
+        },
+        "common_positive_coordinate": {
+          "decimal": "1.250000000000000000",
+          "denominator": "4",
+          "numerator": "5"
+        },
+        "dirichlet_tail": {
+          "decimal": "0.009981786320724296",
+          "denominator": "95367431640625",
+          "numerator": "951937324593"
+        },
+        "lambda": {
+          "decimal": "16.000000000000000000",
+          "denominator": "1",
+          "numerator": "16"
+        },
+        "n": 20,
+        "poisson_tail_lower_bound": {
+          "decimal": "0.126992670066344400",
+          "denominator_bits": 7899,
+          "numerator_bits": 7896,
+          "sha256_canonical_binary": "be866a08d34ec71fa758aeb0596698e8a168280409c66d0ccaaa1728d632e84d"
+        },
+        "poisson_tail_upper_bound": {
+          "decimal": "0.126992670066344400",
+          "denominator_bits": 7874,
+          "numerator_bits": 7871,
+          "sha256_canonical_binary": "8d71be4168b7f693c2045f857902520cb89811e30564ca9e619d75a9a1bc9fb8"
+        },
+        "positive_coordinates": 12
+      },
+      {
+        "certified_lower_margin": {
+          "decimal": "0.064131351702845049",
+          "denominator_bits": 13657,
+          "numerator_bits": 13653,
+          "sha256_canonical_binary": "19b669125345aa718aa65a15bbb8143abf59dd60c961f56ab53f67fb9c442abd"
+        },
+        "common_positive_coordinate": {
+          "decimal": "1.538461538461538462",
+          "denominator": "13",
+          "numerator": "20"
+        },
+        "dirichlet_tail": {
+          "decimal": "0.398973395396836207",
+          "denominator": "26214400000000000000000000",
+          "numerator": "10458848176290823076381397"
+        },
+        "lambda": {
+          "decimal": "13.000000000000000000",
+          "denominator": "1",
+          "numerator": "13"
+        },
+        "n": 20,
+        "poisson_tail_lower_bound": {
+          "decimal": "0.463104747099681256",
+          "denominator_bits": 13657,
+          "numerator_bits": 13656,
+          "sha256_canonical_binary": "2e9c338c3d3a4521bdf96c146ebfdac268cf14255dce946dad3f69796905c7d6"
+        },
+        "poisson_tail_upper_bound": {
+          "decimal": "0.463104747099681256",
+          "denominator_bits": 13634,
+          "numerator_bits": 13633,
+          "sha256_canonical_binary": "1b77d2a8b95df09ed53f74604af47cb941fcde1cec80198b6ed712230d11ca6a"
+        },
+        "positive_coordinates": 13
+      },
+      {
+        "certified_lower_margin": {
+          "decimal": "0.147073790433473702",
+          "denominator_bits": 31586,
+          "numerator_bits": 31583,
+          "sha256_canonical_binary": "5e91f69b83ba172eb1763b80779d7bfbc74c7e73df7ff7b5a6b6d8a15719c4e4"
+        },
+        "common_positive_coordinate": {
+          "decimal": "1.212121212121212121",
+          "denominator": "33",
+          "numerator": "40"
+        },
+        "dirichlet_tail": {
+          "decimal": "0.015024184625831115",
+          "denominator": "27487790694400000000000000000000",
+          "numerator": "412981642348868075499287762197"
+        },
+        "lambda": {
+          "decimal": "16.500000000000000000",
+          "denominator": "2",
+          "numerator": "33"
+        },
+        "n": 20,
+        "poisson_tail_lower_bound": {
+          "decimal": "0.162097975059304817",
+          "denominator_bits": 31586,
+          "numerator_bits": 31584,
+          "sha256_canonical_binary": "37429176a63de179745a34b4cc25fbf88338e8c6707b3e8dd51eeb52b8a13088"
+        },
+        "poisson_tail_upper_bound": {
+          "decimal": "0.162097975059304817",
+          "denominator_bits": 31065,
+          "numerator_bits": 31062,
+          "sha256_canonical_binary": "40659e8990d19c4900b8ed18e988a7c855ce9e010e6327d3161df6d11791d976"
+        },
+        "positive_coordinates": 13
+      },
+      {
+        "certified_lower_margin": {
+          "decimal": "0.072457377097780599",
+          "denominator_bits": 12087,
+          "numerator_bits": 12083,
+          "sha256_canonical_binary": "1f23415b925f79ee8b7ed3e4f661f459341d8f163ecebec2211400efe6c4bba9"
+        },
+        "common_positive_coordinate": {
+          "decimal": "1.428571428571428571",
+          "denominator": "7",
+          "numerator": "10"
+        },
+        "dirichlet_tail": {
+          "decimal": "0.391990187799076037",
+          "denominator": "25000000000000000000",
+          "numerator": "9799754694976900917"
+        },
+        "lambda": {
+          "decimal": "14.000000000000000000",
+          "denominator": "1",
+          "numerator": "14"
+        },
+        "n": 20,
+        "poisson_tail_lower_bound": {
+          "decimal": "0.464447564896856636",
+          "denominator_bits": 12087,
+          "numerator_bits": 12086,
+          "sha256_canonical_binary": "8c4f4d3a68d12e2af5156da898275f3bd7d3d8eee16703fe00dd01bd2c5398a9"
+        },
+        "poisson_tail_upper_bound": {
+          "decimal": "0.464447564896856636",
+          "denominator_bits": 11970,
+          "numerator_bits": 11969,
+          "sha256_canonical_binary": "5e68d4f89d0f3d970ce07adea5d2f280a63f72df0817011e5f3b0dced2f745b5"
+        },
+        "positive_coordinates": 14
+      },
+      {
+        "certified_lower_margin": {
+          "decimal": "0.178938176558300863",
+          "denominator_bits": 31000,
+          "numerator_bits": 30998,
+          "sha256_canonical_binary": "bc0cf24ccb7aaa5b6e205f6b3efc218fb4c08970e841fbee519b199806022cb8"
+        },
+        "common_positive_coordinate": {
+          "decimal": "1.176470588235294118",
+          "denominator": "17",
+          "numerator": "20"
+        },
+        "dirichlet_tail": {
+          "decimal": "0.021935100856845138",
+          "denominator": "26214400000000000000000000",
+          "numerator": "575015507901681174650817"
+        },
+        "lambda": {
+          "decimal": "17.000000000000000000",
+          "denominator": "1",
+          "numerator": "17"
+        },
+        "n": 20,
+        "poisson_tail_lower_bound": {
+          "decimal": "0.200873277415146001",
+          "denominator_bits": 31000,
+          "numerator_bits": 30998,
+          "sha256_canonical_binary": "634e6dc666d4ef278285ada2dc38bc0b26f7536ab0649628e0ab795494d0531d"
+        },
+        "poisson_tail_upper_bound": {
+          "decimal": "0.200873277415146001",
+          "denominator_bits": 30605,
+          "numerator_bits": 30603,
+          "sha256_canonical_binary": "0671e512e509049bbb2d7f8ab85cf923762050aa8458fdd1e55304f7ef6f425c"
+        },
+        "positive_coordinates": 14
+      },
+      {
+        "certified_lower_margin": {
+          "decimal": "0.082826363331114189",
+          "denominator_bits": 12326,
+          "numerator_bits": 12323,
+          "sha256_canonical_binary": "b33daa15b3c677b120a1654cbe5ed4e0dca91f58bc588c7270063d695838a52f"
+        },
+        "common_positive_coordinate": {
+          "decimal": "1.333333333333333333",
+          "denominator": "3",
+          "numerator": "4"
+        },
+        "dirichlet_tail": {
+          "decimal": "0.382827345612895442",
+          "denominator": "274877906944",
+          "numerator": "105230779483"
+        },
+        "lambda": {
+          "decimal": "15.000000000000000000",
+          "denominator": "1",
+          "numerator": "15"
+        },
+        "n": 20,
+        "poisson_tail_lower_bound": {
+          "decimal": "0.465653708944009632",
+          "denominator_bits": 12326,
+          "numerator_bits": 12325,
+          "sha256_canonical_binary": "f13c1c00190000ce9baec0d5eec62af1972a1b0315cd489d8880662fd19defa9"
+        },
+        "poisson_tail_upper_bound": {
+          "decimal": "0.465653708944009632",
+          "denominator_bits": 12157,
+          "numerator_bits": 12156,
+          "sha256_canonical_binary": "3ecbea4bdc912f9bac31e32afe989a2dee13758d96de3f8250facd5b986aa564"
+        },
+        "positive_coordinates": 15
+      },
+      {
+        "certified_lower_margin": {
+          "decimal": "0.211472467414307385",
+          "denominator_bits": 31928,
+          "numerator_bits": 31926,
+          "sha256_canonical_binary": "53d82d6568736434bc53586bad735e8a578c676dc7d2cd683d191db2f315b3e9"
+        },
+        "common_positive_coordinate": {
+          "decimal": "1.142857142857142857",
+          "denominator": "7",
+          "numerator": "8"
+        },
+        "dirichlet_tail": {
+          "decimal": "0.031167969935430678",
+          "denominator": "288230376151711744",
+          "numerator": "8983555698374427"
+        },
+        "lambda": {
+          "decimal": "17.500000000000000000",
+          "denominator": "2",
+          "numerator": "35"
+        },
+        "n": 20,
+        "poisson_tail_lower_bound": {
+          "decimal": "0.242640437349738062",
+          "denominator_bits": 31928,
+          "numerator_bits": 31926,
+          "sha256_canonical_binary": "f9fc2ce4079996ad0bcc75781b0848d10b1b48f6515b346a0cd293ca5e95dd8b"
+        },
+        "poisson_tail_upper_bound": {
+          "decimal": "0.242640437349738062",
+          "denominator_bits": 31525,
+          "numerator_bits": 31523,
+          "sha256_canonical_binary": "26e2ff50a9645a361ef7373536aa10d1c96e3c1cfd78b70efc7de418efbc2bcc"
+        },
+        "positive_coordinates": 15
+      },
+      {
+        "certified_lower_margin": {
+          "decimal": "0.096393155290389795",
+          "denominator_bits": 7916,
+          "numerator_bits": 7912,
+          "sha256_canonical_binary": "2e35200abf84c779ca96d3fd591040d42242e07b4fb836bac0eac393a87363eb"
+        },
+        "common_positive_coordinate": {
+          "decimal": "1.250000000000000000",
+          "denominator": "4",
+          "numerator": "5"
+        },
+        "dirichlet_tail": {
+          "decimal": "0.370351736097330954",
+          "denominator": "95367431640625",
+          "numerator": "35319493875249"
+        },
+        "lambda": {
+          "decimal": "16.000000000000000000",
+          "denominator": "1",
+          "numerator": "16"
+        },
+        "n": 20,
+        "poisson_tail_lower_bound": {
+          "decimal": "0.466744891387720750",
+          "denominator_bits": 7916,
+          "numerator_bits": 7915,
+          "sha256_canonical_binary": "e1adf8e3510f604668a57c482dba4d7494ffb9349a0eb08b8e1c56ce62ec4ae5"
+        },
+        "poisson_tail_upper_bound": {
+          "decimal": "0.466744891387720750",
+          "denominator_bits": 7891,
+          "numerator_bits": 7890,
+          "sha256_canonical_binary": "745703d466b565bf53508c2ba503103e96b40e5888b87ba1213de3bb1185b974"
+        },
+        "positive_coordinates": 16
+      },
+      {
+        "certified_lower_margin": {
+          "decimal": "0.243478392209508611",
+          "denominator_bits": 26185,
+          "numerator_bits": 26183,
+          "sha256_canonical_binary": "3250f21a79cc3933d98645baa7455183fa831db208482b41627b4a63009d9b8a"
+        },
+        "common_positive_coordinate": {
+          "decimal": "1.111111111111111111",
+          "denominator": "9",
+          "numerator": "10"
+        },
+        "dirichlet_tail": {
+          "decimal": "0.043174495284463381",
+          "denominator": "25000000000000000000",
+          "numerator": "1079362382111584531"
+        },
+        "lambda": {
+          "decimal": "18.000000000000000000",
+          "denominator": "1",
+          "numerator": "18"
+        },
+        "n": 20,
+        "poisson_tail_lower_bound": {
+          "decimal": "0.286652887493971992",
+          "denominator_bits": 26185,
+          "numerator_bits": 26183,
+          "sha256_canonical_binary": "2c5c7648ee89388419d8ebb77fe096e67bd4f39df6165846211ee0a9b284e83b"
+        },
+        "poisson_tail_upper_bound": {
+          "decimal": "0.286652887493971992",
+          "denominator_bits": 25802,
+          "numerator_bits": 25800,
+          "sha256_canonical_binary": "2bf5220edbaaaff5c0182d2437113bafa98373db77931be281c76bd080dccdd3"
+        },
+        "positive_coordinates": 16
+      },
+      {
+        "certified_lower_margin": {
+          "decimal": "0.115463458030515901",
+          "denominator_bits": 31013,
+          "numerator_bits": 31010,
+          "sha256_canonical_binary": "cb8cca5edb2a78c4a7c674fdff246f88d3029a82e7ea6abcb8b23c153d0483b3"
+        },
+        "common_positive_coordinate": {
+          "decimal": "1.176470588235294118",
+          "denominator": "17",
+          "numerator": "20"
+        },
+        "dirichlet_tail": {
+          "decimal": "0.352274825843296935",
+          "denominator": "104857600000000000000000000",
+          "numerator": "36938692778346092650775769"
+        },
+        "lambda": {
+          "decimal": "17.000000000000000000",
+          "denominator": "1",
+          "numerator": "17"
+        },
+        "n": 20,
+        "poisson_tail_lower_bound": {
+          "decimal": "0.467738283873812836",
+          "denominator_bits": 31013,
+          "numerator_bits": 31012,
+          "sha256_canonical_binary": "30fafbaf7d062e7480d2363a7a4e4b4012672ad7c4cb4d91862948157968decc"
+        },
+        "poisson_tail_upper_bound": {
+          "decimal": "0.467738283873812836",
+          "denominator_bits": 30618,
+          "numerator_bits": 30617,
+          "sha256_canonical_binary": "bc2c5537e8616fa7baa658fe5b14d64035d2d8330a01996fe61ed1826079e39c"
+        },
+        "positive_coordinates": 17
+      },
+      {
+        "certified_lower_margin": {
+          "decimal": "0.273934545616095828",
+          "denominator_bits": 34036,
+          "numerator_bits": 34034,
+          "sha256_canonical_binary": "fecdd64cc3d21d8d696a49ede53fdacbd6a23d9508601d315500245599b9d10f"
+        },
+        "common_positive_coordinate": {
+          "decimal": "1.081081081081081081",
+          "denominator": "37",
+          "numerator": "40"
+        },
+        "dirichlet_tail": {
+          "decimal": "0.058208286798614674",
+          "denominator": "109951162777600000000000000000000",
+          "numerator": "6400068816799707242657100906969"
+        },
+        "lambda": {
+          "decimal": "18.500000000000000000",
+          "denominator": "2",
+          "numerator": "37"
+        },
+        "n": 20,
+        "poisson_tail_lower_bound": {
+          "decimal": "0.332142832414710502",
+          "denominator_bits": 34036,
+          "numerator_bits": 34035,
+          "sha256_canonical_binary": "0bf86282ab71910e86e7d59691b2f91bd76ec5093af52566b5bfec3968ecc2c3"
+        },
+        "poisson_tail_upper_bound": {
+          "decimal": "0.332142832414710502",
+          "denominator_bits": 34103,
+          "numerator_bits": 34101,
+          "sha256_canonical_binary": "ae6bb9197be3a570d382d4f17b505c259ba60feaa0774aa2046a746735314338"
+        },
+        "positive_coordinates": 17
+      },
+      {
+        "certified_lower_margin": {
+          "decimal": "0.145574474744801875",
+          "denominator_bits": 26189,
+          "numerator_bits": 26186,
+          "sha256_canonical_binary": "b4671caedf49b2c5990ba96d7f0996110b02233c956ad89677ea6c2ed2bd95c6"
+        },
+        "common_positive_coordinate": {
+          "decimal": "1.111111111111111111",
+          "denominator": "9",
+          "numerator": "10"
+        },
+        "dirichlet_tail": {
+          "decimal": "0.323073194810533964",
+          "denominator": "100000000000000000000",
+          "numerator": "32307319481053396429"
+        },
+        "lambda": {
+          "decimal": "18.000000000000000000",
+          "denominator": "1",
+          "numerator": "18"
+        },
+        "n": 20,
+        "poisson_tail_lower_bound": {
+          "decimal": "0.468647669555335839",
+          "denominator_bits": 26189,
+          "numerator_bits": 26188,
+          "sha256_canonical_binary": "439b9f579cc23bea0c1bb203c3b411387beeebf31af17db846078d8cb45eb000"
+        },
+        "poisson_tail_upper_bound": {
+          "decimal": "0.468647669555335839",
+          "denominator_bits": 25806,
+          "numerator_bits": 25805,
+          "sha256_canonical_binary": "598c3be9fe8d4da77809a5526a0ea952317abda341825dc069dffc467942307b"
+        },
+        "positive_coordinates": 18
+      },
+      {
+        "certified_lower_margin": {
+          "decimal": "0.302877450666187489",
+          "denominator_bits": 30898,
+          "numerator_bits": 30897,
+          "sha256_canonical_binary": "5abe07d69cfd800d636c2436dc3d3c4e5261bf48e7cfec1d54c64d6b7f257d35"
+        },
+        "common_positive_coordinate": {
+          "decimal": "1.052631578947368421",
+          "denominator": "19",
+          "numerator": "20"
+        },
+        "dirichlet_tail": {
+          "decimal": "0.075483673788496343",
+          "denominator": "104857600000000000000000000",
+          "numerator": "7915036872644634132925029"
+        },
+        "lambda": {
+          "decimal": "19.000000000000000000",
+          "denominator": "1",
+          "numerator": "19"
+        },
+        "n": 20,
+        "poisson_tail_lower_bound": {
+          "decimal": "0.378361124454683832",
+          "denominator_bits": 30898,
+          "numerator_bits": 30897,
+          "sha256_canonical_binary": "bc964b2cd7798b9294ff5415ff1802c66f7f23ac3ce4193543ca18d32a92c29d"
+        },
+        "poisson_tail_upper_bound": {
+          "decimal": "0.378361124454683832",
+          "denominator_bits": 30672,
+          "numerator_bits": 30671,
+          "sha256_canonical_binary": "e91c3b85bd64486b6a720e9f6bcaa2934c5d8f65f3a3cd5feda5d07928659bd3"
+        },
+        "positive_coordinates": 18
+      },
+      {
+        "certified_lower_margin": {
+          "decimal": "0.205323781866945973",
+          "denominator_bits": 30905,
+          "numerator_bits": 30902,
+          "sha256_canonical_binary": "6a639219fbf3ed920ba7959823037251d50b5e35e967893e8a22098e73081f9a"
+        },
+        "common_positive_coordinate": {
+          "decimal": "1.052631578947368421",
+          "denominator": "19",
+          "numerator": "20"
+        },
+        "dirichlet_tail": {
+          "decimal": "0.264160475056150151",
+          "denominator": "104857600000000000000000000",
+          "numerator": "27699233429247770024164819"
+        },
+        "lambda": {
+          "decimal": "19.000000000000000000",
+          "denominator": "1",
+          "numerator": "19"
+        },
+        "n": 20,
+        "poisson_tail_lower_bound": {
+          "decimal": "0.469484256923096124",
+          "denominator_bits": 30905,
+          "numerator_bits": 30904,
+          "sha256_canonical_binary": "d15f2d0a7cc578b701583228d444f726889518622691cdd37cd391448c86bf25"
+        },
+        "poisson_tail_upper_bound": {
+          "decimal": "0.469484256923096124",
+          "denominator_bits": 30678,
+          "numerator_bits": 30677,
+          "sha256_canonical_binary": "0d8c14077b3afe794b8f2e8b4575a2184b77b1ed7480197be7da33d3e5c4aa5d"
+        },
+        "positive_coordinates": 19
+      },
+      {
+        "certified_lower_margin": {
+          "decimal": "0.336366685809203274",
+          "denominator_bits": 31666,
+          "numerator_bits": 31664,
+          "sha256_canonical_binary": "d5ff6e3cf93efde464641444a7e5c9a5f385c6f0d43cd3a901126dd015554af0"
+        },
+        "common_positive_coordinate": {
+          "decimal": "1.025641025641025641",
+          "denominator": "39",
+          "numerator": "40"
+        },
+        "dirichlet_tail": {
+          "decimal": "0.088241714540335245",
+          "denominator": "109951162777600000000000000000000",
+          "numerator": "9702279119198913334881231393619"
+        },
+        "lambda": {
+          "decimal": "19.500000000000000000",
+          "denominator": "2",
+          "numerator": "39"
+        },
+        "n": 20,
+        "poisson_tail_lower_bound": {
+          "decimal": "0.424608400349538519",
+          "denominator_bits": 31666,
+          "numerator_bits": 31664,
+          "sha256_canonical_binary": "8c3d082680bdb3958a5daaedde6295f7540b8d1ea8bb775b6ee137985b381ad9"
+        },
+        "poisson_tail_upper_bound": {
+          "decimal": "0.424608400349538519",
+          "denominator_bits": 31188,
+          "numerator_bits": 31187,
+          "sha256_canonical_binary": "9f88b9c97fce0fc98d3f6b584c849ae9f3cb74e704595897cb04e8a40745c7ec"
+        },
+        "positive_coordinates": 19
+      },
+      {
+        "certified_lower_margin": {
+          "decimal": "0.470257266839239987",
+          "denominator_bits": 23807,
+          "numerator_bits": 23806,
+          "sha256_canonical_binary": "d2031b48669549dab33b07ebcfddecee3cc1fa7db77ab11ffdbd8eb8fbd4ad3e"
+        },
+        "common_positive_coordinate": {
+          "decimal": "1.000000000000000000",
+          "denominator": "1",
+          "numerator": "1"
+        },
+        "dirichlet_tail": {
+          "decimal": "0.000000000000000000",
+          "denominator": "1",
+          "numerator": "0"
+        },
+        "lambda": {
+          "decimal": "20.000000000000000000",
+          "denominator": "1",
+          "numerator": "20"
+        },
+        "n": 20,
+        "poisson_tail_lower_bound": {
+          "decimal": "0.470257266839239987",
+          "denominator_bits": 23807,
+          "numerator_bits": 23806,
+          "sha256_canonical_binary": "d2031b48669549dab33b07ebcfddecee3cc1fa7db77ab11ffdbd8eb8fbd4ad3e"
+        },
+        "poisson_tail_upper_bound": {
+          "decimal": "0.470257266839239987",
+          "denominator_bits": 23217,
+          "numerator_bits": 23216,
+          "sha256_canonical_binary": "d520416d87ae9b30e4389ee2eefd9752e5e7d41477e5a808cc4d8168aa3d0083"
+        },
+        "positive_coordinates": 20
+      }
+    ]
+  },
+  "exponential_series_pairs": 48,
+  "localization_obstruction": {
+    "exact_comparisons": {
+      "P_S_Y_gt_10": "< 1/2",
+      "P_Y_gt_1": "> 1/2",
+      "conclusion": "The generic s-affine localization class is too broad; this is not a counterexample for a Dirichlet average."
+    },
+    "law": {
+      "density_integral": {
+        "decimal": "0.503299458821614583",
+        "denominator": "1966080",
+        "numerator": "989527"
+      },
+      "s_concavity_parameter": "1/10",
+      "support": [
+        "0",
+        "4/3"
+      ],
+      "unnormalized_density": "(3/4 + 3*y/16)^9"
+    },
+    "n": 10,
+    "smoothed_probability": {
+      "coefficient": {
+        "decimal": "885.641068770374994460",
+        "denominator": "6926689",
+        "numerator": "6134560249"
+      },
+      "exp_argument": "15/2",
+      "exp_lower_bound": {
+        "decimal": "0.000553084370147834",
+        "denominator_bits": 6152,
+        "numerator_bits": 6141,
+        "sha256_canonical_binary": "d59e7ae37cbb17295cda287767f48320ece9a81ffa61764eb213faf2a93f3548"
+      },
+      "exp_upper_bound": {
+        "decimal": "0.000553084370147834",
+        "denominator_bits": 6067,
+        "numerator_bits": 6056,
+        "sha256_canonical_binary": "bc0c50b0c31f2176ce141e08207cc62413452abe2016d0564351ae3251bf411d"
+      },
+      "identity": "P(S*Y>10)=(6134560249/6926689)*exp(-15/2)",
+      "probability_lower_bound": {
+        "decimal": "0.489834232697917021",
+        "denominator_bits": 6174,
+        "numerator_bits": 6173,
+        "sha256_canonical_binary": "46799b08ca3a407e49741969d6e530aca78ce273be394485d714d407c754ad6f"
+      },
+      "probability_upper_bound": {
+        "decimal": "0.489834232697917021",
+        "denominator_bits": 6090,
+        "numerator_bits": 6088,
+        "sha256_canonical_binary": "5f657222a483658738bf4e47fc7f43496a44fc3a74b31940995f46d85c028a41"
+      }
+    },
+    "tail_probability_P_Y_gt_1": {
+      "decimal": "0.503916854128594865",
+      "denominator": "94326751232",
+      "numerator": "47532839741"
+    }
+  },
+  "schema_version": 1,
+  "status": "Research certificate: exact reductions and an obstruction, not an all-sample-size coverage certificate."
+}

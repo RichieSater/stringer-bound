@@ -172,10 +172,11 @@ certificate or a written proof:
 extends to \(n=6\), where direct Bernstein certification becomes
 substantially larger; pursue the two dimension-free weighted-exponential and
 Dirichlet-Poissonization inequalities isolated in
-[`ALL-N-POISSON-PROGRAM.md`](supporting-materials/theory/ALL-N-POISSON-PROGRAM.md);
-and develop a
-certified
-branch-and-bound or atoms-reduction argument for ordinary audit sample sizes.
+[`ALL-N-POISSON-PROGRAM.md`](supporting-materials/theory/ALL-N-POISSON-PROGRAM.md)
+and sharpened in
+[`DIRICHLET-POISSONIZATION.md`](supporting-materials/theory/DIRICHLET-POISSONIZATION.md);
+and develop a certified branch-and-bound or atoms-reduction argument for
+ordinary audit sample sizes.
 The immediate mathematical target is \(n=6\) at 90%, 95%, and 99%, not more
 unstructured grid search. Before journal submission or practice-facing
 reliance, the bounded review protocol in
@@ -206,7 +207,8 @@ supporting-materials/
 │   ├── POISSON-DOMINATION.md all-n practical-level factor comparison
 │   ├── POISSON-SIMULTANEOUS-BAND.md direct exact Poisson coverage ranges
 │   ├── GAFFKE-SAFEGUARD.md   all-n valid reporting floor and exact computation
-│   └── ALL-N-POISSON-PROGRAM.md exact reductions for the open all-n target
+│   ├── ALL-N-POISSON-PROGRAM.md exact reductions for the open all-n target
+│   └── DIRICHLET-POISSONIZATION.md sharper divided-difference target
 └── computations/python/
     ├── stringer.py           numerical factors for searches + exact-sign
     │                         dyadic binomial factor intervals
@@ -230,6 +232,8 @@ supporting-materials/
     ├── gaffke.py             exact-sign Gaffke endpoint + safeguarded report
     ├── all_n_poisson_reductions.py
     │                         exact algebra and rejected-shortcut check for all-n route
+    ├── dirichlet_poissonization.py
+    │                         exact localization obstruction + equal-block checks
     ├── search_two_value.py   screening search over {v1 > v2 > 0} supports
     └── certify.py            exact recertification of screening candidates
 ```
@@ -245,8 +249,9 @@ make reproduce
 ```
 
 This runs the unit tests, the \(n=2\) symbolic proof checker, the exact
-Poisson simultaneous-band certificate, the algebra checks for the explicitly
-open all-\(n\) Poisson route, source
+Poisson simultaneous-band certificate, the algebra checks and exact
+localization-obstruction certificate for the explicitly open all-\(n\)
+Poisson route, source
 regeneration of the \(n=3\) through \(n=5\) Bernstein structures and exact
 sign certificates, the generated counterexample-table check,
 claim-to-evidence link validation, and the manuscript build. Individual
