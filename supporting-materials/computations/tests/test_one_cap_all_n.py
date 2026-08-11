@@ -20,12 +20,19 @@ from one_cap_all_n_check import (  # noqa: E402
 
 class OneCapAllNCheckTests(unittest.TestCase):
     def test_exact_and_symbolic_checks(self):
-        self.assertIn("e_upper", exact_constant_checks())
-        self.assertIn("boundary_tail", symbolic_identity_checks())
+        constants = exact_constant_checks()
+        identities = symbolic_identity_checks()
+        self.assertIn("e_upper", constants)
+        self.assertIn("r_2_margin", constants)
+        self.assertIn("r_ge_3_endpoint_margin", constants)
+        self.assertIn("boundary_tail", identities)
+        self.assertIn("pade_derivative", identities)
+        self.assertIn("boundary_quartic_derivative", identities)
 
     def test_small_numerical_regression(self):
         rows = numerical_regression(n_max=40)
         self.assertEqual(len(rows), 4)
+        self.assertEqual(rows[0]["alpha"], "exp(1-e)")
         self.assertTrue(all(
             row["minimum_tail_divided_by_alpha"] >= 1 for row in rows
         ))

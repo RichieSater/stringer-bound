@@ -77,7 +77,7 @@ uniform statement:
   Poisson Stringer.
 
 There is also a larger, sample-checkable region. At every
-`0<alpha<=exp(-2)` and every sample size, if the **binomial** Stringer value
+`0<alpha<=exp(1-e)` and every sample size, if the **binomial** Stringer value
 is at least the largest observed taint, then it is at least `G_alpha(t)`. The
 safeguard therefore has zero uplift on that sample for both factor
 conventions. The proof combines a dimension-free one-upper-knot cap lemma

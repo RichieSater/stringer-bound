@@ -6,13 +6,13 @@ Let `t_1 <= ... <= t_n` be the observed taints and let `SB_B` be the
 binomial-factor Stringer value at tail probability `alpha`.  This note proves
 
 ```text
-0 < alpha <= exp(-2),  n >= 1,  and  SB_B >= t_n
+0 < alpha <= exp(1-e),  n >= 1,  and  SB_B >= t_n
     ==> SB_B >= G_alpha(t_1,...,t_n),                 (1)
 ```
 
 where `G_alpha` is the valid one-sided Gaffke bounded-mean upper limit.
 Consequently, whenever nominal confidence is at least
-`1-exp(-2) = 86.466...%`, the pre-specified Stringer--Gaffke safeguard has
+`1-exp(1-e) = 82.063...%`, the pre-specified Stringer--Gaffke safeguard has
 zero uplift on every sample satisfying the displayed, directly checkable
 condition.  This includes the conventional 90%, 95%, and 99% levels.  The
 result is true for both factor conventions: throughout this range Poisson
@@ -155,7 +155,7 @@ Clopper--Pearson equation for zero observed errors is
 \]
 
 The next section proves every nonterminal inequality in (8) analytically
-when `alpha<=exp(-2)`.
+when `alpha<=exp(1-e)`.
 
 ## 3. The all-`n` Clopper--Pearson comparison
 
@@ -188,7 +188,7 @@ prove
  \Pr\{\operatorname{Bin}(n,q_{n,r})\ge r\}\ge\alpha. \tag{12}
 \]
 
-We prove (12) for every `n` and `r` when `0<alpha<=exp(-2)`.
+We prove (12) for every `n` and `r` when `0<alpha<=exp(1-e)`.
 
 ### 3.1 Reduction to `n=r+1`
 
@@ -301,44 +301,88 @@ of the multiplier of `alpha` in (20) is at least
 \]
 
 The first term in (22) increases with `x`; the subtracted term decreases.
-It therefore suffices to take `x=2`.
+We prove that `H_r(x)>0` already when `x>=e-1`.
 
-For `r>=3`, the exponential series gives
+First suppose `r>=3`, put `x_0=e-1`, and set `t=1/r`.  For positive
+`z,u`,
 
 \[
- 1-e^{-2/r}>\frac2r-\frac2{r^2},
+ 1-e^{-z}>\frac{z}{1+z/2+z^2/12},
  \qquad
- \frac{u}{e^u-1}<\frac1{1+u/2}=\frac{r+1}{r+2}.
+ \frac{u}{e^u-1}<\frac1{1+u/2}.                       \tag{23}
 \]
 
-The elementary logarithm bound
-`log y>2(y-1)/(y+1)` for `y>1` then gives
+For the first inequality, the derivative of
+
+\[
+ \log\!\left(\frac{z^2+6z+12}{z^2-6z+12}\right)-z
+\]
+
+is
+`-z^4/((z^2-6z+12)(z^2+6z+12))<0`; the second follows from
+`e^u>1+u+u^2/2`.  Hence `H_r(x_0)` is strictly larger than
+
+\[
+ F(t)=
+ \log\!\left(1+\frac{x_0}{1+x_0t/2+x_0^2t^2/12}\right)
+ -\frac1{1+x_0t/(2(1+t))}.                            \tag{24}
+\]
+
+Define `F(0)=0` by continuity.  Direct differentiation shows that `F'(t)`
+has the sign of
 
 \[
 \begin{aligned}
- \log\{1+r(1-e^{-2/r})\}
- &>\log(3-2/r)\\
- &>\frac{2(r-1)}{2r-1}
- \ge\frac{r+1}{r+2}.
-\end{aligned}
+ P_x(t)={}&t^4x^4-12t^3x^4-36t^3x^3-48t^3x^2
+ -72t^2x^3-180t^2x^2\\
+ &-144t^2x-120tx^2-144tx+144
+\end{aligned}                                       \tag{25}
 \]
 
-The last difference is
-`(r-3)/((2r-1)(r+2))`; the preceding logarithm inequality is strict, so
-the argument also covers `r=3`.
+at `x=x_0`.  Since `0<x_0<2` and `0<t<=1/3`, the sole positive term in
+`P_x'(t)` is dominated by `-36t^2x^4`; every other term is negative.
+Thus `P_x` is strictly decreasing and `F'` changes sign at most once, from
+positive to negative.  The minimum of `F` on `[0,1/3]` is at an endpoint.
 
-For `r=2`, use the separator `3/4`:
+At the nonzero endpoint, put
 
 \[
- \log(3-2/e)>\log(9/4)>3/4,
- \qquad \frac{2/3}{e^{2/3}-1}<3/4.
+ z_0=\frac{54(e-1)}{e^2+70e+37}.
 \]
 
-The exponential series gives `8/3<e<87/32<11/4`, and
-`(11/4)^3<(9/4)^4`, proving these comparisons without decimals.  Thus
-`H_r(x)>0` for every `r>=2` and `x>=2`.  Equations (20)--(22) prove the
-boundary case, and (15)--(19) prove (12) in full.  This establishes (8)
-for every sample size whenever `alpha<=exp(-2)`.
+Then
+
+\[
+ F(1/3)=2\operatorname{arctanh}(z_0)-\frac8{e+7}
+ >2\left(z_0+\frac{z_0^3}{3}\right)-\frac8{e+7}.     \tag{26}
+\]
+
+The last expression increases with `e` on `[65/24,3]`: `z_0` increases
+there, while `8/(e+7)` decreases.  The exponential series gives
+`65/24<e<3`, and exact rational simplification at `65/24` makes the last
+difference greater than `1/200`.  Thus both endpoints of (24) are
+nonnegative, and its nonzero endpoint is positive.  This proves
+`H_r(e-1)>0` for `r>=3`.
+
+For `r=2`, monotonicity permits the smaller rational value
+`x=41/24<e-1`.  Put `z=x/2` and `u=x/3`.  The alternating and positive
+exponential series give
+
+\[
+ 1-e^{-z}>z-\frac{z^2}{2}+\frac{z^3}{6}-\frac{z^4}{24},
+ \qquad
+ \frac{u}{e^u-1}<\frac1{1+u/2+u^2/6}.                \tag{27}
+\]
+
+Apply
+`log y=2 arctanh((y-1)/(y+1))>2(v+v^3/3)` to the rational lower bound for
+the first term in `H_2(x)`.  Exact simplification leaves a margin greater
+than `1/100`.  Hence `H_r(x)>0` for every `r>=2` and `x>=e-1`.
+
+Finally, `e>8/3` gives both `e-1>3/2` and `e^(3/2)>4`, so
+`exp(1-e)<1/4`; the separate `r=1` argument in (18)--(19) therefore
+continues to apply.  Equations (15)--(27) prove (12) in full and establish
+(8) for every sample size whenever `alpha<=exp(1-e)`.
 
 ## 4. Reproducibility and independent finite regression
 
@@ -365,12 +409,12 @@ It is no longer the logical basis for the all-sample-size result.
 
 The theorem removes the entire one-upper-knot region from the unresolved
 comparison at every sample size and every nominal confidence level of at
-least `1-exp(-2)=86.466...%`.  It does **not** prove any of the following:
+least `1-exp(1-e)=82.063...%`.  It does **not** prove any of the following:
 
 - unrestricted pointwise Stringer--Gaffke domination for `n>=6`;
 - ordinary Stringer coverage at arbitrary sample size;
 - the one-cap factor inequalities when nominal confidence is below
-  `1-exp(-2)`; or
+  `1-exp(1-e)`; or
 - validity under sampling designs outside the paper's independent
   `[0,1]`-taint model.
 
