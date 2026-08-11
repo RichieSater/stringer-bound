@@ -245,6 +245,36 @@
       "limitations": "The n=2 transfer is stated only in the range covered by the all-n factor-domination theorem. The n=3 through n=5 statements cover only 90%, 95%, and 99%; they are not general-n audit-practice guarantees."
     },
     {
+      "id": "all-n-stringer-gaffke-safeguard",
+      "classification": "proved_theorem",
+      "statement": "For every n and alpha in (0,1), the pre-specified maximum of either Stringer factor convention and the valid Gaffke bounded-mean upper limit has coverage at least 1-alpha for independent [0,1]-valued observations with a common mean.",
+      "manuscript_labels": [
+        "sec:safeguard",
+        "prop:safeguard"
+      ],
+      "evidence": [
+        {
+          "path": "supporting-materials/theory/GAFFKE-SAFEGUARD.md",
+          "role": "written coverage proof and exact divided-difference computation",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/python/gaffke.py",
+          "role": "exact rational Dirichlet-tail signs and certified dyadic upper quantile bracket",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/tests/test_gaffke_safeguard.py",
+          "role": "regression tests for beta special cases, repeated knots, tail signs, and certified no-uplift cases",
+          "trust": "corroboration_only"
+        }
+      ],
+      "verification_commands": [
+        "make test"
+      ],
+      "limitations": "This validates the maximum procedure, not ordinary Stringer when Stringer is below the Gaffke component. It assumes independent bounded observations with a common mean and does not address finite-population design or professional-standard adoption."
+    },
+    {
       "id": "one-nonzero-taint-value",
       "classification": "proved_theorem",
       "statement": "A taint distribution supported on {0,v} cannot under-cover under binomial Stringer factors, for any n, alpha, and v in (0,1].",
@@ -385,9 +415,16 @@
           "path": "supporting-materials/audit/OPENNESS.md",
           "role": "dated literature and scope audit",
           "trust": "literature_review"
+        },
+        {
+          "path": "supporting-materials/theory/ALL-N-POISSON-PROGRAM.md",
+          "role": "exact reduction of a possible all-n Poisson proof to two explicitly unproved quantile inequalities",
+          "trust": "corroboration_only"
         }
       ],
-      "verification_commands": [],
+      "verification_commands": [
+        "make all-n-reduction-check"
+      ],
       "limitations": "This is a qualified, date-stamped literature conclusion, not a mathematical theorem or a guarantee of exhaustive priority searching. The n=3 through n=5 proofs cover only the three specified confidence levels."
     }
   ]

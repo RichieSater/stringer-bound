@@ -53,6 +53,16 @@ and [`N5-CONVENTIONAL.md`](supporting-materials/theory/N5-CONVENTIONAL.md)).
 At those three levels, \(n=6\) is the first unresolved sample size. The
 general-\(n\) conjecture at 95% remains open.**
 
+**A validated all-sample-size reporting safeguard is also available.**
+Pre-specify the reported upper bound as the maximum of the familiar
+Stringer calculation and the finite-sample-valid Gaffke bounded-mean limit.
+That maximum has distribution-free coverage for every \(n\) without assuming
+the unresolved Stringer conjecture. It returns the ordinary Stringer value
+whenever Stringer is larger; in the certified \(n=3,4,5\) cases, equality
+with ordinary Stringer holds for every sample. The implementation uses exact
+rational tail-sign checks rather than trusting a floating-point quantile;
+see [`GAFFKE-SAFEGUARD.md`](supporting-materials/theory/GAFFKE-SAFEGUARD.md).
+
 Openness was checked against the literature (details and sources in
 [`OPENNESS.md`](supporting-materials/audit/OPENNESS.md)): no general proof
 or counterexample at confidence levels ≥ 50% was found. The asymptotic
@@ -96,6 +106,19 @@ certificate or a written proof:
   guarantees at \(n=2\), and from \(n=3\) through \(n=5\) for 90%, 95%, and
   99%, to the Poisson-factor bound.
 
+- **All-sample-size safeguarded reporting rule**
+  ([`GAFFKE-SAFEGUARD.md`](supporting-materials/theory/GAFFKE-SAFEGUARD.md)):
+  for either factor convention, report
+  \(\max\{\mathrm{Stringer},\mathrm{Gaffke}\}\). Finite-sample validity of
+  the Gaffke component proves coverage of this complete rule for every
+  sample size and every confidence level. This does not prove the ordinary
+  Stringer conjecture. It is a drop-in statistical floor that preserves the
+  familiar calculation whenever Stringer is already larger. The command-line
+  implementation certifies a rational dyadic bracket for the Gaffke endpoint
+  by exact confluent divided differences, including repeated taints and
+  zero-heavy audit samples. A methodology-facing use and scope note is in
+  [`PRACTICE-SAFEGUARD.md`](supporting-materials/audit/PRACTICE-SAFEGUARD.md).
+
 - **Two-point lemma** (proof in
   [`two_point_lemma.py`](supporting-materials/computations/python/two_point_lemma.py)):
   a distribution with a single nonzero taint value can never under-cover —
@@ -130,11 +153,17 @@ certificate or a written proof:
 
 **Next steps**: determine whether the Gaffke/simplex-cap comparison extends
 to \(n=6\), where direct Bernstein certification becomes substantially
-larger; seek a dimension-free cap or majorization argument; and develop a
+larger; pursue the two dimension-free weighted-exponential and
+Dirichlet-Poissonization inequalities isolated in
+[`ALL-N-POISSON-PROGRAM.md`](supporting-materials/theory/ALL-N-POISSON-PROGRAM.md);
+and develop a
 certified
 branch-and-bound or atoms-reduction argument for ordinary audit sample sizes.
 The immediate mathematical target is \(n=6\) at 90%, 95%, and 99%, not more
-unstructured grid search.
+unstructured grid search. Before journal submission or practice-facing
+reliance, the bounded review protocol in
+[`HUMAN-REVIEW-PACKET.md`](supporting-materials/audit/HUMAN-REVIEW-PACKET.md)
+should be completed by an independent human mathematical statistician.
 
 ## Method
 
@@ -157,7 +186,9 @@ supporting-materials/
 │   ├── N3-CONVENTIONAL.md    exact n=3 proof at 90%, 95%, and 99%
 │   ├── N4-CONVENTIONAL.md    exact n=4 proof at 90%, 95%, and 99%
 │   ├── N5-CONVENTIONAL.md    exact n=5 proof at 90%, 95%, and 99%
-│   └── POISSON-DOMINATION.md all-n practical-level factor comparison
+│   ├── POISSON-DOMINATION.md all-n practical-level factor comparison
+│   ├── GAFFKE-SAFEGUARD.md   all-n valid reporting floor and exact computation
+│   └── ALL-N-POISSON-PROGRAM.md exact reductions for the open all-n target
 └── computations/python/
     ├── stringer.py           numerical factors for searches + exact-sign
     │                         dyadic binomial factor intervals
@@ -176,6 +207,9 @@ supporting-materials/
     │                         exact n=5 residual, face-ideal, and four-simplex structure
     ├── n5_gaffke_certificate.py
     │                         directed-dyadic n=5 sign certificate
+    ├── gaffke.py             exact-sign Gaffke endpoint + safeguarded report
+    ├── all_n_poisson_reductions.py
+    │                         exact algebra and rejected-shortcut check for all-n route
     ├── search_two_value.py   screening search over {v1 > v2 > 0} supports
     └── certify.py            exact recertification of screening candidates
 ```
@@ -190,13 +224,23 @@ The single top-level verification command is:
 make reproduce
 ```
 
-This runs the unit tests, the \(n=2\) symbolic proof checker, source
+This runs the unit tests, the \(n=2\) symbolic proof checker, the exact
+algebra checks for the explicitly open all-\(n\) Poisson route, source
 regeneration of the \(n=3\) through \(n=5\) Bernstein structures and exact
 sign certificates, the generated counterexample-table check,
 claim-to-evidence link validation, and the manuscript build. Individual
 search and recertification commands
 remain documented in
 [`supporting-materials/README.md`](supporting-materials/README.md).
+
+For a directly usable safeguarded audit calculation (zero taints may be
+omitted while `--n` remains the full sample size):
+
+```sh
+uv run --frozen python \
+  supporting-materials/computations/python/gaffke.py \
+  --n 100 --alpha 0.05 --method poisson --taints 1,0.4,0.1
+```
 
 ## Openness
 

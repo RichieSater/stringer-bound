@@ -14,6 +14,10 @@ from \(n=3\) through \(n=5\) at 90%, 95%, and 99% are exact computer-assisted
 theorems: their symbolic formulas and rational sign certificates are
 regenerated from source scripts; see `theory/N3-CONVENTIONAL.md`,
 `theory/N4-CONVENTIONAL.md`, and `theory/N5-CONVENTIONAL.md`.
+For arbitrary sample size, `theory/GAFFKE-SAFEGUARD.md` defines a
+distribution-free valid reporting rule obtained by taking the maximum of
+Stringer and the valid Gaffke limit. Its implementation brackets the Gaffke
+quantile with exact rational tail-sign checks.
 
 ## Layers
 
@@ -32,6 +36,12 @@ regenerated from source scripts; see `theory/N3-CONVENTIONAL.md`,
 | `derive_n5_bernstein_structure.py` | Exactly derives the residual factorizations, four-simplex substitutions, and face-ideal structural-zero proofs for \(n=5\) | proof-essential |
 | `n5_gaffke_certificate.py` | Integer-directed dyadic interval proof of every nonzero \(n=5\) Bernstein coefficient sign at 90%, 95%, and 99% | proof-essential |
 | `theory/POISSON-DOMINATION.md` | Written proof that practical-level Poisson factors dominate binomial factors for every sample size | proof-essential |
+| `theory/GAFFKE-SAFEGUARD.md` | Written all-sample-size coverage argument and exact divided-difference computation of the Gaffke floor | proof-essential |
+| `theory/ALL-N-POISSON-PROGRAM.md` | Exact weighted-exponential reductions, sharp convexity obstruction, and explicitly conjectural all-`n` route | research roadmap |
+| `gaffke.py` | Exact-rational Dirichlet tail signs, certified dyadic Gaffke bracket, and safeguarded Stringer report | proof-essential for the implemented floor |
+| `all_n_poisson_reductions.py` | Symbolic checks of the ordered-weight, two-exponential, and kernel identities; labels both remaining inequalities open | research support |
+| `audit/PRACTICE-SAFEGUARD.md` | Methodology-facing workflow, worked example, record-retention fields, and explicit scope boundaries | implementation guidance |
+| `audit/HUMAN-REVIEW-PACKET.md` | Scoped independent-review questions, reproduction record, and sign-off template | review protocol |
 | `certify.py` | The only source of claims: exact coverage, exact nominal comparison, margin certificate | proof-essential |
 | `search_two_value.py`, `search_multi_value.py` | float64 screening only | heuristic |
 | `bolshev.py` | Reproduces Bimpeh's Table 5.1 and demonstrates that his coverage bound (5.16) is not a coverage bound (`audit/BIMPEH-GAP.md`) | proof-essential |
@@ -60,6 +70,9 @@ make n4-certificate-check
 make n5-structure-check
 make n5-certificate-check
 
+# Exact algebra behind the explicitly conjectural all-n Poisson program
+make all-n-reduction-check
+
 cd supporting-materials/computations/python
 
 # Lemma: single-value supports; high-precision Poisson comparison
@@ -78,6 +91,10 @@ uv run --frozen python search_multi_value.py --alpha 0.05 --m 3 --n 10 20 --out 
 
 # Exact-sign, interval-propagation, and table-generation regression tests
 uv run --frozen python -m unittest discover -s ../tests -v
+
+# All-n valid reporting safeguard; zeros may be omitted, but n is the full sample
+uv run --frozen python gaffke.py \
+  --n 100 --alpha 0.05 --method poisson --taints 1,0.4,0.1
 ```
 
 Certified run logs are committed under `computations/certificates/`.
@@ -105,6 +122,23 @@ check, not the proof of domination. The all-\(n\) theorem for
 \(\alpha<e^{-1}\) is proved analytically in
 `theory/POISSON-DOMINATION.md`. Outside that confidence range, no general
 domination claim is made; the log includes a case where domination fails.
+
+## The all-sample-size reporting safeguard
+
+The mathematical procedure is
+`max(Stringer, Gaffke)`. Its coverage follows from the independently valid
+Gaffke component and therefore does not assume general-`n` Stringer
+conservatism. At `n=3,4,5` and 90%, 95%, and 99%, the exact pointwise
+comparison theorems show that this maximum is ordinary Stringer on every
+sample, for both binomial and Poisson factors.
+
+For decimal taints, `gaffke.py` interprets the inputs as exact rationals.
+It uses a B-spline quantile only as a root-location proposal, evaluates the
+Dirichlet-average tail at the surrounding dyadic endpoints by exact
+confluent divided differences, and expands the bracket unless both tail
+signs are proved. The reported Gaffke value is the upper endpoint. Thus the
+validity of the implemented floor does not depend on floating-point signs;
+see `theory/GAFFKE-SAFEGUARD.md` for the formulas and scope conditions.
 
 ## The n = 3 theorem certificate
 

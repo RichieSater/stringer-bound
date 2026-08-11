@@ -34,10 +34,15 @@ noncoverage probability is $\alpha$, although no distribution attains
 it. At $n=3$, $n=4$, and $n=5$, exact Bernstein certificates prove
 conservatism at $90\%$, $95\%$, and $99\%$ nominal confidence. The proofs
 establish pointwise domination of a recently validated distribution-free
-bound for the mean of a bounded variable. At every sample size and every nominal confidence level greater than
+bound for the mean of a bounded variable. For arbitrary sample size, the
+maximum of Stringer and this valid comparison bound is therefore a
+distribution-free safeguarded report; it agrees with ordinary Stringer
+whenever the pointwise comparison holds. At every sample size and every
+nominal confidence level greater than
 $1-e^{-1}\approx63.2\%$, the Poisson factors used in audit practice
 dominate the binomial factors coordinatewise and therefore give a
-pointwise no-smaller Stringer bound. We also give explicit finite-sample counterexamples at larger sample
+pointwise no-smaller Stringer bound. We also give explicit finite-sample
+counterexamples at larger sample
 sizes and low nominal confidence levels. At selected nominal confidence
 levels between $30\%$ and $37\%$, and for sample sizes between $50$ and
 $400$, exact rational certificates show that coverage falls below the
@@ -125,7 +130,11 @@ the binomial Stringer bound pointwise dominates the valid Gaffke upper
 limit. The comparison is proved by exact rational Bernstein certificates
 for the relevant uniform-simplex cap volumes. It yields distribution-free
 finite-sample conservatism at each of these levels for all three sample
-sizes.
+sizes. The same comparison suggests a direct all-sample-size implementation
+safeguard (Section~\ref{sec:safeguard}): pre-specifying the maximum of
+Stringer and the valid Gaffke limit
+retains Stringer whenever it is larger and has distribution-free coverage
+without assuming the unresolved conjecture.
 
 \emph{(3) An all-$n$ comparison of the factors used in practice}
 (Section~\ref{sec:poisson}). Whenever nominal confidence exceeds
@@ -945,6 +954,54 @@ Poisson-factor bound. Proposition~\ref{prop:poissondomination} does not,
 by itself, settle coverage in the remaining cases, because the
 binomial-factor conjecture remains unresolved there.
 
+\section{An all-sample-size reporting safeguard}\label{sec:safeguard}
+
+The valid comparison bound also gives a directly computable fallback
+outside the sample sizes for which ordinary Stringer has been proved.
+For $M\in\{\mathrm B,\mathrm P\}$, define
+\[
+\SB^{\mathrm{safe}}_{M,\alpha}(t_1,\ldots,t_n)
+=\max\{\SB_{M,\alpha}(t_1,\ldots,t_n),
+        G_\alpha(t_1,\ldots,t_n)\}.
+\]
+
+\begin{proposition}[Stringer--Gaffke safeguard]\label{prop:safeguard}
+Let $T_1,\ldots,T_n$ be independent $[0,1]$-valued observations with a
+common mean $\mu$. For every $n\ge1$, every $\alpha\in(0,1)$, and either
+factor convention $M$,
+\[
+\Pr\{\SB^{\mathrm{safe}}_{M,\alpha}\ge\mu\}\ge1-\alpha.
+\]
+For $n=3$, $n=4$, and $n=5$ and
+$\alpha\in\{0.10,0.05,0.01\}$, the safeguarded value equals the ordinary
+Stringer value pointwise for both factor conventions.
+\end{proposition}
+
+\begin{proof}
+Finite-sample validity of the Gaffke limit gives
+$\Pr\{G_\alpha(T_1,\ldots,T_n)\ge\mu\}\ge1-\alpha$. Since the maximum is
+pointwise at least $G_\alpha$, the first conclusion follows. At the three
+listed sample sizes and levels, Theorems~\ref{thm:n3}, \ref{thm:n4}, and
+\ref{thm:n5} give $\SB_{\mathrm B,\alpha}\ge G_\alpha$ on every sample.
+Proposition~\ref{prop:poissondomination} gives
+$\SB_{\mathrm P,\alpha}\ge\SB_{\mathrm B,\alpha}$, proving the second
+conclusion.
+\end{proof}
+
+The proposition validates the pre-specified maximum, not ordinary Stringer
+in cases where Stringer is smaller. The repository implementation evaluates
+the Dirichlet-average tail at rational points by exact confluent divided
+differences and returns an exact-sign dyadic upper bracket for $G_\alpha$.
+Thus the operational floor does not depend on trusting a floating-point
+B-spline calculation.
+
+\section{Exact counterexamples at low confidence}\label{sec:counter}
+
+Theorem~\ref{thm:n2} covers every confidence level, so the asymptotic
+anti-conservatism at $\alpha>1/2$ \cite{papvz1996} must manifest itself
+only at larger $n$. Before giving explicit finite-sample counterexamples, we
+exclude the smallest possible nontrivial support.
+
 \begin{proposition}[One nonzero taint value]\label{prop:twopoint}
 If $F$ is supported on $\{0,v\}$ with $v\in(0,1]$, then, for every
 $n$ and $\alpha$, $\pr(\SB\ge\mu)\ge1-\alpha$.
@@ -962,12 +1019,7 @@ $\{p_n(K)\ge q\}$ has probability at least $1-\alpha$; on that
 event, $\SB\ge vq=\mu$.
 \end{proof}
 
-\section{Exact counterexamples at low confidence}\label{sec:counter}
-
-Theorem~\ref{thm:n2} covers every confidence level, so the asymptotic
-anti-conservatism at $\alpha>1/2$ \cite{papvz1996} must manifest itself
-only at larger $n$. We give explicit finite-sample counterexamples. Each
-counterexample below is certified: its distributional parameters are
+Each counterexample below is certified: its distributional parameters are
 exact dyadic rationals, its coverage is computed as an exact rational by
 full multinomial enumeration, and every comparison $\SB\ge\mu$ is made
 with rational factor intervals. Their endpoints lie on a dyadic grid with
@@ -1158,7 +1210,11 @@ Stringer with a valid Dirichlet-average bound and certify the resulting
 simplex-cap inequalities. In higher dimensions, the analogous pointwise comparison is
 a concrete geometric problem for caps of a uniform simplex. At $90\%$,
 $95\%$, and $99\%$ confidence, $n=6$ is now the first unresolved sample
-size. Third, the near-equality
+size. A dimension-free route recorded in the repository writes the Poisson
+bound as an ordered interpolation of gamma quantiles and reduces its
+pointwise Gaffke comparison to two high-quantile inequalities for weighted
+exponentials and uniform Dirichlet averages. Those inequalities remain
+conjectural. Third, the near-equality
 observed at every searched $n$, together with the certified failures at
 several nominal confidence levels below $50\%$, suggests that
 \eqref{eq:conj} may hold whenever nominal confidence is at least $50\%$,
@@ -1176,7 +1232,13 @@ also retain a positive but decreasing numerical cushion. The certified examples 
 anti-conservatism can occur at several nominal confidence levels below
 $50\%$, at sample sizes $n=50,100,200,$ and $400$. Coverage for ordinary
 audit sample sizes at conventional confidence remains an open problem, so
-the search evidence alone does not justify a change in audit guidance.
+the search evidence alone does not justify a general validity claim for
+ordinary Stringer. Proposition~\ref{prop:safeguard}, however, supplies an
+all-sample-size distribution-free reporting option under the model of this
+paper: pre-specify the maximum of the familiar Stringer calculation and the
+validated Gaffke floor. This fallback requires professional-standards and
+workflow evaluation before practice adoption, but it does not require the
+unresolved Stringer conjecture.
 
 \section*{Reproducibility}
 
@@ -1185,7 +1247,8 @@ certificates, exact-sign dyadic enclosures for the binomial confidence
 factors, exact Bernstein certificates for Theorems~\ref{thm:n3},
 \ref{thm:n4}, and \ref{thm:n5}, symbolic regeneration checks for
 their simplex-cap formulas, high-precision
-Poisson calculations, search logs, symbolic checks of the identities used
+Poisson calculations, exact-sign rational brackets for the all-sample-size
+Gaffke safeguard, search logs, symbolic checks of the identities used
 in the $n=2$ proof, and stress tests over approximately $200{,}000$
 distributions. It also contains records of two separate adversarial review
 passes.

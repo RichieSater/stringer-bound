@@ -231,15 +231,24 @@ def exact_binomial_factor_brackets(
 
 
 @lru_cache(maxsize=None)
-def factors(n: int, alpha: str, method: str = "binomial",
-            dps: int = DEFAULT_DPS) -> Tuple[Tuple, ...]:
-    """Numerical confidence factors and final bisection widths.
+def factor_prefix(n: int, alpha: str, maximum_j: int,
+                  method: str = "binomial",
+                  dps: int = DEFAULT_DPS) -> Tuple[Tuple, ...]:
+    """Numerical confidence factors through ``maximum_j``.
 
     ``alpha`` is passed as a string (e.g. ``"0.05"``) so the cache key and the
     decimal value are both exact.  These values are used for screening and
     Poisson calculations, not for formal binomial certificates.  Use
     :func:`exact_binomial_factor_brackets` for the latter.
+
+    Computing only a prefix matters in audit samples with few nonzero
+    taints: the Stringer formula then needs only ``p_0,...,p_k`` rather than
+    all ``n+1`` factors.
     """
+    if n < 1:
+        raise ValueError("n must be positive")
+    if not 0 <= maximum_j <= n:
+        raise ValueError("maximum_j must lie between zero and n")
     if method not in METHODS:
         raise ValueError("method must be one of %r" % (METHODS,))
     with mp.workdps(dps):
@@ -247,7 +256,7 @@ def factors(n: int, alpha: str, method: str = "binomial",
         if not (0 < a < 1):
             raise ValueError("alpha must lie strictly between 0 and 1")
         out = []
-        for j in range(n + 1):
+        for j in range(maximum_j + 1):
             if method == "binomial":
                 if j == n:
                     # sum_{i<=n} ... == 1 > alpha for every p: the bound is 1.
@@ -264,6 +273,13 @@ def factors(n: int, alpha: str, method: str = "binomial",
                 root, width = root / n, width / n
             out.append((root, width))
         return tuple(out)
+
+
+@lru_cache(maxsize=None)
+def factors(n: int, alpha: str, method: str = "binomial",
+            dps: int = DEFAULT_DPS) -> Tuple[Tuple, ...]:
+    """All numerical confidence factors and final bisection widths."""
+    return factor_prefix(n, alpha, n, method, dps)
 
 
 def factor_values(n: int, alpha: str, method: str = "binomial",
@@ -284,10 +300,12 @@ def stringer_bound(taints: Iterable[float], n: int, alpha: str,
     the sort is decreasing, do not displace any nonzero taint, so omitting
     them leaves the bound unchanged.
     """
-    p = factor_values(n, alpha, method, dps)
-    ts = sorted((mpf(t) for t in taints), reverse=True)
-    if len(ts) > n:
+    raw_taints = [mpf(t) for t in taints]
+    if len(raw_taints) > n:
         raise ValueError("more taints than sample units")
+    ts = sorted((t for t in raw_taints if t != 0), reverse=True)
+    p = [value for value, _ in factor_prefix(
+        n, alpha, len(ts), method, dps)]
     with mp.workdps(dps):
         total = p[0]
         for j, t in enumerate(ts, start=1):
@@ -316,6 +334,7 @@ def bound_from_counts(values: Sequence, counts: Sequence[int],
 
 __all__ = [
     "factors",
+    "factor_prefix",
     "factor_values",
     "max_factor_width",
     "stringer_bound",

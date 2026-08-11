@@ -4,7 +4,7 @@ TEST_DIR := supporting-materials/computations/tests
 CERT_DIR := supporting-materials/computations/certificates
 PAPER_DIR := supporting-materials/paper
 
-.PHONY: sync test proof-check n3-formula-check n3-certificate-check n4-structure-check n4-certificate-check n5-structure-check n5-certificate-check certificate-summary-check claim-manifest-check paper reproduce
+.PHONY: sync test proof-check all-n-reduction-check n3-formula-check n3-certificate-check n4-structure-check n4-certificate-check n5-structure-check n5-certificate-check certificate-summary-check claim-manifest-check paper reproduce
 
 sync:
 	uv sync --frozen
@@ -14,6 +14,9 @@ test:
 
 proof-check:
 	$(PYTHON) $(PY_DIR)/n2_proof_check.py
+
+all-n-reduction-check:
+	$(PYTHON) $(PY_DIR)/all_n_poisson_reductions.py
 
 n3-formula-check:
 	@tmp=$$(mktemp); \
@@ -64,5 +67,5 @@ paper:
 	cd $(PAPER_DIR) && tectonic -X compile stringer.tex --keep-logs --keep-intermediates
 	@! grep -Eq "Warning|Overfull|Underfull|undefined|multiply defined" $(PAPER_DIR)/stringer.log
 
-reproduce: sync test proof-check n3-formula-check n3-certificate-check n4-structure-check n4-certificate-check n5-structure-check n5-certificate-check certificate-summary-check claim-manifest-check paper
-	@echo "Core proofs, n=3 through n=5 Bernstein certificates, counterexample summaries, claim links, tests, and manuscript build passed."
+reproduce: sync test proof-check all-n-reduction-check n3-formula-check n3-certificate-check n4-structure-check n4-certificate-check n5-structure-check n5-certificate-check certificate-summary-check claim-manifest-check paper
+	@echo "Core proofs, all-n reductions, n=3 through n=5 Bernstein certificates, counterexample summaries, claim links, tests, and manuscript build passed."
