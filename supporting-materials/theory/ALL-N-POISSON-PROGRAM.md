@@ -202,17 +202,18 @@ reduces a linear extremal problem to densities proportional to
 \]
 
 For (15), integrating (14) by parts `n` times leaves only endpoint terms.
-That enlarged class is nevertheless too broad: at `n=10` the explicit
-density proportional to
+That enlarged class is nevertheless too broad, even after retaining the
+necessary mean constraint. At `n=10` the explicit density proportional to
 
 \[
- \left(\frac34+\frac{3y}{16}\right)^9
- \mathbf 1_{[0,4/3]}(y)
+ \left(\frac34+\frac{75y}{388}\right)^9
+ \mathbf 1_{[0,97/75]}(y)
 \]
 
-has `Pr(Y>1)>1/2` but `Pr(SY>10)<1/2` for an independent
-`S~Gamma(11,1)`. Both comparisons are certified exactly. Thus unrestricted
-`s`-affine endpoint checks cannot prove (B), even at `alpha=1/2`.
+has `E Y<10/11`, `Pr(Y>1)>7/15`, and `Pr(SY>10)<7/15` for an
+independent `S~Gamma(11,1)`. All three comparisons are certified exactly.
+Thus unrestricted `s`-affine endpoint checks cannot prove (B); the
+B-spline structure must be retained.
 
 The actual Dirichlet-average structure yields a sharper target. After
 scaling a threshold to `n`, write the simplex-projection knots as

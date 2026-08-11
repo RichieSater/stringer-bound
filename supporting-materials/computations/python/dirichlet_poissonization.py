@@ -16,11 +16,12 @@ pieces of progress:
 * the comparison is true for every equal-block vector (a common positive
   coordinate repeated ``k`` times, followed by zeros), by the published
   Anderson--Samuels binomial--Poisson inequality; and
-* a fully explicit ``1/n``-concave law shows why generic one-dimensional
-  s-concave localization is too broad to prove the comparison at alpha=1/2.
+* a fully explicit, mean-constrained ``1/n``-concave law shows why generic
+  one-dimensional s-concave localization is too broad to prove the
+  comparison.
 
 The latter check is formal.  Its probability above one is rational, and its
-gamma-smoothed probability is a rational multiple of ``exp(-15/2)``.  The
+gamma-smoothed probability is a rational multiple of ``exp(-750/97)``.  The
 exponential is enclosed by exact rational alternating-series bounds from
 ``stringer.exact_exp_neg_bounds``.
 """
@@ -50,14 +51,21 @@ def verify_saffine_symbolic_identities() -> None:
 
     n = 10
     y = symbols("y", positive=True)
-    upper = Rational(4, 3)
-    raw_density = (Rational(3, 4) + Rational(3, 16) * y) ** (n - 1)
+    upper = Rational(97, 75)
+    raw_density = (Rational(3, 4) + Rational(75, 388) * y) ** (n - 1)
     normalizer = integrate(raw_density, (y, 0, upper))
-    assert normalizer == Rational(989527, 1966080)
+    assert normalizer == Rational(95984119, 196608000)
     density = raw_density / normalizer
 
+    mean = simplify(integrate(y * density, (y, 0, upper)))
+    assert mean == Rational(729166363, 816359775)
+    assert mean < Rational(10, 11)
+
     tail = simplify(integrate(density, (y, 1, upper)))
-    assert tail == Rational(47532839741, 94326751232)
+    assert tail == Rational(
+        3108309643939756140704768,
+        6633646218308706152889893,
+    )
 
     # H is C^(n-1) at one.  Integrating density*H^(n)/n! by parts n
     # times therefore leaves this endpoint expression; every lower-endpoint
@@ -73,7 +81,11 @@ def verify_saffine_symbolic_identities() -> None:
         boundary.subs(y, upper) / factorial(n)
     )
     expected_smoothed = (
-        Rational(6134560249, 6926689) * exp(-Rational(15, 2))
+        Rational(
+            5573507995079350591862317513,
+            5265884111440931688376513,
+        )
+        * exp(-Rational(750, 97))
     )
     assert simplify(tail + smoothed_minus_tail - expected_smoothed) == 0
 
@@ -179,35 +191,48 @@ def saffine_localization_obstruction() -> dict[str, object]:
 
     Put ``n=10`` and give ``Y`` the density proportional to
 
-        (3/4 + 3y/16)^9,       0 <= y <= 4/3.
+        (3/4 + 75y/388)^9,       0 <= y <= 97/75.
 
     This is a ``1/10``-concave probability law because its density to the
-    power ``1/9`` is affine.  Direct integration gives
+    power ``1/9`` is affine. Its mean is strictly below ``10/11``, the mean
+    bound inherited from the coefficient-sum constraint. Direct integration
+    gives
 
-        P(Y>1) = 47532839741 / 94326751232 > 1/2,
+        P(Y>1) > 7/15,
 
     while, for ``S ~ Gamma(11,1)`` independent of ``Y``,
 
-        P(SY>10) = (6134560249 / 6926689) exp(-15/2) < 1/2.
+        P(SY>10) = C exp(-750/97) < 7/15,
 
     Thus checking every s-affine localization extremizer cannot establish
-    the desired implication at alpha=1/2.  The actual Dirichlet-average
-    class is narrower and is not refuted by this example.
+    the desired implication, even after retaining its necessary mean
+    constraint. The actual Dirichlet-average class is narrower and is not
+    refuted by this example.
     """
     n = 10
-    support_upper = Fraction(4, 3)
-    density_normalizer = Fraction(989527, 1966080)
-    tail = Fraction(47532839741, 94326751232)
-    smoothed_coefficient = Fraction(6134560249, 6926689)
-    exp_lower, exp_upper = exact_exp_neg_bounds(Fraction(15, 2))
+    support_upper = Fraction(97, 75)
+    density_normalizer = Fraction(95984119, 196608000)
+    mean = Fraction(729166363, 816359775)
+    tail = Fraction(
+        3108309643939756140704768,
+        6633646218308706152889893,
+    )
+    comparison_level = Fraction(7, 15)
+    smoothed_coefficient = Fraction(
+        5573507995079350591862317513,
+        5265884111440931688376513,
+    )
+    exp_lower, exp_upper = exact_exp_neg_bounds(Fraction(750, 97))
     smoothed_lower = smoothed_coefficient * exp_lower
     smoothed_upper = smoothed_coefficient * exp_upper
-    half = Fraction(1, 2)
+    mean_limit = Fraction(10, 11)
 
-    if not tail > half:
-        raise AssertionError("the exact s-affine tail is not above one half")
-    if not smoothed_upper < half:
-        raise AssertionError("the smoothed tail is not certified below one half")
+    if not mean < mean_limit:
+        raise AssertionError("the exact s-affine mean constraint failed")
+    if not tail > comparison_level:
+        raise AssertionError("the exact s-affine upper-tail sign failed")
+    if not smoothed_upper < comparison_level:
+        raise AssertionError("the smoothed upper-tail sign failed")
     if not smoothed_upper < tail:
         raise AssertionError("the localization obstruction was not certified")
 
@@ -215,23 +240,27 @@ def saffine_localization_obstruction() -> dict[str, object]:
         "n": n,
         "law": {
             "support": ["0", str(support_upper)],
-            "unnormalized_density": "(3/4 + 3*y/16)^9",
+            "unnormalized_density": "(3/4 + 75*y/388)^9",
             "density_integral": _fraction_record(density_normalizer),
             "s_concavity_parameter": "1/10",
+            "mean": _fraction_record(mean),
+            "mean_constraint": "E[Y] < 10/11",
         },
         "tail_probability_P_Y_gt_1": _fraction_record(tail),
+        "comparison_tail_probability": _fraction_record(comparison_level),
         "smoothed_probability": {
-            "identity": "P(S*Y>10)=(6134560249/6926689)*exp(-15/2)",
+            "identity": "P(S*Y>10)=C*exp(-750/97)",
             "coefficient": _fraction_record(smoothed_coefficient),
-            "exp_argument": "15/2",
+            "exp_argument": "750/97",
             "exp_lower_bound": _large_fraction_record(exp_lower),
             "exp_upper_bound": _large_fraction_record(exp_upper),
             "probability_lower_bound": _large_fraction_record(smoothed_lower),
             "probability_upper_bound": _large_fraction_record(smoothed_upper),
         },
         "exact_comparisons": {
-            "P_Y_gt_1": "> 1/2",
-            "P_S_Y_gt_10": "< 1/2",
+            "mean": "< 10/11",
+            "P_Y_gt_1": "> 7/15",
+            "P_S_Y_gt_10": "< 7/15",
             "conclusion": (
                 "The generic s-affine localization class is too broad; "
                 "this is not a counterexample for a Dirichlet average."
@@ -291,7 +320,7 @@ def main(argv: list[str] | None = None) -> int:
         len(certificate["equal_block_profiles"]["regression_checks"]),
     )
     print(
-        "s-affine obstruction: P(Y>1)=%s; P(SY>10)<%s"
+        "mean-constrained s-affine obstruction: P(Y>1)=%s; P(SY>10)<%s"
         % (
             obstruction["tail_probability_P_Y_gt_1"]["decimal"],
             obstruction["smoothed_probability"]["probability_upper_bound"][

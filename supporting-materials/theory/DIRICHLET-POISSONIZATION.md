@@ -141,23 +141,31 @@ form
 \]
 
 That reduction is valid for the enlarged class, but proving the desired
-tail implication for every law in (9) is impossible. Here is an exact
+tail implication for every law in (9) is impossible, even if the necessary
+mean constraint $E Y\le n/(n+1)$ is retained. Here is an exact
 counterexample to that proposed intermediate statement.
 
 Take $n=10$ and let $Y$ have density proportional to
 
 \[
- \left(\frac34+\frac{3y}{16}\right)^9,
- \qquad 0\le y\le\frac43.                             \tag{10}
+ \left(\frac34+\frac{75y}{388}\right)^9,
+ \qquad 0\le y\le\frac{97}{75}.                       \tag{10}
 \]
 
-The normalizing integral is $989527/1966080$, and direct integration
-gives
+The normalizing integral is $95984119/196608000$. Direct integration gives
+
+\[
+ E Y=\frac{729166363}{816359775}<\frac{10}{11}.
+\]
+
+Thus this law satisfies the mean restriction implied by (2). Its upper-tail
+probability obeys
 
 \[
  \Pr\{Y>1\}
- =\frac{47532839741}{94326751232}
- \approx0.5039168541>\frac12.                         \tag{11}
+ =\frac{3108309643939756140704768}
+ {6633646218308706152889893}
+ \approx0.4685672919>\frac7{15}.                       \tag{11}
 \]
 
 For an independent $S\sim\Gamma(11,1)$, repeated integration by parts
@@ -165,14 +173,16 @@ using (3)--(4) gives
 
 \[
  \Pr\{SY>10\}
- =\frac{6134560249}{6926689}e^{-15/2}
- \approx0.4898342327<\frac12.                         \tag{12}
+ =\frac{5573507995079350591862317513}
+ {5265884111440931688376513}e^{-750/97}
+ \approx0.4642055262<\frac7{15}.                       \tag{12}
 \]
 
-Both inequalities against $1/2$ are certified with rational arithmetic;
+The mean and both inequalities against $7/15$ are certified with rational
+arithmetic;
 the exponential in (12) is enclosed by alternating-series bounds after
 power-of-two range reduction. Thus the generic $s$-affine class contains
-a genuine obstruction at $\alpha=1/2$.
+a genuine obstruction even after the necessary mean constraint is imposed.
 
 This does **not** refute (1) for Dirichlet averages. A projection of the
 uniform simplex has a B-spline density whose knots are the actual

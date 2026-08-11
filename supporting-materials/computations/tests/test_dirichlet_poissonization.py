@@ -23,15 +23,24 @@ class DirichletPoissonizationTests(unittest.TestCase):
     def test_saffine_closed_forms_are_symbolically_derived(self):
         verify_saffine_symbolic_identities()
 
-    def test_saffine_obstruction_has_exact_opposite_half_signs(self):
+    def test_saffine_obstruction_preserves_mean_and_has_opposite_tail_signs(self):
         result = saffine_localization_obstruction()
+        mean_record = result["law"]["mean"]
+        mean = Fraction(
+            int(mean_record["numerator"]),
+            int(mean_record["denominator"]),
+        )
         tail_record = result["tail_probability_P_Y_gt_1"]
         tail = Fraction(
             int(tail_record["numerator"]),
             int(tail_record["denominator"]),
         )
-        self.assertGreater(tail, Fraction(1, 2))
-        self.assertEqual(result["exact_comparisons"]["P_S_Y_gt_10"], "< 1/2")
+        self.assertLess(mean, Fraction(10, 11))
+        self.assertGreater(tail, Fraction(7, 15))
+        self.assertEqual(
+            result["exact_comparisons"]["P_S_Y_gt_10"],
+            "< 7/15",
+        )
 
     def test_equal_block_boundary_and_strict_cases(self):
         boundary = equal_block_check(10, 4, Fraction(4))

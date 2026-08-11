@@ -2782,62 +2782,74 @@
   },
   "exponential_series_pairs": 48,
   "localization_obstruction": {
+    "comparison_tail_probability": {
+      "decimal": "0.466666666666666667",
+      "denominator": "15",
+      "numerator": "7"
+    },
     "exact_comparisons": {
-      "P_S_Y_gt_10": "< 1/2",
-      "P_Y_gt_1": "> 1/2",
-      "conclusion": "The generic s-affine localization class is too broad; this is not a counterexample for a Dirichlet average."
+      "P_S_Y_gt_10": "< 7/15",
+      "P_Y_gt_1": "> 7/15",
+      "conclusion": "The generic s-affine localization class is too broad; this is not a counterexample for a Dirichlet average.",
+      "mean": "< 10/11"
     },
     "law": {
       "density_integral": {
-        "decimal": "0.503299458821614583",
-        "denominator": "1966080",
-        "numerator": "989527"
+        "decimal": "0.488200475056966146",
+        "denominator": "196608000",
+        "numerator": "95984119"
       },
+      "mean": {
+        "decimal": "0.893192419971941905",
+        "denominator": "816359775",
+        "numerator": "729166363"
+      },
+      "mean_constraint": "E[Y] < 10/11",
       "s_concavity_parameter": "1/10",
       "support": [
         "0",
-        "4/3"
+        "97/75"
       ],
-      "unnormalized_density": "(3/4 + 3*y/16)^9"
+      "unnormalized_density": "(3/4 + 75*y/388)^9"
     },
     "n": 10,
     "smoothed_probability": {
       "coefficient": {
-        "decimal": "885.641068770374994460",
-        "denominator": "6926689",
-        "numerator": "6134560249"
+        "decimal": "1058.418278322923850876",
+        "denominator": "5265884111440931688376513",
+        "numerator": "5573507995079350591862317513"
       },
-      "exp_argument": "15/2",
+      "exp_argument": "750/97",
       "exp_lower_bound": {
-        "decimal": "0.000553084370147834",
-        "denominator_bits": 6152,
-        "numerator_bits": 6141,
-        "sha256_canonical_binary": "d59e7ae37cbb17295cda287767f48320ece9a81ffa61764eb213faf2a93f3548"
+        "decimal": "0.000438584192743435",
+        "denominator_bits": 9640,
+        "numerator_bits": 9629,
+        "sha256_canonical_binary": "e87000553ba43d3831ca062740d76cf1879b5d2c3fdf6c7dc692152ad7d793ea"
       },
       "exp_upper_bound": {
-        "decimal": "0.000553084370147834",
-        "denominator_bits": 6067,
-        "numerator_bits": 6056,
-        "sha256_canonical_binary": "bc0c50b0c31f2176ce141e08207cc62413452abe2016d0564351ae3251bf411d"
+        "decimal": "0.000438584192743435",
+        "denominator_bits": 9600,
+        "numerator_bits": 9588,
+        "sha256_canonical_binary": "d3819a1b33eb1aadfb36b5ea1953fa0dd39cf84dfd142bf64fe4394d223df550"
       },
-      "identity": "P(S*Y>10)=(6134560249/6926689)*exp(-15/2)",
+      "identity": "P(S*Y>10)=C*exp(-750/97)",
       "probability_lower_bound": {
-        "decimal": "0.489834232697917021",
-        "denominator_bits": 6174,
-        "numerator_bits": 6173,
-        "sha256_canonical_binary": "46799b08ca3a407e49741969d6e530aca78ce273be394485d714d407c754ad6f"
+        "decimal": "0.464205526183155933",
+        "denominator_bits": 9718,
+        "numerator_bits": 9717,
+        "sha256_canonical_binary": "5fc082111ea8d1c29f0bc9ab7169964b0cf46047bb56b64e0871e5aa51b5186a"
       },
       "probability_upper_bound": {
-        "decimal": "0.489834232697917021",
-        "denominator_bits": 6090,
-        "numerator_bits": 6088,
-        "sha256_canonical_binary": "5f657222a483658738bf4e47fc7f43496a44fc3a74b31940995f46d85c028a41"
+        "decimal": "0.464205526183155933",
+        "denominator_bits": 9678,
+        "numerator_bits": 9677,
+        "sha256_canonical_binary": "69d272e69e1d3186bddd8e3a140a3720132c542170bca64d7e15bc05946f4e63"
       }
     },
     "tail_probability_P_Y_gt_1": {
-      "decimal": "0.503916854128594865",
-      "denominator": "94326751232",
-      "numerator": "47532839741"
+      "decimal": "0.468567291900628538",
+      "denominator": "6633646218308706152889893",
+      "numerator": "3108309643939756140704768"
     }
   },
   "schema_version": 1,
