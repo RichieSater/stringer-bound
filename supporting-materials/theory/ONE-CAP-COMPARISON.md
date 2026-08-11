@@ -6,16 +6,17 @@ Let `t_1 <= ... <= t_n` be the observed taints and let `SB_B` be the
 binomial-factor Stringer value at tail probability `alpha`.  This note proves
 
 ```text
-0 < alpha <= 0.10,  n >= 1,  and  SB_B >= t_n
+0 < alpha <= exp(-2),  n >= 1,  and  SB_B >= t_n
     ==> SB_B >= G_alpha(t_1,...,t_n),                 (1)
 ```
 
 where `G_alpha` is the valid one-sided Gaffke bounded-mean upper limit.
-Consequently, whenever nominal confidence is at least 90%, the
-pre-specified Stringer--Gaffke safeguard has zero uplift on every sample
-satisfying the displayed, directly checkable condition.  This is true for
-both factor conventions: at these levels Poisson Stringer is pointwise no
-smaller than binomial Stringer.
+Consequently, whenever nominal confidence is at least
+`1-exp(-2) = 86.466...%`, the pre-specified Stringer--Gaffke safeguard has
+zero uplift on every sample satisfying the displayed, directly checkable
+condition.  This includes the conventional 90%, 95%, and 99% levels.  The
+result is true for both factor conventions: throughout this range Poisson
+Stringer is pointwise no smaller than binomial Stringer.
 
 The result has no upper bound on sample size.  It is a sample-wise comparison,
 not a conditional-coverage theorem for ordinary Stringer.  The coverage
@@ -154,7 +155,7 @@ Clopper--Pearson equation for zero observed errors is
 \]
 
 The next section proves every nonterminal inequality in (8) analytically
-when `alpha<=0.10`.
+when `alpha<=exp(-2)`.
 
 ## 3. The all-`n` Clopper--Pearson comparison
 
@@ -187,7 +188,7 @@ prove
  \Pr\{\operatorname{Bin}(n,q_{n,r})\ge r\}\ge\alpha. \tag{12}
 \]
 
-We prove (12) for every `n` and `r` when `0<alpha<=0.10`.
+We prove (12) for every `n` and `r` when `0<alpha<=exp(-2)`.
 
 ### 3.1 Reduction to `n=r+1`
 
@@ -300,38 +301,44 @@ of the multiplier of `alpha` in (20) is at least
 \]
 
 The first term in (22) increases with `x`; the subtracted term decreases.
-It therefore suffices to take `x=log 10`.
+It therefore suffices to take `x=2`.
 
-For `r>=4`, the function `r(1-e^(-x/r))` increases with `r`, and
-
-\[
- 4(1-10^{-1/4})>\frac74>e-1.
-\]
-
-Here `10^(1/4)>16/9` and `e<11/4` give the two strict rational
-comparisons.  The logarithm in (22) is consequently greater than one,
-whereas `u/(e^u-1)<1`.
-
-For `r=2`, use `sqrt(10)>3` and `log 10>2` to get
+For `r>=3`, the exponential series gives
 
 \[
- \log(3-2/\sqrt{10})>\log(7/3)>3/4,
- \qquad \frac{u}{e^u-1}<\frac{1}{1+u/2}<3/4.
+ 1-e^{-2/r}>\frac2r-\frac2{r^2},
+ \qquad
+ \frac{u}{e^u-1}<\frac1{1+u/2}=\frac{r+1}{r+2}.
 \]
 
-For `r=3`, similarly,
+The elementary logarithm bound
+`log y>2(y-1)/(y+1)` for `y>1` then gives
 
 \[
- \log(4-3/\sqrt[3]{10})>\log(5/2)>4/5,
- \qquad \frac{u}{e^u-1}<\frac{1}{1+u/2}<4/5.
+\begin{aligned}
+ \log\{1+r(1-e^{-2/r})\}
+ &>\log(3-2/r)\\
+ &>\frac{2(r-1)}{2r-1}
+ \ge\frac{r+1}{r+2}.
+\end{aligned}
 \]
 
-The logarithmic comparisons follow, for example, from
-`(11/4)^2<10`, `(11/4)^3<(7/3)^4`, and
-`(11/4)^4<(5/2)^5`.  Thus `H_r(x)>0` for every
-`r>=2` and `x>=log 10`.  Equations (20)--(22) prove the boundary case,
-and (15)--(19) prove (12) in full.  This establishes (8) for every sample
-size whenever `alpha<=0.10`.
+The last difference is
+`(r-3)/((2r-1)(r+2))`; the preceding logarithm inequality is strict, so
+the argument also covers `r=3`.
+
+For `r=2`, use the separator `3/4`:
+
+\[
+ \log(3-2/e)>\log(9/4)>3/4,
+ \qquad \frac{2/3}{e^{2/3}-1}<3/4.
+\]
+
+The exponential series gives `8/3<e<87/32<11/4`, and
+`(11/4)^3<(9/4)^4`, proving these comparisons without decimals.  Thus
+`H_r(x)>0` for every `r>=2` and `x>=2`.  Equations (20)--(22) prove the
+boundary case, and (15)--(19) prove (12) in full.  This establishes (8)
+for every sample size whenever `alpha<=exp(-2)`.
 
 ## 4. Reproducibility and independent finite regression
 
@@ -358,11 +365,12 @@ It is no longer the logical basis for the all-sample-size result.
 
 The theorem removes the entire one-upper-knot region from the unresolved
 comparison at every sample size and every nominal confidence level of at
-least 90%.  It does **not** prove any of the following:
+least `1-exp(-2)=86.466...%`.  It does **not** prove any of the following:
 
 - unrestricted pointwise Stringer--Gaffke domination for `n>=6`;
 - ordinary Stringer coverage at arbitrary sample size;
-- the one-cap factor inequalities when nominal confidence is below 90%; or
+- the one-cap factor inequalities when nominal confidence is below
+  `1-exp(-2)`; or
 - validity under sampling designs outside the paper's independent
   `[0,1]`-taint model.
 

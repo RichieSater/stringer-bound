@@ -319,7 +319,7 @@
     {
       "id": "one-cap-zero-uplift-all-n",
       "classification": "proved_theorem",
-      "statement": "For every 0<alpha<=0.10 and every sample size n, if the binomial Stringer value is at least the largest observed taint, then it pointwise dominates the valid Gaffke upper limit; the pre-specified Stringer-Gaffke safeguard consequently equals ordinary Stringer on that sample for both factor conventions.",
+      "statement": "For every 0<alpha<=exp(-2) and every sample size n, if the binomial Stringer value is at least the largest observed taint, then it pointwise dominates the valid Gaffke upper limit; the pre-specified Stringer-Gaffke safeguard consequently equals ordinary Stringer on that sample for both factor conventions.",
       "manuscript_labels": [
         "sec:onecap",
         "prop:onecap"
@@ -361,7 +361,7 @@
         "make one-cap-certificate-check",
         "make test"
       ],
-      "limitations": "This is a pointwise zero-uplift result on a specified region of the sample space, not a conditional-coverage theorem or unrestricted ordinary-Stringer guarantee for n>=6. The theorem is restricted to nominal confidence of at least 90%; the sufficient condition is evaluated using binomial Stringer even when Poisson factors are reported."
+      "limitations": "This is a pointwise zero-uplift result on a specified region of the sample space, not a conditional-coverage theorem or unrestricted ordinary-Stringer guarantee for n>=6. The theorem is restricted to nominal confidence of at least 1-exp(-2), approximately 86.5%; the sufficient condition is evaluated using binomial Stringer even when Poisson factors are reported."
     },
     {
       "id": "one-nonzero-taint-value",

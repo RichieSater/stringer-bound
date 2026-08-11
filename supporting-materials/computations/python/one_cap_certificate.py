@@ -22,8 +22,9 @@ their binomial-CDF endpoint signs are checked with integer arithmetic.
 The resulting rational upper bound is then compared exactly with alpha.
 
 Floating point is used only to render readable decimal summaries.  The
-certificate is a finite-range theorem for the one-cap region, not a proof
-of the unrestricted Stringer conjecture.
+certificate is an independent finite-range proof and regression for the
+stronger analytic all-``n`` theorem.  It is not a proof of the unrestricted
+Stringer conjecture.
 """
 
 from __future__ import annotations

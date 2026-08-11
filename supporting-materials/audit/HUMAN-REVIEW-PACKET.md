@@ -175,8 +175,8 @@ Questions:
 7. Are the Anderson--Samuels and Pinelis theorems applied with all of their
    hypotheses satisfied, including the two cases split at `n q_(n,r)=r-1`?
 8. Do the reduction to `n=r+1`, the separate `r=1` argument, the explicit
-   `r=2,3` estimates, and the uniform `r>=4` estimate together prove the
-   comparison for every `0<alpha<=0.10`?
+   `r=2` estimate, and the uniform `r>=3` estimate together prove the
+   comparison for every `0<alpha<=exp(-2)`?
 9. Is the older 59,700-comparison certificate described only as an
    independent finite regression, rather than as the all-`n` proof?
 10. Is the result consistently limited to zero uplift of the pre-specified

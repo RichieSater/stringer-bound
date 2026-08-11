@@ -117,7 +117,7 @@ class GaffkeSafeguardTests(unittest.TestCase):
             [1.0, 0.8, 0.2],
         )
         for n in (3, 4, 5):
-            for alpha in ("0.01", "0.05", "0.10"):
+            for alpha in ("0.01", "0.05", "0.10", "0.13"):
                 for observed in samples:
                     if len(observed) > n:
                         continue

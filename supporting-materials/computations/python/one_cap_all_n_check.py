@@ -21,29 +21,31 @@ from scipy.special import betainc
 
 
 DEFAULT_N_MAX = 500
-REGRESSION_ALPHAS = ("0.10", "0.05", "0.01", "0.001")
+REGRESSION_ALPHAS = (
+    ("exp(-2)", math.exp(-2)),
+    ("0.10", 0.10),
+    ("0.05", 0.05),
+    ("0.01", 0.01),
+)
 
 
 def exact_constant_checks() -> dict[str, str]:
     """Verify the rational comparisons used to avoid decimal arguments."""
 
-    # 10^(1/4) > 16/9 and the elementary series bound e < 87/32 < 11/4.
-    assert Fraction(16, 9) ** 4 < 10
+    # The exponential series gives 8/3 < e < 87/32 < 11/4.  The first
+    # bound is its partial sum through 1/3!, and the second follows by
+    # bounding the remaining tail geometrically after that same partial sum.
     e_series_upper = Fraction(8, 3) + Fraction(5, 96)
     assert e_series_upper == Fraction(87, 32)
     assert e_series_upper < Fraction(11, 4)
 
-    # Consequences used in the r=2 and r=3 boundary cases.
-    assert Fraction(11, 4) ** 2 < 10
-    assert Fraction(11, 4) ** 3 < Fraction(7, 3) ** 4
-    assert Fraction(11, 4) ** 4 < Fraction(5, 2) ** 5
+    # The r=2 boundary case uses e^(3/4) < 9/4.
+    assert Fraction(11, 4) ** 3 < Fraction(9, 4) ** 4
 
     return {
-        "fourth_root": "(16/9)^4 < 10",
+        "e_lower": "8/3 < e (positive exponential-series remainder)",
         "e_upper": "e < 87/32 < 11/4",
-        "log_10": "e^2 < 10",
-        "r_2_log": "e^(3/4) < 7/3",
-        "r_3_log": "e^(4/5) < 5/2",
+        "r_2_log": "e^(3/4) < 9/4",
     }
 
 
@@ -81,11 +83,31 @@ def symbolic_identity_checks() -> dict[str, str]:
         boundary_tail - b ** r * A ** r * (r + 1 - r * b * A)
     ) == 0
 
+    # At x=2, the r>=3 estimate compares a standard logarithm lower
+    # bound with the exponential-series upper bound for u/(exp(u)-1).
+    r_ge_3_gap = sp.factor(
+        2 * (r - 1) / (2 * r - 1) - (r + 1) / (r + 2)
+    )
+    assert sp.simplify(
+        r_ge_3_gap - (r - 3) / ((2 * r - 1) * (r + 2))
+    ) == 0
+
+    y = sp.symbols("y", positive=True)
+    log_lower_gap_derivative = sp.factor(sp.diff(
+        sp.log(y) - 2 * (y - 1) / (y + 1), y
+    ))
+    assert sp.simplify(
+        log_lower_gap_derivative
+        - (y - 1) ** 2 / (y * (y + 1) ** 2)
+    ) == 0
+
     return {
         "mean_derivative": str(derivative),
         "r_one_gap": str(r_one_gap),
         "bernoulli_ratio_derivative": str(ratio_derivative),
         "boundary_tail": "(b A)^r (r+1-r b A)",
+        "r_ge_3_gap": str(r_ge_3_gap),
+        "log_lower_gap_derivative": str(log_lower_gap_derivative),
     }
 
 
@@ -100,8 +122,7 @@ def numerical_regression(n_max: int = DEFAULT_N_MAX) -> list[dict[str, object]]:
         raise ValueError("n_max must be at least 2")
 
     out: list[dict[str, object]] = []
-    for alpha_text in REGRESSION_ALPHAS:
-        alpha = float(alpha_text)
+    for alpha_text, alpha in REGRESSION_ALPHAS:
         x = -math.log(alpha)
         minimum = (math.inf, 0, 0)
         minimum_boundary_log = (math.inf, 0)

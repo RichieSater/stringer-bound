@@ -39,9 +39,10 @@ certificates establish conservatism for every $n\le8$ at $90\%$, every
 $n\le11$ at $95\%$, and every $n\le20$ at $99\%$ confidence. For arbitrary
 sample size, the maximum of Stringer and a validated distribution-free
 bounded-mean limit supplies a safeguarded report. At every nominal
-confidence level of at least $90\%$, an analytic one-cap theorem proves that
-this safeguard coincides with ordinary Stringer at every sample size whenever
-binomial Stringer is at least the largest observed taint. We also give explicit
+confidence level of at least $1-e^{-2}\approx86.5\%$, an analytic one-cap
+theorem proves that this safeguard coincides with ordinary Stringer at every
+sample size whenever binomial Stringer is at least the largest observed
+taint. We also give explicit
 finite-sample counterexamples at larger sample sizes and low nominal
 confidence levels. At selected nominal confidence levels between $30\%$
 and $37\%$, and for sample sizes between $50$ and $400$, exact rational
@@ -134,8 +135,8 @@ retains Stringer whenever it is larger and has distribution-free coverage
 without assuming the unresolved conjecture. A dimension-free cap lemma and
 an analytic Clopper--Pearson comparison further prove a directly checkable
 zero-uplift region for every $n$ whenever nominal confidence is at least
-$90\%$: binomial Stringer dominates Gaffke whenever it is at least the
-largest observed taint.
+$1-e^{-2}\approx86.5\%$: binomial Stringer dominates Gaffke whenever it is
+at least the largest observed taint.
 
 \emph{(3) Guarantees for the factors used in practice}
 (Section~\ref{sec:poisson}). Whenever nominal confidence exceeds
@@ -1128,7 +1129,7 @@ $n=3$, $n=4$, and $n=5$. The following result identifies a directly
 checkable identity region without a sample-size cutoff.
 
 \begin{proposition}[One-cap comparison]\label{prop:onecap}
-Let $n\ge1$ and $0<\alpha\le0.10$. Arrange the observed taints as
+Let $n\ge1$ and $0<\alpha\le e^{-2}$. Arrange the observed taints as
 $x_0\le\cdots\le x_{n-1}$, and let $s_{\mathrm B}$ be their
 binomial-factor Stringer value. If
 $s_{\mathrm B}\ge x_{n-1}$, then
@@ -1184,7 +1185,7 @@ c_n=p_n(0),
 so $C_r=1-p_n(n-r)$. The $r=n$ term in
 \eqref{eq:onecapbound} equals
 $(1-p_n(0))^n=\alpha$. For every $r<n$, every
-$n$, and $0<\alpha\le0.10$, we now prove
+$n$, and $0<\alpha\le e^{-2}$, we now prove
 \begin{equation}\label{eq:onecapfactor}
 \left(
 \frac{1-p_n(n-r)}{1-p_n(n-r)+p_n(0)}
@@ -1253,31 +1254,27 @@ H_r(x)=\log\{1+r(1-e^{-x/r})\}
 -\frac{x/(r+1)}{e^{x/(r+1)}-1}.
 \end{equation}
 The first term increases with $x$, while the subtracted term decreases, so
-it is enough to take $x=\log 10$. For $r\ge4$,
+it is enough to take $x=2$. For $r\ge3$, the elementary bounds
 \[
-r(1-e^{-x/r})\ge4(1-10^{-1/4})>\frac74>e-1;
+1-e^{-2/r}>\frac2r-\frac2{r^2},\qquad
+\frac{u}{e^u-1}<\frac1{1+u/2}=\frac{r+1}{r+2}
 \]
-thus the logarithm in \eqref{eq:Hrx} exceeds one, while its second term is
-less than one. For $r=2$, the two terms are separated by $3/4$:
+and $\log y>2(y-1)/(y+1)$ for $y>1$ give
 \[
-\log(3-2/\sqrt{10})>\log(7/3)>3/4,
-\qquad \frac{u}{e^u-1}<\frac1{1+u/2}<3/4.
+\log\{1+r(1-e^{-2/r})\}
+>\log(3-2/r)
+>\frac{2(r-1)}{2r-1}
+\ge\frac{r+1}{r+2}.
 \]
-For $r=3$, the analogous separator is $4/5$:
+The last difference is
+$(r-3)/\{(2r-1)(r+2)\}$. For $r=2$, the same separation follows from
 \[
-\log(4-3/\sqrt[3]{10})>\log(5/2)>4/5,
-\qquad \frac{u}{e^u-1}<\frac1{1+u/2}<4/5.
+\log(3-2/e)>\log(9/4)>3/4,
+\qquad \frac{2/3}{e^{2/3}-1}<3/4.
 \]
-These strict comparisons follow from the exponential-series bound
-$e<87/32<11/4$ and the rational inequalities
-\[
-(16/9)^4<10,\qquad (11/4)^2<10,\qquad
-(11/4)^3<(7/3)^4,
-\qquad (11/4)^4<(5/2)^5.
-\]
-Consequently $H_r(x)>0$ for every
-$r\ge2$ and $x\ge\log 10$, proving the boundary case in
-\eqref{eq:fixedmeanreduce}.
+Indeed, the exponential series gives $8/3<e<87/32<11/4$, and
+$(11/4)^3<(9/4)^4$. Consequently $H_r(x)>0$ for every $r\ge2$ and
+$x\ge2$, proving the boundary case in \eqref{eq:fixedmeanreduce}.
 
 For $r=1$, direct calculation completes the argument. In this case
 \[
@@ -1286,7 +1283,8 @@ q_{n,1}=\frac{\alpha}{1-\alpha}(1-\alpha^{1/n}),
 nq_{n,1}\ge\frac{2\alpha}{1+\sqrt\alpha}
 \ge\frac{\alpha}{1-\alpha}\ge-\log(1-\alpha),
 \]
-where the middle inequality holds for $\alpha\le1/4$. Therefore
+where the middle inequality holds for $\alpha\le1/4$, as it does throughout
+the stated range. Therefore
 \[
 \Pr\{\operatorname{Bin}(n,q_{n,1})\ge1\}
 =1-(1-q_{n,1})^n\ge1-e^{-nq_{n,1}}\ge\alpha.
@@ -1523,7 +1521,8 @@ Stringer with a valid Dirichlet-average bound and certify the resulting
 simplex-cap inequalities. In higher dimensions, the analogous pointwise comparison is
 a concrete geometric problem for caps of a uniform simplex.
 Proposition~\ref{prop:onecap} solves the complete one-upper-knot region at
-every sample size whenever nominal confidence is at least $90\%$. For the
+every sample size whenever nominal confidence is at least
+$1-e^{-2}\approx86.5\%$. For the
 binomial factors at $90\%$, $95\%$, and $99\%$ confidence, $n=6$ is now
 the first sample size whose remaining cap regions are unresolved. A
 dimension-free route recorded in the
@@ -1561,8 +1560,8 @@ validated Gaffke floor. This fallback requires professional-standards and
 workflow evaluation before practice adoption, but it does not require the
 unresolved Stringer conjecture. Proposition~\ref{prop:onecap} additionally
 proves that the fallback has zero uplift at every sample size and nominal
-confidence level of at least $90\%$ whenever binomial Stringer is at least
-the largest observed taint.
+confidence level of at least $1-e^{-2}\approx86.5\%$ whenever binomial
+Stringer is at least the largest observed taint.
 
 \section*{Reproducibility}
 

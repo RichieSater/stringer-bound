@@ -46,8 +46,9 @@ this repository prove that the rule is ordinary Stringer on every possible
 sample.  At other sample sizes, the Gaffke component is a valid floor while
 the general pointwise comparison and the Stringer conjecture remain open.
 
-At every nominal confidence level of at least 90%, an additional analytic
-theorem supplies a simple zero-uplift check for **every sample size**: if the
+At every nominal confidence level of at least
+`1-exp(-2)=86.466...%`, an additional analytic theorem supplies a simple
+zero-uplift check for **every sample size**: if the
 **binomial-factor** Stringer value is at least the largest observed taint,
 then the valid Gaffke limit is no larger. The pre-specified safeguard
 therefore returns ordinary Stringer on that sample, for either factor
@@ -167,7 +168,7 @@ Poisson theorem now reaches `n=8`, `n=11`, and `n=20` at 90%, 95%, and 99%,
 respectively, but audit sample sizes can be larger. Extending the
 exact pointwise comparison beyond `n=5`, or finding a dimension-free
 simplex-cap argument, therefore remains the central theoretical objective.
-The one-cap theorem already controls, at nominal confidence of at least 90%,
-the complete region in which the binomial Stringer threshold is at least the
-largest observed taint for every sample size. The remaining cap regions are
-the next target.
+The one-cap theorem already controls, at nominal confidence of at least
+`1-exp(-2)`, the complete region in which the binomial Stringer threshold is
+at least the largest observed taint for every sample size. The remaining cap
+regions are the next target.
