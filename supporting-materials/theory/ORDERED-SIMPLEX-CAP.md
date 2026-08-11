@@ -6,7 +6,7 @@ This note isolates a dimension-free geometric statement that would prove
 ordinary binomial Stringer conservative at conventional confidence levels
 for every sample size.  The reduction and all vertex equalities below are
 exact.  The complete cap inequality remains **open**.  One entire region is
-now proved through `n=200`; see
+now proved for every sample size at nominal confidence of at least 90%; see
 [`ONE-CAP-COMPARISON.md`](ONE-CAP-COMPARISON.md).
 
 Nothing in this note should be cited as a general-`n` coverage theorem.
@@ -119,14 +119,12 @@ one-cap lemma proves
  \max_{1\le r\le n}\left(\frac{C_r}{C_r+c_n}\right)^r. \tag{9}
 \]
 
-For the weights (1), the `r=n` term in (9) is exactly `alpha`.  Exact
-integer/rational certificates prove every `r<n` term strictly below
-`alpha`, for `1<=n<=200` and `alpha` equal to `0.10`, `0.05`, or `0.01`.
-Hence (5) is already established on this complete region of (4).
-
-The bound in (9) is dimension-free, but the factor inequalities have so far
-been certified only through `n=200`.  The endpoint is not a known failure
-boundary.
+For the weights (1), the `r=n` term in (9) is exactly `alpha`.  The analytic
+binomial-tail comparison in `ONE-CAP-COMPARISON.md` proves every `r<n` term
+at most `alpha` for all `n` whenever `0<alpha<=0.10`. Hence (5) is already
+established on this complete region of (4) without a sample-size cutoff.
+An older exact calculation through `n=200` remains as an independent finite
+regression.
 
 ## 4. An exact adjacent-transfer formula for the remaining regions
 
@@ -205,11 +203,11 @@ Gaffke domination and coverage are genuinely different claims.
 
 The highest-value next steps are:
 
-1. prove the factor inequalities in (9) for all `n` at
-   `alpha in {0.10,0.05,0.01}` (or on a continuous conventional range);
-2. prove the single-crossing direction in (13) for the CP weight vector; or
-3. falsify that route with an exact ordered-knot counterexample, while
-   keeping the weaker ordinary-coverage question open.
+1. prove the single-crossing direction in (13) for the CP weight vector;
+2. extend the one-cap factor comparison below 90% confidence, if useful for
+   locating the exact boundary of this stronger pointwise statement; or
+3. falsify the adjacent-transfer route with an exact ordered-knot
+   counterexample, while keeping the weaker ordinary-coverage question open.
 
 More unconstrained grid search over taint distributions does not address
 these geometric targets.

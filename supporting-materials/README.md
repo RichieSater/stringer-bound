@@ -23,10 +23,10 @@ distribution-free valid reporting rule obtained by taking the maximum of
 Stringer and the valid Gaffke limit. Its implementation brackets the Gaffke
 quantile with exact rational tail-sign checks.
 Within that rule, `theory/ONE-CAP-COMPARISON.md` proves a directly checkable
-zero-uplift region at 90%, 95%, and 99%: through `n=200`, the safeguard is
-ordinary Stringer whenever the binomial Stringer value is at least the
-largest observed taint. This is a sample-wise comparison, not a general
-coverage theorem for ordinary Stringer.
+zero-uplift region for every sample size whenever nominal confidence is at
+least 90%: the safeguard is ordinary Stringer whenever the binomial Stringer
+value is at least the largest observed taint. This is a sample-wise
+comparison, not a general coverage theorem for ordinary Stringer.
 
 ## Layers
 
@@ -48,8 +48,9 @@ coverage theorem for ordinary Stringer.
 | `theory/POISSON-SIMULTANEOUS-BAND.md` | Written randomized-survival-band proof of the direct Poisson coverage ranges | proof-essential |
 | `poisson_band_certificate.py` | Exact rational Poisson-limit signs and Bolshev boundary-crossing probabilities at 90%, 95%, and 99% | proof-essential |
 | `theory/GAFFKE-SAFEGUARD.md` | Written all-sample-size coverage argument and exact divided-difference computation of the Gaffke floor | proof-essential |
-| `theory/ONE-CAP-COMPARISON.md` | Dimension-free one-cap lemma and its exact Stringer specialization through \(n=200\) | proof-essential |
-| `one_cap_certificate.py` | Integer-checked CP factor brackets and 59,700 exact nonterminal cap-vertex inequalities | proof-essential |
+| `theory/ONE-CAP-COMPARISON.md` | Dimension-free cap lemma and analytic all-sample-size Stringer specialization at confidence at least 90% | proof-essential |
+| `one_cap_all_n_check.py` | Symbolic identities, rational constant checks, and finite numerical regression for the analytic proof | proof support |
+| `one_cap_certificate.py` | Independent finite regression with integer-checked CP brackets and 59,700 exact nonterminal vertices through \(n=200\) | corroboration |
 | `theory/ORDERED-SIMPLEX-CAP.md` | Exact tight-vertex reduction and adjacent-transfer identity for the still-open all-`n` comparison | research roadmap |
 | `theory/ALL-N-POISSON-PROGRAM.md` | Exact weighted-exponential reductions, sharp convexity obstruction, and explicitly conjectural all-`n` route | research roadmap |
 | `theory/DIRICHLET-POISSONIZATION.md` | Constrained divided-difference reduction, proved equal-block family, and exact obstruction to generic `s`-concave localization | research roadmap |
@@ -89,7 +90,10 @@ make n5-certificate-check
 # Direct Poisson theorem: exact limits and boundary-crossing probabilities
 make poisson-band-certificate-check
 
-# Exact one-cap zero-uplift theorem at n<=200 and 90%, 95%, and 99%
+# Analytic all-n one-cap zero-uplift theorem at confidence >=90%
+make one-cap-all-n-check
+
+# Independent exact finite regression through n=200
 make one-cap-certificate-check
 
 # Exact algebra behind the explicitly conjectural all-n Poisson program
@@ -172,14 +176,15 @@ signs are proved. The reported Gaffke value is the upper endpoint. Thus the
 validity of the implemented floor does not depend on floating-point signs;
 see `theory/GAFFKE-SAFEGUARD.md` for the formulas and scope conditions.
 
-At the three conventional levels and `n<=200`, the additional one-cap
-theorem proves that no Gaffke uplift can occur whenever binomial Stringer is
-at least the largest sample taint. The proof reduces the Dirichlet tail to
-`max_r (C_r/(C_r+p_0))^r`; the `r=n` term equals `alpha` analytically, and
-`one_cap_certificate.py` checks every `r<n` term with exact rational
-arithmetic. See `theory/ONE-CAP-COMPARISON.md`. The condition identifies a
-region where the pre-specified safeguard returns Stringer; it must not be
-recast as a post-selection or conditional-coverage claim.
+At every nominal confidence level of at least 90% and every sample size, the
+additional one-cap theorem proves that no Gaffke uplift can occur whenever
+binomial Stringer is at least the largest sample taint. The proof reduces the
+Dirichlet tail to `max_r (C_r/(C_r+p_0))^r` and proves every
+Clopper--Pearson vertex inequality analytically. The older exact calculation
+through `n=200` remains an independent finite regression. See
+`theory/ONE-CAP-COMPARISON.md`. The condition identifies a region where the
+pre-specified safeguard returns Stringer; it must not be recast as a
+post-selection or conditional-coverage claim.
 
 ## The n = 3 theorem certificate
 

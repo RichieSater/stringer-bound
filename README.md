@@ -67,10 +67,11 @@ whenever Stringer is larger; in the certified \(n=3,4,5\) cases, equality
 with ordinary Stringer holds for every sample. The implementation uses exact
 rational tail-sign checks rather than trusting a floating-point quantile;
 see [`GAFFKE-SAFEGUARD.md`](supporting-materials/theory/GAFFKE-SAFEGUARD.md).
-At 90%, 95%, and 99% confidence, an additional exact theorem proves zero
-uplift for every \(n\le200\) whenever the binomial Stringer value is at
-least the largest observed taint. This is a directly checkable region of
-the sample space, not a general coverage theorem for ordinary Stringer; see
+At every nominal confidence level of at least 90%, an additional analytic
+theorem proves zero uplift for every sample size whenever the binomial
+Stringer value is at least the largest observed taint. This is a directly
+checkable region of the sample space, not a general coverage theorem for
+ordinary Stringer; see
 [`ONE-CAP-COMPARISON.md`](supporting-materials/theory/ONE-CAP-COMPARISON.md).
 
 Openness was checked against the literature (details and sources in
@@ -141,15 +142,16 @@ certificate or a written proof:
   zero-heavy audit samples. A methodology-facing use and scope note is in
   [`PRACTICE-SAFEGUARD.md`](supporting-materials/audit/PRACTICE-SAFEGUARD.md).
 
-- **Certified zero-uplift region through \(n=200\)**
+- **All-sample-size zero-uplift region at confidence at least 90%**
   ([`ONE-CAP-COMPARISON.md`](supporting-materials/theory/ONE-CAP-COMPARISON.md)):
-  at 90%, 95%, and 99% confidence, if the binomial Stringer value is at
-  least the largest observed taint, then it pointwise dominates the valid
+  whenever nominal confidence is at least 90%, if the binomial Stringer
+  value is at least the largest observed taint, then it pointwise dominates the valid
   Gaffke limit. Hence the pre-specified safeguard returns ordinary Stringer
-  on that sample, for both factor conventions. The analytic simplex-cap
-  lemma is dimension-free; an exact certificate checks all 59,700
-  nonterminal Clopper--Pearson vertex inequalities through \(n=200\), with
-  600 terminal equalities handled analytically. This removes one complete
+  on that sample, for both factor conventions and every sample size. The
+  proof combines a dimension-free simplex-cap lemma, fixed-mean binomial
+  monotonicity, and a sharp probability bound above the binomial mean. An
+  older exact certificate checking 59,700 nonterminal vertices through
+  \(n=200\) remains as an independent regression. This removes one complete
   cap region from the higher-\(n\) comparison but does not prove coverage of
   ordinary Stringer outside the already established ranges.
 
@@ -187,9 +189,8 @@ certificate or a written proof:
 
 **Next steps**: determine whether the remaining binomial
 Gaffke/simplex-cap regions extend to \(n=6\), where direct Bernstein
-certification becomes substantially larger; seek an analytic all-\(n\)
-proof of the one-cap factor inequalities now certified through \(n=200\);
-attack the adjacent-transfer single-crossing identity isolated in
+certification becomes substantially larger; attack the adjacent-transfer
+single-crossing identity isolated in
 [`ORDERED-SIMPLEX-CAP.md`](supporting-materials/theory/ORDERED-SIMPLEX-CAP.md);
 pursue the two dimension-free weighted-exponential and
 Dirichlet--Poissonization inequalities isolated in
@@ -228,7 +229,7 @@ supporting-materials/
 │   ├── POISSON-DOMINATION.md all-n practical-level factor comparison
 │   ├── POISSON-SIMULTANEOUS-BAND.md direct exact Poisson coverage ranges
 │   ├── GAFFKE-SAFEGUARD.md   all-n valid reporting floor and exact computation
-│   ├── ONE-CAP-COMPARISON.md exact zero-uplift region through n=200
+│   ├── ONE-CAP-COMPARISON.md analytic all-n zero-uplift region at >=90%
 │   ├── ORDERED-SIMPLEX-CAP.md vertex equalities + open transfer target
 │   ├── ALL-N-POISSON-PROGRAM.md exact reductions for the open all-n target
 │   └── DIRICHLET-POISSONIZATION.md sharper divided-difference target
@@ -253,8 +254,10 @@ supporting-materials/
     ├── poisson_band_certificate.py
     │                         exact Poisson limits + boundary-crossing proof
     ├── gaffke.py             exact-sign Gaffke endpoint + safeguarded report
+    ├── one_cap_all_n_check.py
+    │                         algebra/rational checks for the analytic theorem
     ├── one_cap_certificate.py
-    │                         exact CP cap-vertex inequalities through n=200
+    │                         independent exact finite regression through n=200
     ├── all_n_poisson_reductions.py
     │                         exact algebra and rejected-shortcut check for all-n route
     ├── dirichlet_poissonization.py
@@ -274,7 +277,8 @@ make reproduce
 ```
 
 This runs the unit tests, the \(n=2\) symbolic proof checker, the exact
-Poisson simultaneous-band and one-cap certificates, the algebra checks and exact
+Poisson simultaneous-band certificate, the analytic all-\(n\) one-cap checks,
+the independent finite one-cap regression, the algebra checks and exact
 localization-obstruction certificate for the explicitly open all-\(n\)
 Poisson route, source
 regeneration of the \(n=3\) through \(n=5\) Bernstein structures and exact

@@ -4,7 +4,7 @@ TEST_DIR := supporting-materials/computations/tests
 CERT_DIR := supporting-materials/computations/certificates
 PAPER_DIR := supporting-materials/paper
 
-.PHONY: sync test proof-check all-n-reduction-check dirichlet-poissonization-check poisson-band-certificate-check one-cap-certificate-check n3-formula-check n3-certificate-check n4-structure-check n4-certificate-check n5-structure-check n5-certificate-check certificate-summary-check claim-manifest-check paper reproduce
+.PHONY: sync test proof-check all-n-reduction-check dirichlet-poissonization-check poisson-band-certificate-check one-cap-all-n-check one-cap-certificate-check n3-formula-check n3-certificate-check n4-structure-check n4-certificate-check n5-structure-check n5-certificate-check certificate-summary-check claim-manifest-check paper reproduce
 
 sync:
 	uv sync --frozen
@@ -29,6 +29,9 @@ poisson-band-certificate-check:
 	$(PYTHON) $(PY_DIR)/poisson_band_certificate.py --out $$tmp; \
 	cmp $(CERT_DIR)/poisson-simultaneous-band-certificate.json $$tmp; \
 	rm -f $$tmp
+
+one-cap-all-n-check:
+	$(PYTHON) $(PY_DIR)/one_cap_all_n_check.py
 
 one-cap-certificate-check:
 	@tmp=$$(mktemp); \
@@ -85,5 +88,5 @@ paper:
 	cd $(PAPER_DIR) && tectonic -X compile stringer.tex --keep-logs --keep-intermediates
 	@! grep -Eq "Warning|Overfull|Underfull|undefined|multiply defined" $(PAPER_DIR)/stringer.log
 
-reproduce: sync test proof-check all-n-reduction-check dirichlet-poissonization-check poisson-band-certificate-check one-cap-certificate-check n3-formula-check n3-certificate-check n4-structure-check n4-certificate-check n5-structure-check n5-certificate-check certificate-summary-check claim-manifest-check paper
-	@echo "Core proofs, all-n reductions, Dirichlet-Poissonization research certificate, Poisson simultaneous-band and one-cap certificates, n=3 through n=5 Bernstein certificates, counterexample summaries, claim links, tests, and manuscript build passed."
+reproduce: sync test proof-check all-n-reduction-check dirichlet-poissonization-check poisson-band-certificate-check one-cap-all-n-check one-cap-certificate-check n3-formula-check n3-certificate-check n4-structure-check n4-certificate-check n5-structure-check n5-certificate-check certificate-summary-check claim-manifest-check paper
+	@echo "Core proofs, all-n reductions, Dirichlet-Poissonization research certificate, Poisson simultaneous-band certificate, analytic all-n and finite one-cap checks, n=3 through n=5 Bernstein certificates, counterexample summaries, claim links, tests, and manuscript build passed."

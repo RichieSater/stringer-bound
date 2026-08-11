@@ -138,6 +138,22 @@ class GaffkeSafeguardTests(unittest.TestCase):
                             observed, n, alpha, "binomial", dps=80)),
                         places=14)
 
+    def test_all_n_one_cap_region_needs_no_uplift(self):
+        # These samples have their largest taint below binomial Stringer, so
+        # the analytic one-cap theorem applies without a sample-size cutoff.
+        for n in (6, 20, 100):
+            for alpha in ("0.01", "0.05", "0.10"):
+                observed = ["0.002", "0.001"]
+                result = safeguarded_stringer_bound(
+                    observed, n, alpha, "binomial")
+                self.assertGreaterEqual(
+                    result.stringer, max(map(float, observed)))
+                # Gaffke is reported as a dyadic upper enclosure, so allow
+                # only the certificate-scale rounding seen at equality.
+                self.assertLessEqual(
+                    result.gaffke - result.stringer, 6e-14,
+                    msg=(n, alpha, result))
+
     def test_input_validation(self):
         with self.assertRaises(ValueError):
             gaffke_upper_bound([1.1], 4, "0.05")

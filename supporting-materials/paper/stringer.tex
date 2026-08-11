@@ -38,10 +38,10 @@ simultaneous-survival-band argument and exact rational boundary-crossing
 certificates establish conservatism for every $n\le8$ at $90\%$, every
 $n\le11$ at $95\%$, and every $n\le20$ at $99\%$ confidence. For arbitrary
 sample size, the maximum of Stringer and a validated distribution-free
-bounded-mean limit supplies a safeguarded report. At the three conventional
-levels, an exact one-cap theorem proves that this safeguard has zero uplift
-through $n=200$ whenever binomial Stringer is at least the largest observed
-taint. We also give explicit
+bounded-mean limit supplies a safeguarded report. At every nominal
+confidence level of at least $90\%$, an analytic one-cap theorem proves that
+this safeguard coincides with ordinary Stringer at every sample size whenever
+binomial Stringer is at least the largest observed taint. We also give explicit
 finite-sample counterexamples at larger sample sizes and low nominal
 confidence levels. At selected nominal confidence levels between $30\%$
 and $37\%$, and for sample sizes between $50$ and $400$, exact rational
@@ -132,9 +132,10 @@ safeguard (Section~\ref{sec:safeguard}): pre-specifying the maximum of
 Stringer and the valid Gaffke limit
 retains Stringer whenever it is larger and has distribution-free coverage
 without assuming the unresolved conjecture. A dimension-free cap lemma and
-exact factor certificates further prove a directly checkable zero-uplift
-region through $n=200$ at the three conventional levels: binomial Stringer
-dominates Gaffke whenever it is at least the largest observed taint.
+an analytic Clopper--Pearson comparison further prove a directly checkable
+zero-uplift region for every $n$ whenever nominal confidence is at least
+$90\%$: binomial Stringer dominates Gaffke whenever it is at least the
+largest observed taint.
 
 \emph{(3) Guarantees for the factors used in practice}
 (Section~\ref{sec:poisson}). Whenever nominal confidence exceeds
@@ -1120,16 +1121,14 @@ differences and returns an exact-sign dyadic upper bracket for $G_\alpha$.
 Thus the operational floor does not depend on trusting a floating-point
 B-spline calculation.
 
-\subsection{A certified one-cap region through
-\texorpdfstring{$n=200$}{n=200}}\label{sec:onecap}
+\subsection{An all-sample-size one-cap region}\label{sec:onecap}
 
 The safeguard is known to be identical to Stringer on every sample at
 $n=3$, $n=4$, and $n=5$. The following result identifies a directly
-checkable identity region at much larger sample sizes.
+checkable identity region without a sample-size cutoff.
 
 \begin{proposition}[One-cap comparison]\label{prop:onecap}
-Let $1\le n\le200$ and
-$\alpha\in\{0.10,0.05,0.01\}$. Arrange the observed taints as
+Let $n\ge1$ and $0<\alpha\le0.10$. Arrange the observed taints as
 $x_0\le\cdots\le x_{n-1}$, and let $s_{\mathrm B}$ be their
 binomial-factor Stringer value. If
 $s_{\mathrm B}\ge x_{n-1}$, then
@@ -1144,7 +1143,7 @@ Stringer for both the binomial and Poisson factor conventions.
 We first give an analytic cap bound with no restriction on $n$. Let
 $x_n=1$, let $c_i>0$ with $\sum_{i=0}^n c_i=1$, and put
 \[
-s=\sum_{i=0}^n c_ix_i,qquad
+s=\sum_{i=0}^n c_ix_i,\qquad
 C_r=\sum_{i=0}^{r-1}c_i\quad(1\le r\le n).
 \]
 For $D\sim\operatorname{Dirichlet}(1,\ldots,1)$, if
@@ -1156,8 +1155,8 @@ V:=\Pr_D\!\left\{\sum_{i=0}^nx_iD_i>s\right\}
 Degenerate boundary cases follow directly or by continuity. Otherwise set
 $S=1-s$, $y_i=1-x_i$, and $u_i=y_i/S-1$. Then
 \[
-u_0\ge\cdots\ge u_{n-1}\ge0,qquad
-\sum_{i=0}^{n-1}c_iu_i=c_n,qquad
+u_0\ge\cdots\ge u_{n-1}\ge0,\qquad
+\sum_{i=0}^{n-1}c_iu_i=c_n,\qquad
 V=\prod_{i=0}^{n-1}(1+u_i)^{-1}.
 \]
 Writing $u_n=0$ and letting $v_r$ denote the vector with its first $r$
@@ -1185,31 +1184,129 @@ c_n=p_n(0),
 so $C_r=1-p_n(n-r)$. The $r=n$ term in
 \eqref{eq:onecapbound} equals
 $(1-p_n(0))^n=\alpha$. For every $r<n$, every
-$1\le n\le200$, and each listed $\alpha$, the exact certificate verifies
+$n$, and $0<\alpha\le0.10$, we now prove
 \begin{equation}\label{eq:onecapfactor}
 \left(
 \frac{1-p_n(n-r)}{1-p_n(n-r)+p_n(0)}
-\right)^{r}<\alpha.
+\right)^{r}\le\alpha.
 \end{equation}
-Each factor is enclosed on a $2^{-64}$ dyadic grid, its binomial-CDF
-endpoint signs are evaluated with integer arithmetic, and the upper bound
-in \eqref{eq:onecapfactor} is compared with $\alpha$ as an exact rational.
-There are $59{,}700$ strict comparisons. The largest nonterminal upper
-bounds, for $\alpha=0.01,0.05,0.10$, respectively, are
-$0.009766418939443551$, $0.049444579494823319$, and
-$0.099327536847359528$; all occur at $(n,r)=(200,199)$.
+
+Write $\alpha=e^{-x}$, $a=e^{-x/n}$, and $b=e^{-x/r}$, and define
+\begin{equation}\label{eq:qbar}
+q_{n,r}=\frac{b(1-a)}{1-b}
+=\frac{1-e^{-x/n}}{e^{x/r}-1}.
+\end{equation}
+By binomial symmetry, $q=1-p_n(n-r)$ is the unique solution of
+$\Pr\{\operatorname{Bin}(n,q)\ge r\}=\alpha$. Inequality
+\eqref{eq:onecapfactor} is equivalent to $q\le q_{n,r}$. It therefore
+suffices to show
+\begin{equation}\label{eq:qbartail}
+\Pr\{\operatorname{Bin}(n,q_{n,r})\ge r\}\ge\alpha.
+\end{equation}
+
+First suppose $r\ge2$, and put $\mu_n=nq_{n,r}$. For fixed $r$,
+$\mu_n$ increases with $n$, because
+\[
+\frac{d}{dz}\{z(1-e^{-x/z})\}
+=1-(1+x/z)e^{-x/z}>0.
+\]
+Also $q_{n,r}<r/n$, because the numerator in \eqref{eq:qbar} is less
+than $x/n$ and the denominator is greater than $x/r$. If
+$\mu_n\ge r-1$, then a binomial variable $X$ with this mean satisfies
+$\{X\ge r\}=\{X>\E X\}$. Since
+$nq_{n,r}\ge1>\log(4/3)$, the sharp binomial-mean inequality of Pinelis
+\cite{pinelis2021} gives
+\[
+\Pr(X\ge r)\ge\frac14>\alpha.
+\]
+If instead $\mu_n<r-1$, let $\mu_0=\mu_{r+1}$. Monotonicity in the
+success probability, followed by the fixed-mean binomial monotonicity of
+Anderson and Samuels \cite[Theorem~2.1]{andsam1967}, gives
+\begin{align}
+\Pr\{\operatorname{Bin}(n,q_{n,r})\ge r\}
+&\ge\Pr\{\operatorname{Bin}(n,\mu_0/n)\ge r\}\notag\\
+&\ge\Pr\{\operatorname{Bin}(r+1,q_{r+1,r})\ge r\},
+\label{eq:fixedmeanreduce}
+\end{align}
+because $r-1>\mu_0$.
+
+It remains to bound the last probability. Set
+\[
+u=\frac{x}{r+1},\qquad v=\frac{x}{r},\qquad
+A=\frac{1-e^{-u}}{1-e^{-v}},
+\]
+so $q_{r+1,r}=bA$ and $\alpha=b^r$. The two-term boundary tail is
+\begin{equation}\label{eq:boundarytail}
+\Pr\{\operatorname{Bin}(r+1,bA)\ge r\}
+=\alpha A^r(r+1-rbA).
+\end{equation}
+For $f(t)=\log(1-e^{-t})$, the derivative
+$f'(t)=1/(e^t-1)$ is decreasing. Hence
+\[
+r\log A=-r\int_u^v\frac{dt}{e^t-1}
+\ge-\frac{u}{e^u-1}.
+\]
+As $0<A<1$, the logarithm of the multiplier of $\alpha$ in
+\eqref{eq:boundarytail} is at least
+\begin{equation}\label{eq:Hrx}
+H_r(x)=\log\{1+r(1-e^{-x/r})\}
+-\frac{x/(r+1)}{e^{x/(r+1)}-1}.
+\end{equation}
+The first term increases with $x$, while the subtracted term decreases, so
+it is enough to take $x=\log 10$. For $r\ge4$,
+\[
+r(1-e^{-x/r})\ge4(1-10^{-1/4})>\frac74>e-1;
+\]
+thus the logarithm in \eqref{eq:Hrx} exceeds one, while its second term is
+less than one. For $r=2$, the two terms are separated by $3/4$:
+\[
+\log(3-2/\sqrt{10})>\log(7/3)>3/4,
+\qquad \frac{u}{e^u-1}<\frac1{1+u/2}<3/4.
+\]
+For $r=3$, the analogous separator is $4/5$:
+\[
+\log(4-3/\sqrt[3]{10})>\log(5/2)>4/5,
+\qquad \frac{u}{e^u-1}<\frac1{1+u/2}<4/5.
+\]
+These strict comparisons follow from the exponential-series bound
+$e<87/32<11/4$ and the rational inequalities
+\[
+(16/9)^4<10,\qquad (11/4)^2<10,\qquad
+(11/4)^3<(7/3)^4,
+\qquad (11/4)^4<(5/2)^5.
+\]
+Consequently $H_r(x)>0$ for every
+$r\ge2$ and $x\ge\log 10$, proving the boundary case in
+\eqref{eq:fixedmeanreduce}.
+
+For $r=1$, direct calculation completes the argument. In this case
+\[
+q_{n,1}=\frac{\alpha}{1-\alpha}(1-\alpha^{1/n}),
+\qquad
+nq_{n,1}\ge\frac{2\alpha}{1+\sqrt\alpha}
+\ge\frac{\alpha}{1-\alpha}\ge-\log(1-\alpha),
+\]
+where the middle inequality holds for $\alpha\le1/4$. Therefore
+\[
+\Pr\{\operatorname{Bin}(n,q_{n,1})\ge1\}
+=1-(1-q_{n,1})^n\ge1-e^{-nq_{n,1}}\ge\alpha.
+\]
+This proves \eqref{eq:qbartail}, hence \eqref{eq:onecapfactor}, for all
+$n$ in the stated confidence range.
+
 Thus \eqref{eq:onecapbound} is at most $\alpha$, which gives
 $G_\alpha\le s_{\mathrm B}$. Proposition~\ref{prop:poissondomination}
-gives $s_{\mathrm P}\ge s_{\mathrm B}$ at the three levels, proving the
+gives $s_{\mathrm P}\ge s_{\mathrm B}$ throughout this range, proving the
 claim for both safeguarded conventions.
 \end{proof}
 
 The proposition is a pointwise identity statement for the pre-specified
 safeguard, not a conditional-coverage theorem for ordinary Stringer. The
-endpoint $n=200$ is the range of the exact certificate, not a failure
-boundary. The analytic cap inequality \eqref{eq:onecapbound} holds in every
-dimension; extending \eqref{eq:onecapfactor} analytically to all $n$ and
-controlling the remaining cap regions are separate open problems.
+analytic proof has no finite sample-size cutoff. The repository retains the
+earlier $59{,}700$ exact dyadic comparisons through $n=200$ at $90\%$,
+$95\%$, and $99\%$ as an independent regression, not as the logical basis
+of the result. Controlling the remaining cap regions is a separate open
+problem.
 
 \section{Exact counterexamples at low confidence}\label{sec:counter}
 
@@ -1425,9 +1522,8 @@ values. The $n=3$, $n=4$, and $n=5$ proofs use a different route: they compare
 Stringer with a valid Dirichlet-average bound and certify the resulting
 simplex-cap inequalities. In higher dimensions, the analogous pointwise comparison is
 a concrete geometric problem for caps of a uniform simplex.
-Proposition~\ref{prop:onecap} solves the complete one-upper-knot region
-through $n=200$ at the three conventional levels; its analytic cap lemma is
-dimension-free. For the
+Proposition~\ref{prop:onecap} solves the complete one-upper-knot region at
+every sample size whenever nominal confidence is at least $90\%$. For the
 binomial factors at $90\%$, $95\%$, and $99\%$ confidence, $n=6$ is now
 the first sample size whose remaining cap regions are unresolved. A
 dimension-free route recorded in the
@@ -1464,9 +1560,9 @@ paper: pre-specify the maximum of the familiar Stringer calculation and the
 validated Gaffke floor. This fallback requires professional-standards and
 workflow evaluation before practice adoption, but it does not require the
 unresolved Stringer conjecture. Proposition~\ref{prop:onecap} additionally
-proves that the fallback has zero uplift through $n=200$, at the three
-conventional levels, whenever binomial Stringer is at least the largest
-observed taint.
+proves that the fallback has zero uplift at every sample size and nominal
+confidence level of at least $90\%$ whenever binomial Stringer is at least
+the largest observed taint.
 
 \section*{Reproducibility}
 
@@ -1477,8 +1573,9 @@ factors, exact Bernstein certificates for Theorems~\ref{thm:n3},
 their simplex-cap formulas, exact rational Poisson-limit and
 boundary-crossing certificates for Theorem~\ref{thm:poissonband},
 high-precision Poisson search calculations, exact-sign rational brackets for the all-sample-size
-Gaffke safeguard, an exact certificate for all $59{,}700$ nonterminal
-one-cap comparisons in Proposition~\ref{prop:onecap}, search logs,
+Gaffke safeguard, symbolic and rational checks for the analytic all-$n$
+one-cap comparison, an independent finite regression containing $59{,}700$
+exact dyadic comparisons through $n=200$, search logs,
 symbolic checks of the identities used
 in the $n=2$ proof, and stress tests over approximately $200{,}000$
 distributions. It also contains records of two separate adversarial review
@@ -1573,6 +1670,11 @@ Applications} \textbf{29} (1995), 51--59.
 \bibitem{papvz1996} G.~Pap and M.~C.~A. van~Zuijlen, On the asymptotic
 behaviour of the Stringer bound, \emph{Statistica Neerlandica}
 \textbf{50} (1996), 367--389.
+
+\bibitem{pinelis2021} I.~Pinelis, Best lower bound on the probability of a
+binomial exceeding its expectation, \emph{Statistics \& Probability Letters}
+\textbf{179} (2021), 109224,
+\url{https://doi.org/10.1016/j.spl.2021.109224}.
 
 \bibitem{phan2021} M.~Phan, P.~S. Thomas and E.~Learned-Miller, Towards
 practical mean bounds for small samples, \emph{Proceedings of the 38th

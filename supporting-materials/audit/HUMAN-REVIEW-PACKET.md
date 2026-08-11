@@ -154,6 +154,7 @@ Questions:
 Primary files:
 
 - [`../theory/ONE-CAP-COMPARISON.md`](../theory/ONE-CAP-COMPARISON.md)
+- [`../computations/python/one_cap_all_n_check.py`](../computations/python/one_cap_all_n_check.py)
 - [`../computations/python/one_cap_certificate.py`](../computations/python/one_cap_certificate.py)
 - [`../computations/certificates/one-cap-certificate.json`](../computations/certificates/one-cap-certificate.json)
 - manuscript Proposition~`prop:onecap`
@@ -169,10 +170,16 @@ Questions:
    vertices with the correct inequality direction?
 5. For the ascending Stringer weights, are
    `C_r=1-p_n(n-r)` and the analytic `r=n` equality indexed correctly?
-6. For `r<n`, do the selected dyadic endpoints give an outward upper bound,
-   and are all 59,700 strict comparisons decided by integer/rational
-   arithmetic?
-7. Is the result consistently limited to zero uplift of the pre-specified
+6. Is the conversion of each factor inequality to the binomial upper-tail
+   comparison at `q_(n,r)` correct?
+7. Are the Anderson--Samuels and Pinelis theorems applied with all of their
+   hypotheses satisfied, including the two cases split at `n q_(n,r)=r-1`?
+8. Do the reduction to `n=r+1`, the separate `r=1` argument, the explicit
+   `r=2,3` estimates, and the uniform `r>=4` estimate together prove the
+   comparison for every `0<alpha<=0.10`?
+9. Is the older 59,700-comparison certificate described only as an
+   independent finite regression, rather than as the all-`n` proof?
+10. Is the result consistently limited to zero uplift of the pre-specified
    safeguard, rather than conditional coverage of ordinary Stringer?
 
 ## Minimum reproduction record

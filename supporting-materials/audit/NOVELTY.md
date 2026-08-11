@@ -5,7 +5,8 @@ tracing, primary-source reading including the full Bimpeh thesis, the
 2021 Statistical Papers MUS survey, the Dutch statistical-auditing essay
 collection, and the 2024 Balakrishnan–Rychlik monograph) tested each of
 the paper's novelty claims. Initial date: 2026-08-07; updated 2026-08-11
-for the new results through \(n=5\) and the direct Poisson coverage ranges.
+for the new results through \(n=5\), the direct Poisson coverage ranges,
+and the analytic all-sample-size one-cap comparison.
 Priority statements remain
 qualified by the scope and date of this search.
 
@@ -82,7 +83,18 @@ in the reviewed literature. Because the ingredients are classical and the
 priority search was not exhaustive, the manuscript states the theorem
 without an unqualified first-priority claim.
 
-## Claim 6 — first identification of Bimpeh's error: HOLDS, strongly
+## Claim 6 — all-n one-cap comparison at confidence at least 90%: NO PREDECESSOR FOUND
+
+The dimension-free cap lemma and the reduction of its
+Clopper--Pearson vertices to binomial upper tails are Stringer-specific.
+The proof then uses two credited probability results: Anderson--Samuels
+(1967) fixed-mean binomial monotonicity and Pinelis's (2021) sharp lower
+bound for a binomial exceeding its expectation. No reviewed source combines
+these ingredients, proves the resulting factor inequality for all sample
+sizes, or derives the zero-uplift region for the Stringer--Gaffke safeguard.
+The manuscript presents the result without an unqualified priority claim.
+
+## Claim 7 — first identification of Bimpeh's error: HOLDS, strongly
 
 The thesis has exactly one recorded citation (a 2019 paper with no
 engagement with ch. 5); no published criticism, correction, or erratum
@@ -91,7 +103,7 @@ chapter-5 material. The error went unnoticed for 18 years; this
 repository is the thesis's first substantive engagement in the
 literature.
 
-## Claim 7 — first exact explicit counterexample parameters: HOLDS
+## Claim 8 — first exact explicit counterexample parameters: HOLDS
 
 The only published counterexamples remain Pap–van Zuijlen 1995
 (uniform-type taints, existence via recursions, α > 1/2, n > 16); every
@@ -106,7 +118,8 @@ approaching the 50% threshold from below sharpen the known picture.
 
 Added to the manuscript: Anderson 1969; Balakrishnan–Rychlik 2024;
 Gaffke 2005; Hoeffding–Shrikhande 1955; Łuczak–Mieczkowska–Šileikis
-2016; Learned-Miller–Thomas 2020; Ming et al. 2026; Vlassis–Thomas 2026.
+2016; Learned-Miller–Thomas 2020; Ming et al. 2026; Pinelis 2021;
+Vlassis–Thomas 2026.
 Already present: Bickel 1992; Bimpeh 2008;
 de Jager–Pap–van Zuijlen 1997; NRC Panel 1989; Pap–van Zuijlen 1995,
 1996; Phan et al. 2021; Stringer 1963.
