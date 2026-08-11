@@ -38,7 +38,10 @@ simultaneous-survival-band argument and exact rational boundary-crossing
 certificates establish conservatism for every $n\le8$ at $90\%$, every
 $n\le11$ at $95\%$, and every $n\le20$ at $99\%$ confidence. For arbitrary
 sample size, the maximum of Stringer and a validated distribution-free
-bounded-mean limit supplies a safeguarded report. We also give explicit
+bounded-mean limit supplies a safeguarded report. At the three conventional
+levels, an exact one-cap theorem proves that this safeguard has zero uplift
+through $n=200$ whenever binomial Stringer is at least the largest observed
+taint. We also give explicit
 finite-sample counterexamples at larger sample sizes and low nominal
 confidence levels. At selected nominal confidence levels between $30\%$
 and $37\%$, and for sample sizes between $50$ and $400$, exact rational
@@ -128,7 +131,10 @@ sizes. The same comparison suggests a direct all-sample-size implementation
 safeguard (Section~\ref{sec:safeguard}): pre-specifying the maximum of
 Stringer and the valid Gaffke limit
 retains Stringer whenever it is larger and has distribution-free coverage
-without assuming the unresolved conjecture.
+without assuming the unresolved conjecture. A dimension-free cap lemma and
+exact factor certificates further prove a directly checkable zero-uplift
+region through $n=200$ at the three conventional levels: binomial Stringer
+dominates Gaffke whenever it is at least the largest observed taint.
 
 \emph{(3) Guarantees for the factors used in practice}
 (Section~\ref{sec:poisson}). Whenever nominal confidence exceeds
@@ -1114,6 +1120,97 @@ differences and returns an exact-sign dyadic upper bracket for $G_\alpha$.
 Thus the operational floor does not depend on trusting a floating-point
 B-spline calculation.
 
+\subsection{A certified one-cap region through
+\texorpdfstring{$n=200$}{n=200}}\label{sec:onecap}
+
+The safeguard is known to be identical to Stringer on every sample at
+$n=3$, $n=4$, and $n=5$. The following result identifies a directly
+checkable identity region at much larger sample sizes.
+
+\begin{proposition}[One-cap comparison]\label{prop:onecap}
+Let $1\le n\le200$ and
+$\alpha\in\{0.10,0.05,0.01\}$. Arrange the observed taints as
+$x_0\le\cdots\le x_{n-1}$, and let $s_{\mathrm B}$ be their
+binomial-factor Stringer value. If
+$s_{\mathrm B}\ge x_{n-1}$, then
+\[
+s_{\mathrm B}\ge G_\alpha(x_0,\ldots,x_{n-1}).
+\]
+Consequently, on that sample the pre-specified safeguard equals ordinary
+Stringer for both the binomial and Poisson factor conventions.
+\end{proposition}
+
+\begin{proof}
+We first give an analytic cap bound with no restriction on $n$. Let
+$x_n=1$, let $c_i>0$ with $\sum_{i=0}^n c_i=1$, and put
+\[
+s=\sum_{i=0}^n c_ix_i,qquad
+C_r=\sum_{i=0}^{r-1}c_i\quad(1\le r\le n).
+\]
+For $D\sim\operatorname{Dirichlet}(1,\ldots,1)$, if
+$s\ge x_{n-1}$, the one-upper-knot cap formula gives
+\begin{equation}\label{eq:onecapformula}
+V:=\Pr_D\!\left\{\sum_{i=0}^nx_iD_i>s\right\}
+=\frac{(1-s)^n}{\prod_{i=0}^{n-1}(1-x_i)}.
+\end{equation}
+Degenerate boundary cases follow directly or by continuity. Otherwise set
+$S=1-s$, $y_i=1-x_i$, and $u_i=y_i/S-1$. Then
+\[
+u_0\ge\cdots\ge u_{n-1}\ge0,qquad
+\sum_{i=0}^{n-1}c_iu_i=c_n,qquad
+V=\prod_{i=0}^{n-1}(1+u_i)^{-1}.
+\]
+Writing $u_n=0$ and letting $v_r$ denote the vector with its first $r$
+entries equal to one and the rest zero, define
+\[
+\lambda_r=\frac{C_r(u_{r-1}-u_r)}{c_n}.
+\]
+The $\lambda_r$ are nonnegative, sum to one, and
+\[
+u=\sum_{r=1}^n\lambda_r\frac{c_n}{C_r}v_r.
+\]
+Since $\sum_i\log(1+u_i)$ is concave, its value on this convex hull is at
+least its smallest vertex value. Hence
+\begin{equation}\label{eq:onecapbound}
+V\le\max_{1\le r\le n}
+\left(\frac{C_r}{C_r+c_n}\right)^r.
+\end{equation}
+
+For the ascending-knot binomial Stringer representation,
+\[
+c_0=1-p_n(n-1),\quad
+c_j=p_n(n-j)-p_n(n-j-1)\ (1\le j<n),\quad
+c_n=p_n(0),
+\]
+so $C_r=1-p_n(n-r)$. The $r=n$ term in
+\eqref{eq:onecapbound} equals
+$(1-p_n(0))^n=\alpha$. For every $r<n$, every
+$1\le n\le200$, and each listed $\alpha$, the exact certificate verifies
+\begin{equation}\label{eq:onecapfactor}
+\left(
+\frac{1-p_n(n-r)}{1-p_n(n-r)+p_n(0)}
+\right)^{r}<\alpha.
+\end{equation}
+Each factor is enclosed on a $2^{-64}$ dyadic grid, its binomial-CDF
+endpoint signs are evaluated with integer arithmetic, and the upper bound
+in \eqref{eq:onecapfactor} is compared with $\alpha$ as an exact rational.
+There are $59{,}700$ strict comparisons. The largest nonterminal upper
+bounds, for $\alpha=0.01,0.05,0.10$, respectively, are
+$0.009766418939443551$, $0.049444579494823319$, and
+$0.099327536847359528$; all occur at $(n,r)=(200,199)$.
+Thus \eqref{eq:onecapbound} is at most $\alpha$, which gives
+$G_\alpha\le s_{\mathrm B}$. Proposition~\ref{prop:poissondomination}
+gives $s_{\mathrm P}\ge s_{\mathrm B}$ at the three levels, proving the
+claim for both safeguarded conventions.
+\end{proof}
+
+The proposition is a pointwise identity statement for the pre-specified
+safeguard, not a conditional-coverage theorem for ordinary Stringer. The
+endpoint $n=200$ is the range of the exact certificate, not a failure
+boundary. The analytic cap inequality \eqref{eq:onecapbound} holds in every
+dimension; extending \eqref{eq:onecapfactor} analytically to all $n$ and
+controlling the remaining cap regions are separate open problems.
+
 \section{Exact counterexamples at low confidence}\label{sec:counter}
 
 Theorem~\ref{thm:n2} covers every confidence level, so the asymptotic
@@ -1327,9 +1424,13 @@ survival-integral budget, and a concave potential with equal endpoint
 values. The $n=3$, $n=4$, and $n=5$ proofs use a different route: they compare
 Stringer with a valid Dirichlet-average bound and certify the resulting
 simplex-cap inequalities. In higher dimensions, the analogous pointwise comparison is
-a concrete geometric problem for caps of a uniform simplex. For the
+a concrete geometric problem for caps of a uniform simplex.
+Proposition~\ref{prop:onecap} solves the complete one-upper-knot region
+through $n=200$ at the three conventional levels; its analytic cap lemma is
+dimension-free. For the
 binomial factors at $90\%$, $95\%$, and $99\%$ confidence, $n=6$ is now
-the first unresolved sample size. A dimension-free route recorded in the
+the first sample size whose remaining cap regions are unresolved. A
+dimension-free route recorded in the
 repository writes the Poisson
 bound as an ordered interpolation of gamma quantiles and reduces its
 pointwise Gaffke comparison to two high-quantile inequalities for weighted
@@ -1362,7 +1463,10 @@ all-sample-size distribution-free reporting option under the model of this
 paper: pre-specify the maximum of the familiar Stringer calculation and the
 validated Gaffke floor. This fallback requires professional-standards and
 workflow evaluation before practice adoption, but it does not require the
-unresolved Stringer conjecture.
+unresolved Stringer conjecture. Proposition~\ref{prop:onecap} additionally
+proves that the fallback has zero uplift through $n=200$, at the three
+conventional levels, whenever binomial Stringer is at least the largest
+observed taint.
 
 \section*{Reproducibility}
 
@@ -1373,7 +1477,9 @@ factors, exact Bernstein certificates for Theorems~\ref{thm:n3},
 their simplex-cap formulas, exact rational Poisson-limit and
 boundary-crossing certificates for Theorem~\ref{thm:poissonband},
 high-precision Poisson search calculations, exact-sign rational brackets for the all-sample-size
-Gaffke safeguard, search logs, symbolic checks of the identities used
+Gaffke safeguard, an exact certificate for all $59{,}700$ nonterminal
+one-cap comparisons in Proposition~\ref{prop:onecap}, search logs,
+symbolic checks of the identities used
 in the $n=2$ proof, and stress tests over approximately $200{,}000$
 distributions. It also contains records of two separate adversarial review
 passes.

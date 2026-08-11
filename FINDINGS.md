@@ -30,7 +30,48 @@ this makes **n = 6 the first unresolved sample size at 90%, 95%, and 99%**.
 This is a meaningful finite-sample advance, but n = 5 is far smaller than an
 ordinary audit sample. It does not yet justify a change in audit guidance.
 
-## 2. The general finite-sample guarantee remains open
+A separate corrected simultaneous-band theorem proves ordinary
+**Poisson-factor** Stringer coverage farther: every n <= 8 at 90%, every
+n <= 11 at 95%, and every n <= 20 at 99%. These are exact finite ranges,
+not search results. The sufficient band event falls short at the next n in
+each row, which limits that proof route rather than demonstrating Stringer
+undercoverage
+([proof and certificate](supporting-materials/theory/POISSON-SIMULTANEOUS-BAND.md)).
+
+## 2. A finite-sample-valid reporting safeguard is available for every n
+
+An audit methodology group can evaluate a reporting rule that does not wait
+for the open general-n conjecture: before observing the sample, define the
+reported upper bound as
+
+```text
+max(ordinary Stringer, validated Gaffke bounded-mean limit).
+```
+
+Under the paper's independent [0,1]-taint model, this complete rule has at
+least nominal coverage for every sample size and either factor convention.
+It can only increase, never decrease, a Stringer result. The Gaffke endpoint
+is computed with exact rational tail-sign checks rather than an uncertified
+floating-point spline calculation
+([technical proof](supporting-materials/theory/GAFFKE-SAFEGUARD.md),
+[practice note](supporting-materials/audit/PRACTICE-SAFEGUARD.md)).
+
+The safeguard is provably identical to ordinary Stringer on every sample at
+n = 3, 4, and 5 at 90%, 95%, and 99%. A new one-cap theorem gives a much
+larger sample-checkable identity region: at those confidence levels and
+every n <= 200, there is **zero uplift whenever binomial Stringer is at least
+the largest observed taint**. A dimension-free analytic lemma reduces this
+to cap-vertex inequalities; 59,700 nonterminal inequalities are certified
+with exact Clopper--Pearson root brackets
+([proof and certificate](supporting-materials/theory/ONE-CAP-COMPARISON.md)).
+
+This is a candidate statistical control for independent human proof review,
+professional-standards analysis, model-risk validation, and software
+testing. It is not represented as adopted guidance. The zero-uplift result
+describes the output of the pre-specified safeguard; it is not a
+conditional-coverage claim for ordinary Stringer.
+
+## 3. The general finite-sample guarantee remains open
 
 The Stringer bound is commonly expected to cover the population mean at
 least as often as its nominal confidence level, but the claim has not been
@@ -47,7 +88,7 @@ three levels above; populations supported on {0,1}; and populations with one
 nonzero taint value
 ([proof](supporting-materials/computations/python/two_point_lemma.py)).
 
-## 3. No violation was found in the reported 90% and 95% searches
+## 4. No violation was found in the reported 90% and 95% searches
 
 Grid-plus-optimizer searches over populations with two or three nonzero
 taint values (n up to 100 in the reported standard-confidence searches)
@@ -57,7 +98,7 @@ the largest taint approaches 1. These are numerical search results, not an
 exhaustive proof. The exact n = 2 through n = 5 results above do not
 depend on these searches.
 
-## 4. Practical-level Poisson factor domination is proved for every n
+## 5. Practical-level Poisson factor domination is proved for every n
 
 The factors in professional MUS tables are Poisson-based. Whenever nominal
 confidence exceeds \(1-e^{-1}\approx63.2\%\), they dominate the binomial
@@ -86,7 +127,7 @@ searches agrees numerically with nominal at every listed n.) The Poisson
 values show a positive numerical cushion in these searches; the table does
 not establish a global worst case.
 
-## 5. At selected low assurance levels the bound provably fails
+## 6. At selected low assurance levels the bound provably fails
 
 For several low-confidence parameter choices, the Stringer bound's coverage
 falls **below** its stated level. These are not conventional
@@ -114,7 +155,7 @@ searched. The certified examples show that low-confidence use requires care;
 they do not show failure at every confidence level below 50% or for every
 sample size.
 
-## 6. The n = 2 theorem is sharp
+## 7. The n = 2 theorem is sharp
 
 The Stringer bound is conservative at **n = 2, for every possible taint
 population and every confidence level**
@@ -125,6 +166,8 @@ uniform positive safety margin above nominal.
 
 The proof uses a change of variables that turns the bound into a weighted
 order-statistic inequality, followed by a rectangle-and-budget argument.
-The n = 3 through n = 5 proofs use a different, geometric route. Determining
-whether that simplex-cap comparison extends to n = 6, or admits a
-dimension-free proof, is the repository's next mathematical target.
+The n = 3 through n = 5 proofs use a different, geometric route. The one-cap
+theorem now controls one complete geometric region through n = 200.
+Determining whether the remaining simplex-cap regions extend to n = 6, and
+whether the one-cap factor inequalities hold analytically for every n, are
+the repository's next mathematical targets.

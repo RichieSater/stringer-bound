@@ -44,7 +44,18 @@ after-the-fact assertion that ordinary Stringer was valid.
 At `n=3,4,5` and 90%, 95%, and 99% confidence, exact pointwise theorems in
 this repository prove that the rule is ordinary Stringer on every possible
 sample.  At other sample sizes, the Gaffke component is a valid floor while
-the Stringer conjecture remains open.
+the general pointwise comparison and the Stringer conjecture remain open.
+
+At the same three confidence levels, an additional theorem supplies a
+simple zero-uplift check through `n=200`: if the **binomial-factor** Stringer
+value is at least the largest observed taint, then the valid Gaffke limit is
+no larger. The pre-specified safeguard therefore returns ordinary Stringer
+on that sample, for either factor convention. The check is sufficient, not
+necessary; failure of the condition says only that the Gaffke endpoint must
+be computed. It is a pointwise statement about the safeguard's output, not
+a conditional-coverage guarantee for unmodified Stringer. The proof and
+exact certificate are in
+[`ONE-CAP-COMPARISON.md`](../theory/ONE-CAP-COMPARISON.md).
 
 A separate theorem validates the ordinary **Poisson-factor** Stringer bound
 for every `n<=8` at 90%, every `n<=11` at 95%, and every `n<=20` at 99%
@@ -156,3 +167,7 @@ Poisson theorem now reaches `n=8`, `n=11`, and `n=20` at 90%, 95%, and 99%,
 respectively, but audit sample sizes can be larger. Extending the
 exact pointwise comparison beyond `n=5`, or finding a dimension-free
 simplex-cap argument, therefore remains the central theoretical objective.
+The one-cap theorem already controls the complete region in which the
+binomial Stringer threshold is at least the largest observed taint through
+`n=200`; the remaining cap regions and an all-`n` proof of the factor
+inequalities are the next targets.

@@ -317,6 +317,42 @@
       "limitations": "This validates the maximum procedure, not ordinary Stringer when Stringer is below the Gaffke component. It assumes independent bounded observations with a common mean and does not address finite-population design or professional-standard adoption."
     },
     {
+      "id": "one-cap-zero-uplift-through-n200",
+      "classification": "proved_theorem",
+      "statement": "For alpha in {0.10, 0.05, 0.01} and every 1<=n<=200, if the binomial Stringer value is at least the largest observed taint, then it pointwise dominates the valid Gaffke upper limit; the pre-specified Stringer-Gaffke safeguard consequently equals ordinary Stringer on that sample for both factor conventions.",
+      "manuscript_labels": [
+        "sec:onecap",
+        "prop:onecap"
+      ],
+      "evidence": [
+        {
+          "path": "supporting-materials/theory/ONE-CAP-COMPARISON.md",
+          "role": "dimension-free one-upper-knot cap lemma, Stringer specialization, and finite-range theorem",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/python/one_cap_certificate.py",
+          "role": "integer-checked factor brackets and exact rational cap-vertex comparisons",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/certificates/one-cap-certificate.json",
+          "role": "machine-readable exact worst-case margins and digests over all 59,700 nonterminal bounds",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/tests/test_one_cap_certificate.py",
+          "role": "small-range exact regression test",
+          "trust": "corroboration_only"
+        }
+      ],
+      "verification_commands": [
+        "make one-cap-certificate-check",
+        "make test"
+      ],
+      "limitations": "This is a pointwise zero-uplift result on a specified region of the sample space, not a conditional-coverage theorem or unrestricted ordinary-Stringer guarantee for n=6 through n=200. The upper endpoint n=200 is the range certified, not a failure boundary; the sufficient condition is evaluated using binomial Stringer even when Poisson factors are reported."
+    },
+    {
       "id": "one-nonzero-taint-value",
       "classification": "proved_theorem",
       "statement": "A taint distribution supported on {0,v} cannot under-cover under binomial Stringer factors, for any n, alpha, and v in (0,1].",
@@ -467,6 +503,11 @@
           "path": "supporting-materials/theory/POISSON-SIMULTANEOUS-BAND.md",
           "role": "proved finite Poisson ranges and exact limitation of the sufficient-event route",
           "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/theory/ORDERED-SIMPLEX-CAP.md",
+          "role": "exact tight-vertex reduction, proved one-cap region, and explicitly open adjacent-transfer target",
+          "trust": "corroboration_only"
         }
       ],
       "verification_commands": [

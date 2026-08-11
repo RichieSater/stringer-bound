@@ -26,6 +26,7 @@ recorded below with sources.
 | Poisson audit factors dominate binomial Clopper–Pearson factors coordinatewise whenever nominal confidence exceeds \(1-e^{-1}\approx63.2\%\); hence the Poisson Stringer bound pointwise dominates the binomial version | Anderson–Samuels (1967), specialized to the Stringer formula in [`POISSON-DOMINATION.md`](../theory/POISSON-DOMINATION.md) | every n; factor and bound comparison, not a general coverage proof |
 | A corrected simultaneous survival band proves Poisson-factor Stringer coverage for every \(n\le8\) at 90%, every \(n\le11\) at 95%, and every \(n\le20\) at 99% confidence | [`POISSON-SIMULTANEOUS-BAND.md`](../theory/POISSON-SIMULTANEOUS-BAND.md) and exact rational certificate | finite ranges; arbitrary continuous or atomic taint distributions |
 | The pre-specified maximum of either Stringer calculation and the valid Gaffke limit has coverage at least \(1-\alpha\) | [`GAFFKE-SAFEGUARD.md`](../theory/GAFFKE-SAFEGUARD.md) and the Vlassis–Thomas validity theorem | every n and level, but a safeguarded procedure rather than proof of ordinary Stringer |
+| At 90%, 95%, and 99%, the safeguard has zero uplift through \(n=200\) whenever binomial Stringer is at least the largest observed taint | [`ONE-CAP-COMPARISON.md`](../theory/ONE-CAP-COMPARISON.md) and 59,700 exact nonterminal vertex checks | pointwise one-cap region only; not conditional coverage or a full ordinary-Stringer theorem |
 | Claimed certification at n ≤ 11, α = 0.05 via the lower bound P̄ₙ = P(U_{i:n} ≤ p_n(i) ∀i) (Bolshev recursion). **Reassessed in this repository**: the containment CP ≥ P̄ₙ (his eq. 5.16) rests on an off-by-one in the band constraints, dropping F(t_{n:n}) ≥ α^{1/n}; hand counterexamples with continuous F at n = 1, 2 and an exact atomic one at n = 5 show that P̄ₙ is not the stated coverage bound. The corrected containment probability is ≤ 1−α for every continuous F. See [`BIMPEH-GAP.md`](BIMPEH-GAP.md). | Bimpeh, PhD thesis, DCU 2008, ch. 5 ([full text](https://doras.dcu.ie/600/1/YawThesis.PDF)); apparently never journal-published; reassessment: this repository | the cited argument does not establish the claimed finite-sample range |
 | Exact counterexamples at **sub-50% confidence**: uniform-type taints, α > 1/2, n ≳ 17 | Pap & van Zuijlen, *Comput. Math. Appl.* 29 (1995) 51–59 (exact recursions, not Monte Carlo) | finite n, α > 1/2 only |
 
@@ -42,8 +43,10 @@ zero) at selected nominal confidence levels from 30% to 37% and sample
 sizes 50, 100, 200, and 400. Numerical searches at α = 0.05 found smallest
 coverage agreeing with \(1-\alpha\) to search precision, approached on the
 {0,1}-boundary (\(v_1\to1\)); this is evidence, not an infimum proof.
-The all-sample-size safeguard does not change the openness verdict because it
-validates a different, pre-specified maximum rule.
+The all-sample-size safeguard and its certified one-cap identity region do
+not change the openness verdict because the former validates a different,
+pre-specified maximum rule and the latter controls only part of the sample
+space.
 
 ## Where a resolution could hide (checked, none found)
 
@@ -87,9 +90,11 @@ validates a different, pre-specified maximum rule.
    exact two-atom coverage (`bolshev.py`).
 4. Pyke 1994, one-sided minimax KS bands (*J. Appl. Prob.* 31A, 291–308):
    possibly the right lens for larger \(n\).
-5. Extension of the binomial Gaffke/simplex-cap comparison to \(n=6\), the
-   first unresolved binomial case at 90%, 95%, and 99%; a dimension-free geometric
-   comparison would have direct consequences for ordinary audit sample
-   sizes. [`ALL-N-POISSON-PROGRAM.md`](../theory/ALL-N-POISSON-PROGRAM.md)
-   records an exact reduction to two explicitly unproved high-quantile
+5. Extension of the remaining binomial Gaffke/simplex-cap regions to
+   \(n=6\), the first unresolved binomial case at 90%, 95%, and 99%; a
+   dimension-free geometric comparison would have direct consequences for
+   ordinary audit sample sizes. [`ORDERED-SIMPLEX-CAP.md`](../theory/ORDERED-SIMPLEX-CAP.md)
+   records the exact tight-vertex reduction and an open adjacent-transfer
+   identity. [`ALL-N-POISSON-PROGRAM.md`](../theory/ALL-N-POISSON-PROGRAM.md)
+   records a separate reduction to two explicitly unproved high-quantile
    inequalities.

@@ -76,8 +76,19 @@ uniform statement:
   binomial Stringer, so the Poisson safeguard is also identical to ordinary
   Poisson Stringer.
 
-For other sample sizes, (1) acts as a validated floor.  It can be adopted
-without taking a position on the unresolved general-`n` comparison.
+There is also a larger, sample-checkable region. At
+`alpha in {0.10,0.05,0.01}` and every `n<=200`, if the **binomial** Stringer
+value is at least the largest observed taint, then it is at least
+`G_alpha(t)`. The safeguard therefore has zero uplift on that sample for
+both factor conventions. The proof is a dimension-free one-upper-knot cap
+lemma plus 59,700 exact Clopper--Pearson vertex comparisons; see
+[`ONE-CAP-COMPARISON.md`](ONE-CAP-COMPARISON.md). This is a pointwise
+identity for the pre-specified safeguarded rule, not a conditional-coverage
+claim for ordinary Stringer.
+
+Outside these proved identity regions, (1) acts as a validated floor. It can
+be adopted without taking a position on the unresolved general-`n`
+comparison.
 
 ## Exact-sign computation of the floor
 

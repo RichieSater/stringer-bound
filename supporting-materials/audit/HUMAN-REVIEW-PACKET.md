@@ -149,6 +149,32 @@ Questions:
 6. Are the audit-design limitations prominent enough to prevent an iid
    theorem from being misapplied to a different sampling design?
 
+## Review F: the one-cap zero-uplift theorem
+
+Primary files:
+
+- [`../theory/ONE-CAP-COMPARISON.md`](../theory/ONE-CAP-COMPARISON.md)
+- [`../computations/python/one_cap_certificate.py`](../computations/python/one_cap_certificate.py)
+- [`../computations/certificates/one-cap-certificate.json`](../computations/certificates/one-cap-certificate.json)
+- manuscript Proposition~`prop:onecap`
+
+Questions:
+
+1. Is the one-upper-knot Dirichlet cap formula normalized correctly?
+2. Does `s>=x_(n-1)` imply the ordered nonnegative constraints on the
+   normalized complement vector?
+3. Does the prefix-step decomposition describe the complete weighted-budget
+   section, including its boundary?
+4. Does concavity of `sum log(1+u_i)` yield the stated maximum over prefix
+   vertices with the correct inequality direction?
+5. For the ascending Stringer weights, are
+   `C_r=1-p_n(n-r)` and the analytic `r=n` equality indexed correctly?
+6. For `r<n`, do the selected dyadic endpoints give an outward upper bound,
+   and are all 59,700 strict comparisons decided by integer/rational
+   arithmetic?
+7. Is the result consistently limited to zero uplift of the pre-specified
+   safeguard, rather than conditional coverage of ordinary Stringer?
+
 ## Minimum reproduction record
 
 Run from a clean checkout:
@@ -182,6 +208,7 @@ Review B disposition (n=3 / n=4 / n=5):
 Review C disposition:
 Review D disposition:
 Review E disposition:
+Review F disposition:
 
 Issues found and exact locations:
 Corrections rechecked:
