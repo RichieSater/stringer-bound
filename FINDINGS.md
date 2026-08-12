@@ -59,7 +59,7 @@ floating-point spline calculation
 The safeguard is provably identical to ordinary Stringer on every sample at
 n = 3, 4, and 5 at 90%, 95%, and 99%. A new one-cap theorem gives a much
 larger sample-checkable identity region: at every nominal confidence level
-of at least 1 - exp(1-e), approximately 82.1%, and **every sample size**,
+of at least 75%, and **every sample size**,
 there is **zero uplift whenever binomial Stringer is at least the largest
 observed taint**. The proof combines
 a dimension-free cap lemma with analytic binomial-tail comparisons. An older
@@ -170,6 +170,6 @@ The proof uses a change of variables that turns the bound into a weighted
 order-statistic inequality, followed by a rectangle-and-budget argument.
 The n = 3 through n = 5 proofs use a different, geometric route. The one-cap
 theorem now controls one complete geometric region at every sample size for
-nominal confidence of at least 1 - exp(1-e), approximately 82.1%.
+nominal confidence of at least 75%.
 Determining whether the remaining simplex-cap regions extend to n = 6, and whether they admit a
 dimension-free argument, are the repository's next mathematical targets.

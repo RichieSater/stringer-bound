@@ -174,9 +174,10 @@ Questions:
    comparison at `q_(n,r)` correct?
 7. Are the Anderson--Samuels and Pinelis theorems applied with all of their
    hypotheses satisfied, including the two cases split at `n q_(n,r)=r-1`?
-8. Do the reduction to `n=r+1`, the separate `r=1` argument, the explicit
-   `r=2` estimate, and the uniform `r>=3` estimate together prove the
-   comparison for every `0<alpha<=exp(1-e)`?
+8. Does the `psi`-derivative argument make the boundary multiplier
+   increasing in `x`, and do the separate `r=1` argument, the exact
+   `r=2,3,4` margins, and the uniform `r>=5` bound prove the comparison for
+   every `0<alpha<=1/4`?
 9. Is the older 59,700-comparison certificate described only as an
    independent finite regression, rather than as the all-`n` proof?
 10. Is the result consistently limited to zero uplift of the pre-specified

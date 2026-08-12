@@ -24,7 +24,7 @@ Stringer and the valid Gaffke limit. Its implementation brackets the Gaffke
 quantile with exact rational tail-sign checks.
 Within that rule, `theory/ONE-CAP-COMPARISON.md` proves a directly checkable
 zero-uplift region for every sample size whenever nominal confidence is at
-least \(1-e^{1-e}\approx82.1\%\): the safeguard is ordinary Stringer whenever
+least \(75\%\): the safeguard is ordinary Stringer whenever
 the binomial Stringer value is at least the largest observed taint. This is a sample-wise
 comparison, not a general coverage theorem for ordinary Stringer.
 
@@ -48,7 +48,7 @@ comparison, not a general coverage theorem for ordinary Stringer.
 | `theory/POISSON-SIMULTANEOUS-BAND.md` | Written randomized-survival-band proof of the direct Poisson coverage ranges | proof-essential |
 | `poisson_band_certificate.py` | Exact rational Poisson-limit signs and Bolshev boundary-crossing probabilities at 90%, 95%, and 99% | proof-essential |
 | `theory/GAFFKE-SAFEGUARD.md` | Written all-sample-size coverage argument and exact divided-difference computation of the Gaffke floor | proof-essential |
-| `theory/ONE-CAP-COMPARISON.md` | Dimension-free cap lemma and analytic all-sample-size Stringer specialization at confidence at least \(1-e^{1-e}\) | proof-essential |
+| `theory/ONE-CAP-COMPARISON.md` | Dimension-free cap lemma and analytic all-sample-size Stringer specialization at confidence at least \(75\%\) | proof-essential |
 | `one_cap_all_n_check.py` | Symbolic identities, rational constant checks, and finite numerical regression for the analytic proof | proof support |
 | `one_cap_certificate.py` | Independent finite regression with integer-checked CP brackets and 59,700 exact nonterminal vertices through \(n=200\) | corroboration |
 | `theory/ORDERED-SIMPLEX-CAP.md` | Exact tight-vertex reduction and adjacent-transfer identity for the still-open all-`n` comparison | research roadmap |
@@ -90,7 +90,7 @@ make n5-certificate-check
 # Direct Poisson theorem: exact limits and boundary-crossing probabilities
 make poisson-band-certificate-check
 
-# Analytic all-n one-cap theorem at confidence >=1-exp(1-e)
+# Analytic all-n one-cap theorem at confidence >=75%
 make one-cap-all-n-check
 
 # Independent exact finite regression through n=200
@@ -177,7 +177,7 @@ validity of the implemented floor does not depend on floating-point signs;
 see `theory/GAFFKE-SAFEGUARD.md` for the formulas and scope conditions.
 
 At every nominal confidence level of at least
-\(1-e^{1-e}\approx82.1\%\) and every sample size, the additional one-cap
+\(75\%\) and every sample size, the additional one-cap
 theorem proves that no Gaffke uplift can occur whenever
 binomial Stringer is at least the largest sample taint. The proof reduces the
 Dirichlet tail to `max_r (C_r/(C_r+p_0))^r` and proves every

@@ -6,13 +6,13 @@ Let `t_1 <= ... <= t_n` be the observed taints and let `SB_B` be the
 binomial-factor Stringer value at tail probability `alpha`.  This note proves
 
 ```text
-0 < alpha <= exp(1-e),  n >= 1,  and  SB_B >= t_n
+0 < alpha <= 1/4,  n >= 1,  and  SB_B >= t_n
     ==> SB_B >= G_alpha(t_1,...,t_n),                 (1)
 ```
 
 where `G_alpha` is the valid one-sided Gaffke bounded-mean upper limit.
 Consequently, whenever nominal confidence is at least
-`1-exp(1-e) = 82.063...%`, the pre-specified Stringer--Gaffke safeguard has
+`75%`, the pre-specified Stringer--Gaffke safeguard has
 zero uplift on every sample satisfying the displayed, directly checkable
 condition.  This includes the conventional 90%, 95%, and 99% levels.  The
 result is true for both factor conventions: throughout this range Poisson
@@ -155,7 +155,7 @@ Clopper--Pearson equation for zero observed errors is
 \]
 
 The next section proves every nonterminal inequality in (8) analytically
-when `alpha<=exp(1-e)`.
+when `alpha<=1/4`.
 
 ## 3. The all-`n` Clopper--Pearson comparison
 
@@ -188,7 +188,7 @@ prove
  \Pr\{\operatorname{Bin}(n,q_{n,r})\ge r\}\ge\alpha. \tag{12}
 \]
 
-We prove (12) for every `n` and `r` when `0<alpha<=exp(1-e)`.
+We prove (12) for every `n` and `r` when `0<alpha<=1/4`.
 
 ### 3.1 Reduction to `n=r+1`
 
@@ -215,7 +215,7 @@ Suppose first that `r>=2` and `mu_n>=r-1`.  If
 binomial-mean inequality therefore gives
 
 \[
- \Pr(X\ge r)=\Pr(X>\mathbb EX)\ge\frac14>\alpha.      \tag{15}
+ \Pr(X\ge r)=\Pr(X>\mathbb EX)\ge\frac14\ge\alpha.  \tag{15}
 \]
 
 Now suppose `mu_n<r-1`, and set `mu_0=mu_(r+1)`.  Then
@@ -283,106 +283,93 @@ Because `alpha=b^r`, the exact two-term tail is
 \end{aligned}
 \]
 
-Let `f(t)=log(1-e^(-t))`.  Its derivative `1/(e^t-1)` is decreasing.
-Since `0<u<v`,
+Write
 
 \[
- r\log A
- =-r\int_u^v\frac{dt}{e^t-1}
- \ge-\frac{u}{e^u-1}.                                 \tag{21}
+ M_r(x)=A^r(r+1-rbA),                                  \tag{21}
 \]
 
-Also `0<A<1`, so `r+1-rbA>=1+r(1-b)`.  It follows that the logarithm
-of the multiplier of `alpha` in (20) is at least
+the multiplier of `alpha` in (20).  This multiplier is strictly increasing
+in `x`.  Indeed, with `psi(z)=z/(e^z-1)`,
 
 \[
- H_r(x):=log\!\left(1+r(1-e^{-x/r})\right)
-          -\frac{x/(r+1)}{e^{x/(r+1)}-1}.              \tag{22}
+ \frac{d}{dx}\log A=\frac{\psi(u)-\psi(v)}x>0.         \tag{22}
 \]
 
-The first term in (22) increases with `x`; the subtracted term decreases.
-We prove that `H_r(x)>0` already when `x>=e-1`.
-
-First suppose `r>=3`, put `x_0=e-1`, and set `t=1/r`.  For positive
-`z,u`,
+Moreover, `psi` is decreasing and
 
 \[
- 1-e^{-z}>\frac{z}{1+z/2+z^2/12},
+ \psi'(z)+1=\frac{e^z(e^z-1-z)}{(e^z-1)^2}>0.
+\]
+
+Consequently,
+
+\[
+ \frac{d}{dx}\log(bA)
+ =-\frac1r+\frac{\psi(u)-\psi(v)}x
+ <-\frac1r+\frac{v-u}{x}=-\frac1{r+1}<0.              \tag{23}
+\]
+
+Thus both factors defining `M_r(x)` increase with `x`.
+
+It remains to prove `M_r(1)>1`.  Put `t=1/r` and `d=t^2/(1+t)`.  At
+`x=1`,
+
+\[
+ 1-A=\frac{e^d-1}{e^t-1}=: \delta.                    \tag{24}
+\]
+
+For `0<z<2`, the elementary bounds
+
+\[
+ z+\frac{z^2}{2}<e^z-1<\frac{z}{1-z/2},
  \qquad
- \frac{u}{e^u-1}<\frac1{1+u/2}.                       \tag{23}
+ 1-z<e^{-z}<1-z+\frac{z^2}{2}                         \tag{25}
 \]
 
-For the first inequality, the derivative of
+follow from the exponential series and
+`2 arctanh(z/2)>z`.  They give
 
 \[
- \log\!\left(\frac{z^2+6z+12}{z^2-6z+12}\right)-z
+ \delta<\frac{d/(1-d/2)}{t+t^2/2},
+ \qquad
+ \delta>\frac{d(1-t/2)}t.                             \tag{26}
 \]
 
-is
-`-z^4/((z^2-6z+12)(z^2+6z+12))<0`; the second follows from
-`e^u>1+u+u^2/2`.  Hence `H_r(x_0)` is strictly larger than
-
-\[
- F(t)=
- \log\!\left(1+\frac{x_0}{1+x_0t/2+x_0^2t^2/12}\right)
- -\frac1{1+x_0t/(2(1+t))}.                            \tag{24}
-\]
-
-Define `F(0)=0` by continuity.  Direct differentiation shows that `F'(t)`
-has the sign of
+Since `(e^z-1)/z` is increasing, also
+`delta<d/t=1/(r+1)`, and hence `A>r/(r+1)`.  The second bound in (26),
+together with `b=e^(-t)>1-t` and `1-b>t-t^2/2`, gives
 
 \[
 \begin{aligned}
- P_x(t)={}&t^4x^4-12t^3x^4-36t^3x^3-48t^3x^2
- -72t^2x^3-180t^2x^2\\
- &-144t^2x-120tx^2-144tx+144
-\end{aligned}                                       \tag{25}
+ r+1-rbA
+ &=1+r(1-b)+rb\delta\\
+ &>1+\left(1-\frac t2\right)
+   +\frac{(1-t)(1-t/2)}{1+t}
+ =\frac3{1+t}=\frac{3r}{r+1}.                         \tag{27}
+\end{aligned}
 \]
 
-at `x=x_0`.  Since `0<x_0<2` and `0<t<=1/3`, the sole positive term in
-`P_x'(t)` is dominated by `-36t^2x^4`; every other term is negative.
-Thus `P_x` is strictly decreasing and `F'` changes sign at most once, from
-positive to negative.  The minimum of `F` on `[0,1/3]` is at an endpoint.
-
-At the nonzero endpoint, put
+Therefore, for `r>=5`,
 
 \[
- z_0=\frac{54(e-1)}{e^2+70e+37}.
+ M_r(1)>3\left(\frac r{r+1}\right)^{r+1}
+ \ge3\left(\frac56\right)^6>1,                       \tag{28}
 \]
 
-Then
+because the sequence `(r/(r+1))^(r+1)` is increasing.  For `r=2,3,4`, the first bound
+in (26) gives these exact rational lower margins:
 
-\[
- F(1/3)=2\operatorname{arctanh}(z_0)-\frac8{e+7}
- >2\left(z_0+\frac{z_0^3}{3}\right)-\frac8{e+7}.     \tag{26}
-\]
+| `r` | lower bound for `A` | lower bound for `(3r/(r+1)) A^r - 1` |
+|---:|---:|---:|
+| 2 | `39/55` | `17/3025` |
+| 3 | `125/161` | `885001/16693124` |
+| 4 | `287/351` | `1841131309/25297477335` |
 
-The last expression increases with `e` on `[65/24,3]`: `z_0` increases
-there, while `8/(e+7)` decreases.  The exponential series gives
-`65/24<e<3`, and exact rational simplification at `65/24` makes the last
-difference greater than `1/200`.  Thus both endpoints of (24) are
-nonnegative, and its nonzero endpoint is positive.  This proves
-`H_r(e-1)>0` for `r>=3`.
-
-For `r=2`, monotonicity permits the smaller rational value
-`x=41/24<e-1`.  Put `z=x/2` and `u=x/3`.  The alternating and positive
-exponential series give
-
-\[
- 1-e^{-z}>z-\frac{z^2}{2}+\frac{z^3}{6}-\frac{z^4}{24},
- \qquad
- \frac{u}{e^u-1}<\frac1{1+u/2+u^2/6}.                \tag{27}
-\]
-
-Apply
-`log y=2 arctanh((y-1)/(y+1))>2(v+v^3/3)` to the rational lower bound for
-the first term in `H_2(x)`.  Exact simplification leaves a margin greater
-than `1/100`.  Hence `H_r(x)>0` for every `r>=2` and `x>=e-1`.
-
-Finally, `e>8/3` gives both `e-1>3/2` and `e^(3/2)>4`, so
-`exp(1-e)<1/4`; the separate `r=1` argument in (18)--(19) therefore
-continues to apply.  Equations (15)--(27) prove (12) in full and establish
-(8) for every sample size whenever `alpha<=exp(1-e)`.
+Thus `M_r(1)>1` for every `r>=2`.  Because `x>=log(4)>1` throughout the
+stated range, the boundary probability in (17) is at least `alpha`.
+Together with the separate `r=1` argument in (18)--(19), this proves (12)
+and establishes (8) for every sample size whenever `alpha<=1/4`.
 
 ## 4. Reproducibility and independent finite regression
 
@@ -409,12 +396,12 @@ It is no longer the logical basis for the all-sample-size result.
 
 The theorem removes the entire one-upper-knot region from the unresolved
 comparison at every sample size and every nominal confidence level of at
-least `1-exp(1-e)=82.063...%`.  It does **not** prove any of the following:
+least `75%`.  It does **not** prove any of the following:
 
 - unrestricted pointwise Stringer--Gaffke domination for `n>=6`;
 - ordinary Stringer coverage at arbitrary sample size;
 - the one-cap factor inequalities when nominal confidence is below
-  `1-exp(1-e)`; or
+  `75%`; or
 - validity under sampling designs outside the paper's independent
   `[0,1]`-taint model.
 

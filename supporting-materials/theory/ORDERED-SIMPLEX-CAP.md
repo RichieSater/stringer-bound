@@ -7,7 +7,7 @@ ordinary binomial Stringer conservative at conventional confidence levels
 for every sample size.  The reduction and all vertex equalities below are
 exact.  The complete cap inequality remains **open**.  One entire region is
 now proved for every sample size at nominal confidence of at least
-`1-exp(1-e)=82.063...%`; see
+`75%`; see
 [`ONE-CAP-COMPARISON.md`](ONE-CAP-COMPARISON.md).
 
 Nothing in this note should be cited as a general-`n` coverage theorem.
@@ -122,7 +122,7 @@ one-cap lemma proves
 
 For the weights (1), the `r=n` term in (9) is exactly `alpha`.  The analytic
 binomial-tail comparison in `ONE-CAP-COMPARISON.md` proves every `r<n` term
-at most `alpha` for all `n` whenever `0<alpha<=exp(1-e)`. Hence (5) is already
+at most `alpha` for all `n` whenever `0<alpha<=1/4`. Hence (5) is already
 established on this complete region of (4) without a sample-size cutoff.
 An older exact calculation through `n=200` remains as an independent finite
 regression.
@@ -205,7 +205,7 @@ Gaffke domination and coverage are genuinely different claims.
 The highest-value next steps are:
 
 1. prove the single-crossing direction in (13) for the CP weight vector;
-2. extend the one-cap factor comparison below `1-exp(1-e)` confidence, if
+2. extend the one-cap factor comparison below `75%` confidence, if
    useful for locating the exact boundary of this stronger pointwise
    statement; or
 3. falsify the adjacent-transfer route with an exact ordered-knot

@@ -83,7 +83,7 @@ in the reviewed literature. Because the ingredients are classical and the
 priority search was not exhaustive, the manuscript states the theorem
 without an unqualified first-priority claim.
 
-## Claim 6 — all-n one-cap comparison at confidence at least \(1-e^{1-e}\): NO PREDECESSOR FOUND
+## Claim 6 — all-n one-cap comparison at confidence at least \(75\%\): NO PREDECESSOR FOUND
 
 The dimension-free cap lemma and the reduction of its
 Clopper--Pearson vertices to binomial upper tails are Stringer-specific.

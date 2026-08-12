@@ -142,7 +142,7 @@ class GaffkeSafeguardTests(unittest.TestCase):
         # These samples have their largest taint below binomial Stringer, so
         # the analytic one-cap theorem applies without a sample-size cutoff.
         for n in (6, 20, 100):
-            for alpha in ("0.01", "0.05", "0.10"):
+            for alpha in ("0.01", "0.05", "0.10", "0.25"):
                 observed = ["0.002", "0.001"]
                 result = safeguarded_stringer_bound(
                     observed, n, alpha, "binomial")

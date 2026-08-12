@@ -22,69 +22,61 @@ from scipy.special import betainc
 
 DEFAULT_N_MAX = 500
 REGRESSION_ALPHAS = (
-    ("exp(1-e)", math.exp(1 - math.e)),
+    ("0.25", 0.25),
     ("0.10", 0.10),
     ("0.05", 0.05),
     ("0.01", 0.01),
 )
 
 
-def exact_constant_checks() -> dict[str, str]:
+def exact_constant_checks() -> dict[str, object]:
     """Verify the rational comparisons used to avoid decimal arguments."""
 
-    # The positive exponential series through 1/4! gives 65/24 < e.  A
-    # geometric bound on the remaining terms also gives e < 3.  These two
-    # rational bounds are all that the boundary proof needs.
-    e_series_lower = sum(
-        Fraction(1, math.factorial(k)) for k in range(5)
+    # The geometric tail estimate after 1/4! gives e<3<4, hence log(4)>1.
+    e_partial = sum(Fraction(1, math.factorial(k)) for k in range(5))
+    assert e_partial == Fraction(65, 24)
+    e_tail_upper = Fraction(1, math.factorial(5)) / (
+        1 - Fraction(1, 6)
     )
-    assert e_series_lower == Fraction(65, 24)
-    e_series_upper = e_series_lower + Fraction(1, 100)
-    assert e_series_upper < 3
-    assert Fraction(8, 3) ** 3 > 16
+    assert e_tail_upper == Fraction(1, 100)
+    e_upper = e_partial + e_tail_upper
+    assert e_upper < 3 < 4
 
-    # At r=2 the written proof substitutes x=41/24 into a rational lower
-    # bound.  This is positive exactly, so no decimal comparison is hidden.
-    x = Fraction(41, 24)
-    z = x / 2
-    exp_complement_lower = (
-        z - z**2 / 2 + z**3 / 6 - z**4 / 24
-    )
-    y = 1 + 2 * exp_complement_lower
-    atanh_argument = (y - 1) / (y + 1)
-    log_lower = 2 * (
-        atanh_argument + atanh_argument**3 / 3
-    )
-    u = x / 3
-    bernoulli_ratio_upper = 1 / (1 + u / 2 + u**2 / 6)
-    r_two_margin = log_lower - bernoulli_ratio_upper
-    assert r_two_margin > Fraction(1, 100)
+    # At x=1, the common rational lower bound for the boundary multiplier
+    # is already greater than one for r=2,3,4.  For r>=5 a still simpler
+    # lower bound is minimized at r=5.
+    finite_margins = {}
+    expected = {
+        2: Fraction(17, 3025),
+        3: Fraction(885001, 16693124),
+        4: Fraction(1841131309, 25297477335),
+    }
+    for r in range(2, 5):
+        t = Fraction(1, r)
+        d = t**2 / (1 + t)
+        delta_upper = (
+            (d / (1 - d / 2)) / (t + t**2 / 2)
+        )
+        a_lower = 1 - delta_upper
+        bracket_lower = Fraction(3 * r, r + 1)
+        margin = a_lower**r * bracket_lower - 1
+        assert margin == expected[r]
+        assert margin > 0
+        finite_margins[str(r)] = str(margin)
 
-    # For r>=3 the endpoint t=1/3 is handled after writing x=e-1.  The
-    # lower bound is increasing in e and is already positive at 65/24.
-    e0 = Fraction(65, 24)
-    endpoint_argument = (
-        54 * (e0 - 1) / (e0**2 + 70 * e0 + 37)
-    )
-    endpoint_margin = (
-        2 * (endpoint_argument + endpoint_argument**3 / 3)
-        - 8 / (e0 + 7)
-    )
-    assert endpoint_margin == Fraction(
-        3187019776783200, 569923468569077849
-    )
-    assert endpoint_margin > Fraction(1, 200)
+    large_r_margin = 3 * Fraction(5, 6) ** 6 - 1
+    assert large_r_margin == Fraction(73, 15552)
+    assert large_r_margin > 0
 
     return {
-        "e_lower": "65/24 < e (positive exponential-series remainder)",
-        "e_upper": "e < 65/24 + 1/100 < 3 (geometric tail bound)",
-        "r_2_margin": str(r_two_margin),
-        "r_ge_3_endpoint_margin": str(endpoint_margin),
+        "log_four": "e < 65/24 + 1/100 < 3 < 4, hence log(4)>1",
+        "finite_boundary_margins": finite_margins,
+        "r_ge_5_margin": str(large_r_margin),
     }
 
 
 def symbolic_identity_checks() -> dict[str, str]:
-    """Check the differentiations and the two-term boundary-tail identity."""
+    """Check the differentiations and boundary-tail identities."""
 
     x, z, r, b, A = sp.symbols("x z r b A", positive=True)
     increasing_mean = z * (1 - sp.exp(-x / z))
@@ -96,12 +88,14 @@ def symbolic_identity_checks() -> dict[str, str]:
     # The r=1 estimate uses alpha=s^2 and alpha<=1/4, hence s<=1/2.
     s = sp.symbols("s", positive=True)
     r_one_gap = sp.factor(
-        2 / (1 + s) - 1 / (1 - s ** 2)
+        2 / (1 + s) - 1 / (1 - s**2)
     )
     assert sp.simplify(
-        r_one_gap - (1 - 2 * s) / (1 - s ** 2)
+        r_one_gap - (1 - 2 * s) / (1 - s**2)
     ) == 0
 
+    # psi(z)=z/(exp(z)-1) is decreasing but has derivative greater than -1.
+    # These two facts prove that A(x) increases and b(x)A(x) decreases.
     u = sp.symbols("u", positive=True)
     bernoulli_ratio = u / (sp.exp(u) - 1)
     ratio_derivative = sp.factor(sp.diff(bernoulli_ratio, u))
@@ -109,115 +103,54 @@ def symbolic_identity_checks() -> dict[str, str]:
         sp.exp(u) * (1 - u) - 1
     ) / (sp.exp(u) - 1) ** 2
     assert sp.simplify(ratio_derivative - expected_derivative) == 0
+    ratio_derivative_plus_one = sp.factor(ratio_derivative + 1)
+    assert sp.simplify(
+        ratio_derivative_plus_one
+        - sp.exp(u) * (sp.exp(u) - 1 - u)
+        / (sp.exp(u) - 1) ** 2
+    ) == 0
 
     # P(Bin(r+1,bA)>=r) has only its r and r+1 mass terms.
-    boundary_tail = ((r + 1) * (b * A) ** r * (1 - b * A)
-                     + (b * A) ** (r + 1))
-    assert sp.simplify(
-        boundary_tail - b ** r * A ** r * (r + 1 - r * b * A)
-    ) == 0
-
-    y = sp.symbols("y", positive=True)
-    log_lower_gap_derivative = sp.factor(sp.diff(
-        sp.log(y) - 2 * (y - 1) / (y + 1), y
-    ))
-    assert sp.simplify(
-        log_lower_gap_derivative
-        - (y - 1) ** 2 / (y * (y + 1) ** 2)
-    ) == 0
-
-    # A [2/2] Pade bound supplies
-    #   1-exp(-z) >= z/(1+z/2+z^2/12).
-    # The displayed derivative proves that the rational function on the
-    # right of exp(-z) is an upper bound.
-    z = sp.symbols("z", positive=True)
-    pade_log_gap = (
-        sp.log((z**2 + 6 * z + 12) / (z**2 - 6 * z + 12)) - z
+    boundary_tail = (
+        (r + 1) * (b * A) ** r * (1 - b * A)
+        + (b * A) ** (r + 1)
     )
-    pade_derivative = sp.factor(sp.diff(pade_log_gap, z))
     assert sp.simplify(
-        pade_derivative
-        + z**4 / ((z**2 - 6 * z + 12) * (z**2 + 6 * z + 12))
+        boundary_tail - b**r * A**r * (r + 1 - r * b * A)
     ) == 0
 
-    # For r>=3 put t=1/r and x=e-1.  After the Pade and Bernoulli-ratio
-    # bounds, the derivative of the remaining comparison has the sign of
-    # this quartic P(t).  Its derivative is negative on 0<t<=1/3 when
-    # 0<x<2, so the comparison has no interior minimum.
+    # At x=1, write t=1/r and d=t^2/(1+t).  The exact relation
+    # 1-A=(exp(d)-1)/(exp(t)-1) and elementary exponential bounds give
+    # the rational lower bounds used in the paper.
     t = sp.symbols("t", positive=True)
-    denominator = 1 + x * t / 2 + x**2 * t**2 / 12
-    comparison = (
-        sp.log(1 + x / denominator)
-        - 1 / (1 + x * t / (2 * (1 + t)))
+    d = t**2 / (1 + t)
+    delta_upper = sp.factor(
+        (d / (1 - d / 2)) / (t + t**2 / 2)
     )
-    comparison_derivative = sp.factor(sp.diff(comparison, t))
-    quartic = (
-        t**4 * x**4
-        - 12 * t**3 * x**4
-        - 36 * t**3 * x**3
-        - 48 * t**3 * x**2
-        - 72 * t**2 * x**3
-        - 180 * t**2 * x**2
-        - 144 * t**2 * x
-        - 120 * t * x**2
-        - 144 * t * x
-        + 144
+    a_lower = sp.factor(1 - delta_upper)
+    a_lower_in_r = sp.factor(a_lower.subs(t, 1 / r))
+    expected_a_lower = (
+        (2 * r - 1) * (2 * r**2 + 2 * r + 1)
+        / ((2 * r + 1) * (2 * r**2 + 2 * r - 1))
     )
-    expected_comparison_derivative = (
-        2 * x * quartic
-        / (
-            (t * x + 2 * t + 2) ** 2
-            * (t**2 * x**2 + 6 * t * x + 12)
-            * (t**2 * x**2 + 6 * t * x + 12 * x + 12)
-        )
-    )
-    assert sp.simplify(
-        comparison_derivative - expected_comparison_derivative
-    ) == 0
+    assert sp.simplify(a_lower_in_r - expected_a_lower) == 0
 
-    quartic_derivative = sp.Poly(sp.diff(quartic, t), t)
-    assert quartic_derivative.degree() == 3
-    decreasing_decomposition = (
-        -4 * t**2 * x**4 * (9 - t)
-        - 108 * t**2 * x**3
-        - 144 * t**2 * x**2
-        - 144 * t * x**3
-        - 360 * t * x**2
-        - 288 * t * x
-        - 120 * x**2
-        - 144 * x
+    bracket_lower = sp.factor(
+        1 + (1 - t / 2)
+        + (1 - t) * (1 - t / 2) / (1 + t)
     )
-    assert sp.simplify(
-        sp.diff(quartic, t) - decreasing_decomposition
-    ) == 0
-
-    # The endpoint transformation used in the exact rational check above.
-    e = sp.symbols("e", positive=True)
-    endpoint_z = sp.factor(
-        ((1 + (e - 1) / (1 + (e - 1) / 6 + (e - 1)**2 / 108)) - 1)
-        / ((1 + (e - 1) / (1 + (e - 1) / 6 + (e - 1)**2 / 108)) + 1)
-    )
-    assert sp.simplify(
-        endpoint_z - 54 * (e - 1) / (e**2 + 70 * e + 37)
-    ) == 0
-    endpoint_z_derivative = sp.factor(sp.diff(endpoint_z, e))
-    assert sp.simplify(
-        endpoint_z_derivative
-        - 54 * (-e**2 + 2 * e + 107) / (e**2 + 70 * e + 37)**2
-    ) == 0
+    assert sp.simplify(bracket_lower - 3 / (1 + t)) == 0
 
     return {
         "mean_derivative": str(derivative),
         "r_one_gap": str(r_one_gap),
         "bernoulli_ratio_derivative": str(ratio_derivative),
+        "bernoulli_ratio_derivative_plus_one": str(
+            ratio_derivative_plus_one
+        ),
         "boundary_tail": "(b A)^r (r+1-r b A)",
-        "log_lower_gap_derivative": str(log_lower_gap_derivative),
-        "pade_derivative": str(pade_derivative),
-        "boundary_comparison_derivative": str(comparison_derivative),
-        "boundary_quartic": str(quartic),
-        "boundary_quartic_derivative": str(decreasing_decomposition),
-        "endpoint_atanh_argument": str(endpoint_z),
-        "endpoint_atanh_derivative": str(endpoint_z_derivative),
+        "finite_r_a_lower": str(a_lower_in_r),
+        "boundary_bracket_lower": str(bracket_lower),
     }
 
 
@@ -249,9 +182,11 @@ def numerical_regression(n_max: int = DEFAULT_N_MAX) -> list[dict[str, object]]:
 
         rs = np.arange(2, max(3, n_max + 1), dtype=float)
         us = x / (rs + 1)
+        vs = x / rs
+        log_a = np.log(-np.expm1(-us)) - np.log(-np.expm1(-vs))
+        q_boundary = np.exp(-vs + log_a)
         boundary_logs = (
-            np.log1p(rs * (-np.expm1(-x / rs)))
-            - us / np.expm1(us)
+            rs * log_a + np.log(rs + 1 - rs * q_boundary)
         )
         index = int(np.argmin(boundary_logs))
         minimum_boundary_log = (float(boundary_logs[index]), index + 2)
@@ -262,7 +197,7 @@ def numerical_regression(n_max: int = DEFAULT_N_MAX) -> list[dict[str, object]]:
             )
         if minimum_boundary_log[0] <= 0:
             raise AssertionError(
-                "boundary lower bound regression failed at "
+                "boundary multiplier regression failed at "
                 f"alpha={alpha_text}: {minimum_boundary_log}"
             )
 
@@ -271,7 +206,7 @@ def numerical_regression(n_max: int = DEFAULT_N_MAX) -> list[dict[str, object]]:
             "n_max": n_max,
             "minimum_tail_divided_by_alpha": minimum[0],
             "minimum_tail_case": {"n": minimum[1], "r": minimum[2]},
-            "minimum_boundary_log_lower_bound": minimum_boundary_log[0],
+            "minimum_boundary_log_multiplier": minimum_boundary_log[0],
             "minimum_boundary_r": minimum_boundary_log[1],
         })
 
@@ -298,14 +233,14 @@ def main(argv=None) -> int:
         case = row["minimum_tail_case"]
         print(
             "  alpha=%s n<=%d min tail/alpha=%.15f at (n,r)=(%d,%d); "
-            "min H=%.15f at r=%d"
+            "min boundary log multiplier=%.15f at r=%d"
             % (
                 row["alpha"],
                 row["n_max"],
                 row["minimum_tail_divided_by_alpha"],
                 case["n"],
                 case["r"],
-                row["minimum_boundary_log_lower_bound"],
+                row["minimum_boundary_log_multiplier"],
                 row["minimum_boundary_r"],
             )
         )

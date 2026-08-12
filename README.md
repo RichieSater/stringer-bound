@@ -68,7 +68,7 @@ with ordinary Stringer holds for every sample. The implementation uses exact
 rational tail-sign checks rather than trusting a floating-point quantile;
 see [`GAFFKE-SAFEGUARD.md`](supporting-materials/theory/GAFFKE-SAFEGUARD.md).
 At every nominal confidence level of at least
-\(1-e^{1-e}\approx82.1\%\), an additional analytic theorem proves zero
+\(75\%\), an additional analytic theorem proves zero
 uplift for every sample size whenever the binomial
 Stringer value is at least the largest observed taint. This is a directly
 checkable region of the sample space, not a general coverage theorem for
@@ -144,9 +144,9 @@ certificate or a written proof:
   [`PRACTICE-SAFEGUARD.md`](supporting-materials/audit/PRACTICE-SAFEGUARD.md).
 
 - **All-sample-size zero-uplift region at confidence at least
-  \(1-e^{1-e}\approx82.1\%\)**
+  \(75\%\)**
   ([`ONE-CAP-COMPARISON.md`](supporting-materials/theory/ONE-CAP-COMPARISON.md)):
-  whenever nominal confidence is at least \(1-e^{1-e}\), if the binomial
+  whenever nominal confidence is at least \(75\%\), if the binomial
   Stringer value is at least the largest observed taint, then it pointwise
   dominates the valid Gaffke limit. Hence the pre-specified safeguard returns ordinary Stringer
   on that sample, for both factor conventions and every sample size. The
