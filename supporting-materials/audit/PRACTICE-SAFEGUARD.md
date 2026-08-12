@@ -43,7 +43,8 @@ after-the-fact assertion that ordinary Stringer was valid.
 
 At `n=3,4,5` and 90%, 95%, and 99% confidence, exact pointwise theorems in
 this repository prove that the rule is ordinary Stringer on every possible
-sample.  At other sample sizes, the Gaffke component is a valid floor while
+sample. The same statement holds at `n=6` and 95% confidence. At other
+sample-size and confidence-level combinations, the Gaffke component is a valid floor while
 the general pointwise comparison and the Stringer conjecture remain open.
 
 At every nominal confidence level of at least
@@ -166,7 +167,7 @@ conventional levels for all `n` would validate the familiar calculation
 without the floor and could show that the floor is never active. The direct
 Poisson theorem now reaches `n=8`, `n=11`, and `n=20` at 90%, 95%, and 99%,
 respectively, but audit sample sizes can be larger. Extending the
-exact pointwise comparison beyond `n=5`, or finding a dimension-free
+exact pointwise comparison beyond the current `n=6`, 95% frontier, or finding a dimension-free
 simplex-cap argument, therefore remains the central theoretical objective.
 The one-cap theorem already controls, at nominal confidence of at least
 `75%`, the complete region in which the binomial Stringer threshold is

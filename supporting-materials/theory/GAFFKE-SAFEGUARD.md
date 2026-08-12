@@ -72,7 +72,8 @@ uniform statement:
 - for `n=3,4,5` and `alpha in {0.10,0.05,0.01}`, binomial Stringer is at
   least `G_alpha` for **every** sample, so the safeguard is mathematically
   identical to ordinary binomial Stringer;
-- at the same levels and sample sizes, Poisson Stringer is no smaller than
+- the same conclusion holds at `n=6` and `alpha=0.05`; and
+- at those levels and sample sizes, Poisson Stringer is no smaller than
   binomial Stringer, so the Poisson safeguard is also identical to ordinary
   Poisson Stringer.
 
@@ -168,8 +169,8 @@ Zero taints may be omitted; `--n` remains the full sample size.  The output
 separates the Stringer component, the Gaffke bracket, the maximum, and any
 uplift.  The regression tests include beta-law special cases, repeated
 knots, exact tail-sign checks, Bernoulli/Clopper--Pearson agreement, and the
-certified no-uplift cases at `n=3,4,5`, together with representative
-all-sample-size one-cap cases.
+certified no-uplift cases at `n=3,4,5` and at `n=6`, 95%, together with
+representative all-sample-size one-cap cases.
 
 ## Audit-use boundary
 

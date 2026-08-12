@@ -15,6 +15,7 @@ PYTHON_DIR = Path(__file__).resolve().parents[1] / "python"
 sys.path.insert(0, str(PYTHON_DIR))
 
 import stringer  # noqa: E402
+import n6_gaffke_certificate as n6_certificate  # noqa: E402
 from coverage import coverage_exact  # noqa: E402
 from n3_gaffke_certificate import build_certificate  # noqa: E402
 from n5_gaffke_certificate import Interval as N5Interval  # noqa: E402
@@ -128,6 +129,26 @@ class ExactCoverageTests(unittest.TestCase):
 
 
 class CertificateSummaryTests(unittest.TestCase):
+    def test_n6_sparse_power_to_bernstein_transform(self):
+        polynomial = n6_certificate.SimplexPolynomial({
+            (0, 0, 0, 0, 0): 2,
+            (1, 0, 0, 0, 0): 3,
+            (0, 2, 0, 0, 0): 5,
+            (1, 0, 0, 0, 1): -7,
+        })
+        coefficients = n6_certificate._bernstein_coefficients(
+            polynomial, 2)
+        for index, value in coefficients.items():
+            alpha = index[:5]
+            expected = (
+                Fraction(2)
+                + Fraction(3 * alpha[0], 2)
+                + Fraction(5 * comb(alpha[1], 2))
+                - Fraction(7 * alpha[0] * alpha[4], 2)
+            )
+            self.assertEqual(value.lower, expected)
+            self.assertEqual(value.upper, expected)
+
     def test_n3_conventional_level_certificate(self):
         certificate = build_certificate()
         self.assertEqual(
@@ -265,6 +286,142 @@ class CertificateSummaryTests(unittest.TestCase):
                 observed.append(f"{float(min(minima)):.2e}")
             self.assertEqual(
                 tuple(observed), expected_region_minima[level["alpha"]])
+
+    def test_n6_95_percent_certificate_artifacts(self):
+        certificate_dir = PYTHON_DIR.parent / "certificates"
+        structure_path = (certificate_dir
+                          / "n6-gaffke-bernstein-structure.json")
+        certificate_path = certificate_dir / "n6-gaffke-certificate.json"
+        structure_bytes = structure_path.read_bytes()
+        structure = json.loads(structure_bytes)
+        certificate = json.loads(certificate_path.read_text())
+
+        self.assertEqual(
+            structure["face_order_verification"],
+            "exact_generic_differential_ideal_membership",
+        )
+        self.assertEqual(
+            certificate["structure_sha256"],
+            hashlib.sha256(structure_bytes).hexdigest(),
+        )
+        self.assertEqual(
+            [level["alpha"] for level in certificate["levels"]],
+            ["0.05"],
+        )
+        self.assertEqual(
+            {
+                region: [simplex["structural_zero_count"]
+                         for simplex in record["simplices"]]
+                for region, record in structure["regions"].items()
+            },
+            {
+                "A": [1],
+                "B": [456, 456, 302, 162, 57],
+                "C": [666, 666, 911, 911, 911, 911,
+                      813, 358, 554, 813],
+                "D": [813, 358, 554, 813, 666, 666,
+                      911, 911, 911, 911],
+                "E": [456, 456, 57, 302, 162],
+                "F": [1],
+            },
+        )
+        for record in structure["regions"].values():
+            for simplex in record["simplices"]:
+                for proof in simplex["face_order_proofs"]:
+                    self.assertIn(
+                        "over_QQ(b,c,d,e,f,g)", proof["verification"])
+                    self.assertGreaterEqual(
+                        proof["derivative_reductions_checked"], 1)
+
+        level = certificate["levels"][0]
+        self.assertEqual(level["factor_bits"], 320)
+        self.assertEqual(level["interval_bits"], 384)
+        rank_certificate = level["face_normal_rank_certificate"]
+        self.assertEqual(rank_certificate["generator_sets_certified"], 16)
+        self.assertEqual(
+            rank_certificate["generic_region_face_order_checks_linked"], 26)
+        self.assertGreater(
+            Fraction(
+                int(rank_certificate["minimum_absolute_normal_minor"]
+                    ["numerator"]),
+                int(rank_certificate["minimum_absolute_normal_minor"]
+                    ["denominator"]),
+            ),
+            0,
+        )
+        for record in rank_certificate["sets"]:
+            determinant = record["normal_minor_determinant"]
+            lower = Fraction(int(determinant["lower"]["numerator"]),
+                             int(determinant["lower"]["denominator"]))
+            upper = Fraction(int(determinant["upper"]["numerator"]),
+                             int(determinant["upper"]["denominator"]))
+            self.assertFalse(lower <= 0 <= upper)
+        observed = []
+        for region_name in ("A", "B", "C", "D", "E", "F"):
+            region = level["polynomial_regions"][region_name]
+            vertex_certificate = region["vertex_region_certificate"]
+            self.assertGreater(vertex_certificate["vertex_count"], 0)
+            self.assertGreater(
+                vertex_certificate[
+                    "ordered_domain_and_region_inequalities_checked"],
+                0,
+            )
+            slack = vertex_certificate["minimum_strict_vertex_slack"]
+            self.assertIsNotNone(slack)
+            self.assertGreater(
+                Fraction(int(slack["lower"]["numerator"]),
+                         int(slack["lower"]["denominator"])),
+                0,
+            )
+            simplices = region["simplices"]
+            for item in simplices:
+                determinant = item["affine_determinant"]
+                lower = Fraction(
+                    int(determinant["lower"]["numerator"]),
+                    int(determinant["lower"]["denominator"]),
+                )
+                upper = Fraction(
+                    int(determinant["upper"]["numerator"]),
+                    int(determinant["upper"]["denominator"]),
+                )
+                self.assertFalse(lower <= 0 <= upper)
+            minima = [
+                Fraction(
+                    int(item["minimum_positive_coefficient"]["lower"]
+                        ["numerator"]),
+                    int(item["minimum_positive_coefficient"]["lower"]
+                        ["denominator"]),
+                )
+                for item in simplices
+            ]
+            observed.append(f"{float(min(minima)):.2e}")
+        self.assertEqual(
+            tuple(observed),
+            ("1.23e-10", "1.17e-18", "6.57e-23",
+             "4.01e-22", "1.66e-15", "9.57e-04"),
+        )
+
+        chain = level["triangulation_chain_certificate"]
+        self.assertEqual(chain["simplex_count"], 32)
+        self.assertEqual(chain["distinct_vertex_pairs_certified"], 210)
+        self.assertEqual(
+            chain["internal_facets_paired_with_opposite_orientation"], 48)
+        self.assertEqual(chain["unpaired_outer_boundary_facets"], 96)
+        self.assertEqual(
+            chain["outer_boundary_facets_by_hyperplane"],
+            {label: 16 for label in (
+                "x=0", "x=y", "y=z", "z=w", "w=u", "u=1")},
+        )
+        volume = chain["normalized_oriented_volume"]
+        volume_lower = Fraction(int(volume["lower"]["numerator"]),
+                                int(volume["lower"]["denominator"]))
+        volume_upper = Fraction(int(volume["upper"]["numerator"]),
+                                int(volume["upper"]["denominator"]))
+        self.assertLess(volume_lower, 1)
+        self.assertGreater(volume_upper, 1)
+        self.assertGreater(volume_lower, Fraction(1, 2))
+        self.assertLess(volume_upper, Fraction(3, 2))
+        self.assertEqual(chain["integer_relative_chain_degree"], 1)
 
     def test_generated_rows_match_the_manuscript_table(self):
         rows = summarize(default_paths())

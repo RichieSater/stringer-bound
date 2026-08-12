@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "as_of": "2026-08-11",
+  "as_of": "2026-08-12",
   "manuscript": "supporting-materials/paper/stringer.tex",
   "claims": [
     {
@@ -178,7 +178,49 @@
       "verification_commands": [
         "make n5-structure-check n5-certificate-check"
       ],
-      "limitations": "This is an exact computer-assisted theorem only for n=5 and the three specified alpha values. It relies on the published finite-sample validity of the Gaffke test and does not establish every confidence level at n=5 or any n>=6."
+      "limitations": "This is an exact computer-assisted theorem only for n=5 and the three specified alpha values. It relies on the published finite-sample validity of the Gaffke test and does not establish every confidence level at n=5."
+    },
+    {
+      "id": "binomial-n6-95-conservatism",
+      "classification": "proved_theorem",
+      "statement": "For n=6 and alpha=0.05, the binomial-factor Stringer bound pointwise dominates the valid Gaffke bounded-mean upper confidence limit and therefore has coverage at least 0.95 for every distribution on [0,1].",
+      "manuscript_labels": [
+        "sec:n3",
+        "thm:n6",
+        "eq:n6cap",
+        "eq:n6identities"
+      ],
+      "evidence": [
+        {
+          "path": "supporting-materials/theory/N6-CONVENTIONAL.md",
+          "role": "complete reduction from Gaffke validity to the six certified five-dimensional simplex-cap regions",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/certificates/n6-gaffke-bernstein-structure.json",
+          "role": "machine-readable exact residual polynomials, five-simplex substitutions, vertex-boundary identities, structural-zero indices, and generic face-ideal proofs",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/python/derive_n6_bernstein_structure.py",
+          "role": "exact symbolic regeneration of residual factorizations, vertex formulas, and generic structural-zero face-ideal certificates",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/certificates/n6-gaffke-certificate.json",
+          "role": "integer-checked factor brackets, full-rank face specialization, vertex-region and oriented-chain checks, and outward-rounded dyadic coefficient-sign certificate at alpha=0.05",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/python/n6_gaffke_certificate.py",
+          "role": "integer endpoint checks, exact directed dyadic interval propagation, and certified triangulation-chain verification",
+          "trust": "proof_essential"
+        }
+      ],
+      "verification_commands": [
+        "make n6-structure-check n6-certificate-check"
+      ],
+      "limitations": "This exact computer-assisted theorem is only for n=6 and alpha=0.05. It relies on the published finite-sample validity of the Gaffke test and does not establish 90%, 99%, any other confidence level at n=6, or any n>=7."
     },
     {
       "id": "poisson-practical-factor-domination",
@@ -208,7 +250,7 @@
     {
       "id": "poisson-proved-small-n-coverage",
       "classification": "proved_theorem",
-      "statement": "The Poisson-factor Stringer bound is distribution-free conservative at n=2 for alpha<exp(-1), and at n=3, n=4, and n=5 for alpha in {0.10, 0.05, 0.01}.",
+      "statement": "The Poisson-factor Stringer bound is distribution-free conservative at n=2 for alpha<exp(-1), at n=3, n=4, and n=5 for alpha in {0.10, 0.05, 0.01}, and at n=6 for alpha=0.05.",
       "manuscript_labels": [
         "cor:poissoncoverage"
       ],
@@ -237,12 +279,17 @@
           "path": "supporting-materials/theory/N5-CONVENTIONAL.md",
           "role": "binomial coverage theorem at n=5 for the three specified levels",
           "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/theory/N6-CONVENTIONAL.md",
+          "role": "binomial coverage theorem at n=6 for alpha=0.05",
+          "trust": "proof_essential"
         }
       ],
       "verification_commands": [
-        "make proof-check n3-certificate-check n4-certificate-check n5-certificate-check"
+        "make proof-check n3-certificate-check n4-certificate-check n5-certificate-check n6-certificate-check"
       ],
-      "limitations": "The n=2 transfer is stated only in the range covered by the all-n factor-domination theorem. The n=3 through n=5 statements cover only 90%, 95%, and 99%; they are not general-n audit-practice guarantees."
+      "limitations": "The n=2 transfer is stated only in the range covered by the all-n factor-domination theorem. The n=3 through n=5 statements cover only 90%, 95%, and 99%, and the n=6 statement only 95%; they are not general-n audit-practice guarantees."
     },
     {
       "id": "poisson-simultaneous-band-coverage",
@@ -284,7 +331,7 @@
         "make poisson-band-certificate-check",
         "make test"
       ],
-      "limitations": "This is a finite-range theorem for the Poisson factors, not a general-n result and not a new binomial-factor guarantee beyond n=5. The sufficient simultaneous-band event is certified below nominal at n=9, 12, and 21 for 90%, 95%, and 99%, respectively; that limits this proof route but does not show Stringer undercoverage. The model assumes independent observations with a common distribution on [0,1]."
+      "limitations": "This is a finite-range theorem for the Poisson factors, not a general-n result, and it does not transfer backward to the binomial factors. The sufficient simultaneous-band event is certified below nominal at n=9, 12, and 21 for 90%, 95%, and 99%, respectively; that limits this proof route but does not show Stringer undercoverage. The model assumes independent observations with a common distribution on [0,1]."
     },
     {
       "id": "all-n-stringer-gaffke-safeguard",
@@ -361,7 +408,7 @@
         "make one-cap-certificate-check",
         "make test"
       ],
-      "limitations": "This is a pointwise zero-uplift result on a specified region of the sample space, not a conditional-coverage theorem or unrestricted ordinary-Stringer guarantee for n>=6. The theorem is restricted to nominal confidence of at least 75%; the sufficient condition is evaluated using binomial Stringer even when Poisson factors are reported."
+      "limitations": "This is a pointwise zero-uplift result on a specified region of the sample space, not a conditional-coverage theorem or an unrestricted ordinary-Stringer guarantee beyond the separately proved sample-size-and-level cases. The theorem is restricted to nominal confidence of at least 75%; the sufficient condition is evaluated using binomial Stringer even when Poisson factors are reported."
     },
     {
       "id": "one-nonzero-taint-value",
@@ -495,7 +542,7 @@
     {
       "id": "general-n-standard-confidence-status",
       "classification": "date_stamped_literature_status",
-      "statement": "General finite-sample coverage for arbitrary n and arbitrary taint distributions at conventional confidence levels remains unresolved in the reviewed literature. At 90%, 95%, and 99%, this repository proves the binomial-factor result through n=5 and the Poisson-factor result through n=8, n=11, and n=20, respectively.",
+      "statement": "General finite-sample coverage for arbitrary n and arbitrary taint distributions at conventional confidence levels remains unresolved in the reviewed literature. This repository proves the binomial-factor result through n=5 at 90%, 95%, and 99%, and at n=6 for 95%; the direct Poisson-factor ranges reach n=8, n=11, and n=20, respectively.",
       "manuscript_labels": [
         "eq:conj"
       ],
@@ -524,7 +571,7 @@
       "verification_commands": [
         "make all-n-reduction-check"
       ],
-      "limitations": "This is a qualified, date-stamped literature conclusion, not a mathematical theorem or a guarantee of exhaustive priority searching. The binomial n=3 through n=5 proofs and the level-dependent Poisson ranges cover only the three specified confidence levels."
+      "limitations": "This is a qualified, date-stamped literature conclusion, not a mathematical theorem or a guarantee of exhaustive priority searching. The binomial n=3 through n=5 proofs cover the three specified levels, the n=6 proof covers only 95%, and the Poisson ranges are level-dependent."
     }
   ]
 }

@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   verify:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Check out repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -30,15 +30,25 @@ jobs:
       - name: Install pinned Python environment
         run: uv sync --frozen
 
+      - name: Install exact polynomial algebra engine
+        run: |
+          sudo apt-get update
+          sudo apt-get install --no-install-recommends -y singular
+          Singular --version
+
       - name: Run exact-certificate and manuscript-table tests
         run: make test
 
       - name: Regenerate symbolic and exact proof certificates
         run: |
-          make proof-check n3-formula-check n3-certificate-check \
+          make proof-check all-n-reduction-check \
+            dirichlet-poissonization-check \
+            n3-formula-check n3-certificate-check \
             n4-structure-check n4-certificate-check \
             n5-structure-check n5-certificate-check \
-            poisson-band-certificate-check one-cap-all-n-check
+            n6-structure-check n6-certificate-check \
+            poisson-band-certificate-check one-cap-all-n-check \
+            one-cap-certificate-check
 
       - name: Verify generated certificate summary and claim manifest
         run: make certificate-summary-check claim-manifest-check

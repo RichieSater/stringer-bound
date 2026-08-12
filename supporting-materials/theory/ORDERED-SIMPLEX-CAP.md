@@ -8,7 +8,10 @@ for every sample size.  The reduction and all vertex equalities below are
 exact.  The complete cap inequality remains **open**.  One entire region is
 now proved for every sample size at nominal confidence of at least
 `75%`; see
-[`ONE-CAP-COMPARISON.md`](ONE-CAP-COMPARISON.md).
+[`ONE-CAP-COMPARISON.md`](ONE-CAP-COMPARISON.md). Separate fixed-dimension
+certificates prove the complete comparison through `n=5` at 90%, 95%, and
+99%, and at `n=6` and 95%; see
+[`N6-CONVENTIONAL.md`](N6-CONVENTIONAL.md).
 
 Nothing in this note should be cited as a general-`n` coverage theorem.
 

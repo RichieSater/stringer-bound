@@ -5,6 +5,9 @@
 
 **Repository:** [github.com/RichieSater/stringer-bound](https://github.com/RichieSater/stringer-bound) · **Archived v1.0.0:** [doi:10.5281/zenodo.21850820](https://doi.org/10.5281/zenodo.21850820)
 
+The current development revision postdates archived v1.0.0; until the next
+archival release, GitHub is the canonical source for the new theorems.
+
 > **Longstanding finite-sample validity question for a bound introduced in
 > 1963.** For every
 > taint distribution \(F\) on \([0,1]\), every sample size \(n\), and
@@ -42,7 +45,7 @@ repository states which variant it uses.
 
 ## Status
 
-**Exact binomial-factor guarantees now reach \(n=5\), while direct
+**Exact binomial-factor guarantees now include \(n=6\) at 95%, while direct
 Poisson-factor guarantees reach \(n=8\) at 90%, \(n=11\) at 95%, and
 \(n=20\) at 99% confidence.** The \(n=2\) bound is proved conservative for
 every taint distribution and every confidence level
@@ -52,8 +55,11 @@ through \(n=5\), exact computer-assisted proofs establish conservatism at 90%,
 ([`N3-CONVENTIONAL.md`](supporting-materials/theory/N3-CONVENTIONAL.md),
 [`N4-CONVENTIONAL.md`](supporting-materials/theory/N4-CONVENTIONAL.md),
 and [`N5-CONVENTIONAL.md`](supporting-materials/theory/N5-CONVENTIONAL.md)).
-For the binomial factors, \(n=6\) is the first unresolved sample size at
-those levels. A separate corrected simultaneous-band proof establishes the
+A five-dimensional directed-interval certificate extends the 95% theorem to
+\(n=6\)
+([`N6-CONVENTIONAL.md`](supporting-materials/theory/N6-CONVENTIONAL.md)).
+Thus \(n=6\) remains the first unresolved binomial case at 90% and 99%,
+whereas \(n=7\) is the first unresolved case at 95%. A separate corrected simultaneous-band proof establishes the
 larger Poisson ranges
 ([`POISSON-SIMULTANEOUS-BAND.md`](supporting-materials/theory/POISSON-SIMULTANEOUS-BAND.md)).
 The general-\(n\) conjecture at 95% remains open.
@@ -63,8 +69,8 @@ Pre-specify the reported upper bound as the maximum of the familiar
 Stringer calculation and the finite-sample-valid Gaffke bounded-mean limit.
 That maximum has distribution-free coverage for every \(n\) without assuming
 the unresolved Stringer conjecture. It returns the ordinary Stringer value
-whenever Stringer is larger; in the certified \(n=3,4,5\) cases, equality
-with ordinary Stringer holds for every sample. The implementation uses exact
+whenever Stringer is larger; in the certified \(n=3,4,5\) cases, and at
+\(n=6\) and 95%, equality with ordinary Stringer holds for every sample. The implementation uses exact
 rational tail-sign checks rather than trusting a floating-point quantile;
 see [`GAFFKE-SAFEGUARD.md`](supporting-materials/theory/GAFFKE-SAFEGUARD.md).
 At every nominal confidence level of at least
@@ -104,6 +110,17 @@ certificate or a written proof:
   source by the top-level reproduction command. These are theorems at the
   three listed levels, not search evidence.
 
+- **The 95% theorem extends to \(n=6\)**
+  ([`N6-CONVENTIONAL.md`](supporting-materials/theory/N6-CONVENTIONAL.md)):
+  a fixed decomposition into 32 five-simplices reduces all six cap regions
+  to Bernstein signs. Generic face-ideal derivative reductions prove every
+  structural zero over \(\mathbb Q(b,c,d,e,f,g)\); integer-directed dyadic
+  intervals certify full-rank specialization of those identities, the
+  degree-one oriented triangulation chain, and every remaining coefficient
+  as positive. This is a
+  computer-assisted theorem at 95%, not a search result. The corresponding
+  90% and 99% cases are not claimed.
+
 - **All-sample-size Poisson-factor domination at practical confidence
   levels**
   ([`POISSON-DOMINATION.md`](supporting-materials/theory/POISSON-DOMINATION.md)):
@@ -115,8 +132,8 @@ certificate or a written proof:
   observed sample. This replaces the former finite-range numerical
   comparison at 90% and 95% with an analytic result; it does not by itself
   resolve general-\(n\) coverage. It does transfer the proved binomial
-  guarantees at \(n=2\), and from \(n=3\) through \(n=5\) for 90%, 95%, and
-  99%, to the Poisson-factor bound.
+  guarantees at \(n=2\), from \(n=3\) through \(n=5\) for 90%, 95%, and
+  99%, and at \(n=6\) for 95%, to the Poisson-factor bound.
 
 - **Direct Poisson-factor coverage beyond \(n=5\)**
   ([`POISSON-SIMULTANEOUS-BAND.md`](supporting-materials/theory/POISSON-SIMULTANEOUS-BAND.md)):
@@ -189,9 +206,8 @@ certificate or a written proof:
   supports. Single-value populations already reach exact coverage
   \(0.9500302\) (\(n=10\), \(v=1\), \(q=0.85\)).
 
-**Next steps**: determine whether the remaining binomial
-Gaffke/simplex-cap regions extend to \(n=6\), where direct Bernstein
-certification becomes substantially larger; attack the adjacent-transfer
+**Next steps**: determine whether the \(n=6\) certificate extends to 90%
+and 99%, and whether the 95% comparison extends to \(n=7\); attack the adjacent-transfer
 single-crossing identity isolated in
 [`ORDERED-SIMPLEX-CAP.md`](supporting-materials/theory/ORDERED-SIMPLEX-CAP.md);
 pursue the two dimension-free weighted-exponential and
@@ -201,7 +217,8 @@ and sharpened in
 [`DIRICHLET-POISSONIZATION.md`](supporting-materials/theory/DIRICHLET-POISSONIZATION.md);
 and develop a certified branch-and-bound or atoms-reduction argument for
 ordinary audit sample sizes.
-The immediate mathematical target is \(n=6\) at 90%, 95%, and 99%, not more
+The immediate mathematical targets are \(n=6\) at 90% and 99% and \(n=7\)
+at 95%, not more
 unstructured grid search. Before journal submission or practice-facing
 reliance, the bounded review protocol in
 [`HUMAN-REVIEW-PACKET.md`](supporting-materials/audit/HUMAN-REVIEW-PACKET.md)
@@ -228,6 +245,7 @@ supporting-materials/
 │   ├── N3-CONVENTIONAL.md    exact n=3 proof at 90%, 95%, and 99%
 │   ├── N4-CONVENTIONAL.md    exact n=4 proof at 90%, 95%, and 99%
 │   ├── N5-CONVENTIONAL.md    exact n=5 proof at 90%, 95%, and 99%
+│   ├── N6-CONVENTIONAL.md    exact n=6 proof at 95%
 │   ├── POISSON-DOMINATION.md all-n practical-level factor comparison
 │   ├── POISSON-SIMULTANEOUS-BAND.md direct exact Poisson coverage ranges
 │   ├── GAFFKE-SAFEGUARD.md   all-n valid reporting floor and exact computation
@@ -253,6 +271,10 @@ supporting-materials/
     │                         exact n=5 residual, face-ideal, and four-simplex structure
     ├── n5_gaffke_certificate.py
     │                         directed-dyadic n=5 sign certificate
+    ├── derive_n6_bernstein_structure.py
+    │                         exact n=6 residual, face-ideal, and five-simplex structure
+    ├── n6_gaffke_certificate.py
+    │                         directed-dyadic n=6 sign certificate at 95%
     ├── poisson_band_certificate.py
     │                         exact Poisson limits + boundary-crossing proof
     ├── gaffke.py             exact-sign Gaffke endpoint + safeguarded report
@@ -272,6 +294,9 @@ supporting-materials/
 
 The canonical environment is pinned in `pyproject.toml` and `uv.lock`
 (Python 3.12, `uv` 0.11.14). Tectonic 0.17.0 builds the manuscript.
+Singular is required for the exact generic face-ideal reductions in the
+`n=6` structure check (developed with 4.4.1); CI fixes Ubuntu 24.04 and
+installs its distribution package explicitly.
 The single top-level verification command is:
 
 ```sh
@@ -283,7 +308,7 @@ Poisson simultaneous-band certificate, the analytic all-\(n\) one-cap checks,
 the independent finite one-cap regression, the algebra checks and exact
 localization-obstruction certificate for the explicitly open all-\(n\)
 Poisson route, source
-regeneration of the \(n=3\) through \(n=5\) Bernstein structures and exact
+regeneration of the \(n=3\) through \(n=6\) Bernstein structures and exact
 sign certificates, the generated counterexample-table check,
 claim-to-evidence link validation, and the manuscript build. Individual
 search and recertification commands

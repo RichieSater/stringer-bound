@@ -1,15 +1,16 @@
 # Openness verification
 
-**Verdict (updated 2026-08-11): the general finite-sample conservatism
+**Verdict (updated 2026-08-12): the general finite-sample conservatism
 conjecture for the Stringer bound at confidence levels ≥ 50% — including
 95% — remains open.** The present repository proves the case \(n=2\) at
 every confidence level and gives exact computer-assisted proofs from
-\(n=3\) through \(n=5\) for 90%, 95%, and 99% confidence. Thus \(n=6\)
-is the first unresolved binomial-factor sample size at those three levels.
+\(n=3\) through \(n=5\) for 90%, 95%, and 99% confidence, plus \(n=6\)
+at 95%. Thus \(n=6\) is the first unresolved binomial-factor sample size
+at 90% and 99%, while \(n=7\) is the first unresolved size at 95%.
 For the Poisson factors used in audit practice, a separate exact
 simultaneous-band argument proves coverage through \(n=8\), \(n=11\), and
-\(n=20\), respectively. This does not resolve every confidence level from
-\(n=3\) through \(n=5\), nor arbitrary \(n\). No prior general proof or
+\(n=20\), respectively. This does not resolve every confidence level at
+\(n=3\) through \(n=6\), nor arbitrary \(n\). No prior general proof or
 counterexample at α ≤ 1/2 was found in the reviewed literature. The
 strongest partial results, and where a resolution could have hidden, are
 recorded below with sources.
@@ -22,7 +23,7 @@ recorded below with sources.
 | Bickel's expansion: SB = T̄ + c(F) z₁₋α/√n + o(n^{-1/2}), with c²(F) ≥ Var(T), equality iff F is supported on ≤ 2 points | Bickel, *Int. Statist. Rev.* 60 (1992) 197–209; made rigorous in Pap–vZ 1996 | asymptotic |
 | P(SB ≥ μ) ≥ (1−α)^{n+1} under conditions on F (hypotheses unverified — JSTOR original not yet read) | Bickel 1992 | finite n, weak bound |
 | Conjecture holds **exactly** for taints supported on {0,1} (SB reduces to Clopper–Pearson); Stringer coefficients are minimal with this property | de Jager, Pap & van Zuijlen, *Comput. Math. Appl.* 33 (1997) 37–54 | finite n, {0,1} supports |
-| Binomial Stringer is distribution-free conservative at \(n=2\) for every α, sharply; from \(n=3\) through \(n=5\), it pointwise dominates the valid Gaffke bounded-mean upper limit at α = 0.10, 0.05, and 0.01 | this repository: [`N2-PROOF.md`](../theory/N2-PROOF.md), [`N3-CONVENTIONAL.md`](../theory/N3-CONVENTIONAL.md), [`N4-CONVENTIONAL.md`](../theory/N4-CONVENTIONAL.md), [`N5-CONVENTIONAL.md`](../theory/N5-CONVENTIONAL.md), and exact certificates | finite n; all levels at \(n=2\), 90%, 95%, and 99% at \(n=3,4,5\) |
+| Binomial Stringer is distribution-free conservative at \(n=2\) for every α, sharply; from \(n=3\) through \(n=5\), it pointwise dominates the valid Gaffke bounded-mean upper limit at α = 0.10, 0.05, and 0.01; the same domination holds at \(n=6\), α = 0.05 | this repository: [`N2-PROOF.md`](../theory/N2-PROOF.md), [`N3-CONVENTIONAL.md`](../theory/N3-CONVENTIONAL.md), [`N4-CONVENTIONAL.md`](../theory/N4-CONVENTIONAL.md), [`N5-CONVENTIONAL.md`](../theory/N5-CONVENTIONAL.md), [`N6-CONVENTIONAL.md`](../theory/N6-CONVENTIONAL.md), and exact certificates | finite n; all levels at \(n=2\), 90%, 95%, and 99% at \(n=3,4,5\), and 95% at \(n=6\) |
 | Poisson audit factors dominate binomial Clopper–Pearson factors coordinatewise whenever nominal confidence exceeds \(1-e^{-1}\approx63.2\%\); hence the Poisson Stringer bound pointwise dominates the binomial version | Anderson–Samuels (1967), specialized to the Stringer formula in [`POISSON-DOMINATION.md`](../theory/POISSON-DOMINATION.md) | every n; factor and bound comparison, not a general coverage proof |
 | A corrected simultaneous survival band proves Poisson-factor Stringer coverage for every \(n\le8\) at 90%, every \(n\le11\) at 95%, and every \(n\le20\) at 99% confidence | [`POISSON-SIMULTANEOUS-BAND.md`](../theory/POISSON-SIMULTANEOUS-BAND.md) and exact rational certificate | finite ranges; arbitrary continuous or atomic taint distributions |
 | The pre-specified maximum of either Stringer calculation and the valid Gaffke limit has coverage at least \(1-\alpha\) | [`GAFFKE-SAFEGUARD.md`](../theory/GAFFKE-SAFEGUARD.md) and the Vlassis–Thomas validity theorem | every n and level, but a safeguarded procedure rather than proof of ordinary Stringer |
@@ -33,10 +34,12 @@ recorded below with sources.
 This repository adds (see `theory/N2-PROOF.md`,
 `theory/N3-CONVENTIONAL.md`, `theory/N4-CONVENTIONAL.md`,
 `theory/N5-CONVENTIONAL.md`,
+`theory/N6-CONVENTIONAL.md`,
 `theory/POISSON-SIMULTANEOUS-BAND.md`, and
 `computations/certificates/`): a
 distribution-free proof at \(n=2\); exact computer-assisted proofs from
-\(n=3\) through \(n=5\) for α = 0.10, 0.05, and 0.01; direct exact
+\(n=3\) through \(n=5\) for α = 0.10, 0.05, and 0.01; an exact proof at
+\(n=6\), α = 0.05; direct exact
 Poisson-factor guarantees through the level-dependent ranges above; and 33 exact rational
 counterexamples supported on three points (two nonzero taint values and
 zero) at selected nominal confidence levels from 30% to 37% and sample
@@ -70,7 +73,8 @@ space.
 - **Gaffke's bounded-mean interval** is now known to be finite-sample valid
   (Vlassis–Thomas, arXiv:2607.08415). It agrees with Clopper–Pearson on
   Bernoulli samples. This repository uses pointwise comparison with it to
-  prove the three stated cases from \(n=3\) through \(n=5\). No corresponding all-\(n\)
+  prove the three stated cases from \(n=3\) through \(n=5\), and the 95%
+  case at \(n=6\). No corresponding all-\(n\)
   domination theorem was found.
 - **arXiv metadata search for "Stringer bound": zero papers** (checked via
   API, 2026-08).
@@ -90,8 +94,8 @@ space.
    exact two-atom coverage (`bolshev.py`).
 4. Pyke 1994, one-sided minimax KS bands (*J. Appl. Prob.* 31A, 291–308):
    possibly the right lens for larger \(n\).
-5. Extension of the remaining binomial Gaffke/simplex-cap regions to
-   \(n=6\), the first unresolved binomial case at 90%, 95%, and 99%; a
+5. Extension of the binomial Gaffke/simplex-cap certificate to 90% and 99%
+   at \(n=6\), and to 95% at \(n=7\); a
    dimension-free geometric comparison would have direct consequences for
    ordinary audit sample sizes. [`ORDERED-SIMPLEX-CAP.md`](../theory/ORDERED-SIMPLEX-CAP.md)
    records the exact tight-vertex reduction and an open adjacent-transfer

@@ -33,7 +33,8 @@ every nominal confidence level. The result is sharp: the supremum of the
 noncoverage probability is $\alpha$, although no distribution attains
 it. At $n=3$, $n=4$, and $n=5$, exact Bernstein certificates prove
 binomial-factor conservatism at $90\%$, $95\%$, and $99\%$ nominal
-confidence. For the Poisson factors used in audit practice, a corrected
+confidence. A five-dimensional certificate extends the $95\%$ result to
+$n=6$. For the Poisson factors used in audit practice, a corrected
 simultaneous-survival-band argument and exact rational boundary-crossing
 certificates establish conservatism for every $n\le8$ at $90\%$, every
 $n\le11$ at $95\%$, and every $n\le20$ at $99\%$ confidence. For arbitrary
@@ -111,7 +112,7 @@ validity of Gaffke's distribution-free mean test \cite{gaffke2005}.
 Inversion for observations in $[0,1]$ gives an upper confidence limit that
 is a quantile of a uniform Dirichlet average
 \cite{learnedmiller2020,ming2026}. This development supplies the valid
-comparison bound used for our $n=3$, $n=4$, and $n=5$ results.
+comparison bound used for our $n=3$ through $n=6$ results.
 
 This paper makes five contributions.
 
@@ -122,13 +123,14 @@ failures do not occur at $n=2$, and the result is sharp. To our
 knowledge, this is the first distribution-free finite-sample proof for
 $n=2$.
 
-\emph{(2) Conventional confidence levels from $n=3$ through $n=5$}
+\emph{(2) Conventional confidence levels from $n=3$ through $n=6$}
 (Section~\ref{sec:n3}). At nominal confidence $90\%$, $95\%$, and $99\%$,
 the binomial Stringer bound pointwise dominates the valid Gaffke upper
 limit. The comparison is proved by exact rational Bernstein certificates
 for the relevant uniform-simplex cap volumes. It yields distribution-free
-finite-sample conservatism at each of these levels for all three sample
-sizes. The same comparison suggests a direct all-sample-size implementation
+finite-sample conservatism at each of these levels for $n=3,4,5$. A
+directed-interval Bernstein certificate also proves the $95\%$ result at
+$n=6$. The same comparison suggests a direct all-sample-size implementation
 safeguard (Section~\ref{sec:safeguard}): pre-specifying the maximum of
 Stringer and the valid Gaffke limit
 retains Stringer whenever it is larger and has distribution-free coverage
@@ -400,8 +402,8 @@ finite-sample validity for independent variables was proved recently
 Theorem~\ref{thm:n2} is self-contained.
 \end{remark}
 
-\section{Conventional confidence levels at
-\texorpdfstring{$n=3$, $n=4$, and $n=5$}{n=3, n=4, and n=5}}\label{sec:n3}
+\section{Conventional confidence levels from
+\texorpdfstring{$n=3$ through $n=6$}{n=3 through n=6}}\label{sec:n3}
 
 The recent validity proof for Gaffke's mean test \cite{vlassis2026}
 provides a second route to finite-sample coverage. For a real random
@@ -416,7 +418,8 @@ This is the one-sided Gaffke--Learned-Miller--Thomas upper limit
 \cite{gaffke2005,learnedmiller2020,ming2026}; it has coverage at least
 $1-\alpha$ for independent observations from every distribution on
 $[0,1]$. We prove that Stringer is pointwise no smaller at three
-conventional confidence levels for $n=3$, $n=4$, and $n=5$.
+conventional confidence levels for $n=3$, $n=4$, and $n=5$, and at
+$95\%$ confidence for $n=6$.
 
 \subsection{The case \texorpdfstring{$n=3$}{n=3}}
 
@@ -882,6 +885,143 @@ approximations; all endpoints and structural-zero proofs are
 machine-readable.}\label{tab:n5certificate}
 \end{table}
 
+\subsection{The case \texorpdfstring{$n=6$}{n=6}}
+
+The next dimension has six cap regions. A larger exact certificate proves
+the central conventional level.
+
+\begin{theorem}\label{thm:n6}
+Let $n=6$ and let $T_1,\ldots,T_6$ be i.i.d.\ with common distribution $F$
+on $[0,1]$ and mean $\mu$. At $\alpha=0.05$,
+\[
+\SB\ge G_{0.05}(T_1,\ldots,T_6)
+\quad\text{for every observed sample},
+\qquad
+\Pr_F(\SB\ge\mu)\ge0.95.
+\]
+Thus the binomial Stringer bound is distribution-free conservative at
+$95\%$ nominal confidence when $n=6$.
+\end{theorem}
+
+\begin{proof}
+Write $p_j=p_6(j)$ and put
+\[
+\begin{split}
+a&=1-p_5,\quad b=p_5-p_4,\quad c=p_4-p_3,\quad
+d=p_3-p_2,\\
+e&=p_2-p_1,\quad f=p_1-p_0,\quad g=p_0.
+\end{split}
+\]
+If the smallest taint is one, all taints, Stringer, and the Gaffke limit
+equal one. Otherwise, subtracting the smallest taint and dividing by its
+distance from one gives the ascending knots and Stringer threshold
+\[
+\begin{gathered}
+(t_0,\ldots,t_6)=(0,x,y,z,w,u,1),\qquad
+0\le x\le y\le z\le w\le u\le1,\\
+s=bx+cy+dz+ew+fu+g.
+\end{gathered}
+\]
+For $(D_0,\ldots,D_6)\sim\operatorname{Dirichlet}(1,\ldots,1)$, let
+\[
+V=\Pr_D\!\left\{\sum_{i=0}^6t_iD_i>s\right\}.
+\]
+For distinct knots, the uniform-simplex cap formula is
+\begin{equation}\label{eq:n6cap}
+V=\sum_{i:t_i>s}\frac{(t_i-s)^6}
+ {\prod_{j\ne i}(t_i-t_j)},
+\end{equation}
+and coincident-knot values follow by continuity. It is enough to prove
+$V\le0.05$.
+
+For $k=0,\ldots,4$, set
+\[
+q_0=g,\quad q_1=f+g,\quad q_2=e+f+g,\quad
+q_3=d+e+f+g,\quad q_4=c+d+e+f+g.
+\]
+The Clopper--Pearson equations give
+\begin{equation}\label{eq:n6identities}
+\alpha=\sum_{j=0}^{k}\binom{6}{j}q_k^j(1-q_k)^{6-j}
+\quad(k=0,\ldots,4),
+\qquad
+1-\alpha=(b+c+d+e+f+g)^6.
+\end{equation}
+In the first five regions of \eqref{eq:n6cap}, clear the positive common
+denominator in $\alpha-V$ and substitute \eqref{eq:n6identities}; in the
+last region use
+$s^6-(b+c+d+e+f+g)^6xyzwu$. Exact polynomial division extracts the
+following nonnegative boundary factors:
+\[
+\begin{array}{c|c|l}
+\text{region}&\text{residual degree}&\text{extracted factors}\\ \hline
+s\ge u&6&1\\
+w\le s\le u&10&1-u\\
+z\le s\le w&12&(1-w)(1-u)(u-w)\\
+y\le s\le z&12&(1-z)(1-w)(1-u)(w-z)(u-z)(u-w)\\
+x\le s\le y&10&\displaystyle
+ \prod_{r\in\{y,z,w,u\}}(1-r)
+ \prod_{r<r';\ r,r'\in\{y,z,w,u\}}(r'-r)\\
+s\le x&6&1.
+\end{array}
+\]
+The divisions are performed in an exact polynomial ring and reject any
+nonzero remainder.
+
+Let $v_i=(0^{,5-i},1^i)$, $i=0,\ldots,5$, be the ordered-knot simplex
+vertices. Intersecting its edges with $s=u,w,z,y,x$ and slicing
+successively gives fixed triangulations containing respectively
+$1,5,10,10,5,1$ five-simplices. Every intersection coordinate is retained
+as an exact rational function of $b,\ldots,g$. Exact boundary identities
+and directed strict-sign checks place every vertex in its claimed convex
+region, and all 210 pairs of the 21 named vertices are certified as
+distinct. The oriented-chain check
+pairs all 48 internal four-facets with opposite orientations. The 96
+unpaired four-facets lie on the six outer ordered-simplex hyperplanes, 16
+on each, and the directed determinant sum lies strictly between $1/2$ and
+$3/2$. Thus the chain represents an integer multiple of the generator of
+$H_5(\Delta,\partial\Delta;\mathbb Z)$, and its determinant sum is that
+integer times the normalized volume of $\Delta$, which is one. The integer
+is therefore one. Because every simplex has positive orientation and lies
+in $\Delta$, the 32 simplices cover the domain without interior
+multiplicity. After mapping
+each five-simplex to the standard five-simplex, the six residual degrees,
+simplex counts, total structural-zero counts, and smallest positive
+coefficient bounds are
+\[
+\begin{array}{c|rrr|c}
+\text{region}&\text{degree}&\text{five-simplices}&\text{structural zeros}
+&\text{positive lower bound}\\ \hline
+A&6&1&1&1.23\times10^{-10}\\
+B&10&5&1433&1.17\times10^{-18}\\
+C&12&10&7514&6.57\times10^{-23}\\
+D&12&10&7514&4.01\times10^{-22}\\
+E&10&5&1433&1.66\times10^{-15}\\
+F&6&1&1&9.57\times10^{-4}.
+\end{array}
+\]
+
+The structural zeros are exact. For each relevant affine face ideal $I$,
+the symbolic layer verifies the required membership in $I^q$ by reducing
+the residual and every ordinary partial derivative of total order less than
+$q$ modulo $I$. These are exact Singular calculations over
+$\mathbb Q(b,c,d,e,f,g)$; the weights are not specialized. A rational
+specialization is used only to select independent generators from redundant
+face equations. At the certified weights, directed intervals enclose a
+full-rank normal minor away from zero for every selected generator set, so
+the generic face identities specialize validly. For the remaining
+coefficients, each factor root is bracketed on a $2^{-320}$
+dyadic grid with integer-checked binomial-CDF endpoint signs. All subsequent
+vertex, determinant, polynomial, and Bernstein operations use
+integer-directed outward rounding on a $2^{-384}$ grid. Every five-simplex
+determinant is enclosed away from zero, and every nonstructural coefficient
+has a strictly positive lower endpoint. The commands
+\texttt{make n6-structure-check} and
+\texttt{make n6-certificate-check} regenerate the two machine-readable
+layers, whose link is fixed by a SHA-256 digest. Hence every cleared
+residual is nonnegative and $V\le0.05$. Validity of $G_{0.05}$ proves the
+coverage statement.
+\end{proof}
+
 \section{Poisson factors at conventional audit confidence levels}
 \label{sec:poisson}
 
@@ -938,12 +1078,14 @@ $t_{(1)}\ge\cdots\ge t_{(n)}$, summation by parts gives
 \begin{corollary}\label{cor:poissoncoverage}
 The Poisson-factor Stringer bound is distribution-free conservative
 at $n=2$ whenever $0<\alpha<e^{-1}$, and at $n=3$, $n=4$, and $n=5$ for
-$\alpha\in\{0.10,0.05,0.01\}$.
+$\alpha\in\{0.10,0.05,0.01\}$. It is also conservative at $n=6$ and
+$\alpha=0.05$.
 \end{corollary}
 
 \begin{proof}
 Combine Proposition~\ref{prop:poissondomination} with
-Theorems~\ref{thm:n2}, \ref{thm:n3}, \ref{thm:n4}, and \ref{thm:n5}.
+Theorems~\ref{thm:n2}, \ref{thm:n3}, \ref{thm:n4}, \ref{thm:n5}, and
+\ref{thm:n6}.
 \end{proof}
 
 The factor comparison is not the only route to a Poisson guarantee. The
@@ -1000,7 +1142,7 @@ Q_m=1-\sum_{i=1}^m\binom mi(1-a_{m-i+1})^iQ_{m-i},
 \qquad m=1,\ldots,n.
 \end{equation}
 
-\begin{theorem}[Poisson guarantees beyond $n=5$]
+\begin{theorem}[Direct Poisson guarantees at larger sample sizes]
 \label{thm:poissonband}
 Let the observations be i.i.d.\ with an arbitrary common distribution $F$
 on $[0,1]$. The Poisson-factor Stringer bound is conservative throughout
@@ -1072,7 +1214,8 @@ Theorem~\ref{thm:n2} implies finite-sample conservatism of the
 Poisson-factor Stringer bound at $n=2$ throughout this confidence range.
 Theorems~\ref{thm:n3}, \ref{thm:n4}, and \ref{thm:n5} give the same
 conclusion at $n=3$, $n=4$, and $n=5$ for the three certified
-conventional levels. Theorem~\ref{thm:poissonband} extends the proved
+conventional levels, and Theorem~\ref{thm:n6} gives it at $n=6$ and
+$95\%$. Theorem~\ref{thm:poissonband} extends the proved
 Poisson ranges to $n=8$, $n=11$, and $n=20$ at $90\%$, $95\%$, and
 $99\%$, respectively.
 More generally, any distributional class for which the binomial-factor
@@ -1100,16 +1243,18 @@ factor convention $M$,
 \Pr\{\SB^{\mathrm{safe}}_{M,\alpha}\ge\mu\}\ge1-\alpha.
 \]
 For $n=3$, $n=4$, and $n=5$ and
-$\alpha\in\{0.10,0.05,0.01\}$, the safeguarded value equals the ordinary
-Stringer value pointwise for both factor conventions.
+$\alpha\in\{0.10,0.05,0.01\}$, and for $n=6$ and $\alpha=0.05$, the
+safeguarded value equals the ordinary Stringer value pointwise for both
+factor conventions.
 \end{proposition}
 
 \begin{proof}
 Finite-sample validity of the Gaffke limit gives
 $\Pr\{G_\alpha(T_1,\ldots,T_n)\ge\mu\}\ge1-\alpha$. Since the maximum is
-pointwise at least $G_\alpha$, the first conclusion follows. At the three
-listed sample sizes and levels, Theorems~\ref{thm:n3}, \ref{thm:n4}, and
-\ref{thm:n5} give $\SB_{\mathrm B,\alpha}\ge G_\alpha$ on every sample.
+pointwise at least $G_\alpha$, the first conclusion follows. At the listed
+sample sizes and levels, Theorems~\ref{thm:n3}, \ref{thm:n4},
+\ref{thm:n5}, and \ref{thm:n6} give
+$\SB_{\mathrm B,\alpha}\ge G_\alpha$ on every sample.
 Proposition~\ref{prop:poissondomination} gives
 $\SB_{\mathrm P,\alpha}\ge\SB_{\mathrm B,\alpha}$, proving the second
 conclusion.
@@ -1125,7 +1270,8 @@ B-spline calculation.
 \subsection{An all-sample-size one-cap region}\label{sec:onecap}
 
 The safeguard is known to be identical to Stringer on every sample at
-$n=3$, $n=4$, and $n=5$. The following result identifies a directly
+$n=3$, $n=4$, and $n=5$ at the three certified levels, and at $n=6$ and
+$95\%$. The following result identifies a directly
 checkable identity region without a sample-size cutoff.
 
 \begin{proposition}[One-cap comparison]\label{prop:onecap}
@@ -1553,15 +1699,18 @@ inequalities, with the audit-specific confidence-factor structure
 encoded in the positive increments $e_j$. Second, the $n=2$ proof
 combines rectangle lower bounds on the covering event, a
 survival-integral budget, and a concave potential with equal endpoint
-values. The $n=3$, $n=4$, and $n=5$ proofs use a different route: they compare
+values. The $n=3$ through $n=6$ proofs use a different route: they compare
 Stringer with a valid Dirichlet-average bound and certify the resulting
-simplex-cap inequalities. In higher dimensions, the analogous pointwise comparison is
-a concrete geometric problem for caps of a uniform simplex.
+simplex-cap inequalities. At $n=6$ the exact computation currently certifies
+$95\%$ confidence; the $90\%$ and $99\%$ cases remain unresolved. In higher
+dimensions, the analogous pointwise comparison is a concrete geometric
+problem for caps of a uniform simplex.
 Proposition~\ref{prop:onecap} solves the complete one-upper-knot region at
 every sample size whenever nominal confidence is at least
 $75\%$. For the
-binomial factors at $90\%$, $95\%$, and $99\%$ confidence, $n=6$ is now
-the first sample size whose remaining cap regions are unresolved. A
+binomial factors at $90\%$ and $99\%$, $n=6$ is the first sample size with
+unresolved cap regions; at $95\%$, the first unresolved sample size is
+$n=7$. A
 dimension-free route recorded in the
 repository writes the Poisson
 bound as an ordered interpolation of gamma quantiles and reduces its
@@ -1578,7 +1727,8 @@ From an auditing perspective, the binomial Stringer bound has no uniform
 safety margin above nominal coverage: at $n=2$, its coverage infimum is
 $1-\alpha$. Theorems~\ref{thm:n3}, \ref{thm:n4}, and \ref{thm:n5}
 supply exact guarantees at the three conventional levels for $n=3$,
-$n=4$, and $n=5$. At conventional confidence levels, the Poisson version
+$n=4$, and $n=5$; Theorem~\ref{thm:n6} adds the $95\%$ guarantee at
+$n=6$. At conventional confidence levels, the Poisson version
 pointwise dominates the binomial version by
 Proposition~\ref{prop:poissondomination}. The corrected simultaneous-band
 argument in Theorem~\ref{thm:poissonband} extends the rigorous Poisson
@@ -1605,7 +1755,7 @@ Stringer is at least the largest observed taint.
 The repository contains exact rational coverage calculations, margin
 certificates, exact-sign dyadic enclosures for the binomial confidence
 factors, exact Bernstein certificates for Theorems~\ref{thm:n3},
-\ref{thm:n4}, and \ref{thm:n5}, symbolic regeneration checks for
+\ref{thm:n4}, \ref{thm:n5}, and \ref{thm:n6}, symbolic regeneration checks for
 their simplex-cap formulas, exact rational Poisson-limit and
 boundary-crossing certificates for Theorem~\ref{thm:poissonband},
 high-precision Poisson search calculations, exact-sign rational brackets for the all-sample-size
@@ -1618,7 +1768,8 @@ distributions. It also contains records of two separate adversarial review
 passes.
 
 The canonical source repository is
-\url{https://github.com/RichieSater/stringer-bound}. Release v1.0.0 is
+\url{https://github.com/RichieSater/stringer-bound}; it is the canonical
+source for this development revision. The earlier release v1.0.0 is
 preserved on Zenodo at
 \url{https://doi.org/10.5281/zenodo.21850820}; the version-independent
 DOI, which resolves to the latest archived release, is

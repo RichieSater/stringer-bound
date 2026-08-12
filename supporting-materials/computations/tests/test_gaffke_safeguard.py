@@ -138,6 +138,20 @@ class GaffkeSafeguardTests(unittest.TestCase):
                             observed, n, alpha, "binomial", dps=80)),
                         places=14)
 
+        # The separately certified n=6 theorem currently covers 95% only.
+        for observed in samples:
+            result = safeguarded_stringer_bound(
+                observed, 6, "0.05", "binomial")
+            self.assertLessEqual(
+                result.gaffke - result.stringer, 6e-14,
+                msg=(6, "0.05", observed, result))
+            self.assertLessEqual(result.uplift, 6e-14)
+            self.assertAlmostEqual(
+                result.stringer,
+                float(stringer_bound(
+                    observed, 6, "0.05", "binomial", dps=80)),
+                places=14)
+
     def test_all_n_one_cap_region_needs_no_uplift(self):
         # These samples have their largest taint below binomial Stringer, so
         # the analytic one-cap theorem applies without a sample-size cutoff.

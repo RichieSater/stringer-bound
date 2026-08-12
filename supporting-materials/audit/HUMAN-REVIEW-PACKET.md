@@ -51,15 +51,16 @@ Requested output: a line-by-line proof report, including any silent
 regularity assumption and an explicit disposition of sharpness and
 non-attainment separately from conservatism.
 
-## Review B: conventional confidence levels at `n=3,4,5`
+## Review B: conventional confidence levels at `n=3,4,5,6`
 
 Primary files:
 
 - [`../theory/N3-CONVENTIONAL.md`](../theory/N3-CONVENTIONAL.md)
 - [`../theory/N4-CONVENTIONAL.md`](../theory/N4-CONVENTIONAL.md)
 - [`../theory/N5-CONVENTIONAL.md`](../theory/N5-CONVENTIONAL.md)
-- the six derivation/certificate programs and their committed JSON artifacts
-- manuscript Theorems~`thm:n3`, `thm:n4`, and `thm:n5`
+- [`../theory/N6-CONVENTIONAL.md`](../theory/N6-CONVENTIONAL.md)
+- the eight derivation/certificate programs and their committed JSON artifacts
+- manuscript Theorems~`thm:n3`, `thm:n4`, `thm:n5`, and `thm:n6`
 
 Questions:
 
@@ -67,17 +68,23 @@ Questions:
    domination of the Gaffke endpoint sufficient for the stated coverage?
 2. Are the affine normalization and simplex-cap formulas complete on all
    boundary faces?
-3. Do the regional decompositions cover the complete ordered-knot domains?
+3. For `n=6`, does the oriented relative-chain certificate (facet
+   cancellation, outer boundary, and degree one) establish that the 32
+   listed simplices cover the complete ordered-knot domain without interior
+   multiplicity?
 4. Are all removed factors proved nonnegative on their claimed regions?
 5. Are structural zeros established symbolically rather than by numerical
    tolerance?
-6. Do integer-checked factor brackets and directed rational interval
+6. For `n=6`, do the certified nonzero normal minors justify specialization
+   of every generic rational-function face-ideal identity to the 95% factor
+   values?
+7. Do integer-checked factor brackets and directed rational interval
    operations imply every reported positive Bernstein sign?
-7. Does `make reproduce` regenerate the proof-essential artifacts without
+8. Does `make reproduce` regenerate the proof-essential artifacts without
    an unrecorded computational dependency?
 
 Requested output: separate dispositions for each sample size.  A reviewer
-may verify `n=3` fully and audit the certificate architecture for `n=4,5`,
+may verify `n=3` fully and audit the certificate architecture for `n=4,5,6`,
 but should say exactly which level of review was completed.
 
 ## Review C: the all-`n` Poisson factor comparison
@@ -212,7 +219,7 @@ Repository commit:
 Review dates:
 
 Review A disposition:
-Review B disposition (n=3 / n=4 / n=5):
+Review B disposition (n=3 / n=4 / n=5 / n=6):
 Review C disposition:
 Review D disposition:
 Review E disposition:

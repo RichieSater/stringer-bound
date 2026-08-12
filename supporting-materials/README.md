@@ -1,11 +1,19 @@
 # Supporting materials: verification guide
 
-**Canonical repository:** [github.com/RichieSater/stringer-bound](https://github.com/RichieSater/stringer-bound) · **Archived release:** [doi:10.5281/zenodo.21850820](https://doi.org/10.5281/zenodo.21850820)
+**Canonical repository:** [github.com/RichieSater/stringer-bound](https://github.com/RichieSater/stringer-bound) · **Archived v1.0.0:** [doi:10.5281/zenodo.21850820](https://doi.org/10.5281/zenodo.21850820)
+
+The current development revision postdates archived v1.0.0; GitHub is the
+canonical source until the next archival release.
 
 The canonical reproducibility environment requires Python 3.12 and pins
-every dependency in the root
+every Python dependency in the root
 `pyproject.toml` and `uv.lock`. Every
-certified binomial counterexample is decided by rational arithmetic;
+regeneration of the `n=6` structure additionally requires Singular for exact
+generic rational-function face-ideal reductions.
+The certificate was developed with Singular 4.4.1; CI fixes Ubuntu 24.04,
+installs its packaged Singular build, and byte-compares the regenerated
+artifact. Every certified binomial counterexample is decided by rational
+arithmetic;
 float64 appears in screening searches and in separately labeled numerical
 Poisson checks. The all-sample-size Poisson-versus-binomial factor theorem
 at nominal confidence above \(1-e^{-1}\) is a written analytic result, not a
@@ -14,6 +22,8 @@ from \(n=3\) through \(n=5\) at 90%, 95%, and 99% are exact computer-assisted
 theorems: their symbolic formulas and rational sign certificates are
 regenerated from source scripts; see `theory/N3-CONVENTIONAL.md`,
 `theory/N4-CONVENTIONAL.md`, and `theory/N5-CONVENTIONAL.md`.
+At 95%, `theory/N6-CONVENTIONAL.md` extends the exact computer-assisted
+comparison to \(n=6\).
 For the Poisson factors used in practice, a separate exact corrected-band
 certificate proves coverage for every \(n\le8\) at 90%, every \(n\le11\) at
 95%, and every \(n\le20\) at 99%; see
@@ -44,6 +54,9 @@ comparison, not a general coverage theorem for ordinary Stringer.
 | `theory/N5-CONVENTIONAL.md` | Complete reduction of the \(n=5\) theorem to five four-dimensional simplex-cap regions | proof-essential |
 | `derive_n5_bernstein_structure.py` | Exactly derives the residual factorizations, four-simplex substitutions, and face-ideal structural-zero proofs for \(n=5\) | proof-essential |
 | `n5_gaffke_certificate.py` | Integer-directed dyadic interval proof of every nonzero \(n=5\) Bernstein coefficient sign at 90%, 95%, and 99% | proof-essential |
+| `theory/N6-CONVENTIONAL.md` | Complete reduction of the \(n=6\), 95% theorem to six five-dimensional simplex-cap regions | proof-essential |
+| `derive_n6_bernstein_structure.py` | Exactly derives the residual factorizations and five-simplex structure and proves generic face-ideal vanishing orders with Singular | proof-essential |
+| `n6_gaffke_certificate.py` | Integer-directed dyadic proof of face specialization, the triangulation chain, and every nonstructural \(n=6\) Bernstein sign at 95% | proof-essential |
 | `theory/POISSON-DOMINATION.md` | Written proof that practical-level Poisson factors dominate binomial factors for every sample size | proof-essential |
 | `theory/POISSON-SIMULTANEOUS-BAND.md` | Written randomized-survival-band proof of the direct Poisson coverage ranges | proof-essential |
 | `poisson_band_certificate.py` | Exact rational Poisson-limit signs and Bolshev boundary-crossing probabilities at 90%, 95%, and 99% | proof-essential |
@@ -86,6 +99,10 @@ make n4-certificate-check
 # Exact n=5 theorem: derive four-simplex/face-ideal structure, then certify
 make n5-structure-check
 make n5-certificate-check
+
+# Exact n=6 theorem at 95%: generic face ideals, then directed intervals
+make n6-structure-check
+make n6-certificate-check
 
 # Direct Poisson theorem: exact limits and boundary-crossing probabilities
 make poisson-band-certificate-check
@@ -166,7 +183,8 @@ The mathematical procedure is
 Gaffke component and therefore does not assume general-`n` Stringer
 conservatism. At `n=3,4,5` and 90%, 95%, and 99%, the exact pointwise
 comparison theorems show that this maximum is ordinary Stringer on every
-sample, for both binomial and Poisson factors.
+sample, for both binomial and Poisson factors. The same statement holds at
+`n=6` and 95%.
 
 For decimal taints, `gaffke.py` interprets the inputs as exact rationals.
 It uses a B-spline quantile only as a root-location proposal, evaluates the

@@ -398,7 +398,9 @@ The theorem removes the entire one-upper-knot region from the unresolved
 comparison at every sample size and every nominal confidence level of at
 least `75%`.  It does **not** prove any of the following:
 
-- unrestricted pointwise Stringer--Gaffke domination for `n>=6`;
+- unrestricted pointwise Stringer--Gaffke domination outside the separately
+  certified sample-size/level pairs (`n=3,4,5` at 90%, 95%, and 99%, and
+  `n=6` at 95%);
 - ordinary Stringer coverage at arbitrary sample size;
 - the one-cap factor inequalities when nominal confidence is below
   `75%`; or
