@@ -4,9 +4,9 @@ An adversarial literature pass (~20 targeted searches, OpenAlex citation
 tracing, primary-source reading including the full Bimpeh thesis, the
 2021 Statistical Papers MUS survey, the Dutch statistical-auditing essay
 collection, and the 2024 Balakrishnan–Rychlik monograph) tested each of
-the paper's novelty claims. Initial date: 2026-08-07; updated 2026-08-12
-for the new results through \(n=5\) at three conventional levels and
-\(n=6\) at 95%, the direct Poisson coverage ranges,
+the paper's novelty claims. Initial date: 2026-08-07; updated 2026-08-13
+for the new results through \(n=6\) at three conventional levels, the direct
+Poisson coverage ranges,
 and the analytic all-sample-size one-cap comparison.
 Priority statements remain
 qualified by the scope and date of this search.
@@ -58,8 +58,8 @@ inversion described by Learned-Miller–Thomas and Ming et al. supply a valid
 comparison limit. No source found in the review compares that limit
 pointwise with Stringer, proves the resulting uniform-simplex cap
 inequality, or establishes Stringer coverage at \(n=3\) and 90%, 95%, and
-99% confidence, much less the corresponding \(n=4\) and \(n=5\) results
-or the 95% result at \(n=6\). The repository's
+99% confidence, much less the corresponding \(n=4\), \(n=5\), and \(n=6\)
+results. The repository's
 contribution is the Stringer-specific comparison and exact rational
 Bernstein proofs; validity of the Gaffke limit is credited to those sources.
 The manuscript does not make an unqualified priority claim for these

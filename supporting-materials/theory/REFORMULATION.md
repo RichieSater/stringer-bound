@@ -9,7 +9,7 @@
 > [`N3-CONVENTIONAL.md`](N3-CONVENTIONAL.md),
 > [`N4-CONVENTIONAL.md`](N4-CONVENTIONAL.md), and
 > [`N5-CONVENTIONAL.md`](N5-CONVENTIONAL.md). A five-dimensional
-> certificate also proves n = 6 at 95%; see
+> certificate also proves n = 6 at all three levels; see
 > [`N6-CONVENTIONAL.md`](N6-CONVENTIONAL.md).**
 
 *Everything in this note is elementary algebra plus case analysis; each

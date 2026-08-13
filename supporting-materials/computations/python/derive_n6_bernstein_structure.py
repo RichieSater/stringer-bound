@@ -20,6 +20,7 @@ from __future__ import annotations
 
 import argparse
 import concurrent.futures
+import copy
 import itertools
 import json
 import math
@@ -32,6 +33,10 @@ import sympy as sp
 
 
 REGION_NAMES = "ABCDEF"
+HERE = Path(__file__).resolve().parent
+DEFAULT_STRUCTURE_PATH = (
+    HERE.parent / "certificates" / "n6-gaffke-bernstein-structure.json"
+)
 
 REGION_SIMPLICES = {
     "A": [["v0", "h1_05", "h2_04", "h3_03", "h4_02", "h5_01"]],
@@ -443,7 +448,7 @@ def _run_singular_check(task):
     return key
 
 
-def _singular_differential_checks(order):
+def _singular_differential_checks(order, chunk=None):
     """Render an exact check of every derivative below ``order``.
 
     Nondecreasing variable-index tuples visit each derivative multi-index
@@ -454,27 +459,37 @@ def _singular_differential_checks(order):
     """
 
     coordinates = ("x", "y", "z", "w", "u")
+    paths = [
+        path
+        for degree in range(order)
+        for path in itertools.combinations_with_replacement(
+            range(len(coordinates)), degree)
+    ]
+    if chunk is not None:
+        chunk_index, chunk_count = chunk
+        if not (0 <= chunk_index < chunk_count):
+            raise ValueError(f"invalid derivative chunk: {chunk}")
+        paths = [path for index, path in enumerate(paths)
+                 if index % chunk_count == chunk_index]
     lines = ["int failures=0;"]
     count = 0
-    for degree in range(order):
-        for path in itertools.combinations_with_replacement(
-                range(len(coordinates)), degree):
-            child = "D" + ("".join(str(value) for value in path)
-                           if path else "root")
-            expression = "P"
-            for index in path:
-                expression = f"diff({expression},{coordinates[index]})"
-            lines.append(f"poly {child}={expression};")
-            lines.append(
-                f'if (reduce({child},G)!=0) {{ "FAIL {path}"; '
-                "failures=failures+1; }")
-            lines.append(f"kill {child};")
-            count += 1
+    for path in paths:
+        child = "D" + ("".join(str(value) for value in path)
+                       if path else "root")
+        expression = "P"
+        for index in path:
+            expression = f"diff({expression},{coordinates[index]})"
+        lines.append(f"poly {child}={expression};")
+        lines.append(
+            f'if (reduce({child},G)!=0) {{ "FAIL {path}"; '
+            "failures=failures+1; }")
+        lines.append(f"kill {child};")
+        count += 1
     lines.append('if (failures==0) { "PASS"; }')
     return "\n".join(lines), count
 
 
-def _verify_faces_with_singular(regions, tasks):
+def _verify_faces_with_singular(regions, tasks, derivative_chunk=None):
     if shutil.which("Singular") is None:
         raise RuntimeError(
             "Singular is required for the n=6 exact face-ideal checks")
@@ -482,6 +497,7 @@ def _verify_faces_with_singular(regions, tasks):
     for task in tasks:
         unique.setdefault(task[0], task)
     verified = set()
+    scheduled = set()
     with tempfile.TemporaryDirectory(prefix="stringer-n6-") as directory:
         directory = Path(directory)
         run_tasks = []
@@ -497,12 +513,22 @@ def _verify_faces_with_singular(regions, tasks):
             script_path = directory / f"{index:02d}.sing"
             result_path = directory / f"{index:02d}.result"
             exact_checks, condition_count = (
-                _singular_differential_checks(order))
-            expected_count = math.comb(5 + order - 1, 5)
+                _singular_differential_checks(order, derivative_chunk))
+            total_count = math.comb(5 + order - 1, 5)
+            if derivative_chunk is None:
+                expected_count = total_count
+            else:
+                chunk_index, chunk_count = derivative_chunk
+                expected_count = sum(
+                    index % chunk_count == chunk_index
+                    for index in range(total_count))
             if condition_count != expected_count:
                 raise AssertionError(
                     f"wrong derivative count for {key}: "
                     f"{condition_count} != {expected_count}")
+            if condition_count == 0:
+                continue
+            scheduled.add(key)
             boundaries = [_singular_boundary(label) for label in labels]
             script_path.write_text(
                 "option(redSB);\n"
@@ -514,6 +540,8 @@ def _verify_faces_with_singular(regions, tasks):
                 "quit;\n"
             )
             run_tasks.append((script_path, result_path, key))
+        if not run_tasks:
+            raise AssertionError("n=6 face-proof chunk contains no checks")
         # Generic rational-function arithmetic is CPU intensive.  A modest
         # worker cap keeps memory use predictable on both laptops and CI.
         workers = min(len(run_tasks), os.cpu_count() or 1, 6)
@@ -523,10 +551,115 @@ def _verify_faces_with_singular(regions, tasks):
                 verified.add(key)
                 print(f"exact generic Singular face check passed: {key}",
                       flush=True)
-    expected = set(unique)
-    if verified != expected:
-        raise AssertionError("not every n=6 face condition was verified")
+    if verified != scheduled:
+        raise AssertionError(
+            "not every scheduled n=6 face condition was verified")
     return verified
+
+
+def _artifact_face_proof_inputs(structure, group):
+    """Reconstruct one independently runnable group of generic face checks.
+
+    The proof-independent structure check separately regenerates every
+    polynomial and every face specification from source.  Loading the
+    committed structure here lets the order-six Singular calculations be
+    partitioned into independently schedulable CI jobs instead of forcing a
+    monolithic job to exceed GitHub's six-hour limit.
+    """
+
+    coordinates = sp.symbols("x y z w u")
+    weights = sp.symbols("b c d e f g")
+    locals_ = {str(value): value for value in coordinates + weights}
+    expected = {"standard": 24, "c6": 1, "d6": 1}
+    if group not in expected:
+        raise ValueError(f"unknown n=6 face-proof group: {group}")
+
+    keys = set()
+    for region_name, region in structure["regions"].items():
+        for simplex in region["simplices"]:
+            for proof in simplex["face_order_proofs"]:
+                key = (
+                    region_name,
+                    tuple(proof["independent_ideal_generators"]),
+                    proof["vanishing_order"],
+                )
+                is_maximal = key[2] == 6
+                if ((group == "standard" and not is_maximal)
+                        or (group == "c6" and key[0] == "C" and is_maximal)
+                        or (group == "d6" and key[0] == "D" and is_maximal)):
+                    keys.add(key)
+    if len(keys) != expected[group]:
+        raise AssertionError(
+            f"n=6 face group {group} has {len(keys)} keys; "
+            f"expected {expected[group]}")
+
+    regions = {}
+    for region_name in sorted({key[0] for key in keys}):
+        terms = {}
+        for item in structure["regions"][region_name][
+                "polynomial_coefficients"]:
+            terms[tuple(item["powers"])] = sp.sympify(
+                item["expression"], locals=locals_)
+        regions[region_name] = {
+            "coordinates": coordinates,
+            "polynomial": sp.Poly.from_dict(
+                terms, coordinates, domain=sp.EX).as_expr(),
+        }
+    tasks = [(key, region_name, -1, None)
+             for key in sorted(keys) for region_name in (key[0],)]
+    return regions, tasks
+
+
+def verify_artifact_face_group(structure_path, group):
+    base_group = group
+    derivative_chunk = None
+    if "-" in group:
+        base_group, chunk_text = group.split("-", 1)
+        chunk_counts = {"standard": 6, "c6": 3, "d6": 3}
+        if (base_group not in chunk_counts
+                or not chunk_text.isdigit()
+                or not 0 <= int(chunk_text) < chunk_counts[base_group]):
+            raise ValueError(f"unknown n=6 face-proof group: {group}")
+        derivative_chunk = (int(chunk_text), chunk_counts[base_group])
+    structure = json.loads(structure_path.read_text())
+    if structure.get("face_order_verification") != (
+            "exact_generic_differential_ideal_membership"):
+        raise ValueError("n=6 structure lacks exact face-proof metadata")
+    regions, tasks = _artifact_face_proof_inputs(structure, base_group)
+    verified = _verify_faces_with_singular(
+        regions, tasks, derivative_chunk=derivative_chunk)
+    if derivative_chunk is None and len(verified) != {
+            "standard": 24, "c6": 1, "d6": 1}[base_group]:
+        raise AssertionError(f"not every {group} face proof passed")
+    if derivative_chunk is not None and not verified:
+        raise AssertionError(f"face-proof chunk {group} contains no checks")
+    print(f"n=6 generic face-proof group {group}: PASS", flush=True)
+
+
+def _proof_independent_projection(structure):
+    """Remove only fields recording execution of the generic face checks."""
+
+    projected = copy.deepcopy(structure)
+    projected.pop("face_order_verification", None)
+    for region in projected["regions"].values():
+        for simplex in region["simplices"]:
+            for proof in simplex["face_order_proofs"]:
+                proof.pop("verification", None)
+                proof.pop("verification_skipped", None)
+                proof.pop("derivative_reductions_checked", None)
+    return projected
+
+
+def check_structure_data(structure_path):
+    """Regenerate and compare every proof-independent structure field."""
+
+    expected = json.loads(structure_path.read_text())
+    observed = derive(verify_faces=False)
+    if (_proof_independent_projection(observed)
+            != _proof_independent_projection(expected)):
+        raise AssertionError(
+            "regenerated n=6 structure data differ from the artifact")
+    print("n=6 proof-independent structure regeneration: PASS", flush=True)
 
 
 def derive(verify_faces=True):
@@ -643,12 +776,49 @@ def derive(verify_faces=True):
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--out", type=Path, required=True)
+    parser.add_argument("--out", type=Path)
     parser.add_argument(
         "--skip-face-proof", action="store_true",
         help="development only: derive formulas without exact ideal checks",
     )
+    parser.add_argument(
+        "--check-data-against", type=Path,
+        help=("regenerate all proof-independent structure fields and compare "
+              "them with this artifact"),
+    )
+    parser.add_argument(
+        "--face-proof-group",
+        choices=("standard", "c6", "d6",
+                 "standard-0", "standard-1", "standard-2",
+                 "standard-3", "standard-4", "standard-5",
+                 "c6-0", "c6-1", "c6-2",
+                 "d6-0", "d6-1", "d6-2"),
+        help=("run an independently schedulable group of exact generic "
+              "Singular face-ideal checks against the committed structure"),
+    )
+    parser.add_argument(
+        "--structure", type=Path, default=DEFAULT_STRUCTURE_PATH,
+        help="structure artifact used by --face-proof-group",
+    )
     args = parser.parse_args(argv)
+    modes = sum(bool(value) for value in (
+        args.check_data_against, args.face_proof_group, args.out))
+    if modes != 1:
+        parser.error(
+            "choose exactly one of --out, --check-data-against, or "
+            "--face-proof-group")
+    if args.check_data_against:
+        if args.skip_face_proof:
+            parser.error(
+                "--check-data-against already performs the intended "
+                "proof-independent derivation")
+        check_structure_data(args.check_data_against)
+        return 0
+    if args.face_proof_group:
+        if args.skip_face_proof:
+            parser.error("--skip-face-proof conflicts with --face-proof-group")
+        verify_artifact_face_group(args.structure, args.face_proof_group)
+        return 0
     args.out.write_text(json.dumps(
         derive(verify_faces=not args.skip_face_proof), indent=2) + "\n")
     print(f"wrote {args.out}")

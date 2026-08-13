@@ -76,8 +76,8 @@ Questions:
 5. Are structural zeros established symbolically rather than by numerical
    tolerance?
 6. For `n=6`, do the certified nonzero normal minors justify specialization
-   of every generic rational-function face-ideal identity to the 95% factor
-   values?
+   of every generic rational-function face-ideal identity to the 90%, 95%,
+   and 99% factor values?
 7. Do integer-checked factor brackets and directed rational interval
    operations imply every reported positive Bernstein sign?
 8. Does `make reproduce` regenerate the proof-essential artifacts without

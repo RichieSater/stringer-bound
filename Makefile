@@ -4,7 +4,7 @@ TEST_DIR := supporting-materials/computations/tests
 CERT_DIR := supporting-materials/computations/certificates
 PAPER_DIR := supporting-materials/paper
 
-.PHONY: sync test proof-check all-n-reduction-check dirichlet-poissonization-check poisson-band-certificate-check one-cap-all-n-check one-cap-certificate-check n3-formula-check n3-certificate-check n4-structure-check n4-certificate-check n5-structure-check n5-certificate-check n6-structure-check n6-certificate-check certificate-summary-check claim-manifest-check paper reproduce
+.PHONY: sync test proof-check all-n-reduction-check dirichlet-poissonization-check poisson-band-certificate-check one-cap-all-n-check one-cap-certificate-check n3-formula-check n3-certificate-check n4-structure-check n4-certificate-check n5-structure-check n5-certificate-check n6-structure-check n6-structure-data-check n6-face-standard-check n6-face-standard-0-check n6-face-standard-1-check n6-face-standard-2-check n6-face-standard-3-check n6-face-standard-4-check n6-face-standard-5-check n6-face-c6-check n6-face-c6-0-check n6-face-c6-1-check n6-face-c6-2-check n6-face-d6-check n6-face-d6-0-check n6-face-d6-1-check n6-face-d6-2-check n6-certificate-check n6-certificate-001-check n6-certificate-005-check n6-certificate-010-check certificate-summary-check claim-manifest-check paper reproduce
 
 sync:
 	uv sync --frozen
@@ -81,11 +81,84 @@ n6-structure-check:
 	cmp $(CERT_DIR)/n6-gaffke-bernstein-structure.json $$tmp; \
 	rm -f $$tmp
 
+n6-structure-data-check:
+	$(PYTHON) $(PY_DIR)/derive_n6_bernstein_structure.py \
+		--check-data-against $(CERT_DIR)/n6-gaffke-bernstein-structure.json
+
+n6-face-standard-check:
+	$(PYTHON) $(PY_DIR)/derive_n6_bernstein_structure.py \
+		--face-proof-group standard
+
+n6-face-standard-0-check:
+	$(PYTHON) $(PY_DIR)/derive_n6_bernstein_structure.py \
+		--face-proof-group standard-0
+
+n6-face-standard-1-check:
+	$(PYTHON) $(PY_DIR)/derive_n6_bernstein_structure.py \
+		--face-proof-group standard-1
+
+n6-face-standard-2-check:
+	$(PYTHON) $(PY_DIR)/derive_n6_bernstein_structure.py \
+		--face-proof-group standard-2
+
+n6-face-standard-3-check:
+	$(PYTHON) $(PY_DIR)/derive_n6_bernstein_structure.py \
+		--face-proof-group standard-3
+
+n6-face-standard-4-check:
+	$(PYTHON) $(PY_DIR)/derive_n6_bernstein_structure.py \
+		--face-proof-group standard-4
+
+n6-face-standard-5-check:
+	$(PYTHON) $(PY_DIR)/derive_n6_bernstein_structure.py \
+		--face-proof-group standard-5
+
+n6-face-c6-check:
+	$(PYTHON) $(PY_DIR)/derive_n6_bernstein_structure.py \
+		--face-proof-group c6
+
+n6-face-c6-0-check:
+	$(PYTHON) $(PY_DIR)/derive_n6_bernstein_structure.py \
+		--face-proof-group c6-0
+
+n6-face-c6-1-check:
+	$(PYTHON) $(PY_DIR)/derive_n6_bernstein_structure.py \
+		--face-proof-group c6-1
+
+n6-face-c6-2-check:
+	$(PYTHON) $(PY_DIR)/derive_n6_bernstein_structure.py \
+		--face-proof-group c6-2
+
+n6-face-d6-check:
+	$(PYTHON) $(PY_DIR)/derive_n6_bernstein_structure.py \
+		--face-proof-group d6
+
+n6-face-d6-0-check:
+	$(PYTHON) $(PY_DIR)/derive_n6_bernstein_structure.py \
+		--face-proof-group d6-0
+
+n6-face-d6-1-check:
+	$(PYTHON) $(PY_DIR)/derive_n6_bernstein_structure.py \
+		--face-proof-group d6-1
+
+n6-face-d6-2-check:
+	$(PYTHON) $(PY_DIR)/derive_n6_bernstein_structure.py \
+		--face-proof-group d6-2
+
 n6-certificate-check:
 	@tmp=$$(mktemp); \
 	$(PYTHON) $(PY_DIR)/n6_gaffke_certificate.py --out $$tmp; \
 	cmp $(CERT_DIR)/n6-gaffke-certificate.json $$tmp; \
 	rm -f $$tmp
+
+n6-certificate-001-check:
+	$(PYTHON) $(PY_DIR)/n6_gaffke_certificate.py --check-alpha 0.01
+
+n6-certificate-005-check:
+	$(PYTHON) $(PY_DIR)/n6_gaffke_certificate.py --check-alpha 0.05
+
+n6-certificate-010-check:
+	$(PYTHON) $(PY_DIR)/n6_gaffke_certificate.py --check-alpha 0.10
 
 certificate-summary-check:
 	@tmp=$$(mktemp); \

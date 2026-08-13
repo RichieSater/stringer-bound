@@ -1,11 +1,12 @@
-# Certified finite-sample conservatism at `n = 6` and 95% confidence
+# Certified finite-sample conservatism at `n = 6` and conventional confidence levels
 
 This note gives the complete reduction and exact-computation boundary for the
 manuscript's `n = 6` result. It proves that the binomial-factor Stringer bound
 is conservative for every distribution on `[0,1]` when
 
 ```text
-n = 6,       alpha = 0.05,       nominal confidence = 95%.
+n = 6,       alpha in {0.10, 0.05, 0.01},
+             nominal confidence in {90%, 95%, 99%}.
 ```
 
 The proof compares Stringer pointwise with the valid one-sided Gaffke
@@ -142,7 +143,7 @@ ordered vertex lists are stored in
 [`n6-gaffke-bernstein-structure.json`](../computations/certificates/n6-gaffke-bernstein-structure.json).
 Every coordinate in (6) is retained there as an exact rational function of
 `b,...,g`; no rounded vertex is used. The sign certificate encloses every
-affine determinant away from zero at `alpha=0.05`. Exact boundary identities
+affine determinant away from zero at each certified `alpha`. Exact boundary identities
 and directed strict-sign checks place every vertex in its claimed convex
 region, and directed coordinate differences certify all 210 pairs of the 21
 named vertices as distinct. The certificate also verifies the
@@ -196,16 +197,19 @@ Every coefficient not covered by those identities is enclosed as follows:
 4. every nonstructural Bernstein coefficient has a strictly positive lower
    endpoint.
 
-At `alpha=0.05`, the smallest positive lower bound in each region is:
+At each certified level, the smallest positive lower bound in each region
+is:
 
-| region | A | B | C | D | E | F |
-|---|---:|---:|---:|---:|---:|---:|
-| lower bound | 1.23e-10 | 1.17e-18 | 6.57e-23 | 4.01e-22 | 1.66e-15 | 9.57e-4 |
+| alpha | A | B | C | D | E | F |
+|---:|---:|---:|---:|---:|---:|---:|
+| 0.10 | 1.80e-8 | 1.85e-15 | 1.93e-19 | 4.24e-19 | 1.35e-13 | 1.53e-3 |
+| 0.05 | 1.23e-10 | 1.17e-18 | 6.57e-23 | 4.01e-22 | 1.66e-15 | 9.57e-4 |
+| 0.01 | 2.02e-15 | 9.63e-26 | 1.22e-30 | 6.05e-29 | 6.29e-20 | 2.41e-4 |
 
 Thus every residual in (5) and its five predecessors is nonnegative, so
 (2) holds. Pointwise domination of the valid Gaffke upper limit proves
-finite-sample conservatism of the binomial Stringer bound at `n=6` and 95%
-nominal confidence. The all-`n` factor comparison in
+finite-sample conservatism of the binomial Stringer bound at `n=6` and 90%,
+95%, and 99% nominal confidence. The all-`n` factor comparison in
 [`POISSON-DOMINATION.md`](POISSON-DOMINATION.md) transfers the conclusion to
 the uncapped Poisson-factor Stringer bound.
 
@@ -224,6 +228,31 @@ face-ideal derivative proofs. It requires Singular. The second command
 regenerates the directed-dyadic sign certificate and verifies every remaining
 coefficient. The sign certificate contains a SHA-256 digest of the structure
 file, binding the numerical layer to the exact symbolic layer.
+
+For CI systems with a six-hour per-job limit, both long commands have an
+equivalent split form:
+
+```bash
+make n6-structure-data-check
+make n6-face-standard-0-check n6-face-standard-1-check \
+  n6-face-standard-2-check n6-face-standard-3-check \
+  n6-face-standard-4-check n6-face-standard-5-check
+make n6-face-c6-0-check n6-face-c6-1-check n6-face-c6-2-check
+make n6-face-d6-0-check n6-face-d6-1-check n6-face-d6-2-check
+make n6-certificate-001-check n6-certificate-005-check \
+  n6-certificate-010-check
+```
+
+The data check independently regenerates and compares every polynomial,
+factorization, vertex, simplex, and face specification. The twelve Singular
+jobs then verify the 24 lower-order generic face conditions in six chunks and
+partition each of the two order-six conditions into three exhaustive,
+disjoint sets of derivative reductions against that bound artifact. Together
+they check the same data and all 26 generic ideal-membership conditions as the
+monolithic structure command; the split changes scheduling, not the proof.
+The three certificate-level jobs independently regenerate the complete
+directed-interval record for one value of `alpha` and compare it exactly
+with the corresponding record in the combined artifact.
 
 Floating-point arithmetic is used only to render decimal summaries. It is
 not used for a factor-root, structural-zero, determinant, or

@@ -20,8 +20,8 @@ following ranges:
 | 99% | 0.01 | `1 <= n <= 20` |
 
 This theorem is independent of the binomial-factor comparison. In
-particular, it proves new Poisson cases beyond the pointwise-transfer range:
-`n<=5` at all three levels and the separately certified `n=6` case at 95%.
+particular, it proves new Poisson cases beyond the pointwise-transfer range
+`n<=6` at all three levels.
 
 The proof has two parts.  A distribution-free lemma turns a corrected
 simultaneous survival-band event into Stringer coverage.  An exact rational
