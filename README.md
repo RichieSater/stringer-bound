@@ -64,11 +64,12 @@ larger Poisson ranges
 ([`POISSON-SIMULTANEOUS-BAND.md`](supporting-materials/theory/POISSON-SIMULTANEOUS-BAND.md)).
 The general-\(n\) conjecture at 95% remains open.
 
-**Two validated all-sample-size reporting rules are also available.**
-One preserves the shape of the ordinary Poisson factor curve and multiplies
-the complete bound by a precomputed scalar calibrated from the exact joint
-uniform-order-statistic probability. This modified rule has
-distribution-free coverage for every \(n\); representative exact
+**Two validated all-sample-size reporting families are also available.**
+One uses a precomputed scalar calibrated from the exact joint
+uniform-order-statistic probability. It can either scale the complete
+Poisson bound or fix the ordinary no-error factor and scale only the error
+increments. Both modified paths have distribution-free coverage for every
+\(n\); representative exact
 certificates cover \(n=25,50,100,200\) at 90%, 95%, and 99% confidence
 ([`POISSON-BAND-CALIBRATION.md`](supporting-materials/theory/POISSON-BAND-CALIBRATION.md)).
 The other pre-specifies the reported upper bound as the maximum of the
@@ -160,16 +161,24 @@ certificate or a written proof:
   event probability at least \(1-\alpha\). Then
   \(\min\{1,\kappa_{n,\alpha}\mathrm{SB}_{\rm P}\}\) is
   distribution-free valid for every sample size and every confidence level.
+  A second anchored path has the same guarantee for
+  \(\min\{1,p_0+\eta_{n,\alpha}(\mathrm{SB}_{\rm P}-p_0)\}\),
+  and therefore leaves the ordinary all-zero-sample result unchanged.
   A trivial finite scalar proves existence; at conventional levels an
   analytic Bonferroni construction gives an explicit marginal-crossing
   bound. Exact
-  rational certificates bracket the
-  band-minimal scalar within \(2^{-28}\) at \(n=25,50,100,200\) for 90%, 95%,
+  rational certificates bracket each
+  path-minimal scalar within \(2^{-28}\) at \(n=25,50,100,200\) for 90%, 95%,
   and 99% confidence. At 95%, simple six-decimal valid multipliers are
-  1.126246, 1.195804, 1.235956, and 1.257979, respectively. This validates the
-  modified scalar rule, with either untruncated or factorwise-capped Poisson
-  factors, not ordinary Stringer outside its proved ranges. It does not claim
-  global optimality among confidence procedures.
+  1.126246, 1.195804, 1.235956, and 1.257979 for full scaling, and
+  1.511563, 1.947538, 2.367560, and 2.778290 for the anchored error
+  increments, respectively. This validates the
+  modified scalar paths, with either untruncated or factorwise-capped Poisson
+  factors, not ordinary Stringer outside its proved ranges. Neither path
+  uniformly dominates the other, selection must be pre-specified, and no
+  global optimality among confidence procedures is claimed. On either path,
+  capping the calibrated factors themselves at one preserves coverage and
+  gives a report pointwise no larger than capping only the final result.
 
 - **All-sample-size safeguarded reporting rule**
   ([`GAFFKE-SAFEGUARD.md`](supporting-materials/theory/GAFFKE-SAFEGUARD.md)):
@@ -359,6 +368,12 @@ uv run --frozen python \
   --n 25 --alpha 0.05 --taints 1,0.4,0.1 \
   --out /tmp/calibrated-poisson.json
 ```
+
+The JSON contains both the full-scale and zero-taint-preserving certified
+paths, together with the pointwise no-larger calibrated-factor-capped version
+of each. The paths are alternatives that must be pre-specified; capping the
+calibrated factors within a selected path is itself proved and does not
+constitute post-selection between paths.
 
 ## Openness
 

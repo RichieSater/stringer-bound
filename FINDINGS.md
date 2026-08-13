@@ -46,7 +46,7 @@ each row, which limits that proof route rather than demonstrating Stringer
 undercoverage
 ([proof and certificate](supporting-materials/theory/POISSON-SIMULTANEOUS-BAND.md)).
 
-## 2. Two finite-sample-valid reporting rules are available for every n
+## 2. Two families of finite-sample-valid reporting rules are available for every n
 
 The corrected simultaneous-band argument yields an all-sample-size rule
 within the Poisson Stringer factor family. For each sample size and confidence
@@ -68,7 +68,20 @@ respectively
 ([proof, certificate, and exact report command](supporting-materials/theory/POISSON-BAND-CALIBRATION.md)).
 These multipliers certify the calibrated rule; values above one are not
 evidence that ordinary Stringer undercovers. Base-factor rounding must also
-be conservative.
+be conservative. A tighter implementation caps each calibrated factor at
+one before forming the Stringer expression. It has the same guarantee and is
+pointwise no larger than multiplying first and capping only the final result.
+
+A second proved scalar path fixes the ordinary zero-taint factor and scales
+only the error increments. It therefore gives **exactly zero uplift on an
+all-zero sample** while retaining the same all-sample-size coverage
+guarantee. Its increment multiplier is never smaller under this criterion,
+so neither path is uniformly smaller. The calibration path must be selected
+before inspecting the sample; choosing the smaller answer afterward is not
+certified. The same
+machine-readable artifact gives exact rational multiplier brackets for both
+paths. Capping the effective anchored factors at one likewise preserves
+coverage and can only reduce the reported bound.
 
 An audit methodology group can evaluate a reporting rule that does not wait
 for the open general-n conjecture: before observing the sample, define the

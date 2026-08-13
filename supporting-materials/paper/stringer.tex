@@ -36,8 +36,9 @@ audit practice, a corrected simultaneous-survival-band argument and exact
 rational certificates establish conservatism through $n=8$, $n=11$, and
 $n=20$, respectively. For every sample size and confidence level, scalar
 calibration of the Poisson factor curve yields a distribution-free valid
-modified rule. A separate all-sample-size rule reports the maximum of
-Stringer and a distribution-free bounded-mean limit. We also give explicit
+modified rule; an anchored variant leaves the all-zero-sample result
+unchanged. A separate all-sample-size rule reports the maximum of Stringer
+and a distribution-free bounded-mean limit. We also give explicit
 finite-sample counterexamples at selected confidence levels between $30\%$
 and $37\%$ and sample sizes $n=50,100,200,400$; exact rational certificates
 show coverage below nominal. In searches at $50\%$, $90\%$, and $95\%$, no
@@ -142,10 +143,12 @@ every observed sample. A separate corrected simultaneous-band argument,
 certified by exact rational boundary-crossing calculations, proves
 Poisson-factor coverage for every $n\le8$ at $90\%$, every $n\le11$ at
 $95\%$, and every $n\le20$ at $99\%$ confidence. The same argument yields
-an all-sample-size calibrated rule that retains the shape of the ordinary Poisson factor
-curve: multiply every factor, equivalently the complete bound, by one
+an all-sample-size calibrated rule that retains the shape of the ordinary
+Poisson factor curve: multiply every factor, equivalently the complete bound, by one
 precomputed scalar. We prove validity for every $n$ and give exact rational
-certificates for representative audit sample sizes.
+certificates for representative audit sample sizes. An anchored variant
+fixes the zero-taint factor and scales only the error increments. Capping
+the calibrated factors at one gives pointwise no-larger valid versions.
 
 \emph{(4) Exact counterexamples at low confidence}
 (Section~\ref{sec:counter}). Thirty-three certified three-point
@@ -1127,6 +1130,9 @@ where $V_{1:n}\le\cdots\le V_{n:n}$ are uniform order statistics. Then
 \[
 \Pr_F\{L_c\ge\mu\}\ge Q_n(a_1,\ldots,a_n).
 \]
+If $\bar c_j=\min\{1,c_j\}$ and $L_{\bar c}$ is formed from those
+factorwise-capped coefficients, then the same lower bound holds and
+$L_{\bar c}\le\min\{1,L_c\}$ pointwise.
 \end{lemma}
 
 \begin{proof}
@@ -1150,7 +1156,16 @@ $G(x)\le a_{j+1}\le c_j$. If $N_x=n$, use $G(x)\le1\le c_n$.
 Integration in \eqref{eq:integral-band} proves the event inclusion and
 hence the result. The coverage event depends only on the original sample,
 so its probability in the augmented experiment is its ordinary sampling
-probability.
+probability. The capped factors are nondecreasing, end at one, and induce
+the same boundaries $a_i$. The first conclusion therefore applies to them.
+Finally, summation by parts gives
+\[
+L_c=c_0(1-t_{(1)})+
+\sum_{j=1}^{n-1}c_j(t_{(j)}-t_{(j+1)})+c_nt_{(n)}.
+\]
+All displayed weights are nonnegative and sum to one. Since
+$\bar c_j\le c_j$ and $\bar c_n=1$, this representation gives
+$L_{\bar c}\le L_c$ and $L_{\bar c}\le1$.
 \end{proof}
 
 For nondecreasing boundaries $a_1,\ldots,a_n$, Bolshev's recursion
@@ -1255,7 +1270,13 @@ U_{n,\alpha}
 has coverage at least $1-\alpha$ for every $n\ge1$. The same conclusion
 holds with any certified $\kappa\ge\kappa_{n,\alpha}$. It also holds if each
 Poisson factor is capped at one before the complete factor-capped Stringer
-expression is multiplied by $\kappa$.
+expression is multiplied by $\kappa$. A pointwise no-larger valid rule uses
+the calibrated factors
+\[
+\widehat c_j=\min\left\{1,\frac{\kappa\lambda_j}{n}\right\}
+\]
+directly in the Stringer formula; the same curve results if the ordinary
+factors are capped before calibration.
 \end{theorem}
 
 \begin{proof}
@@ -1283,11 +1304,106 @@ Because $\kappa\ge1$,
 =a_i(\kappa),
 \]
 and the definition of $\kappa_0$ gives $c_n\ge1$. Thus the same event and
-the same argument apply.
+the same argument apply. Finally, apply the factorwise-capping conclusion of
+Lemma~\ref{lem:poissonband}. Because $\kappa\ge1$,
+$\min\{1,\kappa\bar p_j\}=\widehat c_j$, so both base-factor conventions
+give the stated common curve, pointwise no larger than their final-cap
+reports.
 \end{proof}
 
-At the conventional levels considered here, an explicit analytic upper
-bound is available. Put $\theta=\alpha/n$, let
+The full-scale rule raises the no-error factor. An anchored calibration can
+leave that factor unchanged. Put
+$\bar p_j=\min\{1,\lambda_j/n\}$. If $\bar p_0<1$, define
+\begin{equation}\label{eq:etaband}
+\begin{split}
+\eta_0&=\max\left\{1,
+\frac{1-\bar p_0}{\bar p_n-\bar p_0}\right\},\\
+d_j(\eta)&=\bar p_0+\eta(\bar p_j-\bar p_0),\\
+b_i(\eta)&=\min\{1,d_{i-1}(\eta)\},\\
+R_{n,\alpha}(\eta)
+&=Q_n\bigl(b_1(\eta),\ldots,b_n(\eta)\bigr),\\
+\eta_{n,\alpha}
+&=\inf\{\eta\ge\eta_0:R_{n,\alpha}(\eta)\ge1-\alpha\}.
+\end{split}
+\end{equation}
+If $\bar p_0=1$, set $\eta_{n,\alpha}=1$.
+
+\begin{corollary}[Zero-taint-preserving Poisson calibration]
+\label{cor:poissonanchor}
+Let $\SB_{\bar{\mathrm P}}$ use the factor-capped curve $\bar p_j$, and
+let $p_j^{\mathrm P}=\lambda_j/n$ denote the untruncated factors. Both
+\[
+\begin{split}
+U^{\mathrm A}_{n,\alpha}
+&=\min\{1,\bar p_0+\eta_{n,\alpha}
+(\SB_{\bar{\mathrm P}}-\bar p_0)\},\\
+U^{\mathrm A,u}_{n,\alpha}
+&=\min\{1,p_0^{\mathrm P}+\eta_{n,\alpha}
+(\SB_{\mathrm P}-p_0^{\mathrm P})\}
+\end{split}
+\]
+have coverage at least $1-\alpha$ for every $n\ge1$ and every
+$0<\alpha<1$. Moreover,
+$\eta_{n,\alpha}\ge\kappa_{n,\alpha}$. On an all-zero sample, each returns
+its ordinary zero-taint factor before the final cap. The same coverage holds
+after capping every effective anchored factor at one; the capped and
+untruncated base curves then give the same factor sequence and a report
+pointwise no larger than either displayed rule.
+\end{corollary}
+
+\begin{proof}
+If $\bar p_0=1$, monotonicity gives $\bar p_j=1$ for every $j$, while
+$p_0^{\mathrm P}\ge1$. Moreover, $\kappa_0=1$ and
+$Q_{n,\alpha}(1)=1$, so
+$\kappa_{n,\alpha}=\eta_{n,\alpha}=1$. Both displayed rules equal one after
+the final cap. Hence assume $\bar p_0<1$.
+The factors $d_j(\eta)$ are nondecreasing and
+$d_n(\eta)\ge1$ on the permitted domain, so
+Lemma~\ref{lem:poissonband} gives coverage at least
+$R_{n,\alpha}(\eta)$. The feasible set in \eqref{eq:etaband} is nonempty.
+Indeed, every boundary except the first tends to one as
+$\eta\to\infty$, whereas $b_1(\eta)=\bar p_0$. In the nontrivial case,
+$\bar p_0=\lambda_0/n<1$ and $\lambda_0=-\log\alpha$, so
+\[
+\lim_{\eta\to\infty}R_{n,\alpha}(\eta)
+=1-(1-\lambda_0/n)^n
+>1-e^{-\lambda_0}=1-\alpha.
+\]
+Continuity shows that the infimum is finite and attained. Linearity of the
+Stringer formula gives the first displayed rule.
+
+For the untruncated curve, use
+$d_j^{u}=p_0^{\mathrm P}+\eta(p_j^{\mathrm P}-p_0^{\mathrm P})$.
+If $p_j^{\mathrm P}<1$, it has the same capped boundary as $d_j$; if
+$p_j^{\mathrm P}\ge1$, both boundaries equal one because $\eta\ge1$.
+The terminal condition also holds. Thus the same event proves the second
+rule. Capping either effective factor curve at one preserves the event and
+gives identical factors, so the final assertion follows from
+Lemma~\ref{lem:poissonband}. If $\bar p_n<1$, then
+\[
+\eta_0=\frac{1-\bar p_0}{\bar p_n-\bar p_0}
+\ge\frac1{\bar p_n}=\kappa_0;
+\]
+if $\bar p_n=1$, both domain lower bounds equal one. For every
+$x\ge\eta_0$,
+\[
+b_i(x)\le \min\{1,x\bar p_{i-1}\}=a_i(x),
+\]
+so $R_{n,\alpha}(x)\le Q_{n,\alpha}(x)$. Minimality therefore gives
+$\eta_{n,\alpha}\ge\kappa_{n,\alpha}$. If every taint is zero, all
+factor-increment terms vanish.
+\end{proof}
+
+The anchored multiplier is never smaller, but it applies only to the error
+increments. The calibration path must be
+pre-specified; taking the smaller of the two bounds after observing the
+sample is not justified by these results. At $95\%$ confidence, simple
+six-decimal valid anchored multipliers at $n=25,50,100,$ and $200$ are
+$1.511563$, $1.947538$, $2.367560$, and $2.778290$, respectively; exact
+dyadic brackets are recorded with the full-scale certificates below.
+
+For the full-scale path, an explicit analytic upper bound is available at
+the conventional levels considered here. Put $\theta=\alpha/n$, let
 $\lambda_j(\theta)$ solve
 \[
 e^{-\lambda_j(\theta)}\sum_{r=0}^j
@@ -1332,9 +1448,9 @@ $95\%$ & $1.126246$ & $1.195804$ & $1.235956$ & $1.257979$\\
 $99\%$ & $1.027950$ & $1.111273$ & $1.161122$ & $1.189239$\\
 \bottomrule
 \end{tabular}
-\caption{Certified scalar multipliers for the all-sample-size band-calibrated
-Poisson rule. Each displayed value is an upward rounding of an exact dyadic
-upper endpoint.}
+\caption{Certified scalar multipliers for the full-scale all-sample-size
+band-calibrated Poisson rule. Each displayed value is an upward rounding of
+an exact dyadic upper endpoint.}
 \label{tab:poissoncalibration}
 \end{table}
 
@@ -1879,9 +1995,13 @@ sizes retain a positive but decreasing numerical cushion.
 For those larger sizes, Theorem~\ref{thm:poissoncalibration} supplies a
 second distribution-free option that stays within the Poisson Stringer
 factor family: multiply the complete result by the precomputed
-$\kappa_{n,\alpha}$ and cap at one. This is a guarantee for the calibrated
-rule, not evidence about coverage of the ordinary rule. The certified
-examples show that
+$\kappa_{n,\alpha}$ and cap at one, or use the pointwise no-larger
+calibrated-factor-capped curve. This is a guarantee for the calibrated rule,
+not evidence about coverage of the ordinary rule.
+Corollary~\ref{cor:poissonanchor} gives a second calibration path that
+preserves the ordinary all-zero-sample result and scales only the error
+increments. The path must be chosen before the sample is observed. The
+certified examples show that
 anti-conservatism can occur at several nominal confidence levels below
 $50\%$, at sample sizes $n=50,100,200,$ and $400$. Coverage for ordinary
 audit sample sizes at conventional confidence remains an open problem, so
@@ -1904,8 +2024,10 @@ factors, exact Bernstein certificates for Theorems~\ref{thm:n3},
 \ref{thm:n4}, \ref{thm:n5}, and \ref{thm:n6}, symbolic regeneration checks for
 their simplex-cap formulas, exact rational Poisson-limit and
 boundary-crossing certificates for Theorem~\ref{thm:poissonband},
-exact rational opposite-endpoint certificates for the representative scalar
-calibrations in Theorem~\ref{thm:poissoncalibration},
+exact rational opposite-endpoint certificates for the representative
+full-scale and zero-taint-preserving calibrations in
+Theorem~\ref{thm:poissoncalibration} and
+Corollary~\ref{cor:poissonanchor},
 high-precision Poisson search calculations, exact-sign rational brackets for the all-sample-size
 Gaffke safeguard, symbolic and rational checks for the analytic all-$n$
 one-cap comparison, an independent finite regression containing $59{,}700$

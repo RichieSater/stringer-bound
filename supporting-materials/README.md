@@ -28,7 +28,8 @@ certificate proves coverage for every \(n\le8\) at 90%, every \(n\le11\) at
 95%, and every \(n\le20\) at 99%; see
 `theory/POISSON-SIMULTANEOUS-BAND.md`. The same band lemma yields an
 all-sample-size scalar-calibrated Poisson rule, with exact representative
-multiplier certificates in `theory/POISSON-BAND-CALIBRATION.md`.
+multiplier certificates in `theory/POISSON-BAND-CALIBRATION.md`. Its anchored
+variant fixes the ordinary zero-taint factor and scales only error increments.
 For arbitrary sample size, `theory/GAFFKE-SAFEGUARD.md` defines a
 distribution-free valid reporting rule obtained by taking the maximum of
 Stringer and the valid Gaffke limit. Its implementation brackets the Gaffke
@@ -61,8 +62,8 @@ comparison, not a general coverage theorem for ordinary Stringer.
 | `theory/POISSON-DOMINATION.md` | Written proof that practical-level Poisson factors dominate binomial factors for every sample size | proof-essential |
 | `theory/POISSON-SIMULTANEOUS-BAND.md` | Written randomized-survival-band proof of the direct Poisson coverage ranges | proof-essential |
 | `poisson_band_certificate.py` | Exact rational Poisson-limit signs and Bolshev boundary-crossing probabilities at 90%, 95%, and 99% | proof-essential |
-| `theory/POISSON-BAND-CALIBRATION.md` | Written all-sample-size theorem for the scalar-calibrated Poisson rule | proof-essential |
-| `poisson_band_calibration.py` | Exact adjacent-dyadic brackets for representative band-minimal scalar multipliers | proof-essential |
+| `theory/POISSON-BAND-CALIBRATION.md` | Written all-sample-size theorems for full-scale and zero-taint-preserving Poisson calibrations | proof-essential |
+| `poisson_band_calibration.py` | Exact adjacent-dyadic brackets for representative multipliers on both calibration paths | proof-essential |
 | `theory/GAFFKE-SAFEGUARD.md` | Written all-sample-size coverage argument and exact divided-difference computation of the Gaffke floor | proof-essential |
 | `theory/ONE-CAP-COMPARISON.md` | Dimension-free cap lemma and analytic all-sample-size Stringer specialization at confidence at least \(75\%\) | proof-essential |
 | `one_cap_all_n_check.py` | Symbolic identities, rational constant checks, and finite numerical regression for the analytic proof | proof support |
@@ -128,6 +129,7 @@ uv run --frozen python \
   supporting-materials/computations/python/poisson_band_calibration.py \
   --n 25 --alpha 0.05 --taints 1,0.4,0.1 \
   --out /tmp/calibrated-poisson.json
+# The JSON returns two paths; pre-specify one rather than taking their minimum.
 
 # Analytic all-n one-cap theorem at confidence >=75%
 make one-cap-all-n-check
@@ -199,13 +201,17 @@ alternating-series partial sums after power-of-two range reduction. Then
 `Fraction` arithmetic. Numerical root finding proposes endpoints only.
 
 The scalar-calibration certificate uses the same exact Poisson-limit
-enclosures. Floating point proposes one \(2^{-28}\) multiplier cell. At its
-lower endpoint, upper Poisson-limit endpoints give an exact upper bound on
-the band probability below nominal; at its upper endpoint, lower
-Poisson-limit endpoints give an exact lower bound at least nominal. Thus the
-displayed upper multiplier is a rigorous valid choice for the modified
-scalar rule, with either untruncated or factorwise-capped Poisson factors.
-It does not certify undercoverage of ordinary Stringer.
+enclosures. Floating point proposes one \(2^{-28}\) multiplier cell on each
+path. For full scaling, opposite common endpoints enclose the band
+probability. For the anchored path, later boundaries increase with their own
+Poisson limit but decrease with the zero-count limit, so the certificate uses
+the corresponding mixed endpoint substitutions. Exact signs bracket both
+path-minimal multipliers. Each upper endpoint is a rigorous valid choice for
+its modified rule, with either untruncated or factorwise-capped Poisson
+factors. The written theorem also permits capping the calibrated factors
+themselves at one, which preserves the band event and gives a pointwise
+no-larger report. Neither certificate proves undercoverage of ordinary
+Stringer.
 
 ## The all-sample-size reporting safeguard
 

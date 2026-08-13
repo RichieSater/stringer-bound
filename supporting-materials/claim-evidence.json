@@ -336,10 +336,12 @@
     {
       "id": "band-calibrated-poisson-all-n",
       "classification": "proved_theorem",
-      "statement": "For every n>=1 and alpha in (0,1), multiplying the ordinary Poisson Stringer factor curve by the scalar kappa defined through the corrected simultaneous-band probability and the terminal-factor constraint, and capping the result at one, gives distribution-free coverage at least 1-alpha; the same theorem covers the convention that first caps each Poisson factor at one.",
+      "statement": "For every n>=1 and alpha in (0,1), the corrected simultaneous-band criterion yields two distribution-free valid Poisson Stringer calibrations: a full-scale multiplier and a zero-taint-preserving affine path that fixes the ordinary no-error factor and scales only error increments; both cover untruncated and factorwise-capped Poisson conventions after the final cap at one, the anchored multiplier is never smaller than the full-scale multiplier, and capping the calibrated factors themselves at one preserves coverage while giving a pointwise no-larger report.",
       "manuscript_labels": [
         "eq:kappaband",
         "thm:poissoncalibration",
+        "eq:etaband",
+        "cor:poissonanchor",
         "tab:poissoncalibration",
         "eq:kappabound"
       ],
@@ -351,12 +353,12 @@
         },
         {
           "path": "supporting-materials/computations/python/poisson_band_calibration.py",
-          "role": "exact calibration-bracket generator for representative sample sizes",
+          "role": "exact full-scale and zero-anchor calibration-bracket generator for representative sample sizes",
           "trust": "proof_essential"
         },
         {
           "path": "supporting-materials/computations/certificates/poisson-band-calibration-certificate.json",
-          "role": "exact rational opposite-endpoint certificates for the displayed multipliers",
+          "role": "exact rational opposite-endpoint certificates for both displayed calibration paths",
           "trust": "proof_essential"
         },
         {
@@ -369,7 +371,7 @@
         "make poisson-band-calibration-check",
         "make test"
       ],
-      "limitations": "This theorem validates the scalar-calibrated rule, not ordinary Poisson Stringer outside its proved ranges. The displayed conventional-level multipliers are minimal only under the stated sufficient-band criterion and to the certified dyadic resolution; no global optimality among valid procedures is claimed."
+      "limitations": "These results validate modified calibration paths, not ordinary Poisson Stringer outside its proved ranges. Each displayed conventional-level multiplier is minimal only on its stated one-parameter sufficient-band path and to the certified dyadic resolution; neither path uniformly dominates the other, selection must be pre-specified, and no global optimality among valid procedures is claimed."
     },
     {
       "id": "all-n-stringer-gaffke-safeguard",

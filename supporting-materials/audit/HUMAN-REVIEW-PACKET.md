@@ -164,6 +164,25 @@ Questions:
 8. Is the theorem consistently described as validating the modified scalar
    rule rather than ordinary Stringer, and is minimality limited to this
    sufficient-event family?
+9. For Corollary~`cor:poissonanchor`, are the anchored factors nondecreasing,
+   is the terminal condition correct, and does the limiting event probability
+   equal `1-(1-lambda_0/n)^n > 1-alpha`?
+10. Do the capped and untruncated anchored paths induce the same capped band
+    boundaries for `eta>=1`, and does linearity give
+    `p_0+eta*(SB-p_0)` exactly?
+11. In the anchored exact enclosure, are later boundaries increasing in
+    `lambda_j` but decreasing in `lambda_0`, so that the mixed endpoint
+    substitutions have the stated directions?
+12. Is the no-error invariance exact, and is the warning against choosing the
+    smaller calibration after observing the sample sufficiently prominent?
+13. Do `eta_0>=kappa_0` and the boundary ordering `b_i(x)<=a_i(x)` prove
+    `eta_(n,alpha)>=kappa_(n,alpha)` as claimed?
+14. Does capping the effective calibrated factors at one preserve the band
+    boundaries and terminal condition, and does summation by parts prove
+    that the resulting report is pointwise no larger than final-only capping?
+15. For both scalar paths, do the capped and untruncated base-factor
+    conventions produce the same effective curve after calibrated-factor
+    capping?
 
 ## Review F: the all-sample-size reporting safeguard
 

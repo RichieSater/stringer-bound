@@ -94,10 +94,12 @@ comparison.
 
 A separate all-sample-size option preserves the Poisson factor curve and
 multiplies the complete ordinary result by an exactly calibrated scalar; see
-[`POISSON-BAND-CALIBRATION.md`](POISSON-BAND-CALIBRATION.md). The scalar
-rule raises every sample result at a fixed `(n,alpha)`, whereas (1) is
-sample-adaptive. No pointwise ordering between the two valid rules is
-claimed.
+[`POISSON-BAND-CALIBRATION.md`](POISSON-BAND-CALIBRATION.md). An anchored
+variant instead fixes the ordinary zero-taint factor and scales only error
+increments. The calibration path must be pre-specified. The Gaffke rule (1)
+is sample-adaptive. On either scalar path, capping the calibrated factors at
+one gives a pointwise no-larger valid version. No pointwise ordering between
+the Gaffke rule and the scalar families is claimed.
 
 ## Exact-sign computation of the floor
 

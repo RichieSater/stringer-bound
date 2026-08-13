@@ -3,8 +3,9 @@
 ## Executive summary
 
 The repository does **not** yet prove that ordinary Stringer is conservative
-for arbitrary audit sample size.  It does provide two procedures that an
-audit methodology group can evaluate without waiting for that open problem.
+for arbitrary audit sample size.  It does provide two families of procedures
+that an audit methodology group can evaluate without waiting for that open
+problem.
 The principal safeguard in this note is:
 
 > Before observing the sample, define the reported taint-rate upper bound as
@@ -68,7 +69,7 @@ not assert that the safeguard's Gaffke component is pointwise inactive there.
 Beyond those ranges, the safeguard remains the proved all-sample-size option
 under the stated model.
 
-## Alternative all-sample-size rule within the Poisson factor family
+## Alternative all-sample-size calibrations within the Poisson factor family
 
 The corrected band also yields a second rule that a methodology group can
 evaluate. Let \(\kappa_{n,\alpha}\) be the smallest scalar satisfying
@@ -88,8 +89,8 @@ U_{\rm scalar}
 \]
 
 This rule is distribution-free valid for every sample size and every
-confidence level under the same i.i.d. model. It keeps the existing Poisson factor curve and requires only
-one precomputed multiplier. Exact certificates give these simple
+confidence level under the same i.i.d. model. It keeps the existing Poisson
+factor curve and requires only one precomputed multiplier. Exact certificates give these simple
 six-decimal valid choices:
 
 | nominal confidence | `n=25` | `n=50` | `n=100` | `n=200` |
@@ -108,16 +109,95 @@ are minimal only for this particular corrected-band criterion, to the
 certified resolution. See
 [`POISSON-BAND-CALIBRATION.md`](../theory/POISSON-BAND-CALIBRATION.md).
 
+A pointwise tighter implementation uses
+
+\[
+\widehat p_j=\min\{1,\kappa_{n,\alpha}\lambda_j/n\}
+\]
+
+as the calibrated factor curve and forms the Stringer expression from that
+curve. This has the same coverage guarantee and is never larger than
+multiplying the complete result and capping only at the end. It also removes
+the distinction between first capping or not capping the ordinary Poisson
+factors.
+
 The six-decimal multiplier table controls rounding of the multiplier, not
 rounding in a third-party Poisson factor table. A production implementation
 must compute the underlying factors with a certified upper enclosure or
 show that the approved table rounds them upward. The command below performs
 the former check with exact rational endpoints.
 
-The scalar rule and the Stringer--Gaffke maximum solve the same validity
-problem differently. The scalar rule is operationally close to existing
-factor-table workflows but raises every sample result at a fixed
-`(n,alpha)`. The Gaffke safeguard is sample-adaptive and often has zero
+### A zero-taint-preserving path
+
+The full-scale calibration raises the no-error factor. A second proved path
+keeps that factor fixed. With
+
+\[
+\bar p_j=\min\{1,\lambda_j/n\},
+\]
+
+precompute the smallest admissible \(\eta_{n,\alpha}\ge1\) for which the
+corrected band probability based on
+
+\[
+d_j=\bar p_0+\eta_{n,\alpha}(\bar p_j-\bar p_0)
+\]
+
+is at least \(1-\alpha\), including the terminal-factor condition. Then
+either factor convention has a valid anchored report:
+
+\[
+\begin{aligned}
+U^{\rm A}_{\rm capped}
+&=\min\{1,\bar p_0+\eta_{n,\alpha}
+(U_{\rm Stringer,\bar P}-\bar p_0)\},\\
+U^{\rm A}_{\rm untruncated}
+&=\min\{1,p_0^{\rm P}+\eta_{n,\alpha}
+(U_{\rm Stringer,P}-p_0^{\rm P})\}.
+\end{aligned}
+\]
+
+On an all-zero sample, these expressions return the ordinary zero-taint
+factor exactly before the final cap. The price is a no-smaller multiplier on
+the error increments. Neither anchored rule uniformly dominates the
+full-scale rule. A methodology must choose the calibration path before
+seeing the sample; selecting the smaller reported result afterward is not
+covered by either theorem.
+
+Here too, a methodology can cap every effective anchored factor at one
+before forming the Stringer expression. The capped and untruncated base
+curves then produce the same adjusted factors. This version has the same
+coverage guarantee, preserves the all-zero result, and is pointwise no
+larger than capping only the final affine report.
+
+The same exact certificate gives these simple six-decimal valid choices for
+the anchored error-increment multiplier:
+
+| nominal confidence | `n=25` | `n=50` | `n=100` | `n=200` |
+|---:|---:|---:|---:|---:|
+| 90% | 1.820063 | 2.299904 | 2.764607 | 3.219411 |
+| 95% | 1.511563 | 1.947538 | 2.367560 | 2.778290 |
+| 99% | 1.101565 | 1.480516 | 1.839132 | 2.188420 |
+
+For a fixed factor convention, let `s` be ordinary Stringer and `p_0` its
+no-error factor. Before the final cap, the anchored report minus the
+full-scale report is
+
+\[
+(\eta_{n,\alpha}-\kappa_{n,\alpha})s
+-(\eta_{n,\alpha}-1)p_0.
+\]
+
+The anchored report is therefore lower on an all-zero sample, but it can be
+higher after observed errors raise `s`. The paths are not pointwise ordered;
+the methodology choice should reflect the expected sample profile and must
+be made before seeing the sample.
+
+The scalar rules and the Stringer--Gaffke maximum solve the same validity
+problem differently. The scalar rules are operationally close to existing
+factor-table workflows. A nontrivial full-scale path raises every sample
+result at a fixed `(n,alpha)`; the anchored path instead preserves
+the all-zero result. The Gaffke safeguard is sample-adaptive and often has zero
 uplift, but it requires a second bounded-mean calculation. No general
 pointwise ordering is claimed. A methodology evaluation should compare both
 on representative engagement populations before selecting either rule.
@@ -165,21 +245,28 @@ uv run --frozen python \
   supporting-materials/computations/python/poisson_band_calibration.py \
   --n 25 --alpha 0.05 --taints 1,0.4,0.1 \
   --out /tmp/poisson-kappa.json
-jq '{kappa_upper:.case.kappa_upper,report}' /tmp/poisson-kappa.json
+jq '{kappa_upper:.case.kappa_upper,
+     eta_upper:.zero_anchor_case.eta_upper,report}' /tmp/poisson-kappa.json
 ```
 
 The command can take longer at large `n` because it brackets every required
 Poisson limit and evaluates the joint probability with exact rational
 arithmetic. Most decimal fields summarize exact numerators and denominators
 stored alongside them; the
-`case.kappa_upper.valid_decimal_ceiling_12` field is instead explicitly
-rounded upward for direct use. For this example that valid decimal choice is
-`1.126245908440`, the ordinary Poisson component is enclosed above by
-`0.2204168980155687`, and the calibrated reported bound is enclosed above by
-`0.2482436295408857`. This command uses the untruncated Poisson factors and
-caps only the final calibrated result; its JSON records that convention
-explicitly. It also records the exact taint multiset, including the implied
-zero count, and every dyadic Poisson-limit bracket used in the calculation.
+`case.kappa_upper.valid_decimal_ceiling_12` and
+`zero_anchor_case.eta_upper.valid_decimal_ceiling_12` fields are instead
+explicitly rounded upward for direct use. For this example the valid choices
+are `1.126245908440` and `1.511562403292`. The ordinary Poisson component is
+enclosed above by `0.2204168980155687`; the full-scale and anchored reports
+are enclosed above by `0.2482436295408857` and `0.2718737360313792`,
+respectively. The JSON also reports rigorous upper enclosures for the
+pointwise no-larger calibrated-factor-capped versions; they coincide with
+the final-cap values in this three-error example because none of the factors
+used is above one. The ordinary component and the final-cap fields use the
+untruncated Poisson factors; the JSON records that base convention and labels
+both calibrated capping variants explicitly. It also records the exact taint
+multiset, including the implied zero count, and every dyadic Poisson-limit
+bracket used in the calculation.
 
 ## Why the numerical floor is certifiable
 
@@ -210,8 +297,10 @@ If a methodology owner authorizes evaluation of the rule, retain at least:
 - the ordinary Stringer component;
 - both endpoints and the width of the certified Gaffke bracket;
 - the safeguarded maximum and uplift;
-- if the scalar rule is used, the exact certified multiplier, its dyadic
-  resolution, the uncapped ordinary Poisson result, and the capped product;
+- if a scalar path is used, its pre-specified path name, whether capping is
+  applied only at the end or to each calibrated factor, the exact certified
+  multiplier and dyadic resolution, the uncapped ordinary Poisson result,
+  and the calibrated result;
 - the repository commit and locked dependency file used; and
 - the unedited JSON output.
 
