@@ -210,8 +210,10 @@ path-minimal multipliers. Each upper endpoint is a rigorous valid choice for
 its modified rule, with either untruncated or factorwise-capped Poisson
 factors. The written theorem also permits capping the calibrated factors
 themselves at one, which preserves the band event and gives a pointwise
-no-larger report. Neither certificate proves undercoverage of ordinary
-Stringer.
+no-larger report. A separate analytic corollary proves that the full-scale
+multiplier two is valid uniformly in sample size whenever nominal confidence
+is at least \(2/e\approx73.6\%\). These results do not prove undercoverage
+of ordinary Stringer.
 
 ## The all-sample-size reporting safeguard
 

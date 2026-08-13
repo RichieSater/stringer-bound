@@ -29,9 +29,11 @@ sys.path.insert(0, str(PYTHON_DIR))
 
 from poisson_band_calibration import (  # noqa: E402
     CASES,
+    UNIFORM_MULTIPLIERS,
     _exact_zero_anchor_boundaries,
     bolshev_probability_numeric,
     certify_case,
+    certify_uniform_multiplier,
     certify_zero_anchor_case,
     exact_calibrated_report,
 )
@@ -51,6 +53,35 @@ def _upward_decimal(value, digits):
 
 
 class ScalarCalibrationTests(unittest.TestCase):
+    def test_uniform_multiplier_two_threshold_is_exactly_documented(self):
+        # At kappa=2 the analytic sufficient condition is
+        # alpha <= 1-2/e. Check it numerically at all certificate levels and
+        # verify that the proof's geometric ratio is strictly below one.
+        threshold = 1 - 2 / mp.e
+        for alpha_text in CASES:
+            alpha = mp.mpf(alpha_text)
+            self.assertLessEqual(alpha, threshold)
+            rho = 2 / mp.e
+            self.assertLess(rho, 1)
+            self.assertLessEqual(alpha, 1 - rho)
+
+        paper = PAPER.read_text()
+        theory = THEORY.read_text()
+        practice = PRACTICE.read_text()
+        self.assertIn(r"\label{cor:poissonuniform}", paper)
+        self.assertIn(r"\alpha\le1-\frac2e", paper)
+        self.assertIn(r"\alpha\le1-2/e", theory)
+        self.assertIn("sample size", practice)
+        self.assertIn("2/e", practice)
+
+    def test_uniform_multiplier_choices_have_exact_positive_margins(self):
+        for alpha_text, kappa in UNIFORM_MULTIPLIERS.items():
+            case = certify_uniform_multiplier(Fraction(alpha_text), kappa)
+            self.assertEqual(_record_fraction(case["kappa"]), kappa)
+            self.assertGreater(
+                _record_fraction(case["powered_margin_lower"]), 0)
+            self.assertLess(_record_fraction(case["rho_upper"]), 1)
+
     def test_zero_anchor_mixed_endpoint_enclosures_have_correct_direction(self):
         n = 3
         brackets = (
@@ -321,7 +352,7 @@ class ScalarCalibrationTests(unittest.TestCase):
 
     def test_committed_certificate_has_opposite_exact_signs(self):
         payload = json.loads(CERTIFICATE.read_text())
-        self.assertEqual(payload["schema_version"], 2)
+        self.assertEqual(payload["schema_version"], 3)
         self.assertGreaterEqual(payload["exponential_series_pairs"], 1)
         self.assertIn(
             "kappa_upper.valid_decimal_ceiling_12",
@@ -334,6 +365,20 @@ class ScalarCalibrationTests(unittest.TestCase):
             },
             CASES,
         )
+        self.assertEqual(
+            {
+                Fraction(case["alpha"]): _record_fraction(case["kappa"])
+                for case in payload["uniform_full_scale_cases"]
+            },
+            {
+                Fraction(alpha): kappa
+                for alpha, kappa in UNIFORM_MULTIPLIERS.items()
+            },
+        )
+        for case in payload["uniform_full_scale_cases"]:
+            self.assertGreater(
+                _record_fraction(case["powered_margin_lower"]), 0)
+            self.assertLess(_record_fraction(case["rho_upper"]), 1)
         for level in payload["levels"]:
             nominal = 1 - Fraction(level["alpha"])
             factor_records = level["poisson_lambda_brackets"]
@@ -406,6 +451,20 @@ class ScalarCalibrationTests(unittest.TestCase):
         theory = THEORY.read_text()
         practice = PRACTICE.read_text()
         confidence = {"0.10": "90", "0.05": "95", "0.01": "99"}
+        for case in payload["uniform_full_scale_cases"]:
+            displayed = _upward_decimal(
+                _record_fraction(case["kappa"]), 2)
+            alpha_text = next(
+                text for text in confidence
+                if Fraction(text) == Fraction(case["alpha"])
+            )
+            paper_row = "$%s\\%%$ & $%s$\\\\" % (
+                confidence[alpha_text], displayed)
+            theory_row = "| %s%% | %s |" % (
+                confidence[alpha_text], displayed)
+            self.assertIn(paper_row, paper)
+            self.assertIn(theory_row, theory)
+            self.assertIn(f"`{displayed}`", practice)
         for level in payload["levels"]:
             displayed = [
                 _upward_decimal(

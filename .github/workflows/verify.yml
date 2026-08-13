@@ -80,7 +80,7 @@ jobs:
       - name: Install pinned Python environment
         run: uv sync --frozen
 
-      - name: Regenerate exact scalar-calibration-path certificates
+      - name: Regenerate exact scalar-path and uniform-multiplier certificates
         run: make poisson-band-calibration-check
 
   n6-structure-data:

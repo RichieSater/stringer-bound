@@ -51,7 +51,7 @@ where `V_(1:n)<=...<=V_(n:n)` are uniform order statistics.  Put
         Q_{n,\alpha}(\kappa)\ge1-\alpha\}.              \tag{4}
 \]
 
-The function in (3) is continuous and nondecreasing. Section 3 below
+The function in (3) is continuous and nondecreasing. Section 5 below
 shows that the set in (4) is nonempty. As the inverse image of
 `[1-alpha,1]` under a continuous function, it is closed, so its infimum is
 attained.
@@ -138,13 +138,99 @@ ordinary Stringer.  The direct theorem in the manuscript establishes this
 through `n=8`, `n=11`, and `n=20` at 90%, 95%, and 99% confidence,
 respectively.
 
-## 3. A zero-taint-preserving calibration
+## 3. A sample-size-uniform analytic multiplier
+
+The exact joint event in (3) gives a substantially tighter multiplier in
+the certified examples. There is also a closed-form sufficient condition
+that is independent of `n`.
+
+> **Corollary (uniform multiplier).** Suppose `0<alpha<=exp(-1)` and
+> `kappa>1` satisfies
+>
+> \[
+>  \alpha^{\kappa-1}\le 1-\kappa e^{1-\kappa}.       \tag{9}
+> \]
+>
+> Then `kappa_(n,alpha)<=kappa` for every `n>=1`. Both full-scale
+> capping conventions in Section 2 therefore have coverage at least
+> `1-alpha` for every sample size. In particular, `kappa=2` is valid
+> whenever
+>
+> \[
+>  \alpha\le1-2/e,                                  \tag{10}
+> \]
+>
+> equivalently whenever nominal confidence is at least
+> `2/e = 0.73575888...`.
+
+**Proof.** Put `lambda_0=-log(alpha)` and let
+`X_a~Gamma(a,1)`. Because `alpha<=exp(-1)`, the number
+`c=lambda_0-1` is nonnegative. Pinelis's gamma-tail monotonicity theorem
+states that `Pr(X_a-a>c)` is increasing in `a`. Hence
+
+\[
+ \Pr\{X_{j+1}>j+\lambda_0\}
+ \ge \Pr\{X_1>\lambda_0\}=\alpha,
+ \qquad \lambda_j\ge j+\lambda_0.                  \tag{11}
+\]
+
+This uses the Erlang--Poisson identity
+`Pr(X_(j+1)>x)=P(Poisson(x)<=j)` and the defining equality at `lambda_j`.
+
+Put `rho=kappa*exp(1-kappa)<1`. Equation (11), `lambda_0>=1`, and
+`kappa>1` imply `j<kappa*lambda_j-1`. Thus, for every boundary in (2)
+that is below one, Anderson--Samuels gives
+
+\[
+\begin{aligned}
+ \Pr\{V_{j+1:n}>a_{j+1}(\kappa)\}
+ &=B(j;n,\kappa\lambda_j/n)\\
+ &<P(j;\kappa\lambda_j)\\
+ &\le \alpha\kappa^j e^{-(\kappa-1)\lambda_j}
+ \le \alpha^\kappa\rho^j.                         \tag{12}
+\end{aligned}
+\]
+
+The first weak inequality in the last two lines follows from
+`sum_(r=0)^j kappa^r*lambda_j^r/r! <=
+kappa^j*sum_(r=0)^j lambda_j^r/r!`; the last follows from (11). A boundary
+equal to one contributes zero. The terminal factor is at least one by (11).
+The union bound now gives
+
+\[
+ 1-Q_{n,\alpha}(\kappa)
+ \le \alpha^\kappa\sum_{j=0}^{n-1}\rho^j
+ \le \frac{\alpha^\kappa}{1-\rho}
+ \le\alpha.                                         \tag{13}
+\]
+
+Thus `kappa` is feasible in (4). Substitution of `kappa=2` reduces (9) to
+(10). `square`
+
+This corollary is deliberately one-sided: it is an analytic upper bound for
+the path-minimal multiplier, not an assertion that two is necessary or
+optimal. Applying (9) gives the following smaller convenient choices, also
+uniformly over every positive sample size:
+
+| nominal confidence | valid `kappa` for every `n` |
+|---:|---:|
+| 90% | 1.76 |
+| 95% | 1.66 |
+| 99% | 1.52 |
+
+For each rational decimal, the committed certificate encloses
+`exp(1-kappa)` above by an exact rational and verifies the powered form of
+(9) with a strictly positive rational margin. The exact joint calculations
+reported below are materially smaller still at the representative sample
+sizes.
+
+## 4. A zero-taint-preserving calibration
 
 The full-scale rule in (5) multiplies the no-error factor as well as every
 error increment. A second one-parameter path keeps that factor fixed. Put
 
 \[
- \bar p_j=\min\{1,\lambda_j/n\},\qquad j=0,\ldots,n. \tag{9}
+\bar p_j=\min\{1,\lambda_j/n\},\qquad j=0,\ldots,n. \tag{14}
 \]
 
 If `pbar_0=1`, the final cap makes the upper bound identically one and no
@@ -161,11 +247,11 @@ calibration is needed. Otherwise `pbar_n>pbar_0`; define
  \eta_{n,\alpha}
  &=\inf\{\eta\ge\eta_0:
           R_{n,\alpha}(\eta)\ge1-\alpha\}.
- \end{aligned}                                             \tag{10}
+ \end{aligned}                                             \tag{15}
 \]
 
 > **Theorem (zero-taint-preserving calibration).** Let `SB_Pbar` use the
-> factor-capped Poisson curve in (9). Then both
+> factor-capped Poisson curve in (14). Then both
 >
 > \[
 > \begin{aligned}
@@ -175,7 +261,7 @@ calibration is needed. Otherwise `pbar_n>pbar_0`; define
 > U^{\rm A,u}_{n,\alpha}
 > &=\min\{1,p_0^{\rm P}+\eta_{n,\alpha}
 >              (\operatorname{SB}_{\rm P}-p_0^{\rm P})\}
-> \end{aligned}                                             \tag{11}
+> \end{aligned}                                             \tag{16}
 > \]
 >
 > have distribution-free coverage at least `1-alpha` for every sample
@@ -185,16 +271,16 @@ calibration is needed. Otherwise `pbar_n>pbar_0`; define
 > each rule returns its ordinary zero-taint factor before the final cap.
 > Capping every effective anchored factor at one also preserves coverage;
 > the two base-factor conventions then give the same curve and a report
-> pointwise no larger than either rule in (11).
+> pointwise no larger than either rule in (16).
 
 **Proof.** If `pbar_0=1`, monotonicity gives `pbar_j=1` for every `j`, while
 `p_0^P>=1`. Moreover, `kappa_0=1` and `Q_(n,alpha)(1)=1`, so
-`kappa_(n,alpha)=eta_(n,alpha)=1`. Both rules in (11) equal one after the
+`kappa_(n,alpha)=eta_(n,alpha)=1`. Both rules in (16) equal one after the
 final cap. Hence assume `pbar_0<1`. The factors `d_j(eta)` are nondecreasing and
 `d_n(eta)>=1` on the permitted domain. The simultaneous-band lemma therefore
-proves coverage at least `R_(n,alpha)(eta)` for the first rule in (11).
+proves coverage at least `R_(n,alpha)(eta)` for the first rule in (16).
 
-The feasible set in (10) is nonempty. As `eta` tends to infinity, every
+The feasible set in (15) is nonempty. As `eta` tends to infinity, every
 boundary except the first tends to one, whereas
 `b_1(eta)=pbar_0`. In the nontrivial case `pbar_0=lambda_0/n<1`, and
 `lambda_0=-log(alpha)`. Hence
@@ -202,11 +288,11 @@ boundary except the first tends to one, whereas
 \[
  \lim_{\eta\to\infty}R_{n,\alpha}(\eta)
  =1-(1-\lambda_0/n)^n
- >1-e^{-\lambda_0}=1-\alpha.                         \tag{12}
+ >1-e^{-\lambda_0}=1-\alpha.                         \tag{17}
 \]
 
 Continuity and monotonicity show that the infimum is finite and attained.
-Linearity of the Stringer formula gives the first expression in (11).
+Linearity of the Stringer formula gives the first expression in (16).
 
 For the untruncated curve, use
 `d_j^u=p_0^P+eta(p_j^P-p_0^P)`. If `p_j^P<1`, this has the same boundary as
@@ -222,7 +308,7 @@ identical because, for `eta>=1`,
 \]
 
 The same summation-by-parts argument makes this report pointwise no larger
-than either final-cap rule in (11).
+than either final-cap rule in (16).
 
 It remains to compare the multipliers. If `pbar_n<1`, then
 
@@ -255,14 +341,14 @@ full-scale value is exactly
 
 \[
  (\eta_{n,\alpha}-\kappa_{n,\alpha})s
- -(\eta_{n,\alpha}-1)p_0.                              \tag{13}
+ -(\eta_{n,\alpha}-1)p_0.                              \tag{18}
 \]
 
 Thus the anchored value is no larger on an all-zero sample, but it can be
 larger once observed errors raise `s`. The paths are not pointwise ordered
 in general even though their multipliers are ordered.
 
-## 4. Analytic finite upper bounds
+## 5. Sample-size-specific analytic upper bounds
 
 The calibration exists without relying on a numerical root. Because the
 `lambda_j` are increasing, the elementary choice
@@ -286,13 +372,13 @@ levels from a Bonferroni construction. Let
  \kappa_{\mathrm B}
  =\max\left\{\kappa_0,
        \max_{0\le j<n}\frac{\lambda_j(\theta)}{\lambda_j}\right\}.
-                                                               \tag{14}
+                                                               \tag{19}
 \]
 
 Then
 
 \[
- \kappa_{n,\alpha}\le\kappa_{\mathrm B}<\infty.         \tag{15}
+ \kappa_{n,\alpha}\le\kappa_{\mathrm B}<\infty.         \tag{20}
 \]
 
 Indeed, for
@@ -307,7 +393,7 @@ the Anderson--Samuels binomial--Poisson comparison used in
 \[
  \Pr\{V_{i:n}>b_i\}
  =\Pr\{\operatorname{Bin}(n,b_i)\le i-1\}
- \le\theta.                                             \tag{16}
+ \le\theta.                                             \tag{21}
 \]
 
 If `lambda_(i-1)(theta)>=n`, the probability on the left is zero; otherwise the
@@ -315,33 +401,34 @@ comparison is strict.  The union bound gives
 
 \[
  \Pr\{V_{i:n}\le b_i\text{ for every }i\}
- \ge1-n\theta=1-\alpha.                                 \tag{17}
+ \ge1-n\theta=1-\alpha.                                 \tag{22}
 \]
 
-By (14), `a_i(kappa_B)>=b_i`, so (15) follows. Thus the elementary choice
+By (19), `a_i(kappa_B)>=b_i`, so (20) follows. Thus the elementary choice
 `kappa_B` is already a proved all-`n` calibration.  Computing the exact joint
 probability in (3), rather than applying the union bound, gives the no-larger
 calibration in (4).
 
-## 5. Exact representative calibrations
+## 6. Exact representative calibrations
 
 Bolshev's recursion evaluates (3): with `Q_0=1`,
 
 \[
  Q_m=1-\sum_{i=1}^m {m\choose i}
-       (1-a_{m-i+1})^iQ_{m-i}.                          \tag{18}
+       (1-a_{m-i+1})^iQ_{m-i}.                          \tag{23}
 \]
 
 The committed certificate encloses each `lambda_j` between adjacent
 64-bit dyadic rationals and brackets `kappa_(n,alpha)` between adjacent
 28-bit dyadic rationals.  At the lower `kappa` endpoint it substitutes the
-**upper** lambda endpoints into (18), obtaining an upper bound below
+**upper** lambda endpoints into (23), obtaining an upper bound below
 `1-alpha`.  At the upper `kappa` endpoint it substitutes the **lower**
 lambda endpoints, obtaining a lower bound at least `1-alpha`.  All
 probabilities in these two sign checks are exact rational numbers. The JSON
 stores every Poisson-limit endpoint used, together with the endpoint-sign
 direction, so the event calculation is self-contained rather than only a
-table of final decimals.
+table of final decimals. Its `uniform_full_scale_cases` records separately
+certify the three sample-size-uniform decimals above.
 
 The following entries round the certified dyadic upper endpoints upward to
 12 decimal places, so every displayed multiplier is itself a valid choice.
@@ -392,14 +479,14 @@ under the manuscript's i.i.d. model.
 
 These are the smallest multipliers under the sufficient-event criterion
 (3), to the certified dyadic resolution. The anchored values are likewise
-path-minimal under (10). They are **not** asserted to be
+path-minimal under (15). They are **not** asserted to be
 the smallest possible corrections among all valid confidence procedures,
 and a value above one is not evidence that ordinary Stringer undercovers.
 The displayed multiplier does not by itself control rounding of an external
 Poisson factor table; a report must also use exact factors or conservative
-upper enclosures, as the command in Section 6 does.
+upper enclosures, as the command in Section 8 does.
 
-## 6. Relation to prior adjusted-level proposals
+## 7. Relation to prior adjusted-level proposals
 
 Bimpeh (2008, Section 5.4) explored an extended Stringer calculation using
 Rom's adjusted significance levels and reported numerical boundary-crossing
@@ -417,7 +504,7 @@ larger; the scalar rule preserves the traditional factor-table form but can
 be more conservative.  No pointwise ordering between the two rules is
 claimed here.
 
-## 7. Reproduction and scope
+## 8. Reproduction and scope
 
 Regenerate the exact table and compare it byte for byte with the committed
 artifact:
@@ -442,7 +529,7 @@ jq '{kappa_upper:.case.kappa_upper,
 
 Zero taints may be omitted while `--n` remains the full sample size. Decimal
 taints are interpreted as exact rationals. The returned calibrated reports
-are upper enclosures of the mathematical rules in (5) and (11), so factor
+are upper enclosures of the mathematical rules in (5) and (16), so factor
 rounding cannot invalidate either guarantee. This command uses untruncated
 Poisson factors and records that convention in its JSON; the factor-capped
 variant proved above is not silently substituted. The JSON returns both pre-specified
@@ -469,6 +556,10 @@ adoption.
 T. W. Anderson and S. M. Samuels, “Some inequalities among binomial and
 Poisson probabilities,” *Proceedings of the Fifth Berkeley Symposium on
 Mathematical Statistics and Probability*, vol. 1, 1967, pp. 1--12.
+
+I. Pinelis, “Monotonicity properties of the gamma family of
+distributions,” *Statistics & Probability Letters* 171 (2021), 109027,
+<https://doi.org/10.1016/j.spl.2020.109027>.
 
 Y. Bimpeh, *Statistical Modelling and Inference for Financial Auditing*,
 PhD thesis, Dublin City University, 2008,

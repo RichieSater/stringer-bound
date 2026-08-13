@@ -183,6 +183,14 @@ Questions:
 15. For both scalar paths, do the capped and untruncated base-factor
     conventions produce the same effective curve after calibrated-factor
     capping?
+16. For Corollary~`cor:poissonuniform`, does Pinelis's centered-gamma
+    monotonicity imply `lambda_j>=j+lambda_0`, and does the
+    Anderson--Samuels comparison plus the geometric union bound prove
+    `kappa_(n,alpha)<=kappa` under
+    `alpha^(kappa-1)<=1-kappa*exp(1-kappa)`?
+17. Does substituting `kappa=2` give exactly `alpha<=1-2/e`, and is the
+    resulting multiplier consistently described as sufficient rather than
+    optimal or as evidence against ordinary Stringer?
 
 ## Review F: the all-sample-size reporting safeguard
 

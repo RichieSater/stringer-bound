@@ -109,6 +109,15 @@ are minimal only for this particular corrected-band criterion, to the
 certified resolution. See
 [`POISSON-BAND-CALIBRATION.md`](../theory/POISSON-BAND-CALIBRATION.md).
 
+If a methodology needs one conservative multiplier that is independent of
+sample size, an analytic corollary permits `2` at every `n` whenever nominal
+confidence is at least `2/e`, approximately `73.6%`. This includes 90%, 95%,
+and 99%. The value `2` is only a simple uniform upper bound; it is not claimed
+to be necessary or optimal, and the certified sample-size-specific values in
+the table are materially smaller. Applying the same analytic criterion gives
+sharper uniform choices `1.76`, `1.66`, and `1.52` at 90%, 95%, and 99%,
+respectively. Exact rational exponential enclosures certify these decimals.
+
 A pointwise tighter implementation uses
 
 \[
@@ -266,7 +275,9 @@ used is above one. The ordinary component and the final-cap fields use the
 untruncated Poisson factors; the JSON records that base convention and labels
 both calibrated capping variants explicitly. It also records the exact taint
 multiset, including the implied zero count, and every dyadic Poisson-limit
-bracket used in the calculation.
+bracket used in the calculation. At 90%, 95%, and 99%, the
+`uniform_full_scale_case` field supplies the separately certified multiplier
+that is valid without a sample-size lookup.
 
 ## Why the numerical floor is certifiable
 
@@ -298,9 +309,10 @@ If a methodology owner authorizes evaluation of the rule, retain at least:
 - both endpoints and the width of the certified Gaffke bracket;
 - the safeguarded maximum and uplift;
 - if a scalar path is used, its pre-specified path name, whether capping is
-  applied only at the end or to each calibrated factor, the exact certified
-  multiplier and dyadic resolution, the uncapped ordinary Poisson result,
-  and the calibrated result;
+  applied only at the end or to each calibrated factor, whether the
+  multiplier is sample-size-specific or uniform, the exact certified
+  multiplier and its applicable certificate fields, the uncapped ordinary
+  Poisson result, and the calibrated result;
 - the repository commit and locked dependency file used; and
 - the unedited JSON output.
 

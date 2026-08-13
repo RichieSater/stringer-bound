@@ -36,9 +36,12 @@ audit practice, a corrected simultaneous-survival-band argument and exact
 rational certificates establish conservatism through $n=8$, $n=11$, and
 $n=20$, respectively. For every sample size and confidence level, scalar
 calibration of the Poisson factor curve yields a distribution-free valid
-modified rule; an anchored variant leaves the all-zero-sample result
-unchanged. A separate all-sample-size rule reports the maximum of Stringer
-and a distribution-free bounded-mean limit. We also give explicit
+modified rule. At nominal confidence at least $2/e\approx73.6\%$, the
+multiplier two is valid uniformly in the sample size; sharper uniform choices
+are $1.76$, $1.66$, and $1.52$ at $90\%$, $95\%$, and $99\%$, respectively.
+An anchored variant leaves the all-zero-sample result unchanged. A separate all-sample-size rule
+reports the maximum of Stringer and a distribution-free bounded-mean limit.
+We also give explicit
 finite-sample counterexamples at selected confidence levels between $30\%$
 and $37\%$ and sample sizes $n=50,100,200,400$; exact rational certificates
 show coverage below nominal. In searches at $50\%$, $90\%$, and $95\%$, no
@@ -148,7 +151,10 @@ Poisson factor curve: multiply every factor, equivalently the complete bound, by
 precomputed scalar. We prove validity for every $n$ and give exact rational
 certificates for representative audit sample sizes. An anchored variant
 fixes the zero-taint factor and scales only the error increments. Capping
-the calibrated factors at one gives pointwise no-larger valid versions.
+the calibrated factors at one gives pointwise no-larger valid versions. A
+sample-size-uniform analytic bound shows that doubling the Poisson curve is
+valid whenever nominal confidence is at least $2/e\approx73.6\%$; at the
+three conventional levels, smaller simple choices are certified.
 
 \emph{(4) Exact counterexamples at low confidence}
 (Section~\ref{sec:counter}). Thirty-three certified three-point
@@ -1311,6 +1317,95 @@ give the stated common curve, pointwise no larger than their final-cap
 reports.
 \end{proof}
 
+The exact joint calibration in \eqref{eq:kappaband} is readily precomputed,
+but the next result gives a closed-form upper bound that does not depend on
+the sample size.
+
+\begin{corollary}[Sample-size-uniform multiplier]
+\label{cor:poissonuniform}
+Suppose $0<\alpha\le e^{-1}$ and $\kappa>1$ satisfies
+\begin{equation}\label{eq:uniformkappa}
+\alpha^{\kappa-1}\le 1-\kappa e^{1-\kappa}.
+\end{equation}
+Then $\kappa_{n,\alpha}\le\kappa$ for every $n\ge1$. Consequently,
+both the final-cap and calibrated-factor-capped full-scale rules formed with
+this $\kappa$ have coverage at least $1-\alpha$ at every sample size. In
+particular,
+\[
+\kappa_{n,\alpha}\le2
+\qquad\text{whenever}\qquad
+\alpha\le1-\frac2e.
+\]
+Thus the multiplier two is a distribution-free valid choice, uniformly in
+$n$, at every nominal confidence level at least
+$2/e\approx73.5759\%$.
+\end{corollary}
+
+\begin{proof}
+Let $\lambda_0=-\log\alpha$ and let
+$X_a\sim\operatorname{Gamma}(a,1)$. Because $\alpha\le e^{-1}$,
+$c=\lambda_0-1\ge0$. The gamma-tail monotonicity theorem of
+Pinelis \cite{pinelisgamma2021} states that
+$\Pr\{X_a-a>c\}$ is increasing in $a$. Hence, for every integer $j\ge0$,
+\begin{equation}\label{eq:gammashift}
+\Pr\{X_{j+1}>j+\lambda_0\}
+\ge \Pr\{X_1>\lambda_0\}=\alpha,
+\qquad\text{so}\qquad \lambda_j\ge j+\lambda_0.
+\end{equation}
+Here we used the Erlang--Poisson identity
+$\Pr\{X_{j+1}>x\}=P(j;x)$ and the definition $P(j;\lambda_j)=\alpha$.
+In particular, the terminal condition in Lemma~\ref{lem:poissonband}
+holds for every $\kappa>1$.
+
+Put $\rho=\kappa e^{1-\kappa}<1$. If
+$a_{j+1}(\kappa)=\kappa\lambda_j/n<1$, the
+Anderson--Samuels comparison used in
+Proposition~\ref{prop:poissondomination} gives
+\[
+\begin{aligned}
+\Pr\{V_{j+1:n}>a_{j+1}(\kappa)\}
+&=B\left(j;n,\frac{\kappa\lambda_j}{n}\right)\\
+&<P(j;\kappa\lambda_j)\\
+&\le \alpha\,\kappa^j e^{-(\kappa-1)\lambda_j}
+ \le \alpha^\kappa\rho^j.
+\end{aligned}
+\]
+The comparison applies because \eqref{eq:gammashift}, $\lambda_0\ge1$,
+and $\kappa>1$ imply $j<\kappa\lambda_j-1$. The first weak inequality in
+the last two lines uses
+$\sum_{r=0}^j\kappa^r\lambda_j^r/r!
+ \le\kappa^j\sum_{r=0}^j\lambda_j^r/r!$; the last uses
+\eqref{eq:gammashift}. If the boundary is one, the probability on the left
+is zero. A union bound therefore yields
+\[
+1-Q_{n,\alpha}(\kappa)
+\le \alpha^\kappa\sum_{j=0}^{n-1}\rho^j
+\le \frac{\alpha^\kappa}{1-\rho}
+\le\alpha
+\]
+by \eqref{eq:uniformkappa}. Thus $\kappa$ belongs to the defining set in
+\eqref{eq:kappaband}. The coverage statements follow from
+Theorem~\ref{thm:poissoncalibration}. For $\kappa=2$,
+\eqref{eq:uniformkappa} reduces to $\alpha\le1-2/e$.
+\end{proof}
+
+Condition~\eqref{eq:uniformkappa} also gives the following smaller convenient
+choices. Exact rational exponential enclosures certify each inequality.
+\begin{table}[htbp]\centering
+\begin{tabular}{rr}
+\toprule
+nominal confidence & sample-size-uniform valid $\kappa$\\
+\midrule
+$90\%$ & $1.76$\\
+$95\%$ & $1.66$\\
+$99\%$ & $1.52$\\
+\bottomrule
+\end{tabular}
+\caption{Simple full-scale Poisson calibration multipliers valid for every
+sample size. These are sufficient choices, not optimality claims.}
+\label{tab:poissonuniform}
+\end{table}
+
 The full-scale rule raises the no-error factor. An anchored calibration can
 leave that factor unchanged. Put
 $\bar p_j=\min\{1,\lambda_j/n\}$. If $\bar p_0<1$, define
@@ -1477,6 +1572,8 @@ $99\%$, respectively.
 Theorem~\ref{thm:poissoncalibration} supplies a conservative
 scalar-calibrated rule beyond those ranges without claiming coverage for the
 ordinary Poisson bound.
+Corollary~\ref{cor:poissonuniform} supplies closed-form full-scale
+multipliers that are valid simultaneously for every sample size.
 More generally, any distributional class for which the binomial-factor
 bound is proved conservative inherits the same conclusion for the
 Poisson-factor bound. Proposition~\ref{prop:poissondomination} does not,
@@ -1998,6 +2095,12 @@ factor family: multiply the complete result by the precomputed
 $\kappa_{n,\alpha}$ and cap at one, or use the pointwise no-larger
 calibrated-factor-capped curve. This is a guarantee for the calibrated rule,
 not evidence about coverage of the ordinary rule.
+Corollary~\ref{cor:poissonuniform} gives a closed-form alternative at
+conventional confidence levels: $1.76$, $1.66$, and $1.52$ are valid at
+every sample size for $90\%$, $95\%$, and $99\%$, respectively. More
+generally, the multiplier two works whenever nominal confidence is at least
+$2/e$. The exact joint calibration is appreciably smaller in the reported
+examples.
 Corollary~\ref{cor:poissonanchor} gives a second calibration path that
 preserves the ordinary all-zero-sample result and scales only the error
 increments. The path must be chosen before the sample is observed. The
@@ -2027,7 +2130,8 @@ boundary-crossing certificates for Theorem~\ref{thm:poissonband},
 exact rational opposite-endpoint certificates for the representative
 full-scale and zero-taint-preserving calibrations in
 Theorem~\ref{thm:poissoncalibration} and
-Corollary~\ref{cor:poissonanchor},
+Corollary~\ref{cor:poissonanchor}, exact rational exponential enclosures for
+the uniform multipliers in Table~\ref{tab:poissonuniform},
 high-precision Poisson search calculations, exact-sign rational brackets for the all-sample-size
 Gaffke safeguard, symbolic and rational checks for the analytic all-$n$
 one-cap comparison, an independent finite regression containing $59{,}700$
@@ -2133,6 +2237,11 @@ behaviour of the Stringer bound, \emph{Statistica Neerlandica}
 binomial exceeding its expectation, \emph{Statistics \& Probability Letters}
 \textbf{179} (2021), 109224,
 \url{https://doi.org/10.1016/j.spl.2021.109224}.
+
+\bibitem{pinelisgamma2021} I.~Pinelis, Monotonicity properties of the gamma
+family of distributions, \emph{Statistics \& Probability Letters}
+\textbf{171} (2021), 109027,
+\url{https://doi.org/10.1016/j.spl.2020.109027}.
 
 \bibitem{phan2021} M.~Phan, P.~S. Thomas and E.~Learned-Miller, Towards
 practical mean bounds for small samples, \emph{Proceedings of the 38th

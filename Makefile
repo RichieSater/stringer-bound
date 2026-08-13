@@ -167,4 +167,4 @@ paper:
 	@! grep -Eq "Warning|Overfull|Underfull|undefined|multiply defined" $(PAPER_DIR)/stringer.log
 
 reproduce: sync test proof-check all-n-reduction-check dirichlet-poissonization-check poisson-band-certificate-check poisson-band-calibration-check one-cap-all-n-check one-cap-certificate-check n3-formula-check n3-certificate-check n4-structure-check n4-certificate-check n5-structure-check n5-certificate-check n6-structure-check n6-certificate-check certificate-summary-check claim-manifest-check paper
-	@echo "Core proofs, all-n reductions, Dirichlet-Poissonization research certificate, Poisson simultaneous-band and both scalar-calibration-path certificates, analytic all-n and finite one-cap checks, n=3 through n=6 Bernstein certificates, counterexample summaries, claim links, tests, and manuscript build passed."
+	@echo "Core proofs, all-n reductions, Dirichlet-Poissonization research certificate, Poisson simultaneous-band, scalar-calibration-path, and uniform-multiplier certificates, analytic all-n and finite one-cap checks, n=3 through n=6 Bernstein certificates, counterexample summaries, claim links, tests, and manuscript build passed."

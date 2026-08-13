@@ -69,8 +69,12 @@ One uses a precomputed scalar calibrated from the exact joint
 uniform-order-statistic probability. It can either scale the complete
 Poisson bound or fix the ordinary no-error factor and scale only the error
 increments. Both modified paths have distribution-free coverage for every
-\(n\); representative exact
-certificates cover \(n=25,50,100,200\) at 90%, 95%, and 99% confidence
+\(n\). A closed-form corollary gives uniform full-scale choices of 1.76,
+1.66, and 1.52 at 90%, 95%, and 99%, respectively. More generally, the
+multiplier two is valid at every sample size whenever nominal confidence is
+at least \(2/e\approx73.6\%\). Representative exact certificates give
+materially smaller choices at
+\(n=25,50,100,200\) and 90%, 95%, and 99% confidence
 ([`POISSON-BAND-CALIBRATION.md`](supporting-materials/theory/POISSON-BAND-CALIBRATION.md)).
 The other pre-specifies the reported upper bound as the maximum of the
 familiar Stringer calculation and the finite-sample-valid Gaffke bounded-mean
@@ -166,7 +170,11 @@ certificate or a written proof:
   and therefore leaves the ordinary all-zero-sample result unchanged.
   A trivial finite scalar proves existence; at conventional levels an
   analytic Bonferroni construction gives an explicit marginal-crossing
-  bound. Exact
+  bound. A second analytic result is uniform in sample size: multiplying by
+  \(2\) is valid for every \(n\) whenever nominal confidence is at least
+  \(2/e\approx73.6\%\). At 90%, 95%, and 99%, the same result gives the
+  sharper uniform choices 1.76, 1.66, and 1.52, respectively. These are
+  sufficient ceilings, not optimality claims. Exact
   rational certificates bracket each
   path-minimal scalar within \(2^{-28}\) at \(n=25,50,100,200\) for 90%, 95%,
   and 99% confidence. At 95%, simple six-decimal valid multipliers are
@@ -373,7 +381,9 @@ The JSON contains both the full-scale and zero-taint-preserving certified
 paths, together with the pointwise no-larger calibrated-factor-capped version
 of each. The paths are alternatives that must be pre-specified; capping the
 calibrated factors within a selected path is itself proved and does not
-constitute post-selection between paths.
+constitute post-selection between paths. At 90%, 95%, and 99%, the JSON also
+contains the analytic full-scale multiplier certified uniformly in sample
+size.
 
 ## Openness
 
