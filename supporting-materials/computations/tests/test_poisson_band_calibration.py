@@ -29,10 +29,13 @@ sys.path.insert(0, str(PYTHON_DIR))
 
 from poisson_band_calibration import (  # noqa: E402
     CASES,
-    UNIFORM_MULTIPLIERS,
+    ELEMENTARY_UNIFORM_MULTIPLIERS,
+    REFINED_UNIFORM_MULTIPLIERS,
+    UNIFORM_PROBABILITY_BITS,
     _exact_zero_anchor_boundaries,
     bolshev_probability_numeric,
     certify_case,
+    certify_refined_uniform_multiplier,
     certify_uniform_multiplier,
     certify_zero_anchor_case,
     exact_calibrated_report,
@@ -75,12 +78,36 @@ class ScalarCalibrationTests(unittest.TestCase):
         self.assertIn("2/e", practice)
 
     def test_uniform_multiplier_choices_have_exact_positive_margins(self):
-        for alpha_text, kappa in UNIFORM_MULTIPLIERS.items():
+        for alpha_text, kappa in ELEMENTARY_UNIFORM_MULTIPLIERS.items():
             case = certify_uniform_multiplier(Fraction(alpha_text), kappa)
             self.assertEqual(_record_fraction(case["kappa"]), kappa)
             self.assertGreater(
                 _record_fraction(case["powered_margin_lower"]), 0)
             self.assertLess(_record_fraction(case["rho_upper"]), 1)
+
+    def test_refined_uniform_choices_have_exact_positive_margins(self):
+        # Exercise the exact finite-prefix machinery on a small case. The
+        # committed-certificate test below verifies all three production
+        # choices, while the byte-for-byte regeneration target recomputes
+        # their complete 100-term certificates.
+        alpha_text = "0.10"
+        kappa = Fraction(2)
+        prefix_terms = 1
+        brackets = exact_poisson_lambda_brackets(
+            alpha_text, prefix_terms - 1, 64)
+        case = certify_refined_uniform_multiplier(
+            Fraction(alpha_text), kappa, prefix_terms, brackets)
+        self.assertEqual(_record_fraction(case["kappa"]), kappa)
+        self.assertEqual(case["prefix_terms"], prefix_terms)
+        self.assertEqual(
+            len(case["finite_prefix_term_upper_numerators"]), prefix_terms)
+        self.assertGreater(
+            _record_fraction(case["margin_below_alpha_lower"]), 0)
+        self.assertLess(_record_fraction(case["rho_upper"]), 1)
+        self.assertLess(
+            _record_fraction(case["total_crossing_probability_upper"]),
+            Fraction(alpha_text),
+        )
 
     def test_zero_anchor_mixed_endpoint_enclosures_have_correct_direction(self):
         n = 3
@@ -352,7 +379,7 @@ class ScalarCalibrationTests(unittest.TestCase):
 
     def test_committed_certificate_has_opposite_exact_signs(self):
         payload = json.loads(CERTIFICATE.read_text())
-        self.assertEqual(payload["schema_version"], 3)
+        self.assertEqual(payload["schema_version"], 4)
         self.assertGreaterEqual(payload["exponential_series_pairs"], 1)
         self.assertIn(
             "kappa_upper.valid_decimal_ceiling_12",
@@ -368,17 +395,47 @@ class ScalarCalibrationTests(unittest.TestCase):
         self.assertEqual(
             {
                 Fraction(case["alpha"]): _record_fraction(case["kappa"])
-                for case in payload["uniform_full_scale_cases"]
+                for case in payload["elementary_uniform_full_scale_cases"]
             },
             {
                 Fraction(alpha): kappa
-                for alpha, kappa in UNIFORM_MULTIPLIERS.items()
+                for alpha, kappa in ELEMENTARY_UNIFORM_MULTIPLIERS.items()
             },
         )
-        for case in payload["uniform_full_scale_cases"]:
+        for case in payload["elementary_uniform_full_scale_cases"]:
             self.assertGreater(
                 _record_fraction(case["powered_margin_lower"]), 0)
             self.assertLess(_record_fraction(case["rho_upper"]), 1)
+        self.assertEqual(
+            {
+                Fraction(case["alpha"]): (
+                    _record_fraction(case["kappa"]), case["prefix_terms"])
+                for case in payload["refined_uniform_full_scale_cases"]
+            },
+            {
+                Fraction(alpha): value
+                for alpha, value in REFINED_UNIFORM_MULTIPLIERS.items()
+            },
+        )
+        for case in payload["refined_uniform_full_scale_cases"]:
+            self.assertEqual(
+                case["probability_upper_dyadic_bits"],
+                UNIFORM_PROBABILITY_BITS,
+            )
+            self.assertEqual(
+                len(case["lambda_lower_numerators"]),
+                case["prefix_terms"],
+            )
+            self.assertEqual(
+                len(case["finite_prefix_term_upper_numerators"]),
+                case["prefix_terms"],
+            )
+            self.assertGreater(
+                _record_fraction(case["margin_below_alpha_lower"]), 0)
+            self.assertLess(
+                _record_fraction(case["total_crossing_probability_upper"]),
+                Fraction(case["alpha"]),
+            )
         for level in payload["levels"]:
             nominal = 1 - Fraction(level["alpha"])
             factor_records = level["poisson_lambda_brackets"]
@@ -451,17 +508,24 @@ class ScalarCalibrationTests(unittest.TestCase):
         theory = THEORY.read_text()
         practice = PRACTICE.read_text()
         confidence = {"0.10": "90", "0.05": "95", "0.01": "99"}
-        for case in payload["uniform_full_scale_cases"]:
-            displayed = _upward_decimal(
-                _record_fraction(case["kappa"]), 2)
+        elementary = {
+            Fraction(case["alpha"]): case
+            for case in payload["elementary_uniform_full_scale_cases"]
+        }
+        for case in payload["refined_uniform_full_scale_cases"]:
+            displayed = _upward_decimal(_record_fraction(case["kappa"]), 2)
+            elementary_displayed = _upward_decimal(
+                _record_fraction(elementary[Fraction(case["alpha"])]["kappa"]),
+                2,
+            )
             alpha_text = next(
                 text for text in confidence
                 if Fraction(text) == Fraction(case["alpha"])
             )
-            paper_row = "$%s\\%%$ & $%s$\\\\" % (
-                confidence[alpha_text], displayed)
-            theory_row = "| %s%% | %s |" % (
-                confidence[alpha_text], displayed)
+            paper_row = "$%s\\%%$ & $%s$ & $%s$\\\\" % (
+                confidence[alpha_text], displayed, elementary_displayed)
+            theory_row = "| %s%% | %s | %s |" % (
+                confidence[alpha_text], displayed, elementary_displayed)
             self.assertIn(paper_row, paper)
             self.assertIn(theory_row, theory)
             self.assertIn(f"`{displayed}`", practice)

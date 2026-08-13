@@ -26,8 +26,10 @@ analytic theorem also handles other confidence levels by imposing the
 additional terminal-factor lower bound recorded in the theory note; this
 script is deliberately limited to the conventional regime where that lower
 bound is one. A separate analytic corollary shows that multiplier two is
-valid uniformly in the sample size when ``alpha <= 1-2/e``. The
-all-sample-size theorem is recorded in
+valid uniformly in the sample size when ``alpha <= 1-2/e``. A refinement
+retains a finite prefix of the exact Poisson crossing probabilities and
+bounds the infinite remainder geometrically, producing smaller uniform
+choices at conventional levels. The all-sample-size theorem is recorded in
 ``theory/POISSON-BAND-CALIBRATION.md``.
 """
 
@@ -47,6 +49,7 @@ from poisson_band_certificate import bolshev_probability
 from stringer import (
     EXACT_EXP_PAIRS,
     exact_exp_neg_bounds,
+    exact_poisson_cdf_bounds,
     exact_poisson_lambda_brackets,
 )
 
@@ -60,13 +63,19 @@ CASES = {
     "0.05": (25, 50, 100, 200),
     "0.01": (25, 50, 100, 200),
 }
-UNIFORM_MULTIPLIERS = {
+ELEMENTARY_UNIFORM_MULTIPLIERS = {
     "0.10": Fraction(44, 25),
     "0.05": Fraction(83, 50),
     "0.01": Fraction(38, 25),
 }
+REFINED_UNIFORM_MULTIPLIERS = {
+    "0.10": (Fraction(153, 100), 100),
+    "0.05": (Fraction(36, 25), 100),
+    "0.01": (Fraction(133, 100), 100),
+}
 FACTOR_BITS = 64
 KAPPA_BITS = 28
+UNIFORM_PROBABILITY_BITS = 256
 NUMERICAL_DPS = 80
 HERE = Path(__file__).resolve().parent
 DEFAULT_OUTPUT = (
@@ -344,6 +353,117 @@ def certify_uniform_multiplier(alpha: Fraction, kappa: Fraction):
             "The displayed kappa is a rigorous valid full-scale multiplier "
             "for every positive sample size under the analytic geometric-"
             "union-bound criterion."
+        ),
+    }
+
+
+def _dyadic_ceiling(value: Fraction, bits: int):
+    """Round a nonnegative rational upward to the ``2**-bits`` grid."""
+    value = Fraction(value)
+    if value < 0:
+        raise ValueError("dyadic ceiling requires a nonnegative value")
+    denominator = 1 << bits
+    numerator = (
+        value.numerator * denominator + value.denominator - 1
+    ) // value.denominator
+    return Fraction(numerator, denominator)
+
+
+def certify_refined_uniform_multiplier(
+        alpha: Fraction, kappa: Fraction, prefix_terms: int, brackets):
+    """Certify a finite-prefix plus geometric-tail uniform multiplier.
+
+    The analytic corollary bounds the all-``n`` crossing probability by
+
+        sum(P(Pois(kappa*lambda_j) <= j), j < J)
+        + alpha**kappa * rho**J / (1-rho),
+
+    where ``rho=kappa*exp(1-kappa)``.  Each finite-prefix term is bounded
+    above by substituting the rigorous lower endpoint for ``lambda_j`` and
+    then rounding the rational exponential enclosure upward to a common
+    dyadic grid.  The infinite tail is bounded on the same grid.
+    """
+    alpha = Fraction(alpha)
+    kappa = Fraction(kappa)
+    if not 0 < alpha < 1:
+        raise ValueError("alpha must lie strictly between zero and one")
+    if kappa <= 1:
+        raise ValueError("refined uniform kappa must exceed one")
+    if prefix_terms < 1:
+        raise ValueError("prefix_terms must be positive")
+    if len(brackets) < prefix_terms:
+        raise ValueError("insufficient Poisson-limit brackets")
+    exp_one_lower, _ = exact_exp_neg_bounds(Fraction(1))
+    if alpha > exp_one_lower:
+        raise ValueError("uniform certificate requires alpha <= exp(-1)")
+
+    term_upper_bounds = []
+    lambda_lower_numerators = []
+    lambda_denominator = 1 << FACTOR_BITS
+    for j in range(prefix_terms):
+        lambda_lower = Fraction(brackets[j][0])
+        scaled_lambda_lower = lambda_lower * lambda_denominator
+        if scaled_lambda_lower.denominator != 1:
+            raise ValueError(
+                "Poisson-limit bracket is not on the configured dyadic grid")
+        lambda_lower_numerators.append(str(scaled_lambda_lower.numerator))
+        _, probability_upper = exact_poisson_cdf_bounds(
+            kappa * lambda_lower, j, EXACT_EXP_PAIRS)
+        term_upper_bounds.append(_dyadic_ceiling(
+            probability_upper, UNIFORM_PROBABILITY_BITS))
+    finite_prefix_upper = sum(term_upper_bounds, Fraction(0))
+
+    _, exp_rho_upper = exact_exp_neg_bounds(
+        kappa - 1, EXACT_EXP_PAIRS)
+    rho_upper = _dyadic_ceiling(
+        kappa * exp_rho_upper, UNIFORM_PROBABILITY_BITS)
+    if rho_upper >= 1:
+        raise ArithmeticError("geometric-tail ratio is not below one")
+
+    # lambda_0=-log(alpha), and the stored lower endpoint is below lambda_0.
+    # Hence alpha*exp(-(kappa-1)*lambda_0) is bounded above by the following
+    # exact rational enclosure of alpha**kappa.
+    _, exp_alpha_upper = exact_exp_neg_bounds(
+        (kappa - 1) * Fraction(brackets[0][0]), EXACT_EXP_PAIRS)
+    alpha_kappa_upper = _dyadic_ceiling(
+        alpha * exp_alpha_upper, UNIFORM_PROBABILITY_BITS)
+    tail_upper = _dyadic_ceiling(
+        alpha_kappa_upper * rho_upper ** prefix_terms / (1 - rho_upper),
+        UNIFORM_PROBABILITY_BITS,
+    )
+    total_upper = finite_prefix_upper + tail_upper
+    margin_lower = alpha - total_upper
+    if margin_lower <= 0:
+        raise ArithmeticError(
+            "refined uniform multiplier condition is not certified")
+
+    probability_denominator = 1 << UNIFORM_PROBABILITY_BITS
+    return {
+        "alpha": str(alpha),
+        "nominal_confidence": _decimal(1 - alpha),
+        "kappa": _fraction_record(kappa, 12),
+        "prefix_terms": prefix_terms,
+        "lambda_lower_dyadic_bits": FACTOR_BITS,
+        "lambda_lower_numerators": lambda_lower_numerators,
+        "probability_upper_dyadic_bits": UNIFORM_PROBABILITY_BITS,
+        "finite_prefix_term_upper_numerators": [
+            str(value * probability_denominator)
+            for value in term_upper_bounds
+        ],
+        "finite_prefix_upper": _fraction_record(
+            finite_prefix_upper, 60),
+        "rho_upper": _fraction_record(rho_upper, 60),
+        "alpha_to_kappa_upper": _fraction_record(
+            alpha_kappa_upper, 60),
+        "geometric_tail_upper": _fraction_record(tail_upper, 60),
+        "total_crossing_probability_upper": _fraction_record(
+            total_upper, 60),
+        "margin_below_alpha_lower": _fraction_record(
+            margin_lower, 60),
+        "conclusion": (
+            "The displayed kappa is a rigorous valid full-scale multiplier "
+            "for every positive sample size under the finite-prefix plus "
+            "geometric-tail crossing bound."
         ),
     }
 
@@ -680,6 +800,7 @@ def certify_zero_anchor_case(n: int, alpha: Fraction, brackets):
 
 def build_certificate():
     levels = []
+    refined_uniform_cases = []
     for alpha_text, sample_sizes in CASES.items():
         alpha = Fraction(alpha_text)
         maximum_n = max(sample_sizes)
@@ -694,6 +815,9 @@ def build_certificate():
             certify_zero_anchor_case(n, alpha, brackets)
             for n in sample_sizes
         ]
+        refined_kappa, prefix_terms = REFINED_UNIFORM_MULTIPLIERS[alpha_text]
+        refined_uniform_cases.append(certify_refined_uniform_multiplier(
+            alpha, refined_kappa, prefix_terms, brackets))
         levels.append({
             "alpha": alpha_text,
             "nominal_confidence": _decimal(1 - alpha),
@@ -703,18 +827,19 @@ def build_certificate():
             "poisson_lambda_brackets": factor_records,
         })
 
-    uniform_cases = [
+    elementary_uniform_cases = [
         certify_uniform_multiplier(Fraction(alpha_text), kappa)
-        for alpha_text, kappa in UNIFORM_MULTIPLIERS.items()
+        for alpha_text, kappa in ELEMENTARY_UNIFORM_MULTIPLIERS.items()
     ]
     return {
-        "schema_version": 3,
+        "schema_version": 4,
         "claim": (
             "Both the full-scale and zero-taint-preserving Poisson Stringer "
             "calibrations have corrected simultaneous-band probability at "
             "least 1-alpha when their certified upper multipliers are used. "
-            "The displayed analytic full-scale multipliers are valid "
-            "uniformly over every positive sample size."
+            "The displayed elementary and finite-prefix full-scale "
+            "multipliers are valid uniformly over every positive sample "
+            "size."
         ),
         "scope": (
             "The all-n validity theorem is analytic. These representative "
@@ -732,13 +857,18 @@ def build_certificate():
             "stored below. Bolshev probabilities are evaluated with "
             "Fraction. Floating point only proposes multiplier cells, whose "
             "two sides are then certified with monotone opposite endpoint "
-            "substitutions. The uniform cases use exact rational exponential "
-            "upper bounds and exact powered comparisons."
+            "substitutions. The elementary uniform cases use exact rational "
+            "exponential upper bounds and exact powered comparisons. The "
+            "refined cases retain one hundred Poisson crossing terms using "
+            "exact dyadic upper bounds and enclose the infinite remainder "
+            "by an exact geometric tail."
         ),
         "factor_bits": FACTOR_BITS,
         "exponential_series_pairs": EXACT_EXP_PAIRS,
         "kappa_bits": KAPPA_BITS,
-        "uniform_full_scale_cases": uniform_cases,
+        "uniform_probability_bits": UNIFORM_PROBABILITY_BITS,
+        "elementary_uniform_full_scale_cases": elementary_uniform_cases,
+        "refined_uniform_full_scale_cases": refined_uniform_cases,
         "levels": levels,
     }
 
@@ -785,7 +915,7 @@ def main(argv=None):
         zero_anchor_case = certify_zero_anchor_case(
             arguments.n, alpha, brackets)
         payload = {
-            "schema_version": 3,
+            "schema_version": 4,
             "alpha": str(alpha),
             "factor_bits": FACTOR_BITS,
             "kappa_bits": KAPPA_BITS,
@@ -794,10 +924,20 @@ def main(argv=None):
             "zero_anchor_case": zero_anchor_case,
             "poisson_lambda_brackets": _factor_bracket_records(brackets),
         }
-        for alpha_text, uniform_kappa in UNIFORM_MULTIPLIERS.items():
+        for alpha_text, uniform_kappa in ELEMENTARY_UNIFORM_MULTIPLIERS.items():
             if Fraction(alpha_text) == alpha:
-                payload["uniform_full_scale_case"] = (
+                payload["elementary_uniform_full_scale_case"] = (
                     certify_uniform_multiplier(alpha, uniform_kappa))
+                refined_kappa, prefix_terms = (
+                    REFINED_UNIFORM_MULTIPLIERS[alpha_text])
+                uniform_brackets = brackets
+                if len(uniform_brackets) < prefix_terms:
+                    uniform_brackets = exact_poisson_lambda_brackets(
+                        alpha_text, prefix_terms - 1, FACTOR_BITS)
+                payload["refined_uniform_full_scale_case"] = (
+                    certify_refined_uniform_multiplier(
+                        alpha, refined_kappa, prefix_terms,
+                        uniform_brackets))
                 break
         if arguments.taints is not None:
             kappa_record = case["kappa_upper"]
@@ -827,14 +967,24 @@ def main(argv=None):
         json.dumps(certificate, indent=2, sort_keys=True) + "\n",
         encoding="utf-8",
     )
-    for case in certificate["uniform_full_scale_cases"]:
+    for case in certificate["elementary_uniform_full_scale_cases"]:
         print(
-            "alpha=%s: exact sample-size-uniform kappa %s; "
+            "alpha=%s: elementary sample-size-uniform kappa %s; "
             "powered margin %s"
             % (
                 case["alpha"],
                 case["kappa"]["decimal"],
                 case["powered_margin_lower"]["decimal"],
+            )
+        )
+    for case in certificate["refined_uniform_full_scale_cases"]:
+        print(
+            "alpha=%s: refined sample-size-uniform kappa %s; "
+            "crossing margin %s"
+            % (
+                case["alpha"],
+                case["kappa"]["decimal"],
+                case["margin_below_alpha_lower"]["decimal"],
             )
         )
     for level in certificate["levels"]:

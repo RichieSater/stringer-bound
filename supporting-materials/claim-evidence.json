@@ -336,13 +336,15 @@
     {
       "id": "band-calibrated-poisson-all-n",
       "classification": "proved_theorem",
-      "statement": "For every n>=1 and alpha in (0,1), the corrected simultaneous-band criterion yields two distribution-free valid Poisson Stringer calibrations: a full-scale multiplier and a zero-taint-preserving affine path that fixes the ordinary no-error factor and scales only error increments; both cover untruncated and factorwise-capped Poisson conventions after the final cap at one, the anchored multiplier is never smaller than the full-scale multiplier, and capping the calibrated factors themselves at one preserves coverage while giving a pointwise no-larger report. For nominal confidence at least 2/e, the full-scale multiplier two is valid uniformly in n.",
+      "statement": "For every n>=1 and alpha in (0,1), the corrected simultaneous-band criterion yields two distribution-free valid Poisson Stringer calibrations: a full-scale multiplier and a zero-taint-preserving affine path that fixes the ordinary no-error factor and scales only error increments; both cover untruncated and factorwise-capped Poisson conventions after the final cap at one, the anchored multiplier is never smaller than the full-scale multiplier, and capping the calibrated factors themselves at one preserves coverage while giving a pointwise no-larger report. For nominal confidence at least 2/e, the full-scale multiplier two is valid uniformly in n; a finite-prefix refinement gives smaller certified uniform multipliers at 90%, 95%, and 99%.",
       "manuscript_labels": [
         "eq:kappaband",
         "thm:poissoncalibration",
         "cor:poissonuniform",
         "eq:uniformkappa",
         "eq:gammashift",
+        "cor:poissonuniformrefined",
+        "eq:uniformprefix",
         "tab:poissonuniform",
         "eq:etaband",
         "cor:poissonanchor",
@@ -362,7 +364,7 @@
         },
         {
           "path": "supporting-materials/computations/certificates/poisson-band-calibration-certificate.json",
-          "role": "exact rational opposite-endpoint certificates for both displayed calibration paths and exact powered exponential checks for the uniform full-scale multipliers",
+          "role": "exact rational opposite-endpoint certificates for both displayed calibration paths, exact powered exponential checks for the elementary uniform multipliers, and exact finite-prefix plus geometric-tail checks for the refined uniform multipliers",
           "trust": "proof_essential"
         },
         {

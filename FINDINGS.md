@@ -75,8 +75,9 @@ There is also a closed-form choice that requires no sample-size table:
 the multiplier `2` is rigorously valid for every `n` whenever nominal
 confidence is at least `2/e`, about 73.6%. This is a convenient uniform
 ceiling, not an optimal multiplier. The same theorem gives the sharper
-uniform choices 1.76, 1.66, and 1.52 at 90%, 95%, and 99%, respectively;
-the exact sample-size-specific values above are smaller still.
+closed-form choices 1.76, 1.66, and 1.52 at 90%, 95%, and 99%, respectively.
+A finite-prefix refinement reduces these to 1.53, 1.44, and 1.33; the exact
+sample-size-specific values above are smaller still.
 
 A second proved scalar path fixes the ordinary zero-taint factor and scales
 only the error increments. It therefore gives **exactly zero uplift on an

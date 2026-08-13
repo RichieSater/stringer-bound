@@ -113,10 +113,11 @@ If a methodology needs one conservative multiplier that is independent of
 sample size, an analytic corollary permits `2` at every `n` whenever nominal
 confidence is at least `2/e`, approximately `73.6%`. This includes 90%, 95%,
 and 99%. The value `2` is only a simple uniform upper bound; it is not claimed
-to be necessary or optimal, and the certified sample-size-specific values in
-the table are materially smaller. Applying the same analytic criterion gives
-sharper uniform choices `1.76`, `1.66`, and `1.52` at 90%, 95%, and 99%,
-respectively. Exact rational exponential enclosures certify these decimals.
+to be necessary or optimal. The elementary closed-form criterion gives
+`1.76`, `1.66`, and `1.52` at 90%, 95%, and 99%. Retaining the first 100
+Poisson crossing probabilities and bounding the remainder geometrically
+reduces the certified uniform choices to `1.53`, `1.44`, and `1.33`. The
+sample-size-specific values in the table are smaller still.
 
 A pointwise tighter implementation uses
 
@@ -276,8 +277,9 @@ untruncated Poisson factors; the JSON records that base convention and labels
 both calibrated capping variants explicitly. It also records the exact taint
 multiset, including the implied zero count, and every dyadic Poisson-limit
 bracket used in the calculation. At 90%, 95%, and 99%, the
-`uniform_full_scale_case` field supplies the separately certified multiplier
-that is valid without a sample-size lookup.
+`elementary_uniform_full_scale_case` and
+`refined_uniform_full_scale_case` fields supply the separately certified
+multipliers that are valid without a sample-size lookup.
 
 ## Why the numerical floor is certifiable
 

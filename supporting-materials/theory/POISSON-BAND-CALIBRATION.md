@@ -209,20 +209,49 @@ Thus `kappa` is feasible in (4). Substitution of `kappa=2` reduces (9) to
 
 This corollary is deliberately one-sided: it is an analytic upper bound for
 the path-minimal multiplier, not an assertion that two is necessary or
-optimal. Applying (9) gives the following smaller convenient choices, also
-uniformly over every positive sample size:
+optimal. A sharper bound retains a finite prefix of the actual Poisson
+crossing probabilities instead of applying the geometric estimate to every
+index.
 
-| nominal confidence | valid `kappa` for every `n` |
-|---:|---:|
-| 90% | 1.76 |
-| 95% | 1.66 |
-| 99% | 1.52 |
+> **Corollary (finite-prefix uniform multiplier).** Under the assumptions of
+> the preceding corollary, fix an integer `J>=1`. If
+>
+> \[
+>  \sum_{j=0}^{J-1}P(j;\kappa\lambda_j)
+>  +\frac{\alpha^\kappa\rho^J}{1-\rho}\le\alpha,
+>  \qquad \rho=\kappa e^{1-\kappa},                 \tag{13a}
+> \]
+>
+> then `kappa_(n,alpha)<=kappa` for every `n>=1`.
 
-For each rational decimal, the committed certificate encloses
+Indeed, retain `P(j;kappa*lambda_j)` in the union bound for `j<J`. For
+`j>=J`, (12) gives `P(j;kappa*lambda_j)<=alpha^kappa*rho^j`. If `n<J`,
+retain only the available terms and then add the missing nonnegative terms
+through `J-1`. Thus, for every `n`,
+
+\[
+ 1-Q_{n,\alpha}(\kappa)
+ \le \sum_{j=0}^{J-1}P(j;\kappa\lambda_j)
+   +\alpha^\kappa\sum_{j=J}^{\infty}\rho^j
+ \le\alpha.                                         \tag{13b}
+\]
+
+The following table compares `J=100` with the elementary `J=0` condition
+(9). Both columns are uniform over every positive sample size:
+
+| nominal confidence | 100-term certified `kappa` | closed-form `kappa` |
+|---:|---:|---:|
+| 90% | 1.53 | 1.76 |
+| 95% | 1.44 | 1.66 |
+| 99% | 1.33 | 1.52 |
+
+For each closed-form decimal, the committed certificate encloses
 `exp(1-kappa)` above by an exact rational and verifies the powered form of
-(9) with a strictly positive rational margin. The exact joint calculations
-reported below are materially smaller still at the representative sample
-sizes.
+(9) with a strictly positive rational margin. For each refined decimal, it
+encloses the first 100 Poisson terms above on a common dyadic grid and bounds
+the infinite remainder geometrically, again with a strictly positive exact
+rational margin. The exact joint calculations reported below are materially
+smaller still at the representative sample sizes.
 
 ## 4. A zero-taint-preserving calibration
 
@@ -427,8 +456,9 @@ lambda endpoints, obtaining a lower bound at least `1-alpha`.  All
 probabilities in these two sign checks are exact rational numbers. The JSON
 stores every Poisson-limit endpoint used, together with the endpoint-sign
 direction, so the event calculation is self-contained rather than only a
-table of final decimals. Its `uniform_full_scale_cases` records separately
-certify the three sample-size-uniform decimals above.
+table of final decimals. Its `elementary_uniform_full_scale_cases` and
+`refined_uniform_full_scale_cases` records separately certify both columns
+of the sample-size-uniform table above.
 
 The following entries round the certified dyadic upper endpoints upward to
 12 decimal places, so every displayed multiplier is itself a valid choice.

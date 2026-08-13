@@ -100,8 +100,9 @@ increments. The calibration path must be pre-specified. The Gaffke rule (1)
 is sample-adaptive. On either scalar path, capping the calibrated factors at
 one gives a pointwise no-larger valid version. At nominal confidence at least
 `2/e`, a closed-form corollary permits the full-scale multiplier two uniformly
-in the sample size. No pointwise ordering between the Gaffke rule and the
-scalar families is claimed.
+in the sample size; a finite-prefix refinement gives smaller conventional-
+level choices. No pointwise ordering between the Gaffke rule and the scalar
+families is claimed.
 
 ## Exact-sign computation of the floor
 

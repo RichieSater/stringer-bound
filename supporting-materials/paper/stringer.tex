@@ -37,8 +37,9 @@ rational certificates establish conservatism through $n=8$, $n=11$, and
 $n=20$, respectively. For every sample size and confidence level, scalar
 calibration of the Poisson factor curve yields a distribution-free valid
 modified rule. At nominal confidence at least $2/e\approx73.6\%$, the
-multiplier two is valid uniformly in the sample size; sharper uniform choices
-are $1.76$, $1.66$, and $1.52$ at $90\%$, $95\%$, and $99\%$, respectively.
+multiplier two is valid uniformly in the sample size. Retaining the first
+100 Poisson crossing probabilities gives certified uniform multipliers
+$1.53$, $1.44$, and $1.33$ at $90\%$, $95\%$, and $99\%$, respectively.
 An anchored variant leaves the all-zero-sample result unchanged. A separate all-sample-size rule
 reports the maximum of Stringer and a distribution-free bounded-mean limit.
 We also give explicit
@@ -154,7 +155,8 @@ fixes the zero-taint factor and scales only the error increments. Capping
 the calibrated factors at one gives pointwise no-larger valid versions. A
 sample-size-uniform analytic bound shows that doubling the Poisson curve is
 valid whenever nominal confidence is at least $2/e\approx73.6\%$; at the
-three conventional levels, smaller simple choices are certified.
+three conventional levels, a finite-prefix refinement gives substantially
+smaller choices.
 
 \emph{(4) Exact counterexamples at low confidence}
 (Section~\ref{sec:counter}). Thirty-three certified three-point
@@ -1389,16 +1391,47 @@ Theorem~\ref{thm:poissoncalibration}. For $\kappa=2$,
 \eqref{eq:uniformkappa} reduces to $\alpha\le1-2/e$.
 \end{proof}
 
-Condition~\eqref{eq:uniformkappa} also gives the following smaller convenient
-choices. Exact rational exponential enclosures certify each inequality.
+The geometric bound need not be used on the first few crossing events.
+Retaining their exact Poisson probabilities gives a sharper criterion.
+
+\begin{corollary}[Finite-prefix uniform multiplier]
+\label{cor:poissonuniformrefined}
+Under the assumptions of Corollary~\ref{cor:poissonuniform}, fix an integer
+$J\ge1$. If
+\begin{equation}\label{eq:uniformprefix}
+\sum_{j=0}^{J-1}P(j;\kappa\lambda_j)
++\frac{\alpha^\kappa\rho^J}{1-\rho}\le\alpha,
+\qquad \rho=\kappa e^{1-\kappa},
+\end{equation}
+then $\kappa_{n,\alpha}\le\kappa$ for every $n\ge1$.
+\end{corollary}
+
+\begin{proof}
+In the union bound from the preceding proof, retain
+$P(j;\kappa\lambda_j)$ for $j<J$. For $j\ge J$, the same calculation gives
+$P(j;\kappa\lambda_j)\le\alpha^\kappa\rho^j$. For $n<J$, retain only
+the available terms and then enlarge the bound by adding the missing
+nonnegative terms through $J-1$. Thus, for every $n$,
+\[
+1-Q_{n,\alpha}(\kappa)
+\le \sum_{j=0}^{J-1}P(j;\kappa\lambda_j)
+   +\alpha^\kappa\sum_{j=J}^{\infty}\rho^j
+\le\alpha.
+\]
+The conclusion follows as in Corollary~\ref{cor:poissonuniform}.
+\end{proof}
+
+The following table compares the refined choices with the elementary
+closed-form choices from \eqref{eq:uniformkappa}. Exact rational exponential
+enclosures certify both columns; the refined column uses $J=100$.
 \begin{table}[htbp]\centering
-\begin{tabular}{rr}
+\begin{tabular}{rrr}
 \toprule
-nominal confidence & sample-size-uniform valid $\kappa$\\
+nominal confidence & $100$-term certified $\kappa$ & closed-form $\kappa$\\
 \midrule
-$90\%$ & $1.76$\\
-$95\%$ & $1.66$\\
-$99\%$ & $1.52$\\
+$90\%$ & $1.53$ & $1.76$\\
+$95\%$ & $1.44$ & $1.66$\\
+$99\%$ & $1.33$ & $1.52$\\
 \bottomrule
 \end{tabular}
 \caption{Simple full-scale Poisson calibration multipliers valid for every
@@ -1574,6 +1607,8 @@ scalar-calibrated rule beyond those ranges without claiming coverage for the
 ordinary Poisson bound.
 Corollary~\ref{cor:poissonuniform} supplies closed-form full-scale
 multipliers that are valid simultaneously for every sample size.
+Corollary~\ref{cor:poissonuniformrefined} sharpens them by retaining a finite
+prefix of the crossing probabilities.
 More generally, any distributional class for which the binomial-factor
 bound is proved conservative inherits the same conclusion for the
 Poisson-factor bound. Proposition~\ref{prop:poissondomination} does not,
@@ -2095,12 +2130,12 @@ factor family: multiply the complete result by the precomputed
 $\kappa_{n,\alpha}$ and cap at one, or use the pointwise no-larger
 calibrated-factor-capped curve. This is a guarantee for the calibrated rule,
 not evidence about coverage of the ordinary rule.
-Corollary~\ref{cor:poissonuniform} gives a closed-form alternative at
-conventional confidence levels: $1.76$, $1.66$, and $1.52$ are valid at
-every sample size for $90\%$, $95\%$, and $99\%$, respectively. More
-generally, the multiplier two works whenever nominal confidence is at least
-$2/e$. The exact joint calibration is appreciably smaller in the reported
-examples.
+Corollary~\ref{cor:poissonuniform} gives a closed-form alternative: the
+multiplier two works whenever nominal confidence is at least $2/e$.
+Corollary~\ref{cor:poissonuniformrefined} retains the first 100 crossing
+probabilities and reduces the uniform choices to $1.53$, $1.44$, and $1.33$
+at $90\%$, $95\%$, and $99\%$, respectively. The exact joint calibration is
+appreciably smaller in the reported examples.
 Corollary~\ref{cor:poissonanchor} gives a second calibration path that
 preserves the ordinary all-zero-sample result and scales only the error
 increments. The path must be chosen before the sample is observed. The
@@ -2131,7 +2166,7 @@ exact rational opposite-endpoint certificates for the representative
 full-scale and zero-taint-preserving calibrations in
 Theorem~\ref{thm:poissoncalibration} and
 Corollary~\ref{cor:poissonanchor}, exact rational exponential enclosures for
-the uniform multipliers in Table~\ref{tab:poissonuniform},
+both uniform-multiplier criteria in Table~\ref{tab:poissonuniform},
 high-precision Poisson search calculations, exact-sign rational brackets for the all-sample-size
 Gaffke safeguard, symbolic and rational checks for the analytic all-$n$
 one-cap comparison, an independent finite regression containing $59{,}700$

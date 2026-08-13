@@ -212,8 +212,10 @@ factors. The written theorem also permits capping the calibrated factors
 themselves at one, which preserves the band event and gives a pointwise
 no-larger report. A separate analytic corollary proves that the full-scale
 multiplier two is valid uniformly in sample size whenever nominal confidence
-is at least \(2/e\approx73.6\%\). These results do not prove undercoverage
-of ordinary Stringer.
+is at least \(2/e\approx73.6\%\). Retaining 100 exact Poisson crossing terms
+reduces the certified uniform choices to 1.53, 1.44, and 1.33 at 90%, 95%,
+and 99%, respectively. These results do not prove undercoverage of ordinary
+Stringer.
 
 ## The all-sample-size reporting safeguard
 

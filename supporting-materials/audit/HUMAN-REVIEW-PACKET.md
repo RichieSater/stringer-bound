@@ -191,6 +191,10 @@ Questions:
 17. Does substituting `kappa=2` give exactly `alpha<=1-2/e`, and is the
     resulting multiplier consistently described as sufficient rather than
     optimal or as evidence against ordinary Stringer?
+18. Does Corollary~`cor:poissonuniformrefined` correctly retain the first
+    `J` Poisson crossing probabilities, bound every later term by
+    `alpha^kappa*rho^j`, and therefore justify the finite-prefix plus
+    geometric-tail criterion uniformly in the sample size?
 
 ## Review F: the all-sample-size reporting safeguard
 
