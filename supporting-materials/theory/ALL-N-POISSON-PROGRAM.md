@@ -286,8 +286,8 @@ particular, it includes every active-boundary profile
 The radial derivative is the density derivative at the threshold.  A
 Laplace-transform convolution identity shows that the mode of every
 weighted exponential sum is no larger than its mean, giving the required
-sign.  Coordinate-face profiles with three or more distinct positive knots
-remain open.  See
+sign.  Coordinate-face profiles with two or more distinct positive knot
+values remain open.  See
 [`DIRICHLET-POISSONIZATION.md`](DIRICHLET-POISSONIZATION.md) for the proof,
 the full reduction, and the exact localization obstruction.
 

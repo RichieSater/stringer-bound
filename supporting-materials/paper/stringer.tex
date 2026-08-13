@@ -26,33 +26,27 @@
 
 \begin{abstract}
 The Stringer bound is widely used to evaluate monetary-unit samples in
-auditing, but its finite-sample coverage has not been established in
-general. We prove that, for sample size $n=2$, the Stringer bound with
-binomial factors is conservative for every distribution on $[0,1]$ and
-every nominal confidence level. The result is sharp: the supremum of the
-noncoverage probability is $\alpha$, although no distribution attains
-it. From $n=3$ through $n=6$, exact Bernstein certificates prove
-binomial-factor conservatism at $90\%$, $95\%$, and $99\%$ nominal
-confidence. For the Poisson factors used in audit practice, a corrected
-simultaneous-survival-band argument and exact rational boundary-crossing
-certificates establish conservatism for every $n\le8$ at $90\%$, every
-$n\le11$ at $95\%$, and every $n\le20$ at $99\%$ confidence. For arbitrary
-sample size, the maximum of Stringer and a validated distribution-free
-bounded-mean limit supplies a safeguarded report. At every nominal
-confidence level of at least $75\%$, an analytic one-cap
-theorem proves that this safeguard coincides with ordinary Stringer at every
-sample size whenever binomial Stringer is at least the largest observed
-taint. We also give explicit
-finite-sample counterexamples at larger sample sizes and low nominal
-confidence levels. At selected nominal confidence levels between $30\%$
-and $37\%$, and for sample sizes between $50$ and $400$, exact rational
-certificates show that binomial-factor coverage falls below nominal. In
-searches at $50\%$, $90\%$, and $95\%$, we found no violations; the
-smallest coverage found agreed with nominal coverage to within $10^{-10}$.
-Finally, we identify an index shift in a previous finite-sample
-certification. These results give sharp distribution-free theory at
-$n=2$, extend proved conventional-level coverage for the factors used in
-practice, and narrow the unresolved finite-sample regime.
+auditing, but its finite-sample coverage is not known in general. For sample
+size $n=2$, we prove that the binomial-factor bound is conservative for every
+distribution on $[0,1]$ and every nominal confidence level. The result is
+sharp: the supremum of noncoverage is $\alpha$ and is not attained. At
+$90\%$, $95\%$, and $99\%$ confidence, exact Bernstein certificates extend
+binomial-factor conservatism through $n=6$. For the Poisson factors used in
+audit practice, a corrected simultaneous-survival-band argument and exact
+rational certificates establish conservatism through $n=8$, $n=11$, and
+$n=20$, respectively. For every sample size and confidence level, scalar
+calibration of the Poisson factor curve yields a distribution-free valid
+modified rule. A separate all-sample-size rule reports the maximum of
+Stringer and a distribution-free bounded-mean limit. We also give explicit
+finite-sample counterexamples at selected confidence levels between $30\%$
+and $37\%$ and sample sizes $n=50,100,200,400$; exact rational certificates
+show coverage below nominal. In searches at $50\%$, $90\%$, and $95\%$, no
+violation was found, and the smallest coverage found agreed with nominal to
+within $10^{-10}$. Finally, we identify an index shift in a previous
+finite-sample certification. These results give sharp distribution-free
+theory at $n=2$, prove conventional-level coverage over new finite ranges,
+provide valid all-sample-size reporting alternatives, and narrow the
+unresolved regime for ordinary Stringer.
 \end{abstract}
 
 \noindent\textbf{Keywords:} Stringer bound; finite-sample coverage;
@@ -147,7 +141,11 @@ shows that the Poisson-factor Stringer bound is pointwise no smaller on
 every observed sample. A separate corrected simultaneous-band argument,
 certified by exact rational boundary-crossing calculations, proves
 Poisson-factor coverage for every $n\le8$ at $90\%$, every $n\le11$ at
-$95\%$, and every $n\le20$ at $99\%$ confidence.
+$95\%$, and every $n\le20$ at $99\%$ confidence. The same argument yields
+an all-sample-size calibrated rule that retains the shape of the ordinary Poisson factor
+curve: multiply every factor, equivalently the complete bound, by one
+precomputed scalar. We prove validity for every $n$ and give exact rational
+certificates for representative audit sample sizes.
 
 \emph{(4) Exact counterexamples at low confidence}
 (Section~\ref{sec:counter}). Thirty-three certified three-point
@@ -1229,6 +1227,128 @@ below nominal. This limits the sufficient-event proof, not the Stringer
 bound: the integral inequality can hold when the pointwise band crosses
 $G$.
 
+The same sufficient event gives an all-sample-size calibration while
+retaining the familiar Poisson factor curve. For $0<\alpha<1$, define
+$\lambda_j$ as above and put
+\begin{equation}\label{eq:kappaband}
+\begin{split}
+\kappa_0&=\max\left\{1,\frac n{\lambda_n}\right\},\\
+a_i(\kappa)&=\min\left\{1,\frac{\kappa\lambda_{i-1}}n\right\},
+\qquad i=1,\ldots,n,\\
+Q_{n,\alpha}(\kappa)
+&=Q_n\bigl(a_1(\kappa),\ldots,a_n(\kappa)\bigr),\\
+\kappa_{n,\alpha}
+&=\inf\{\kappa\ge\kappa_0:Q_{n,\alpha}(\kappa)\ge1-\alpha\}.
+\end{split}
+\end{equation}
+The function $Q_{n,\alpha}$ is continuous and nondecreasing; its superlevel
+set in \eqref{eq:kappaband} is therefore closed.
+
+\begin{theorem}[All-sample-size scalar Poisson calibration]
+\label{thm:poissoncalibration}
+Let the observations be i.i.d.\ with an arbitrary common distribution on
+$[0,1]$, and let $0<\alpha<1$. Then
+\[
+U_{n,\alpha}
+=\min\{1,\kappa_{n,\alpha}\SB_{\mathrm P}\}
+\]
+has coverage at least $1-\alpha$ for every $n\ge1$. The same conclusion
+holds with any certified $\kappa\ge\kappa_{n,\alpha}$. It also holds if each
+Poisson factor is capped at one before the complete factor-capped Stringer
+expression is multiplied by $\kappa$.
+\end{theorem}
+
+\begin{proof}
+Multiplying every Poisson factor by $\kappa$ multiplies the complete
+Stringer expression by $\kappa$. Thus use Lemma~\ref{lem:poissonband} with
+$c_j=\kappa\lambda_j/n$. These factors are nondecreasing, and
+$c_n\ge1$ for every $\kappa\ge\kappa_0$. The lemma and \eqref{eq:kappaband} give
+\[
+\pr\{\kappa\SB_{\mathrm P}\ge\mu\}
+\ge Q_{n,\alpha}(\kappa).
+\]
+The set in \eqref{eq:kappaband} is nonempty: because the $\lambda_j$
+are increasing, $\kappa=\max\{1,n/\lambda_0\}$ belongs to the permitted
+domain, makes every $a_i(\kappa)$ equal to one, and hence makes
+$Q_{n,\alpha}(\kappa)=1$. Continuity shows that the
+infimum is attained. Use $\kappa=\kappa_{n,\alpha}$ in the preceding
+inequality. Finally, capping at one preserves coverage because $\mu\le1$.
+
+For the factor-capped convention, put
+$\bar p_j=\min\{1,\lambda_j/n\}$ and use $c_j=\kappa\bar p_j$.
+Because $\kappa\ge1$,
+\[
+\min\{1,c_{i-1}\}
+=\min\left\{1,\frac{\kappa\lambda_{i-1}}n\right\}
+=a_i(\kappa),
+\]
+and the definition of $\kappa_0$ gives $c_n\ge1$. Thus the same event and
+the same argument apply.
+\end{proof}
+
+At the conventional levels considered here, an explicit analytic upper
+bound is available. Put $\theta=\alpha/n$, let
+$\lambda_j(\theta)$ solve
+\[
+e^{-\lambda_j(\theta)}\sum_{r=0}^j
+\frac{\lambda_j(\theta)^r}{r!}=\theta,
+\]
+and define
+\[
+\kappa_{\mathrm B}=\max\left\{\kappa_0,
+\max_{0\le j<n}\frac{\lambda_j(\theta)}{\lambda_j}\right\}.
+\]
+For $b_i=\min\{1,\lambda_{i-1}(\theta)/n\}$, the
+Anderson--Samuels comparison used in
+Proposition~\ref{prop:poissondomination} gives
+\[
+\pr(V_{i:n}>b_i)
+=\pr\{\operatorname{Bin}(n,b_i)\le i-1\}\le\theta.
+\]
+If $\lambda_{i-1}(\theta)\ge n$, the probability is zero; otherwise the
+comparison applies directly.
+The union bound gives
+$\pr(V_{i:n}\le b_i\ \forall i)\ge1-n\theta=1-\alpha$.
+Since $a_i(\kappa_{\mathrm B})\ge b_i$,
+\begin{equation}\label{eq:kappabound}
+\kappa_{n,\alpha}\le\kappa_{\mathrm B}<\infty.
+\end{equation}
+
+The exact joint calculation yields a scalar no larger than the union-bound
+construction in \eqref{eq:kappabound}. Bolshev's recursion and opposite endpoints of
+exact dyadic brackets for the $\lambda_j$ certify the smallest scalar under
+this sufficient-event criterion to within $2^{-28}$. The following entries
+are simple six-decimal valid choices obtained by rounding the certified
+upper endpoints upward.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrrr}
+\toprule
+nominal confidence & $n=25$ & $n=50$ & $n=100$ & $n=200$\\
+\midrule
+$90\%$ & $1.189306$ & $1.251208$ & $1.286176$ & $1.305049$\\
+$95\%$ & $1.126246$ & $1.195804$ & $1.235956$ & $1.257979$\\
+$99\%$ & $1.027950$ & $1.111273$ & $1.161122$ & $1.189239$\\
+\bottomrule
+\end{tabular}
+\caption{Certified scalar multipliers for the all-sample-size band-calibrated
+Poisson rule. Each displayed value is an upward rounding of an exact dyadic
+upper endpoint.}
+\label{tab:poissoncalibration}
+\end{table}
+
+These values multiply the complete ordinary Poisson result. They are not
+evidence that ordinary Stringer undercovers, nor are they claimed to be the
+smallest corrections among all valid procedures; they are the smallest
+scalar multipliers certified by \eqref{eq:kappaband}, at the stated dyadic
+resolution. This construction is related in motivation to Bimpeh's
+exploration of adjusted significance levels \cite[Section~5.4]{bimpeh2008},
+but it uses the corrected order-statistic event and its exact joint
+probability. In an implementation, the underlying Poisson factors must also
+be exact or conservatively rounded; upward rounding of the scalar alone does
+not control factor-table rounding.
+
 Thus the factor comparison previously checked numerically at $90\%$ and
 $95\%$ is analytic and holds at every sample size. In particular,
 Theorem~\ref{thm:n2} implies finite-sample conservatism of the
@@ -1238,6 +1358,9 @@ the same conclusion from $n=3$ through $n=6$ for the three certified
 conventional levels. Theorem~\ref{thm:poissonband} extends the proved
 Poisson ranges to $n=8$, $n=11$, and $n=20$ at $90\%$, $95\%$, and
 $99\%$, respectively.
+Theorem~\ref{thm:poissoncalibration} supplies a conservative
+scalar-calibrated rule beyond those ranges without claiming coverage for the
+ordinary Poisson bound.
 More generally, any distributional class for which the binomial-factor
 bound is proved conservative inherits the same conclusion for the
 Poisson-factor bound. Proposition~\ref{prop:poissondomination} does not,
@@ -1752,7 +1875,12 @@ Proposition~\ref{prop:poissondomination}. The corrected simultaneous-band
 argument in Theorem~\ref{thm:poissonband} extends the rigorous Poisson
 guarantees to every $n\le8$ at $90\%$, every $n\le11$ at $95\%$, and every
 $n\le20$ at $99\%$ confidence; the reported Poisson searches at larger
-sizes retain a positive but decreasing numerical cushion. The certified
+sizes retain a positive but decreasing numerical cushion.
+For those larger sizes, Theorem~\ref{thm:poissoncalibration} supplies a
+second distribution-free option that stays within the Poisson Stringer
+factor family: multiply the complete result by the precomputed
+$\kappa_{n,\alpha}$ and cap at one. This is a guarantee for the calibrated
+rule, not evidence about coverage of the ordinary rule. The certified
 examples show that
 anti-conservatism can occur at several nominal confidence levels below
 $50\%$, at sample sizes $n=50,100,200,$ and $400$. Coverage for ordinary
@@ -1776,6 +1904,8 @@ factors, exact Bernstein certificates for Theorems~\ref{thm:n3},
 \ref{thm:n4}, \ref{thm:n5}, and \ref{thm:n6}, symbolic regeneration checks for
 their simplex-cap formulas, exact rational Poisson-limit and
 boundary-crossing certificates for Theorem~\ref{thm:poissonband},
+exact rational opposite-endpoint certificates for the representative scalar
+calibrations in Theorem~\ref{thm:poissoncalibration},
 high-precision Poisson search calculations, exact-sign rational brackets for the all-sample-size
 Gaffke safeguard, symbolic and rational checks for the analytic all-$n$
 one-cap comparison, an independent finite regression containing $59{,}700$
@@ -1785,9 +1915,10 @@ in the $n=2$ proof, and stress tests over approximately $200{,}000$
 distributions. It also contains records of two separate adversarial review
 passes.
 
-The canonical source repository is
-\url{https://github.com/RichieSater/stringer-bound}; it is the canonical
-source for this development revision. The earlier release v1.0.0 is
+The canonical source for this development revision is
+\href{https://github.com/RichieSater/stringer-bound}
+{github.com/RichieSater/stringer-bound}. The earlier release
+v1.0.0 is
 preserved on Zenodo at
 \url{https://doi.org/10.5281/zenodo.21850820}; the version-independent
 DOI, which resolves to the latest archived release, is

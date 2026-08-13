@@ -334,6 +334,44 @@
       "limitations": "This is a finite-range theorem for the Poisson factors, not a general-n result, and it does not transfer backward to the binomial factors. The sufficient simultaneous-band event is certified below nominal at n=9, 12, and 21 for 90%, 95%, and 99%, respectively; that limits this proof route but does not show Stringer undercoverage. The model assumes independent observations with a common distribution on [0,1]."
     },
     {
+      "id": "band-calibrated-poisson-all-n",
+      "classification": "proved_theorem",
+      "statement": "For every n>=1 and alpha in (0,1), multiplying the ordinary Poisson Stringer factor curve by the scalar kappa defined through the corrected simultaneous-band probability and the terminal-factor constraint, and capping the result at one, gives distribution-free coverage at least 1-alpha; the same theorem covers the convention that first caps each Poisson factor at one.",
+      "manuscript_labels": [
+        "eq:kappaband",
+        "thm:poissoncalibration",
+        "tab:poissoncalibration",
+        "eq:kappabound"
+      ],
+      "evidence": [
+        {
+          "path": "supporting-materials/theory/POISSON-BAND-CALIBRATION.md",
+          "role": "complete written all-sample-size coverage and existence proof",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/python/poisson_band_calibration.py",
+          "role": "exact calibration-bracket generator for representative sample sizes",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/certificates/poisson-band-calibration-certificate.json",
+          "role": "exact rational opposite-endpoint certificates for the displayed multipliers",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/tests/test_poisson_band_calibration.py",
+          "role": "regression tests for exact event signs, frontier identity, taint validation, and rational calibrated reporting",
+          "trust": "corroboration_only"
+        }
+      ],
+      "verification_commands": [
+        "make poisson-band-calibration-check",
+        "make test"
+      ],
+      "limitations": "This theorem validates the scalar-calibrated rule, not ordinary Poisson Stringer outside its proved ranges. The displayed conventional-level multipliers are minimal only under the stated sufficient-band criterion and to the certified dyadic resolution; no global optimality among valid procedures is claimed."
+    },
+    {
       "id": "all-n-stringer-gaffke-safeguard",
       "classification": "proved_theorem",
       "statement": "For every n and alpha in (0,1), the pre-specified maximum of either Stringer factor convention and the valid Gaffke bounded-mean upper limit has coverage at least 1-alpha for independent [0,1]-valued observations with a common mean.",

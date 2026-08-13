@@ -4,7 +4,7 @@ TEST_DIR := supporting-materials/computations/tests
 CERT_DIR := supporting-materials/computations/certificates
 PAPER_DIR := supporting-materials/paper
 
-.PHONY: sync test proof-check all-n-reduction-check dirichlet-poissonization-check poisson-band-certificate-check one-cap-all-n-check one-cap-certificate-check n3-formula-check n3-certificate-check n4-structure-check n4-certificate-check n5-structure-check n5-certificate-check n6-structure-check n6-structure-data-check n6-face-standard-check n6-face-standard-0-check n6-face-standard-1-check n6-face-standard-2-check n6-face-standard-3-check n6-face-standard-4-check n6-face-standard-5-check n6-face-c6-check n6-face-c6-0-check n6-face-c6-1-check n6-face-c6-2-check n6-face-d6-check n6-face-d6-0-check n6-face-d6-1-check n6-face-d6-2-check n6-certificate-check n6-certificate-001-check n6-certificate-005-check n6-certificate-010-check certificate-summary-check claim-manifest-check paper reproduce
+.PHONY: sync test proof-check all-n-reduction-check dirichlet-poissonization-check poisson-band-certificate-check poisson-band-calibration-check one-cap-all-n-check one-cap-certificate-check n3-formula-check n3-certificate-check n4-structure-check n4-certificate-check n5-structure-check n5-certificate-check n6-structure-check n6-structure-data-check n6-face-standard-check n6-face-standard-0-check n6-face-standard-1-check n6-face-standard-2-check n6-face-standard-3-check n6-face-standard-4-check n6-face-standard-5-check n6-face-c6-check n6-face-c6-0-check n6-face-c6-1-check n6-face-c6-2-check n6-face-d6-check n6-face-d6-0-check n6-face-d6-1-check n6-face-d6-2-check n6-certificate-check n6-certificate-001-check n6-certificate-005-check n6-certificate-010-check certificate-summary-check claim-manifest-check paper reproduce
 
 sync:
 	uv sync --frozen
@@ -27,6 +27,11 @@ poisson-band-certificate-check:
 	@set -e; tmp=$$(mktemp); trap 'rm -f "$$tmp"' EXIT; \
 	$(PYTHON) $(PY_DIR)/poisson_band_certificate.py --out $$tmp; \
 	cmp $(CERT_DIR)/poisson-simultaneous-band-certificate.json $$tmp
+
+poisson-band-calibration-check:
+	@set -e; tmp=$$(mktemp); trap 'rm -f "$$tmp"' EXIT; \
+	$(PYTHON) $(PY_DIR)/poisson_band_calibration.py --out $$tmp; \
+	cmp $(CERT_DIR)/poisson-band-calibration-certificate.json $$tmp
 
 one-cap-all-n-check:
 	$(PYTHON) $(PY_DIR)/one_cap_all_n_check.py
@@ -161,5 +166,5 @@ paper:
 	cd $(PAPER_DIR) && tectonic -X compile stringer.tex --keep-logs --keep-intermediates
 	@! grep -Eq "Warning|Overfull|Underfull|undefined|multiply defined" $(PAPER_DIR)/stringer.log
 
-reproduce: sync test proof-check all-n-reduction-check dirichlet-poissonization-check poisson-band-certificate-check one-cap-all-n-check one-cap-certificate-check n3-formula-check n3-certificate-check n4-structure-check n4-certificate-check n5-structure-check n5-certificate-check n6-structure-check n6-certificate-check certificate-summary-check claim-manifest-check paper
-	@echo "Core proofs, all-n reductions, Dirichlet-Poissonization research certificate, Poisson simultaneous-band certificate, analytic all-n and finite one-cap checks, n=3 through n=6 Bernstein certificates, counterexample summaries, claim links, tests, and manuscript build passed."
+reproduce: sync test proof-check all-n-reduction-check dirichlet-poissonization-check poisson-band-certificate-check poisson-band-calibration-check one-cap-all-n-check one-cap-certificate-check n3-formula-check n3-certificate-check n4-structure-check n4-certificate-check n5-structure-check n5-certificate-check n6-structure-check n6-certificate-check certificate-summary-check claim-manifest-check paper
+	@echo "Core proofs, all-n reductions, Dirichlet-Poissonization research certificate, Poisson simultaneous-band and scalar-calibration certificates, analytic all-n and finite one-cap checks, n=3 through n=6 Bernstein certificates, counterexample summaries, claim links, tests, and manuscript build passed."

@@ -26,7 +26,9 @@ regenerated from source scripts; see `theory/N3-CONVENTIONAL.md`,
 For the Poisson factors used in practice, a separate exact corrected-band
 certificate proves coverage for every \(n\le8\) at 90%, every \(n\le11\) at
 95%, and every \(n\le20\) at 99%; see
-`theory/POISSON-SIMULTANEOUS-BAND.md`.
+`theory/POISSON-SIMULTANEOUS-BAND.md`. The same band lemma yields an
+all-sample-size scalar-calibrated Poisson rule, with exact representative
+multiplier certificates in `theory/POISSON-BAND-CALIBRATION.md`.
 For arbitrary sample size, `theory/GAFFKE-SAFEGUARD.md` defines a
 distribution-free valid reporting rule obtained by taking the maximum of
 Stringer and the valid Gaffke limit. Its implementation brackets the Gaffke
@@ -59,6 +61,8 @@ comparison, not a general coverage theorem for ordinary Stringer.
 | `theory/POISSON-DOMINATION.md` | Written proof that practical-level Poisson factors dominate binomial factors for every sample size | proof-essential |
 | `theory/POISSON-SIMULTANEOUS-BAND.md` | Written randomized-survival-band proof of the direct Poisson coverage ranges | proof-essential |
 | `poisson_band_certificate.py` | Exact rational Poisson-limit signs and Bolshev boundary-crossing probabilities at 90%, 95%, and 99% | proof-essential |
+| `theory/POISSON-BAND-CALIBRATION.md` | Written all-sample-size theorem for the scalar-calibrated Poisson rule | proof-essential |
+| `poisson_band_calibration.py` | Exact adjacent-dyadic brackets for representative band-minimal scalar multipliers | proof-essential |
 | `theory/GAFFKE-SAFEGUARD.md` | Written all-sample-size coverage argument and exact divided-difference computation of the Gaffke floor | proof-essential |
 | `theory/ONE-CAP-COMPARISON.md` | Dimension-free cap lemma and analytic all-sample-size Stringer specialization at confidence at least \(75\%\) | proof-essential |
 | `one_cap_all_n_check.py` | Symbolic identities, rational constant checks, and finite numerical regression for the analytic proof | proof support |
@@ -115,6 +119,15 @@ make n6-certificate-001-check n6-certificate-005-check \
 
 # Direct Poisson theorem: exact limits and boundary-crossing probabilities
 make poisson-band-certificate-check
+
+# All-n scalar Poisson rule: exact representative multiplier brackets
+make poisson-band-calibration-check
+
+# Exact calibrated report for a specified zero-heavy audit sample
+uv run --frozen python \
+  supporting-materials/computations/python/poisson_band_calibration.py \
+  --n 25 --alpha 0.05 --taints 1,0.4,0.1 \
+  --out /tmp/calibrated-poisson.json
 
 # Analytic all-n one-cap theorem at confidence >=75%
 make one-cap-all-n-check
@@ -184,6 +197,15 @@ At dyadic endpoints, `stringer.py` encloses the exponential between rational
 alternating-series partial sums after power-of-two range reduction. Then
 `poisson_band_certificate.py` evaluates Bolshev's recursion with exact
 `Fraction` arithmetic. Numerical root finding proposes endpoints only.
+
+The scalar-calibration certificate uses the same exact Poisson-limit
+enclosures. Floating point proposes one \(2^{-28}\) multiplier cell. At its
+lower endpoint, upper Poisson-limit endpoints give an exact upper bound on
+the band probability below nominal; at its upper endpoint, lower
+Poisson-limit endpoints give an exact lower bound at least nominal. Thus the
+displayed upper multiplier is a rigorous valid choice for the modified
+scalar rule, with either untruncated or factorwise-capped Poisson factors.
+It does not certify undercoverage of ordinary Stringer.
 
 ## The all-sample-size reporting safeguard
 

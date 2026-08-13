@@ -64,15 +64,22 @@ larger Poisson ranges
 ([`POISSON-SIMULTANEOUS-BAND.md`](supporting-materials/theory/POISSON-SIMULTANEOUS-BAND.md)).
 The general-\(n\) conjecture at 95% remains open.
 
-**A validated all-sample-size reporting safeguard is also available.**
-Pre-specify the reported upper bound as the maximum of the familiar
-Stringer calculation and the finite-sample-valid Gaffke bounded-mean limit.
-That maximum has distribution-free coverage for every \(n\) without assuming
-the unresolved Stringer conjecture. It returns the ordinary Stringer value
-whenever Stringer is larger; in the certified \(n=3,4,5,6\) cases, equality
-with ordinary Stringer holds for every sample at all three levels. The implementation uses exact
-rational tail-sign checks rather than trusting a floating-point quantile;
-see [`GAFFKE-SAFEGUARD.md`](supporting-materials/theory/GAFFKE-SAFEGUARD.md).
+**Two validated all-sample-size reporting rules are also available.**
+One preserves the shape of the ordinary Poisson factor curve and multiplies
+the complete bound by a precomputed scalar calibrated from the exact joint
+uniform-order-statistic probability. This modified rule has
+distribution-free coverage for every \(n\); representative exact
+certificates cover \(n=25,50,100,200\) at 90%, 95%, and 99% confidence
+([`POISSON-BAND-CALIBRATION.md`](supporting-materials/theory/POISSON-BAND-CALIBRATION.md)).
+The other pre-specifies the reported upper bound as the maximum of the
+familiar Stringer calculation and the finite-sample-valid Gaffke bounded-mean
+limit. That maximum also has distribution-free coverage for every \(n\)
+without assuming the unresolved Stringer conjecture. It returns the ordinary
+Stringer value whenever Stringer is larger; in the certified \(n=3,4,5,6\)
+cases, equality with ordinary Stringer holds for every sample at all three
+levels. The implementation uses exact rational tail-sign checks rather than
+trusting a floating-point quantile; see
+[`GAFFKE-SAFEGUARD.md`](supporting-materials/theory/GAFFKE-SAFEGUARD.md).
 At every nominal confidence level of at least
 \(75\%\), an additional analytic theorem proves zero
 uplift for every sample size whenever the binomial
@@ -145,6 +152,24 @@ certificate or a written proof:
   evaluated exactly by Bolshev's recursion. The event falls below nominal at
   the next sample size in each row; that limits this proof route, not the
   Stringer bound.
+
+- **All-sample-size scalar calibration of the Poisson bound**
+  ([`POISSON-BAND-CALIBRATION.md`](supporting-materials/theory/POISSON-BAND-CALIBRATION.md)):
+  let \(\kappa_{n,\alpha}\) be the smallest scalar at least one that makes
+  the terminal factor at least one and the corrected simultaneous-band
+  event probability at least \(1-\alpha\). Then
+  \(\min\{1,\kappa_{n,\alpha}\mathrm{SB}_{\rm P}\}\) is
+  distribution-free valid for every sample size and every confidence level.
+  A trivial finite scalar proves existence; at conventional levels an
+  analytic Bonferroni construction gives an explicit marginal-crossing
+  bound. Exact
+  rational certificates bracket the
+  band-minimal scalar within \(2^{-28}\) at \(n=25,50,100,200\) for 90%, 95%,
+  and 99% confidence. At 95%, simple six-decimal valid multipliers are
+  1.126246, 1.195804, 1.235956, and 1.257979, respectively. This validates the
+  modified scalar rule, with either untruncated or factorwise-capped Poisson
+  factors, not ordinary Stringer outside its proved ranges. It does not claim
+  global optimality among confidence procedures.
 
 - **All-sample-size safeguarded reporting rule**
   ([`GAFFKE-SAFEGUARD.md`](supporting-materials/theory/GAFFKE-SAFEGUARD.md)):
@@ -246,6 +271,7 @@ supporting-materials/
 │   ├── N6-CONVENTIONAL.md    exact n=6 proof at 90%, 95%, and 99%
 │   ├── POISSON-DOMINATION.md all-n practical-level factor comparison
 │   ├── POISSON-SIMULTANEOUS-BAND.md direct exact Poisson coverage ranges
+│   ├── POISSON-BAND-CALIBRATION.md all-n valid scalar Poisson calibration
 │   ├── GAFFKE-SAFEGUARD.md   all-n valid reporting floor and exact computation
 │   ├── ONE-CAP-COMPARISON.md analytic all-n zero-uplift region at >=1-e^-2
 │   ├── ORDERED-SIMPLEX-CAP.md vertex equalities + open transfer target
@@ -275,6 +301,8 @@ supporting-materials/
     │                         directed-dyadic n=6 sign certificates at three levels
     ├── poisson_band_certificate.py
     │                         exact Poisson limits + boundary-crossing proof
+    ├── poisson_band_calibration.py
+    │                         exact scalar-calibration brackets
     ├── gaffke.py             exact-sign Gaffke endpoint + safeguarded report
     ├── one_cap_all_n_check.py
     │                         algebra/rational checks for the analytic theorem
@@ -302,7 +330,8 @@ make reproduce
 ```
 
 This runs the unit tests, the \(n=2\) symbolic proof checker, the exact
-Poisson simultaneous-band certificate, the analytic all-\(n\) one-cap checks,
+Poisson simultaneous-band and scalar-calibration certificates, the analytic
+all-\(n\) one-cap checks,
 the independent finite one-cap regression, the algebra checks and exact
 localization-obstruction certificate for the explicitly open all-\(n\)
 Poisson route, source
@@ -320,6 +349,15 @@ omitted while `--n` remains the full sample size):
 uv run --frozen python \
   supporting-materials/computations/python/gaffke.py \
   --n 100 --alpha 0.05 --method poisson --taints 1,0.4,0.1
+```
+
+For the exact scalar-calibrated Poisson rule:
+
+```sh
+uv run --frozen python \
+  supporting-materials/computations/python/poisson_band_calibration.py \
+  --n 25 --alpha 0.05 --taints 1,0.4,0.1 \
+  --out /tmp/calibrated-poisson.json
 ```
 
 ## Openness

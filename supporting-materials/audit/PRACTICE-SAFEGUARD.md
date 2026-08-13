@@ -1,10 +1,11 @@
-# Practice note: a finite-sample floor for a Stringer MUS evaluation
+# Practice note: finite-sample reporting controls for a Stringer MUS evaluation
 
 ## Executive summary
 
 The repository does **not** yet prove that ordinary Stringer is conservative
-for arbitrary audit sample size.  It does provide a procedure that an audit
-methodology group can evaluate without waiting for that open problem:
+for arbitrary audit sample size.  It does provide two procedures that an
+audit methodology group can evaluate without waiting for that open problem.
+The principal safeguard in this note is:
 
 > Before observing the sample, define the reported taint-rate upper bound as
 > the larger of (i) the ordinary Stringer calculation and (ii) the validated
@@ -67,6 +68,60 @@ not assert that the safeguard's Gaffke component is pointwise inactive there.
 Beyond those ranges, the safeguard remains the proved all-sample-size option
 under the stated model.
 
+## Alternative all-sample-size rule within the Poisson factor family
+
+The corrected band also yields a second rule that a methodology group can
+evaluate. Let \(\kappa_{n,\alpha}\) be the smallest scalar satisfying
+\(\kappa\ge\max\{1,n/\lambda_n\}\) for which
+
+\[
+\Pr\left\{V_{i:n}\le
+\min\left(1,\frac{\kappa_{n,\alpha}\lambda_{i-1}}n\right),
+\ i=1,\ldots,n\right\}\ge1-\alpha,
+\]
+
+where \(\lambda_j\) is the ordinary Poisson count limit. Then report
+
+\[
+U_{\rm scalar}
+=\min\{1,\kappa_{n,\alpha}U_{\rm Stringer,P}\}.
+\]
+
+This rule is distribution-free valid for every sample size and every
+confidence level under the same i.i.d. model. It keeps the existing Poisson factor curve and requires only
+one precomputed multiplier. Exact certificates give these simple
+six-decimal valid choices:
+
+| nominal confidence | `n=25` | `n=50` | `n=100` | `n=200` |
+|---:|---:|---:|---:|---:|
+| 90% | 1.189306 | 1.251208 | 1.286176 | 1.305049 |
+| 95% | 1.126246 | 1.195804 | 1.235956 | 1.257979 |
+| 99% | 1.027950 | 1.111273 | 1.161122 | 1.189239 |
+
+The multiplier applies to the complete Poisson Stringer result and the
+product is capped at one. The theorem also permits each Poisson factor to be
+capped at one before forming and scaling the complete expression; a
+methodology must document which convention it uses. These values validate
+the **modified scalar rule**;
+they do not imply that ordinary Stringer fails at those sample sizes. They
+are minimal only for this particular corrected-band criterion, to the
+certified resolution. See
+[`POISSON-BAND-CALIBRATION.md`](../theory/POISSON-BAND-CALIBRATION.md).
+
+The six-decimal multiplier table controls rounding of the multiplier, not
+rounding in a third-party Poisson factor table. A production implementation
+must compute the underlying factors with a certified upper enclosure or
+show that the approved table rounds them upward. The command below performs
+the former check with exact rational endpoints.
+
+The scalar rule and the Stringer--Gaffke maximum solve the same validity
+problem differently. The scalar rule is operationally close to existing
+factor-table workflows but raises every sample result at a fixed
+`(n,alpha)`. The Gaffke safeguard is sample-adaptive and often has zero
+uplift, but it requires a second bounded-mean calculation. No general
+pointwise ordering is claimed. A methodology evaluation should compare both
+on representative engagement populations before selecting either rule.
+
 ## Reproducible command
 
 From the repository root, with zero taints omitted from the input list but
@@ -101,6 +156,31 @@ For this illustrative sample, the safeguard does not change the Poisson
 Stringer result.  That observation is sample-specific, not a proof of the
 unmodified rule at `n=100`.
 
+For an arbitrary specified sample size and a conventional tail probability
+`alpha < exp(-1)`, write the exact calibration certificate to a review file
+and extract its conservative upper endpoint:
+
+```sh
+uv run --frozen python \
+  supporting-materials/computations/python/poisson_band_calibration.py \
+  --n 25 --alpha 0.05 --taints 1,0.4,0.1 \
+  --out /tmp/poisson-kappa.json
+jq '{kappa_upper:.case.kappa_upper,report}' /tmp/poisson-kappa.json
+```
+
+The command can take longer at large `n` because it brackets every required
+Poisson limit and evaluates the joint probability with exact rational
+arithmetic. Most decimal fields summarize exact numerators and denominators
+stored alongside them; the
+`case.kappa_upper.valid_decimal_ceiling_12` field is instead explicitly
+rounded upward for direct use. For this example that valid decimal choice is
+`1.126245908440`, the ordinary Poisson component is enclosed above by
+`0.2204168980155687`, and the calibrated reported bound is enclosed above by
+`0.2482436295408857`. This command uses the untruncated Poisson factors and
+caps only the final calibrated result; its JSON records that convention
+explicitly. It also records the exact taint multiset, including the implied
+zero count, and every dyadic Poisson-limit bracket used in the calculation.
+
 ## Why the numerical floor is certifiable
 
 The Gaffke endpoint is a quantile of a uniform-Dirichlet average.  A B-spline
@@ -130,6 +210,8 @@ If a methodology owner authorizes evaluation of the rule, retain at least:
 - the ordinary Stringer component;
 - both endpoints and the width of the certified Gaffke bracket;
 - the safeguarded maximum and uplift;
+- if the scalar rule is used, the exact certified multiplier, its dyadic
+  resolution, the uncapped ordinary Poisson result, and the capped product;
 - the repository commit and locked dependency file used; and
 - the unedited JSON output.
 

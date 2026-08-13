@@ -133,7 +133,39 @@ Questions:
 7. Is the below-nominal event probability at the next size clearly
    distinguished from Stringer undercoverage?
 
-## Review E: the all-sample-size reporting safeguard
+## Review E: the all-sample-size scalar Poisson calibration
+
+Primary files:
+
+- [`../theory/POISSON-BAND-CALIBRATION.md`](../theory/POISSON-BAND-CALIBRATION.md)
+- [`../computations/python/poisson_band_calibration.py`](../computations/python/poisson_band_calibration.py)
+- [`../computations/certificates/poisson-band-calibration-certificate.json`](../computations/certificates/poisson-band-calibration-certificate.json)
+- manuscript Theorem~`thm:poissoncalibration`
+
+Questions:
+
+1. Does multiplying every Poisson factor by `kappa` multiply the complete
+   Stringer expression by exactly the same scalar?
+2. Does Lemma~`lem:poissonband` apply to the scaled factors, including its
+   terminal-factor condition?
+3. For the factor-capped variant, is
+   `min(1,kappa*min(1,lambda_j/n))=min(1,kappa*lambda_j/n)` when
+   `kappa>=1`, and does the same terminal condition still hold?
+4. Is `Q_(n,alpha)(kappa)` continuous and nondecreasing, and is its defining
+   feasible set nonempty after imposing `kappa>=max(1,n/lambda_n)`?
+5. At conventional levels, does the Anderson--Samuels comparison
+   give each marginal crossing probability at most `alpha/n`, including
+   capped boundaries?
+6. Do upper Poisson-limit endpoints at the lower `kappa` endpoint and lower
+   Poisson-limit endpoints at the upper `kappa` endpoint give the stated
+   opposite bounds on the joint event probability?
+7. Do those exact signs bracket the band-minimal scalar, and are all table
+   entries rounded upward before being described as valid choices?
+8. Is the theorem consistently described as validating the modified scalar
+   rule rather than ordinary Stringer, and is minimality limited to this
+   sufficient-event family?
+
+## Review F: the all-sample-size reporting safeguard
 
 Primary files:
 
@@ -156,7 +188,7 @@ Questions:
 6. Are the audit-design limitations prominent enough to prevent an iid
    theorem from being misapplied to a different sampling design?
 
-## Review F: the one-cap zero-uplift theorem
+## Review G: the one-cap zero-uplift theorem
 
 Primary files:
 
@@ -199,6 +231,7 @@ git rev-parse HEAD
 uv --version
 tectonic --version
 make reproduce
+make poisson-band-calibration-check
 uv run --frozen python \
   supporting-materials/computations/python/gaffke.py \
   --n 100 --alpha 0.05 --method poisson --taints 1,0.4,0.1
@@ -224,6 +257,7 @@ Review C disposition:
 Review D disposition:
 Review E disposition:
 Review F disposition:
+Review G disposition:
 
 Issues found and exact locations:
 Corrections rechecked:

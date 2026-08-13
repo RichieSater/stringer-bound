@@ -91,6 +91,14 @@ Outside these proved identity regions, (1) acts as a validated floor. It can
 be adopted without taking a position on the unresolved general-`n`
 comparison.
 
+
+A separate all-sample-size option preserves the Poisson factor curve and
+multiplies the complete ordinary result by an exactly calibrated scalar; see
+[`POISSON-BAND-CALIBRATION.md`](POISSON-BAND-CALIBRATION.md). The scalar
+rule raises every sample result at a fixed `(n,alpha)`, whereas (1) is
+sample-adaptive. No pointwise ordering between the two valid rules is
+claimed.
+
 ## Exact-sign computation of the floor
 
 The implementation in

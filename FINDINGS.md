@@ -46,7 +46,29 @@ each row, which limits that proof route rather than demonstrating Stringer
 undercoverage
 ([proof and certificate](supporting-materials/theory/POISSON-SIMULTANEOUS-BAND.md)).
 
-## 2. A finite-sample-valid reporting safeguard is available for every n
+## 2. Two finite-sample-valid reporting rules are available for every n
+
+The corrected simultaneous-band argument yields an all-sample-size rule
+within the Poisson Stringer factor family. For each sample size and confidence
+level, precompute the smallest scalar κ at least one that makes the corrected
+joint band event have at least nominal probability and makes the terminal
+factor at least one. Then report
+
+```text
+min(1, κ × ordinary Poisson Stringer).
+```
+
+This **modified scalar rule** has distribution-free coverage under the
+paper's independent [0,1]-taint model for every sample size and confidence
+level. The theorem also covers first capping each Poisson factor at one.
+Exact rational certificates bracket representative multipliers at
+n = 25, 50, 100, and 200 for 90%, 95%, and 99% confidence. At 95%, simple
+six-decimal valid choices are 1.126246, 1.195804, 1.235956, and 1.257979,
+respectively
+([proof, certificate, and exact report command](supporting-materials/theory/POISSON-BAND-CALIBRATION.md)).
+These multipliers certify the calibrated rule; values above one are not
+evidence that ordinary Stringer undercovers. Base-factor rounding must also
+be conservative.
 
 An audit methodology group can evaluate a reporting rule that does not wait
 for the open general-n conjecture: before observing the sample, define the
@@ -80,6 +102,12 @@ professional-standards analysis, model-risk validation, and software
 testing. It is not represented as adopted guidance. The zero-uplift result
 describes the output of the pre-specified safeguard; it is not a
 conditional-coverage claim for ordinary Stringer.
+
+The scalar rule changes every result at a fixed sample size and confidence
+level, whereas the Stringer--Gaffke maximum is sample-adaptive and often has
+zero uplift. No general pointwise ordering between the two rules is claimed.
+The linked practice note gives exact commands, engagement-file fields, and
+scope limitations for methodology review.
 
 ## 3. The general finite-sample guarantee remains open
 
