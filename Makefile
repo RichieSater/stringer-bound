@@ -19,67 +19,57 @@ all-n-reduction-check:
 	$(PYTHON) $(PY_DIR)/all_n_poisson_reductions.py
 
 dirichlet-poissonization-check:
-	@tmp=$$(mktemp); \
+	@set -e; tmp=$$(mktemp); trap 'rm -f "$$tmp"' EXIT; \
 	$(PYTHON) $(PY_DIR)/dirichlet_poissonization.py --out $$tmp; \
-	cmp $(CERT_DIR)/dirichlet-poissonization-certificate.json $$tmp; \
-	rm -f $$tmp
+	cmp $(CERT_DIR)/dirichlet-poissonization-certificate.json $$tmp
 
 poisson-band-certificate-check:
-	@tmp=$$(mktemp); \
+	@set -e; tmp=$$(mktemp); trap 'rm -f "$$tmp"' EXIT; \
 	$(PYTHON) $(PY_DIR)/poisson_band_certificate.py --out $$tmp; \
-	cmp $(CERT_DIR)/poisson-simultaneous-band-certificate.json $$tmp; \
-	rm -f $$tmp
+	cmp $(CERT_DIR)/poisson-simultaneous-band-certificate.json $$tmp
 
 one-cap-all-n-check:
 	$(PYTHON) $(PY_DIR)/one_cap_all_n_check.py
 
 one-cap-certificate-check:
-	@tmp=$$(mktemp); \
+	@set -e; tmp=$$(mktemp); trap 'rm -f "$$tmp"' EXIT; \
 	$(PYTHON) $(PY_DIR)/one_cap_certificate.py --out $$tmp; \
-	cmp $(CERT_DIR)/one-cap-certificate.json $$tmp; \
-	rm -f $$tmp
+	cmp $(CERT_DIR)/one-cap-certificate.json $$tmp
 
 n3-formula-check:
-	@tmp=$$(mktemp); \
+	@set -e; tmp=$$(mktemp); trap 'rm -f "$$tmp"' EXIT; \
 	$(PYTHON) $(PY_DIR)/derive_n3_bernstein_formulas.py --out $$tmp; \
-	cmp $(CERT_DIR)/n3-gaffke-bernstein-formulas.json $$tmp; \
-	rm -f $$tmp
+	cmp $(CERT_DIR)/n3-gaffke-bernstein-formulas.json $$tmp
 
 n3-certificate-check:
-	@tmp=$$(mktemp); \
+	@set -e; tmp=$$(mktemp); trap 'rm -f "$$tmp"' EXIT; \
 	$(PYTHON) $(PY_DIR)/n3_gaffke_certificate.py --out $$tmp; \
-	cmp $(CERT_DIR)/n3-gaffke-certificate.json $$tmp; \
-	rm -f $$tmp
+	cmp $(CERT_DIR)/n3-gaffke-certificate.json $$tmp
 
 n4-structure-check:
-	@tmp=$$(mktemp); \
+	@set -e; tmp=$$(mktemp); trap 'rm -f "$$tmp"' EXIT; \
 	$(PYTHON) $(PY_DIR)/derive_n4_bernstein_structure.py --out $$tmp; \
-	cmp $(CERT_DIR)/n4-gaffke-bernstein-structure.json $$tmp; \
-	rm -f $$tmp
+	cmp $(CERT_DIR)/n4-gaffke-bernstein-structure.json $$tmp
 
 n4-certificate-check:
-	@tmp=$$(mktemp); \
+	@set -e; tmp=$$(mktemp); trap 'rm -f "$$tmp"' EXIT; \
 	$(PYTHON) $(PY_DIR)/n4_gaffke_certificate.py --out $$tmp; \
-	cmp $(CERT_DIR)/n4-gaffke-certificate.json $$tmp; \
-	rm -f $$tmp
+	cmp $(CERT_DIR)/n4-gaffke-certificate.json $$tmp
 
 n5-structure-check:
-	@tmp=$$(mktemp); \
+	@set -e; tmp=$$(mktemp); trap 'rm -f "$$tmp"' EXIT; \
 	$(PYTHON) $(PY_DIR)/derive_n5_bernstein_structure.py --out $$tmp; \
-	cmp $(CERT_DIR)/n5-gaffke-bernstein-structure.json $$tmp; \
-	rm -f $$tmp
+	cmp $(CERT_DIR)/n5-gaffke-bernstein-structure.json $$tmp
 
 n5-certificate-check:
-	@tmp=$$(mktemp); \
+	@set -e; tmp=$$(mktemp); trap 'rm -f "$$tmp"' EXIT; \
 	$(PYTHON) $(PY_DIR)/n5_gaffke_certificate.py --out $$tmp; \
-	cmp $(CERT_DIR)/n5-gaffke-certificate.json $$tmp; \
-	rm -f $$tmp
+	cmp $(CERT_DIR)/n5-gaffke-certificate.json $$tmp
 
 n6-structure-check:
-	@tmp=$$(mktemp); \
+	@set -e; tmp=$$(mktemp); trap 'rm -f "$$tmp"' EXIT; \
 	$(PYTHON) $(PY_DIR)/derive_n6_bernstein_structure.py --out $$tmp; \
-	cmp $(CERT_DIR)/n6-gaffke-bernstein-structure.json $$tmp; \
-	rm -f $$tmp
+	cmp $(CERT_DIR)/n6-gaffke-bernstein-structure.json $$tmp
 
 n6-structure-data-check:
 	$(PYTHON) $(PY_DIR)/derive_n6_bernstein_structure.py \
@@ -146,10 +136,9 @@ n6-face-d6-2-check:
 		--face-proof-group d6-2
 
 n6-certificate-check:
-	@tmp=$$(mktemp); \
+	@set -e; tmp=$$(mktemp); trap 'rm -f "$$tmp"' EXIT; \
 	$(PYTHON) $(PY_DIR)/n6_gaffke_certificate.py --out $$tmp; \
-	cmp $(CERT_DIR)/n6-gaffke-certificate.json $$tmp; \
-	rm -f $$tmp
+	cmp $(CERT_DIR)/n6-gaffke-certificate.json $$tmp
 
 n6-certificate-001-check:
 	$(PYTHON) $(PY_DIR)/n6_gaffke_certificate.py --check-alpha 0.01
@@ -161,10 +150,9 @@ n6-certificate-010-check:
 	$(PYTHON) $(PY_DIR)/n6_gaffke_certificate.py --check-alpha 0.10
 
 certificate-summary-check:
-	@tmp=$$(mktemp); \
+	@set -e; tmp=$$(mktemp); trap 'rm -f "$$tmp"' EXIT; \
 	$(PYTHON) $(PY_DIR)/summarize_certificates.py --out $$tmp >/dev/null; \
-	cmp $(CERT_DIR)/certificate-summary.json $$tmp; \
-	rm -f $$tmp
+	cmp $(CERT_DIR)/certificate-summary.json $$tmp
 
 claim-manifest-check:
 	$(PYTHON) $(PY_DIR)/validate_claim_manifest.py

@@ -1,9 +1,10 @@
 # The constrained Dirichlet--Poissonization inequality
 
-> **Status.** This note gives an exact reduction, proves a nontrivial family
-> of profiles, and rules out an over-broad localization shortcut. The central
-> divided-difference inequality remains open. Nothing here is yet an
-> all-sample-size coverage theorem.
+> **Status.** This note gives an exact reduction, pushes any possible
+> counterexample to a zero-knot boundary, proves every profile having at most
+> two distinct coefficient values, and rules out an over-broad localization
+> shortcut. The central divided-difference inequality remains open. Nothing
+> here is yet an all-sample-size coverage theorem.
 
 This is the second analytic component of the dimension-free Poisson
 Stringer program. It isolates the part of that program that compares a
@@ -130,18 +131,149 @@ $(k=1,c=n)$, the positive gap is explicitly
 These are the equal-block vertices of the fixed-sum ordered coefficient
 polytope. A complete proof must still control mixtures of those vertices.
 
-## 4. Why generic $s$-concave localization is too broad
+## 4. A radial boundary reduction and every two-level profile
+
+The next lemma applies to arbitrary coefficient vectors, not only to two
+levels.  It reduces any possible interior counterexample to the boundary of
+the nonnegative orthant.
+
+> **Radial boundary lemma.**  Suppose $y_i>0$ and
+> $\sum_{i=0}^n y_i\le n$.  Put $c_i=y_i-1$ and
+>
+> \[
+>  y_i(t)=1+tc_i,
+>  \qquad
+>  1\le t\le t_*:=\min_{c_i<0}\frac{-1}{c_i}.        \tag{9}
+> \]
+>
+> Then
+>
+> \[
+> \Pr\{T_{y(t)}>1\}
+> =\Pr\!\left\{\sum_i c_iD_i>0\right\}              \tag{10}
+> \]
+>
+> is independent of $t$, whereas
+> $t\mapsto\Pr\{Z_{y(t)}>n\}$ is nonincreasing.  At $t=t_*$,
+> at least one coefficient is zero.
+
+At least one $c_i$ is negative because $\sum_i y_i<n+1$, so $t_*$ is
+well-defined.  Equation (10) follows immediately from
+
+\[
+ T_{y(t)}=1+t\sum_i c_iD_i.
+\]
+
+It remains to prove the monotonicity of the poissonized tail.  We first use
+an elementary mode bound.  For arbitrary positive weights
+$a_0,\ldots,a_n$, let $f$ be the density of $X=\sum_i a_iE_i$ and put
+$\mu=EX=\sum_i a_i$.  The Laplace transform
+
+\[
+ L(s)=\prod_i(1+a_is)^{-1}
+\]
+
+satisfies
+
+\[
+ -L'(s)=L(s)\sum_i\frac{a_i}{1+a_is}.
+\]
+
+Laplace inversion therefore gives
+
+\[
+ x f(x)=\int_0^x f(x-u)k(u)\,du,
+ \qquad
+ k(u)=\sum_i e^{-u/a_i}.                              \tag{11}
+\]
+
+The density $f$ is log-concave because it is a convolution of log-concave
+exponential densities.  If $r$ is a mode, (11) gives
+
+\[
+ r f(r)
+ \le f(r)\int_0^\infty k(u)\,du
+ =\mu f(r).
+\]
+
+Thus every such weighted exponential sum has a mode no larger than its
+mean.
+
+Now let $X_t=Z_{y(t)}$, let $f_t$ be its density, and set
+$A(t)=\Pr\{X_t>n\}$.  Its mean is
+
+\[
+ \mu_t=n+1+t\left(\sum_i y_i-n-1\right)\le n.
+\]
+
+The mode bound and log-concavity imply $f_t'(n)\le0$.  To connect this
+density derivative to $A'(t)$, write $S=\sum_iE_i$.  Differentiating the
+tail by the coarea formula on the slice $X_t=n$ gives
+
+\[
+ A'(t)
+ =f_t(n)E\!\left[\left.\sum_i c_iE_i\,\right|X_t=n\right]
+ =\frac{f_t(n)}t\{n-E(S\mid X_t=n)\}.                \tag{12}
+\]
+
+The change of variables $e_i=xu_i$ in the density integral for $X_t$
+shows that
+
+\[
+ x\frac{f_t'(x)}{f_t(x)}
+ =n-E(S\mid X_t=x).
+\]
+
+Substitution into (12) yields
+
+\[
+ A'(t)=\frac nt f_t'(n)\le0.                          \tag{13}
+\]
+
+Continuity supplies the endpoint $t=t_*$.  This proves the lemma.
+Consequently, if (6) had a counterexample with every knot positive, moving
+along (9) would produce a counterexample with at least one zero knot.
+
+The radial lemma also completes the two-level case.
+
+> **Two-level corollary.**  Put $m=n+1$.  Let $k,l\ge1$ with $k+l=m$, and
+> suppose the coefficient vector consists of $k$ copies of $a$ and $l$
+> copies of $b$, where
+>
+> \[
+>  0\le a\le b,
+>  \qquad ka+lb\le n.                                \tag{14}
+> \]
+>
+> Then $\Pr\{Z_y>n\}\ge\Pr\{T_y>1\}$.
+
+If $b\le1$, the right side is zero.  If $a=0$, Section 3 applies directly.
+Otherwise $0<a<1<b$, and the radial lemma moves the profile to the endpoint
+$t_*=1/(1-a)$.  There the low coefficient is zero and the high coefficient
+is
+
+\[
+ b_*=1+\frac{b-1}{1-a}=\frac{b-a}{1-a}.              \tag{15}
+\]
+
+The cap probability is unchanged, the poissonized tail can only decrease,
+and the endpoint still satisfies $lb_*\le n$.  The equal-block result of
+Section 3 proves the comparison at that endpoint and hence at the original
+profile.
+
+
+## 5. Why generic $s$-concave localization is too broad
 
 A one-dimensional localization theorem for $1/n$-concave probability
 laws reduces a linear extremal problem to point masses or densities of the
 form
 
 \[
- (A+By)^{n-1}\mathbf1_{[\ell,r]}(y).                 \tag{9}
+ (A+By)^{n-1}\mathbf1_{[\ell,r]}(y).                 \tag{16}
 \]
 
 That reduction is valid for the enlarged class, but proving the desired
-tail implication for every law in (9) is impossible, even if the necessary
+tail implication for every law in (16) is impossible, even if the necessary
 mean constraint $E Y\le n/(n+1)$ is retained. Here is an exact
 counterexample to that proposed intermediate statement.
 
@@ -149,7 +281,7 @@ Take $n=10$ and let $Y$ have density proportional to
 
 \[
  \left(\frac34+\frac{75y}{388}\right)^9,
- \qquad 0\le y\le\frac{97}{75}.                       \tag{10}
+ \qquad 0\le y\le\frac{97}{75}.                       \tag{17}
 \]
 
 The normalizing integral is $95984119/196608000$. Direct integration gives
@@ -165,7 +297,7 @@ probability obeys
  \Pr\{Y>1\}
  =\frac{3108309643939756140704768}
  {6633646218308706152889893}
- \approx0.4685672919>\frac7{15}.                       \tag{11}
+ \approx0.4685672919>\frac7{15}.                       \tag{18}
 \]
 
 For an independent $S\sim\Gamma(11,1)$, repeated integration by parts
@@ -175,27 +307,30 @@ using (3)--(4) gives
  \Pr\{SY>10\}
  =\frac{5573507995079350591862317513}
  {5265884111440931688376513}e^{-750/97}
- \approx0.4642055262<\frac7{15}.                       \tag{12}
+ \approx0.4642055262<\frac7{15}.                       \tag{19}
 \]
 
 The mean and both inequalities against $7/15$ are certified with rational
 arithmetic;
-the exponential in (12) is enclosed by alternating-series bounds after
+the exponential in (19) is enclosed by alternating-series bounds after
 power-of-two range reduction. Thus the generic $s$-affine class contains
 a genuine obstruction even after the necessary mean constraint is imposed.
 
 This does **not** refute (1) for Dirichlet averages. A projection of the
 uniform simplex has a B-spline density whose knots are the actual
-coefficients $y_i$; not every density in (9) is such a projection with
+coefficients $y_i$; not every density in (16) is such a projection with
 the constraint (2). The example shows precisely which structural
 information a successful localization argument must preserve.
 
-## 5. Remaining proof problem
+## 6. Remaining proof problem
 
-The cleanest current target is (6). Three plausible routes remain:
+The cleanest current target is (6).  Section 4 shows that it is enough to
+work on coordinate faces, and Sections 3--4 establish it for every profile
+having at most two distinct coefficient values.  Three plausible routes
+remain:
 
-1. prove that the constrained divided difference in (6) has no interior
-   negative minimum, reducing its extrema to equal-block boundary profiles;
+1. exploit the zero-knot reduction recursively, or prove that a negative
+   minimum on a coordinate face must have at most two distinct knot values;
 2. exploit total positivity of the B-spline kernel together with the
    single-crossing theory for weighted gamma convolutions; or
 3. prove the equivalent uniform-simplex cap inequality directly by a
@@ -210,9 +345,10 @@ make dirichlet-poissonization-check
 
 The committed output is
 [`dirichlet-poissonization-certificate.json`](../computations/certificates/dirichlet-poissonization-certificate.json).
-It certifies the obstruction and checks rational equal-block instances. The
-all-parameter equal-block result rests on the written Anderson--Samuels
-argument, and the general inequality remains explicitly open.
+It certifies the obstruction, checks rational equal-block instances, and
+regression-checks the exact algebra used in the two-level lemma.
+The all-parameter statements rest on the written arguments; the general
+inequality remains explicitly open.
 
 ## References
 

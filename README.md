@@ -212,7 +212,7 @@ single-crossing identity isolated in
 pursue the two dimension-free weighted-exponential and
 Dirichlet--Poissonization inequalities isolated in
 [`ALL-N-POISSON-PROGRAM.md`](supporting-materials/theory/ALL-N-POISSON-PROGRAM.md)
-and sharpened in
+and sharpened by the proved zero-knot reduction and all-two-level case in
 [`DIRICHLET-POISSONIZATION.md`](supporting-materials/theory/DIRICHLET-POISSONIZATION.md);
 and develop a certified branch-and-bound or atoms-reduction argument for
 ordinary audit sample sizes.
@@ -283,7 +283,7 @@ supporting-materials/
     ├── all_n_poisson_reductions.py
     │                         exact algebra and rejected-shortcut check for all-n route
     ├── dirichlet_poissonization.py
-    │                         exact localization obstruction + equal-block checks
+    │                         zero-knot/all-two-level algebra + exact obstruction
     ├── search_two_value.py   screening search over {v1 > v2 > 0} supports
     └── certify.py            exact recertification of screening candidates
 ```

@@ -10,12 +10,17 @@ the desired inequality is
 
     P(Z_y > n) >= P(T_y > 1).
 
-This module does *not* claim that inequality in full.  It records two exact
-pieces of progress:
+This module does *not* claim that inequality in full.  It records a proved
+boundary reduction, a proved structured family, and one obstruction:
 
-* the comparison is true for every equal-block vector (a common positive
-  coordinate repeated ``k`` times, followed by zeros), by the published
-  Anderson--Samuels binomial--Poisson inequality; and
+* a radial deformation moves any strictly positive profile to a zero-knot
+  boundary while keeping the simplex tail fixed and decreasing the
+  poissonized tail; and
+* the comparison is true for every vector having at most two distinct
+  coefficient values.  Its radial endpoint follows from the published
+  Anderson--Samuels binomial--Poisson inequality.  This module checks the
+  exact algebra and rational instances both on and strictly inside the sum
+  boundary; and
 * a fully explicit, mean-constrained ``1/n``-concave law shows why generic
   one-dimensional s-concave localization is too broad to prove the
   comparison.
@@ -186,6 +191,118 @@ def equal_block_check(n: int, k: int, lam: Fraction) -> dict[str, object]:
     }
 
 
+def verify_radial_symbolic_identities() -> None:
+    """Check algebra behind the zero-knot radial reduction.
+
+    The written proof also uses log-concavity and the elementary mode bound
+    derived from the convolution identity whose Laplace-transform form is
+    checked here.
+    """
+    from sympy import diff, factor, prod, symbols, together
+
+    t, s = symbols("t s", positive=True)
+    c = symbols("c0:4", real=True)
+    e = symbols("e0:4", positive=True)
+    weights = [1 + t * value for value in c]
+    x_t = sum(weight * value for weight, value in zip(weights, e))
+    total = sum(e)
+    direction = sum(value * exponential for value, exponential in zip(c, e))
+    assert factor(x_t - total - t * direction) == 0
+    assert factor(sum(weights) - (4 + t * sum(c))) == 0
+
+    # If L is the Laplace transform of a weighted exponential sum, then
+    # -L' = L*K, where K is the transform of sum_i exp(-u/a_i).  Inversion
+    # gives x*f(x)=(f*k)(x), the identity used to put the mode below the mean.
+    a = symbols("a0:4", positive=True)
+    laplace = prod(1 / (1 + value * s) for value in a)
+    kernel_transform = sum(value / (1 + value * s) for value in a)
+    assert factor(together(-diff(laplace, s) - laplace * kernel_transform)) == 0
+
+
+def verify_two_level_symbolic_identities() -> None:
+    """Check the two-level endpoint algebra after radial deformation."""
+    from sympy import factor, symbols, together
+
+    a, b, k, ell = symbols("a b k ell", positive=True)
+    m = k + ell
+    t_star = 1 / (1 - a)
+    b_star = 1 + t_star * (b - 1)
+    q = (1 - a) / (b - a)
+    original_sum = k * a + ell * b
+
+    assert factor(together(b_star - (b - a) / (1 - a))) == 0
+    assert factor(together(b_star - 1 / q)) == 0
+    endpoint_sum_from_path = m + t_star * (original_sum - m)
+    assert factor(together(endpoint_sum_from_path - ell * b_star)) == 0
+
+
+def two_level_profile_regression(
+    n: int,
+    k: int,
+    a: Fraction,
+    b: Fraction,
+) -> dict[str, object]:
+    """Exact regression for one nontrivial two-level profile.
+
+    The vector contains ``k`` copies of ``a`` and ``ell=n+1-k`` copies of
+    ``b``.  This routine checks the exact radial-path and endpoint algebra,
+    then certifies the resulting equal-block endpoint.  It is a regression
+    check, not a substitute for the all-parameter argument.
+    """
+    if n < 1 or not 1 <= k <= n:
+        raise ValueError("require n>=1 and 1<=k<=n")
+    a = Fraction(a)
+    b = Fraction(b)
+    ell = n + 1 - k
+    m = n + 1
+    if not 0 < a < 1 < b:
+        raise ValueError("require 0<a<1<b")
+    coefficient_sum = k * a + ell * b
+    if coefficient_sum > n:
+        raise ValueError("the coefficient sum must be at most n")
+
+    t_star = 1 / (1 - a)
+    b_star = 1 + t_star * (b - 1)
+    q = (1 - a) / (b - a)
+    endpoint_sum = ell * b_star
+    endpoint_sum_slack = Fraction(n) - endpoint_sum
+    if endpoint_sum_slack < 0:
+        raise AssertionError("the radial endpoint left the sum constraint")
+    if b_star != 1 / q:
+        raise AssertionError("the exact two-level endpoint identity failed")
+
+    endpoint_lambda = Fraction(n) / b_star
+    endpoint_check = equal_block_check(n, ell, endpoint_lambda)
+    return {
+        "n": n,
+        "low_multiplicity": k,
+        "high_multiplicity": ell,
+        "low_coefficient": _fraction_record(a),
+        "high_coefficient": _fraction_record(b),
+        "coefficient_sum": _fraction_record(coefficient_sum),
+        "coefficient_sum_slack": _fraction_record(Fraction(n) - coefficient_sum),
+        "radial_path": {
+            "t_star": _fraction_record(t_star),
+            "coefficient_sum_slope": _fraction_record(coefficient_sum - m),
+            "fixed_beta_threshold_q": _fraction_record(q),
+            "endpoint_high_coefficient": _fraction_record(b_star),
+            "endpoint_coefficient_sum": _fraction_record(endpoint_sum),
+            "endpoint_sum_slack": _fraction_record(endpoint_sum_slack),
+        },
+        "equal_block_endpoint": {
+            "positive_coordinates": ell,
+            "common_positive_coordinate": _fraction_record(1 / q),
+            "lambda": _fraction_record(endpoint_lambda),
+            "certified_lower_margin": endpoint_check["certified_lower_margin"],
+        },
+        "conclusion": (
+            "The radial lemma makes the poissonized tail nonincreasing "
+            "toward the certified equal-block endpoint while the simplex "
+            "tail P(Beta(ell,k)>q) stays fixed."
+        ),
+    }
+
+
 def saffine_localization_obstruction() -> dict[str, object]:
     r"""Return an exact obstruction to the over-broad localization route.
 
@@ -271,6 +388,8 @@ def saffine_localization_obstruction() -> dict[str, object]:
 
 def build_certificate() -> dict[str, object]:
     verify_saffine_symbolic_identities()
+    verify_radial_symbolic_identities()
+    verify_two_level_symbolic_identities()
     checks = []
     # Include both the boundary lambda=k and strict lambda>k cases.  These
     # finite checks guard the beta/binomial and gamma/Poisson translations;
@@ -281,8 +400,24 @@ def build_certificate() -> dict[str, object]:
             if k < n:
                 checks.append(equal_block_check(n, k, Fraction(k + n, 2)))
 
+    two_level_checks = []
+    # Each pair contains an active-boundary case and a strict-sum case.
+    for n, k, a, b in (
+        (2, 2, Fraction(1, 4), Fraction(3, 2)),
+        (2, 2, Fraction(1, 4), Fraction(5, 4)),
+        (3, 2, Fraction(1, 4), Fraction(5, 4)),
+        (3, 2, Fraction(1, 4), Fraction(9, 8)),
+        (5, 3, Fraction(1, 3), Fraction(4, 3)),
+        (5, 3, Fraction(1, 3), Fraction(5, 4)),
+        (10, 5, Fraction(2, 5), Fraction(4, 3)),
+        (10, 5, Fraction(2, 5), Fraction(5, 4)),
+        (20, 15, Fraction(1, 2), Fraction(25, 12)),
+        (20, 15, Fraction(1, 2), Fraction(2, 1)),
+    ):
+        two_level_checks.append(two_level_profile_regression(n, k, a, b))
+
     return {
-        "schema_version": 1,
+        "schema_version": 3,
         "status": (
             "Research certificate: exact reductions and an obstruction, "
             "not an all-sample-size coverage certificate."
@@ -297,6 +432,29 @@ def build_certificate() -> dict[str, object]:
                 "Anderson--Samuels (1967), with continuity at lambda=k"
             ),
             "regression_checks": checks,
+        },
+        "radial_zero_knot_reduction": {
+            "analytic_basis": (
+                "The Laplace-transform convolution identity, the resulting "
+                "mode-below-mean bound for weighted exponential sums, and "
+                "the density-derivative argument in "
+                "DIRICHLET-POISSONIZATION.md"
+            ),
+            "scope": (
+                "Any strictly positive coefficient profile with sum_i "
+                "y_i<=n can be moved to a zero-knot boundary without "
+                "increasing the Dirichlet--Poissonization gap."
+            ),
+            "symbolic_identity_check": "passed",
+        },
+        "two_level_profiles": {
+            "analytic_basis": (
+                "The radial zero-knot reduction in "
+                "DIRICHLET-POISSONIZATION.md and Anderson--Samuels (1967) "
+                "at the resulting equal-block endpoint"
+            ),
+            "symbolic_identity_check": "passed",
+            "exact_rational_regression_checks": two_level_checks,
         },
         "localization_obstruction": saffine_localization_obstruction(),
         "exponential_series_pairs": EXACT_EXP_PAIRS,
@@ -318,6 +476,18 @@ def main(argv: list[str] | None = None) -> int:
     print(
         "equal-block rational regression cases:",
         len(certificate["equal_block_profiles"]["regression_checks"]),
+    )
+    print(
+        "radial zero-knot reduction symbolic identities:",
+        certificate["radial_zero_knot_reduction"]["symbolic_identity_check"],
+    )
+    print(
+        "all-two-level exact rational regressions:",
+        len(
+            certificate["two_level_profiles"][
+                "exact_rational_regression_checks"
+            ]
+        ),
     )
     print(
         "mean-constrained s-affine obstruction: P(Y>1)=%s; P(SY>10)<%s"

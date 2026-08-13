@@ -2852,6 +2852,787 @@
       "numerator": "3108309643939756140704768"
     }
   },
-  "schema_version": 1,
-  "status": "Research certificate: exact reductions and an obstruction, not an all-sample-size coverage certificate."
+  "radial_zero_knot_reduction": {
+    "analytic_basis": "The Laplace-transform convolution identity, the resulting mode-below-mean bound for weighted exponential sums, and the density-derivative argument in DIRICHLET-POISSONIZATION.md",
+    "scope": "Any strictly positive coefficient profile with sum_i y_i<=n can be moved to a zero-knot boundary without increasing the Dirichlet--Poissonization gap.",
+    "symbolic_identity_check": "passed"
+  },
+  "schema_version": 3,
+  "status": "Research certificate: exact reductions and an obstruction, not an all-sample-size coverage certificate.",
+  "two_level_profiles": {
+    "analytic_basis": "The radial zero-knot reduction in DIRICHLET-POISSONIZATION.md and Anderson--Samuels (1967) at the resulting equal-block endpoint",
+    "exact_rational_regression_checks": [
+      {
+        "coefficient_sum": {
+          "decimal": "2.000000000000000000",
+          "denominator": "1",
+          "numerator": "2"
+        },
+        "coefficient_sum_slack": {
+          "decimal": "0.000000000000000000",
+          "denominator": "1",
+          "numerator": "0"
+        },
+        "conclusion": "The radial lemma makes the poissonized tail nonincreasing toward the certified equal-block endpoint while the simplex tail P(Beta(ell,k)>q) stays fixed.",
+        "equal_block_endpoint": {
+          "certified_lower_margin": {
+            "decimal": "0.141194211912202097",
+            "denominator_bits": 1295,
+            "numerator_bits": 1292,
+            "sha256_canonical_binary": "6eebe52e885434b5e00f43f7ef422b400a9332723e40c2b024eb7a29c768e0c9"
+          },
+          "common_positive_coordinate": {
+            "decimal": "1.666666666666666667",
+            "denominator": "3",
+            "numerator": "5"
+          },
+          "lambda": {
+            "decimal": "1.200000000000000000",
+            "denominator": "5",
+            "numerator": "6"
+          },
+          "positive_coordinates": 1
+        },
+        "high_coefficient": {
+          "decimal": "1.500000000000000000",
+          "denominator": "2",
+          "numerator": "3"
+        },
+        "high_multiplicity": 1,
+        "low_coefficient": {
+          "decimal": "0.250000000000000000",
+          "denominator": "4",
+          "numerator": "1"
+        },
+        "low_multiplicity": 2,
+        "n": 2,
+        "radial_path": {
+          "coefficient_sum_slope": {
+            "decimal": "-1.000000000000000000",
+            "denominator": "1",
+            "numerator": "-1"
+          },
+          "endpoint_coefficient_sum": {
+            "decimal": "1.666666666666666667",
+            "denominator": "3",
+            "numerator": "5"
+          },
+          "endpoint_high_coefficient": {
+            "decimal": "1.666666666666666667",
+            "denominator": "3",
+            "numerator": "5"
+          },
+          "endpoint_sum_slack": {
+            "decimal": "0.333333333333333333",
+            "denominator": "3",
+            "numerator": "1"
+          },
+          "fixed_beta_threshold_q": {
+            "decimal": "0.600000000000000000",
+            "denominator": "5",
+            "numerator": "3"
+          },
+          "t_star": {
+            "decimal": "1.333333333333333333",
+            "denominator": "3",
+            "numerator": "4"
+          }
+        }
+      },
+      {
+        "coefficient_sum": {
+          "decimal": "1.750000000000000000",
+          "denominator": "4",
+          "numerator": "7"
+        },
+        "coefficient_sum_slack": {
+          "decimal": "0.250000000000000000",
+          "denominator": "4",
+          "numerator": "1"
+        },
+        "conclusion": "The radial lemma makes the poissonized tail nonincreasing toward the certified equal-block endpoint while the simplex tail P(Beta(ell,k)>q) stays fixed.",
+        "equal_block_endpoint": {
+          "certified_lower_margin": {
+            "decimal": "0.160630160148429829",
+            "denominator_bits": 1252,
+            "numerator_bits": 1250,
+            "sha256_canonical_binary": "9bf546eb90c0b7273163f07b1939494fc20cc0bf7664c611b4606e05fff51a24"
+          },
+          "common_positive_coordinate": {
+            "decimal": "1.333333333333333333",
+            "denominator": "3",
+            "numerator": "4"
+          },
+          "lambda": {
+            "decimal": "1.500000000000000000",
+            "denominator": "2",
+            "numerator": "3"
+          },
+          "positive_coordinates": 1
+        },
+        "high_coefficient": {
+          "decimal": "1.250000000000000000",
+          "denominator": "4",
+          "numerator": "5"
+        },
+        "high_multiplicity": 1,
+        "low_coefficient": {
+          "decimal": "0.250000000000000000",
+          "denominator": "4",
+          "numerator": "1"
+        },
+        "low_multiplicity": 2,
+        "n": 2,
+        "radial_path": {
+          "coefficient_sum_slope": {
+            "decimal": "-1.250000000000000000",
+            "denominator": "4",
+            "numerator": "-5"
+          },
+          "endpoint_coefficient_sum": {
+            "decimal": "1.333333333333333333",
+            "denominator": "3",
+            "numerator": "4"
+          },
+          "endpoint_high_coefficient": {
+            "decimal": "1.333333333333333333",
+            "denominator": "3",
+            "numerator": "4"
+          },
+          "endpoint_sum_slack": {
+            "decimal": "0.666666666666666667",
+            "denominator": "3",
+            "numerator": "2"
+          },
+          "fixed_beta_threshold_q": {
+            "decimal": "0.750000000000000000",
+            "denominator": "4",
+            "numerator": "3"
+          },
+          "t_star": {
+            "decimal": "1.333333333333333333",
+            "denominator": "3",
+            "numerator": "4"
+          }
+        }
+      },
+      {
+        "coefficient_sum": {
+          "decimal": "3.000000000000000000",
+          "denominator": "1",
+          "numerator": "3"
+        },
+        "coefficient_sum_slack": {
+          "decimal": "0.000000000000000000",
+          "denominator": "1",
+          "numerator": "0"
+        },
+        "conclusion": "The radial lemma makes the poissonized tail nonincreasing toward the certified equal-block endpoint while the simplex tail P(Beta(ell,k)>q) stays fixed.",
+        "equal_block_endpoint": {
+          "certified_lower_margin": {
+            "decimal": "0.186297479826059095",
+            "denominator_bits": 3269,
+            "numerator_bits": 3267,
+            "sha256_canonical_binary": "21edca5439228dfbaf7c069302d448b073159ba10e802c885824d17769aafbb4"
+          },
+          "common_positive_coordinate": {
+            "decimal": "1.333333333333333333",
+            "denominator": "3",
+            "numerator": "4"
+          },
+          "lambda": {
+            "decimal": "2.250000000000000000",
+            "denominator": "4",
+            "numerator": "9"
+          },
+          "positive_coordinates": 2
+        },
+        "high_coefficient": {
+          "decimal": "1.250000000000000000",
+          "denominator": "4",
+          "numerator": "5"
+        },
+        "high_multiplicity": 2,
+        "low_coefficient": {
+          "decimal": "0.250000000000000000",
+          "denominator": "4",
+          "numerator": "1"
+        },
+        "low_multiplicity": 2,
+        "n": 3,
+        "radial_path": {
+          "coefficient_sum_slope": {
+            "decimal": "-1.000000000000000000",
+            "denominator": "1",
+            "numerator": "-1"
+          },
+          "endpoint_coefficient_sum": {
+            "decimal": "2.666666666666666667",
+            "denominator": "3",
+            "numerator": "8"
+          },
+          "endpoint_high_coefficient": {
+            "decimal": "1.333333333333333333",
+            "denominator": "3",
+            "numerator": "4"
+          },
+          "endpoint_sum_slack": {
+            "decimal": "0.333333333333333333",
+            "denominator": "3",
+            "numerator": "1"
+          },
+          "fixed_beta_threshold_q": {
+            "decimal": "0.750000000000000000",
+            "denominator": "4",
+            "numerator": "3"
+          },
+          "t_star": {
+            "decimal": "1.333333333333333333",
+            "denominator": "3",
+            "numerator": "4"
+          }
+        }
+      },
+      {
+        "coefficient_sum": {
+          "decimal": "2.750000000000000000",
+          "denominator": "4",
+          "numerator": "11"
+        },
+        "coefficient_sum_slack": {
+          "decimal": "0.250000000000000000",
+          "denominator": "4",
+          "numerator": "1"
+        },
+        "conclusion": "The radial lemma makes the poissonized tail nonincreasing toward the certified equal-block endpoint while the simplex tail P(Beta(ell,k)>q) stays fixed.",
+        "equal_block_endpoint": {
+          "certified_lower_margin": {
+            "decimal": "0.217557438961198010",
+            "denominator_bits": 3204,
+            "numerator_bits": 3202,
+            "sha256_canonical_binary": "33c531088078249bbefee5841ee32b49cd8b2d11ec9d231bc130c22522b7f64d"
+          },
+          "common_positive_coordinate": {
+            "decimal": "1.166666666666666667",
+            "denominator": "6",
+            "numerator": "7"
+          },
+          "lambda": {
+            "decimal": "2.571428571428571429",
+            "denominator": "7",
+            "numerator": "18"
+          },
+          "positive_coordinates": 2
+        },
+        "high_coefficient": {
+          "decimal": "1.125000000000000000",
+          "denominator": "8",
+          "numerator": "9"
+        },
+        "high_multiplicity": 2,
+        "low_coefficient": {
+          "decimal": "0.250000000000000000",
+          "denominator": "4",
+          "numerator": "1"
+        },
+        "low_multiplicity": 2,
+        "n": 3,
+        "radial_path": {
+          "coefficient_sum_slope": {
+            "decimal": "-1.250000000000000000",
+            "denominator": "4",
+            "numerator": "-5"
+          },
+          "endpoint_coefficient_sum": {
+            "decimal": "2.333333333333333333",
+            "denominator": "3",
+            "numerator": "7"
+          },
+          "endpoint_high_coefficient": {
+            "decimal": "1.166666666666666667",
+            "denominator": "6",
+            "numerator": "7"
+          },
+          "endpoint_sum_slack": {
+            "decimal": "0.666666666666666667",
+            "denominator": "3",
+            "numerator": "2"
+          },
+          "fixed_beta_threshold_q": {
+            "decimal": "0.857142857142857143",
+            "denominator": "7",
+            "numerator": "6"
+          },
+          "t_star": {
+            "decimal": "1.333333333333333333",
+            "denominator": "3",
+            "numerator": "4"
+          }
+        }
+      },
+      {
+        "coefficient_sum": {
+          "decimal": "5.000000000000000000",
+          "denominator": "1",
+          "numerator": "5"
+        },
+        "coefficient_sum_slack": {
+          "decimal": "0.000000000000000000",
+          "denominator": "1",
+          "numerator": "0"
+        },
+        "conclusion": "The radial lemma makes the poissonized tail nonincreasing toward the certified equal-block endpoint while the simplex tail P(Beta(ell,k)>q) stays fixed.",
+        "equal_block_endpoint": {
+          "certified_lower_margin": {
+            "decimal": "0.142899613224063833",
+            "denominator_bits": 2719,
+            "numerator_bits": 2716,
+            "sha256_canonical_binary": "50258bf20a9c96f05cedaea24a297d2f2ee99bde4053bf05f8d3f4f506ff2c89"
+          },
+          "common_positive_coordinate": {
+            "decimal": "1.500000000000000000",
+            "denominator": "2",
+            "numerator": "3"
+          },
+          "lambda": {
+            "decimal": "3.333333333333333333",
+            "denominator": "3",
+            "numerator": "10"
+          },
+          "positive_coordinates": 3
+        },
+        "high_coefficient": {
+          "decimal": "1.333333333333333333",
+          "denominator": "3",
+          "numerator": "4"
+        },
+        "high_multiplicity": 3,
+        "low_coefficient": {
+          "decimal": "0.333333333333333333",
+          "denominator": "3",
+          "numerator": "1"
+        },
+        "low_multiplicity": 3,
+        "n": 5,
+        "radial_path": {
+          "coefficient_sum_slope": {
+            "decimal": "-1.000000000000000000",
+            "denominator": "1",
+            "numerator": "-1"
+          },
+          "endpoint_coefficient_sum": {
+            "decimal": "4.500000000000000000",
+            "denominator": "2",
+            "numerator": "9"
+          },
+          "endpoint_high_coefficient": {
+            "decimal": "1.500000000000000000",
+            "denominator": "2",
+            "numerator": "3"
+          },
+          "endpoint_sum_slack": {
+            "decimal": "0.500000000000000000",
+            "denominator": "2",
+            "numerator": "1"
+          },
+          "fixed_beta_threshold_q": {
+            "decimal": "0.666666666666666667",
+            "denominator": "3",
+            "numerator": "2"
+          },
+          "t_star": {
+            "decimal": "1.500000000000000000",
+            "denominator": "2",
+            "numerator": "3"
+          }
+        }
+      },
+      {
+        "coefficient_sum": {
+          "decimal": "4.750000000000000000",
+          "denominator": "4",
+          "numerator": "19"
+        },
+        "coefficient_sum_slack": {
+          "decimal": "0.250000000000000000",
+          "denominator": "4",
+          "numerator": "1"
+        },
+        "conclusion": "The radial lemma makes the poissonized tail nonincreasing toward the certified equal-block endpoint while the simplex tail P(Beta(ell,k)>q) stays fixed.",
+        "equal_block_endpoint": {
+          "certified_lower_margin": {
+            "decimal": "0.167438451878886497",
+            "denominator_bits": 2774,
+            "numerator_bits": 2771,
+            "sha256_canonical_binary": "93e98160c75d5b85cedae0f5f11c3768829e0c6db983bb8df2536031ece88203"
+          },
+          "common_positive_coordinate": {
+            "decimal": "1.375000000000000000",
+            "denominator": "8",
+            "numerator": "11"
+          },
+          "lambda": {
+            "decimal": "3.636363636363636364",
+            "denominator": "11",
+            "numerator": "40"
+          },
+          "positive_coordinates": 3
+        },
+        "high_coefficient": {
+          "decimal": "1.250000000000000000",
+          "denominator": "4",
+          "numerator": "5"
+        },
+        "high_multiplicity": 3,
+        "low_coefficient": {
+          "decimal": "0.333333333333333333",
+          "denominator": "3",
+          "numerator": "1"
+        },
+        "low_multiplicity": 3,
+        "n": 5,
+        "radial_path": {
+          "coefficient_sum_slope": {
+            "decimal": "-1.250000000000000000",
+            "denominator": "4",
+            "numerator": "-5"
+          },
+          "endpoint_coefficient_sum": {
+            "decimal": "4.125000000000000000",
+            "denominator": "8",
+            "numerator": "33"
+          },
+          "endpoint_high_coefficient": {
+            "decimal": "1.375000000000000000",
+            "denominator": "8",
+            "numerator": "11"
+          },
+          "endpoint_sum_slack": {
+            "decimal": "0.875000000000000000",
+            "denominator": "8",
+            "numerator": "7"
+          },
+          "fixed_beta_threshold_q": {
+            "decimal": "0.727272727272727273",
+            "denominator": "11",
+            "numerator": "8"
+          },
+          "t_star": {
+            "decimal": "1.500000000000000000",
+            "denominator": "2",
+            "numerator": "3"
+          }
+        }
+      },
+      {
+        "coefficient_sum": {
+          "decimal": "10.000000000000000000",
+          "denominator": "1",
+          "numerator": "10"
+        },
+        "coefficient_sum_slack": {
+          "decimal": "0.000000000000000000",
+          "denominator": "1",
+          "numerator": "0"
+        },
+        "conclusion": "The radial lemma makes the poissonized tail nonincreasing toward the certified equal-block endpoint while the simplex tail P(Beta(ell,k)>q) stays fixed.",
+        "equal_block_endpoint": {
+          "certified_lower_margin": {
+            "decimal": "0.115129253840948206",
+            "denominator_bits": 7511,
+            "numerator_bits": 7508,
+            "sha256_canonical_binary": "98332b6adb529af2ff2b8035a88de8255d3dcdd05735338dddd15e6dc6dce8ad"
+          },
+          "common_positive_coordinate": {
+            "decimal": "1.555555555555555556",
+            "denominator": "9",
+            "numerator": "14"
+          },
+          "lambda": {
+            "decimal": "6.428571428571428571",
+            "denominator": "7",
+            "numerator": "45"
+          },
+          "positive_coordinates": 6
+        },
+        "high_coefficient": {
+          "decimal": "1.333333333333333333",
+          "denominator": "3",
+          "numerator": "4"
+        },
+        "high_multiplicity": 6,
+        "low_coefficient": {
+          "decimal": "0.400000000000000000",
+          "denominator": "5",
+          "numerator": "2"
+        },
+        "low_multiplicity": 5,
+        "n": 10,
+        "radial_path": {
+          "coefficient_sum_slope": {
+            "decimal": "-1.000000000000000000",
+            "denominator": "1",
+            "numerator": "-1"
+          },
+          "endpoint_coefficient_sum": {
+            "decimal": "9.333333333333333333",
+            "denominator": "3",
+            "numerator": "28"
+          },
+          "endpoint_high_coefficient": {
+            "decimal": "1.555555555555555556",
+            "denominator": "9",
+            "numerator": "14"
+          },
+          "endpoint_sum_slack": {
+            "decimal": "0.666666666666666667",
+            "denominator": "3",
+            "numerator": "2"
+          },
+          "fixed_beta_threshold_q": {
+            "decimal": "0.642857142857142857",
+            "denominator": "14",
+            "numerator": "9"
+          },
+          "t_star": {
+            "decimal": "1.666666666666666667",
+            "denominator": "3",
+            "numerator": "5"
+          }
+        }
+      },
+      {
+        "coefficient_sum": {
+          "decimal": "9.500000000000000000",
+          "denominator": "2",
+          "numerator": "19"
+        },
+        "coefficient_sum_slack": {
+          "decimal": "0.500000000000000000",
+          "denominator": "2",
+          "numerator": "1"
+        },
+        "conclusion": "The radial lemma makes the poissonized tail nonincreasing toward the certified equal-block endpoint while the simplex tail P(Beta(ell,k)>q) stays fixed.",
+        "equal_block_endpoint": {
+          "certified_lower_margin": {
+            "decimal": "0.152895924992008030",
+            "denominator_bits": 6180,
+            "numerator_bits": 6177,
+            "sha256_canonical_binary": "2ebd6faf46c6b8c8cbc67a7608a2d31c21a40f74a1eb8fa538909e075aae5ea6"
+          },
+          "common_positive_coordinate": {
+            "decimal": "1.416666666666666667",
+            "denominator": "12",
+            "numerator": "17"
+          },
+          "lambda": {
+            "decimal": "7.058823529411764706",
+            "denominator": "17",
+            "numerator": "120"
+          },
+          "positive_coordinates": 6
+        },
+        "high_coefficient": {
+          "decimal": "1.250000000000000000",
+          "denominator": "4",
+          "numerator": "5"
+        },
+        "high_multiplicity": 6,
+        "low_coefficient": {
+          "decimal": "0.400000000000000000",
+          "denominator": "5",
+          "numerator": "2"
+        },
+        "low_multiplicity": 5,
+        "n": 10,
+        "radial_path": {
+          "coefficient_sum_slope": {
+            "decimal": "-1.500000000000000000",
+            "denominator": "2",
+            "numerator": "-3"
+          },
+          "endpoint_coefficient_sum": {
+            "decimal": "8.500000000000000000",
+            "denominator": "2",
+            "numerator": "17"
+          },
+          "endpoint_high_coefficient": {
+            "decimal": "1.416666666666666667",
+            "denominator": "12",
+            "numerator": "17"
+          },
+          "endpoint_sum_slack": {
+            "decimal": "1.500000000000000000",
+            "denominator": "2",
+            "numerator": "3"
+          },
+          "fixed_beta_threshold_q": {
+            "decimal": "0.705882352941176471",
+            "denominator": "17",
+            "numerator": "12"
+          },
+          "t_star": {
+            "decimal": "1.666666666666666667",
+            "denominator": "3",
+            "numerator": "5"
+          }
+        }
+      },
+      {
+        "coefficient_sum": {
+          "decimal": "20.000000000000000000",
+          "denominator": "1",
+          "numerator": "20"
+        },
+        "coefficient_sum_slack": {
+          "decimal": "0.000000000000000000",
+          "denominator": "1",
+          "numerator": "0"
+        },
+        "conclusion": "The radial lemma makes the poissonized tail nonincreasing toward the certified equal-block endpoint while the simplex tail P(Beta(ell,k)>q) stays fixed.",
+        "equal_block_endpoint": {
+          "certified_lower_margin": {
+            "decimal": "0.038759361630043050",
+            "denominator_bits": 6346,
+            "numerator_bits": 6341,
+            "sha256_canonical_binary": "aecc70d4cd09904429bbbe68eff2bbe74a6b957fb2492c968b7b799726472bba"
+          },
+          "common_positive_coordinate": {
+            "decimal": "3.166666666666666667",
+            "denominator": "6",
+            "numerator": "19"
+          },
+          "lambda": {
+            "decimal": "6.315789473684210526",
+            "denominator": "19",
+            "numerator": "120"
+          },
+          "positive_coordinates": 6
+        },
+        "high_coefficient": {
+          "decimal": "2.083333333333333333",
+          "denominator": "12",
+          "numerator": "25"
+        },
+        "high_multiplicity": 6,
+        "low_coefficient": {
+          "decimal": "0.500000000000000000",
+          "denominator": "2",
+          "numerator": "1"
+        },
+        "low_multiplicity": 15,
+        "n": 20,
+        "radial_path": {
+          "coefficient_sum_slope": {
+            "decimal": "-1.000000000000000000",
+            "denominator": "1",
+            "numerator": "-1"
+          },
+          "endpoint_coefficient_sum": {
+            "decimal": "19.000000000000000000",
+            "denominator": "1",
+            "numerator": "19"
+          },
+          "endpoint_high_coefficient": {
+            "decimal": "3.166666666666666667",
+            "denominator": "6",
+            "numerator": "19"
+          },
+          "endpoint_sum_slack": {
+            "decimal": "1.000000000000000000",
+            "denominator": "1",
+            "numerator": "1"
+          },
+          "fixed_beta_threshold_q": {
+            "decimal": "0.315789473684210526",
+            "denominator": "19",
+            "numerator": "6"
+          },
+          "t_star": {
+            "decimal": "2.000000000000000000",
+            "denominator": "1",
+            "numerator": "2"
+          }
+        }
+      },
+      {
+        "coefficient_sum": {
+          "decimal": "19.500000000000000000",
+          "denominator": "2",
+          "numerator": "39"
+        },
+        "coefficient_sum_slack": {
+          "decimal": "0.500000000000000000",
+          "denominator": "2",
+          "numerator": "1"
+        },
+        "conclusion": "The radial lemma makes the poissonized tail nonincreasing toward the certified equal-block endpoint while the simplex tail P(Beta(ell,k)>q) stays fixed.",
+        "equal_block_endpoint": {
+          "certified_lower_margin": {
+            "decimal": "0.048071383390222284",
+            "denominator_bits": 5454,
+            "numerator_bits": 5450,
+            "sha256_canonical_binary": "2b8b3e62a38b77b075b5c065cfef0e3cfe88552d28398832abc53378423272ee"
+          },
+          "common_positive_coordinate": {
+            "decimal": "3.000000000000000000",
+            "denominator": "1",
+            "numerator": "3"
+          },
+          "lambda": {
+            "decimal": "6.666666666666666667",
+            "denominator": "3",
+            "numerator": "20"
+          },
+          "positive_coordinates": 6
+        },
+        "high_coefficient": {
+          "decimal": "2.000000000000000000",
+          "denominator": "1",
+          "numerator": "2"
+        },
+        "high_multiplicity": 6,
+        "low_coefficient": {
+          "decimal": "0.500000000000000000",
+          "denominator": "2",
+          "numerator": "1"
+        },
+        "low_multiplicity": 15,
+        "n": 20,
+        "radial_path": {
+          "coefficient_sum_slope": {
+            "decimal": "-1.500000000000000000",
+            "denominator": "2",
+            "numerator": "-3"
+          },
+          "endpoint_coefficient_sum": {
+            "decimal": "18.000000000000000000",
+            "denominator": "1",
+            "numerator": "18"
+          },
+          "endpoint_high_coefficient": {
+            "decimal": "3.000000000000000000",
+            "denominator": "1",
+            "numerator": "3"
+          },
+          "endpoint_sum_slack": {
+            "decimal": "2.000000000000000000",
+            "denominator": "1",
+            "numerator": "2"
+          },
+          "fixed_beta_threshold_q": {
+            "decimal": "0.333333333333333333",
+            "denominator": "3",
+            "numerator": "1"
+          },
+          "t_star": {
+            "decimal": "2.000000000000000000",
+            "denominator": "1",
+            "numerator": "2"
+          }
+        }
+      }
+    ],
+    "symbolic_identity_check": "passed"
+  }
 }

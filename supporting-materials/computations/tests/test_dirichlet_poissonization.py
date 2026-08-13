@@ -15,7 +15,10 @@ from dirichlet_poissonization import (  # noqa: E402
     build_certificate,
     equal_block_check,
     saffine_localization_obstruction,
+    two_level_profile_regression,
+    verify_radial_symbolic_identities,
     verify_saffine_symbolic_identities,
+    verify_two_level_symbolic_identities,
 )
 
 
@@ -54,12 +57,46 @@ class DirichletPoissonizationTests(unittest.TestCase):
             strict["certified_lower_margin"]["decimal"].startswith("-")
         )
 
+    def test_radial_zero_knot_algebra(self):
+        verify_radial_symbolic_identities()
+
+    def test_two_level_algebra_and_strict_sum_reduction(self):
+        verify_two_level_symbolic_identities()
+        result = two_level_profile_regression(
+            5,
+            3,
+            Fraction(1, 3),
+            Fraction(5, 4),
+        )
+        self.assertGreater(
+            float(result["coefficient_sum_slack"]["decimal"]),
+            0.0,
+        )
+        self.assertGreater(
+            float(result["radial_path"]["endpoint_sum_slack"]["decimal"]),
+            0.0,
+        )
+
     def test_certificate_is_explicitly_non_theorem_research_support(self):
         certificate = build_certificate()
         self.assertIn("not an all-sample-size coverage certificate", certificate["status"])
         self.assertEqual(
             len(certificate["equal_block_profiles"]["regression_checks"]),
             75,
+        )
+        self.assertEqual(
+            certificate["radial_zero_knot_reduction"][
+                "symbolic_identity_check"
+            ],
+            "passed",
+        )
+        self.assertEqual(
+            len(
+                certificate["two_level_profiles"][
+                    "exact_rational_regression_checks"
+                ]
+            ),
+            10,
         )
 
 

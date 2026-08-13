@@ -167,6 +167,42 @@ Random Jensen tests conducted during exploration found no violation of (A)
 at or below (8) in dimensions through 12 and found the predicted failures
 just above (8) in dimension two.  These are heuristic checks only.
 
+### What established gamma-tail theory does and does not supply
+
+There is a substantial comparison theory for weighted gamma sums, but its
+strongest results stop short of (A).  Bock, Diaconis, Huffer, and Perlman
+proved upper- and lower-tail Schur orderings in explicit regions, and
+Diaconis and Perlman studied the location of the crossing point.  Yu later
+proved their unique-crossing conjecture for iid gamma variables of shape at
+least one, which includes the exponentials in (3).  Unique crossing says that
+majorization eventually orders the upper tails.  It does not locate every
+vector-dependent crossing below the quantile in (3), and tail ordering under
+majorization is weaker than the Jensen inequality required for convexity of
+`q_alpha`.
+
+The most useful dimension-free tail region presently available is also too
+far into the tail.  Specializing the theorem of Roosta-Khorasani and Székely
+to unit exponentials, if two weight vectors have common sum `s` and one
+majorizes the other, the required upper-tail ordering holds for
+
+\[
+ x>\frac32s.
+\]
+
+For `m` equal weights, however, the ratio of the fixed-level upper quantile
+to `s` is the corresponding `Gamma(m,1)` quantile divided by `m`, which tends
+to one as `m` grows.  Thus even the 90%, 95%, and 99% quantiles eventually
+fall below the `3s/2` region.  The theorem cannot yield a dimension-free
+conventional-level result.
+
+Geometrically, (A) is a one-sided quantile-surface tangency problem for the
+product exponential measure: positive homogeneity is automatic, and the
+missing property is subadditivity.  Floating-body theory gives a closely
+related tangency theorem for symmetric log-concave measures.  The product
+exponential law is log-concave but not symmetric, so that theorem does not
+apply.  These comparisons explain why route A remains plausible without
+turning the existing crossing or floating-body results into a proof.
+
 ## 4. A constrained divided-difference target for route B
 
 For `y>0`, set
@@ -226,11 +262,34 @@ Hermite--Genocchi formula turns (13)--(14) into
  H_n(y)=y^ne^{-n/y}-(y-1)_+^n.                         \tag{16}
 \]
 
-This constrained divided-difference inequality is proved when the positive
-knots form one equal block and the remaining knots are zero: it reduces to
-the Anderson--Samuels binomial--Poisson comparison. The general case is
-open. See [`DIRICHLET-POISSONIZATION.md`](DIRICHLET-POISSONIZATION.md) for
-the full reduction, the exact obstruction, and the proved family.
+There is also a general boundary reduction.  The radial deformation
+
+\[
+ y_i(t)=1+t(y_i-1)
+\]
+
+leaves the simplex-cap event unchanged and makes the poissonized tail
+nonincreasing until a knot reaches zero.  Consequently, any counterexample
+would have a counterexample on a coordinate face.  For a profile with at
+most two distinct knot values, that endpoint is an equal-positive-block
+profile, where the result reduces to the Anderson--Samuels
+binomial--Poisson comparison.  This proves the constrained inequality for
+every two-level profile throughout the sum-constrained domain.  In
+particular, it includes every active-boundary profile
+
+\[
+ y=(\underbrace{a,\ldots,a}_{k},
+    \underbrace{b,\ldots,b}_{n+1-k}),
+ \qquad ka+(n+1-k)b=n.
+\]
+
+The radial derivative is the density derivative at the threshold.  A
+Laplace-transform convolution identity shows that the mode of every
+weighted exponential sum is no larger than its mean, giving the required
+sign.  Coordinate-face profiles with three or more distinct positive knots
+remain open.  See
+[`DIRICHLET-POISSONIZATION.md`](DIRICHLET-POISSONIZATION.md) for the proof,
+the full reduction, and the exact localization obstruction.
 
 ## 5. Shortcuts that do not work
 
@@ -243,7 +302,7 @@ are
 \[
 U_{\rm SymPol}\approx0.3187079309,
 \qquad
-\operatorname{SB}_{\rm P}\approx0.3162576346.                   \tag{16}
+\operatorname{SB}_{\rm P}\approx0.3162576346.                   \tag{17}
 \]
 
 Thus SymPol cannot supply the desired pointwise comparison.  A
@@ -258,8 +317,8 @@ seemingly simpler but false domination claim.
    counterexample to (A) below `4e^-3`.
 2. Prove the constrained divided-difference inequality (16), or find an
    actual B-spline counterexample satisfying the sum-of-knots constraint.
-3. Determine whether knot merging or gamma-convolution single-crossing
-   reduces (16) to the already proved equal-block profiles.
+3. Use the zero-knot reduction recursively, or prove that a negative minimum
+   on a coordinate face must have at most two distinct knot values.
 4. Only after both analytic steps pass, connect (6)--(7) to the published
    Gaffke validity theorem and state the resulting all-`n` Poisson coverage
    corollary.
@@ -268,3 +327,27 @@ Until then, the implemented
 [`Stringer--Gaffke safeguard`](GAFFKE-SAFEGUARD.md) is the valid all-sample-
 size reporting rule; ordinary Poisson Stringer remains proved only in the
 ranges stated in the manuscript.
+
+## References
+
+M. E. Bock, P. Diaconis, F. W. Huffer, and M. D. Perlman, “Inequalities for
+linear combinations of gamma random variables,” *Canadian Journal of
+Statistics* 15 (1987), 387--395,
+<https://doi.org/10.2307/3315257>.
+
+S. G. Bobkov, “Convex bodies and norms associated to convex measures,”
+*Probability Theory and Related Fields* 147 (2010), 303--332,
+<https://doi.org/10.1007/s00440-009-0209-7>.
+
+P. Diaconis and M. D. Perlman, “Bounds for tail probabilities of weighted
+sums of independent gamma random variables,” in *Topics in Statistical
+Dependence*, IMS Lecture Notes--Monograph Series 16 (1990), 147--166,
+<https://doi.org/10.1214/lnms/1215457557>.
+
+F. Roosta-Khorasani and G. J. Székely, “Schur properties of convolutions of
+gamma random variables,” *Metrika* 78 (2015), 997--1014,
+<https://doi.org/10.1007/s00184-015-0537-9>.
+
+Y. Yu, “On the unique crossing conjecture of Diaconis and Perlman on
+convolutions of gamma random variables,” *The Annals of Applied Probability*
+27 (2017), 3893--3910, <https://doi.org/10.1214/17-AAP1304>.

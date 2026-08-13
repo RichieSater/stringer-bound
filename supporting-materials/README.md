@@ -65,10 +65,10 @@ comparison, not a general coverage theorem for ordinary Stringer.
 | `one_cap_certificate.py` | Independent finite regression with integer-checked CP brackets and 59,700 exact nonterminal vertices through \(n=200\) | corroboration |
 | `theory/ORDERED-SIMPLEX-CAP.md` | Exact tight-vertex reduction and adjacent-transfer identity for the still-open all-`n` comparison | research roadmap |
 | `theory/ALL-N-POISSON-PROGRAM.md` | Exact weighted-exponential reductions, sharp convexity obstruction, and explicitly conjectural all-`n` route | research roadmap |
-| `theory/DIRICHLET-POISSONIZATION.md` | Constrained divided-difference reduction, proved equal-block family, and exact obstruction to generic `s`-concave localization | research roadmap |
+| `theory/DIRICHLET-POISSONIZATION.md` | Constrained divided-difference reduction, zero-knot boundary reduction, proof for every two-level profile, and exact obstruction to generic `s`-concave localization | research roadmap |
 | `gaffke.py` | Exact-rational Dirichlet tail signs, certified dyadic Gaffke bracket, and safeguarded Stringer report | proof-essential for the implemented floor |
 | `all_n_poisson_reductions.py` | Symbolic checks of the ordered-weight, two-exponential, and kernel identities; labels both remaining inequalities open | research support |
-| `dirichlet_poissonization.py` | Exact `s`-affine obstruction and rational regression checks for the proved equal-block family; does not claim the general inequality | research support |
+| `dirichlet_poissonization.py` | Symbolic checks for the zero-knot and all-two-level reductions plus the exact `s`-affine obstruction; does not claim the general inequality | research support |
 | `audit/PRACTICE-SAFEGUARD.md` | Methodology-facing workflow, worked example, record-retention fields, and explicit scope boundaries | implementation guidance |
 | `audit/HUMAN-REVIEW-PACKET.md` | Scoped independent-review questions, reproduction record, and sign-off template | review protocol |
 | `certify.py` | The only source of claims: exact coverage, exact nominal comparison, margin certificate | proof-essential |
@@ -125,7 +125,7 @@ make one-cap-certificate-check
 # Exact algebra behind the explicitly conjectural all-n Poisson program
 make all-n-reduction-check
 
-# Exact obstruction and equal-block checks for Dirichlet poissonization
+# Zero-knot, all-two-level, and obstruction checks for Dirichlet poissonization
 make dirichlet-poissonization-check
 
 cd supporting-materials/computations/python
