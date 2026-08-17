@@ -31,6 +31,19 @@ wheels = [
 ]
 
 [[package]]
+name = "python-flint"
+version = "0.8.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/21/fa/2ec5a03719fa9214ba139296ec1c5f663bb0f90c5e582fbda8ba751e7212/python_flint-0.8.0.tar.gz", hash = "sha256:3da125cd780e09510b0fb5f455646013f2b49072ea43eea806f6af77b450fa39", size = 408552, upload-time = "2025-08-29T16:41:01.319Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/1d/90/f6b55ff96a61227b71cd3f16eb3070b56d0bdd7a585c7611dd7bd3ad80d8/python_flint-0.8.0-cp312-cp312-macosx_10_13_x86_64.whl", hash = "sha256:3e637105ea2be78c22c6d7b3766fc481c1fd83b6387d40c77667e9f3d7232fdc", size = 8639878, upload-time = "2025-08-29T16:39:45.781Z" },
+    { url = "https://files.pythonhosted.org/packages/7a/59/8008087112a9dcbdb0ae21543c97d8f50be8a5763799fa50e3f0efad121f/python_flint-0.8.0-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:884a75da741e4ebbfdf5c638629d9e8a34f5bbbbb315b815b08a7d664f7720b2", size = 7439966, upload-time = "2025-08-29T16:39:48.363Z" },
+    { url = "https://files.pythonhosted.org/packages/51/8c/dd74f15b76e1e58ab70231f6853f9527027412d4e133c637c5f5a99e0f6c/python_flint-0.8.0-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:e211b11e0434d9d91e0b93326e7f677751248ef5540bff68785d9690724fc546", size = 9599649, upload-time = "2025-08-29T16:39:50.356Z" },
+    { url = "https://files.pythonhosted.org/packages/6d/33/787db4e05bbda59a5850d9d7ef9a4ba61c82cde3830ab78d067c3088012b/python_flint-0.8.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:af60dbed2b0e3bedef2875ff3a2b32afec12f7152595d65fcd674713ac09a208", size = 9616611, upload-time = "2025-08-29T16:39:52.866Z" },
+    { url = "https://files.pythonhosted.org/packages/25/60/a0973510633a9b16d6110c75372bad4aae702a00071fc40aafeca2586d3c/python_flint-0.8.0-cp312-cp312-win_amd64.whl", hash = "sha256:4fd8958674a9b09c35d2470c9e88ccdd4a63cb351b8595f6aa46639458f57623", size = 10333208, upload-time = "2025-08-29T16:39:55.515Z" },
+]
+
+[[package]]
 name = "scipy"
 version = "1.18.0"
 source = { registry = "https://pypi.org/simple" }
@@ -58,6 +71,7 @@ source = { virtual = "." }
 dependencies = [
     { name = "mpmath" },
     { name = "numpy" },
+    { name = "python-flint" },
     { name = "scipy" },
     { name = "sympy" },
 ]
@@ -66,6 +80,7 @@ dependencies = [
 requires-dist = [
     { name = "mpmath", specifier = "==1.3.0" },
     { name = "numpy", specifier = "==2.5.2" },
+    { name = "python-flint", specifier = "==0.8.0" },
     { name = "scipy", specifier = "==1.18.0" },
     { name = "sympy", specifier = "==1.14.0" },
 ]

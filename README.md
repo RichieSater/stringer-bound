@@ -45,7 +45,7 @@ repository states which variant it uses.
 
 ## Status
 
-**Exact binomial-factor guarantees now reach \(n=6\) at 90%, 95%, and 99%, while direct
+**Exact binomial-factor guarantees now reach \(n=7\) at 90%, 95%, and 99%, while direct
 Poisson-factor guarantees reach \(n=8\) at 90%, \(n=11\) at 95%, and
 \(n=20\) at 99% confidence.** The \(n=2\) bound is proved conservative for
 every taint distribution and every confidence level
@@ -58,7 +58,9 @@ and [`N5-CONVENTIONAL.md`](supporting-materials/theory/N5-CONVENTIONAL.md)).
 A five-dimensional directed-interval certificate extends all three theorems
 to \(n=6\)
 ([`N6-CONVENTIONAL.md`](supporting-materials/theory/N6-CONVENTIONAL.md)).
-Thus \(n=7\) is the first unresolved binomial case at all three levels. A
+A six-dimensional rigorous real-ball certificate extends them to \(n=7\)
+([`N7-CONVENTIONAL.md`](supporting-materials/theory/N7-CONVENTIONAL.md)).
+Thus \(n=8\) is the first unresolved binomial case at all three levels. A
 separate corrected simultaneous-band proof establishes the
 larger Poisson ranges
 ([`POISSON-SIMULTANEOUS-BAND.md`](supporting-materials/theory/POISSON-SIMULTANEOUS-BAND.md)).
@@ -81,7 +83,7 @@ The other pre-specifies the reported upper bound as the maximum of the
 familiar Stringer calculation and the finite-sample-valid Gaffke bounded-mean
 limit. That maximum also has distribution-free coverage for every \(n\)
 without assuming the unresolved Stringer conjecture. It returns the ordinary
-Stringer value whenever Stringer is larger; in the certified \(n=3,4,5,6\)
+Stringer value whenever Stringer is larger; in the certified \(n=3,4,5,6,7\)
 cases, equality with ordinary Stringer holds for every sample at all three
 levels. The implementation uses exact rational tail-sign checks rather than
 trusting a floating-point quantile; see
@@ -133,6 +135,16 @@ certificate or a written proof:
   as positive. This is a
   computer-assisted theorem at 90%, 95%, and 99%, not a search result.
 
+- **The three conventional-level theorems extend further to \(n=7\)**
+  ([`N7-CONVENTIONAL.md`](supporting-materials/theory/N7-CONVENTIONAL.md)):
+  exact reflection reduces seven cap regions to four source residuals, and a
+  fixed degree-one chain of 64 six-simplices covers the ordered-knot domain.
+  Singular proves 26 generic ideal-power statements accounting for every
+  structural Bernstein zero. Integer-checked dyadic factor brackets and
+  768-bit Arb real-ball arithmetic then certify every vertex, determinant,
+  specialization rank, and nonstructural coefficient. This is a rigorous
+  computer-assisted theorem at 90%, 95%, and 99%, not search evidence.
+
 - **All-sample-size Poisson-factor domination at practical confidence
   levels**
   ([`POISSON-DOMINATION.md`](supporting-materials/theory/POISSON-DOMINATION.md)):
@@ -144,10 +156,10 @@ certificate or a written proof:
   observed sample. This replaces the former finite-range numerical
   comparison at 90% and 95% with an analytic result; it does not by itself
   resolve general-\(n\) coverage. It does transfer the proved binomial
-  guarantees at \(n=2\), and from \(n=3\) through \(n=6\) for 90%, 95%, and
+  guarantees at \(n=2\), and from \(n=3\) through \(n=7\) for 90%, 95%, and
   99%, to the Poisson-factor bound.
 
-- **Direct Poisson-factor coverage beyond \(n=5\)**
+- **Direct Poisson-factor coverage beyond \(n=7\)**
   ([`POISSON-SIMULTANEOUS-BAND.md`](supporting-materials/theory/POISSON-SIMULTANEOUS-BAND.md)):
   a corrected simultaneous survival-band event proves distribution-free
   coverage for every \(n\le8\) at 90%, every \(n\le11\) at 95%, and every
@@ -250,7 +262,7 @@ certificate or a written proof:
   supports. Single-value populations already reach exact coverage
   \(0.9500302\) (\(n=10\), \(v=1\), \(q=0.85\)).
 
-**Next steps**: determine whether the comparison extends to \(n=7\) at 90%,
+**Next steps**: determine whether the comparison extends to \(n=8\) at 90%,
 95%, and 99%; attack the adjacent-transfer
 single-crossing identity isolated in
 [`ORDERED-SIMPLEX-CAP.md`](supporting-materials/theory/ORDERED-SIMPLEX-CAP.md);
@@ -261,7 +273,7 @@ and sharpened by the proved zero-knot reduction and all-two-level case in
 [`DIRICHLET-POISSONIZATION.md`](supporting-materials/theory/DIRICHLET-POISSONIZATION.md);
 and develop a certified branch-and-bound or atoms-reduction argument for
 ordinary audit sample sizes.
-The immediate mathematical target is \(n=7\) at 90%, 95%, and 99%, not more
+The immediate fixed-dimension target is \(n=8\) at 90%, 95%, and 99%, not more
 unstructured grid search. Before journal submission or practice-facing
 reliance, the bounded review protocol in
 [`HUMAN-REVIEW-PACKET.md`](supporting-materials/audit/HUMAN-REVIEW-PACKET.md)
@@ -289,6 +301,7 @@ supporting-materials/
 │   ├── N4-CONVENTIONAL.md    exact n=4 proof at 90%, 95%, and 99%
 │   ├── N5-CONVENTIONAL.md    exact n=5 proof at 90%, 95%, and 99%
 │   ├── N6-CONVENTIONAL.md    exact n=6 proof at 90%, 95%, and 99%
+│   ├── N7-CONVENTIONAL.md    rigorous n=7 proof at 90%, 95%, and 99%
 │   ├── POISSON-DOMINATION.md all-n practical-level factor comparison
 │   ├── POISSON-SIMULTANEOUS-BAND.md direct exact Poisson coverage ranges
 │   ├── POISSON-BAND-CALIBRATION.md all-n valid scalar Poisson calibration
@@ -319,6 +332,12 @@ supporting-materials/
     │                         exact n=6 residual, face-ideal, and five-simplex structure
     ├── n6_gaffke_certificate.py
     │                         directed-dyadic n=6 sign certificates at three levels
+    ├── derive_n7_bernstein_structure.py
+    │                         exact n=7 residual, symmetry, face-ideal, and six-simplex structure
+    ├── n7_gaffke_structure_data.py
+    │                         fixed n=7 triangulation and structural-zero conditions
+    ├── n7_gaffke_certificate.py
+    │                         rigorous Arb n=7 sign certificates at three levels
     ├── poisson_band_certificate.py
     │                         exact Poisson limits + boundary-crossing proof
     ├── poisson_band_calibration.py
@@ -340,9 +359,10 @@ supporting-materials/
 
 The canonical environment is pinned in `pyproject.toml` and `uv.lock`
 (Python 3.12, `uv` 0.11.14). Tectonic 0.17.0 builds the manuscript.
-Singular is required for the exact generic face-ideal reductions in the
-`n=6` structure check (developed with 4.4.1); CI fixes Ubuntu 24.04 and
-installs its distribution package explicitly.
+Singular is required for the exact generic face-ideal reductions and source
+derivations at `n=6` and `n=7` (developed with 4.4.1). CI fixes Ubuntu 24.04
+and installs its distribution package explicitly. The rigorous `n=7` sign
+layer uses the pinned `python-flint` Arb implementation.
 The single top-level verification command is:
 
 ```sh
@@ -354,9 +374,8 @@ Poisson simultaneous-band and scalar-calibration certificates, the analytic
 all-\(n\) one-cap checks,
 the independent finite one-cap regression, the algebra checks and exact
 localization-obstruction certificate for the explicitly open all-\(n\)
-Poisson route, source
-regeneration of the \(n=3\) through \(n=6\) Bernstein structures and exact
-sign certificates, the generated counterexample-table check,
+Poisson route, source regeneration through \(n=6\), rigorous Bernstein sign
+certificates through \(n=7\), the generated counterexample-table check,
 claim-to-evidence link validation, and the manuscript build. Individual
 search and recertification commands
 remain documented in

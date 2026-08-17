@@ -8,21 +8,24 @@ canonical source until the next archival release.
 The canonical reproducibility environment requires Python 3.12 and pins
 every Python dependency in the root
 `pyproject.toml` and `uv.lock`. Every
-regeneration of the `n=6` structure additionally requires Singular for exact
-generic rational-function face-ideal reductions.
-The certificate was developed with Singular 4.4.1; CI fixes Ubuntu 24.04,
-installs its packaged Singular build, and byte-compares the regenerated
-artifact. Every certified binomial counterexample is decided by rational
+regeneration of the `n=6` and `n=7` structures additionally requires
+Singular for exact generic rational-function face-ideal reductions. The
+`n=7` sign layer uses rigorous Arb real-ball arithmetic through the pinned
+`python-flint` package.
+The symbolic certificates were developed with Singular 4.4.1; CI fixes
+Ubuntu 24.04, installs its packaged Singular build, and compares regenerated
+mathematical data with the committed artifacts. Every certified binomial
+counterexample is decided by rational
 arithmetic;
 float64 appears in screening searches and in separately labeled numerical
 Poisson checks. The all-sample-size Poisson-versus-binomial factor theorem
 at nominal confidence above \(1-e^{-1}\) is a written analytic result, not a
 numerical certificate; see `theory/POISSON-DOMINATION.md`. The guarantees
-from \(n=3\) through \(n=6\) at 90%, 95%, and 99% are exact computer-assisted
-theorems: their symbolic formulas and rational sign certificates are
+from \(n=3\) through \(n=7\) at 90%, 95%, and 99% are rigorous computer-assisted
+theorems: their symbolic formulas and rigorous sign certificates are
 regenerated from source scripts; see `theory/N3-CONVENTIONAL.md`,
-`theory/N4-CONVENTIONAL.md`, `theory/N5-CONVENTIONAL.md`, and
-`theory/N6-CONVENTIONAL.md`.
+`theory/N4-CONVENTIONAL.md`, `theory/N5-CONVENTIONAL.md`,
+`theory/N6-CONVENTIONAL.md`, and `theory/N7-CONVENTIONAL.md`.
 For the Poisson factors used in practice, a separate exact corrected-band
 certificate proves coverage for every \(n\le8\) at 90%, every \(n\le11\) at
 95%, and every \(n\le20\) at 99%; see
@@ -59,6 +62,10 @@ comparison, not a general coverage theorem for ordinary Stringer.
 | `theory/N6-CONVENTIONAL.md` | Complete reduction of the \(n=6\) theorems at 90%, 95%, and 99% to six five-dimensional simplex-cap regions | proof-essential |
 | `derive_n6_bernstein_structure.py` | Exactly derives the residual factorizations and five-simplex structure and proves generic face-ideal vanishing orders with Singular | proof-essential |
 | `n6_gaffke_certificate.py` | Integer-directed dyadic proof of face specialization, the triangulation chain, and every nonstructural \(n=6\) Bernstein sign at all three levels | proof-essential |
+| `theory/N7-CONVENTIONAL.md` | Complete reduction of the \(n=7\) theorems at 90%, 95%, and 99% to seven six-dimensional simplex-cap regions | proof-essential |
+| `n7_gaffke_structure_data.py` | Fixed 64-simplex chain and face-condition specifications shared by the symbolic and ball layers | proof-essential |
+| `derive_n7_bernstein_structure.py` | Exactly derives four source residuals, reflection identities, the 64-simplex structure, and generic face-ideal powers with Singular | proof-essential |
+| `n7_gaffke_certificate.py` | Integer-checked factor brackets and rigorous Arb proof of face specialization, the triangulation chain, and every nonstructural \(n=7\) Bernstein sign | proof-essential |
 | `theory/POISSON-DOMINATION.md` | Written proof that practical-level Poisson factors dominate binomial factors for every sample size | proof-essential |
 | `theory/POISSON-SIMULTANEOUS-BAND.md` | Written randomized-survival-band proof of the direct Poisson coverage ranges | proof-essential |
 | `poisson_band_certificate.py` | Exact rational Poisson-limit signs and Bolshev boundary-crossing probabilities at 90%, 95%, and 99% | proof-essential |
@@ -117,6 +124,14 @@ make n6-structure-data-check \
   n6-face-d6-0-check n6-face-d6-1-check n6-face-d6-2-check
 make n6-certificate-001-check n6-certificate-005-check \
   n6-certificate-010-check
+
+# Exact n=7 theorems: independent source data, generic face ideals, Arb signs
+make n7-structure-data-check
+make n7-face-a-check n7-face-b-basic-check n7-face-b5-check
+make n7-face-c-basic-check n7-face-c6-check n7-face-c8-check
+make n7-face-d-basic-check n7-face-d6-check n7-face-d9-check
+make n7-certificate-001-check n7-certificate-005-check \
+  n7-certificate-010-check
 
 # Direct Poisson theorem: exact limits and boundary-crossing probabilities
 make poisson-band-certificate-check
@@ -222,10 +237,9 @@ ordinary Stringer.
 The mathematical procedure is
 `max(Stringer, Gaffke)`. Its coverage follows from the independently valid
 Gaffke component and therefore does not assume general-`n` Stringer
-conservatism. At `n=3,4,5` and 90%, 95%, and 99%, the exact pointwise
+conservatism. At `n=3,4,5,6,7` and 90%, 95%, and 99%, the exact pointwise
 comparison theorems show that this maximum is ordinary Stringer on every
-sample, for both binomial and Poisson factors. The same statement holds at
-`n=6` at 90%, 95%, and 99%.
+sample, for both binomial and Poisson factors.
 
 For decimal taints, `gaffke.py` interprets the inputs as exact rationals.
 It uses a B-spline quantile only as a root-location proposal, evaluates the
@@ -304,6 +318,32 @@ remaining coefficient has a positive lower endpoint. The sign certificate
 records the SHA-256 digest of the structure artifact. Both JSON files are
 regenerated byte-for-byte by
 `make n5-structure-check n5-certificate-check`.
+
+## The n = 7 theorem certificate
+
+The \(n=7\) comparison has seven cap regions on a six-dimensional
+ordered-knot domain. Exact reversal symmetry reduces them to four source
+residuals of degrees 7, 12, 15, and 16. Successive threshold slicing gives a
+fixed chain of 64 six-simplices. The symbolic artifact stores every source
+coefficient, rational-function vertex, oriented simplex, face condition, and
+reflection link in a deterministic gzip file.
+
+`derive_n7_bernstein_structure.py` regenerates the four sources with exact
+Singular division checks. It proves each required face-vanishing order by an
+exact affine normal-coordinate map followed by sparse Horner evaluation in
+the quotient by the corresponding ideal power. The 322 simplex-face links
+reduce to 26 generic quotient checks over `QQ(b,c,d,e,f,g,h)`.
+`n7_gaffke_certificate.py` brackets each Clopper--Pearson factor on a
+\(2^{-512}\) dyadic grid with integer endpoint signs. It then uses
+outward-rounded Arb real balls at 768-bit precision for every weight, vertex,
+normal minor, determinant, residual, affine substitution, and Bernstein
+coefficient. In particular, it proves that each inverse pivot appearing in a
+generic quotient proof remains nonsingular at specialization. The certificate
+verifies the degree-one relative chain, checks
+that all exact structural-zero balls contain zero, and proves every other
+coefficient strictly positive. Its SHA-256 field binds it to the compressed
+symbolic artifact. The split `n7-structure-*`, `n7-face-*`, and
+`n7-certificate-*` targets reproduce these layers independently.
 
 ## What screening output does NOT establish
 

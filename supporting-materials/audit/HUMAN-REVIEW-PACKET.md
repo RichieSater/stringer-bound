@@ -51,7 +51,7 @@ Requested output: a line-by-line proof report, including any silent
 regularity assumption and an explicit disposition of sharpness and
 non-attainment separately from conservatism.
 
-## Review B: conventional confidence levels at `n=3,4,5,6`
+## Review B: conventional confidence levels at `n=3,4,5,6,7`
 
 Primary files:
 
@@ -59,8 +59,9 @@ Primary files:
 - [`../theory/N4-CONVENTIONAL.md`](../theory/N4-CONVENTIONAL.md)
 - [`../theory/N5-CONVENTIONAL.md`](../theory/N5-CONVENTIONAL.md)
 - [`../theory/N6-CONVENTIONAL.md`](../theory/N6-CONVENTIONAL.md)
-- the eight derivation/certificate programs and their committed JSON artifacts
-- manuscript Theorems~`thm:n3`, `thm:n4`, `thm:n5`, and `thm:n6`
+- [`../theory/N7-CONVENTIONAL.md`](../theory/N7-CONVENTIONAL.md)
+- the derivation/certificate programs and their committed artifacts
+- manuscript Theorems~`thm:n3`, `thm:n4`, `thm:n5`, `thm:n6`, and `thm:n7`
 
 Questions:
 
@@ -80,11 +81,19 @@ Questions:
    and 99% factor values?
 7. Do integer-checked factor brackets and directed rational interval
    operations imply every reported positive Bernstein sign?
-8. Does `make reproduce` regenerate the proof-essential artifacts without
+8. For `n=7`, does the 64-simplex relative-chain certificate establish
+   complete coverage of the six-dimensional ordered-knot domain, and is the
+   exact reflection reduction from seven regions to four source residuals
+   valid?
+9. For `n=7`, does quotient-Horner evaluation modulo the power of each
+   generic face ideal prove every asserted structural zero; do the certified
+   source inverse pivots rule out specialization across a pole; and do the
+   Arb balls rigorously certify all remaining signs at the stated precision?
+10. Do the documented Make and CI targets regenerate the proof-essential artifacts without
    an unrecorded computational dependency?
 
 Requested output: separate dispositions for each sample size.  A reviewer
-may verify `n=3` fully and audit the certificate architecture for `n=4,5,6`,
+may verify `n=3` fully and audit the certificate architecture for `n=4,5,6,7`,
 but should say exactly which level of review was completed.
 
 ## Review C: the all-`n` Poisson factor comparison
@@ -263,6 +272,10 @@ uv --version
 tectonic --version
 make reproduce
 make poisson-band-calibration-check
+make n7-structure-data-check
+make n7-face-a-check n7-face-b-basic-check n7-face-b5-check
+make n7-face-c-basic-check n7-face-c6-check n7-face-c8-check
+make n7-face-d-basic-check n7-face-d6-check n7-face-d9-check
 uv run --frozen python \
   supporting-materials/computations/python/gaffke.py \
   --n 100 --alpha 0.05 --method poisson --taints 1,0.4,0.1
@@ -283,7 +296,7 @@ Repository commit:
 Review dates:
 
 Review A disposition:
-Review B disposition (n=3 / n=4 / n=5 / n=6):
+Review B disposition (n=3 / n=4 / n=5 / n=6 / n=7):
 Review C disposition:
 Review D disposition:
 Review E disposition:

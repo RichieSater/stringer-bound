@@ -5,12 +5,12 @@
 > (all F, all confidence levels). This note is kept as the derivation
 > of the reformulation and the record of the partial results that led
 > there. Separate Gaffke/simplex-cap arguments now prove the cases
-> n = 3 through n = 5 at 90%, 95%, and 99%; see
+> n = 3 through n = 7 at 90%, 95%, and 99%; see
 > [`N3-CONVENTIONAL.md`](N3-CONVENTIONAL.md),
 > [`N4-CONVENTIONAL.md`](N4-CONVENTIONAL.md), and
-> [`N5-CONVENTIONAL.md`](N5-CONVENTIONAL.md). A five-dimensional
-> certificate also proves n = 6 at all three levels; see
-> [`N6-CONVENTIONAL.md`](N6-CONVENTIONAL.md).**
+> [`N5-CONVENTIONAL.md`](N5-CONVENTIONAL.md),
+> [`N6-CONVENTIONAL.md`](N6-CONVENTIONAL.md), and
+> [`N7-CONVENTIONAL.md`](N7-CONVENTIONAL.md).**
 
 *Everything in this note is elementary algebra plus case analysis; each
 claim states its verification status. Nothing here is a proof of the

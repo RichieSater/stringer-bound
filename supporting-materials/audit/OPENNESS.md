@@ -1,15 +1,15 @@
 # Openness verification
 
-**Verdict (updated 2026-08-13): the general finite-sample conservatism
+**Verdict (updated 2026-08-17): the general finite-sample conservatism
 conjecture for the Stringer bound at confidence levels ≥ 50% — including
 95% — remains open.** The present repository proves the case \(n=2\) at
 every confidence level and gives exact computer-assisted proofs from
-\(n=3\) through \(n=6\) for 90%, 95%, and 99% confidence. Thus \(n=7\)
+\(n=3\) through \(n=7\) for 90%, 95%, and 99% confidence. Thus \(n=8\)
 is the first unresolved binomial-factor sample size at all three levels.
 For the Poisson factors used in audit practice, a separate exact
 simultaneous-band argument proves coverage through \(n=8\), \(n=11\), and
 \(n=20\), respectively. This does not resolve every confidence level at
-\(n=3\) through \(n=6\), nor arbitrary \(n\). No prior general proof or
+\(n=3\) through \(n=7\), nor arbitrary \(n\). No prior general proof or
 counterexample at α ≤ 1/2 was found in the reviewed literature. The
 strongest partial results, and where a resolution could have hidden, are
 recorded below with sources.
@@ -22,7 +22,7 @@ recorded below with sources.
 | Bickel's expansion: SB = T̄ + c(F) z₁₋α/√n + o(n^{-1/2}), with c²(F) ≥ Var(T), equality iff F is supported on ≤ 2 points | Bickel, *Int. Statist. Rev.* 60 (1992) 197–209; made rigorous in Pap–vZ 1996 | asymptotic |
 | P(SB ≥ μ) ≥ (1−α)^{n+1} under conditions on F (hypotheses unverified — JSTOR original not yet read) | Bickel 1992 | finite n, weak bound |
 | Conjecture holds **exactly** for taints supported on {0,1} (SB reduces to Clopper–Pearson); Stringer coefficients are minimal with this property | de Jager, Pap & van Zuijlen, *Comput. Math. Appl.* 33 (1997) 37–54 | finite n, {0,1} supports |
-| Binomial Stringer is distribution-free conservative at \(n=2\) for every α, sharply; from \(n=3\) through \(n=6\), it pointwise dominates the valid Gaffke bounded-mean upper limit at α = 0.10, 0.05, and 0.01 | this repository: [`N2-PROOF.md`](../theory/N2-PROOF.md), [`N3-CONVENTIONAL.md`](../theory/N3-CONVENTIONAL.md), [`N4-CONVENTIONAL.md`](../theory/N4-CONVENTIONAL.md), [`N5-CONVENTIONAL.md`](../theory/N5-CONVENTIONAL.md), [`N6-CONVENTIONAL.md`](../theory/N6-CONVENTIONAL.md), and exact certificates | finite n; all levels at \(n=2\), 90%, 95%, and 99% at \(n=3,4,5,6\) |
+| Binomial Stringer is distribution-free conservative at \(n=2\) for every α, sharply; from \(n=3\) through \(n=7\), it pointwise dominates the valid Gaffke bounded-mean upper limit at α = 0.10, 0.05, and 0.01 | this repository: [`N2-PROOF.md`](../theory/N2-PROOF.md), [`N3-CONVENTIONAL.md`](../theory/N3-CONVENTIONAL.md), [`N4-CONVENTIONAL.md`](../theory/N4-CONVENTIONAL.md), [`N5-CONVENTIONAL.md`](../theory/N5-CONVENTIONAL.md), [`N6-CONVENTIONAL.md`](../theory/N6-CONVENTIONAL.md), [`N7-CONVENTIONAL.md`](../theory/N7-CONVENTIONAL.md), and rigorous certificates | finite n; all levels at \(n=2\), 90%, 95%, and 99% at \(n=3,4,5,6,7\) |
 | Poisson audit factors dominate binomial Clopper–Pearson factors coordinatewise whenever nominal confidence exceeds \(1-e^{-1}\approx63.2\%\); hence the Poisson Stringer bound pointwise dominates the binomial version | Anderson–Samuels (1967), specialized to the Stringer formula in [`POISSON-DOMINATION.md`](../theory/POISSON-DOMINATION.md) | every n; factor and bound comparison, not a general coverage proof |
 | A corrected simultaneous survival band proves Poisson-factor Stringer coverage for every \(n\le8\) at 90%, every \(n\le11\) at 95%, and every \(n\le20\) at 99% confidence | [`POISSON-SIMULTANEOUS-BAND.md`](../theory/POISSON-SIMULTANEOUS-BAND.md) and exact rational certificate | finite ranges; arbitrary continuous or atomic taint distributions |
 | Two scalar paths satisfying the corrected simultaneous-band probability and terminal-factor condition give distribution-free valid Poisson rules for every sample size and confidence level: full scaling and an anchored path that leaves the no-error factor unchanged; capping the calibrated factors at one gives pointwise no-larger valid variants; for nominal confidence at least \(2/e\), the full-scale multiplier two is valid uniformly in \(n\), while a 200-term finite-prefix refinement gives uniform choices 1.525906, 1.436135, and 1.320081 at 90%, 95%, and 99% | [`POISSON-BAND-CALIBRATION.md`](../theory/POISSON-BAND-CALIBRATION.md); exact representative and uniform-multiplier certificates | every `n` and level, but modified calibrated procedures rather than proof of ordinary Stringer; the path must be pre-specified; the uniform multipliers are sufficient, not claimed optimal |
@@ -35,11 +35,12 @@ This repository adds (see `theory/N2-PROOF.md`,
 `theory/N3-CONVENTIONAL.md`, `theory/N4-CONVENTIONAL.md`,
 `theory/N5-CONVENTIONAL.md`,
 `theory/N6-CONVENTIONAL.md`,
+`theory/N7-CONVENTIONAL.md`,
 `theory/POISSON-SIMULTANEOUS-BAND.md`,
 `theory/POISSON-BAND-CALIBRATION.md`, and
 `computations/certificates/`): a
 distribution-free proof at \(n=2\); exact computer-assisted proofs from
-\(n=3\) through \(n=6\) for α = 0.10, 0.05, and 0.01; direct exact
+\(n=3\) through \(n=7\) for α = 0.10, 0.05, and 0.01; direct exact
 Poisson-factor guarantees through the level-dependent ranges above; and 33 exact rational
 counterexamples supported on three points (two nonzero taint values and
 zero) at selected nominal confidence levels from 30% to 37% and sample
@@ -73,7 +74,7 @@ only part of the ordinary-Stringer sample space.
 - **Gaffke's bounded-mean interval** is now known to be finite-sample valid
   (Vlassis–Thomas, arXiv:2607.08415). It agrees with Clopper–Pearson on
   Bernoulli samples. This repository uses pointwise comparison with it to
-  prove the three stated cases from \(n=3\) through \(n=6\). No corresponding all-\(n\)
+  prove the three stated cases from \(n=3\) through \(n=7\). No corresponding all-\(n\)
   domination theorem was found.
 - **arXiv metadata search for "Stringer bound": zero papers** (checked via
   API, 2026-08).
@@ -93,7 +94,7 @@ only part of the ordinary-Stringer sample space.
    exact two-atom coverage (`bolshev.py`).
 4. Pyke 1994, one-sided minimax KS bands (*J. Appl. Prob.* 31A, 291–308):
    possibly the right lens for larger \(n\).
-5. Extension of the binomial Gaffke/simplex-cap certificate to \(n=7\) at
+5. Extension of the binomial Gaffke/simplex-cap certificate to \(n=8\) at
    90%, 95%, and 99%; a
    dimension-free geometric comparison would have direct consequences for
    ordinary audit sample sizes. [`ORDERED-SIMPLEX-CAP.md`](../theory/ORDERED-SIMPLEX-CAP.md)

@@ -21,7 +21,7 @@ following ranges:
 
 This theorem is independent of the binomial-factor comparison. In
 particular, it proves new Poisson cases beyond the pointwise-transfer range
-`n<=6` at all three levels.
+`n<=7` at all three levels.
 
 The proof has two parts.  A distribution-free lemma turns a corrected
 simultaneous survival-band event into Stringer coverage.  An exact rational

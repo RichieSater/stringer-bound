@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import gzip
 import hashlib
 import json
 import sys
@@ -17,7 +18,9 @@ sys.path.insert(0, str(PYTHON_DIR))
 
 import stringer  # noqa: E402
 import derive_n6_bernstein_structure as n6_structure  # noqa: E402
+import derive_n7_bernstein_structure as n7_structure  # noqa: E402
 import n6_gaffke_certificate as n6_certificate  # noqa: E402
+import n7_gaffke_certificate as n7_certificate  # noqa: E402
 from coverage import coverage_exact  # noqa: E402
 from n3_gaffke_certificate import build_certificate  # noqa: E402
 from n5_gaffke_certificate import Interval as N5Interval  # noqa: E402
@@ -166,6 +169,30 @@ class ExactCoverageTests(unittest.TestCase):
 
 
 class CertificateSummaryTests(unittest.TestCase):
+    def test_n7_sparse_power_to_bernstein_transform(self):
+        n7_certificate.ctx.prec = n7_certificate.BALL_BITS
+        polynomial = {
+            (0, 0, 0, 0, 0, 0): n7_certificate.arb(2),
+            (1, 0, 0, 0, 0, 0): n7_certificate.arb(3),
+            (0, 2, 0, 0, 0, 0): n7_certificate.arb(5),
+            (1, 0, 0, 0, 0, 1): n7_certificate.arb(-7),
+        }
+        coefficients = n7_certificate._bernstein_coefficients(
+            polynomial, 2)
+        for powers, value in coefficients.items():
+            expected = (
+                Fraction(2)
+                + Fraction(3 * powers[0], 2)
+                + Fraction(5 * comb(powers[1], 2))
+                - Fraction(7 * powers[0] * powers[5], 2)
+            )
+            lower = value.lower().fmpq()
+            upper = value.upper().fmpq()
+            self.assertLessEqual(
+                Fraction(int(lower.p), int(lower.q)), expected)
+            self.assertGreaterEqual(
+                Fraction(int(upper.p), int(upper.q)), expected)
+
     def test_n6_generic_derivative_chunks_are_exhaustive(self):
         for order, chunk_count in ((1, 6), (2, 6), (3, 6),
                                    (4, 6), (5, 6), (6, 3)):
@@ -496,6 +523,206 @@ class CertificateSummaryTests(unittest.TestCase):
             self.assertGreater(volume_upper, 1)
             self.assertGreater(volume_lower, Fraction(1, 2))
             self.assertLess(volume_upper, Fraction(3, 2))
+            self.assertEqual(chain["integer_relative_chain_degree"], 1)
+
+    def test_n7_conventional_level_certificate_artifacts(self):
+        certificate_dir = PYTHON_DIR.parent / "certificates"
+        structure_path = (
+            certificate_dir / "n7-gaffke-bernstein-structure.json.gz")
+        certificate_path = certificate_dir / "n7-gaffke-certificate.json"
+        structure_bytes = structure_path.read_bytes()
+        with gzip.open(structure_path, "rt") as handle:
+            structure = json.load(handle)
+        certificate = json.loads(certificate_path.read_text())
+
+        self.assertEqual(
+            structure["face_order_verification"],
+            "exact_generic_Singular_quotient_Horner_ideal_power_membership",
+        )
+        self.assertEqual(
+            certificate["structure_sha256"],
+            hashlib.sha256(structure_bytes).hexdigest(),
+        )
+        self.assertEqual(
+            [level["alpha"] for level in certificate["levels"]],
+            ["0.01", "0.05", "0.10"],
+        )
+        expected_region_minima = {
+            "0.01": ("4.80e-18", "1.11e-31", "3.65e-40",
+                     "3.21e-42", "4.35e-37", "3.41e-24",
+                     "1.76e-04"),
+            "0.05": ("2.21e-12", "6.73e-23", "5.89e-30",
+                     "3.54e-32", "9.75e-29", "5.17e-19",
+                     "7.01e-04"),
+            "0.10": ("8.29e-10", "6.54e-19", "2.41e-25",
+                     "1.13e-27", "4.97e-25", "9.07e-17",
+                     "1.12e-03"),
+        }
+        self.assertEqual(
+            {
+                region: (
+                    record["degree"], record["simplex_count"],
+                    record["total_structural_zero_count"])
+                for region, record in structure["regions"].items()
+            },
+            {
+                "A": (7, 1, 1),
+                "B": (12, 6, 10462),
+                "C": (15, 15, 99507),
+                "D": (16, 20, 193352),
+                "E": (15, 15, 99507),
+                "F": (12, 6, 10462),
+                "G": (7, 1, 1),
+            },
+        )
+        generic_keys = set()
+        stored_pivots = {}
+        face_conditions = 0
+        for record in structure["regions"].values():
+            for simplex in record["simplices"]:
+                for proof in simplex["face_order_proofs"]:
+                    face_conditions += 1
+                    self.assertEqual(
+                        proof["verification"],
+                        "exact_generic_Singular_quotient_Horner_"
+                        "ideal_power_membership_over_QQ(b,c,d,e,f,g,h)",
+                    )
+                    self.assertEqual(
+                        len(proof["proof_source_inverse_pivot_columns"]),
+                        len(proof["proof_source_ideal_generators"]),
+                    )
+                    self.assertEqual(
+                        len(set(proof[
+                            "proof_source_inverse_pivot_columns"])),
+                        len(proof["proof_source_inverse_pivot_columns"]),
+                    )
+                    key = (
+                        proof["proof_source_region"],
+                        tuple(proof["proof_source_ideal_generators"]),
+                        proof["vanishing_order"],
+                    )
+                    generic_keys.add(key)
+                    stored_pivots.setdefault(key, set()).add(tuple(
+                        proof["proof_source_inverse_pivot_columns"]))
+        self.assertEqual(face_conditions, 322)
+        self.assertEqual(len(generic_keys), 26)
+        for key in generic_keys:
+            _, pivot = n7_structure._inverse_face_map(key[1])
+            expected = tuple(
+                n7_structure.COORDINATE_NAMES[index] for index in pivot)
+            self.assertEqual(stored_pivots[key], {expected})
+
+        for level in certificate["levels"]:
+            self.assertEqual(level["factor_bits"], 512)
+            self.assertEqual(level["arb_precision_bits"], 768)
+            global_minimum = level[
+                "minimum_positive_bernstein_lower_bound"]
+            self.assertGreater(
+                Fraction(int(global_minimum["numerator"]),
+                         int(global_minimum["denominator"])),
+                0,
+            )
+            observed_region_minima = []
+            for region in "ABCDEFG":
+                minimum = level["polynomial_regions"][region][
+                    "minimum_positive_lower_bound"]
+                value = Fraction(
+                    int(minimum["numerator"]),
+                    int(minimum["denominator"]),
+                )
+                observed_region_minima.append(f"{float(value):.2e}")
+            self.assertEqual(
+                tuple(observed_region_minima),
+                expected_region_minima[level["alpha"]],
+            )
+            rank = level["face_normal_rank_certificate"]
+            self.assertEqual(rank["generator_sets_certified"], 22)
+            self.assertEqual(
+                rank["proof_source_generator_sets_certified"], 42)
+            self.assertEqual(
+                rank["simplex_face_order_conditions_linked"], 322)
+            self.assertEqual(
+                rank["distinct_generic_ideal_power_proofs_linked"], 26)
+            rank_minimum = rank[
+                "minimum_absolute_normal_minor_lower_bound"]
+            self.assertGreater(
+                Fraction(int(rank_minimum["numerator"]),
+                         int(rank_minimum["denominator"])),
+                0,
+            )
+            for record in rank["sets"] + rank["proof_source_sets"]:
+                determinant = record["normal_minor_determinant"]
+                lower = determinant["lower"]
+                upper = determinant["upper"]
+                lower = Fraction(int(lower["numerator"]),
+                                 int(lower["denominator"]))
+                upper = Fraction(int(upper["numerator"]),
+                                 int(upper["denominator"]))
+                self.assertFalse(lower <= 0 <= upper)
+            for record in rank["proof_source_sets"]:
+                self.assertEqual(
+                    record["minor_coordinate_columns"],
+                    record["exact_proof_inverse_pivot_columns"],
+                )
+            for region_name, structure_region in structure[
+                    "regions"].items():
+                region = level["polynomial_regions"][region_name]
+                self.assertEqual(
+                    len(region["simplices"]),
+                    structure_region["simplex_count"],
+                )
+                vertex_slack = region["vertex_region_certificate"][
+                    "minimum_strict_vertex_slack_lower_bound"]
+                self.assertGreater(
+                    Fraction(int(vertex_slack["numerator"]),
+                             int(vertex_slack["denominator"])),
+                    0,
+                )
+                self.assertEqual(
+                    sum(item["structural_zero_count"]
+                        for item in region["simplices"]),
+                    structure_region["total_structural_zero_count"],
+                )
+                for item in region["simplices"]:
+                    determinant = item["affine_determinant"]
+                    lower = determinant["lower"]
+                    upper = determinant["upper"]
+                    lower = Fraction(int(lower["numerator"]),
+                                     int(lower["denominator"]))
+                    upper = Fraction(int(upper["numerator"]),
+                                     int(upper["denominator"]))
+                    self.assertFalse(lower <= 0 <= upper)
+                    minimum = item["minimum_positive_lower_bound"]
+                    self.assertGreater(
+                        Fraction(int(minimum["numerator"]),
+                                 int(minimum["denominator"])),
+                        0,
+                    )
+
+            chain = level["triangulation_chain_certificate"]
+            self.assertEqual(chain["simplex_count"], 64)
+            self.assertEqual(chain["distinct_vertex_pairs_certified"], 378)
+            self.assertEqual(
+                chain["internal_facets_paired_with_opposite_orientation"],
+                112,
+            )
+            self.assertEqual(chain["unpaired_outer_boundary_facets"], 224)
+            self.assertEqual(
+                chain["outer_boundary_facets_by_hyperplane"],
+                {label: 32 for label in (
+                    "x=0", "x=y", "y=z", "z=w", "w=u", "u=v", "v=1")},
+            )
+            volume = chain["normalized_oriented_volume"]
+            lower = volume["lower"]
+            upper = volume["upper"]
+            lower = Fraction(int(lower["numerator"]),
+                             int(lower["denominator"]))
+            upper = Fraction(int(upper["numerator"]),
+                             int(upper["denominator"]))
+            self.assertLessEqual(lower, 1)
+            self.assertGreaterEqual(upper, 1)
+            self.assertGreater(lower, Fraction(1, 2))
+            self.assertLess(upper, Fraction(3, 2))
             self.assertEqual(chain["integer_relative_chain_degree"], 1)
 
     def test_generated_rows_match_the_manuscript_table(self):

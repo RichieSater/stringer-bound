@@ -399,7 +399,7 @@ comparison at every sample size and every nominal confidence level of at
 least `75%`.  It does **not** prove any of the following:
 
 - unrestricted pointwise Stringer--Gaffke domination outside the separately
-  certified sample-size/level pairs (`n=3,4,5,6` at 90%, 95%, and 99%);
+  certified sample-size/level pairs (`n=3,4,5,6,7` at 90%, 95%, and 99%);
 - ordinary Stringer coverage at arbitrary sample size;
 - the one-cap factor inequalities when nominal confidence is below
   `75%`; or
