@@ -38,8 +38,9 @@ $n=20$, respectively. For every sample size and confidence level, scalar
 calibration of the Poisson factor curve yields a distribution-free valid
 modified rule. At nominal confidence at least $2/e\approx73.6\%$, the
 multiplier two is valid uniformly in the sample size. Retaining the first
-100 Poisson crossing probabilities gives certified uniform multipliers
-$1.53$, $1.44$, and $1.33$ at $90\%$, $95\%$, and $99\%$, respectively.
+200 Poisson crossing probabilities gives certified uniform multipliers
+$1.525906$, $1.436135$, and $1.320081$ at $90\%$, $95\%$, and $99\%$,
+respectively.
 An anchored variant leaves the all-zero-sample result unchanged. A separate all-sample-size rule
 reports the maximum of Stringer and a distribution-free bounded-mean limit.
 We also give explicit
@@ -1423,15 +1424,15 @@ The conclusion follows as in Corollary~\ref{cor:poissonuniform}.
 
 The following table compares the refined choices with the elementary
 closed-form choices from \eqref{eq:uniformkappa}. Exact rational exponential
-enclosures certify both columns; the refined column uses $J=100$.
+enclosures certify both columns; the refined column uses $J=200$.
 \begin{table}[htbp]\centering
 \begin{tabular}{rrr}
 \toprule
-nominal confidence & $100$-term certified $\kappa$ & closed-form $\kappa$\\
+nominal confidence & $200$-term certified $\kappa$ & closed-form $\kappa$\\
 \midrule
-$90\%$ & $1.53$ & $1.76$\\
-$95\%$ & $1.44$ & $1.66$\\
-$99\%$ & $1.33$ & $1.52$\\
+$90\%$ & $1.525906$ & $1.76$\\
+$95\%$ & $1.436135$ & $1.66$\\
+$99\%$ & $1.320081$ & $1.52$\\
 \bottomrule
 \end{tabular}
 \caption{Simple full-scale Poisson calibration multipliers valid for every
@@ -2132,8 +2133,9 @@ calibrated-factor-capped curve. This is a guarantee for the calibrated rule,
 not evidence about coverage of the ordinary rule.
 Corollary~\ref{cor:poissonuniform} gives a closed-form alternative: the
 multiplier two works whenever nominal confidence is at least $2/e$.
-Corollary~\ref{cor:poissonuniformrefined} retains the first 100 crossing
-probabilities and reduces the uniform choices to $1.53$, $1.44$, and $1.33$
+Corollary~\ref{cor:poissonuniformrefined} retains the first 200 crossing
+probabilities and reduces the uniform choices to $1.525906$, $1.436135$, and
+$1.320081$
 at $90\%$, $95\%$, and $99\%$, respectively. The exact joint calibration is
 appreciably smaller in the reported examples.
 Corollary~\ref{cor:poissonanchor} gives a second calibration path that

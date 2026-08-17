@@ -70,7 +70,8 @@ uniform-order-statistic probability. It can either scale the complete
 Poisson bound or fix the ordinary no-error factor and scale only the error
 increments. Both modified paths have distribution-free coverage for every
 \(n\). A finite-prefix analytic refinement gives uniform full-scale choices
-of 1.53, 1.44, and 1.33 at 90%, 95%, and 99%, respectively. More generally,
+of 1.525906, 1.436135, and 1.320081 at 90%, 95%, and 99%, respectively. More
+generally,
 the multiplier two is a simple closed-form choice at every sample size
 whenever nominal confidence is at least \(2/e\approx73.6\%\). Representative exact certificates give
 materially smaller choices at
@@ -172,9 +173,10 @@ certificate or a written proof:
   analytic Bonferroni construction gives an explicit marginal-crossing
   bound. A second analytic result is uniform in sample size: multiplying by
   \(2\) is valid for every \(n\) whenever nominal confidence is at least
-  \(2/e\approx73.6\%\). Retaining the first 100 Poisson crossing
+  \(2/e\approx73.6\%\). Retaining the first 200 Poisson crossing
   probabilities and bounding the remainder geometrically reduces the
-  uniform choices to 1.53, 1.44, and 1.33 at 90%, 95%, and 99%, respectively.
+  uniform choices to 1.525906, 1.436135, and 1.320081 at 90%, 95%, and 99%,
+  respectively.
   These are sufficient ceilings, not optimality claims. Exact
   rational certificates bracket each
   path-minimal scalar within \(2^{-28}\) at \(n=25,50,100,200\) for 90%, 95%,

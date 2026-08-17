@@ -236,19 +236,19 @@ through `J-1`. Thus, for every `n`,
  \le\alpha.                                         \tag{13b}
 \]
 
-The following table compares `J=100` with the elementary `J=0` condition
+The following table compares `J=200` with the elementary `J=0` condition
 (9). Both columns are uniform over every positive sample size:
 
-| nominal confidence | 100-term certified `kappa` | closed-form `kappa` |
+| nominal confidence | 200-term certified `kappa` | closed-form `kappa` |
 |---:|---:|---:|
-| 90% | 1.53 | 1.76 |
-| 95% | 1.44 | 1.66 |
-| 99% | 1.33 | 1.52 |
+| 90% | 1.525906 | 1.76 |
+| 95% | 1.436135 | 1.66 |
+| 99% | 1.320081 | 1.52 |
 
 For each closed-form decimal, the committed certificate encloses
 `exp(1-kappa)` above by an exact rational and verifies the powered form of
 (9) with a strictly positive rational margin. For each refined decimal, it
-encloses the first 100 Poisson terms above on a common dyadic grid and bounds
+encloses the first 200 Poisson terms above on a common dyadic grid and bounds
 the infinite remainder geometrically, again with a strictly positive exact
 rational margin. The exact joint calculations reported below are materially
 smaller still at the representative sample sizes.

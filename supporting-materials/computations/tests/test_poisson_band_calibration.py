@@ -89,7 +89,7 @@ class ScalarCalibrationTests(unittest.TestCase):
         # Exercise the exact finite-prefix machinery on a small case. The
         # committed-certificate test below verifies all three production
         # choices, while the byte-for-byte regeneration target recomputes
-        # their complete 100-term certificates.
+        # their complete 200-term certificates.
         alpha_text = "0.10"
         kappa = Fraction(2)
         prefix_terms = 1
@@ -108,6 +108,19 @@ class ScalarCalibrationTests(unittest.TestCase):
             _record_fraction(case["total_crossing_probability_upper"]),
             Fraction(alpha_text),
         )
+
+    def test_refined_uniform_table_matches_production_choices(self):
+        paper = PAPER.read_text()
+        theory = THEORY.read_text()
+        for alpha_text, (kappa, prefix_terms) in (
+            REFINED_UNIFORM_MULTIPLIERS.items()
+        ):
+            confidence = int(100 * (1 - Fraction(alpha_text)))
+            decimal = _upward_decimal(kappa, 6)
+            self.assertIn(f"${decimal}$", paper)
+            self.assertIn(
+                f"| {confidence}% | {decimal} |", theory)
+            self.assertIn(f"`J={prefix_terms}`", theory)
 
     def test_zero_anchor_mixed_endpoint_enclosures_have_correct_direction(self):
         n = 3
@@ -513,7 +526,7 @@ class ScalarCalibrationTests(unittest.TestCase):
             for case in payload["elementary_uniform_full_scale_cases"]
         }
         for case in payload["refined_uniform_full_scale_cases"]:
-            displayed = _upward_decimal(_record_fraction(case["kappa"]), 2)
+            displayed = _upward_decimal(_record_fraction(case["kappa"]), 6)
             elementary_displayed = _upward_decimal(
                 _record_fraction(elementary[Fraction(case["alpha"])]["kappa"]),
                 2,

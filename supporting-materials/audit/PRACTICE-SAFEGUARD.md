@@ -114,10 +114,10 @@ sample size, an analytic corollary permits `2` at every `n` whenever nominal
 confidence is at least `2/e`, approximately `73.6%`. This includes 90%, 95%,
 and 99%. The value `2` is only a simple uniform upper bound; it is not claimed
 to be necessary or optimal. The elementary closed-form criterion gives
-`1.76`, `1.66`, and `1.52` at 90%, 95%, and 99%. Retaining the first 100
+`1.76`, `1.66`, and `1.52` at 90%, 95%, and 99%. Retaining the first 200
 Poisson crossing probabilities and bounding the remainder geometrically
-reduces the certified uniform choices to `1.53`, `1.44`, and `1.33`. The
-sample-size-specific values in the table are smaller still.
+reduces the certified uniform choices to `1.525906`, `1.436135`, and
+`1.320081`. The sample-size-specific values in the table are smaller still.
 
 A pointwise tighter implementation uses
 

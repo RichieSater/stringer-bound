@@ -69,9 +69,9 @@ ELEMENTARY_UNIFORM_MULTIPLIERS = {
     "0.01": Fraction(38, 25),
 }
 REFINED_UNIFORM_MULTIPLIERS = {
-    "0.10": (Fraction(153, 100), 100),
-    "0.05": (Fraction(36, 25), 100),
-    "0.01": (Fraction(133, 100), 100),
+    "0.10": (Fraction(762953, 500000), 200),
+    "0.05": (Fraction(287227, 200000), 200),
+    "0.01": (Fraction(1320081, 1000000), 200),
 }
 FACTOR_BITS = 64
 KAPPA_BITS = 28
