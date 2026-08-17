@@ -12,6 +12,7 @@ from pathlib import Path
 
 
 PYTHON_DIR = Path(__file__).resolve().parents[1] / "python"
+REPOSITORY_ROOT = PYTHON_DIR.parents[2]
 sys.path.insert(0, str(PYTHON_DIR))
 
 import stringer  # noqa: E402
@@ -97,6 +98,41 @@ class ExactFactorTests(unittest.TestCase):
                 ):
                     self.assertLessEqual(enclosure.lower, exact)
                     self.assertGreaterEqual(enclosure.upper, exact)
+
+
+class SubmissionPolicyTests(unittest.TestCase):
+    def test_ai_disclosure_occurs_once_and_only_in_principal_tex(self):
+        principal = (
+            REPOSITORY_ROOT / "supporting-materials" / "paper" / "stringer.tex"
+        )
+        circulation_documents = [
+            REPOSITORY_ROOT / "README.md",
+            REPOSITORY_ROOT / "FINDINGS.md",
+            *(
+                REPOSITORY_ROOT / "supporting-materials"
+            ).rglob("*.md"),
+            *(
+                REPOSITORY_ROOT / "supporting-materials" / "paper"
+            ).rglob("*.tex"),
+        ]
+        principal_text = principal.read_text(encoding="utf-8")
+        self.assertEqual(principal_text.count(r"\section*{AI disclosure}"), 1)
+        self.assertEqual(principal_text.count("Anthropic Claude"), 1)
+        self.assertEqual(principal_text.count("OpenAI Codex"), 1)
+
+        prohibited_status_phrases = (
+            "AI-assisted review",
+            "needs human validation",
+            "claimed complete solution",
+        )
+        for path in circulation_documents:
+            text = path.read_text(encoding="utf-8")
+            for phrase in prohibited_status_phrases:
+                self.assertNotIn(phrase, text, path)
+            if path != principal:
+                self.assertNotIn("AI disclosure", text, path)
+                self.assertNotIn("Anthropic Claude", text, path)
+                self.assertNotIn("OpenAI Codex", text, path)
 
 
 class ExactCoverageTests(unittest.TestCase):

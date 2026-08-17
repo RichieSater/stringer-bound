@@ -392,12 +392,6 @@ Whether the finite-sample conjecture at 95% is genuinely open — and whether
 a resolution hides in the modified-Stringer-bound literature — is tracked in
 [`supporting-materials/audit/OPENNESS.md`](supporting-materials/audit/OPENNESS.md).
 
-## AI disclosure
-
-Anthropic Claude and OpenAI Codex assisted with mathematical exploration,
-code, literature searches, and verification workflows. The author directed
-and reviewed the work and accepts responsibility for the contents.
-
 ## License
 
 Code is MIT-licensed under [`LICENSE`](LICENSE).
