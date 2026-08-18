@@ -9,9 +9,9 @@
 > reduces the complete
 > infinite-gap boundary to the two-exponential theorem, and proves positivity
 > in a punctured neighborhood of the only zero-margin corner.  It also proves
-> the full regions in which both gaps are at most `4/9` or both gaps are at
+> the full regions in which the total gap is at most `8/9` or both gaps are at
 > least `13`.  The remaining finite off-symmetry region with larger gap above
-> `4/9` and smaller gap below `13` is open.  Nothing in this
+> `4/9`, total gap above `8/9`, and smaller gap below `13` is open.  Nothing in this
 > note is a general-`n` Stringer coverage theorem.
 
 Let `E_1,E_2,E_3` be independent unit exponentials and put
@@ -316,7 +316,7 @@ point.
 **Small-gap theorem.** Inequality (16) holds strictly whenever
 
 \[
- 0\le z,w\le\frac49.                                \tag{18a}
+ z+w\le\frac89.                                     \tag{18a}
 \]
 
 Indeed, `T=zU+wV>=0` in (12), so `rho(z,w)>=0` and hence `h(z,w)<=4`.
@@ -327,30 +327,47 @@ The case `h<=0` is automatic.  If `0<h<=4`, monotonicity of (15) gives
  =e^{-4}\{1+4A(z,w)+16Z(z,w)\}.                    \tag{18b}
 \]
 
-Both coefficients in braces are coordinatewise nonincreasing.  This follows
-immediately for `Z` from its integral representation.  For `A`, define the
-boundary integral
+For fixed total gap, both coefficients in braces are minimized on the
+diagonal.  To see this, write
 
 \[
- J(z,w)=\int_0^1e^{-zu-w(1-u)}\,du.
+ p=\frac{z+w}{2},\qquad q=\frac{|w-z|}{2}.
 \]
 
-The identity `A(z,w)=B(z)+B(w)-J(z,w)` gives
+After the change of variables `y=u+v`, `d=u-v`, symmetry of the interval
+`-y<=d<=y` gives
 
 \[
- \frac{\partial A}{\partial z}
- =-\int_0^1u e^{-zu}\,du
-   +\int_0^1u e^{-zu-w(1-u)}\,du\le0,               \tag{18c}
+ Z(p-q,p+q)
+ =\frac12\int_0^1e^{-py}\int_{-y}^y e^{qd}\,\mathrm{d}d\,\mathrm{d}y
+ \ge Z(p,p).                                        \tag{18c}
 \]
 
-and the derivative in `w` is handled symmetrically.  Therefore, with
-`r=4/9` and `t=e^{-4/9}`, condition (18a) implies
+For `A`, the identity
+`A(z,w)=B(z)+B(w)-J(z,w)`, where
+`J(p-q,p+q)=e^{-p}\sinh(q)/q`, yields, for `q>0`,
+
+\[
+ \begin{aligned}
+ \frac{d}{dq}A(p-q,p+q)
+ &=2\int_0^1t e^{-pt}\sinh(qt)\,dt
+   -e^{-p}\frac{q\cosh q-\sinh q}{q^2}\\
+ &\ge e^{-p}\frac{q\cosh q-\sinh q}{q^2}>0.        \tag{18d}
+ \end{aligned}
+\]
+
+The last numerator starts at zero and has derivative `q sinh q>0`.
+Both diagonal functions `A(p,p)` and `Z(p,p)` decrease with `p`; this
+follows directly from (4) and
+`dA(p,p)/dp=-p\int_0^1 y^2e^{-py}\,dy<0`.
+Therefore, with `r=4/9` and `t=e^{-4/9}`, condition (18a) implies `p<=r`
+and
 
 \[
  \begin{aligned}
  A(z,w)&\ge A(r,r)=\frac92-\frac{11}{2}t,\\
  Z(z,w)&\ge Z(r,r)=\frac{81}{16}-\frac{117}{16}t,\\
- 1+4A(z,w)+16Z(z,w)&\ge100-139t.                   \tag{18d}
+ 1+4A(z,w)+16Z(z,w)&\ge100-139t.                   \tag{18e}
  \end{aligned}
 \]
 
@@ -362,7 +379,7 @@ and its tail bound give
  =\frac{1381403}{885735}>\frac{2500}{1603},
  \qquad
  e<\sum_{k=0}^6\frac1{k!}+\frac1{4410}
- =\frac{31967}{11760}<\frac{271829}{100000}.        \tag{18e}
+ =\frac{31967}{11760}<\frac{271829}{100000}.        \tag{18f}
 \]
 
 For the second inequality, use
@@ -373,10 +390,10 @@ Consequently,
  100-139e^{-4/9}
  >100-139\frac{1603}{2500}
  =\frac{27183}{2500}
- >\frac{271829}{25000}>4e.                          \tag{18f}
+ >\frac{271829}{25000}>4e.                          \tag{18g}
 \]
 
-Equations (18b)--(18f) yield `S_{z,w}(h)>4e^{-3}`, proving the theorem.
+Equations (18b)--(18g) yield `S_{z,w}(h)>4e^{-3}`, proving the theorem.
 
 ## 4. A proved boundary: two equal maximal weights
 
@@ -1257,10 +1274,11 @@ The last inequality is equivalent to `e^7>4^5`; it follows from
 `e>19/7` and the exact inequality `19^7>4^5 7^7`.  This proves the theorem.
 
 Hence every finite point on the coordinate axes, every point on the
-diagonal, the complete infinite-gap boundary, the small-gap square (18a),
+diagonal, the complete infinite-gap boundary, the small-total-gap triangle (18a),
 and the two-large-gap region (52a) satisfy the target.  What remains is the
 finite off-symmetry domain
-`0<z<w<infinity` with `z<13` and `w>4/9`, up to interchange of `z` and `w`.
+`0<z<w<infinity` with `z<13`, `w>4/9`, and `z+w>8/9`, up to interchange of
+`z` and `w`.
 
 ## 7. A positive neighborhood of the sharp corner
 

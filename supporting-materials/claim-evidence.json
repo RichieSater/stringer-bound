@@ -720,7 +720,7 @@
       "verification_commands": [
         "make all-n-reduction-check"
       ],
-      "limitations": "The two-variable inequality is proved separately on the coordinate axes and diagonal, on the small-gap square, and on the two-large-gap region; its infinite-gap boundary reduces to the two-coordinate theorem, and a punctured sharp-corner neighborhood is positive. The remaining finite off-symmetry interior is open. This record certifies the equivalence and reduction only, not three-coordinate convexity or general-n Stringer coverage."
+      "limitations": "The two-variable inequality is proved separately on the coordinate axes and diagonal, on the small-total-gap triangle, and on the two-large-gap region; its infinite-gap boundary reduces to the two-coordinate theorem, and a punctured sharp-corner neighborhood is positive. The remaining finite off-symmetry interior is open. This record certifies the equivalence and reduction only, not three-coordinate convexity or general-n Stringer coverage."
     },
     {
       "id": "three-exponential-boundary-trace-identity",
@@ -860,17 +860,17 @@
     {
       "id": "three-exponential-small-gap-region",
       "classification": "proved_theorem",
-      "statement": "At tail threshold 4 exp(-3), the explicit three-exponential tilted-simplex inequality holds strictly whenever both gap coordinates are at most 4/9.",
+      "statement": "At tail threshold 4 exp(-3), the explicit three-exponential tilted-simplex inequality holds strictly whenever the two gap coordinates have sum at most 8/9.",
       "manuscript_labels": [],
       "evidence": [
         {
           "path": "supporting-materials/theory/THREE-EXPONENTIAL-QUANTILE.md",
-          "role": "complete threshold, coordinate-monotonicity, and exact rational tail comparison",
+          "role": "complete threshold, fixed-total-gap minimization, and exact rational tail comparison",
           "trust": "proof_essential"
         },
         {
           "path": "supporting-materials/computations/python/all_n_poisson_reductions.py",
-          "role": "exact rational checks of every exponential and tail constant",
+          "role": "exact symbolic checks of the fixed-total-gap derivative and exact rational checks of every tail constant",
           "trust": "corroboration_only"
         },
         {
@@ -882,7 +882,7 @@
       "verification_commands": [
         "make all-n-reduction-check"
       ],
-      "limitations": "This proves only the square max(z,w)<=4/9. It does not prove the remaining finite off-symmetry region with larger gap above 4/9 and smaller gap below 13, full three-coordinate convexity, or general-n Stringer coverage."
+      "limitations": "This proves only the triangle z+w<=8/9. It does not prove the remaining finite off-symmetry region with total gap above 8/9 and smaller gap below 13, full three-coordinate convexity, or general-n Stringer coverage."
     },
     {
       "id": "three-exponential-two-large-gap-region",
@@ -909,7 +909,7 @@
       "verification_commands": [
         "make all-n-reduction-check"
       ],
-      "limitations": "This proves only the region min(z,w)>=13. It does not prove the remaining finite off-symmetry region with larger gap above 4/9 and smaller gap below 13, full three-coordinate convexity, or general-n Stringer coverage."
+      "limitations": "This proves only the region min(z,w)>=13. It does not prove the remaining finite off-symmetry region with total gap above 8/9 and smaller gap below 13, full three-coordinate convexity, or general-n Stringer coverage."
     },
     {
       "id": "three-exponential-infinite-gap-boundary",

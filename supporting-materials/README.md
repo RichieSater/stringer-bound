@@ -60,10 +60,11 @@ point; it is also proved on the equal-smaller symmetry line, where the
 fixed-sum transverse second derivative is strictly negative, and its complete
 infinite-gap boundary reduces to the two-coordinate theorem.  A joint
 expansion proves positivity in a punctured neighborhood of the sharp corner.
-A direct tail comparison proves the full square in which both gaps are at
-most `4/9`, and an analytic Gram-matrix comparison proves the full region in
+A fixed-total-gap comparison and a direct tail bound prove the full triangle
+in which the two gaps sum to at most `8/9`, and an analytic Gram-matrix
+comparison proves the full region in
 which both gaps are at least `13`.  Its remaining finite off-symmetry region,
-whose larger gap exceeds `4/9` and whose smaller gap is below `13`, remains
+whose total gap exceeds `8/9` and whose smaller gap is below `13`, remains
 open.
 
 ## Layers
@@ -101,7 +102,7 @@ open.
 | `theory/ORDERED-SIMPLEX-CAP.md` | Exact tight-vertex reduction and adjacent-transfer identity for the still-open all-`n` comparison | research roadmap |
 | `theory/ALL-N-POISSON-PROGRAM.md` | Exact weighted-exponential reductions, sharp two-coordinate theorem, and explicitly open higher-dimensional route | research roadmap |
 | `theory/TWO-EXPONENTIAL-QUANTILE.md` | Written proof that the two-weight exponential quantile is convex exactly for `alpha<=4e^-3` | proof-essential |
-| `theory/THREE-EXPONENTIAL-QUANTILE.md` | Exact tilted-simplex Hessian, boundary-trace, and tail reduction of three-weight convexity, with proofs on the repeated-maximum and infinite-gap boundaries, the equal-smaller symmetry line, strict fixed-sum derivative signs at both finite symmetry boundaries, a sharp-corner neighborhood, the small-gap square, and the region with both gaps at least 13; the remaining off-symmetry region outside those sets is explicit | proof-essential for the reduction, boundary, symmetry-line, local derivative, local-corner, small-gap, and two-large-gap theorems; research roadmap for the remaining interior |
+| `theory/THREE-EXPONENTIAL-QUANTILE.md` | Exact tilted-simplex Hessian, boundary-trace, and tail reduction of three-weight convexity, with proofs on the repeated-maximum and infinite-gap boundaries, the equal-smaller symmetry line, strict fixed-sum derivative signs at both finite symmetry boundaries, a sharp-corner neighborhood, the total-gap-at-most-8/9 triangle, and the region with both gaps at least 13; the remaining off-symmetry region outside those sets is explicit | proof-essential for the reduction, boundary, symmetry-line, local derivative, local-corner, small-total-gap, and two-large-gap theorems; research roadmap for the remaining interior |
 | `theory/DIRICHLET-POISSONIZATION.md` | Constrained divided-difference reduction, zero-knot boundary reduction, proofs for every two-level profile, every profile with at most two nonzero coefficients, and the complete `n=2` case, plus an exact obstruction to generic `s`-concave localization | proof-essential for the structured-family and `n=2` theorems; research roadmap in general |
 | `gaffke.py` | Exact-rational Dirichlet tail signs, certified dyadic Gaffke bracket, and safeguarded Stringer report | proof-essential for the implemented floor |
 | `all_n_poisson_reductions.py` | Symbolic and exact-rational checks of the ordered-weight identity, the exact two-exponential theorem, the equal-weight Hessian, the three-weight reduction and boundary-trace identity, its proved boundary, both finite symmetry-boundary derivative results, the small-gap and two-large-gap bounds, the symmetry families, the sharp-corner expansion, and the open-route kernel identity | proof support |

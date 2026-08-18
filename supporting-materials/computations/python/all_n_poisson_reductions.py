@@ -736,7 +736,29 @@ def check_three_exponential_two_large_gap_region() -> None:
 
 
 def check_three_exponential_small_gap_region() -> None:
-    """Check the exact rational constants in the small-gap theorem."""
+    """Check the fixed-sum identities and constants in the small-gap theorem."""
+
+    from sympy import cosh, sinh
+
+    p, q = symbols("p q", positive=True)
+
+    def bfun(value):
+        return (1 - exp(-value)) / value
+
+    def first_moment(value):
+        return (1 - (1 + value) * exp(-value)) / value**2
+
+    bminus = bfun(p - q)
+    bplus = bfun(p + q)
+    fixed_sum_a = bminus + bplus - exp(-p) * sinh(q) / q
+    expected_derivative = (
+        first_moment(p - q) - first_moment(p + q)
+        - exp(-p) * (q * cosh(q) - sinh(q)) / q**2
+    )
+    assert simplify(diff(fixed_sum_a, q) - expected_derivative) == 0
+    assert simplify(
+        diff(q * cosh(q) - sinh(q), q) - q * sinh(q)
+    ) == 0
 
     radius = Fraction(4, 9)
     exponential_lower = sum(
@@ -1207,7 +1229,7 @@ def main() -> int:
     print("three-exponential axis transversality: STRICTLY POSITIVE")
     print("three-exponential equal-smaller symmetry line: PROVED")
     print("three-exponential diagonal transverse second derivative: NEGATIVE")
-    print("three-exponential max-gap-at-most-4/9 region: PROVED")
+    print("three-exponential total-gap-at-most-8/9 region: PROVED")
     print("three-exponential min-gap-at-least-13 region: PROVED")
     print("three-exponential infinite-gap boundary: REDUCED TO PROVED 2D CASE")
     print("three-exponential sharp corner: POSITIVE PUNCTURED NEIGHBORHOOD")

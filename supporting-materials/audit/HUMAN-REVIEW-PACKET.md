@@ -366,10 +366,10 @@ Questions:
     checks and the decreasing negative-to-base-7 ratios, prove
     `mathcal E(s)>0` for every `s>0`, and therefore
     `Psi_s''(0)<0`?
-23. Does `rho>=0`, tail monotonicity, and coordinatewise monotonicity of
-    `A` and `Z` reduce the square `0<=z,w<=4/9` to the diagonal corner, and
-    do the rational exponential bounds in (18e)--(18f) prove the strict
-    target there?
+23. Does `rho>=0`, tail monotonicity, and the fixed-total-gap comparisons for
+    `A` and `Z` reduce the triangle `z+w<=8/9` to its diagonal corner, and do
+    the rational exponential bounds in (18f)--(18g) prove the strict target
+    there?
 24. Does conditioning independent exponentials on their sum being at most
     one prove the two mean bounds in (52b)?
 25. Do the boundary estimates (52c)--(52d) and the full-quadrant complement
@@ -395,7 +395,7 @@ Questions:
     and does the two-scale remainder argument prove a punctured positive
     neighborhood rather than only positivity along fixed rays?
 32. Are the remaining claims limited to finite `0<z<w<infinity` with
-    `z<13` and `w>4/9`, without
+    `z<13` and `z+w>8/9`, without
     using any proved boundary, symmetry, or local-corner result as a full
     three-coordinate convexity or general-`n` coverage theorem?
 

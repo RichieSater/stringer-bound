@@ -271,9 +271,9 @@ The complete infinite-gap boundary reduces to the proved two-exponential
 case, and a joint expansion proves positivity in a punctured neighborhood of
 its only zero-margin corner.  An analytic boundary-versus-bulk comparison
 also proves every point at which both gaps are at least `13`, while a direct
-tail comparison proves the square in which both gaps are at most `4/9`.  The
-remaining finite off-symmetry region has larger gap above `4/9` and smaller
-gap below `13`.
+tail comparison, preceded by a fixed-total-gap minimization, proves the
+triangle in which the gaps sum to at most `8/9`.  The remaining finite
+off-symmetry region has total gap above `8/9` and smaller gap below `13`.
 
 Random Jensen tests conducted during exploration found no violation of (A)
 at or below (8) in dimensions through 12 and found the failures predicted by
@@ -451,8 +451,8 @@ seemingly simpler but false domination claim.
    of the sharp corner.  The fixed-total-gap derivative points strictly
    inward from each finite axis, and the corresponding second derivative is
    strictly negative at each positive diagonal point.  The region in which
-   both gaps are at least `13` and the square in which both gaps are at most
-   `4/9` are also proved.  Then seek a dimension-free argument for (11).
+   both gaps are at least `13` and the triangle in which their sum is at most
+   `8/9` are also proved.  Then seek a dimension-free argument for (11).
 2. Prove the constrained divided-difference inequality (16), or find an
    actual B-spline counterexample satisfying the sum-of-knots constraint;
    the complete `n=2` case and every two-level profile are already proved.
