@@ -720,7 +720,7 @@
       "verification_commands": [
         "make all-n-reduction-check"
       ],
-      "limitations": "The two-variable inequality is proved separately on the coordinate axes, but its strict interior is open. This record certifies the equivalence and reduction only, not three-coordinate convexity or general-n Stringer coverage."
+      "limitations": "The two-variable inequality is proved separately on the coordinate axes and diagonal, but its off-symmetry strict interior is open. This record certifies the equivalence and reduction only, not three-coordinate convexity or general-n Stringer coverage."
     },
     {
       "id": "three-exponential-repeated-max-boundary",
@@ -747,7 +747,34 @@
       "verification_commands": [
         "make all-n-reduction-check"
       ],
-      "limitations": "This proves only the coordinate-axis boundary of the reduced three-exponential inequality. The strict interior z,w>0, full three-coordinate convexity, and general-n Stringer coverage remain open."
+      "limitations": "This proves only the coordinate-axis boundary of the reduced three-exponential inequality. The diagonal is covered by a separate theorem, but the off-symmetry strict interior, full three-coordinate convexity, and general-n Stringer coverage remain open."
+    },
+    {
+      "id": "three-exponential-equal-smaller-symmetry-line",
+      "classification": "proved_theorem",
+      "statement": "At tail threshold 4 exp(-3), the explicit three-exponential tilted-simplex inequality holds strictly at every finite point with z=w, corresponding to positive coefficient vectors with two equal coordinates no larger than the third.",
+      "manuscript_labels": [],
+      "evidence": [
+        {
+          "path": "supporting-materials/theory/THREE-EXPONENTIAL-QUANTILE.md",
+          "role": "complete generalized-eigenvalue, monotonicity, one-sign-change, and rational endpoint proof on the diagonal",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/python/all_n_poisson_reductions.py",
+          "role": "exact symbolic verification of the diagonal factorizations and exact-rational verification of every endpoint bound",
+          "trust": "corroboration_only"
+        },
+        {
+          "path": "supporting-materials/computations/tests/test_all_n_poisson_reductions.py",
+          "role": "regression test for the equal-smaller symmetry-line identities and bounds",
+          "trust": "corroboration_only"
+        }
+      ],
+      "verification_commands": [
+        "make all-n-reduction-check"
+      ],
+      "limitations": "This proves only the diagonal z=w of the reduced three-exponential inequality. The coordinate axes are covered separately, but the off-symmetry strict interior z,w>0 with z not equal to w, full three-coordinate convexity, and general-n Stringer coverage remain open."
     },
     {
       "id": "general-n-standard-confidence-status",
@@ -769,7 +796,7 @@
         },
         {
           "path": "supporting-materials/theory/THREE-EXPONENTIAL-QUANTILE.md",
-          "role": "exact reduction of the first unequal exponential-quantile dimension, with a proved coordinate-axis boundary and explicitly open strict interior",
+          "role": "exact reduction of the first unequal exponential-quantile dimension, with proved coordinate-axis and diagonal families and an explicitly open off-symmetry interior",
           "trust": "corroboration_only"
         },
         {

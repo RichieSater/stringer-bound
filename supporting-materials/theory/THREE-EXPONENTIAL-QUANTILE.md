@@ -2,9 +2,9 @@
 
 > **Status.** This note reduces three-coordinate exponential-quantile
 > convexity to one explicit two-variable inequality and proves that
-> inequality on the repeated-maximum boundary.  The reduction and boundary
-> result are proved; the strict two-variable interior remains open.  Nothing
-> in this note is a general-`n` Stringer coverage theorem.
+> inequality on the repeated-maximum boundary and the equal-smaller symmetry
+> line.  Those results are proved; the off-symmetry strict interior remains
+> open.  Nothing in this note is a general-`n` Stringer coverage theorem.
 
 Let `E_1,E_2,E_3` be independent unit exponentials and put
 
@@ -229,11 +229,11 @@ infinity; the limit is the equal-weight two-exponential problem,
 \]
 
 These endpoint calculations explain both the candidate constant and where
-equality must occur.  Section 4 rules out every finite unequal pair on the
-coordinate axes; the strict interior remains.  Because `Z`, `A`, and every
-entry of `K` are elementary divided differences of the exponential, (16) is
-an explicit two-variable analytic inequality rather than an optimization
-over distributions.
+equality must occur.  Sections 4 and 5 prove the coordinate axes and the
+diagonal; the off-symmetry strict interior remains.  Because `Z`, `A`, and
+every entry of `K` are elementary divided differences of the exponential,
+(16) is an explicit two-variable analytic inequality rather than an
+optimization over distributions.
 
 ## 4. A proved boundary: two equal maximal weights
 
@@ -363,3 +363,234 @@ Hence `M_0(s)>0` for every finite `s`, which proves (16) on `z=0` and, by
 symmetry, on `w=0`.  Equality is approached only at the coordinate-face
 corner in (18).  The remaining open domain can therefore be restricted to
 `z,w>0`.
+
+## 5. A proved symmetry line: two equal smaller weights
+
+**Symmetry-line theorem.** Inequality (16) also holds whenever `z=w`, and it
+is strict at every finite point on that ray.  Consequently, for
+`alpha<=4e^-3`, the Hessian criterion (10) is positive semidefinite at every
+positive coefficient vector having two equal coordinates no larger than the
+third.
+
+Put `z=w=s>0` and let `Y=U+V`.  Under the tilted-simplex law, `Y` has density
+proportional to `ye^(-sy)` on `[0,1]`; conditionally on `Y=y`, the coordinate
+`U` is uniform on `[0,y]`.  If
+
+\[
+ J_j(s)=\int_0^1y^je^{-sy}\,dy,
+\]
+
+the antisymmetric contrast `U-V` and the symmetric contrast `Y-EY` are the
+two generalized eigendirections in (12).  Their eigenvalues are
+
+\[
+ \mathcal R_{\rm a}(s)=s\frac{J_4(s)}{J_3(s)},
+ \qquad
+ \mathcal R_{\rm s}(s)
+ =s\frac{E[Y\{Y-EY\}^2]}{\operatorname{Var}(Y)},       \tag{28}
+\]
+
+where the second expectation uses the normalized density proportional to
+`ye^(-sy)`.  Clearing the positive moment denominators in (28) shows that
+the numerator of `mathcal R_a-mathcal R_s` is
+
+\[
+ s^2\{2e^s-2-2s-s^2\}L(s).                           \tag{29}
+\]
+
+The first factor is positive by the exponential series, and `L(s)>0` was
+proved in Section 4.  Hence `mathcal R_s<mathcal R_a`, so the smaller
+generalized eigenvalue is `mathcal R_s`.
+
+For the monotonicity calculation, define
+
+\[
+ \begin{aligned}
+ C(s)&=s^2+2s-2e^s+2,\\
+ P(s)&=se^s+s-2e^s+2,\\
+ Q(s)&=s^3e^s-s^2e^s-s^2+4se^s-4s
+       -2e^{2s}+4e^s-2.
+ \end{aligned}                                       \tag{30}
+\]
+
+Here `C(s)<0`, while `P(s)>0` because its coefficient of `s^j` is
+`(j-2)/j!` for every `j>=3`.  Direct simplification of (28) gives
+
+\[
+ h(s,s)=\frac{s^2P(s)^2}{\{s-e^s+1\}Q(s)}.           \tag{31}
+\]
+
+The variance in (28) is
+
+\[
+ \operatorname{Var}(Y)
+ =-\frac{Q(s)}{s^2\{s-e^s+1\}^2},
+\]
+
+so `Q(s)<0`.  Differentiating (31) yields
+
+\[
+ \frac{d}{ds}h(s,s)=
+ \frac{sC(s)P(s)R(s)}
+ {\{s-e^s+1\}^2Q(s)^2},                              \tag{32}
+\]
+
+where
+
+\[
+ \begin{aligned}
+ R(s)={}&s^4e^{2s}-s^4e^s-2s^3e^{2s}-2s^3e^s
+ +s^2e^{3s}+9s^2e^{2s}-9s^2e^s-s^2\\
+ &-6se^{3s}+6se^{2s}+6se^s-6s
+ +4e^{3s}-12e^{2s}+12e^s-4.
+ \end{aligned}                                       \tag{33}
+\]
+
+The coefficients of `R` vanish through degree eight.  For `j>=4`, the
+coefficient of `s^j`, multiplied by `j!`, is
+
+\[
+ \begin{aligned}
+ r_j={}&\frac{2^j}{16}
+ (j^4-10j^3+59j^2-2j-192)
+ +\frac{3^j}{9}(j^2-19j+36)\\
+ &-j^4+4j^3-14j^2+17j+12.                            \tag{34}
+ \end{aligned}
+\]
+
+Direct substitution gives `r_j>0` for `9<=j<=16`.  For `j>=17`, the first
+polynomial in (34) exceeds `j^4/2`, the second is positive, and the final
+polynomial exceeds `-j^4`.  The first term in (34) alone then exceeds
+`j^4`.  Thus `R(s)>0`; equation (32) proves that `h(s,s)` is strictly
+decreasing.
+
+On the diagonal,
+
+\[
+ Z(s,s)=\frac{1-(s+1)e^{-s}}{s^2},
+ \qquad
+ A(s,s)=\frac{2(1-e^{-s})}{s}-e^{-s}.                \tag{35}
+\]
+
+Both functions are strictly decreasing.  For `Z` this follows from its
+integral representation `Z=J_1`; for `A=B+sZ`, differentiation under the
+integral gives `A'(s)=-sJ_2(s)<0`.  Define
+
+\[
+ M_{\rm d}(s)=3-h(s,s)
+ +\log\{1+A(s,s)h(s,s)+Z(s,s)h(s,s)^2\}-\log4.       \tag{36}
+\]
+
+To locate its minimum, put
+
+\[
+ \begin{aligned}
+ F(s)={}&(-2s^2+12s-4)e^{4s}
+ +(-s^4-4s^3-20s^2-32s+16)e^{3s}\\
+ &+(2s^6-2s^5+18s^4+24s^3+48s^2+24s-24)e^{2s}\\
+ &+(-s^6-6s^5-21s^4-20s^3-28s^2+16)e^s
+ +2s^2-4s-4.
+ \end{aligned}                                       \tag{37}
+\]
+
+Exact differentiation and cancellation give
+
+\[
+ M_{\rm d}'(s)=
+ \frac{C(s)^2P(s)^2\{s^2e^s-(e^s-1)^2\}F(s)}
+ {\{s-e^s+1\}^2Q(s)^4e^s
+  \{1+A(s,s)h(s,s)+Z(s,s)h(s,s)^2\}}.               \tag{38}
+\]
+
+Every denominator factor is positive, while
+`s^2e^s-(e^s-1)^2<0` because `2sinh(s/2)>s`.  Therefore the sign of
+`M_d'` is the opposite of the sign of `F`.
+
+Write `F(s)=sum_(j>=0) f_j s^j/j!`.  Its coefficients vanish through
+`j=11`, and
+
+\[
+ f_{12}=18480,qquad f_{13}=240240,qquad f_{14}=480480.       \tag{39}
+\]
+
+For every `j>=4`, direct expansion gives
+
+\[
+ \begin{aligned}
+ f_j={}&\frac{4^j}{8}(-j^2+25j-32)\\
+ &+\frac{2^j}{32}
+ (j^6-17j^5+141j^4-415j^3+866j^2-192j-768)\\
+ &-\frac{3^j}{81}(j^4+6j^3+155j^2+702j-1296)\\
+ &-j^6+9j^5-46j^4+121j^3-173j^2+90j+16.
+ \end{aligned}                                       \tag{40}
+\]
+
+Substitution gives `f_j<0` for `15<=j<=23`.  For `j>=24`, the negative
+`4^j` term in (40) dominates the only positive exponential term: indeed,
+the second polynomial is less than `j^6`, and
+
+\[
+ 4\,2^j(j^2-25j+32)>j^6
+\]
+
+holds at `j=24` and then inductively.  The `3^j` and final polynomial terms
+are also negative.  For the induction, `j^2-25j+32` is positive and
+increasing from its value `8` at `j=24`, while `((j+1)/j)^6<2`.  Thus every
+coefficient from degree 15 onward is negative.  The two auxiliary polynomial
+comparisons just used can also be checked by substituting `j=24+k`; their
+differences then have positive coefficients in `k`.  It follows directly
+that `F(s)/s^14` is strictly decreasing on
+`s>0`: its first two terms are positive multiples of `s^{-2}` and `s^{-1}`,
+its third is constant, and all remaining terms are negative multiples of
+positive powers of `s`.  Hence `F` has at most one positive zero.
+
+The following short rational bounds isolate that zero and bound the margin.
+They use alternating-series enclosures for the two exponentials; the checker
+regenerates every inequality:
+
+\[
+ \begin{gathered}
+ \frac{3678794411}{10^{10}}<e^{-1}
+ <\frac{3678794412}{10^{10}},\\
+ \frac{3011942119}{10^{10}}<e^{-6/5}
+ <\frac{3011942120}{10^{10}},                         \tag{41}\\
+ F(1)>0,qquad F(6/5)<0,\\
+ h(1,1)<\frac{347}{100},qquad
+ h(6/5,6/5)>\frac{84}{25},\\
+ A(6/5,6/5)>\frac{43}{50},qquad
+ Z(6/5,6/5)>\frac{117}{500}.
+ \end{gathered}
+\]
+
+Thus the unique minimum of `M_d` occurs at some `s_0 in (1,6/5)`.  At that
+point, monotonicity and (41) give
+
+\[
+ \begin{aligned}
+ 1+A h+Zh^2
+ &>1+\frac{43}{50}\frac{84}{25}
+   +\frac{117}{500}\left(\frac{84}{25}\right)^2\\
+ &=\frac{510263}{78125}>\frac{32}{5}.                \tag{42}
+ \end{aligned}
+\]
+
+Finally, for `x=47/100`, the exponential series and
+`j!>=24*5^(j-4)` for `j>=4` give
+
+\[
+ e^x
+ \le1+x+\frac{x^2}{2}+\frac{x^3}{6}
+ +\frac{x^4}{24(1-x/5)}
+ =\frac{17395178081}{10872000000}<\frac85.           \tag{43}
+\]
+
+Equations (36), (41)--(43) now imply
+
+\[
+ M_{\rm d}(s_0)
+ >-\frac{47}{100}+\log\frac85>0.                    \tag{44}
+\]
+
+This proves (16) on the full diagonal, including `s=0` by (17).  Together
+with Section 4, the remaining open domain is
+`z,w>0` with `z\ne w`.

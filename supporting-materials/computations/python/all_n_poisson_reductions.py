@@ -6,8 +6,8 @@ the algebra that isolates them:
 * the ordered-weight Poisson Stringer identity;
 * the exact two-exponential quantile-convexity threshold ``4*exp(-3)``;
 * the exact equal-weight Hessian in every dimension;
-* the three-exponential tilted-simplex curvature reduction and its proved
-  repeated-maximum boundary;
+* the three-exponential tilted-simplex curvature reduction, its proved
+  repeated-maximum boundary, and its proved equal-smaller symmetry line;
 * the gamma-kernel antiderivative identity; and
 * a decisive numerical counterexample to the tempting SymPol shortcut.
 """
@@ -21,7 +21,7 @@ from mpmath import mp
 from sympy import (Function, Rational, diff, exp, factorial, integrate, log,
                    simplify, symbols, series, together)
 
-from stringer import factor_prefix
+from stringer import exact_exp_neg_bounds, factor_prefix
 
 
 def check_ordered_weight_identity() -> None:
@@ -309,6 +309,258 @@ def check_three_exponential_repeated_max_boundary() -> None:
         assert scaled > 0
 
 
+def check_three_exponential_equal_smaller_line() -> None:
+    """Check the exact two-equal-smaller-weights proof for the 3D target."""
+
+    s, y = symbols("s y", positive=True)
+    moments = [
+        integrate(y**j * exp(-s * y), (y, 0, 1))
+        for j in range(1, 5)
+    ]
+    mean = moments[1] / moments[0]
+    variance = moments[2] / moments[0] - mean**2
+    weighted_centered_square = (
+        moments[3] / moments[0]
+        - 2 * mean * moments[2] / moments[0]
+        + mean**2 * moments[1] / moments[0]
+    )
+    r_antisymmetric = simplify(s * moments[3] / moments[2])
+    r_symmetric = simplify(s * weighted_centered_square / variance)
+
+    cfun = s**2 + 2 * s - 2 * exp(s) + 2
+    pfun = s * exp(s) + s - 2 * exp(s) + 2
+    qfun = (
+        s**3 * exp(s) - s**2 * exp(s) - s**2
+        + 4 * s * exp(s) - 4 * s
+        - 2 * exp(2 * s) + 4 * exp(s) - 2
+    )
+    lfun = (
+        s**4 * exp(s) + 2 * s**2 * exp(2 * s)
+        + 8 * s**2 * exp(s) + 2 * s**2
+        - 12 * s * exp(2 * s) + 12 * s
+        + 12 * exp(2 * s) - 24 * exp(s) + 12
+    )
+
+    eigen_numerator, _ = together(
+        r_antisymmetric - r_symmetric
+    ).as_numer_denom()
+    assert simplify(eigen_numerator + s**2 * cfun * lfun) == 0
+
+    h = simplify(4 - r_symmetric)
+    expected_h = s**2 * pfun**2 / ((s - exp(s) + 1) * qfun)
+    assert simplify(h - expected_h) == 0
+    assert simplify(
+        variance + qfun / (s**2 * (s - exp(s) + 1)**2)
+    ) == 0
+
+    rfun = (
+        s**4 * exp(2 * s) - s**4 * exp(s)
+        - 2 * s**3 * exp(2 * s) - 2 * s**3 * exp(s)
+        + s**2 * exp(3 * s) + 9 * s**2 * exp(2 * s)
+        - 9 * s**2 * exp(s) - s**2
+        - 6 * s * exp(3 * s) + 6 * s * exp(2 * s)
+        + 6 * s * exp(s) - 6 * s
+        + 4 * exp(3 * s) - 12 * exp(2 * s)
+        + 12 * exp(s) - 4
+    )
+    expected_h_derivative = (
+        s * cfun * pfun * rfun
+        / ((s - exp(s) + 1)**2 * qfun**2)
+    )
+    assert simplify(diff(h, s) - expected_h_derivative) == 0
+
+    rseries = series(rfun, s, 0, 25).removeO().expand()
+    assert all(rseries.coeff(s, j) == 0 for j in range(9))
+    for j in range(4, 25):
+        scaled = simplify(factorial(j) * rseries.coeff(s, j))
+        expected = (
+            Rational(2**j, 16)
+            * (j**4 - 10 * j**3 + 59 * j**2 - 2 * j - 192)
+            + Rational(3**j, 9) * (j**2 - 19 * j + 36)
+            - j**4 + 4 * j**3 - 14 * j**2 + 17 * j + 12
+        )
+        assert scaled == expected
+        if j >= 9:
+            assert scaled > 0
+
+    zdiag = (1 - (s + 1) * exp(-s)) / s**2
+    adiag = 2 * (1 - exp(-s)) / s - exp(-s)
+    tail_factor = 1 + adiag * h + zdiag * h**2
+    margin = 3 - h + log(tail_factor) - log(4)
+    ffun = (
+        (-2 * s**2 + 12 * s - 4) * exp(4 * s)
+        + (-s**4 - 4 * s**3 - 20 * s**2 - 32 * s + 16)
+        * exp(3 * s)
+        + (
+            2 * s**6 - 2 * s**5 + 18 * s**4 + 24 * s**3
+            + 48 * s**2 + 24 * s - 24
+        ) * exp(2 * s)
+        + (
+            -s**6 - 6 * s**5 - 21 * s**4 - 20 * s**3
+            - 28 * s**2 + 16
+        ) * exp(s)
+        + 2 * s**2 - 4 * s - 4
+    )
+    expected_margin_derivative = (
+        cfun**2 * pfun**2
+        * (s**2 * exp(s) - (exp(s) - 1)**2) * ffun
+        / (
+            (s - exp(s) + 1)**2 * qfun**4 * exp(s)
+            * tail_factor
+        )
+    )
+    assert simplify(diff(margin, s) - expected_margin_derivative) == 0
+
+    fseries = series(ffun, s, 0, 41).removeO().expand()
+    assert all(fseries.coeff(s, j) == 0 for j in range(12))
+    assert [factorial(j) * fseries.coeff(s, j) for j in range(12, 15)] == [
+        18480, 240240, 480480,
+    ]
+    for j in range(4, 41):
+        scaled = simplify(factorial(j) * fseries.coeff(s, j))
+        expected = (
+            Rational(4**j, 8) * (-j**2 + 25 * j - 32)
+            + Rational(2**j, 32)
+            * (
+                j**6 - 17 * j**5 + 141 * j**4 - 415 * j**3
+                + 866 * j**2 - 192 * j - 768
+            )
+            - Rational(3**j, 81)
+            * (j**4 + 6 * j**3 + 155 * j**2 + 702 * j - 1296)
+            - j**6 + 9 * j**5 - 46 * j**4 + 121 * j**3
+            - 173 * j**2 + 90 * j + 16
+        )
+        assert scaled == expected
+        if 15 <= j:
+            assert scaled < 0
+
+    # Exact rational endpoint checks.  The elementary interval operations
+    # below are inclusion-monotone and introduce no floating-point step.
+    def iadd(left, right):
+        return left[0] + right[0], left[1] + right[1]
+
+    def ineg(value):
+        return -value[1], -value[0]
+
+    def isub(left, right):
+        return iadd(left, ineg(right))
+
+    def imul(left, right):
+        products = (
+            left[0] * right[0], left[0] * right[1],
+            left[1] * right[0], left[1] * right[1],
+        )
+        return min(products), max(products)
+
+    def ipow(value, exponent):
+        result = (Fraction(1), Fraction(1))
+        for _ in range(exponent):
+            result = imul(result, value)
+        return result
+
+    def idiv(left, right):
+        assert not (right[0] <= 0 <= right[1])
+        reciprocal = (Fraction(1, right[1]), Fraction(1, right[0]))
+        return imul(left, reciprocal)
+
+    def iconstant(value):
+        value = Fraction(value)
+        return value, value
+
+    def endpoint_intervals(value, exp_bracket):
+        value = Fraction(value)
+        sint = iconstant(value)
+        rint = exp_bracket
+        h_numerator = imul(
+            imul(ipow(sint, 2), rint),
+            ipow(iadd(iconstant(value - 2), imul(
+                iconstant(value + 2), rint)), 2),
+        )
+        h_denominator = imul(
+            isub(imul(iconstant(value + 1), rint), iconstant(1)),
+            isub(
+                iadd(
+                    imul(
+                        iconstant(value**3 - value**2 + 4 * value + 4),
+                        rint,
+                    ),
+                    ineg(imul(
+                        iconstant(value**2 + 4 * value + 2),
+                        ipow(rint, 2),
+                    )),
+                ),
+                iconstant(2),
+            ),
+        )
+        h_interval = idiv(h_numerator, h_denominator)
+
+        coefficients = (
+            (-2 * value**2 + 12 * value - 4),
+            (-value**4 - 4 * value**3 - 20 * value**2
+             - 32 * value + 16),
+            (2 * value**6 - 2 * value**5 + 18 * value**4
+             + 24 * value**3 + 48 * value**2 + 24 * value - 24),
+            (-value**6 - 6 * value**5 - 21 * value**4
+             - 20 * value**3 - 28 * value**2 + 16),
+            (2 * value**2 - 4 * value - 4),
+        )
+        scaled_f = iconstant(0)
+        for exponential_power, coefficient in zip(
+                range(4, -1, -1), coefficients):
+            scaled_f = iadd(
+                scaled_f,
+                imul(iconstant(coefficient), ipow(
+                    rint, 4 - exponential_power)),
+            )
+
+        a_interval = isub(
+            imul(iconstant(Fraction(2) / value), isub(
+                iconstant(1), rint)),
+            rint,
+        )
+        z_interval = imul(
+            iconstant(Fraction(1) / value**2),
+            isub(iconstant(1), imul(iconstant(value + 1), rint)),
+        )
+        return h_interval, scaled_f, a_interval, z_interval
+
+    ten_billion = 10**10
+    simple_brackets = {
+        Fraction(1): (
+            Fraction(3678794411, ten_billion),
+            Fraction(3678794412, ten_billion),
+        ),
+        Fraction(6, 5): (
+            Fraction(3011942119, ten_billion),
+            Fraction(3011942120, ten_billion),
+        ),
+    }
+    for value, bracket in simple_brackets.items():
+        exp_lower, exp_upper = exact_exp_neg_bounds(value)
+        assert bracket[0] < exp_lower < exp_upper < bracket[1]
+
+    one = endpoint_intervals(Fraction(1), simple_brackets[Fraction(1)])
+    six_fifths = endpoint_intervals(
+        Fraction(6, 5), simple_brackets[Fraction(6, 5)],
+    )
+    assert one[0][1] < Fraction(347, 100)
+    assert one[1][0] > Fraction(45, 10**8)
+    assert one[1][1] < Fraction(48, 10**8)
+    assert six_fifths[0][0] > Fraction(84, 25)
+    assert Fraction(-27, 10**7) < six_fifths[1][0]
+    assert six_fifths[1][1] < Fraction(-26, 10**7)
+    assert six_fifths[2][0] > Fraction(43, 50)
+    assert six_fifths[3][0] > Fraction(117, 500)
+
+    x = Fraction(47, 100)
+    exp_x_upper = (
+        1 + x + x**2 / 2 + x**3 / 6
+        + x**4 / (24 * (1 - x / 5))
+    )
+    assert exp_x_upper == Fraction(17395178081, 10872000000)
+    assert exp_x_upper < Fraction(8, 5)
+
+
 def check_kernel_identity() -> None:
     """Verify the nth-derivative identity for several symbolic n."""
     y = symbols("y", positive=True)
@@ -357,6 +609,7 @@ def main() -> int:
     check_equal_weight_hessian_thresholds()
     check_three_exponential_reduction()
     check_three_exponential_repeated_max_boundary()
+    check_three_exponential_equal_smaller_line()
     check_kernel_identity()
     poisson, sympol, gap, active_k = sympol_shortcut_counterexample()
     print("all-n reduction algebra: PASS")
@@ -367,6 +620,7 @@ def main() -> int:
     print("three-exponential convexity: reduced exactly to the documented "
           "two-variable inequality")
     print("three-exponential repeated-max boundary: PROVED")
+    print("three-exponential equal-smaller symmetry line: PROVED")
     print("SymPol shortcut counterexample (numerical):")
     print("  n=15 alpha=0.05 one full taint")
     print("  active elementary-symmetric order:", active_k)

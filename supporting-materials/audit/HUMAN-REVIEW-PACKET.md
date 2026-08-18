@@ -300,7 +300,7 @@ Questions:
     thresholds strictly increase from `4e^-3`, and is this result described
     only as a pointwise Hessian theorem?
 
-## Review I: the three-exponential reduction and repeated-maximum boundary
+## Review I: the three-exponential reduction and proved symmetry families
 
 Primary files:
 
@@ -337,9 +337,22 @@ Questions:
 12. Are the formula for `h(0,s)`, the derivative of the logarithmic margin
     `M_0`, and its limit at infinity all correct and sufficient to prove the
     target inequality strictly at every finite axis point?
-13. Is the new conclusion limited to the repeated-maximum boundary, with
-    the strict interior `z,w>0` and full three-coordinate theorem still
-    stated as open?
+13. Is the coordinate-axis conclusion limited to the repeated-maximum
+    boundary and its continuous endpoints?
+14. On `z=w`, do the antisymmetric and symmetric contrasts give the two
+    generalized eigendirections and the moment ratios in (28), and does the
+    reused `L(s)` factor prove that the symmetric eigenvalue is smaller?
+15. Is the formula for `h(s,s)` correct, and do the derivative factorization
+    and coefficient signs for `R(s)` prove that it is strictly decreasing?
+16. Does the derivative factorization for the diagonal logarithmic margin
+    have the correct sign, and does the one-sign-change coefficient argument
+    prove that it has a unique minimum?
+17. Do the exact rational exponential enclosures prove all endpoint bounds
+    in (41), and do the rational estimates in (42)--(44) keep the diagonal
+    margin strictly positive?
+18. Are the remaining claims limited to `z,w>0` with `z!=w`, without using
+    either proved symmetry family as a full three-coordinate convexity or
+    general-`n` coverage theorem?
 
 ## Minimum reproduction record
 

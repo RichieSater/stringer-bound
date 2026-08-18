@@ -165,9 +165,11 @@ Hessian thresholds increasing from the same two-coordinate constant
 ([calculation](supporting-materials/theory/ALL-N-POISSON-PROGRAM.md)). Convexity
 in the first unequal dimension is reduced to an explicit two-variable
 inequality, now proved on the boundary where two maximal weights are equal
-([reduction and boundary proof](supporting-materials/theory/THREE-EXPONENTIAL-QUANTILE.md)).
-The strict interior and the separate Dirichlet--Poissonization inequality
-remain open, so these analytic results are not a general coverage theorem.
+and on the symmetry line where two smaller weights are equal
+([reduction and symmetry proofs](supporting-materials/theory/THREE-EXPONENTIAL-QUANTILE.md)).
+The off-symmetry strict interior and the separate
+Dirichlet--Poissonization inequality remain open, so these analytic results
+are not a general coverage theorem.
 
 ## 4. No violation was found in the reported 90% and 95% searches
 
