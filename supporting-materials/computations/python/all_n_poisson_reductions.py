@@ -9,7 +9,8 @@ the algebra that isolates them:
 * the three-exponential tilted-simplex curvature reduction and its proved
   repeated-maximum, equal-smaller, and infinite-gap boundary families,
   including the boundary-trace identity, both finite symmetry-boundary
-  derivative signs, and the positive sharp-corner expansion;
+  derivative signs, the small-gap and two-large-gap regions, and the positive
+  sharp-corner expansion;
 * the gamma-kernel antiderivative identity; and
 * a decisive numerical counterexample to the tempting SymPol shortcut.
 """
@@ -734,6 +735,34 @@ def check_three_exponential_two_large_gap_region() -> None:
     assert 19**7 > 4**5 * 7**7
 
 
+def check_three_exponential_small_gap_region() -> None:
+    """Check the exact rational constants in the small-gap theorem."""
+
+    radius = Fraction(2, 5)
+    exponential_lower = sum(
+        radius**order / Fraction(factorial(order))
+        for order in range(5)
+    )
+    assert exponential_lower == Fraction(2797, 1875)
+    assert exponential_lower > Fraction(1000, 671)
+
+    # For k>=7, k! >= 7! 8^(k-7), so the omitted exponential tail is at
+    # most (1/7!) sum_{j>=0} 8^(-j) = 1/4410.
+    exponential_upper = (
+        sum(Fraction(1, factorial(order)) for order in range(7))
+        + Fraction(1, 4410)
+    )
+    assert exponential_upper == Fraction(31967, 11760)
+    assert exponential_upper < Fraction(2719, 1000)
+
+    tail_polynomial_lower = (
+        Fraction(121) - 164 * Fraction(671, 1000)
+    )
+    assert tail_polynomial_lower == Fraction(2739, 250)
+    assert 4 * Fraction(2719, 1000) == Fraction(2719, 250)
+    assert tail_polynomial_lower > Fraction(2719, 250)
+
+
 def check_three_exponential_equal_smaller_line() -> None:
     """Check the exact two-equal-smaller-weights proof for the 3D target."""
 
@@ -1160,6 +1189,7 @@ def main() -> int:
     check_three_exponential_axis_transversality()
     check_three_exponential_equal_smaller_line()
     check_three_exponential_diagonal_transversality()
+    check_three_exponential_small_gap_region()
     check_three_exponential_two_large_gap_region()
     check_three_exponential_infinite_gap_boundary()
     check_three_exponential_sharp_corner_expansion()
@@ -1177,6 +1207,7 @@ def main() -> int:
     print("three-exponential axis transversality: STRICTLY POSITIVE")
     print("three-exponential equal-smaller symmetry line: PROVED")
     print("three-exponential diagonal transverse second derivative: NEGATIVE")
+    print("three-exponential max-gap-at-most-2/5 region: PROVED")
     print("three-exponential min-gap-at-least-13 region: PROVED")
     print("three-exponential infinite-gap boundary: REDUCED TO PROVED 2D CASE")
     print("three-exponential sharp corner: POSITIVE PUNCTURED NEIGHBORHOOD")

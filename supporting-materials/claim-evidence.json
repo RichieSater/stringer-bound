@@ -720,7 +720,7 @@
       "verification_commands": [
         "make all-n-reduction-check"
       ],
-      "limitations": "The two-variable inequality is proved separately on the coordinate axes and diagonal, its infinite-gap boundary reduces to the two-coordinate theorem, and a punctured sharp-corner neighborhood is positive, but its finite off-symmetry interior is open. This record certifies the equivalence and reduction only, not three-coordinate convexity or general-n Stringer coverage."
+      "limitations": "The two-variable inequality is proved separately on the coordinate axes and diagonal, on the small-gap square, and on the two-large-gap region; its infinite-gap boundary reduces to the two-coordinate theorem, and a punctured sharp-corner neighborhood is positive. The remaining finite off-symmetry interior is open. This record certifies the equivalence and reduction only, not three-coordinate convexity or general-n Stringer coverage."
     },
     {
       "id": "three-exponential-boundary-trace-identity",
@@ -858,6 +858,33 @@
       "limitations": "This proves strict local transverse concavity at the positive diagonal only. It does not prove global monotonicity in gap asymmetry, the finite off-symmetry interior inequality, three-coordinate convexity, or general-n Stringer coverage."
     },
     {
+      "id": "three-exponential-small-gap-region",
+      "classification": "proved_theorem",
+      "statement": "At tail threshold 4 exp(-3), the explicit three-exponential tilted-simplex inequality holds strictly whenever both gap coordinates are at most 2/5.",
+      "manuscript_labels": [],
+      "evidence": [
+        {
+          "path": "supporting-materials/theory/THREE-EXPONENTIAL-QUANTILE.md",
+          "role": "complete threshold, coordinate-monotonicity, and exact rational tail comparison",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/python/all_n_poisson_reductions.py",
+          "role": "exact rational checks of every exponential and tail constant",
+          "trust": "corroboration_only"
+        },
+        {
+          "path": "supporting-materials/computations/tests/test_all_n_poisson_reductions.py",
+          "role": "regression test for the small-gap constants",
+          "trust": "corroboration_only"
+        }
+      ],
+      "verification_commands": [
+        "make all-n-reduction-check"
+      ],
+      "limitations": "This proves only the square max(z,w)<=2/5. It does not prove the remaining finite off-symmetry region with larger gap above 2/5 and smaller gap below 13, full three-coordinate convexity, or general-n Stringer coverage."
+    },
+    {
       "id": "three-exponential-two-large-gap-region",
       "classification": "proved_theorem",
       "statement": "At tail threshold 4 exp(-3), the explicit three-exponential tilted-simplex inequality holds whenever both gap coordinates are at least 13.",
@@ -870,7 +897,7 @@
         },
         {
           "path": "supporting-materials/computations/python/all_n_poisson_reductions.py",
-          "role": "exact integer checks of the constants and the threshold comparison at gap 23",
+          "role": "exact integer checks of the constants and the threshold comparison at gap 13",
           "trust": "corroboration_only"
         },
         {
@@ -882,7 +909,7 @@
       "verification_commands": [
         "make all-n-reduction-check"
       ],
-      "limitations": "This proves only the region min(z,w)>=13. It does not prove the remaining finite off-symmetry region with smaller gap below 13, full three-coordinate convexity, or general-n Stringer coverage."
+      "limitations": "This proves only the region min(z,w)>=13. It does not prove the remaining finite off-symmetry region with larger gap above 2/5 and smaller gap below 13, full three-coordinate convexity, or general-n Stringer coverage."
     },
     {
       "id": "three-exponential-infinite-gap-boundary",
@@ -963,7 +990,7 @@
         },
         {
           "path": "supporting-materials/theory/THREE-EXPONENTIAL-QUANTILE.md",
-          "role": "exact reduction of the first unequal exponential-quantile dimension, with proved coordinate-axis, diagonal, infinite-gap, and sharp-corner-neighborhood results and an explicitly open finite off-symmetry interior",
+          "role": "exact reduction of the first unequal exponential-quantile dimension, with proved coordinate-axis, diagonal, small-gap, two-large-gap, infinite-gap, and sharp-corner-neighborhood results and an explicitly open residual finite off-symmetry interior",
           "trust": "corroboration_only"
         },
         {

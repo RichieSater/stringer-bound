@@ -9,8 +9,9 @@
 > reduces the complete
 > infinite-gap boundary to the two-exponential theorem, and proves positivity
 > in a punctured neighborhood of the only zero-margin corner.  It also proves
-> the full region in which both gaps are at least `13`.  The remaining finite
-> off-symmetry region with smaller gap below `13` is open.  Nothing in this
+> the full regions in which both gaps are at most `2/5` or both gaps are at
+> least `13`.  The remaining finite off-symmetry region with larger gap above
+> `2/5` and smaller gap below `13` is open.  Nothing in this
 > note is a general-`n` Stringer coverage theorem.
 
 Let `E_1,E_2,E_3` be independent unit exponentials and put
@@ -308,6 +309,74 @@ and the infinite-gap boundary; the finite off-symmetry interior remains.
 Because `Z`, `A`, and every entry of `K` are elementary divided differences
 of the exponential, (16) is an explicit two-variable analytic inequality
 rather than an optimization over distributions.
+
+There is also a direct proof on a nontrivial neighborhood of the equal-weight
+point.
+
+**Small-gap theorem.** Inequality (16) holds strictly whenever
+
+\[
+ 0\le z,w\le\frac25.                                \tag{18a}
+\]
+
+Indeed, `T=zU+wV>=0` in (12), so `rho(z,w)>=0` and hence `h(z,w)<=4`.
+The case `h<=0` is automatic.  If `0<h<=4`, monotonicity of (15) gives
+
+\[
+ S_{z,w}(h)\ge S_{z,w}(4)
+ =e^{-4}\{1+4A(z,w)+16Z(z,w)\}.                    \tag{18b}
+\]
+
+Both coefficients in braces are coordinatewise nonincreasing.  This follows
+immediately for `Z` from its integral representation.  For `A`, define the
+boundary integral
+
+\[
+ J(z,w)=\int_0^1e^{-zu-w(1-u)}\,du.
+\]
+
+The identity `A(z,w)=B(z)+B(w)-J(z,w)` gives
+
+\[
+ \frac{\partial A}{\partial z}
+ =-\int_0^1u e^{-zu}\,du
+   +\int_0^1u e^{-zu-w(1-u)}\,du\le0,               \tag{18c}
+\]
+
+and the derivative in `w` is handled symmetrically.  Therefore, with
+`r=2/5` and `t=e^{-2/5}`, condition (18a) implies
+
+\[
+ \begin{aligned}
+ A(z,w)&\ge A(r,r)=5-6t,\\
+ Z(z,w)&\ge Z(r,r)=\frac{25}{4}-\frac{35}{4}t,\\
+ 1+4A(z,w)+16Z(z,w)&\ge121-164t.                   \tag{18d}
+ \end{aligned}
+\]
+
+All constants can be compared rationally.  The positive exponential series
+and its tail bound give
+
+\[
+ e^{2/5}>\sum_{k=0}^4\frac{(2/5)^k}{k!}
+ =\frac{2797}{1875}>\frac{1000}{671},
+ \qquad
+ e<\sum_{k=0}^6\frac1{k!}+\frac1{4410}
+ =\frac{31967}{11760}<\frac{2719}{1000}.            \tag{18e}
+\]
+
+For the second inequality, use
+`k!>=7! 8^(k-7)` for `k>=7` and sum the resulting geometric tail.
+Consequently,
+
+\[
+ 121-164e^{-2/5}
+ >121-164\frac{671}{1000}
+ =\frac{2739}{250}
+ >\frac{2719}{250}>4e.                              \tag{18f}
+\]
+
+Equations (18b)--(18f) yield `S_{z,w}(h)>4e^{-3}`, proving the theorem.
 
 ## 4. A proved boundary: two equal maximal weights
 
@@ -1188,9 +1257,10 @@ The last inequality is equivalent to `e^7>4^5`; it follows from
 `e>19/7` and the exact inequality `19^7>4^5 7^7`.  This proves the theorem.
 
 Hence every finite point on the coordinate axes, every point on the
-diagonal, the complete infinite-gap boundary, and the explicit region
-(52a) satisfy the target.  What remains is the finite off-symmetry domain
-`0<z<w<infinity` with `z<13`, up to interchange of `z` and `w`.
+diagonal, the complete infinite-gap boundary, the small-gap square (18a),
+and the two-large-gap region (52a) satisfy the target.  What remains is the
+finite off-symmetry domain
+`0<z<w<infinity` with `z<13` and `w>2/5`, up to interchange of `z` and `w`.
 
 ## 7. A positive neighborhood of the sharp corner
 

@@ -19,6 +19,7 @@ from all_n_poisson_reductions import (  # noqa: E402
     check_three_exponential_reduction,
     check_three_exponential_repeated_max_boundary,
     check_three_exponential_sharp_corner_expansion,
+    check_three_exponential_small_gap_region,
     check_three_exponential_trace_identity,
     check_three_exponential_two_large_gap_region,
     check_two_exponential_global_convexity,
@@ -53,6 +54,9 @@ class AllNPoissonReductionTests(unittest.TestCase):
 
     def test_three_exponential_diagonal_transversality(self):
         check_three_exponential_diagonal_transversality()
+
+    def test_three_exponential_small_gap_region(self):
+        check_three_exponential_small_gap_region()
 
     def test_three_exponential_two_large_gap_region(self):
         check_three_exponential_two_large_gap_region()
