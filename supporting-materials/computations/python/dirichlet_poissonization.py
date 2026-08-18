@@ -30,6 +30,8 @@ boundary reduction, a proved structured family, and one obstruction:
   core for profiles with three nonzero coefficients; and
 * an exact monotonicity and endpoint argument proves a dimension-free far
   cap for profiles with three nonzero coefficients; and
+* a one-crossing curvature argument and exact endpoint comparisons prove a
+  dimension-free middle-knot budget region for those profiles; and
 * a fully explicit, mean-constrained ``1/n``-concave law shows why generic
   one-dimensional s-concave localization is too broad to prove the
   comparison.
@@ -529,6 +531,170 @@ def verify_three_positive_far_cap() -> None:
     ) == n**3 + 2 * n**2 + 2 * n + 2
 
 
+def _middle_budget_d_coefficient(lam: Fraction, order: int) -> Fraction:
+    """Coefficient of ``z**order`` in the logarithm (15ak)."""
+    lam = Fraction(lam)
+    if order < 1 or lam <= 0:
+        raise ValueError("require order>=1 and lambda>0")
+    return (
+        lam ** (order + 1) / (order + 1)
+        - lam**order / order
+        + (2 * lam / (lam + 2)) ** order / order
+    )
+
+
+def verify_three_positive_middle_budget() -> None:
+    """Check the all-``n`` three-positive middle-budget proof."""
+    from sympy import (
+        Rational,
+        exp,
+        factor,
+        log,
+        powsimp,
+        simplify,
+        symbols,
+    )
+
+    n = symbols("n", integer=True, positive=True)
+    lam = symbols("lambda", positive=True)
+
+    poisson_two = exp(-lam) * (1 + lam + lam**2 / 2)
+    binomial_two = (1 - lam / n) ** (n - 2) * (
+        1
+        + (1 - 2 / n) * lam
+        + (n - 1) * (n - 2) * lam**2 / (2 * n**2)
+    )
+    curvature_ratio = poisson_two / binomial_two
+    p_poly = (
+        (n - 1) * (n - 2) * lam**3
+        + 2 * n * (n - 2) * lam**2
+        + 4 * n * lam
+        - 2 * n * (3 * n - 2)
+    )
+    q_poly = (
+        (n - 1) * (n - 2) * lam**2
+        + 2 * n * (n - 2) * lam
+        + 2 * n**2
+    )
+    expected_log_derivative = (
+        -lam**2 * p_poly
+        / ((lam - n) * (lam**2 + 2 * lam + 2) * q_poly)
+    )
+    assert powsimp(
+        factor(log(curvature_ratio).diff(lam) - expected_log_derivative),
+        force=True,
+    ) == 0
+    assert simplify(
+        p_poly.diff(lam)
+        - (
+            3 * (n - 1) * (n - 2) * lam**2
+            + 4 * n * (n - 2) * lam
+            + 4 * n
+        )
+    ) == 0
+
+    h_formula = n / lam * (
+        exp(-lam) * (lam + 2)
+        - (1 - lam / n) ** (n - 1)
+        * (lam + 2 - 2 * lam / n)
+    )
+    scaled_derivative = (
+        exp(-lam) * (lam + 2)
+        - (1 - lam / n) ** (n - 1)
+        * (lam + 2 - 2 * lam / n)
+    )
+    assert simplify(h_formula - n * scaled_derivative / lam) == 0
+
+    # lambda=1: compare d_1(z) with -log(1-z/6).
+    lambda_one_differences = []
+    for order in range(1, 4):
+        difference = (
+            _middle_budget_d_coefficient(Fraction(1), order)
+            - Fraction(1, 6) ** order / order
+        )
+        lambda_one_differences.append(difference)
+    assert lambda_one_differences == [
+        Fraction(0),
+        Fraction(1, 24),
+        Fraction(1, 72),
+    ]
+    assert Fraction(1, 24) > Fraction(1, 240) + Fraction(1, 1000)
+
+    # lambda=2: every coefficient after the first exceeds that of
+    # -log(1-z) by this positive expression.
+    order_symbol = symbols("r", integer=True, positive=True)
+    d_two_symbolic = (
+        2 ** (order_symbol + 1) / (order_symbol + 1)
+        - 2**order_symbol / order_symbol
+        + 1 / order_symbol
+    )
+    assert simplify(
+        d_two_symbolic
+        - 1 / order_symbol
+        - 2**order_symbol
+        * (order_symbol - 1)
+        / (order_symbol * (order_symbol + 1))
+    ) == 0
+
+    # lambda=3: exact finite polynomial and positive tail comparison.
+    lambda_three_differences = []
+    for order in range(1, 9):
+        difference = (
+            Fraction(16, 5) ** order / order
+            - _middle_budget_d_coefficient(Fraction(3), order)
+        )
+        lambda_three_differences.append(difference)
+    assert lambda_three_differences == [
+        Fraction(1, 2),
+        Fraction(-1, 10),
+        Fraction(-271, 300),
+        Fraction(-1327, 500),
+        Fraction(-7861, 1250),
+        Fraction(-1636591, 131250),
+        Fraction(-15185543, 875000),
+        Fraction(4360661, 625000),
+    ]
+    finite_three_polynomial_at_quarter = sum(
+        coefficient * Fraction(1, 4) ** order
+        for order, coefficient in enumerate(
+            lambda_three_differences[:7],
+            start=1,
+        )
+    )
+    assert finite_three_polynomial_at_quarter == Fraction(
+        516239213,
+        6144000000,
+    )
+    assert finite_three_polynomial_at_quarter > 0
+    assert (
+        Fraction(1, 15) * Fraction(16, 15) ** 8
+        > Fraction(3, 9 * 10)
+    )
+
+    # lambda=4: coefficientwise upper bound from order three onward.
+    normalized_four_difference = (
+        (Rational(4, 3)) ** order_symbol
+        - (3 * order_symbol - 1) / (order_symbol + 1)
+        - Rational(1, 3) ** order_symbol
+    )
+    assert normalized_four_difference.subs(order_symbol, 3) == Rational(1, 3)
+    assert Rational(4, 3) ** 4 > 3 + Rational(1, 81)
+
+    # Rational exponential bounds used to order the four endpoint values.
+    exp_three_lower = _exp_taylor_lower(Fraction(3), 4)
+    e_lower = _exp_taylor_lower(Fraction(1), 4)
+    assert exp_three_lower == Fraction(131, 8)
+    assert exp_three_lower > 16
+    assert e_lower == Fraction(65, 24)
+    assert e_lower > Fraction(8, 3)
+
+    # Algebra behind the lambda reflection r -> r/(r-2).
+    r = symbols("r", positive=True)
+    b = n / r
+    reflected_lambda = simplify(n / (n - 2 * b))
+    assert simplify(reflected_lambda - r / (r - 2)) == 0
+
+
 def two_level_profile_regression(
     n: int,
     k: int,
@@ -687,6 +853,7 @@ def build_certificate() -> dict[str, object]:
     verify_n3_four_knot_theorem()
     verify_three_positive_convex_core()
     verify_three_positive_far_cap()
+    verify_three_positive_middle_budget()
     checks = []
     # Include both the boundary lambda=k and strict lambda>k cases.  These
     # finite checks guard the beta/binomial and gamma/Poisson translations;
@@ -714,7 +881,7 @@ def build_certificate() -> dict[str, object]:
         two_level_checks.append(two_level_profile_regression(n, k, a, b))
 
     return {
-        "schema_version": 8,
+        "schema_version": 9,
         "status": (
             "Research certificate: exact reductions and an obstruction, "
             "not an all-sample-size coverage certificate."
@@ -828,6 +995,30 @@ def build_certificate() -> dict[str, object]:
                 ),
             },
         },
+        "three_positive_middle_budget_all_n": {
+            "analytic_basis": (
+                "The divided-difference multiplication identity, an exact "
+                "one-crossing curvature proof, exact logarithmic-series "
+                "endpoint comparisons, and the derivative-reflection lemma"
+            ),
+            "scope": (
+                "Every n>=4 profile having n-2 zero coefficients and three "
+                "ordered nonnegative coefficients a<=b<=c with sum at most "
+                "n and 2b+c<=n"
+            ),
+            "symbolic_identity_and_constant_check": "passed",
+            "exact_rational_bounds": {
+                "lambda_3_finite_polynomial_at_z_1_over_4": (
+                    _fraction_record(Fraction(516239213, 6144000000))
+                ),
+                "exp_3_degree_4_lower": _fraction_record(
+                    Fraction(131, 8)
+                ),
+                "e_degree_4_lower": _fraction_record(
+                    Fraction(65, 24)
+                ),
+            },
+        },
         "two_positive_knots_all_n": {
             "analytic_basis": (
                 "A divided-difference multiplication identity and the "
@@ -899,6 +1090,12 @@ def main(argv: list[str] | None = None) -> int:
     print(
         "all-n three-positive far cap:",
         certificate["three_positive_far_cap_all_n"][
+            "symbolic_identity_and_constant_check"
+        ],
+    )
+    print(
+        "all-n three-positive middle budget:",
+        certificate["three_positive_middle_budget_all_n"][
             "symbolic_identity_and_constant_check"
         ],
     )

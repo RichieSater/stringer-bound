@@ -3,8 +3,8 @@
 > **Status.** This note gives an exact reduction, pushes any possible
 > counterexample to a zero-knot boundary, proves every profile having at most
 > two distinct coefficient values or at most two nonzero coefficients, proves
-> dimension-free convex-core and far-cap regions for profiles with three
-> nonzero coefficients,
+> dimension-free convex-core, far-cap, and middle-knot budget regions for
+> profiles with three nonzero coefficients,
 > proves the complete comparison for `n=2` and `n=3`, and rules out an
 > over-broad
 > localization shortcut. The central
@@ -719,10 +719,200 @@ The second line uses `c-b<=n`, `g_n(b)<=g_n(1)=e^{-n}`, and
 `g_n(c)>=g_n(n-1)`.  Thus `[a,b,c]g_n>0`, with confluent endpoints supplied
 by continuity.  Equation (15w) proves the theorem.  Together, Sections 8
 and 9 settle both the convex core `c<=n^2/{2(n+1)}` and the far cap
-`c>=n-1` of every three-positive face.  The intervening region remains open.
+`c>=n-1` of every three-positive face.  Section 10 below covers an additional
+part of the intervening region.
 
 
-## 10. Why generic $s$-concave localization is too broad
+## 10. A dimension-free middle-knot budget region
+
+There is also a dimension-free region that can pass through the nonconvex
+part of `g_n`.  It is controlled by the middle knot rather than by the largest
+knot alone.
+
+> **Three-positive middle-budget theorem.**  Let `n>=4`, and suppose the
+> coefficient vector consists of `n-2` zeros and three values
+> `0<=a<=b<=c` satisfying
+>
+> \[
+>  a+b+c\le n,
+>  \qquad
+>  2b+c\le n.                                      \tag{15ah}
+> \]
+>
+> Then `Pr{Z_y>n}>=Pr{T_y>1}`.
+
+The proof uses a one-crossing property of the curvature in (15x).  Write
+
+\[
+ D_n(\lambda)=
+ \Pr\{\operatorname{Pois}(\lambda)\le2\}
+ -\Pr\{\operatorname{Bin}(n,\lambda/n)\le2\}.
+\]
+
+For `0<lambda<n`, factor the binomial probability in (15x), and let
+`S_n(lambda)` be the ratio of the Poisson probability to the binomial
+probability.  Direct differentiation gives
+
+\[
+ \frac{d}{d\lambda}\log S_n(\lambda)
+ =\frac{-\lambda^2P_n(\lambda)}
+ {(\lambda-n)(\lambda^2+2\lambda+2)Q_n(\lambda)}, \tag{15ai}
+\]
+
+where
+
+\[
+ \begin{aligned}
+ P_n(\lambda)
+ &=(n-1)(n-2)\lambda^3+2n(n-2)\lambda^2+4n\lambda
+   -2n(3n-2),\\
+ Q_n(\lambda)
+ &=(n-1)(n-2)\lambda^2+2n(n-2)\lambda+2n^2>0.
+ \end{aligned}
+\]
+
+The polynomial `P_n` is strictly increasing on the positive half-line.  Thus
+`S_n` first decreases and then increases.  Since `S_n(0)=1` and
+`S_n(lambda)` tends to infinity as `lambda` tends to `n`, the sign of `D_n`
+can change at most once, from negative to positive.  Anderson--Samuels gives
+`D_n(lambda)<0` for `0<lambda<2` and `D_n(lambda)>0` for
+`3<=lambda<n`.  Hence `g_n''` changes sign at most once on `[0,n]`, from
+positive to negative as its argument increases.  In particular, `g_n'` has
+at most one maximum.
+
+We next need four exact endpoint comparisons.  Define
+
+\[
+ h_n(\lambda)=g_n'(n/\lambda)
+ =\frac n\lambda\left\{
+ e^{-\lambda}(\lambda+2)
+ -(1-\lambda/n)^{n-1}(\lambda+2-2\lambda/n)
+ \right\}.                                        \tag{15aj}
+\]
+
+For `z=1/n`, put
+
+\[
+ d_\lambda(z)=
+ \log\frac{e^{-\lambda}(\lambda+2)}
+ {(1-\lambda z)^{1/z-1}(\lambda+2-2\lambda z)}.
+\]
+
+The positive difference in braces in (15aj) can then be written as its first
+term times `1-e^{-d_lambda(z)}`.  Expanding only logarithms gives the exact
+series
+
+\[
+ d_\lambda(z)=\sum_{r\ge1}\left\{
+ \frac{\lambda^{r+1}}{r+1}-\frac{\lambda^r}{r}
+ +\frac1r\left(\frac{2\lambda}{\lambda+2}\right)^r
+ \right\}z^r.                                     \tag{15ak}
+\]
+
+The following bounds hold for every integer `n>=4`:
+
+\[
+ \begin{aligned}
+ d_1(z)&>-\log(1-z/6),&
+ d_2(z)&>-\log(1-z),\\
+ d_3(z)&<-\log(1-16z/5),&
+ d_4(z)&<-\log(1-16z/3)\quad(n\ge6).              \tag{15al}
+ \end{aligned}
+\]
+
+Here are exact coefficient checks for completeness.  For the first bound,
+the coefficient difference from `-log(1-z/6)` is zero at order one, equals
+`1/24` and `1/72` at orders two and three, and its remaining tail is bounded
+below by
+
+\[
+ -\frac{z^4}{20(1-z)}
+ -\frac{(z/6)^4}{4(1-z/6)}.
+\]
+
+This is smaller in magnitude than `z^2/24` when `0<z<=1/4`.  For the second
+bound, every coefficient after the first strictly exceeds the corresponding
+coefficient of `-log(1-z)`.
+
+For the third bound, let `c_r` denote the coefficient of
+`-log(1-16z/5)-d_3(z)`.  Its first eight values are
+
+\[
+ \frac12,-\frac1{10},-\frac{271}{300},-\frac{1327}{500},
+ -\frac{7861}{1250},-\frac{1636591}{131250},
+ -\frac{15185543}{875000},\frac{4360661}{625000}.
+\]
+
+The polynomial through order seven is positive on `(0,1/4]`: after division
+by `z` it is decreasing, and at `z=1/4` its value before division is
+`516239213/6144000000`.  For `r>=8`,
+
+\[
+ \frac{r c_r}{3^r}
+ =\left(\frac{16}{15}\right)^r-2+\frac3{r+1}
+  -\left(\frac25\right)^r>0.                       \tag{15am}
+\]
+
+Positivity holds directly at `r=8`; its forward difference is positive
+thereafter.  Finally, for the fourth bound, the coefficient difference is
+zero at orders one and two, while for `r>=3` its sign is the sign of
+
+\[
+ \left(\frac43\right)^r-\frac{3r-1}{r+1}-3^{-r}>0.
+\]
+
+The cases `n=4,5` will not require this last logarithmic bound.
+
+Substitution into (15aj) now gives
+
+\[
+ h_n(1)>\frac1{2e}>\frac8{e^4}>h_n(4),
+ \qquad
+ h_n(2)>\frac2{e^2}>\frac{16}{3e^3}>h_n(3).       \tag{15an}
+\]
+
+For `h_n(4)` with `n=4,5`, simply omit the nonnegative binomial term in
+(15aj) to get `h_n(4)<=3ne^{-4}/2<8e^{-4}`.  The middle inequalities in
+(15an) use the finite Taylor bounds `e^3>131/8>16` and `e>8/3`.
+
+We can now prove the derivative reflection
+
+\[
+ g_n'(n-2b)\ge g_n'(b),\qquad 0\le b\le n/3.      \tag{15ao}
+\]
+
+First suppose `b>=1`, and put `r=n/b>=3`.  The argument on the left of
+(15ao) is `n-2b`, so its `lambda` coordinate is
+`s=r/(r-2)`.  If `3<=r<=4`, then `2<=s<=3`.  The one-maximum property and
+(15an) give `h_n(s)>=h_n(3)>=h_n(r)`.  If `r>=4`, then `1<=s<=2`, and
+`h_n(s)>=h_n(1)>h_n(4)>=h_n(r)`.  This proves (15ao) for `b>=1`.
+
+If `0<=b<=1`, then `n-2b` has `lambda` coordinate in `[1,2]`, so
+`g_n'(n-2b)>=h_n(1)>1/(2e)`.  Convexity of `u^2e^{-n/u}` on `[0,1]` gives
+`g_n'(b)<=g_n'(1)=(n+2)e^{-n}<1/(2e)`.  The last inequality starts from
+`12<e^3` at `n=4` and propagates by induction.  Thus (15ao) holds in every
+case.
+
+We finish the proof of the theorem.  Condition (15ah) gives `b<=n/3` and
+`c<=n-2b`.  The curvature is positive on `[0,b]`, so
+
+\[
+ [a,b]g_n\le g_n'(b).
+\]
+
+The derivative `g_n'` has at most one maximum.  Its values at both endpoints
+of `[b,n-2b]` are at least `g_n'(b)` by (15ao), so the same is true throughout
+that interval.  Consequently,
+
+\[
+ [b,c]g_n\ge g_n'(b)\ge[a,b]g_n.
+\]
+
+Hence `[a,b,c]g_n>=0`; confluent cases follow by continuity.  Equation (15w)
+proves the middle-budget theorem.
+
+
+## 11. Why generic $s$-concave localization is too broad
 
 A one-dimensional localization theorem for $1/n$-concave probability
 laws reduces a linear extremal problem to point masses or densities of the
@@ -782,17 +972,18 @@ coefficients $y_i$; not every density in (16) is such a projection with
 the constraint (2). The example shows precisely which structural
 information a successful localization argument must preserve.
 
-## 11. Remaining proof problem
+## 12. Remaining proof problem
 
 The cleanest current target is (6).  Section 4 shows that it is enough to
 work on coordinate faces, Sections 3--5 establish it for every profile
 having at most two distinct coefficient values or at most two nonzero
 coefficients, and Sections 6--7 prove the complete target for `n=2` and
 `n=3`.  Section 8 also proves every three-positive profile whose largest
-knot is at most `n^2/{2(n+1)}`, and Section 9 proves every such profile whose
-largest knot is at least `n-1`.  The intervening three-positive region and
-all profiles with four or more nonzero knots remain open.  Three plausible
-routes remain for general `n`:
+knot is at most `n^2/{2(n+1)}`, Section 9 proves every such profile whose
+largest knot is at least `n-1`, and Section 10 proves the additional region
+`2b+c<=n`.  Three-positive profiles outside those regions and all profiles
+with four or more nonzero knots remain open.  Three plausible routes remain
+for general `n`:
 
 1. exploit the zero-knot reduction recursively, or prove that a negative
    minimum on a coordinate face must have at most two distinct knot values;
@@ -812,7 +1003,8 @@ The committed output is
 [`dirichlet-poissonization-certificate.json`](../computations/certificates/dirichlet-poissonization-certificate.json).
 It certifies the obstruction, checks rational equal-block instances, and
 regression-checks the exact algebra used in the two-level, two-positive-knot,
-three-positive convex-core and far-cap, and complete `n=2` and `n=3` proofs.
+three-positive convex-core, far-cap, and middle-budget regions, and complete
+`n=2` and `n=3` proofs.
 The all-parameter statements rest on the written arguments; the general
 inequality remains explicitly open.
 

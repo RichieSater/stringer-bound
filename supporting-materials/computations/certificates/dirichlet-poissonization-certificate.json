@@ -2894,7 +2894,7 @@
     "scope": "Any strictly positive coefficient profile with sum_i y_i<=n can be moved to a zero-knot boundary without increasing the Dirichlet--Poissonization gap.",
     "symbolic_identity_check": "passed"
   },
-  "schema_version": 8,
+  "schema_version": 9,
   "status": "Research certificate: exact reductions and an obstruction, not an all-sample-size coverage certificate.",
   "three_positive_convex_core_all_n": {
     "analytic_basis": "The divided-difference multiplication identity, the exact k=2 Poisson-minus-binomial CDF formula for g_n''/2, and Anderson--Samuels (1967)",
@@ -2926,6 +2926,28 @@
       }
     },
     "scope": "Every n>=4 profile having n-2 zero coefficients and three ordered nonnegative coefficients a<=b<=c with sum at most n and c>=n-1",
+    "symbolic_identity_and_constant_check": "passed"
+  },
+  "three_positive_middle_budget_all_n": {
+    "analytic_basis": "The divided-difference multiplication identity, an exact one-crossing curvature proof, exact logarithmic-series endpoint comparisons, and the derivative-reflection lemma",
+    "exact_rational_bounds": {
+      "e_degree_4_lower": {
+        "decimal": "2.708333333333333333",
+        "denominator": "24",
+        "numerator": "65"
+      },
+      "exp_3_degree_4_lower": {
+        "decimal": "16.375000000000000000",
+        "denominator": "8",
+        "numerator": "131"
+      },
+      "lambda_3_finite_polynomial_at_z_1_over_4": {
+        "decimal": "0.084023309407552083",
+        "denominator": "6144000000",
+        "numerator": "516239213"
+      }
+    },
+    "scope": "Every n>=4 profile having n-2 zero coefficients and three ordered nonnegative coefficients a<=b<=c with sum at most n and 2b+c<=n",
     "symbolic_identity_and_constant_check": "passed"
   },
   "two_level_profiles": {
