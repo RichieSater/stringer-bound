@@ -160,9 +160,12 @@ case. For independent unit exponentials, the upper-quantile map
 \((a,b)\mapsto Q_{1-\alpha}(aE_1+bE_2)\) is convex exactly when
 \(\alpha\le4e^{-3}\), a range containing 90%, 95%, and 99% confidence
 ([proof](supporting-materials/theory/TWO-EXPONENTIAL-QUANTILE.md)). Convexity
-in three or more coordinates and the separate Dirichlet--Poissonization
-inequality remain open, so this analytic result is not a general coverage
-theorem.
+at equal weights also has an exact Hessian formula in every dimension, with
+Hessian thresholds increasing from the same two-coordinate constant
+([calculation](supporting-materials/theory/ALL-N-POISSON-PROGRAM.md)). Convexity
+at unequal vectors in three or more coordinates and the separate
+Dirichlet--Poissonization inequality remain open, so these analytic results
+are not a general coverage theorem.
 
 ## 4. No violation was found in the reported 90% and 95% searches
 

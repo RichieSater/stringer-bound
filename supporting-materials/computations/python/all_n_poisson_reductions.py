@@ -5,6 +5,7 @@ the algebra that isolates them:
 
 * the ordered-weight Poisson Stringer identity;
 * the exact two-exponential quantile-convexity threshold ``4*exp(-3)``;
+* the exact equal-weight Hessian in every dimension;
 * the gamma-kernel antiderivative identity; and
 * a decisive numerical counterexample to the tempting SymPol shortcut.
 """
@@ -119,6 +120,41 @@ def check_two_exponential_global_convexity() -> None:
                     - 3 * z**2 / 40) == 0
 
 
+def check_equal_weight_hessian_thresholds() -> None:
+    """Check the all-dimensional Hessian formula at equal weights.
+
+    The written argument uses the Dirichlet conditional law.  Here we verify
+    its density-weighted conditional-variance differentiation exactly for a
+    range of symbolic dimensions, along with the Poisson-CDF derivative used
+    to prove that the local thresholds increase with dimension.
+    """
+
+    c, lam, s1, s2, x = symbols("c lam s1 s2 x", positive=True)
+    for m in range(2, 13):
+        density = (
+            x ** (m - 1) * exp(-x / c)
+            / (c**m * factorial(m - 1))
+        )
+        conditional_variance = (
+            (x / c)**2 * (m * s2 - s1**2)
+            / (m**2 * (m + 1))
+        )
+        curvature = simplify(
+            -diff(density * conditional_variance, x) / density
+        )
+        expected = (
+            x * (x - c * (m + 1)) * (m * s2 - s1**2)
+            / (c**3 * m**2 * (m + 1))
+        )
+        assert simplify(curvature - expected) == 0
+
+        poisson_cdf = exp(-lam) * sum(
+            lam**j / factorial(j) for j in range(m)
+        )
+        poisson_mass = exp(-lam) * lam ** (m - 1) / factorial(m - 1)
+        assert simplify(diff(poisson_cdf, lam) + poisson_mass) == 0
+
+
 def check_kernel_identity() -> None:
     """Verify the nth-derivative identity for several symbolic n."""
     y = symbols("y", positive=True)
@@ -164,11 +200,14 @@ def main() -> int:
     check_ordered_weight_identity()
     check_two_exponential_obstruction()
     check_two_exponential_global_convexity()
+    check_equal_weight_hessian_thresholds()
     check_kernel_identity()
     poisson, sympol, gap, active_k = sympol_shortcut_counterexample()
     print("all-n reduction algebra: PASS")
     print("exact two-exponential convexity threshold: 4*exp(-3) =",
           mp.nstr(4 * mp.e**-3, 16))
+    print("equal-weight local thresholds: strictly increasing from the "
+          "same m=2 value")
     print("SymPol shortcut counterexample (numerical):")
     print("  n=15 alpha=0.05 one full taint")
     print("  active elementary-symmetric order:", active_k)

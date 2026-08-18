@@ -178,8 +178,12 @@ certificate or a written proof:
   \((a,b)\mapsto Q_{1-\alpha}(aE_1+bE_2)\) is convex on the nonnegative
   quadrant if and only if \(\alpha\le4e^{-3}\). This exact threshold includes
   90%, 95%, and 99% confidence. It resolves the two-coordinate base case of
-  one proposed Poisson proof route, not the three-or-more-coordinate case or
-  general-\(n\) Stringer coverage.
+  one proposed Poisson proof route. An exact all-dimensional Hessian formula
+  also shows that the equal-weight Hessian thresholds increase from this
+  two-coordinate value
+  ([program note](supporting-materials/theory/ALL-N-POISSON-PROGRAM.md)).
+  Neither result proves the unequal-weight
+  three-or-more-coordinate case or general-\(n\) Stringer coverage.
 
 - **All-sample-size scalar calibration of the Poisson bound**
   ([`POISSON-BAND-CALIBRATION.md`](supporting-materials/theory/POISSON-BAND-CALIBRATION.md)):

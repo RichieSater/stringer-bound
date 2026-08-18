@@ -669,6 +669,33 @@
       "limitations": "This proves only the two-coordinate exponential-quantile theorem. It does not prove convexity in three or more coordinates, Dirichlet Poissonization, or general-n Stringer coverage."
     },
     {
+      "id": "equal-weight-exponential-quantile-hessian",
+      "classification": "proved_theorem",
+      "statement": "In every dimension m >= 2, the Hessian of the weighted-exponential upper-quantile map at an equal positive weight vector has the stated closed form; it is positive semidefinite exactly when alpha is at or below a dimension-specific tail threshold, and those thresholds strictly increase from 4 exp(-3) at m=2.",
+      "manuscript_labels": [],
+      "evidence": [
+        {
+          "path": "supporting-materials/theory/ALL-N-POISSON-PROGRAM.md",
+          "role": "Dirichlet conditional-variance derivation and exact monotonicity proof",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/python/all_n_poisson_reductions.py",
+          "role": "exact symbolic checks of the Hessian formula and Poisson-CDF derivative",
+          "trust": "corroboration_only"
+        },
+        {
+          "path": "supporting-materials/computations/tests/test_all_n_poisson_reductions.py",
+          "role": "regression test for the all-dimensional symbolic identities",
+          "trust": "corroboration_only"
+        }
+      ],
+      "verification_commands": [
+        "make all-n-reduction-check"
+      ],
+      "limitations": "This is a pointwise Hessian theorem at equal weights. It does not establish global convexity at unequal weights in dimensions three or higher or general-n Stringer coverage."
+    },
+    {
       "id": "general-n-standard-confidence-status",
       "classification": "date_stamped_literature_status",
       "statement": "General finite-sample coverage for arbitrary n and arbitrary taint distributions at conventional confidence levels remains unresolved in the reviewed literature. This repository proves the binomial-factor result through n=7 at 90%, 95%, and 99%; the direct Poisson-factor ranges reach n=8, n=11, and n=20, respectively.",

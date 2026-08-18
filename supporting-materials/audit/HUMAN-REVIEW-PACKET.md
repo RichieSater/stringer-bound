@@ -267,6 +267,8 @@ Questions:
 Primary files:
 
 - [`../theory/TWO-EXPONENTIAL-QUANTILE.md`](../theory/TWO-EXPONENTIAL-QUANTILE.md)
+- [`../theory/ALL-N-POISSON-PROGRAM.md`](../theory/ALL-N-POISSON-PROGRAM.md),
+  especially the equal-weight Hessian subsection
 - [`../computations/python/all_n_poisson_reductions.py`](../computations/python/all_n_poisson_reductions.py)
 
 Questions:
@@ -291,6 +293,12 @@ Questions:
 8. Is the conclusion consistently limited to two coordinates, without being
    used as a proof of higher-dimensional convexity or general Stringer
    coverage?
+9. Does conditioning the equal-weight exponential vector give the stated
+   Dirichlet covariance and the exact Hessian quadratic form in every
+   dimension?
+10. Does the Poisson-CDF derivative argument prove that the equal-weight
+    thresholds strictly increase from `4e^-3`, and is this result described
+    only as a pointwise Hessian theorem?
 
 ## Minimum reproduction record
 
