@@ -184,8 +184,11 @@ certificate or a written proof:
   ([program note](supporting-materials/theory/ALL-N-POISSON-PROGRAM.md)).
   The first unequal case is now reduced exactly to one explicit two-variable
   tilted-simplex inequality
-  ([three-coordinate reduction](supporting-materials/theory/THREE-EXPONENTIAL-QUANTILE.md)),
-  and the inequality is proved on the repeated-maximum boundary where the
+  ([three-coordinate reduction](supporting-materials/theory/THREE-EXPONENTIAL-QUANTILE.md)).
+  An integration-by-parts identity expresses its curvature threshold as the
+  largest generalized eigenvalue of a boundary Gram matrix against the bulk
+  covariance matrix, replacing third moments by a two-by-two trace test. The
+  inequality is proved on the repeated-maximum boundary where the
   two largest weights are equal and on the symmetry line where the two
   smaller weights are equal. The complete infinite-gap boundary reduces to
   the proved two-coordinate theorem, and an exact joint expansion proves a

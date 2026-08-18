@@ -17,6 +17,7 @@ from all_n_poisson_reductions import (  # noqa: E402
     check_three_exponential_reduction,
     check_three_exponential_repeated_max_boundary,
     check_three_exponential_sharp_corner_expansion,
+    check_three_exponential_trace_identity,
     check_two_exponential_global_convexity,
     check_two_exponential_obstruction,
 )
@@ -34,6 +35,9 @@ class AllNPoissonReductionTests(unittest.TestCase):
 
     def test_three_exponential_reduction(self):
         check_three_exponential_reduction()
+
+    def test_three_exponential_trace_identity(self):
+        check_three_exponential_trace_identity()
 
     def test_three_exponential_repeated_max_boundary(self):
         check_three_exponential_repeated_max_boundary()

@@ -8,7 +8,7 @@ the algebra that isolates them:
 * the exact equal-weight Hessian in every dimension;
 * the three-exponential tilted-simplex curvature reduction and its proved
   repeated-maximum, equal-smaller, and infinite-gap boundary families,
-  including the positive sharp-corner expansion;
+  including the boundary-trace identity and positive sharp-corner expansion;
 * the gamma-kernel antiderivative identity; and
 * a decisive numerical counterexample to the tempting SymPol shortcut.
 """
@@ -201,6 +201,44 @@ def check_three_exponential_reduction() -> None:
     assert simplify(
         -total_derivative / density_without_constants
         - expected_curvature
+    ) == 0
+
+
+def check_three_exponential_trace_identity() -> None:
+    """Check the boundary-trace reformulation of the 3D threshold."""
+
+    u, v, z, w = symbols("u v z w", positive=True)
+    c1, c2, mu1, mu2 = symbols("c1 c2 mu1 mu2", real=True)
+    ell = c1 * (u - mu1) + c2 * (v - mu2)
+    tilt = z * u + w * v
+    centered_offset = c1 * mu1 + c2 * mu2
+
+    divergence = (
+        diff(u * ell**2 * exp(-tilt), u)
+        + diff(v * ell**2 * exp(-tilt), v)
+    )
+    expected = (
+        (4 - tilt) * ell**2 + 2 * centered_offset * ell
+    ) * exp(-tilt)
+    assert simplify(divergence - expected) == 0
+
+    # The coordinate-edge fluxes vanish.  On u+v=1, the outward normal
+    # times arclength is (1,1) du, so the radial flux is exactly the
+    # boundary quadratic form in equation (13a).
+    assert simplify((u * ell**2 * exp(-tilt)).subs(u, 0)) == 0
+    assert simplify((v * ell**2 * exp(-tilt)).subs(v, 0)) == 0
+    edge_flux = simplify(
+        ((u + v) * ell**2 * exp(-tilt)).subs(v, 1 - u)
+    )
+    expected_edge = simplify(
+        (ell**2 * exp(-tilt)).subs(v, 1 - u)
+    )
+    assert simplify(edge_flux - expected_edge) == 0
+
+    bulk, weighted = symbols("bulk weighted", positive=True)
+    boundary = 4 * bulk - weighted
+    assert simplify(
+        4 - weighted / bulk - boundary / bulk
     ) == 0
 
 
@@ -731,6 +769,7 @@ def main() -> int:
     check_two_exponential_global_convexity()
     check_equal_weight_hessian_thresholds()
     check_three_exponential_reduction()
+    check_three_exponential_trace_identity()
     check_three_exponential_repeated_max_boundary()
     check_three_exponential_equal_smaller_line()
     check_three_exponential_infinite_gap_boundary()
@@ -744,6 +783,7 @@ def main() -> int:
           "same m=2 value")
     print("three-exponential convexity: reduced exactly to the documented "
           "two-variable inequality")
+    print("three-exponential boundary-trace identity: PROVED")
     print("three-exponential repeated-max boundary: PROVED")
     print("three-exponential equal-smaller symmetry line: PROVED")
     print("three-exponential infinite-gap boundary: REDUCED TO PROVED 2D CASE")

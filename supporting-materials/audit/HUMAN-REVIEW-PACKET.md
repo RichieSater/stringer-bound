@@ -319,53 +319,56 @@ Questions:
    with the correct sign?
 5. Does the smaller generalized eigenvalue in (12) give the exact curvature
    threshold `h=4-rho`?
-6. Are the closed-form tail and its pathwise monotonicity in the transformed
+6. Does the divergence calculation in (13c), including the vanishing centered
+   linear term and all three boundary fluxes, prove the trace formula
+   `h=lambda_max(L,K)` and the matrix identity `L=4K+mathcal D K`?
+7. Are the closed-form tail and its pathwise monotonicity in the transformed
    threshold correct?
-7. Does inequality (16), if proved, imply three-coordinate convexity at and
+8. Does inequality (16), if proved, imply three-coordinate convexity at and
    below `4e^-3`, and is (16) itself consistently labeled open rather than
    used as a theorem?
-8. Do the equal-weight and coordinate-face limits have the stated values and
+9. Do the equal-weight and coordinate-face limits have the stated values and
    preserve the sharp two-coordinate obstruction?
-9. On `z=0`, does the symmetry exchanging `U` with the residual simplex
+10. On `z=0`, does the symmetry exchanging `U` with the residual simplex
    coordinate split the generalized-eigenvalue problem into the two stated
    transverse eigenspaces?
-10. Are the moment formulas for `mathcal R_-` and `mathcal R_+` exact, and
+11. Are the moment formulas for `mathcal R_-` and `mathcal R_+` exact, and
     are every normalizing integral and conditional variance used to clear
     denominators strictly positive?
-11. Does the factorization through `N(s)L(s)` and the coefficient formula
+12. Does the factorization through `N(s)L(s)` and the coefficient formula
     for `L` prove `mathcal R_+(s)>mathcal R_-(s)` for every `s>0`?
-12. Are the formula for `h(0,s)`, the derivative of the logarithmic margin
+13. Are the formula for `h(0,s)`, the derivative of the logarithmic margin
     `M_0`, and its limit at infinity all correct and sufficient to prove the
     target inequality strictly at every finite axis point?
-13. Is the coordinate-axis conclusion limited to the repeated-maximum
+14. Is the coordinate-axis conclusion limited to the repeated-maximum
     boundary and its continuous endpoints?
-14. On `z=w`, do the antisymmetric and symmetric contrasts give the two
+15. On `z=w`, do the antisymmetric and symmetric contrasts give the two
     generalized eigendirections and the moment ratios in (28), and does the
     reused `L(s)` factor prove that the symmetric eigenvalue is smaller?
-15. Is the formula for `h(s,s)` correct, and do the derivative factorization
+16. Is the formula for `h(s,s)` correct, and do the derivative factorization
     and coefficient signs for `R(s)` prove that it is strictly decreasing?
-16. Does the derivative factorization for the diagonal logarithmic margin
+17. Does the derivative factorization for the diagonal logarithmic margin
     have the correct sign, and does the one-sign-change coefficient argument
     prove that it has a unique minimum?
-17. Do the exact rational exponential enclosures prove all endpoint bounds
+18. Do the exact rational exponential enclosures prove all endpoint bounds
     in (41), and do the rational estimates in (42)--(44) keep the diagonal
     margin strictly positive?
-18. Under `Y=wV`, does dominated convergence give the stated product limit
+19. Under `Y=wV`, does dominated convergence give the stated product limit
     on the infinite-gap boundary for every moment entering the generalized
     eigenvalue problem?
-19. Are the two limiting generalized eigenvalues in (46) correct, and does
+20. Are the two limiting generalized eigenvalues in (46) correct, and does
     (48) prove that the eigenvalue inherited from the two-exponential problem
     is the smaller one?
-20. Do the partition-function and tail limits in (50)--(51) reduce the full
+21. Do the partition-function and tail limits in (50)--(51) reduce the full
     infinite-gap edge, not merely its sharp corner, to the proved
     two-exponential comparison?
-21. After setting `t=1/w` and rescaling `(U,V)` to `(U,wV)`, does the simple
+22. After setting `t=1/w` and rescaling `(U,V)` to `(U,wV)`, does the simple
     generalized eigenvalue at the sharp corner have the expansion in (54),
     and does substitution give the margin expansion in (55)?
-22. Is the discarded `e^(-1/t)` contribution flat to the required order,
+23. Is the discarded `e^(-1/t)` contribution flat to the required order,
     and does the two-scale remainder argument prove a punctured positive
     neighborhood rather than only positivity along fixed rays?
-23. Are the remaining claims limited to finite `0<z<w<infinity`, without
+24. Are the remaining claims limited to finite `0<z<w<infinity`, without
     using any proved boundary, symmetry, or local-corner result as a full
     three-coordinate convexity or general-`n` coverage theorem?
 

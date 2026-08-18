@@ -254,8 +254,13 @@ curvature matrix and hypoexponential tail reduce global convexity at
 `alpha=4e^-3` to one explicit inequality in two nonnegative gap variables;
 see
 [`THREE-EXPONENTIAL-QUANTILE.md`](THREE-EXPONENTIAL-QUANTILE.md).  That
-reduction is exact.  The same note proves the inequality on both coordinate
-axes, corresponding to coefficient vectors with two equal maximal weights.
+reduction is exact.  An integration-by-parts identity in the same note
+expresses the curvature threshold as the largest generalized eigenvalue of a
+boundary Gram matrix against the bulk covariance matrix; hence an upper
+threshold can be certified by a two-by-two positive-semidefinite test without
+third central moments.  The same note proves the inequality on both
+coordinate axes, corresponding to coefficient vectors with two equal maximal
+weights.
 It also proves the diagonal, corresponding to two equal smaller weights.
 The complete infinite-gap boundary reduces to the proved two-exponential
 case, and a joint expansion proves positivity in a punctured neighborhood of

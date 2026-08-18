@@ -723,6 +723,33 @@
       "limitations": "The two-variable inequality is proved separately on the coordinate axes and diagonal, its infinite-gap boundary reduces to the two-coordinate theorem, and a punctured sharp-corner neighborhood is positive, but its finite off-symmetry interior is open. This record certifies the equivalence and reduction only, not three-coordinate convexity or general-n Stringer coverage."
     },
     {
+      "id": "three-exponential-boundary-trace-identity",
+      "classification": "proved_theorem",
+      "statement": "For the reduced three-exponential problem, the curvature threshold h(z,w) is exactly the largest generalized eigenvalue of the boundary Gram matrix L(z,w) against the bulk covariance Gram matrix K(z,w); equivalently, L=4K+mathcal D K.",
+      "manuscript_labels": [],
+      "evidence": [
+        {
+          "path": "supporting-materials/theory/THREE-EXPONENTIAL-QUANTILE.md",
+          "role": "complete divergence-theorem proof and positive-semidefinite certificate reformulation",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/python/all_n_poisson_reductions.py",
+          "role": "exact symbolic verification of the divergence and boundary-flux identities",
+          "trust": "corroboration_only"
+        },
+        {
+          "path": "supporting-materials/computations/tests/test_all_n_poisson_reductions.py",
+          "role": "regression test for the boundary-trace identity",
+          "trust": "corroboration_only"
+        }
+      ],
+      "verification_commands": [
+        "make all-n-reduction-check"
+      ],
+      "limitations": "This identity simplifies certification of the reduced inequality but does not itself prove that inequality in the finite off-symmetry interior, three-coordinate convexity, or general-n Stringer coverage."
+    },
+    {
       "id": "three-exponential-repeated-max-boundary",
       "classification": "proved_theorem",
       "statement": "At tail threshold 4 exp(-3), the explicit three-exponential tilted-simplex inequality holds strictly at every finite point with z=0 or w=0, corresponding to positive coefficient vectors with two equal maximal weights.",

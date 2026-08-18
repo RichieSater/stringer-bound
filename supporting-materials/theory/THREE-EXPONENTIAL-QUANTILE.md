@@ -1,9 +1,9 @@
 # Exact reduction of the three-exponential convexity problem
 
 > **Status.** This note reduces three-coordinate exponential-quantile
-> convexity to one explicit two-variable inequality and proves that
-> inequality on the repeated-maximum boundary and the equal-smaller symmetry
-> line.  It also reduces the complete infinite-gap boundary to the proved
+> convexity to one explicit two-variable inequality, gives a boundary-trace
+> variational formula for its curvature threshold, and proves the inequality
+> on the repeated-maximum boundary and the equal-smaller symmetry line.  It also reduces the complete infinite-gap boundary to the proved
 > two-exponential theorem and proves positivity in a punctured neighborhood
 > of the only zero-margin corner.  The finite off-symmetry interior remains
 > open.  Nothing in this note is a general-`n` Stringer coverage theorem.
@@ -163,6 +163,64 @@ positive semidefinite exactly when
 \]
 
 If `h(z,w)<=0`, this condition is automatic because `x>0`.
+
+There is a second, boundary-only representation of the same threshold that
+removes the radial derivative and the third central moments.  For a vector
+`c in R^2`, put
+
+\[
+ \ell_c(u,v)=c^{\mathsf T}\{(u,v)-\mu\}
+\]
+
+and define the boundary Gram matrix
+
+\[
+ L(z,w)=\int_0^1
+ \left\{\binom{u}{1-u}-\mu\right\}
+ \left\{\binom{u}{1-u}-\mu\right\}^{\!\mathsf T}
+ e^{-zu-w(1-u)}\,du.                                  \tag{13a}
+\]
+
+**Trace identity.**  The curvature threshold is the largest generalized
+eigenvalue of the boundary and bulk Gram matrices:
+
+\[
+ \boxed{
+ h(z,w)=\sup_{c\ne0}
+ \frac{c^{\mathsf T}L(z,w)c}{c^{\mathsf T}K(z,w)c}
+ =\lambda_{\max}\{L(z,w),K(z,w)\}.}                  \tag{13b}
+\]
+
+To prove this, write `T=zu+wv` and
+`d_c=c^T mu`.  Direct differentiation gives
+
+\[
+ \nabla\!\cdot\!\left[(u,v)\ell_c(u,v)^2e^{-T}\right]
+ =\{(4-T)\ell_c^2+2d_c\ell_c\}e^{-T}.                \tag{13c}
+\]
+
+The integral of the last linear term vanishes by the definition of `mu`.
+The radial flux vanishes on the two coordinate edges of `Delta`; on
+`u+v=1`, the product of the outward-normal component and arclength is `du`.
+The divergence theorem therefore gives
+
+\[
+ \int_0^1\ell_c(u,1-u)^2e^{-zu-w(1-u)}\,du
+ =\int_\Delta(4-T)\ell_c(u,v)^2e^{-zu-wv}\,du\,dv.    \tag{13d}
+\]
+
+The two quadratic forms on the right are `4c^T Kc` and the unnormalized
+numerator in (12).  Taking the supremum proves (13b).  Equivalently,
+
+\[
+ L(z,w)=4K(z,w)+\mathcal D K(z,w).                    \tag{13e}
+\]
+
+This representation gives a particularly simple route for a rigorous
+interior certificate.  To prove `h(z,w)<=x`, it is enough to prove the
+two-by-two matrix inequality `xK(z,w)-L(z,w)\succeq0`.  If the tail in
+(15) at the same `x` is at least `4e^{-3}`, monotonicity then proves (16).
+No such full interior certificate is asserted here.
 
 ## 3. The remaining two-variable inequality
 
