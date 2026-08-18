@@ -2852,12 +2852,17 @@
       "numerator": "3108309643939756140704768"
     }
   },
+  "n2_three_knot_theorem": {
+    "analytic_basis": "The radial zero-knot reduction followed by monotonicity of H_2(u)/u on the two ranges forced by a+b<=2",
+    "scope": "Every nonnegative three-coordinate profile with sum_i y_i<=2",
+    "symbolic_identity_and_constant_check": "passed"
+  },
   "radial_zero_knot_reduction": {
     "analytic_basis": "The Laplace-transform convolution identity, the resulting mode-below-mean bound for weighted exponential sums, and the density-derivative argument in DIRICHLET-POISSONIZATION.md",
     "scope": "Any strictly positive coefficient profile with sum_i y_i<=n can be moved to a zero-knot boundary without increasing the Dirichlet--Poissonization gap.",
     "symbolic_identity_check": "passed"
   },
-  "schema_version": 3,
+  "schema_version": 4,
   "status": "Research certificate: exact reductions and an obstruction, not an all-sample-size coverage certificate.",
   "two_level_profiles": {
     "analytic_basis": "The radial zero-knot reduction in DIRICHLET-POISSONIZATION.md and Anderson--Samuels (1967) at the resulting equal-block endpoint",

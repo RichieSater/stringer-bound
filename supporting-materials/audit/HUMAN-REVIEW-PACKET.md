@@ -399,6 +399,36 @@ Questions:
     using any proved boundary, symmetry, or local-corner result as a full
     three-coordinate convexity or general-`n` coverage theorem?
 
+## Review J: Dirichlet--Poissonization reductions and the `n=2` theorem
+
+Primary files:
+
+- [`../theory/DIRICHLET-POISSONIZATION.md`](../theory/DIRICHLET-POISSONIZATION.md)
+- [`../computations/python/dirichlet_poissonization.py`](../computations/python/dirichlet_poissonization.py)
+
+Questions:
+
+1. Does the Hermite--Genocchi calculation give the divided-difference target
+   with the stated normalization and sum-of-knots constraint?
+2. Does the Laplace-transform convolution identity put every mode of the
+   weighted exponential sum at or below its mean?
+3. Does the density-derivative calculation prove that the radial deformation
+   preserves the simplex-cap event and cannot increase the poissonized tail
+   before a coefficient reaches zero?
+4. Does the equal-block endpoint reduce to the cited Anderson--Samuels
+   binomial--Poisson comparison with the correct indices and endpoint
+   continuity?
+5. For `n=2`, does the radial lemma reduce every profile to an ordered
+   boundary vector `(0,a,b)` with `a+b<=2`?
+6. Is `[0,a,b]H_2` exactly the secant slope of `H_2(u)/u` in (15c), including
+   confluent and zero endpoints by continuity?
+7. Do (15d)--(15f) prove that `H_2(u)/u` increases on `(0,1]` and is never
+   below its value at one on `[1,2]`, thereby covering every permitted
+   `(a,b)`?
+8. Is the conclusion limited to the complete `n=2` Poissonization inequality,
+   every two-level profile, and the radial boundary reduction, without being
+   promoted to the still-open general-dimensional comparison?
+
 ## Minimum reproduction record
 
 Run from a clean checkout:
@@ -443,6 +473,7 @@ Review F disposition:
 Review G disposition:
 Review H disposition:
 Review I disposition:
+Review J disposition:
 
 Issues found and exact locations:
 Corrections rechecked:

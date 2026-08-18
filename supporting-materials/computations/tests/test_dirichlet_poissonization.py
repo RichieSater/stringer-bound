@@ -16,6 +16,7 @@ from dirichlet_poissonization import (  # noqa: E402
     equal_block_check,
     saffine_localization_obstruction,
     two_level_profile_regression,
+    verify_n2_three_knot_theorem,
     verify_radial_symbolic_identities,
     verify_saffine_symbolic_identities,
     verify_two_level_symbolic_identities,
@@ -77,6 +78,9 @@ class DirichletPoissonizationTests(unittest.TestCase):
             0.0,
         )
 
+    def test_complete_n2_three_knot_algebra(self):
+        verify_n2_three_knot_theorem()
+
     def test_certificate_is_explicitly_non_theorem_research_support(self):
         certificate = build_certificate()
         self.assertIn("not an all-sample-size coverage certificate", certificate["status"])
@@ -97,6 +101,12 @@ class DirichletPoissonizationTests(unittest.TestCase):
                 ]
             ),
             10,
+        )
+        self.assertEqual(
+            certificate["n2_three_knot_theorem"][
+                "symbolic_identity_and_constant_check"
+            ],
+            "passed",
         )
 
 

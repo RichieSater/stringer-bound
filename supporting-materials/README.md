@@ -46,7 +46,8 @@ The separate all-`n` Poisson research program now has an exact
 two-coordinate theorem: the weighted-exponential upper-quantile map is convex
 if and only if `alpha<=4e^-3`.  Its proof is in
 `theory/TWO-EXPONENTIAL-QUANTILE.md`; convexity in three or more coordinates
-and the second Dirichlet--Poissonization step remain open.  The program note
+and the second Dirichlet--Poissonization step remain open in general, although
+the latter is now proved completely for `n=2`.  The program note
 also gives the exact Hessian and the increasing Hessian-threshold sequence at
 equal weights in every dimension.  The first unequal dimension is reduced in
 `theory/THREE-EXPONENTIAL-QUANTILE.md` to one explicit two-variable
@@ -100,10 +101,10 @@ open.
 | `theory/ALL-N-POISSON-PROGRAM.md` | Exact weighted-exponential reductions, sharp two-coordinate theorem, and explicitly open higher-dimensional route | research roadmap |
 | `theory/TWO-EXPONENTIAL-QUANTILE.md` | Written proof that the two-weight exponential quantile is convex exactly for `alpha<=4e^-3` | proof-essential |
 | `theory/THREE-EXPONENTIAL-QUANTILE.md` | Exact tilted-simplex Hessian, boundary-trace, and tail reduction of three-weight convexity, with proofs on the repeated-maximum and infinite-gap boundaries, the equal-smaller symmetry line, strict fixed-sum derivative signs at both finite symmetry boundaries, a sharp-corner neighborhood, the small-gap square, and the region with both gaps at least 13; the remaining off-symmetry region outside those sets is explicit | proof-essential for the reduction, boundary, symmetry-line, local derivative, local-corner, small-gap, and two-large-gap theorems; research roadmap for the remaining interior |
-| `theory/DIRICHLET-POISSONIZATION.md` | Constrained divided-difference reduction, zero-knot boundary reduction, proof for every two-level profile, and exact obstruction to generic `s`-concave localization | research roadmap |
+| `theory/DIRICHLET-POISSONIZATION.md` | Constrained divided-difference reduction, zero-knot boundary reduction, proofs for every two-level profile and the complete `n=2` case, and an exact obstruction to generic `s`-concave localization | proof-essential for the structured-family and `n=2` theorems; research roadmap in general |
 | `gaffke.py` | Exact-rational Dirichlet tail signs, certified dyadic Gaffke bracket, and safeguarded Stringer report | proof-essential for the implemented floor |
 | `all_n_poisson_reductions.py` | Symbolic and exact-rational checks of the ordered-weight identity, the exact two-exponential theorem, the equal-weight Hessian, the three-weight reduction and boundary-trace identity, its proved boundary, both finite symmetry-boundary derivative results, the small-gap and two-large-gap bounds, the symmetry families, the sharp-corner expansion, and the open-route kernel identity | proof support |
-| `dirichlet_poissonization.py` | Symbolic checks for the zero-knot and all-two-level reductions plus the exact `s`-affine obstruction; does not claim the general inequality | research support |
+| `dirichlet_poissonization.py` | Symbolic checks for the zero-knot, all-two-level, and complete `n=2` reductions plus the exact `s`-affine obstruction; does not claim the general inequality | proof support for the checked identities; research support in general |
 | `audit/PRACTICE-SAFEGUARD.md` | Methodology-facing workflow, worked example, record-retention fields, and explicit scope boundaries | implementation guidance |
 | `audit/HUMAN-REVIEW-PACKET.md` | Scoped independent-review questions, reproduction record, and sign-off template | review protocol |
 | `certify.py` | The only source of claims: exact coverage, exact nominal comparison, margin certificate | proof-essential |

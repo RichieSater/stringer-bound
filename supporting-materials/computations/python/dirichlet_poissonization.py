@@ -21,6 +21,8 @@ boundary reduction, a proved structured family, and one obstruction:
   Anderson--Samuels binomial--Poisson inequality.  This module checks the
   exact algebra and rational instances both on and strictly inside the sum
   boundary; and
+* the radial reduction and a one-variable divided-difference argument prove
+  the complete comparison for ``n=2``; and
 * a fully explicit, mean-constrained ``1/n``-concave law shows why generic
   one-dimensional s-concave localization is too broad to prove the
   comparison.
@@ -236,6 +238,35 @@ def verify_two_level_symbolic_identities() -> None:
     assert factor(together(endpoint_sum_from_path - ell * b_star)) == 0
 
 
+def verify_n2_three_knot_theorem() -> None:
+    """Check the algebra and exact constants in the complete ``n=2`` proof."""
+    from sympy import diff, exp, simplify, symbols
+
+    u, x = symbols("u x", positive=True)
+    lower_piece = u * exp(-2 / u)
+    upper_piece = lower_piece - u + 2 - 1 / u
+    g = exp(-2 * x) * (1 + 2 * x) - 1 + x**2
+
+    assert simplify(diff(lower_piece, u) - exp(-2 / u) * (1 + 2 / u)) == 0
+    assert simplify(diff(upper_piece, u) - g.subs(x, 1 / u)) == 0
+    assert simplify(diff(g, x) - 2 * x * (1 - 2 * exp(-2 * x))) == 0
+
+    # With H(0)=0 and f(u)=H(u)/u, the boundary divided difference is
+    # exactly (f(b)-f(a))/(b-a).
+    a, b, fa, fb = symbols("a b fa fb", positive=True)
+    divided_difference = ((b * fb - a * fa) / (b - a) - a * fa / a) / b
+    assert simplify(divided_difference - (fb - fa) / (b - a)) == 0
+
+    # Exact series bounds used to justify 2<e<3 in the endpoint argument.
+    e_lower = sum(Fraction(1, math.factorial(order)) for order in range(3))
+    e_upper = (
+        sum(Fraction(1, math.factorial(order)) for order in range(7))
+        + Fraction(1, 4410)
+    )
+    assert e_lower > 2
+    assert e_upper < 3
+
+
 def two_level_profile_regression(
     n: int,
     k: int,
@@ -390,6 +421,7 @@ def build_certificate() -> dict[str, object]:
     verify_saffine_symbolic_identities()
     verify_radial_symbolic_identities()
     verify_two_level_symbolic_identities()
+    verify_n2_three_knot_theorem()
     checks = []
     # Include both the boundary lambda=k and strict lambda>k cases.  These
     # finite checks guard the beta/binomial and gamma/Poisson translations;
@@ -417,7 +449,7 @@ def build_certificate() -> dict[str, object]:
         two_level_checks.append(two_level_profile_regression(n, k, a, b))
 
     return {
-        "schema_version": 3,
+        "schema_version": 4,
         "status": (
             "Research certificate: exact reductions and an obstruction, "
             "not an all-sample-size coverage certificate."
@@ -456,6 +488,17 @@ def build_certificate() -> dict[str, object]:
             "symbolic_identity_check": "passed",
             "exact_rational_regression_checks": two_level_checks,
         },
+        "n2_three_knot_theorem": {
+            "analytic_basis": (
+                "The radial zero-knot reduction followed by monotonicity of "
+                "H_2(u)/u on the two ranges forced by a+b<=2"
+            ),
+            "scope": (
+                "Every nonnegative three-coordinate profile with "
+                "sum_i y_i<=2"
+            ),
+            "symbolic_identity_and_constant_check": "passed",
+        },
         "localization_obstruction": saffine_localization_obstruction(),
         "exponential_series_pairs": EXACT_EXP_PAIRS,
     }
@@ -488,6 +531,12 @@ def main(argv: list[str] | None = None) -> int:
                 "exact_rational_regression_checks"
             ]
         ),
+    )
+    print(
+        "complete n=2 three-knot comparison:",
+        certificate["n2_three_knot_theorem"][
+            "symbolic_identity_and_constant_check"
+        ],
     )
     print(
         "mean-constrained s-affine obstruction: P(Y>1)=%s; P(SY>10)<%s"

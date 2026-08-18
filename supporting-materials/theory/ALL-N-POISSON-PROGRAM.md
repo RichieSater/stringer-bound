@@ -3,7 +3,8 @@
 > **Status.** This note separates proved reductions from two analytic targets.
 > Exponential-quantile convexity is now proved sharply in two coordinates but
 > remains open in three or more; Dirichlet Poissonization remains open in
-> general.  This is a research roadmap, not a coverage claim.  The paper
+> general, although its complete `n=2` case is proved.  This is a research
+> roadmap, not a coverage claim.  The paper
 > continues to state that ordinary Stringer coverage is unresolved for
 > arbitrary `n`.
 
@@ -395,6 +396,22 @@ particular, it includes every active-boundary profile
  \qquad ka+(n+1-k)b=n.
 \]
 
+The first nontrivial simplex dimension is also complete.  For `n=2`, the
+radial lemma reduces every profile to `(0,a,b)` with `a+b<=2`.  At that
+boundary,
+
+\[
+ [0,a,b]H_2
+ =\frac{H_2(b)/b-H_2(a)/a}{b-a}\ge0.              \tag{16a}
+\]
+
+The last sign follows from a direct one-variable argument: `H_2(u)/u`
+increases up to `u=1`, while its minimum on `[1,2]` is its value at `1`.
+Thus the threshold comparison underlying (B) is proved for every
+three-coordinate coefficient vector satisfying the induced sum constraint.
+At the tail levels in this program, this proves (B) in three coordinates;
+the general dimension remains open.
+
 The radial derivative is the density derivative at the threshold.  A
 Laplace-transform convolution identity shows that the mode of every
 weighted exponential sum is no larger than its mean, giving the required
@@ -437,7 +454,8 @@ seemingly simpler but false domination claim.
    both gaps are at least `13` and the square in which both gaps are at most
    `4/9` are also proved.  Then seek a dimension-free argument for (11).
 2. Prove the constrained divided-difference inequality (16), or find an
-   actual B-spline counterexample satisfying the sum-of-knots constraint.
+   actual B-spline counterexample satisfying the sum-of-knots constraint;
+   the complete `n=2` case and every two-level profile are already proved.
 3. Use the zero-knot reduction recursively, or prove that a negative minimum
    on a coordinate face must have at most two distinct knot values.
 4. Only after both analytic steps pass, connect (6)--(7) to the published

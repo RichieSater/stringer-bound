@@ -2,9 +2,10 @@
 
 > **Status.** This note gives an exact reduction, pushes any possible
 > counterexample to a zero-knot boundary, proves every profile having at most
-> two distinct coefficient values, and rules out an over-broad localization
-> shortcut. The central divided-difference inequality remains open. Nothing
-> here is yet an all-sample-size coverage theorem.
+> two distinct coefficient values, proves the complete comparison for
+> `n=2`, and rules out an over-broad localization shortcut. The central
+> divided-difference inequality remains open for general `n`. Nothing here is
+> yet an all-sample-size coverage theorem.
 
 This is the second analytic component of the dimension-free Poisson
 Stringer program. It isolates the part of that program that compares a
@@ -262,7 +263,75 @@ Section 3 proves the comparison at that endpoint and hence at the original
 profile.
 
 
-## 5. Why generic $s$-concave localization is too broad
+## 5. The complete comparison for `n=2`
+
+The radial reduction closes the first nontrivial simplex dimension.
+
+> **Three-knot theorem.**  Let `n=2` and let
+> `y_0,y_1,y_2>=0` satisfy `y_0+y_1+y_2<=2`.  Then
+>
+> \[
+>  \Pr\{Z_y>2\}\ge\Pr\{T_y>1\}.                   \tag{15a}
+> \]
+>
+> Equivalently, the divided-difference target (6) holds for every three-knot
+> profile.
+
+By the radial boundary lemma and continuity, it is enough to consider an
+ordered boundary vector `(0,a,b)` with `0<a<b` and `a+b<=2`.  Put
+
+\[
+ f(u)=\frac{H_2(u)}u
+ =\begin{cases}
+ u e^{-2/u},&0<u\le1,\\
+ u e^{-2/u}-u+2-u^{-1},&u\ge1.
+ \end{cases}                                       \tag{15b}
+\]
+
+Since `H_2(0)=0`, elementary divided-difference algebra gives
+
+\[
+ [0,a,b]H_2=\frac{f(b)-f(a)}{b-a}.                 \tag{15c}
+\]
+
+The function `f` is strictly increasing on `(0,1]`.  On `[1,2]`, its
+derivative can be written as
+
+\[
+ f'(u)=g(1/u),
+ \qquad
+ g(x)=e^{-2x}(1+2x)-1+x^2,                         \tag{15d}
+\]
+
+and
+
+\[
+ g'(x)=2x\{1-2e^{-2x}\}>0,
+ \qquad \frac12\le x\le1,                         \tag{15e}
+\]
+
+because `e>2`.  Thus `f'` is nonincreasing on `[1,2]`, so the minimum of the
+concave function `f` on that interval occurs at an endpoint.  Those endpoint
+values satisfy
+
+\[
+ f(1)=e^{-2},
+ \qquad
+ f(2)=2e^{-1}-\frac12>e^{-2}.                      \tag{15f}
+\]
+
+For the last inequality, multiply by `2e^2`: its numerator is
+`4e-e^2-2=2-(e-2)^2>0`, using `2<e<3`.
+
+If `b<=1`, monotonicity on `(0,1]` proves `f(b)>=f(a)`.  Otherwise
+`a<=1<b<=2`, because `a+b<=2`; equations (15b)--(15f) give
+`f(a)<=f(1)<=f(b)`.  Equation (15c) proves the boundary comparison, and the
+radial lemma carries it back to every strictly positive three-knot profile.
+Degenerate and repeated-knot cases follow by continuity.  This proves
+(15a).
+
+
+## 6. Why generic $s$-concave localization is too broad
 
 A one-dimensional localization theorem for $1/n$-concave probability
 laws reduces a linear extremal problem to point masses or densities of the
@@ -322,12 +391,12 @@ coefficients $y_i$; not every density in (16) is such a projection with
 the constraint (2). The example shows precisely which structural
 information a successful localization argument must preserve.
 
-## 6. Remaining proof problem
+## 7. Remaining proof problem
 
 The cleanest current target is (6).  Section 4 shows that it is enough to
-work on coordinate faces, and Sections 3--4 establish it for every profile
-having at most two distinct coefficient values.  Three plausible routes
-remain:
+work on coordinate faces, Sections 3--4 establish it for every profile
+having at most two distinct coefficient values, and Section 5 proves the
+complete target for `n=2`.  Three plausible routes remain for general `n`:
 
 1. exploit the zero-knot reduction recursively, or prove that a negative
    minimum on a coordinate face must have at most two distinct knot values;
