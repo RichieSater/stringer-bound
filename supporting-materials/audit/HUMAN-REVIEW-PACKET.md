@@ -356,22 +356,32 @@ Questions:
 19. Do the exact rational exponential enclosures prove all endpoint bounds
     in (41), and do the rational estimates in (42)--(44) keep the diagonal
     margin strictly positive?
-20. Under `Y=wV`, does dominated convergence give the stated product limit
+20. Along `(z,w)=(s-epsilon,s+epsilon)`, do the `(Y,D)=(U+V,U-V)` bulk and
+    boundary Gram-matrix expansions in (44c)--(44f) correctly yield the
+    simple generalized-eigenvalue coefficient (44e)?
+21. Does exact substitution of the truncated-exponential moments give the
+    factorization (44g), with no lost sign or removable singularity for
+    `s>0`?
+22. Does the coefficient argument (44h)--(44p), including the finite exact
+    checks and the decreasing negative-to-base-7 ratios, prove
+    `mathcal E(s)>0` for every `s>0`, and therefore
+    `Psi_s''(0)<0`?
+23. Under `Y=wV`, does dominated convergence give the stated product limit
     on the infinite-gap boundary for every moment entering the generalized
     eigenvalue problem?
-21. Are the two limiting generalized eigenvalues in (46) correct, and does
+24. Are the two limiting generalized eigenvalues in (46) correct, and does
     (48) prove that the eigenvalue inherited from the two-exponential problem
     is the smaller one?
-22. Do the partition-function and tail limits in (50)--(51) reduce the full
+25. Do the partition-function and tail limits in (50)--(51) reduce the full
     infinite-gap edge, not merely its sharp corner, to the proved
     two-exponential comparison?
-23. After setting `t=1/w` and rescaling `(U,V)` to `(U,wV)`, does the simple
+26. After setting `t=1/w` and rescaling `(U,V)` to `(U,wV)`, does the simple
     generalized eigenvalue at the sharp corner have the expansion in (54),
     and does substitution give the margin expansion in (55)?
-24. Is the discarded `e^(-1/t)` contribution flat to the required order,
+27. Is the discarded `e^(-1/t)` contribution flat to the required order,
     and does the two-scale remainder argument prove a punctured positive
     neighborhood rather than only positivity along fixed rays?
-25. Are the remaining claims limited to finite `0<z<w<infinity`, without
+28. Are the remaining claims limited to finite `0<z<w<infinity`, without
     using any proved boundary, symmetry, or local-corner result as a full
     three-coordinate convexity or general-`n` coverage theorem?
 

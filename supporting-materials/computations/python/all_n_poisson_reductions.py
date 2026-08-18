@@ -8,8 +8,8 @@ the algebra that isolates them:
 * the exact equal-weight Hessian in every dimension;
 * the three-exponential tilted-simplex curvature reduction and its proved
   repeated-maximum, equal-smaller, and infinite-gap boundary families,
-  including the boundary-trace identity, axis transversality, and positive
-  sharp-corner expansion;
+  including the boundary-trace identity, both finite symmetry-boundary
+  derivative signs, and the positive sharp-corner expansion;
 * the gamma-kernel antiderivative identity; and
 * a decisive numerical counterexample to the tempting SymPol shortcut.
 """
@@ -20,8 +20,9 @@ from fractions import Fraction
 from math import comb
 
 from mpmath import mp
-from sympy import (Function, Rational, diff, exp, factorial, integrate, limit,
-                   log, oo, simplify, symbols, series, together)
+from sympy import (Function, Poly, Rational, cancel, diff, exp, factorial,
+                   factor, integrate, limit, log, oo, simplify, symbols,
+                   series, together)
 
 from stringer import exact_exp_neg_bounds, factor_prefix
 
@@ -425,6 +426,269 @@ def check_three_exponential_axis_transversality() -> None:
     )
     assert simplify(margin_derivative
                     + Rational(3, 2) * axis_derivative) == 0
+
+
+def check_three_exponential_diagonal_transversality() -> None:
+    """Check strict fixed-sum transverse concavity on the diagonal.
+
+    The written proof uses the boundary-trace representation.  This routine
+    derives the second-order generalized-eigenvalue perturbation from the
+    centered bulk and boundary Gram matrices, verifies its exact
+    factorization, and checks the coefficient proof for the only remaining
+    exponential polynomial.
+    """
+
+    s, t = symbols("s t", positive=True)
+    moments = symbols("j0:6", positive=True)
+    edge_weight = symbols("edge_weight", positive=True)
+
+    # Along (z,w)=(s-epsilon,s+epsilon), use Y=U+V and D=U-V.
+    # The entries below are the coefficients through the order needed for
+    # the simple largest generalized eigenvalue.
+    j0, j1, j2, j3, j4, j5 = moments
+    mean_y_zero = j2 / j1
+    mean_y_second = j4 / (6 * j1) - j2 * j3 / (6 * j1**2)
+    mean_d_first = j3 / (3 * j1)
+
+    k_yy_zero = j3 - j2**2 / j1
+    k_yy_second = (
+        j5 / 6 - j2 * j4 / (3 * j1)
+        + j2**2 * j3 / (6 * j1**2)
+    )
+    k_dd_zero = j3 / 3
+    k_yd_first = j4 / 3 - j2 * j3 / (3 * j1)
+
+    boundary_offset_zero = 1 - mean_y_zero
+    boundary_offset_second = -mean_y_second
+    l_yy_zero = edge_weight * boundary_offset_zero**2
+    l_yy_second = edge_weight * (
+        boundary_offset_zero**2 / 6
+        + 2 * boundary_offset_zero * boundary_offset_second
+    )
+    l_dd_zero = edge_weight / 3
+    l_yd_first = edge_weight * boundary_offset_zero * (
+        Rational(1, 3) - mean_d_first
+    )
+
+    h_zero = cancel(l_yy_zero / k_yy_zero)
+    off_diagonal = l_yd_first - h_zero * k_yd_first
+    other_eigenvalue_gap = l_dd_zero - h_zero * k_dd_zero
+    h_second = cancel(
+        (
+            l_yy_second - h_zero * k_yy_second
+            - off_diagonal**2 / other_eigenvalue_gap
+        ) / k_yy_zero
+    )
+
+    a_zero = j0 + s * j1
+    a_second = j2 / 2 + s * j3 / 6
+    substitutions = {edge_weight: t}
+    for order, moment in enumerate(moments):
+        substitutions[moment] = (
+            factorial(order) / s ** (order + 1)
+            * (
+                1 - t * sum(
+                    s**power / factorial(power)
+                    for power in range(order + 1)
+                )
+            )
+        )
+
+    h_zero_exact = factor(cancel(h_zero.subs(substitutions)))
+    h_second_exact = factor(cancel(h_second.subs(substitutions)))
+    a_zero_exact = cancel(a_zero.subs(substitutions))
+    a_second_exact = cancel(a_second.subs(substitutions))
+    partition_exact = substitutions[j1]
+    partition_second_exact = substitutions[j3] / 6
+    tail_factor = cancel(
+        1 + a_zero_exact * h_zero_exact
+        + partition_exact * h_zero_exact**2
+    )
+    tail_factor_second = cancel(
+        a_second_exact * h_zero_exact
+        + a_zero_exact * h_second_exact
+        + partition_second_exact * h_zero_exact**2
+        + 2 * partition_exact * h_zero_exact * h_second_exact
+    )
+    margin_second = factor(cancel(
+        -h_second_exact + tail_factor_second / tail_factor
+    ))
+
+    exponential_polynomials = {
+        7: 8 * (s**2 - 5 * s - 3),
+        6: -4 * (s**4 - 8 * s**3 - 62 * s**2 - 52 * s - 54),
+        5: -2 * (
+            4 * s**6 + 19 * s**5 + 107 * s**4 + 400 * s**3
+            + 504 * s**2 + 348 * s + 396
+        ),
+        4: (
+            9 * s**8 + 26 * s**7 + 142 * s**6 + 544 * s**5
+            + 1370 * s**4 + 2200 * s**3 + 1760 * s**2
+            + 1760 * s + 1560
+        ),
+        3: -2 * (
+            s**10 + 5 * s**9 + 16 * s**8 + 93 * s**7
+            + 282 * s**6 + 678 * s**5 + 1090 * s**4
+            + 1200 * s**3 + 1100 * s**2 + 1420 * s + 900
+        ),
+        2: (
+            s**10 + 12 * s**9 + 71 * s**8 + 238 * s**7
+            + 520 * s**6 + 968 * s**5 + 1240 * s**4
+            + 1520 * s**3 + 2232 * s**2 + 2640 * s + 1224
+        ),
+        1: -2 * (
+            3 * s**7 + 22 * s**6 + 71 * s**5 + 163 * s**4
+            + 416 * s**3 + 704 * s**2 + 644 * s + 228
+        ),
+        0: 2 * (
+            s**6 + 12 * s**5 + 57 * s**4 + 140 * s**3
+            + 184 * s**2 + 128 * s + 36
+        ),
+    }
+    exponential_polynomial_in_t = sum(
+        polynomial * t**(-power)
+        for power, polynomial in exponential_polynomials.items()
+    )
+
+    pfun = s / t + s - 2 / t + 2
+    cfun = s**2 + 2 * s - 2 / t + 2
+    hden = s - 1 / t + 1
+    qfun = (
+        s**3 / t - s**2 / t - s**2 + 4 * s / t - 4 * s
+        - 2 / t**2 + 4 / t - 2
+    )
+    expected_margin_second = (
+        t * pfun**2 * cfun * exponential_polynomial_in_t
+        / (6 * hden**2 * qfun**4 * tail_factor)
+    )
+    assert factor(cancel(
+        margin_second / expected_margin_second
+    )) == 1
+
+    # If E(s)=sum_k E_k(s)e^(ks), its nth derivative at zero is
+    # sum_k k^n p_k(n), where p_k is obtained from the falling factorials
+    # of the coefficients of E_k.  The k=0 polynomial has degree six and
+    # therefore drops out in the range n>=18 used below.
+    n = symbols("n", integer=True, nonnegative=True)
+    coefficient_polynomials = {}
+    for base in range(1, 8):
+        derived = 0
+        for (power,), coefficient in Poly(
+                exponential_polynomials[base], s).terms():
+            falling = 1
+            for offset in range(power):
+                falling *= n - offset
+            derived += coefficient * falling / Rational(base)**power
+        coefficient_polynomials[base] = factor(derived)
+
+    expected_coefficient_polynomials = {
+        7: Rational(8, 49) * (n**2 - 36 * n - 147),
+        6: -(
+            n**4 - 54 * n**3 - 2077 * n**2 - 9102 * n - 69984
+        ) / Rational(324),
+        5: -Rational(2, 15625) * (
+            4 * n**6 + 35 * n**5 + 2065 * n**4 + 36375 * n**3
+            + 190771 * n**2 + 858250 * n + 6187500
+        ),
+        4: (
+            9 * n**8 - 148 * n**7 + 2986 * n**6 + 1296 * n**5
+            + 180161 * n**4 + 906548 * n**3 + 3124364 * n**2
+            + 24620624 * n + 102236160
+        ) / Rational(65536),
+        3: -Rational(2, 59049) * (
+            n**10 - 30 * n**9 + 474 * n**8 - 2781 * n**7
+            + 11712 * n**6 + 46719 * n**5 - 67789 * n**4
+            + 1269696 * n**3 + 2940822 * n**2
+            + 23751036 * n + 53144100
+        ),
+        2: (
+            n**10 - 21 * n**9 + 290 * n**8 - 2394 * n**7
+            + 14193 * n**6 - 47813 * n**5 + 108620 * n**4
+            - 44556 * n**3 + 340768 * n**2 + 982592 * n
+            + 1253376
+        ) / Rational(1024),
+        1: -2 * (
+            3 * n**7 - 41 * n**6 + 266 * n**5 - 882 * n**4
+            + 1845 * n**3 - 1565 * n**2 + 1018 * n + 228
+        ),
+    }
+    assert all(
+        simplify(
+            coefficient_polynomials[base]
+            - expected_coefficient_polynomials[base]
+        ) == 0
+        for base in range(1, 8)
+    )
+
+    full_exponential_polynomial = sum(
+        polynomial * exp(power * s)
+        for power, polynomial in exponential_polynomials.items()
+    )
+    assert series(
+        full_exponential_polynomial, s, 0, 18
+    ).removeO().expand() == 0
+
+    def scaled_coefficient(order):
+        return simplify(sum(
+            base**order * coefficient_polynomials[base].subs(n, order)
+            for base in range(1, 8)
+        ))
+
+    initial_coefficients = [
+        scaled_coefficient(order) for order in range(18, 41)
+    ]
+    assert min(initial_coefficients) == 61751289600
+
+    def has_positive_shift_coefficients(polynomial, start):
+        offset = symbols("offset", nonnegative=True)
+        shifted = Poly(polynomial.subs(n, offset + start), offset)
+        return all(coefficient > 0 for coefficient in shifted.all_coeffs())
+
+    negative_parts = {
+        base: -coefficient_polynomials[base]
+        for base in (1, 3, 5, 6)
+    }
+    for base in (1, 3, 5):
+        assert has_positive_shift_coefficients(negative_parts[base], 18)
+    assert has_positive_shift_coefficients(coefficient_polynomials[2], 18)
+    assert has_positive_shift_coefficients(coefficient_polynomials[4], 18)
+    assert has_positive_shift_coefficients(coefficient_polynomials[7], 40)
+    assert has_positive_shift_coefficients(negative_parts[6], 82)
+    assert all(
+        coefficient_polynomials[6].subs(n, order) > 0
+        for order in range(41, 82)
+    )
+
+    # For a negative base-k contribution, the following polynomial is
+    # positive exactly when its ratio to the positive base-7 contribution
+    # decreases from n to n+1.
+    for base in (1, 3, 5):
+        ratio_difference = (
+            7 * negative_parts[base]
+            * coefficient_polynomials[7].subs(n, n + 1)
+            - base * negative_parts[base].subs(n, n + 1)
+            * coefficient_polynomials[7]
+        )
+        assert has_positive_shift_coefficients(ratio_difference, 41)
+    ratio_difference_six = (
+        7 * negative_parts[6]
+        * coefficient_polynomials[7].subs(n, n + 1)
+        - 6 * negative_parts[6].subs(n, n + 1)
+        * coefficient_polynomials[7]
+    )
+    assert has_positive_shift_coefficients(ratio_difference_six, 88)
+
+    ratio_135_at_41 = sum(
+        negative_parts[base].subs(n, 41) * base**41
+        for base in (1, 3, 5)
+    ) / (coefficient_polynomials[7].subs(n, 41) * 7**41)
+    assert ratio_135_at_41 < Rational(1, 2)
+    for order in range(82, 89):
+        ratio_six = (
+            negative_parts[6].subs(n, order) * 6**order
+            / (coefficient_polynomials[7].subs(n, order) * 7**order)
+        )
+        assert 0 < ratio_six < Rational(1, 10000)
 
 
 def check_three_exponential_equal_smaller_line() -> None:
@@ -852,6 +1116,7 @@ def main() -> int:
     check_three_exponential_repeated_max_boundary()
     check_three_exponential_axis_transversality()
     check_three_exponential_equal_smaller_line()
+    check_three_exponential_diagonal_transversality()
     check_three_exponential_infinite_gap_boundary()
     check_three_exponential_sharp_corner_expansion()
     check_kernel_identity()
@@ -867,6 +1132,7 @@ def main() -> int:
     print("three-exponential repeated-max boundary: PROVED")
     print("three-exponential axis transversality: STRICTLY POSITIVE")
     print("three-exponential equal-smaller symmetry line: PROVED")
+    print("three-exponential diagonal transverse second derivative: NEGATIVE")
     print("three-exponential infinite-gap boundary: REDUCED TO PROVED 2D CASE")
     print("three-exponential sharp corner: POSITIVE PUNCTURED NEIGHBORHOOD")
     print("SymPol shortcut counterexample (numerical):")

@@ -298,6 +298,9 @@ extend the sharp two-coordinate weighted-exponential theorem in
 by proving the finite off-symmetry case of the explicit
 three-coordinate inequality in
 [`THREE-EXPONENTIAL-QUANTILE.md`](supporting-materials/theory/THREE-EXPONENTIAL-QUANTILE.md),
+whose margin is now known to point strictly inward from the finite axes and
+to have a strictly negative fixed-sum transverse second derivative on the
+positive diagonal,
 and pursue the general Dirichlet--Poissonization inequality isolated in
 [`ALL-N-POISSON-PROGRAM.md`](supporting-materials/theory/ALL-N-POISSON-PROGRAM.md)
 using the proved zero-knot reduction and all-two-level case in

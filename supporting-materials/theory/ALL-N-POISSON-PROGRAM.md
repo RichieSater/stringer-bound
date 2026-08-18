@@ -262,7 +262,9 @@ third central moments.  The same note proves the inequality on both
 coordinate axes, corresponding to coefficient vectors with two equal maximal
 weights, and proves that the logarithmic margin has a strictly positive
 fixed-sum inward derivative at every finite point of those axes. It also
-proves the diagonal, corresponding to two equal smaller weights.
+proves the diagonal, corresponding to two equal smaller weights, and shows
+that every positive finite diagonal point is a strict local maximum of the
+margin under fixed-total-gap asymmetry.
 The complete infinite-gap boundary reduces to the proved two-exponential
 case, and a joint expansion proves positivity in a punctured neighborhood of
 its only zero-margin corner.  The finite off-symmetry interior remains open.
@@ -425,7 +427,10 @@ seemingly simpler but false domination claim.
    an exact three-coordinate counterexample to (A) below `4e^-3`; the
    repeated-maximum boundary `zw=0`, equal-smaller diagonal `z=w`, and
    infinite-gap boundary are already proved, as is a punctured neighborhood
-   of the sharp corner.  Then seek a dimension-free argument for (11).
+   of the sharp corner.  The fixed-total-gap derivative points strictly
+   inward from each finite axis, and the corresponding second derivative is
+   strictly negative at each positive diagonal point.  Then seek a
+   dimension-free argument for (11).
 2. Prove the constrained divided-difference inequality (16), or find an
    actual B-spline counterexample satisfying the sum-of-knots constraint.
 3. Use the zero-knot reduction recursively, or prove that a negative minimum

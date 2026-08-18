@@ -831,6 +831,33 @@
       "limitations": "This proves only the diagonal z=w of the reduced three-exponential inequality. The coordinate axes and infinite-gap boundary are covered separately, but the finite off-symmetry interior, full three-coordinate convexity, and general-n Stringer coverage remain open."
     },
     {
+      "id": "three-exponential-diagonal-transversality",
+      "classification": "proved_theorem",
+      "statement": "At every positive finite diagonal point z=w=s, the logarithmic three-exponential comparison margin has a strictly negative second derivative under the fixed-total-gap perturbation (z,w)=(s-epsilon,s+epsilon).",
+      "manuscript_labels": [],
+      "evidence": [
+        {
+          "path": "supporting-materials/theory/THREE-EXPONENTIAL-QUANTILE.md",
+          "role": "complete boundary-trace perturbation, exact factorization, and all-coefficient positivity proof",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/python/all_n_poisson_reductions.py",
+          "role": "exact symbolic derivation of the second-order generalized eigenvalue and margin factorization, with exact coefficient checks",
+          "trust": "corroboration_only"
+        },
+        {
+          "path": "supporting-materials/computations/tests/test_all_n_poisson_reductions.py",
+          "role": "regression test for the diagonal-transversality factorization and coefficient proof",
+          "trust": "corroboration_only"
+        }
+      ],
+      "verification_commands": [
+        "make all-n-reduction-check"
+      ],
+      "limitations": "This proves strict local transverse concavity at the positive diagonal only. It does not prove global monotonicity in gap asymmetry, the finite off-symmetry interior inequality, three-coordinate convexity, or general-n Stringer coverage."
+    },
+    {
       "id": "three-exponential-infinite-gap-boundary",
       "classification": "proved_theorem",
       "statement": "At tail threshold 4 exp(-3), the complete infinite-gap boundary of the reduced three-exponential inequality satisfies the target by an exact moment limit to the proved two-exponential comparison; equality occurs only at the sharp zero-gap corner.",

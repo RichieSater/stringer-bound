@@ -4,8 +4,9 @@
 > convexity to one explicit two-variable inequality, gives a boundary-trace
 > variational formula for its curvature threshold, and proves the inequality
 > on the repeated-maximum boundary and the equal-smaller symmetry line.  It
-> also
-> proves strict inward transversality at the former, reduces the complete
+> also proves strict fixed-sum inward transversality at the former and a
+> strictly negative fixed-sum transverse second derivative at the latter,
+> reduces the complete
 > infinite-gap boundary to the two-exponential theorem, and proves positivity
 > in a punctured neighborhood of the only zero-margin corner.  The finite off-symmetry interior remains
 > open.  Nothing in this note is a general-`n` Stringer coverage theorem.
@@ -699,6 +700,244 @@ Equations (36), (41)--(43) now imply
 This proves (16) on the full diagonal, including `s=0` by (17).  Together
 with Section 4, this leaves finite points with `z,w>0` and `z\ne w`.
 Section 6 checks the remaining boundary at infinity.
+
+The margin also has a strict transverse sign on this symmetry line.
+
+**Diagonal-transversality theorem.** For every `s>0`, set
+
+\[
+ \Psi_s(\varepsilon)=M(s-\varepsilon,s+\varepsilon),
+ \qquad |\varepsilon|<s.                              \tag{44a}
+\]
+
+Then `Psi_s` is even and
+
+\[
+ \boxed{\Psi_s''(0)<0.}                              \tag{44b}
+\]
+
+Thus every positive finite diagonal point is a strict local maximum of the
+margin under fixed-total-gap asymmetry.  This is the complementary local
+sign to the strict inward minimum at the coordinate axes in (27a).
+
+Here is a direct proof using the trace identity.  Put `t=e^{-s}` and
+
+\[
+ j_r=j_r(s)=\int_0^1y^re^{-sy}\,dy.
+\]
+
+Along (44a), use the coordinates `Y=U+V` and `D=U-V`.  The tilted density is
+proportional to `e^{-sY+\varepsilon D}`.  In the `(Y,D)` basis, direct
+integration gives the expansions
+
+\[
+ \begin{aligned}
+ K_\varepsilon
+ &=\begin{pmatrix}
+ k_0+k_2\varepsilon^2+O(\varepsilon^4)&
+ r_1\varepsilon+O(\varepsilon^3)\\
+ r_1\varepsilon+O(\varepsilon^3)&r_0+O(\varepsilon^2)
+ \end{pmatrix},\\
+ L_\varepsilon
+ &=\begin{pmatrix}
+ \ell_0+\ell_2\varepsilon^2+O(\varepsilon^4)&
+ m_1\varepsilon+O(\varepsilon^3)\\
+ m_1\varepsilon+O(\varepsilon^3)&m_0+O(\varepsilon^2)
+ \end{pmatrix},                                      \tag{44c}
+ \end{aligned}
+\]
+
+where
+
+\[
+ \begin{aligned}
+ k_0&=j_3-\frac{j_2^2}{j_1},&
+ k_2&=\frac{j_5}{6}-\frac{j_2j_4}{3j_1}
+       +\frac{j_2^2j_3}{6j_1^2},\\
+ r_0&=\frac{j_3}{3},&
+ r_1&=\frac{j_4}{3}-\frac{j_2j_3}{3j_1},\\
+ a_0&=1-\frac{j_2}{j_1},&
+ a_2&=-\frac{j_4}{6j_1}+\frac{j_2j_3}{6j_1^2},\\
+ \ell_0&=t a_0^2,&
+ \ell_2&=t\left(\frac{a_0^2}{6}+2a_0a_2\right),\\
+ m_0&=\frac t3,&
+ m_1&=ta_0\left(\frac13-\frac{j_3}{3j_1}\right).
+                                                               \tag{44d}
+ \end{aligned}
+\]
+
+For example, the partition function is
+`j_1+\varepsilon^2j_3/6+O(\varepsilon^4)`, the bulk means are
+
+\[
+ E[Y]=\frac{j_2}{j_1}
+ +\left(\frac{j_4}{6j_1}-\frac{j_2j_3}{6j_1^2}\right)
+ \varepsilon^2+O(\varepsilon^4),
+ \qquad
+ E[D]=\frac{j_3}{3j_1}\varepsilon+O(\varepsilon^3),
+\]
+
+and (44c)--(44d) follow by centering the bulk and boundary second moments.
+
+At `epsilon=0`, Section 5 proves that the largest generalized eigenvalue is
+simple and lies in the `Y` direction.  Write
+
+\[
+ h_0=\frac{\ell_0}{k_0},
+ \qquad d_0=m_0-h_0r_0<0.
+\]
+
+The standard two-by-two simple-eigenvalue expansion, or direct expansion of
+`det(L_epsilon-h K_epsilon)=0`, gives
+
+\[
+ h(s-\varepsilon,s+\varepsilon)
+ =h_0+h_2\varepsilon^2+O(\varepsilon^4),
+ \qquad
+ h_2=\frac{\ell_2-h_0k_2-(m_1-h_0r_1)^2/d_0}{k_0}.   \tag{44e}
+\]
+
+The other two functions in the tail comparison satisfy
+
+\[
+ \begin{aligned}
+ Z(s-\varepsilon,s+\varepsilon)
+ &=j_1+\frac{j_3}{6}\varepsilon^2+O(\varepsilon^4),\\
+ A(s-\varepsilon,s+\varepsilon)
+ &=j_0+sj_1+\left(\frac{j_2}{2}+\frac{sj_3}{6}\right)
+   \varepsilon^2+O(\varepsilon^4).                  \tag{44f}
+ \end{aligned}
+\]
+
+Consequently, if
+
+\[
+ T_0(s)=1+A(s,s)h_0+Z(s,s)h_0^2>0,
+\]
+
+then `Psi_s(epsilon)=Psi_s(0)+c(s)epsilon^2+O(epsilon^4)`, where substitution
+of (44e)--(44f) and the exact moments
+
+\[
+ j_r=\frac{r!}{s^{r+1}}
+ \left(1-e^{-s}\sum_{q=0}^r\frac{s^q}{q!}\right)
+\]
+
+simplifies to
+
+\[
+ \boxed{
+ c(s)=
+ \frac{e^{-s}P(s)^2C(s)\mathcal E(s)}
+ {6\{s-e^s+1\}^2Q(s)^4T_0(s)}.}                    \tag{44g}
+\]
+
+Here `C`, `P`, and `Q` are the functions in (30), and
+
+\[
+ \mathcal E(s)=\sum_{k=0}^7 E_k(s)e^{ks},            \tag{44h}
+\]
+
+with
+
+\[
+ \begin{aligned}
+ E_7={}&8(s^2-5s-3),\\
+ E_6={}&-4(s^4-8s^3-62s^2-52s-54),\\
+ E_5={}&-2(4s^6+19s^5+107s^4+400s^3+504s^2+348s+396),\\
+ E_4={}&9s^8+26s^7+142s^6+544s^5+1370s^4+2200s^3
+         +1760s^2+1760s+1560,\\
+ E_3={}&-2(s^{10}+5s^9+16s^8+93s^7+282s^6+678s^5
+         +1090s^4+1200s^3+1100s^2+1420s+900),\\
+ E_2={}&s^{10}+12s^9+71s^8+238s^7+520s^6+968s^5
+         +1240s^4+1520s^3+2232s^2+2640s+1224,\\
+ E_1={}&-2(3s^7+22s^6+71s^5+163s^4+416s^3+704s^2+644s+228),\\
+ E_0={}&2(s^6+12s^5+57s^4+140s^3+184s^2+128s+36).
+                                                               \tag{44i}
+ \end{aligned}
+\]
+
+It remains only to prove that `mathcal E(s)>0`.  The following coefficient
+argument does so without numerical approximation.  Write
+
+\[
+ \mathcal E(s)=\sum_{n\ge0}e_n\frac{s^n}{n!},
+ \qquad
+ p_k(n)=\sum_r [s^r]E_k(s)\frac{(n)_r}{k^r},         \tag{44j}
+\]
+
+where `(n)_r=n(n-1)\cdots(n-r+1)`.  Since `E_0` has degree six, for
+`n>=18`
+
+\[
+ e_n=\sum_{k=1}^7 k^n p_k(n).                       \tag{44k}
+\]
+
+Exact expansion gives `e_0=\cdots=e_{17}=0` and
+
+\[
+ \min_{18\le n\le40}e_n=e_{18}=61751289600>0.       \tag{44l}
+\]
+
+For the infinite tail of coefficients, the sign bookkeeping is short.
+The shifted polynomials `-p_k(18+m)` have positive coefficients in `m` for
+`k=1,3,5`, while `p_k(18+m)` has positive coefficients for `k=2,4`.
+Moreover,
+
+\[
+ p_7(n)=\frac8{49}(n^2-36n-147)>0\quad(n\ge40),      \tag{44m}
+\]
+
+and
+
+\[
+ p_6(n)=\frac{-n^4+54n^3+2077n^2+9102n+69984}{324}.
+                                                               \tag{44n}
+\]
+
+The last polynomial is positive through `n=81`: for `n<=54` this is
+immediate; for `55<=n<=79`, group its numerator as
+`n^2(-n^2+54n+2077)+9102n+69984` and note that the quadratic factor is at
+least its value `102` at `n=79`; finally,
+`p_6(80)=64912/27` and `p_6(81)=264`.  The polynomial
+`-p_6(82+m)` has positive coefficients, so `p_6(n)<0` for `n>=82`.
+
+For `k=1,3,5`, put `q_k=-p_k` and
+
+\[
+ R_k(n)=\frac{q_k(n)k^n}{p_7(n)7^n}.
+\]
+
+Each `R_k` decreases for `n>=41`, because the polynomial
+
+\[
+ 7q_k(n)p_7(n+1)-kq_k(n+1)p_7(n)                  \tag{44o}
+\]
+
+has positive coefficients after substituting `n=41+m`.  Direct exact
+substitution gives
+
+\[
+ R_1(41)+R_3(41)+R_5(41)<\frac12.                  \tag{44p}
+\]
+
+For `q_6=-p_6`, the analogous polynomial in (44o) has positive coefficients
+after `n=88+m`.  Exact substitution for `82<=n<=88` gives
+
+\[
+ 0<R_6(n)<10^{-4},
+\]
+
+so this bound persists for every `n>=82`.  Thus, from `n=41` onward, the
+total magnitude of every negative term in (44k) is less than
+`(1/2+10^{-4})p_7(n)7^n`.  The omitted `k=2,4` terms, and the `k=6` term
+through `n=81`, are positive.  Together with (44l), this proves
+`e_n>0` for every `n>=18`, and hence `mathcal E(s)>0` for every `s>0`.
+
+Section 5 already proved `P(s)>0`, `C(s)<0`, and `Q(s)<0`.  Every other
+factor in the denominator of (44g) is positive.  Therefore `c(s)<0`, so
+`Psi_s''(0)=2c(s)<0`, proving (44b).  This transverse result is local: it
+does not assert monotonicity across the finite off-symmetry interior.
 
 ## 6. The infinite-gap boundary
 
