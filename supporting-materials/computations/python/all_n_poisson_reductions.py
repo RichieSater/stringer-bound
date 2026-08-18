@@ -4,7 +4,7 @@ This script does *not* prove either open all-n quantile inequality.  It checks
 the algebra that isolates them:
 
 * the ordered-weight Poisson Stringer identity;
-* the sharp two-exponential local-convexity obstruction ``4*exp(-3)``;
+* the exact two-exponential quantile-convexity threshold ``4*exp(-3)``;
 * the gamma-kernel antiderivative identity; and
 * a decisive numerical counterexample to the tempting SymPol shortcut.
 """
@@ -15,8 +15,8 @@ from fractions import Fraction
 from math import comb
 
 from mpmath import mp
-from sympy import (Rational, exp, factorial, simplify, symbols,
-                   diff, series)
+from sympy import (Rational, diff, exp, factorial, log, simplify, symbols,
+                   series)
 
 from stringer import factor_prefix
 
@@ -56,6 +56,67 @@ def check_two_exponential_obstruction() -> None:
         expansion.subs(x, q_path), h, 0, 3).removeO()
     baseline = exp(-x) * (1 + x)
     assert simplify(implicit - baseline) == 0
+
+
+def check_two_exponential_global_convexity() -> None:
+    """Verify the exact identities behind the global two-weight theorem.
+
+    The written proof in ``TWO-EXPONENTIAL-QUANTILE.md`` supplies the sign
+    arguments.  This routine independently checks the nontrivial symbolic
+    factorization and the coefficient formula used there.
+    """
+
+    z = symbols("z", positive=True)
+    ez = exp(z)
+    b = (1 - exp(-z)) / z
+    a = 1 - exp(-z) - z**2 / (ez - 1)
+    h = simplify(z * diff(a, z) / a)
+    expected_h = (
+        z * (z * ez - ez + 1)**2
+        / ((ez - 1) * ((ez - 1)**2 - z**2 * ez))
+    )
+    assert simplify(h - expected_h) == 0
+
+    margin = 3 - h + log(1 + h * b) - log(4)
+    k = (2 * z**2 * ez + z * ez**2 - z
+         - 4 * ez**2 + 8 * ez - 4)
+    expected_derivative = (
+        (ez - 1 - z)**2 * (z * ez - ez + 1)**2 * k * ez
+        / (
+            (ez - 1)**2
+            * (ez**2 - 1 - 2 * z * ez)
+            * (z**2 * ez - ez**2 + 2 * ez - 1)**2
+        )
+    )
+    assert simplify(diff(margin, z) - expected_derivative) == 0
+
+    # K(z) has zero coefficients through degree five.  For m>=2 its
+    # z^m coefficient, multiplied by m!, is the following integer.  It is
+    # positive at m=6,7 and manifestly positive for every m>=8.
+    def scaled_k_coefficient(m: int) -> int:
+        if m == 0 or m == 1:
+            return 0
+        return 2 * m * (m - 1) + (m - 8) * 2 ** (m - 1) + 8
+
+    k_series = series(k, z, 0, 25).removeO().expand()
+    assert k_series.coeff(z, 0) == 0
+    assert k_series.coeff(z, 1) == 0
+    for m in range(2, 25):
+        assert simplify(
+            factorial(m) * k_series.coeff(z, m)
+            - scaled_k_coefficient(m)
+        ) == 0
+    assert [scaled_k_coefficient(m) for m in range(6)] == [0] * 6
+    assert scaled_k_coefficient(6) == 4
+    assert scaled_k_coefficient(7) == 28
+    assert all(scaled_k_coefficient(m) > 0 for m in range(8, 65))
+
+    # These series also check the removable z=0 endpoint used in the proof:
+    # h(0)=3 and the comparison margin starts positively at order two.
+    assert simplify(series(h, z, 0, 3).removeO()
+                    - (3 - z / 2 - z**2 / 60)) == 0
+    assert simplify(series(margin, z, 0, 3).removeO()
+                    - 3 * z**2 / 40) == 0
 
 
 def check_kernel_identity() -> None:
@@ -102,17 +163,20 @@ def sympol_shortcut_counterexample() -> tuple[mp.mpf, mp.mpf, mp.mpf, int]:
 def main() -> int:
     check_ordered_weight_identity()
     check_two_exponential_obstruction()
+    check_two_exponential_global_convexity()
     check_kernel_identity()
     poisson, sympol, gap, active_k = sympol_shortcut_counterexample()
     print("all-n reduction algebra: PASS")
-    print("sharp local-convexity tail: 4*exp(-3) =", mp.nstr(4 * mp.e**-3, 16))
+    print("exact two-exponential convexity threshold: 4*exp(-3) =",
+          mp.nstr(4 * mp.e**-3, 16))
     print("SymPol shortcut counterexample (numerical):")
     print("  n=15 alpha=0.05 one full taint")
     print("  active elementary-symmetric order:", active_k)
     print("  Poisson Stringer:", mp.nstr(poisson, 16))
     print("  SymPol upper:", mp.nstr(sympol, 16))
     print("  Stringer - SymPol:", mp.nstr(gap, 16))
-    print("open inequalities A and B: NOT CLAIMED AS PROVED")
+    print("higher-dimensional inequality A and general inequality B: "
+          "NOT CLAIMED AS PROVED")
     return 0
 
 

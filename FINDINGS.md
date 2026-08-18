@@ -155,6 +155,15 @@ three levels above; populations supported on {0,1}; and populations with one
 nonzero taint value
 ([proof](supporting-materials/computations/python/two_point_lemma.py)).
 
+One dimension-free Poisson proof program now has a sharp two-coordinate base
+case. For independent unit exponentials, the upper-quantile map
+\((a,b)\mapsto Q_{1-\alpha}(aE_1+bE_2)\) is convex exactly when
+\(\alpha\le4e^{-3}\), a range containing 90%, 95%, and 99% confidence
+([proof](supporting-materials/theory/TWO-EXPONENTIAL-QUANTILE.md)). Convexity
+in three or more coordinates and the separate Dirichlet--Poissonization
+inequality remain open, so this analytic result is not a general coverage
+theorem.
+
 ## 4. No violation was found in the reported 90% and 95% searches
 
 Grid-plus-optimizer searches over populations with two or three nonzero

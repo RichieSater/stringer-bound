@@ -42,6 +42,11 @@ zero-uplift region for every sample size whenever nominal confidence is at
 least \(75\%\): the safeguard is ordinary Stringer whenever
 the binomial Stringer value is at least the largest observed taint. This is a sample-wise
 comparison, not a general coverage theorem for ordinary Stringer.
+The separate all-`n` Poisson research program now has an exact
+two-coordinate theorem: the weighted-exponential upper-quantile map is convex
+if and only if `alpha<=4e^-3`.  Its proof is in
+`theory/TWO-EXPONENTIAL-QUANTILE.md`; convexity in three or more coordinates
+and the second Dirichlet--Poissonization step remain open.
 
 ## Layers
 
@@ -76,10 +81,11 @@ comparison, not a general coverage theorem for ordinary Stringer.
 | `one_cap_all_n_check.py` | Symbolic identities, rational constant checks, and finite numerical regression for the analytic proof | proof support |
 | `one_cap_certificate.py` | Independent finite regression with integer-checked CP brackets and 59,700 exact nonterminal vertices through \(n=200\) | corroboration |
 | `theory/ORDERED-SIMPLEX-CAP.md` | Exact tight-vertex reduction and adjacent-transfer identity for the still-open all-`n` comparison | research roadmap |
-| `theory/ALL-N-POISSON-PROGRAM.md` | Exact weighted-exponential reductions, sharp convexity obstruction, and explicitly conjectural all-`n` route | research roadmap |
+| `theory/ALL-N-POISSON-PROGRAM.md` | Exact weighted-exponential reductions, sharp two-coordinate theorem, and explicitly open higher-dimensional route | research roadmap |
+| `theory/TWO-EXPONENTIAL-QUANTILE.md` | Written proof that the two-weight exponential quantile is convex exactly for `alpha<=4e^-3` | proof-essential |
 | `theory/DIRICHLET-POISSONIZATION.md` | Constrained divided-difference reduction, zero-knot boundary reduction, proof for every two-level profile, and exact obstruction to generic `s`-concave localization | research roadmap |
 | `gaffke.py` | Exact-rational Dirichlet tail signs, certified dyadic Gaffke bracket, and safeguarded Stringer report | proof-essential for the implemented floor |
-| `all_n_poisson_reductions.py` | Symbolic checks of the ordered-weight, two-exponential, and kernel identities; labels both remaining inequalities open | research support |
+| `all_n_poisson_reductions.py` | Symbolic checks of the ordered-weight identity, the exact two-exponential theorem, and the open-route kernel identity | proof support |
 | `dirichlet_poissonization.py` | Symbolic checks for the zero-knot and all-two-level reductions plus the exact `s`-affine obstruction; does not claim the general inequality | research support |
 | `audit/PRACTICE-SAFEGUARD.md` | Methodology-facing workflow, worked example, record-retention fields, and explicit scope boundaries | implementation guidance |
 | `audit/HUMAN-REVIEW-PACKET.md` | Scoped independent-review questions, reproduction record, and sign-off template | review protocol |

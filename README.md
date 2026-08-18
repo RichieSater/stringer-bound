@@ -172,6 +172,15 @@ certificate or a written proof:
   the next sample size in each row; that limits this proof route, not the
   Stringer bound.
 
+- **Sharp two-coordinate theorem for the all-\(n\) analytic route**
+  ([`TWO-EXPONENTIAL-QUANTILE.md`](supporting-materials/theory/TWO-EXPONENTIAL-QUANTILE.md)):
+  for independent unit exponentials \(E_1,E_2\), the upper-quantile map
+  \((a,b)\mapsto Q_{1-\alpha}(aE_1+bE_2)\) is convex on the nonnegative
+  quadrant if and only if \(\alpha\le4e^{-3}\). This exact threshold includes
+  90%, 95%, and 99% confidence. It resolves the two-coordinate base case of
+  one proposed Poisson proof route, not the three-or-more-coordinate case or
+  general-\(n\) Stringer coverage.
+
 - **All-sample-size scalar calibration of the Poisson bound**
   ([`POISSON-BAND-CALIBRATION.md`](supporting-materials/theory/POISSON-BAND-CALIBRATION.md)):
   let \(\kappa_{n,\alpha}\) be the smallest scalar at least one that makes
@@ -267,10 +276,11 @@ certificate or a written proof:
 95%, and 99%; attack the adjacent-transfer
 single-crossing identity isolated in
 [`ORDERED-SIMPLEX-CAP.md`](supporting-materials/theory/ORDERED-SIMPLEX-CAP.md);
-pursue the two dimension-free weighted-exponential and
-Dirichlet--Poissonization inequalities isolated in
+extend the sharp two-coordinate weighted-exponential theorem in
+[`TWO-EXPONENTIAL-QUANTILE.md`](supporting-materials/theory/TWO-EXPONENTIAL-QUANTILE.md),
+and pursue the general Dirichlet--Poissonization inequality isolated in
 [`ALL-N-POISSON-PROGRAM.md`](supporting-materials/theory/ALL-N-POISSON-PROGRAM.md)
-and sharpened by the proved zero-knot reduction and all-two-level case in
+using the proved zero-knot reduction and all-two-level case in
 [`DIRICHLET-POISSONIZATION.md`](supporting-materials/theory/DIRICHLET-POISSONIZATION.md);
 and develop a certified branch-and-bound or atoms-reduction argument for
 ordinary audit sample sizes.
@@ -307,9 +317,10 @@ supporting-materials/
 │   ├── POISSON-SIMULTANEOUS-BAND.md direct exact Poisson coverage ranges
 │   ├── POISSON-BAND-CALIBRATION.md all-n valid scalar Poisson calibration
 │   ├── GAFFKE-SAFEGUARD.md   all-n valid reporting floor and exact computation
-│   ├── ONE-CAP-COMPARISON.md analytic all-n zero-uplift region at >=1-e^-2
+│   ├── ONE-CAP-COMPARISON.md analytic all-n zero-uplift region at >=75%
 │   ├── ORDERED-SIMPLEX-CAP.md vertex equalities + open transfer target
 │   ├── ALL-N-POISSON-PROGRAM.md exact reductions for the open all-n target
+│   ├── TWO-EXPONENTIAL-QUANTILE.md sharp two-weight convexity theorem
 │   └── DIRICHLET-POISSONIZATION.md sharper divided-difference target
 └── computations/python/
     ├── stringer.py           numerical factors for searches + exact-sign
@@ -373,9 +384,10 @@ make reproduce
 This runs the unit tests, the \(n=2\) symbolic proof checker, the exact
 Poisson simultaneous-band and scalar-calibration certificates, the analytic
 all-\(n\) one-cap checks,
-the independent finite one-cap regression, the algebra checks and exact
-localization-obstruction certificate for the explicitly open all-\(n\)
-Poisson route, source regeneration through \(n=6\), rigorous Bernstein sign
+the independent finite one-cap regression, the exact two-exponential
+convexity identities, and the algebra checks and exact localization-
+obstruction certificate for the remaining open all-\(n\) Poisson route,
+source regeneration through \(n=6\), rigorous Bernstein sign
 certificates through \(n=7\), the generated counterexample-table check,
 claim-to-evidence link validation, and the manuscript build. Individual
 search and recertification commands

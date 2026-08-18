@@ -262,6 +262,36 @@ Questions:
 10. Is the result consistently limited to zero uplift of the pre-specified
    safeguard, rather than conditional coverage of ordinary Stringer?
 
+## Review H: the sharp two-exponential quantile theorem
+
+Primary files:
+
+- [`../theory/TWO-EXPONENTIAL-QUANTILE.md`](../theory/TWO-EXPONENTIAL-QUANTILE.md)
+- [`../computations/python/all_n_poisson_reductions.py`](../computations/python/all_n_poisson_reductions.py)
+
+Questions:
+
+1. Does positive homogeneity make the two-coordinate quantile map the closed
+   perspective of the one-variable function, including both coordinate axes?
+2. Does implicit differentiation at equal weights give
+   `q''(1)=q_0(q_0-3)/12` and therefore the necessary threshold
+   `alpha<=4e^-3`?
+3. Is the conditional-moment derivation of the general quantile-curvature
+   identity valid under the smoothness conditions used here?
+4. For `0<t<1`, are the truncated-exponential conditional variance, the
+   factor `A(z)`, and the reduction `q(t)>=h(z)` all algebraically and
+   directionally correct?
+5. Does the `(x,z)` substitution give the stated exact tail, and is that tail
+   strictly decreasing in `x` on the full domain used?
+6. Does the factorization of `M'(z)` have the stated sign: are all denominator
+   factors nonzero, and does the coefficient formula prove `K(z)>0` for every
+   `z>0`?
+7. Do the removable endpoint, symmetry relation, and perspective closure
+   extend the curvature conclusion to `t=1`, `t>1`, and the axes?
+8. Is the conclusion consistently limited to two coordinates, without being
+   used as a proof of higher-dimensional convexity or general Stringer
+   coverage?
+
 ## Minimum reproduction record
 
 Run from a clean checkout:
@@ -271,6 +301,7 @@ git rev-parse HEAD
 uv --version
 tectonic --version
 make reproduce
+make all-n-reduction-check
 make poisson-band-calibration-check
 make n7-structure-data-check
 make n7-factor-order-check
@@ -303,6 +334,7 @@ Review D disposition:
 Review E disposition:
 Review F disposition:
 Review G disposition:
+Review H disposition:
 
 Issues found and exact locations:
 Corrections rechecked:
