@@ -260,8 +260,9 @@ boundary Gram matrix against the bulk covariance matrix; hence an upper
 threshold can be certified by a two-by-two positive-semidefinite test without
 third central moments.  The same note proves the inequality on both
 coordinate axes, corresponding to coefficient vectors with two equal maximal
-weights.
-It also proves the diagonal, corresponding to two equal smaller weights.
+weights, and proves that the logarithmic margin has a strictly positive
+fixed-sum inward derivative at every finite point of those axes. It also
+proves the diagonal, corresponding to two equal smaller weights.
 The complete infinite-gap boundary reduces to the proved two-exponential
 case, and a joint expansion proves positivity in a punctured neighborhood of
 its only zero-margin corner.  The finite off-symmetry interior remains open.

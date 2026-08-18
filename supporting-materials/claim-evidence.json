@@ -777,6 +777,33 @@
       "limitations": "This proves only the coordinate-axis boundary of the reduced three-exponential inequality. The diagonal and infinite-gap boundary are covered separately, but the finite off-symmetry interior, full three-coordinate convexity, and general-n Stringer coverage remain open."
     },
     {
+      "id": "three-exponential-axis-transversality",
+      "classification": "proved_theorem",
+      "statement": "At every finite repeated-maximum boundary point, the logarithmic three-exponential comparison margin has a strictly positive one-sided derivative under an inward perturbation that preserves the total gap.",
+      "manuscript_labels": [],
+      "evidence": [
+        {
+          "path": "supporting-materials/theory/THREE-EXPONENTIAL-QUANTILE.md",
+          "role": "complete centered-Rayleigh differentiation and positive factorization",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/python/all_n_poisson_reductions.py",
+          "role": "exact symbolic derivation of the inward derivative and its relation to the proved axis derivative",
+          "trust": "corroboration_only"
+        },
+        {
+          "path": "supporting-materials/computations/tests/test_all_n_poisson_reductions.py",
+          "role": "regression test for the axis-transversality factorization",
+          "trust": "corroboration_only"
+        }
+      ],
+      "verification_commands": [
+        "make all-n-reduction-check"
+      ],
+      "limitations": "This proves local one-sided transversality at the repeated-maximum boundary. It does not prove global monotonicity in gap asymmetry, the finite off-symmetry interior inequality, three-coordinate convexity, or general-n Stringer coverage."
+    },
+    {
       "id": "three-exponential-equal-smaller-symmetry-line",
       "classification": "proved_theorem",
       "statement": "At tail threshold 4 exp(-3), the explicit three-exponential tilted-simplex inequality holds strictly at every finite point with z=w, corresponding to positive coefficient vectors with two equal coordinates no larger than the third.",

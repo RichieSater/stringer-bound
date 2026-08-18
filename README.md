@@ -189,7 +189,9 @@ certificate or a written proof:
   largest generalized eigenvalue of a boundary Gram matrix against the bulk
   covariance matrix, replacing third moments by a two-by-two trace test. The
   inequality is proved on the repeated-maximum boundary where the
-  two largest weights are equal and on the symmetry line where the two
+  two largest weights are equal; its margin has a strictly positive inward
+  derivative under fixed-sum gap splitting at every finite point of that
+  boundary. The inequality is also proved on the symmetry line where the two
   smaller weights are equal. The complete infinite-gap boundary reduces to
   the proved two-coordinate theorem, and an exact joint expansion proves a
   positive punctured neighborhood of its only zero-margin corner. The finite

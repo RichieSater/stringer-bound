@@ -3,9 +3,11 @@
 > **Status.** This note reduces three-coordinate exponential-quantile
 > convexity to one explicit two-variable inequality, gives a boundary-trace
 > variational formula for its curvature threshold, and proves the inequality
-> on the repeated-maximum boundary and the equal-smaller symmetry line.  It also reduces the complete infinite-gap boundary to the proved
-> two-exponential theorem and proves positivity in a punctured neighborhood
-> of the only zero-margin corner.  The finite off-symmetry interior remains
+> on the repeated-maximum boundary and the equal-smaller symmetry line.  It
+> also
+> proves strict inward transversality at the former, reduces the complete
+> infinite-gap boundary to the two-exponential theorem, and proves positivity
+> in a punctured neighborhood of the only zero-margin corner.  The finite off-symmetry interior remains
 > open.  Nothing in this note is a general-`n` Stringer coverage theorem.
 
 Let `E_1,E_2,E_3` be independent unit exponentials and put
@@ -264,6 +266,15 @@ threshold is equivalent to the following explicit inequality:
 for every `z,w>=0` with `h(z,w)>0`, with all confluent and infinite-boundary
 values taken by continuity.
 
+It is convenient to denote the corresponding logarithmic margin by
+
+\[
+ M(z,w)=3-h(z,w)
+ +\log\{1+A(z,w)h(z,w)+Z(z,w)h(z,w)^2\}-\log4.       \tag{16a}
+\]
+
+Thus (16) is equivalent to `M(z,w)>=0`.
+
 Indeed, for the actual quantile point in (2)--(3), (15) gives
 `S_{z,w}(x)=alpha`.  If `alpha<=4e^-3` and (16) holds, strict monotonicity in
 `x` implies `x>=h(z,w)`.  Equation (10) then makes the Hessian positive
@@ -421,7 +432,41 @@ Every factor in the denominator is positive.  Finally,
 
 Hence `M_0(s)>0` for every finite `s`, which proves (16) on `z=0` and, by
 symmetry, on `w=0`.  Equality is approached only at the coordinate-face
-corner in (18).  The remaining open domain can therefore be restricted to
+corner in (18).
+
+The same factorization also controls the direction transverse to the axis.
+For fixed total gap `s`, set
+
+\[
+ \Phi_s(\varepsilon)=M(\varepsilon,s-\varepsilon),
+ \qquad 0\le\varepsilon\le s/2.
+\]
+
+At `epsilon=0`, the smaller generalized eigenvalue is simple by (22),
+and its eigendirection is the contrast `X=2U+V`.  Under the axis law,
+`E[X]=1`.  Put `Y=U-V`; along this path the tilted density is proportional
+to
+
+\[
+ e^{-sV-\varepsilon Y}.
+\]
+
+Differentiating the centered Rayleigh quotient for `X` at zero, together
+with the path derivatives `A'(0)=-1/2+Z(0,s)` and
+`Z'(0)=-\int_\Delta Y e^{-sV}\,du\,dv`, gives
+
+\[
+ \boxed{
+ \Phi_s'(0)
+ =\frac{81s^2N(s)^2L(s)}
+ {2D(s)^4\{1+h(0,s)+Z(0,s)h(0,s)^2\}}
+ =-\frac32M_0'(s)>0.}                                \tag{27a}
+\]
+
+Every factor in the first denominator is positive, and the final equality
+uses (26).  Thus each finite repeated-maximum point is not only positive but
+a strict one-sided local minimum of the margin under fixed-sum splitting of
+the two gaps.  The remaining open domain can therefore be restricted to
 `z,w>0`.
 
 ## 5. A proved symmetry line: two equal smaller weights

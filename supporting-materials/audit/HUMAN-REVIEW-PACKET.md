@@ -342,33 +342,36 @@ Questions:
     target inequality strictly at every finite axis point?
 14. Is the coordinate-axis conclusion limited to the repeated-maximum
     boundary and its continuous endpoints?
-15. On `z=w`, do the antisymmetric and symmetric contrasts give the two
+15. Does differentiating the simple axis eigendirection along
+    `(z,w)=(epsilon,s-epsilon)` give (27a), including the factor
+    `-3M_0'(s)/2`, and hence strict one-sided inward transversality?
+16. On `z=w`, do the antisymmetric and symmetric contrasts give the two
     generalized eigendirections and the moment ratios in (28), and does the
     reused `L(s)` factor prove that the symmetric eigenvalue is smaller?
-16. Is the formula for `h(s,s)` correct, and do the derivative factorization
+17. Is the formula for `h(s,s)` correct, and do the derivative factorization
     and coefficient signs for `R(s)` prove that it is strictly decreasing?
-17. Does the derivative factorization for the diagonal logarithmic margin
+18. Does the derivative factorization for the diagonal logarithmic margin
     have the correct sign, and does the one-sign-change coefficient argument
     prove that it has a unique minimum?
-18. Do the exact rational exponential enclosures prove all endpoint bounds
+19. Do the exact rational exponential enclosures prove all endpoint bounds
     in (41), and do the rational estimates in (42)--(44) keep the diagonal
     margin strictly positive?
-19. Under `Y=wV`, does dominated convergence give the stated product limit
+20. Under `Y=wV`, does dominated convergence give the stated product limit
     on the infinite-gap boundary for every moment entering the generalized
     eigenvalue problem?
-20. Are the two limiting generalized eigenvalues in (46) correct, and does
+21. Are the two limiting generalized eigenvalues in (46) correct, and does
     (48) prove that the eigenvalue inherited from the two-exponential problem
     is the smaller one?
-21. Do the partition-function and tail limits in (50)--(51) reduce the full
+22. Do the partition-function and tail limits in (50)--(51) reduce the full
     infinite-gap edge, not merely its sharp corner, to the proved
     two-exponential comparison?
-22. After setting `t=1/w` and rescaling `(U,V)` to `(U,wV)`, does the simple
+23. After setting `t=1/w` and rescaling `(U,V)` to `(U,wV)`, does the simple
     generalized eigenvalue at the sharp corner have the expansion in (54),
     and does substitution give the margin expansion in (55)?
-23. Is the discarded `e^(-1/t)` contribution flat to the required order,
+24. Is the discarded `e^(-1/t)` contribution flat to the required order,
     and does the two-scale remainder argument prove a punctured positive
     neighborhood rather than only positivity along fixed rays?
-24. Are the remaining claims limited to finite `0<z<w<infinity`, without
+25. Are the remaining claims limited to finite `0<z<w<infinity`, without
     using any proved boundary, symmetry, or local-corner result as a full
     three-coordinate convexity or general-`n` coverage theorem?
 

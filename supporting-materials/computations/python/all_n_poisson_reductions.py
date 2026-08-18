@@ -8,7 +8,8 @@ the algebra that isolates them:
 * the exact equal-weight Hessian in every dimension;
 * the three-exponential tilted-simplex curvature reduction and its proved
   repeated-maximum, equal-smaller, and infinite-gap boundary families,
-  including the boundary-trace identity and positive sharp-corner expansion;
+  including the boundary-trace identity, axis transversality, and positive
+  sharp-corner expansion;
 * the gamma-kernel antiderivative identity; and
 * a decisive numerical counterexample to the tempting SymPol shortcut.
 """
@@ -346,6 +347,84 @@ def check_three_exponential_repeated_max_boundary() -> None:
         )
         assert scaled == expected
         assert scaled > 0
+
+
+def check_three_exponential_axis_transversality() -> None:
+    """Check the strict fixed-sum inward derivative at the proved axis."""
+
+    s, u, v = symbols("s u v", positive=True)
+    contrast = 2 * u + v
+    path_score = u - v
+
+    def triangle_integral(integrand):
+        return simplify(integrate(
+            integrate(integrand, (u, 0, 1 - v)) * exp(-s * v),
+            (v, 0, 1),
+        ))
+
+    partition = triangle_integral(1)
+    mean = simplify(triangle_integral(contrast) / partition)
+    assert mean == 1
+    centered = contrast - mean
+    mean_derivative = simplify(
+        -triangle_integral(path_score * centered) / partition
+    )
+
+    denominator = triangle_integral(centered**2)
+    denominator_derivative = -triangle_integral(
+        path_score * centered**2
+    )
+    numerator = triangle_integral(s * v * centered**2)
+    numerator_derivative = triangle_integral(
+        path_score * centered**2
+        - s * v * path_score * centered**2
+        - 2 * s * v * mean_derivative * centered
+    )
+    rho = simplify(numerator / denominator)
+    rho_derivative = simplify(
+        (numerator_derivative * denominator
+         - numerator * denominator_derivative)
+        / denominator**2
+    )
+
+    nfun = s**2 * exp(s) - 2 * s * exp(s) + 2 * exp(s) - 2
+    dfun = (
+        s**3 * exp(s) - 3 * s**2 * exp(s) + 6 * s * exp(s)
+        - 6 * exp(s) + 6
+    )
+    lfun = (
+        s**4 * exp(s) + 2 * s**2 * exp(2 * s)
+        + 8 * s**2 * exp(s) + 2 * s**2
+        - 12 * s * exp(2 * s) + 12 * s
+        + 12 * exp(2 * s) - 24 * exp(s) + 12
+    )
+    h = simplify(4 - rho)
+    assert simplify(h - 3 * s * nfun / dfun) == 0
+    h_derivative = -rho_derivative
+
+    a_derivative = -Rational(1, 2) + partition
+    z_derivative = -triangle_integral(path_score)
+    tail_factor = 1 + h + partition * h**2
+    margin_derivative = simplify(
+        -h_derivative
+        + (
+            a_derivative * h + h_derivative
+            + z_derivative * h**2
+            + 2 * partition * h * h_derivative
+        ) / tail_factor
+    )
+    expected = (
+        81 * s**2 * nfun**2 * lfun
+        / (2 * dfun**4 * tail_factor)
+    )
+    assert simplify(margin_derivative - expected) == 0
+
+    axis_derivative = (
+        -27 * s**2 * nfun**2 * lfun
+        / (dfun**4 * tail_factor)
+    )
+    assert simplify(margin_derivative
+                    + Rational(3, 2) * axis_derivative) == 0
 
 
 def check_three_exponential_equal_smaller_line() -> None:
@@ -771,6 +850,7 @@ def main() -> int:
     check_three_exponential_reduction()
     check_three_exponential_trace_identity()
     check_three_exponential_repeated_max_boundary()
+    check_three_exponential_axis_transversality()
     check_three_exponential_equal_smaller_line()
     check_three_exponential_infinite_gap_boundary()
     check_three_exponential_sharp_corner_expansion()
@@ -785,6 +865,7 @@ def main() -> int:
           "two-variable inequality")
     print("three-exponential boundary-trace identity: PROVED")
     print("three-exponential repeated-max boundary: PROVED")
+    print("three-exponential axis transversality: STRICTLY POSITIVE")
     print("three-exponential equal-smaller symmetry line: PROVED")
     print("three-exponential infinite-gap boundary: REDUCED TO PROVED 2D CASE")
     print("three-exponential sharp corner: POSITIVE PUNCTURED NEIGHBORHOOD")
