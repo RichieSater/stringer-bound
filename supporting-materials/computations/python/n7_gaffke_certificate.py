@@ -76,12 +76,23 @@ def _read_structure():
     raw = STRUCTURE_PATH.read_bytes()
     with gzip.open(STRUCTURE_PATH, "rt") as handle:
         structure = json.load(handle)
-    if structure.get("schema_version") != 1:
+    if structure.get("schema_version") != 2:
         raise ValueError("unexpected n=7 structure schema")
     if structure.get("face_order_verification") != (
-            "exact_generic_Singular_quotient_Horner_"
+            "exact_generic_I_adic_factor_order_or_Singular_quotient_Horner_"
             "ideal_power_membership"):
         raise ValueError("n=7 structure lacks exact generic face proofs")
+    face_records = structure.get("generic_face_order_certificates", [])
+    if len(face_records) != 26:
+        raise ValueError("n=7 structure lacks 26 generic face proofs")
+    factor_count = sum(
+        record.get("verification", "").startswith("exact_I_adic_")
+        for record in face_records)
+    singular_count = sum(
+        "Singular" in record.get("verification", "")
+        for record in face_records)
+    if (factor_count, singular_count) != (22, 4):
+        raise ValueError("unexpected n=7 generic face-proof split")
     return structure, hashlib.sha256(raw).hexdigest()
 
 
@@ -380,8 +391,8 @@ def _certify_face_normal_ranks(structure, weights):
     Reflected regions use a source residual at the reversed full weight
     vector.  Rank must therefore be checked not only for the face equations
     in the displayed region, but also for the particular generator basis and
-    inverse pivot used by the source proof under the corresponding original
-    or reversed box.
+    proof-source pivot used to justify its restriction or inverse chart under
+    the corresponding original or reversed box.
     """
 
     proof_instances = [
@@ -493,8 +504,9 @@ def _certify_face_normal_ranks(structure, weights):
             "Every geometric face-generator set and every source-ideal "
             "generator set used by the exact generic ideal-power proofs "
             "retains full normal rank throughout its original or reflected "
-            "certified weight box; in particular, every inverse pivot used "
-            "by an exact proof remains nonsingular."
+            "certified weight box; in particular, every proof-source pivot "
+            "used to justify a restriction or inverse chart remains "
+            "nonsingular."
         ),
     }
 

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "as_of": "2026-08-17",
+  "as_of": "2026-08-18",
   "manuscript": "supporting-materials/paper/stringer.tex",
   "claims": [
     {
@@ -241,7 +241,7 @@
         },
         {
           "path": "supporting-materials/computations/certificates/n7-gaffke-bernstein-structure.json.gz",
-          "role": "SHA-bound exact source residuals, reflection metadata, rational-function vertices, fixed 64-simplex chain, structural-zero indices, and generic face-ideal specifications",
+          "role": "SHA-bound exact source residuals, reflection metadata, rational-function vertices, fixed 64-simplex chain, structural-zero indices, 22 factor-order certificates, and four outer-face specifications",
           "trust": "proof_essential"
         },
         {
@@ -251,12 +251,12 @@
         },
         {
           "path": "supporting-materials/computations/python/derive_n7_bernstein_structure.py",
-          "role": "exact Singular regeneration of residual factorizations and generic quotient-Horner ideal-power proofs",
+          "role": "exact Singular regeneration of residual factorizations, exact I-adic factor-order proofs, and four outer-face quotient-Horner checks",
           "trust": "proof_essential"
         },
         {
           "path": "supporting-materials/computations/certificates/n7-gaffke-certificate.json",
-          "role": "integer-checked factor brackets, full-rank specialization with nonsingular exact-proof inverse pivots, vertex-region and oriented-chain checks, and rigorous Arb Bernstein sign certificates at all three levels",
+          "role": "integer-checked factor brackets, full-rank specialization with nonsingular proof-source pivots, vertex-region and oriented-chain checks, and rigorous Arb Bernstein sign certificates at all three levels",
           "trust": "proof_essential"
         },
         {
@@ -267,6 +267,7 @@
       ],
       "verification_commands": [
         "make n7-structure-data-check",
+        "make n7-factor-order-check",
         "make n7-face-a-check n7-face-b-basic-check n7-face-b5-check n7-face-c-basic-check n7-face-c6-check n7-face-c8-check n7-face-d-basic-check n7-face-d6-check n7-face-d9-check",
         "make n7-certificate-001-check n7-certificate-005-check n7-certificate-010-check"
       ],

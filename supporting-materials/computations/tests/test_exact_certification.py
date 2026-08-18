@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import collections
 import gzip
 import hashlib
 import json
@@ -124,6 +125,7 @@ class SubmissionPolicyTests(unittest.TestCase):
         self.assertEqual(principal_text.count("OpenAI Codex"), 1)
 
         prohibited_status_phrases = (
+            "AI-assisted",
             "AI-assisted review",
             "needs human validation",
             "claimed complete solution",
@@ -169,6 +171,9 @@ class ExactCoverageTests(unittest.TestCase):
 
 
 class CertificateSummaryTests(unittest.TestCase):
+    def test_n7_empty_generator_product_is_one(self):
+        self.assertEqual(n7_structure._product(value for value in ()), "1")
+
     def test_n7_sparse_power_to_bernstein_transform(self):
         n7_certificate.ctx.prec = n7_certificate.BALL_BITS
         polynomial = {
@@ -535,9 +540,24 @@ class CertificateSummaryTests(unittest.TestCase):
             structure = json.load(handle)
         certificate = json.loads(certificate_path.read_text())
 
+        self.assertEqual(structure["schema_version"], 2)
         self.assertEqual(
             structure["face_order_verification"],
-            "exact_generic_Singular_quotient_Horner_ideal_power_membership",
+            "exact_generic_I_adic_factor_order_or_Singular_quotient_Horner_"
+            "ideal_power_membership",
+        )
+        generic_face_certificates = structure[
+            "generic_face_order_certificates"]
+        self.assertEqual(len(generic_face_certificates), 26)
+        self.assertEqual(
+            sum(record["verification"].startswith("exact_I_adic_")
+                for record in generic_face_certificates),
+            22,
+        )
+        self.assertEqual(
+            sum("Singular" in record["verification"]
+                for record in generic_face_certificates),
+            4,
         )
         self.assertEqual(
             certificate["structure_sha256"],
@@ -578,15 +598,12 @@ class CertificateSummaryTests(unittest.TestCase):
         generic_keys = set()
         stored_pivots = {}
         face_conditions = 0
+        verification_counts = collections.Counter()
         for record in structure["regions"].values():
             for simplex in record["simplices"]:
                 for proof in simplex["face_order_proofs"]:
                     face_conditions += 1
-                    self.assertEqual(
-                        proof["verification"],
-                        "exact_generic_Singular_quotient_Horner_"
-                        "ideal_power_membership_over_QQ(b,c,d,e,f,g,h)",
-                    )
+                    verification_counts[proof["verification"]] += 1
                     self.assertEqual(
                         len(proof["proof_source_inverse_pivot_columns"]),
                         len(proof["proof_source_ideal_generators"]),
@@ -606,6 +623,15 @@ class CertificateSummaryTests(unittest.TestCase):
                         proof["proof_source_inverse_pivot_columns"]))
         self.assertEqual(face_conditions, 322)
         self.assertEqual(len(generic_keys), 26)
+        self.assertEqual(
+            verification_counts,
+            collections.Counter({
+                "exact_I_adic_factor_order_using_N_equals_F_times_P_"
+                "and_domain_associated_graded_ring": 258,
+                "exact_generic_Singular_quotient_Horner_"
+                "ideal_power_membership_over_QQ(b,c,d,e,f,g,h)": 64,
+            }),
+        )
         for key in generic_keys:
             _, pivot = n7_structure._inverse_face_map(key[1])
             expected = tuple(

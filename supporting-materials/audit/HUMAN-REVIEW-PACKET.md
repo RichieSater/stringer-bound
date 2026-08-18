@@ -85,9 +85,9 @@ Questions:
    complete coverage of the six-dimensional ordered-knot domain, and is the
    exact reflection reduction from seven regions to four source residuals
    valid?
-9. For `n=7`, does quotient-Horner evaluation modulo the power of each
-   generic face ideal prove every asserted structural zero; do the certified
-   source inverse pivots rule out specialization across a pole; and do the
+9. For `n=7`, do the 22 exact factor-order records and four outer-face
+   quotient-Horner evaluations prove every asserted structural zero; do the
+   certified source pivots rule out specialization across a pole; and do the
    Arb balls rigorously certify all remaining signs at the stated precision?
 10. Do the documented Make and CI targets regenerate the proof-essential artifacts without
    an unrecorded computational dependency?
@@ -273,6 +273,7 @@ tectonic --version
 make reproduce
 make poisson-band-calibration-check
 make n7-structure-data-check
+make n7-factor-order-check
 make n7-face-a-check n7-face-b-basic-check n7-face-b5-check
 make n7-face-c-basic-check n7-face-c6-check n7-face-c8-check
 make n7-face-d-basic-check n7-face-d6-check n7-face-d9-check

@@ -6,13 +6,12 @@ the eight full Stringer increments and sends
 ``(x,y,z,w,u,v)`` to ``(1-v,1-u,1-w,1-z,1-y,1-x)``.  Only the four source
 polynomials A--D therefore need to be stored.
 
-Structural Bernstein zeros are proved over ``QQ(b,c,d,e,f,g,h)``.  For an
-affine face ideal ``I`` and order ``q``, a generic affine change of variables
-makes the generators of ``I`` normal coordinates.  Sparse multivariate
-Horner evaluation takes place in the exact quotient by all normal monomials
-of total degree ``q``.  A zero remainder is exactly the assertion
-``P in I**q``.  The high-order checks are split into independently runnable
-groups for continuous integration.
+Structural Bernstein zeros are proved over ``QQ(b,c,d,e,f,g,h)``.  For 22
+threshold-only generic faces, exact factor counts in the compact identity
+``N=F*P`` prove the required affine-ideal order.  The four outer faces use a
+generic affine normal-coordinate map and sparse multivariate Horner
+evaluation in the quotient by the relevant ideal power.  A zero remainder
+there is exactly the assertion ``P in I**q``.
 """
 
 from __future__ import annotations
@@ -57,6 +56,7 @@ SOURCE_REGIONS = "ABCD"
 
 
 def _product(expressions):
+    expressions = tuple(expressions)
     return "*".join(f"({value})" for value in expressions) \
         if expressions else "1"
 
@@ -405,6 +405,121 @@ def extracted_factors(region):
     )
 
 
+def _symbolic_node_factors(index, coordinates):
+    coordinate = coordinates[index]
+    return [coordinate] + [
+        coordinate-coordinates[j] for j in range(index)
+    ]
+
+
+def _cleared_residual_factor_terms(region, coordinates, weights, s):
+    """Return the linear factors in each summand of ``N=F*P``.
+
+    ``N`` is the compact cleared cap residual rendered by
+    :func:`_singular_residual_source`, ``F`` is the product extracted there,
+    and ``P`` is the stored source residual.  Coefficient-only factors are
+    deliberately omitted: they cannot lower an affine face-ideal order.
+    """
+
+    k = ord(region)-ord("A")
+    if not 0 <= k <= 3:
+        raise ValueError(f"region {region} is not a stored source")
+    upper = list(range(DIMENSION-k, DIMENSION))
+    common = [1-coordinate for coordinate in coordinates]
+    nodes = [
+        factor
+        for index in upper
+        for factor in _symbolic_node_factors(index, coordinates)
+    ]
+    terms = [
+        ("alpha_common_nodes", common+nodes),
+        ("one_minus_s_nodes", [1-s]*7+nodes),
+    ]
+    for index in upper:
+        ratio = [
+            1-coordinates[j] for j in range(DIMENSION) if j != index
+        ]
+        for other in upper:
+            if other == index:
+                continue
+            ratio.append(coordinates[other])
+            ratio.extend(
+                coordinates[other]-coordinates[j]
+                for j in range(other) if j != index)
+        terms.append((
+            f"cap_{COORDINATE_NAMES[index]}",
+            [coordinates[index]-s]*7+ratio,
+        ))
+    extracted = [1-coordinates[index] for index in upper]
+    extracted.extend(
+        coordinates[j]-coordinates[i]
+        for offset, i in enumerate(upper)
+        for j in upper[offset+1:]
+    )
+    return terms, extracted
+
+
+def _threshold_face_substitution(labels, coordinates, weights):
+    if not labels or not all(label.startswith("s=") for label in labels):
+        raise ValueError(f"not a threshold-only face: {labels}")
+    weight_by_name = dict(zip(COORDINATE_NAMES, weights[:DIMENSION]))
+    coordinate_by_name = dict(zip(COORDINATE_NAMES, coordinates))
+    labeled_names = [label.split("=", 1)[1] for label in labels]
+    free_names = [name for name in COORDINATE_NAMES
+                  if name not in labeled_names]
+    denominator = 1-sum(weight_by_name[name] for name in labeled_names)
+    face_threshold = weights[DIMENSION] + sum(
+        weight_by_name[name]*coordinate_by_name[name]
+        for name in free_names)
+    face_threshold = sp.factor(face_threshold/denominator)
+    return {
+        coordinate_by_name[name]: face_threshold for name in labeled_names
+    }
+
+
+def _factor_order_certificate(key):
+    """Prove one threshold-face order from the compact factored residual."""
+
+    region, labels, required_order = key
+    if not all(label.startswith("s=") for label in labels):
+        raise ValueError(f"factor-order route does not apply to {key}")
+    coordinates, weights, s = symbolic_setup()
+    substitution = _threshold_face_substitution(
+        labels, coordinates, weights)
+    terms, extracted = _cleared_residual_factor_terms(
+        region, coordinates, weights, s)
+
+    def order(factors):
+        return sum(
+            sp.factor(factor.subs(substitution, simultaneous=True)) == 0
+            for factor in factors
+        )
+
+    extracted_order = order(extracted)
+    term_orders = [
+        {"term": name, "linear_factor_order": order(factors)}
+        for name, factors in terms
+    ]
+    required_numerator_order = extracted_order+required_order
+    minimum = min(record["linear_factor_order"]
+                  for record in term_orders)
+    if minimum < required_numerator_order:
+        raise AssertionError((key, extracted_order, term_orders))
+    return {
+        "source_region": region,
+        "ideal_generators": list(labels),
+        "required_residual_order": required_order,
+        "extracted_factor_order": extracted_order,
+        "required_cleared_numerator_order": required_numerator_order,
+        "cleared_numerator_term_orders": term_orders,
+        "minimum_cleared_numerator_term_order": minimum,
+        "verification": (
+            "exact_I_adic_factor_order_using_N_equals_F_times_P_"
+            "and_domain_associated_graded_ring"
+        ),
+    }
+
+
 def derive(source_cache=None):
     coordinates, weights, s = symbolic_setup()
     vertices = symbolic_vertices(coordinates, weights, s)
@@ -414,7 +529,7 @@ def derive(source_cache=None):
         for region in SOURCE_REGIONS
     }
     output = {
-        "schema_version": 1,
+        "schema_version": 2,
         "claim": (
             "Exact polynomial, six-simplex, symmetry, and structural-zero "
             "structure for the n=7 Gaffke-domination certificate."
@@ -442,10 +557,12 @@ def derive(source_cache=None):
             vertices, coordinates, s),
         "regions": {},
         "face_order_verification": (
-            "exact_generic_Singular_quotient_Horner_ideal_power_membership"
+            "exact_generic_I_adic_factor_order_or_Singular_quotient_Horner_"
+            "ideal_power_membership"
         ),
     }
     proof_source_pivots = {}
+    generic_face_order_certificates = {}
     for region in REGION_NAMES:
         simplex_records = []
         total_zeros = 0
@@ -464,6 +581,26 @@ def derive(source_cache=None):
                     proof_source_pivots[source_labels] = (
                         _inverse_face_map(source_labels)[1])
                 source_pivot = proof_source_pivots[source_labels]
+                proof_key = (
+                    source_region, source_labels, condition[1]+1)
+                if proof_key not in generic_face_order_certificates:
+                    if all(label.startswith("s=")
+                           for label in source_labels):
+                        generic_face_order_certificates[proof_key] = (
+                            _factor_order_certificate(proof_key))
+                    else:
+                        generic_face_order_certificates[proof_key] = {
+                            "source_region": source_region,
+                            "ideal_generators": list(source_labels),
+                            "required_residual_order": condition[1]+1,
+                            "verification": (
+                                "exact_generic_Singular_quotient_Horner_"
+                                "ideal_power_membership_over_"
+                                "QQ(b,c,d,e,f,g,h)"
+                            ),
+                        }
+                verification = generic_face_order_certificates[
+                    proof_key]["verification"]
                 proofs.append({
                     "bernstein_index_subset": list(condition[0]),
                     "maximum_subset_sum": condition[1],
@@ -476,10 +613,7 @@ def derive(source_cache=None):
                     "proof_source_inverse_pivot_columns": [
                         COORDINATE_NAMES[index] for index in source_pivot
                     ],
-                    "verification": (
-                        "exact_generic_Singular_quotient_Horner_"
-                        "ideal_power_membership_over_QQ(b,c,d,e,f,g,h)"
-                    ),
+                    "verification": verification,
                 })
             simplex_records.append({
                 "vertices": simplex,
@@ -502,6 +636,12 @@ def derive(source_cache=None):
             "total_structural_zero_count": total_zeros,
             "simplices": simplex_records,
         }
+    output["generic_face_order_certificates"] = [
+        generic_face_order_certificates[key]
+        for key in sorted(
+            generic_face_order_certificates,
+            key=lambda key: (key[0], key[2], key[1]))
+    ]
     return output
 
 
@@ -712,19 +852,49 @@ FACE_GROUPS = {
 }
 
 
-def verify_face_group(structure_path, group):
-    if group not in FACE_GROUPS:
-        raise ValueError(f"unknown n=7 face group: {group}")
-    if shutil.which("Singular") is None:
-        raise RuntimeError("Singular is required for n=7 face proofs")
-    structure = read_gzip_json(structure_path)
-    keys = [key for key in face_proof_keys(structure)
-            if FACE_GROUPS[group](key)]
+def _generic_certificate_key(record):
+    return (
+        record["source_region"],
+        tuple(record["ideal_generators"]),
+        record["required_residual_order"],
+    )
+
+
+def _verify_factor_order_keys(structure, keys):
     if not keys:
-        raise AssertionError(f"empty n=7 face group: {group}")
+        return
+    stored = {
+        _generic_certificate_key(record): record
+        for record in structure["generic_face_order_certificates"]
+    }
+    for key in keys:
+        observed = _factor_order_certificate(key)
+        if stored.get(key) != observed:
+            raise AssertionError(
+                f"stored n=7 factor-order proof differs for {key}")
+        print(
+            f"n=7 exact generic factor-order proof passed: {key}; "
+            f"numerator_order={observed['minimum_cleared_numerator_term_order']}; "
+            f"extracted_order={observed['extracted_factor_order']}",
+            flush=True,
+        )
+
+
+def _verify_face_keys(structure_path, keys, label):
+    structure = read_gzip_json(structure_path)
+    if not keys:
+        raise AssertionError(f"empty n=7 face selection: {label}")
+    factor_keys = [
+        key for key in keys
+        if all(item.startswith("s=") for item in key[1])
+    ]
+    singular_keys = [key for key in keys if key not in factor_keys]
+    _verify_factor_order_keys(structure, factor_keys)
+    if singular_keys and shutil.which("Singular") is None:
+        raise RuntimeError("Singular is required for outer n=7 face proofs")
     with tempfile.TemporaryDirectory(prefix="stringer-n7-face-") as directory:
         directory = Path(directory)
-        for index, key in enumerate(keys):
+        for index, key in enumerate(singular_keys):
             script, pivot, temporary_count = render_face_proof_script(
                 structure, key)
             path = directory / f"{index:02d}.sing"
@@ -746,7 +916,36 @@ def verify_face_group(structure_path, group):
                 f"seconds={time.time()-started:.2f}",
                 flush=True,
             )
-    print(f"n=7 face-proof group {group}: PASS ({len(keys)} keys)")
+    print(f"n=7 face-proof selection {label}: PASS ({len(keys)} keys)")
+
+
+def verify_face_group(structure_path, group):
+    if group not in FACE_GROUPS:
+        raise ValueError(f"unknown n=7 face group: {group}")
+    structure = read_gzip_json(structure_path)
+    keys = [key for key in face_proof_keys(structure)
+            if FACE_GROUPS[group](key)]
+    _verify_face_keys(structure_path, keys, f"group {group}")
+
+
+def verify_face_index(structure_path, index):
+    structure = read_gzip_json(structure_path)
+    keys = face_proof_keys(structure)
+    if not 0 <= index < len(keys):
+        raise ValueError(
+            f"n=7 face-proof index must lie in [0,{len(keys)-1}]: "
+            f"{index}")
+    _verify_face_keys(structure_path, [keys[index]], f"index {index}")
+
+
+def verify_all_factor_orders(structure_path):
+    structure = read_gzip_json(structure_path)
+    keys = [
+        key for key in face_proof_keys(structure)
+        if all(item.startswith("s=") for item in key[1])
+    ]
+    _verify_factor_order_keys(structure, keys)
+    print(f"n=7 exact factor-order layer: PASS ({len(keys)} keys)")
 
 
 def _proof_independent_projection(structure):
@@ -770,11 +969,14 @@ def main(argv=None):
     parser.add_argument("--source-cache-dir", type=Path)
     parser.add_argument("--check-data-against", type=Path)
     parser.add_argument("--face-proof-group", choices=sorted(FACE_GROUPS))
+    parser.add_argument("--face-proof-index", type=int)
+    parser.add_argument("--factor-order-check", action="store_true")
     parser.add_argument("--structure", type=Path,
                         default=DEFAULT_STRUCTURE_PATH)
     args = parser.parse_args(argv)
     selected = sum(bool(value) for value in (
-        args.out, args.check_data_against, args.face_proof_group))
+        args.out, args.check_data_against, args.face_proof_group,
+        args.face_proof_index is not None, args.factor_order_check))
     if selected != 1:
         parser.error("select exactly one action")
     if args.source_cache_dir and not args.out:
@@ -789,8 +991,12 @@ def main(argv=None):
         )
     elif args.check_data_against:
         check_structure_data(args.check_data_against)
-    else:
+    elif args.face_proof_group:
         verify_face_group(args.structure, args.face_proof_group)
+    elif args.factor_order_check:
+        verify_all_factor_orders(args.structure)
+    else:
+        verify_face_index(args.structure, args.face_proof_index)
     return 0
 
 

@@ -7,7 +7,7 @@ the written proof remains the authority.
 
 ## Initial adversarial passes
 
-Two separate AI-assisted passes attacked the factor formulas, reduction,
+Two separate adversarial passes attacked the factor formulas, reduction,
 rectangle lemma, boundary limits, potential inequality, change of variables,
 strictness cases, and sharpness construction. They also ran structured and
 random searches over atomic distributions. Those passes found no violation
@@ -17,8 +17,8 @@ change-of-variable regimes, and a more precise statement of the two
 sharpness families.
 
 One pass also developed an alternative derivation. Because that derivation
-was AI-assisted rather than independently refereed by another researcher, it
-is treated as corroboration only and is not used in the manuscript.
+was not independently refereed by another researcher, it is treated as
+corroboration only and is not used in the manuscript.
 
 ## Subsequent mathematical audit at commit `3c6c3a2`
 

@@ -174,20 +174,33 @@ expansion are nonnegative. The exact structural-zero totals are
 | F | 12 | 6 | 10,462 |
 | G | 7 | 1 | 1 |
 
-These are exact identities, not tolerance classifications. For an affine
-face ideal `I` and required order `q`, an exact affine change of variables
-turns independent generators of `I` into normal coordinates
-`r1,...,rc`. Membership in `I^q` is then equivalent to a zero image in the
-quotient by every normal monomial of total degree `q`. The derivation script
-performs sparse multivariate Horner evaluation directly in that quotient
-using Singular over `QQ(b,c,d,e,f,g,h)`. A zero remainder proves the full
-ideal-power statement at once. Reflection (6) reduces the 322 simplex-face
-conditions to 26 distinct generic ideal-power checks. At each certified
-weight box, rigorous nonzero normal minors prove that every geometric face
-basis and every proof-source ideal basis specializes with the required rank
-under the original or reflected weights, as applicable. The certificate also
-encloses away from zero the specific inverse pivot used in every exact
-quotient proof, so no generic proof is specialized across a pole.
+These are exact identities, not tolerance classifications. For each source
+region, the derivation records the exact polynomial identity `N=F P`, where
+`N` is the compact cleared cap residual, `F` is the extracted product of
+linear factors, and `P` is the stored residual. For an affine face ideal `I`,
+an affine coordinate change identifies the polynomial ring with
+`K[t,r]` and `I=(r1,...,rc)`. Its associated graded ring is again a polynomial
+ring and therefore a domain, so the `I`-adic order is additive on nonzero
+products.
+
+Twenty-two of the 26 generic face conditions use only threshold equations
+`s=t_i`. For each one, exact restriction checks determine which linear
+factors in `N` and `F` belong to `I`. Every factored summand of `N` has order
+at least `ord_I(F)+q`, where `q` is the required residual order. Hence
+`ord_I(P)>=q`, proving `P in I^q`. The artifact records every term order and
+the extracted-factor order. The four remaining conditions are outer faces.
+For those, an exact affine change of variables turns the independent
+generators into normal coordinates, and sparse multivariate Horner evaluation
+in the quotient by all normal monomials of total degree `q` gives a zero
+remainder in Singular over `QQ(b,c,d,e,f,g,h)`.
+
+Reflection (6) links these 26 generic statements to all 322 simplex-face
+conditions. At each certified weight box, rigorous nonzero normal minors
+prove that every geometric face basis and every proof-source ideal basis
+specializes with the required rank under the original or reflected weights,
+as applicable. The certificate also encloses away from zero every
+proof-source pivot used for a restriction or inverse chart, so no generic
+proof is specialized across a pole.
 
 ## 5. Rigorous Bernstein signs
 
@@ -232,6 +245,7 @@ The proof has three independently checkable layers.
 make n7-structure-data-check
 
 # Prove all 26 generic ideal-power conditions.
+make n7-factor-order-check
 make n7-face-a-check n7-face-b-basic-check n7-face-b5-check
 make n7-face-c-basic-check n7-face-c6-check n7-face-c8-check
 make n7-face-d-basic-check n7-face-d6-check n7-face-d9-check
@@ -241,10 +255,12 @@ make n7-certificate-001-check n7-certificate-005-check \
   n7-certificate-010-check
 ```
 
-The structure and face commands require Singular. The data command derives
-the four source residuals independently rather than trusting a cached
-expansion. The nine face jobs partition the 26 generic ideal-power checks;
-the split changes scheduling, not the proof. The three sign jobs each
+The source-data and four outer-face checks require Singular. The data command
+derives the four source residuals independently rather than trusting a cached
+expansion. The nine Make targets partition the 26 generic ideal-power checks.
+Continuous integration verifies the 22 factor-order records together and
+runs the four outer-face Singular checks separately; this changes scheduling,
+not the proof. The three sign jobs each
 regenerate a complete confidence-level record and compare it exactly with
 the corresponding record in the combined certificate.
 

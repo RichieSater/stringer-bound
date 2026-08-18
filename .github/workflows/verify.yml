@@ -57,7 +57,7 @@ jobs:
           tectonic-version: "0.17.0"
 
       - name: Build manuscript without layout warnings
-        run: make paper
+        run: bash .github/scripts/build-paper.sh
 
   poisson-band-calibration:
     runs-on: ubuntu-24.04
@@ -145,10 +145,7 @@ jobs:
         run: uv sync --frozen
 
       - name: Install exact polynomial algebra engine
-        run: |
-          sudo apt-get update
-          sudo apt-get install --no-install-recommends -y singular
-          Singular --version
+        run: bash .github/scripts/install-singular.sh
 
       - name: Verify generic n=6 face-ideal group
         run: >-
@@ -209,10 +206,7 @@ jobs:
         run: uv sync --frozen
 
       - name: Install exact polynomial algebra engine
-        run: |
-          sudo apt-get update
-          sudo apt-get install --no-install-recommends -y singular
-          Singular --version
+        run: bash .github/scripts/install-singular.sh
 
       - name: Regenerate proof-independent n=7 structure data
         run: make n7-structure-data-check
@@ -223,16 +217,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        group:
-          - a
-          - b-basic
-          - b5
-          - c-basic
-          - c6
-          - c8
-          - d-basic
-          - d6
-          - d9
+        index:
+          - 0
+          - 2
+          - 8
+          - 17
     steps:
       - name: Check out repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -252,16 +241,37 @@ jobs:
         run: uv sync --frozen
 
       - name: Install exact polynomial algebra engine
-        run: |
-          sudo apt-get update
-          sudo apt-get install --no-install-recommends -y singular
-          Singular --version
+        run: bash .github/scripts/install-singular.sh
 
       - name: Verify generic n=7 face-ideal group
         run: >-
           uv run --frozen python
           supporting-materials/computations/python/derive_n7_bernstein_structure.py
-          --face-proof-group ${{ matrix.group }}
+          --face-proof-index ${{ matrix.index }}
+
+  n7-factor-orders:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+
+      - name: Set up uv
+        uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v9.0.0
+        with:
+          version: "0.11.14"
+          enable-cache: true
+
+      - name: Install pinned Python environment
+        run: uv sync --frozen
+
+      - name: Verify exact n=7 factor-order layer
+        run: make n7-factor-order-check
 
   n7-certificate:
     runs-on: ubuntu-24.04

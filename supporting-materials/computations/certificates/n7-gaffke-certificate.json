@@ -7,7 +7,7 @@
       "arb_precision_bits": 768,
       "conclusion": "For n=7 at this alpha, the binomial Stringer bound pointwise dominates the one-sided Gaffke bound.",
       "face_normal_rank_certificate": {
-        "conclusion": "Every geometric face-generator set and every source-ideal generator set used by the exact generic ideal-power proofs retains full normal rank throughout its original or reflected certified weight box; in particular, every inverse pivot used by an exact proof remains nonsingular.",
+        "conclusion": "Every geometric face-generator set and every source-ideal generator set used by the exact generic ideal-power proofs retains full normal rank throughout its original or reflected certified weight box; in particular, every proof-source pivot used to justify a restriction or inverse chart remains nonsingular.",
         "distinct_generic_ideal_power_proofs_linked": 26,
         "generator_sets_certified": 22,
         "minimum_absolute_normal_minor_lower_bound": {
@@ -5158,7 +5158,7 @@
       "arb_precision_bits": 768,
       "conclusion": "For n=7 at this alpha, the binomial Stringer bound pointwise dominates the one-sided Gaffke bound.",
       "face_normal_rank_certificate": {
-        "conclusion": "Every geometric face-generator set and every source-ideal generator set used by the exact generic ideal-power proofs retains full normal rank throughout its original or reflected certified weight box; in particular, every inverse pivot used by an exact proof remains nonsingular.",
+        "conclusion": "Every geometric face-generator set and every source-ideal generator set used by the exact generic ideal-power proofs retains full normal rank throughout its original or reflected certified weight box; in particular, every proof-source pivot used to justify a restriction or inverse chart remains nonsingular.",
         "distinct_generic_ideal_power_proofs_linked": 26,
         "generator_sets_certified": 22,
         "minimum_absolute_normal_minor_lower_bound": {
@@ -10309,7 +10309,7 @@
       "arb_precision_bits": 768,
       "conclusion": "For n=7 at this alpha, the binomial Stringer bound pointwise dominates the one-sided Gaffke bound.",
       "face_normal_rank_certificate": {
-        "conclusion": "Every geometric face-generator set and every source-ideal generator set used by the exact generic ideal-power proofs retains full normal rank throughout its original or reflected certified weight box; in particular, every inverse pivot used by an exact proof remains nonsingular.",
+        "conclusion": "Every geometric face-generator set and every source-ideal generator set used by the exact generic ideal-power proofs retains full normal rank throughout its original or reflected certified weight box; in particular, every proof-source pivot used to justify a restriction or inverse chart remains nonsingular.",
         "distinct_generic_ideal_power_proofs_linked": 26,
         "generator_sets_certified": 22,
         "minimum_absolute_normal_minor_lower_bound": {
@@ -15458,5 +15458,5 @@
   ],
   "schema_version": 1,
   "structure_file": "supporting-materials/computations/certificates/n7-gaffke-bernstein-structure.json.gz",
-  "structure_sha256": "8696094a1d162152bdcc83f287622b1ac4f38d919414bc36765406277b6b787a"
+  "structure_sha256": "ae59d92bfd8bdbe5b413d38e758db921b4e80e9d6373c9120fbc0ec358888f83"
 }

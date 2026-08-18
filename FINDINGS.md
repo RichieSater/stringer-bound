@@ -32,7 +32,8 @@ and every remaining Bernstein sign
 A six-dimensional certificate extends all three guarantees to **n = 7**.
 Exact reflection reduces seven cap regions to four source polynomials, and a
 fixed degree-one chain of 64 six-simplices covers the full ordered-knot
-domain. Singular proves every structural-zero identity. Integer-checked
+domain. Exact factor-order arguments prove 22 generic structural-zero
+conditions, and Singular proves the four outer-face conditions. Integer-checked
 factor brackets and 768-bit Arb real-ball arithmetic certify the geometry,
 specialization, and every remaining Bernstein sign
 ([n = 7 proof](supporting-materials/theory/N7-CONVENTIONAL.md)).

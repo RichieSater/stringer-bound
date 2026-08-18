@@ -139,8 +139,9 @@ certificate or a written proof:
   ([`N7-CONVENTIONAL.md`](supporting-materials/theory/N7-CONVENTIONAL.md)):
   exact reflection reduces seven cap regions to four source residuals, and a
   fixed degree-one chain of 64 six-simplices covers the ordered-knot domain.
-  Singular proves 26 generic ideal-power statements accounting for every
-  structural Bernstein zero. Integer-checked dyadic factor brackets and
+  Exact factor-order arguments prove 22 generic ideal-power statements, and
+  Singular proves the four outer-face statements; together they account for
+  every structural Bernstein zero. Integer-checked dyadic factor brackets and
   768-bit Arb real-ball arithmetic then certify every vertex, determinant,
   specialization rank, and nonstructural coefficient. This is a rigorous
   computer-assisted theorem at 90%, 95%, and 99%, not search evidence.

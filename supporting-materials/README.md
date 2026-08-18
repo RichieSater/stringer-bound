@@ -64,7 +64,7 @@ comparison, not a general coverage theorem for ordinary Stringer.
 | `n6_gaffke_certificate.py` | Integer-directed dyadic proof of face specialization, the triangulation chain, and every nonstructural \(n=6\) Bernstein sign at all three levels | proof-essential |
 | `theory/N7-CONVENTIONAL.md` | Complete reduction of the \(n=7\) theorems at 90%, 95%, and 99% to seven six-dimensional simplex-cap regions | proof-essential |
 | `n7_gaffke_structure_data.py` | Fixed 64-simplex chain and face-condition specifications shared by the symbolic and ball layers | proof-essential |
-| `derive_n7_bernstein_structure.py` | Exactly derives four source residuals, reflection identities, the 64-simplex structure, and generic face-ideal powers with Singular | proof-essential |
+| `derive_n7_bernstein_structure.py` | Exactly derives four source residuals, reflection identities, the 64-simplex structure, 22 factor-order face proofs, and four outer-face quotient proofs | proof-essential |
 | `n7_gaffke_certificate.py` | Integer-checked factor brackets and rigorous Arb proof of face specialization, the triangulation chain, and every nonstructural \(n=7\) Bernstein sign | proof-essential |
 | `theory/POISSON-DOMINATION.md` | Written proof that practical-level Poisson factors dominate binomial factors for every sample size | proof-essential |
 | `theory/POISSON-SIMULTANEOUS-BAND.md` | Written randomized-survival-band proof of the direct Poisson coverage ranges | proof-essential |
@@ -127,6 +127,7 @@ make n6-certificate-001-check n6-certificate-005-check \
 
 # Exact n=7 theorems: independent source data, generic face ideals, Arb signs
 make n7-structure-data-check
+make n7-factor-order-check
 make n7-face-a-check n7-face-b-basic-check n7-face-b5-check
 make n7-face-c-basic-check n7-face-c6-check n7-face-c8-check
 make n7-face-d-basic-check n7-face-d6-check n7-face-d9-check
@@ -329,16 +330,20 @@ coefficient, rational-function vertex, oriented simplex, face condition, and
 reflection link in a deterministic gzip file.
 
 `derive_n7_bernstein_structure.py` regenerates the four sources with exact
-Singular division checks. It proves each required face-vanishing order by an
-exact affine normal-coordinate map followed by sparse Horner evaluation in
-the quotient by the corresponding ideal power. The 322 simplex-face links
-reduce to 26 generic quotient checks over `QQ(b,c,d,e,f,g,h)`.
+Singular division checks. For the 22 generic threshold-only face conditions,
+it proves the required vanishing orders exactly by counting affine-ideal
+orders in the factored cleared residual. Four outer-face conditions use an
+exact normal-coordinate map followed by sparse Horner evaluation in the
+corresponding ideal-power quotient. The 322 simplex-face links therefore
+reduce to 26 generic exact checks, only four of which require Singular
+quotient evaluation.
 `n7_gaffke_certificate.py` brackets each Clopper--Pearson factor on a
 \(2^{-512}\) dyadic grid with integer endpoint signs. It then uses
 outward-rounded Arb real balls at 768-bit precision for every weight, vertex,
 normal minor, determinant, residual, affine substitution, and Bernstein
-coefficient. In particular, it proves that each inverse pivot appearing in a
-generic quotient proof remains nonsingular at specialization. The certificate
+coefficient. In particular, it proves that every proof-source pivot
+determinant used to justify a restriction or inverse chart remains
+nonsingular at specialization. The certificate
 verifies the degree-one relative chain, checks
 that all exact structural-zero balls contain zero, and proves every other
 coefficient strictly positive. Its SHA-256 field binds it to the compressed
