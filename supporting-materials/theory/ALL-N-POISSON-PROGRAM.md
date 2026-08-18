@@ -5,11 +5,9 @@
 > remains open in three or more; Dirichlet Poissonization remains open in
 > general, although it is proved for every profile with at most three nonzero
 > coefficients, on a sparse convex core of every coordinate face, on the
-> four-positive far cap, and
-> completely for `n=2`, `n=3`, and `n=4`.  The first open complete simplex
-> dimension is `n=5`, where every profile with at most four nonzero
-> coordinates is proved and only the five-positive boundary remains.  This
-> is a research roadmap,
+> four-positive far cap, and completely for `n=2`, `n=3`, `n=4`, and `n=5`.
+> The first open complete simplex dimension is `n=6`.  This is a research
+> roadmap,
 > not a coverage claim.  The paper
 > continues to state that ordinary Stringer coverage is unresolved for
 > arbitrary `n`.
@@ -485,7 +483,7 @@ counts and ordered terminal-transcript digests.  The radial lemma therefore
 proves (B) completely for `n=4`; this is a computer-assisted theorem, not a
 numerical search.
 
-At `n=5`, the complete four-positive coordinate face is now proved as well.
+At `n=5`, the complete four-positive coordinate face is proved first.
 For `(0,0,a,b,c,d)`, multiplication reduces (16) to the third divided
 difference of
 
@@ -499,8 +497,24 @@ closes the region `a>=13/20`; a global derivative enclosure then gives a
 Lipschitz constant for an exhaustive four-parameter Arb subdivision of the
 residual compact set.  The committed proof record regenerates 81,703 branch
 calls and its terminal-transcript digest.  Thus every `n=5` profile with at
-most four nonzero coordinates satisfies (B).  The five-positive boundary is
-still open, so this is not a complete `n=5` theorem.
+most four nonzero coordinates satisfies (B).
+
+The remaining five-positive boundary is proved by a second recursive
+certificate.  For `(0,a,b,c,d,e)`, multiplication reduces (16) to the fourth
+divided difference of
+
+\[
+ u^4\{e^{-5/u}-(1-u^{-1})_+^5\}.
+\]
+
+Exact estimates give a positive scalar core and an affine minorant.  A knot-
+insertion identity bounds most residual boxes with the already proved four-
+positive face.  On the remainder, exact beta-tail moments localize the only
+interval where the scalar derivative can exceed one in absolute value, and
+a directed 160-bit Arb subdivision closes the five-parameter region.  The
+certificate regenerates 1,669,573 branch calls, every terminal count, and
+the ordered transcript digest.  The radial lemma therefore proves (B)
+completely for `n=5`.
 
 For three positive knots, much more is known.  With `n-2` zero knots
 and ordered positive knots `a<=b<=c`, multiplication reduces (16) to the
@@ -528,9 +542,8 @@ complete the entire three-positive face.
 The radial derivative is the density derivative at the threshold.  A
 Laplace-transform convolution identity shows that the mode of every
 weighted exponential sum is no larger than its mean, giving the required
-sign.  At `n=5`, only the five-positive coordinate face remains open.  In
-dimensions `n>=6`, coordinate-face profiles with four or more nonzero knots
-remain open outside the sparse convex cores and the four-positive far cap
+sign.  In dimensions `n>=6`, coordinate-face profiles with four or more
+nonzero knots remain open outside the sparse convex cores and the four-positive far cap
 just described.  See
 [`DIRICHLET-POISSONIZATION.md`](DIRICHLET-POISSONIZATION.md) for the proof,
 the full reduction, and the exact localization obstruction.
@@ -570,12 +583,10 @@ seemingly simpler but false domination claim.
    `8/9` are also proved.  Then seek a dimension-free argument for (11).
 2. Prove the constrained divided-difference inequality (16), or find an
    actual B-spline counterexample satisfying the sum-of-knots constraint;
-   the complete `n=2`, `n=3`, and `n=4` cases and every two-level profile are
-   already proved, as is the entire three-positive face and a sparse convex
+   the complete `n=2`, `n=3`, `n=4`, and `n=5` cases and every two-level
+   profile are already proved, as is the entire three-positive face and a sparse convex
    core on every coordinate face, together with the four-positive far cap.
-   At `n=5`, the complete four-positive face is also proved.  The first open
-   complete simplex dimension is therefore still `n=5`, but only its
-   five-positive boundary remains unresolved.
+   The first open complete simplex dimension is now `n=6`.
 3. Use the zero-knot reduction recursively, or prove that a negative minimum
    on a coordinate face must have at most two distinct knot values.
 4. Only after both analytic steps pass, connect (6)--(7) to the published

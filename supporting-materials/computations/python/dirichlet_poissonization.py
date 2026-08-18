@@ -30,6 +30,9 @@ boundary reduction, a proved structured family, and one obstruction:
   the complete comparison for ``n=4``; and
 * a second deterministic branch certificate proves every ``n=5`` profile
   having at most four nonzero coefficients; and
+* a recursive knot-insertion bound, exact scalar estimates, and a third
+  deterministic branch certificate prove the complete comparison for
+  ``n=5``; and
 * the ``k=2`` Anderson--Samuels comparison proves a dimension-free convex
   core for profiles with three nonzero coefficients; and
 * the same derivative-CDF identity at arbitrary order proves a sparse
@@ -1871,6 +1874,684 @@ def verify_n5_four_positive_face() -> dict[str, object]:
     }
 
 
+def verify_n5_six_knot_theorem() -> dict[str, object]:
+    """Certify the complete Dirichlet--Poissonization comparison at ``n=5``.
+
+    The radial reduction leaves one zero knot and five ordered positive
+    knots.  Hermite--Genocchi turns the remaining fourth divided difference
+    into the expectation of a scalar function ``q``.  Exact scalar bounds,
+    a recursive estimate from the already proved four-positive face, and a
+    deterministic directed real-ball subdivision cover the constrained
+    five-parameter region.
+    """
+    from flint import arb, ctx, fmpq
+    from sympy import (
+        Rational,
+        diff,
+        exp,
+        factorial,
+        integrate,
+        simplify,
+        symbols,
+    )
+
+    lam = symbols("lambda", positive=True)
+    u = symbols("u", positive=True)
+
+    exponential_piece = exp(-5 / u)
+    f4_lower = u**4 * exponential_piece
+    f4_upper = f4_lower - (u - 1) ** 5 / u
+    q_lower_u = exponential_piece * sum(
+        (5 / u) ** order / factorial(order) for order in range(5)
+    )
+    q_upper_u = q_lower_u - 1 + u**-5
+    assert simplify(diff(f4_lower, u, 4) / 24 - q_lower_u) == 0
+    assert simplify(diff(f4_upper, u, 4) / 24 - q_upper_u) == 0
+
+    q_lower_derivative = exp(-lam) * lam**6 / 120
+    q_upper_derivative = q_lower_derivative - lam**6 / 3125
+    assert simplify(diff(q_lower_derivative, lam)) == (
+        exp(-lam) * lam**5 * (6 - lam) / 120
+    )
+    assert simplify(
+        diff(q_lower_u, u) - q_lower_derivative.subs(lam, 5 / u)
+    ) == 0
+    assert simplify(
+        diff(q_upper_u, u) - q_upper_derivative.subs(lam, 5 / u)
+    ) == 0
+
+    # The positive core extends through u=19/16.  On [1,19/16], q is
+    # decreasing because exp(lambda)>625/24; at the right endpoint its
+    # positivity is the displayed exact upper bound for exp(80/19).
+    core_lambda = Fraction(80, 19)
+    core_poisson_polynomial = sum(
+        core_lambda**order / math.factorial(order)
+        for order in range(5)
+    )
+    core_exp_threshold = core_poisson_polynomial / (
+        1 - (core_lambda / 5) ** 5
+    )
+    core_exp_upper = _exp_taylor_upper(core_lambda, 6)
+    core_monotonicity_lower = _exp_taylor_lower(core_lambda, 4)
+    core_endpoint_margin = core_exp_threshold - core_exp_upper
+    assert core_poisson_polynomial == Fraction(5162241, 130321)
+    assert core_exp_threshold == Fraction(32694193, 475841)
+    assert core_exp_upper == Fraction(1819400743567, 26675014527)
+    assert core_monotonicity_lower > Fraction(625, 24)
+    assert core_endpoint_margin == Fraction(
+        6372604003876864,
+        12693065587542207,
+    )
+    assert core_endpoint_margin > 0
+
+    # Scalar derivative bounds for the direct certificate.  On u<=1 the
+    # derivative is positive, is maximized at lambda=6, and is below one.
+    exp_six_lower = _exp_taylor_lower(Fraction(6), 11)
+    assert exp_six_lower > Fraction(1944, 5)
+
+    # On u>1 put r(lambda)=q'(5/lambda).  Its derivative has at most one
+    # zero, from positive to negative, because
+    # exp(-lambda)(6-lambda) is strictly decreasing on [1,5].  Hence the
+    # minimum on any subinterval is at an endpoint.  Exact Taylor bounds at
+    # lambda=5 and lambda=25/6 give the global 33/8 bound and the sharper
+    # unit bound outside 1<u<6/5.
+    r_derivative = lam**5 * (
+        exp(-lam) * (6 - lam) / 120 - Rational(6, 3125)
+    )
+    assert simplify(diff(q_upper_derivative, lam) - r_derivative) == 0
+    assert simplify(diff(exp(-lam) * (6 - lam), lam)) == (
+        exp(-lam) * (lam - 7)
+    )
+    exp_one_upper = _exp_taylor_upper(Fraction(1), 1)
+    exp_five_lower = _exp_taylor_lower(Fraction(5), 8)
+    exp_five_upper = _exp_taylor_upper(Fraction(5), 9)
+    transition_lambda = Fraction(25, 6)
+    transition_exp_threshold = transition_lambda**6 / (
+        120 * (transition_lambda**6 / 3125 - 1)
+    )
+    transition_exp_upper = _exp_taylor_upper(transition_lambda, 8)
+    assert exp_one_upper < Fraction(625, 24)
+    assert exp_five_lower > Fraction(3125, 24)
+    assert exp_five_upper < Fraction(3125, 21)
+    assert transition_exp_threshold == Fraction(48828125, 755256)
+    assert transition_exp_upper < transition_exp_threshold
+
+    # Check the four beta-tail moment formulas used to sharpen the
+    # Lipschitz radii.  For a split with h high knots, their aggregate
+    # Dirichlet weight S is Beta(h,5-h).  The formulas are the individual
+    # low- and high-coordinate moments on {S>1-R}.
+    s, radius = symbols("s radius", real=True)
+
+    def symbolic_tail_moments(high_count):
+        low_count = 5 - high_count
+        density = (
+            factorial(4)
+            / (factorial(high_count - 1) * factorial(low_count - 1))
+            * s ** (high_count - 1)
+            * (1 - s) ** (low_count - 1)
+        )
+        low_moment = integrate(
+            (1 - s) * density / low_count,
+            (s, 1 - radius, 1),
+        )
+        high_moment = integrate(
+            s * density / high_count,
+            (s, 1 - radius, 1),
+        )
+        return simplify(low_moment), simplify(high_moment)
+
+    symbolic_moments = {
+        1: (
+            radius**5 / 5,
+            radius**4 * (5 - 4 * radius) / 5,
+        ),
+        2: (
+            radius**4 - Rational(4, 5) * radius**5,
+            2 * radius**3
+            - 3 * radius**4
+            + Rational(6, 5) * radius**5,
+        ),
+        3: (
+            2 * radius**3
+            - 3 * radius**4
+            + Rational(6, 5) * radius**5,
+            2 * radius**2
+            - 4 * radius**3
+            + 3 * radius**4
+            - Rational(4, 5) * radius**5,
+        ),
+        4: (
+            2 * radius**2
+            - 4 * radius**3
+            + 3 * radius**4
+            - Rational(4, 5) * radius**5,
+            radius
+            - 2 * radius**2
+            + 2 * radius**3
+            - radius**4
+            + radius**5 / 5,
+        ),
+    }
+    for high_count, expected in symbolic_moments.items():
+        actual = symbolic_tail_moments(high_count)
+        assert all(
+            simplify(actual[index] - expected[index]) == 0
+            for index in range(2)
+        )
+
+    # Knot insertion for the recursive pruning rule.  If f3=F/u,
+    # A=[a,b,c,d]f3, and B=[b,c,d,e]f3, then the target has the sign of
+    # e*B-a*A.  Section 13 proves A,B>=0.  Also A<=1 because the
+    # Hermite--Genocchi integrand for f3 is pointwise at most one.
+    x0, x1, x2, x3, x4 = symbols("x0:5", positive=True)
+    z0, z1, z2, z3, z4 = symbols("z0:5", real=True)
+
+    def symbolic_dd(nodes, values):
+        current = list(values)
+        for order in range(1, len(nodes)):
+            current = [
+                (current[index + 1] - current[index])
+                / (nodes[index + order] - nodes[index])
+                for index in range(len(current) - 1)
+            ]
+        return current[0]
+
+    nodes = [x0, x1, x2, x3, x4]
+    values = [z0, z1, z2, z3, z4]
+    target = symbolic_dd(
+        nodes,
+        [node * value for node, value in zip(nodes, values)],
+    )
+    left_face = symbolic_dd(nodes[:4], values[:4])
+    right_face = symbolic_dd(nodes[1:], values[1:])
+    assert simplify(
+        (x4 - x0) * target - (x4 * right_face - x0 * left_face)
+    ) == 0
+    face_correction = 5 / u**4 - 4 / u**5
+    assert simplify(
+        diff(face_correction, u) - 20 * (1 - u) / u**6
+    ) == 0
+    assert face_correction.subs(u, 1) == 1
+
+    previous_precision = ctx.prec
+    ctx.prec = 160
+
+    def arb_exact(value: Fraction) -> arb:
+        value = Fraction(value)
+        return arb(fmpq(value.numerator, value.denominator))
+
+    def arb_interval(lo: Fraction, hi: Fraction) -> arb:
+        lo_q = fmpq(lo.numerator, lo.denominator)
+        hi_q = fmpq(hi.numerator, hi.denominator)
+        return arb((lo_q + hi_q) / 2, (hi_q - lo_q) / 2)
+
+    def update_interval_digest(digest, label, lo, hi):
+        digest.update(
+            (
+                f"{label}|{lo.numerator}/{lo.denominator}|"
+                f"{hi.numerator}/{hi.denominator}\n"
+            ).encode("ascii")
+        )
+
+    scalar_digest = hashlib.sha256()
+    central_records = []
+
+    try:
+        def central_gap(value: arb, upper_piece: bool) -> arb:
+            lambda_value = 5 / value
+            result = (-lambda_value).exp() * sum(
+                lambda_value**order / math.factorial(order)
+                for order in range(5)
+            )
+            if upper_piece:
+                result += -1 + value**-5
+            return result - arb_exact(Fraction(13, 50)) * (1 - value)
+
+        for label, start, stop, upper_piece in (
+            ("central-lower", Fraction(5, 8), Fraction(1), False),
+            ("central-upper", Fraction(1), Fraction(5, 2), True),
+        ):
+            stack = [(start, stop, 0)]
+            leaves = 0
+            maximum_depth = 0
+            while stack:
+                lo, hi, depth = stack.pop()
+                if central_gap(arb_interval(lo, hi), upper_piece) > 0:
+                    leaves += 1
+                    maximum_depth = max(maximum_depth, depth)
+                    update_interval_digest(scalar_digest, label, lo, hi)
+                    continue
+                if depth >= 30:
+                    raise AssertionError(
+                        "n=5 complete affine minorant did not close"
+                    )
+                midpoint = (lo + hi) / 2
+                stack.append((lo, midpoint, depth + 1))
+                stack.append((midpoint, hi, depth + 1))
+            central_records.append(
+                {
+                    "interval": f"[{start},{stop}]",
+                    "certified_leaf_intervals": leaves,
+                    "maximum_bisection_depth": maximum_depth,
+                }
+            )
+
+        assert [
+            record["certified_leaf_intervals"]
+            for record in central_records
+        ] == [9, 520]
+        assert [
+            record["maximum_bisection_depth"]
+            for record in central_records
+        ] == [7, 14]
+
+        def arb_f3(value: Fraction) -> arb:
+            if value == 0:
+                return arb(0)
+            point = arb_exact(value)
+            result = point**3 * (-5 / point).exp()
+            if value > 1:
+                result -= (point - 1) ** 5 / point**2
+            return result
+
+        def arb_f4(value: Fraction) -> arb:
+            if value == 0:
+                return arb(0)
+            point = arb_exact(value)
+            result = point**4 * (-5 / point).exp()
+            if value > 1:
+                result -= (point - 1) ** 5 / point
+            return result
+
+        def arb_divided_difference(knots, function):
+            values = [function(knot) for knot in knots]
+            for order in range(1, len(knots)):
+                values = [
+                    (values[index + 1] - values[index])
+                    / arb_exact(knots[index + order] - knots[index])
+                    for index in range(len(values) - 1)
+                ]
+            return values[0]
+
+        def tightened_upper(lower, upper, weights):
+            result = list(upper)
+            for index, weight in enumerate(weights):
+                available = 5 - sum(
+                    weights[other] * lower[other]
+                    for other in range(len(weights))
+                    if other != index
+                )
+                result[index] = min(result[index], available / weight)
+            return tuple(result)
+
+        def update_box_digest(digest, reason, lower, upper):
+            digest.update(reason.encode("ascii") + b"|")
+            for endpoint in (lower, upper):
+                for value in endpoint:
+                    digest.update(
+                        f"{value.numerator}/{value.denominator},".encode(
+                            "ascii"
+                        )
+                    )
+            digest.update(b"\n")
+
+        one_fifth = arb_exact(Fraction(1, 5))
+        derivative_excess = arb_exact(Fraction(25, 8))
+        four_fifths = arb_exact(Fraction(4, 5))
+        six_fifths = arb_exact(Fraction(6, 5))
+
+        def tail_moments(high_count: int, radius_value: Fraction):
+            """Directed versions of the four checked beta-tail formulas."""
+            value = arb_exact(radius_value)
+            if high_count == 1:
+                return (
+                    value**5 / 5,
+                    value**4 * (5 - 4 * value) / 5,
+                )
+            if high_count == 2:
+                return (
+                    value**4 - four_fifths * value**5,
+                    2 * value**3
+                    - 3 * value**4
+                    + six_fifths * value**5,
+                )
+            if high_count == 3:
+                return (
+                    2 * value**3
+                    - 3 * value**4
+                    + six_fifths * value**5,
+                    2 * value**2
+                    - 4 * value**3
+                    + 3 * value**4
+                    - four_fifths * value**5,
+                )
+            if high_count == 4:
+                return (
+                    2 * value**2
+                    - 4 * value**3
+                    + 3 * value**4
+                    - four_fifths * value**5,
+                    value
+                    - 2 * value**2
+                    + 2 * value**3
+                    - value**4
+                    + value**5 / 5,
+                )
+            raise ValueError("high_count must lie in {1,2,3,4}")
+
+        weights = (5, 4, 3, 2, 1)
+        stack = [
+            (
+                (Fraction(0),) * 5,
+                (
+                    Fraction(1),
+                    Fraction(5, 4),
+                    Fraction(5, 3),
+                    Fraction(5, 2),
+                    Fraction(5),
+                ),
+                0,
+            )
+        ]
+        counts = {
+            "convex_core": 0,
+            "central_minorant": 0,
+            "recursive_global_A": 0,
+            "recursive_local_A": 0,
+            "direct_lipschitz": 0,
+            "infeasible": 0,
+        }
+        calls = 0
+        maximum_depth = 0
+        box_digest = hashlib.sha256()
+        while stack:
+            lower, upper, depth = stack.pop()
+            calls += 1
+            upper = tightened_upper(lower, upper, weights)
+            if any(upper[index] < lower[index] for index in range(5)):
+                counts["infeasible"] += 1
+                maximum_depth = max(maximum_depth, depth)
+                update_box_digest(box_digest, "infeasible", lower, upper)
+                continue
+
+            largest_upper = sum(upper)
+            if largest_upper <= Fraction(19, 16):
+                counts["convex_core"] += 1
+                maximum_depth = max(maximum_depth, depth)
+                update_box_digest(box_digest, "core", lower, upper)
+                continue
+            if lower[0] >= Fraction(5, 8):
+                counts["central_minorant"] += 1
+                maximum_depth = max(maximum_depth, depth)
+                update_box_digest(box_digest, "central", lower, upper)
+                continue
+
+            center = tuple(
+                (lower[index] + upper[index]) / 2
+                for index in range(5)
+            )
+            weighted_center = sum(
+                weights[index] * center[index] for index in range(5)
+            )
+            if weighted_center > 5:
+                weighted_lower = sum(
+                    weights[index] * lower[index]
+                    for index in range(5)
+                )
+                scale = (
+                    Fraction(5) - weighted_lower
+                ) / (weighted_center - weighted_lower)
+                center = tuple(
+                    lower[index]
+                    + scale * (center[index] - lower[index])
+                    for index in range(5)
+                )
+            if any(center[index] == 0 for index in range(1, 5)):
+                raise AssertionError(
+                    "unexpected confluent n=5 complete center"
+                )
+
+            radii = [
+                max(
+                    center[index] - lower[index],
+                    upper[index] - center[index],
+                )
+                for index in range(5)
+            ]
+            knots = []
+            knot = Fraction()
+            for parameter in center:
+                knot += parameter
+                knots.append(knot)
+
+            # First use the recursive four-positive-face estimate.  B is
+            # bounded below at the center with the global |q3'|<1 radius.
+            # Either A<=1 closes the box immediately, or a similarly
+            # directed local upper bound for A supplies the refinement.
+            right_center = arb_divided_difference(knots[1:], arb_f3)
+            right_error = (
+                arb_exact(radii[0])
+                + arb_exact(radii[1])
+                + arb_exact(Fraction(3, 4) * radii[2])
+                + arb_exact(Fraction(1, 2) * radii[3])
+                + arb_exact(Fraction(1, 4) * radii[4])
+            )
+            right_lower = right_center - right_error
+            largest_lower = sum(lower)
+            smallest_upper = upper[0]
+            recursive_reason = None
+            if right_lower > 0:
+                if (
+                    arb_exact(largest_lower) * right_lower
+                    > arb_exact(smallest_upper)
+                ):
+                    recursive_reason = "recursive-global"
+                else:
+                    left_center = arb_divided_difference(
+                        knots[:4], arb_f3
+                    )
+                    left_error = (
+                        arb_exact(radii[0])
+                        + arb_exact(Fraction(3, 4) * radii[1])
+                        + arb_exact(Fraction(1, 2) * radii[2])
+                        + arb_exact(Fraction(1, 4) * radii[3])
+                    )
+                    left_upper = left_center + left_error
+                    if not left_upper < 1:
+                        left_upper = arb(1)
+                    if (
+                        arb_exact(largest_lower) * right_lower
+                        > arb_exact(smallest_upper) * left_upper
+                    ):
+                        recursive_reason = "recursive-local"
+            if recursive_reason is not None:
+                key = (
+                    "recursive_global_A"
+                    if recursive_reason == "recursive-global"
+                    else "recursive_local_A"
+                )
+                counts[key] += 1
+                maximum_depth = max(maximum_depth, depth)
+                update_box_digest(
+                    box_digest, recursive_reason, lower, upper
+                )
+                continue
+
+            center_value = arb_divided_difference(knots, arb_f4)
+
+            # For any feasible point of the box and the segment joining it
+            # to the evaluation center, |q'|<1 except when 1<U<6/5 and is
+            # globally below 33/8.  Bound E[W_i 1{1<U<6/5}] from both sides
+            # using every admissible low/high knot split.  The excess over
+            # the unit derivative bound is 33/8-1=25/8.
+            knot_lower = []
+            knot_upper = []
+            lower_sum = Fraction()
+            upper_sum = Fraction()
+            for index in range(5):
+                lower_sum += lower[index]
+                upper_sum += upper[index]
+                knot_lower.append(lower_sum)
+                knot_upper.append(upper_sum)
+
+            event_moments = [one_fifth] * 5
+            largest_knot_upper = min(knot_upper[-1], Fraction(5))
+            if largest_knot_upper > 1:
+                for low_count in range(1, 5):
+                    low_cap = knot_upper[low_count - 1]
+                    if low_cap >= 1:
+                        continue
+                    radius_value = (
+                        (largest_knot_upper - 1)
+                        / (largest_knot_upper - low_cap)
+                    )
+                    low_moment, high_moment = tail_moments(
+                        5 - low_count,
+                        radius_value,
+                    )
+                    for index in range(low_count):
+                        if low_moment < event_moments[index]:
+                            event_moments[index] = low_moment
+                    for index in range(low_count, 5):
+                        if high_moment < event_moments[index]:
+                            event_moments[index] = high_moment
+
+            for low_count in range(1, 5):
+                high_floor = knot_lower[low_count]
+                if high_floor <= Fraction(6, 5):
+                    continue
+                radius_value = 1 - Fraction(6, 5) / high_floor
+                low_tail, high_tail = tail_moments(
+                    5 - low_count,
+                    radius_value,
+                )
+                low_moment = one_fifth - low_tail
+                high_moment = one_fifth - high_tail
+                for index in range(low_count):
+                    if low_moment < event_moments[index]:
+                        event_moments[index] = low_moment
+                for index in range(low_count, 5):
+                    if high_moment < event_moments[index]:
+                        event_moments[index] = high_moment
+
+            knot_lipschitz = [
+                one_fifth + derivative_excess * moment
+                for moment in event_moments
+            ]
+            parameter_lipschitz = [
+                sum(knot_lipschitz[index:]) for index in range(5)
+            ]
+            error = sum(
+                parameter_lipschitz[index] * arb_exact(radii[index])
+                for index in range(5)
+            )
+            if center_value > error:
+                counts["direct_lipschitz"] += 1
+                maximum_depth = max(maximum_depth, depth)
+                update_box_digest(box_digest, "direct", lower, upper)
+                continue
+
+            if depth >= 50:
+                raise AssertionError(
+                    "n=5 complete subdivision did not close"
+                )
+            split_index = max(
+                range(5),
+                key=lambda index: weights[index]
+                * (upper[index] - lower[index]),
+            )
+            midpoint = (lower[split_index] + upper[split_index]) / 2
+            lower_child = list(lower)
+            lower_child[split_index] = midpoint
+            upper_child = list(upper)
+            upper_child[split_index] = midpoint
+            stack.append((tuple(lower_child), upper, depth + 1))
+            stack.append((lower, tuple(upper_child), depth + 1))
+
+        assert calls == 1669573
+        assert counts == {
+            "convex_core": 43171,
+            "central_minorant": 6,
+            "recursive_global_A": 105885,
+            "recursive_local_A": 558019,
+            "direct_lipschitz": 127706,
+            "infeasible": 0,
+        }
+        assert calls == 2 * sum(counts.values()) - 1
+        assert maximum_depth == 38
+        assert scalar_digest.hexdigest() == (
+            "bdf4f9223239168671e7eb3517d210b90f270b6394c668e6b21703065234fe97"
+        )
+        assert box_digest.hexdigest() == (
+            "c07fa042526bb48d7a79cf67c80297fcbcd59481ac8b3560645bafd80e23a5f2"
+        )
+    finally:
+        ctx.prec = previous_precision
+
+    return {
+        "arb_precision_bits": 160,
+        "extended_convex_core": {
+            "largest_knot_upper": "19/16",
+            "endpoint_exp_threshold": _fraction_record(
+                core_exp_threshold
+            ),
+            "endpoint_exp_upper": _fraction_record(core_exp_upper),
+            "exact_margin": _fraction_record(core_endpoint_margin),
+        },
+        "central_affine_minorant": {
+            "claim": "q(u)>=(13/50)(1-u) on [5/8,5/2]",
+            "interval_records": central_records,
+        },
+        "derivative_bounds": {
+            "global": (
+                "q is globally 33/8-Lipschitz; abs(q'(u))<33/8 "
+                "on each smooth piece"
+            ),
+            "outside_transition": (
+                "abs(q'(u))<1 on the lower piece 0<u<1 and on "
+                "the upper piece 6/5<=u<=5"
+            ),
+            "transition_interval": "1<u<6/5",
+            "exp_5_upper_margin": _fraction_record(
+                Fraction(3125, 21) - exp_five_upper
+            ),
+            "transition_endpoint_margin": _fraction_record(
+                transition_exp_threshold - transition_exp_upper
+            ),
+        },
+        "beta_tail_moment_formulas": "symbolically checked for h=1,2,3,4",
+        "scalar_terminal_transcript_sha256": scalar_digest.hexdigest(),
+        "five_positive_boundary": {
+            "parameterization": (
+                "(a,b,c,d,e)=(a,a+r,a+r+s,a+r+s+t,a+r+s+t+v), "
+                "5a+4r+3s+2t+v<=5"
+            ),
+            "initial_parameter_box": (
+                "[0,1]x[0,5/4]x[0,5/3]x[0,5/2]x[0,5]"
+            ),
+            "cumulative_coordinate_weights": [5, 4, 3, 2, 1],
+            "evaluation_point_rule": (
+                "coordinate midpoint, moved from the lower box corner "
+                "along their connecting segment to weighted budget 5 "
+                "when the midpoint is infeasible"
+            ),
+            "recursive_pruning": (
+                "[a,b,c,d,e](u*f3)=(e*[b,c,d,e]f3-"
+                "a*[a,b,c,d]f3)/(e-a), using the proved four-positive "
+                "face, A<=1, and abs(q3')<1"
+            ),
+            "direct_lipschitz_pruning": (
+                "unit derivative bound outside 1<U<6/5, global 33/8 "
+                "bound, and directed Beta-tail coordinate moments"
+            ),
+            "total_branch_calls": calls,
+            "terminal_box_counts": counts,
+            "maximum_bisection_depth": maximum_depth,
+            "terminal_transcript_sha256": box_digest.hexdigest(),
+        },
+    }
+
+
 def _middle_knot_d_coefficient(lam: Fraction, order: int) -> Fraction:
     """Coefficient of ``z**order`` in the logarithm (15ak)."""
     lam = Fraction(lam)
@@ -2848,6 +3529,7 @@ def build_certificate() -> dict[str, object]:
     verify_n3_four_knot_theorem()
     n4_five_knot_record = verify_n4_five_knot_theorem()
     n5_four_positive_record = verify_n5_four_positive_face()
+    n5_six_knot_record = verify_n5_six_knot_theorem()
     verify_three_positive_convex_core()
     sparse_convex_core_record = verify_sparse_convex_core()
     verify_three_positive_far_cap()
@@ -2881,7 +3563,7 @@ def build_certificate() -> dict[str, object]:
         two_level_checks.append(two_level_profile_regression(n, k, a, b))
 
     return {
-        "schema_version": 15,
+        "schema_version": 16,
         "status": (
             "Research certificate: exact reductions and an obstruction, "
             "not an all-sample-size coverage certificate."
@@ -2983,6 +3665,21 @@ def build_certificate() -> dict[str, object]:
             ),
             "symbolic_exact_and_interval_checks": "passed",
             "proof_record": n5_four_positive_record,
+        },
+        "n5_six_knot_theorem": {
+            "analytic_basis": (
+                "The radial zero-knot reduction, the complete n=5 "
+                "four-positive face, exact scalar core and derivative "
+                "bounds, a recursive knot-insertion estimate, and a "
+                "deterministic directed 160-bit Arb branch certificate "
+                "for the residual ordered five-positive boundary"
+            ),
+            "scope": (
+                "Every nonnegative six-coordinate profile with "
+                "sum_i y_i<=5"
+            ),
+            "symbolic_exact_and_interval_checks": "passed",
+            "proof_record": n5_six_knot_record,
         },
         "three_positive_convex_core_all_n": {
             "analytic_basis": (
@@ -3175,6 +3872,12 @@ def main(argv: list[str] | None = None) -> int:
         ],
     )
     print(
+        "complete n=5 six-knot comparison:",
+        certificate["n5_six_knot_theorem"][
+            "symbolic_exact_and_interval_checks"
+        ],
+    )
+    print(
         "all-n three-positive convex core:",
         certificate["three_positive_convex_core_all_n"][
             "symbolic_identity_check"
@@ -3219,6 +3922,7 @@ def main(argv: list[str] | None = None) -> int:
             ],
         )
     )
+    print("first open complete simplex dimension: n=6")
     print("general Dirichlet-average inequality: OPEN")
     return 0
 

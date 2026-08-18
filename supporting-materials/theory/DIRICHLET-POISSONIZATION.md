@@ -8,10 +8,8 @@
 > convex-core region on every coordinate face (including a four-positive
 > region in every dimension `n>=4`), proves the four-positive far cap
 > `d>=n-1`,
-> proves the complete comparison for `n=2`, `n=3`, and `n=4`, proves every
-> `n=5` profile with at most four nonzero coordinates, and rules out an
-> over-broad
-> localization shortcut. The central
+> proves the complete comparison for `n=2`, `n=3`, `n=4`, and `n=5`, and
+> rules out an over-broad localization shortcut. The central
 > divided-difference inequality remains open for general `n`. Nothing here is
 > yet an all-sample-size coverage theorem.
 
@@ -2094,11 +2092,277 @@ confluent cases supplied by continuity, proving (15by).
 
 Together with the lower-dimensional face theorems, this proves the
 comparison for every `n=5` profile having at most four nonzero coordinates.
-It does not close the five-positive boundary and therefore does not prove the
-complete `n=5` comparison.
+By itself it does not close the five-positive boundary; Section 14 uses this
+face theorem recursively to complete the `n=5` comparison.
 
 
-## 14. Why generic $s$-concave localization is too broad
+## 14. The complete comparison for `n=5`
+
+The four-positive-face theorem supplies both a boundary result and the
+recursive estimate needed to close the remaining face.
+
+> **Complete `n=5` theorem.**  For every nonnegative six-coordinate vector
+> `y` with `sum_i y_i<=5`, one has
+>
+> \[
+>  \Pr\{Z_y>5\}\ge\Pr\{T_y>1\}.                 \tag{15cg}
+> \]
+
+By the radial boundary lemma, it is enough to consider an ordered boundary
+profile `(0,a,b,c,d,e)` with
+
+\[
+ 0\le a\le b\le c\le d\le e,
+ \qquad a+b+c+d+e\le5.
+\]
+
+Put, with its continuous value at zero,
+
+\[
+ F(u)=u^4\{e^{-5/u}-(1-u^{-1})_+^5\}.
+\]
+
+Multiplication by the zero knot reduces the target to
+
+\[
+ [a,b,c,d,e]F\ge0.                               \tag{15ch}
+\]
+
+For a uniform-simplex convex combination `U` of these five knots,
+Hermite--Genocchi gives `[a,b,c,d,e]F=E q(U)` and `EU<=1`, where, with
+`lambda=5/u`,
+
+\[
+ q(u)=\frac{F^{(4)}(u)}{24}
+ =\begin{cases}
+ e^{-\lambda}\displaystyle\sum_{j=0}^4\frac{\lambda^j}{j!},
+       &0<u\le1,\\[2mm]
+ e^{-\lambda}\displaystyle\sum_{j=0}^4\frac{\lambda^j}{j!}
+       -1+u^{-5},&u>1.
+ \end{cases}                                      \tag{15ci}
+\]
+
+### Scalar regions
+
+The integrand is nonnegative through `u=19/16`.  On `[1,19/16]` it is
+decreasing: `q'(u)<0` is equivalent to `e^lambda>625/24`, and the
+degree-four Taylor lower bound at `lambda=80/19` is
+`5162241/130321>625/24`.  At the right endpoint, positivity is equivalent to
+
+\[
+ e^{80/19}<\frac{32694193}{475841}.
+\]
+
+The degree-six geometric-tail Taylor upper bound is
+`1819400743567/26675014527`, leaving the exact positive margin
+
+\[
+ \frac{6372604003876864}{12693065587542207}.
+\]
+
+A second scalar region follows from the directed affine minorant
+
+\[
+ q(u)\ge\frac{13}{50}(1-u),
+ \qquad \frac58\le u\le\frac52.                 \tag{15cj}
+\]
+
+At 160-bit Arb precision, complete dyadic interval evaluation proves
+(15cj) with nine terminal intervals and maximum depth seven on `[5/8,1]`,
+and 520 intervals and maximum depth 14 on `[1,5/2]`.  The ordered scalar
+transcript has SHA-256 digest
+
+```text
+bdf4f9223239168671e7eb3517d210b90f270b6394c668e6b21703065234fe97
+```
+
+Thus (15ch) holds if `e<=19/16`.  It also holds if `a>=5/8`, because the sum
+constraint then gives `e<=5-4a<=5/2`, and (15cj) yields
+`E q(U)>=(13/50)(1-EU)>=0`.
+
+### Recursive pruning from the four-positive face
+
+Let `f_3(u)=F(u)/u`, and define
+
+\[
+ A=[a,b,c,d]f_3,
+ \qquad B=[b,c,d,e]f_3.
+\]
+
+The divided-difference multiplication identity gives
+
+\[
+ [a,b,c,d,e]F=\frac{eB-aA}{e-a}.                 \tag{15ck}
+\]
+
+Section 13 proves `A,B>=0`.  Its Hermite--Genocchi integrand is at most one:
+for `u<=1` it is a Poisson CDF, while for `u>1` its correction satisfies
+
+\[
+ 5u^{-4}-4u^{-5}\le1
+\]
+
+because its derivative is `20(1-u)/u^6` and its value at one is one.
+Consequently,
+
+\[
+ 0\le A\le1.                                     \tag{15cl}
+\]
+
+Section 13 also proves that this integrand has derivative of absolute value
+less than one on `[0,5]`.  For a cumulative-parameter box with coordinate
+radii `(Delta a,Delta r,Delta s,Delta t,Delta v)`, directed center values
+`A_0,B_0` therefore give
+
+\[
+\begin{aligned}
+ A&\le A_0+\Delta a+\tfrac34\Delta r
+                +\tfrac12\Delta s+\tfrac14\Delta t,\\
+ B&\ge B_0-\Delta a-\Delta r-\tfrac34\Delta s
+                -\tfrac12\Delta t-\tfrac14\Delta v.
+\end{aligned}
+\]
+
+The upper bound for `A` is intersected with (15cl).  If `e_-` and `a_+` are
+the box lower bound for `e` and upper bound for `a`, respectively, the box
+is certified whenever the resulting bounds give `e_- B_->a_+ A_+`.
+Equation (15ck) then proves strict positivity throughout the feasible part
+of the box.  This recursive test closes most of the residual region.
+
+### Directed Lipschitz bound for the remaining boxes
+
+The direct certificate uses two derivative bounds for (15ci):
+
+\[
+ \operatorname{Lip}_{[0,5]}(q)<\frac{33}{8},
+ \qquad
+ |q'(u)|<1\quad\left(0<u<1\ \hbox{or}\ 6/5\le u\le5\right),
+                                                        \tag{15cm}
+\]
+
+where the first statement gives a global Lipschitz bound by continuity at
+the knot `u=1`.  On `u<=1`,
+`q'(u)=e^{-lambda}lambda^6/120`; its maximum occurs at `lambda=6`, and the
+degree-eleven lower bound gives `e^6>1944/5`.  On `u>1`,
+
+\[
+ q'(u)=e^{-\lambda}\frac{\lambda^6}{120}
+       -\frac{\lambda^6}{3125}.
+\]
+
+As a function of `lambda`, its derivative has the sign of
+`e^{-lambda}(6-lambda)/120-6/3125`, a strictly decreasing function on
+`[1,5]`.  Its minimum on each subinterval is therefore at an endpoint.
+The exact bounds
+
+\[
+ e^5<\frac{129437747}{870912}<\frac{3125}{21}
+\]
+
+and
+
+\[
+ e^{25/6}<\frac{55091469462637}{853298675712}
+          <\frac{48828125}{755256}
+\]
+
+prove the lower sides of the two inequalities in (15cm); the upper sides
+follow from the same one-turn argument and the elementary endpoint bounds.
+
+Let `W=(W_0,...,W_4)` be uniform Dirichlet and put
+`U=sum_i x_iW_i`, where `(x_0,...,x_4)=(a,b,c,d,e)`.  Along a segment inside
+a parameter box, (15cm) gives
+
+\[
+ \left|\frac{\partial}{\partial x_i}E q(U)\right|
+ \le \frac15+\frac{25}{8}
+       E\{W_i\mathbf1_{\{1<U<6/5\}}\}.           \tag{15cn}
+\]
+
+The event moments are bounded without sampling.  Suppose the first `m`
+knot upper bounds are at most `D<1`, all remaining knot upper bounds are at
+most `E`, and let `S` be the aggregate Dirichlet weight on the `h=5-m` high
+knots.  Then `U>1` implies
+
+\[
+ S>\theta=\frac{1-D}{E-D}.                       \tag{15co}
+\]
+
+Here `S` has the `Beta(h,5-h)` law.  With `R=1-theta`, the individual
+low- and high-coordinate tail moments are as follows:
+
+\[
+\begin{array}{c|c|c}
+ h & E[W_{\rm low}\mathbf1_{\{S>\theta\}}]
+   & E[W_{\rm high}\mathbf1_{\{S>\theta\}}]\\ \hline
+1 & R^5/5 & R^4(5-4R)/5\\
+2 & R^4-4R^5/5 & 2R^3-3R^4+6R^5/5\\
+3 & 2R^3-3R^4+6R^5/5 & 2R^2-4R^3+3R^4-4R^5/5\\
+4 & 2R^2-4R^3+3R^4-4R^5/5
+  & R-2R^2+2R^3-R^4+R^5/5.
+\end{array}                                      \tag{15cp}
+\]
+
+The source derives all eight formulas symbolically.  Bounds from the other
+side are obtained similarly: if the last `h` knot lower bounds are at least
+`L>6/5`, then `U<6/5` implies `S<(6/5)/L`; subtracting the corresponding
+moments in (15cp) from `E W_i=1/5` gives another valid bound.  For each knot,
+the certificate takes the smallest directed bound supplied by every
+admissible split and substitutes it in (15cn).
+
+Finally parameterize the ordered face by
+
+\[
+ (a,b,c,d,e)=(a,a+r,a+r+s,a+r+s+t,a+r+s+t+v),
+ \qquad 5a+4r+3s+2t+v\le5.                      \tag{15cq}
+\]
+
+If the five knot-coordinate bounds from (15cn) are `L_0,...,L_4`, the
+cumulative parameter coefficients are
+
+\[
+ L_0+\cdots+L_4,\quad L_1+\cdots+L_4,\quad
+ L_2+L_3+L_4,\quad L_3+L_4,\quad L_4.           \tag{15cr}
+\]
+
+The initial box is
+`[0,1] x [0,5/4] x [0,5/3] x [0,5/2] x [0,5]`.  Coordinate upper endpoints
+are tightened using the other lower endpoints and the budget in (15cq).
+If the rational midpoint exceeds the budget, it is moved from the lower box
+corner along their connecting segment to the budget boundary.  The resulting
+evaluation point is both feasible and inside the box.  Whole boxes are first
+pruned by the convex core, the affine minorant, and the recursive test.  A
+remaining box is certified when the
+160-bit Arb lower bound for its center value exceeds the directed radius
+from (15cr).  Otherwise, the first parameter maximizing
+`(5,4,3,2,1)_i` times its width is bisected.  Lower and upper children are
+inserted in that order on a last-in, first-out stack.
+
+The subdivision terminates after 1,669,573 branch calls and maximum depth
+38.  Its 834,787 terminal boxes comprise 43,171 convex-core boxes, six
+affine-minorant boxes, 105,885 boxes closed recursively with `A<=1`,
+558,019 boxes closed with the local bound for `A`, and 127,706 direct
+Lipschitz boxes.  No infeasible terminal box occurs after coordinatewise
+tightening.  The ordered terminal-transcript digest is
+
+```text
+c07fa042526bb48d7a79cf67c80297fcbcd59481ac8b3560645bafd80e23a5f2
+```
+
+Every numerical inequality in this proof is a directed Arb enclosure at
+160-bit precision; every scalar Taylor comparison and all subdivision
+endpoints are exact rationals.  The source regenerates the scalar partition,
+the beta-moment identities, the complete branch partition, all counts and
+depths, and both transcript digests.  Continuity supplies repeated-knot
+cases.  This proves (15ch), and the radial boundary lemma proves (15cg).
+
+Thus the Dirichlet--Poissonization comparison is complete through `n=5`.
+The first open complete simplex dimension is `n=6`.  This result does not by
+itself prove the separate exponential-quantile convexity target or a
+general-sample-size Stringer coverage theorem.
+
+
+## 15. Why generic $s$-concave localization is too broad
 
 A one-dimensional localization theorem for $1/n$-concave probability
 laws reduces a linear extremal problem to point masses or densities of the
@@ -2158,23 +2422,22 @@ coefficients $y_i$; not every density in (16) is such a projection with
 the constraint (2). The example shows precisely which structural
 information a successful localization argument must preserve.
 
-## 15. Remaining proof problem
+## 16. Remaining proof problem
 
 The cleanest current target is (6).  Section 4 shows that it is enough to
 work on coordinate faces, Sections 3--5 establish it for every profile
 having at most two distinct coefficient values or at most two nonzero
 coefficients, and Sections 6--7 prove the complete target for `n=2` and
-`n=3`, while Section 12 proves the complete target for `n=4`.  Sections
-8--11 prove every profile having exactly three nonzero coefficients, and
-Section 13 proves every `n=5` profile having at most four nonzero
-coefficients.
+`n=3`, while Section 12 proves the complete target for `n=4` and Section 14
+proves it for `n=5`.  Sections 8--11 prove every profile having exactly
+three nonzero coefficients, and Section 13 separately proves every `n=5`
+profile having at most four nonzero coefficients.
 Section 8 also proves a convex core on every coordinate face, including the
 region `d<=n^2/{3(n+1)}` for four nonzero knots, and Section 9 proves the
-opposite four-positive far cap `d>=n-1`.  At `n=5`, only the five-positive
-boundary remains unresolved; in dimensions `n>=6`, profiles with four or
-more nonzero knots outside the proved regions remain open.  The first open
-complete simplex dimension is therefore still `n=5`.  Three plausible
-routes remain for general `n`:
+opposite four-positive far cap `d>=n-1`.  In dimensions `n>=6`, profiles
+with four or more nonzero knots outside the proved regions remain open.  The
+first open complete simplex dimension is now `n=6`.  Three plausible routes
+remain for general `n`:
 
 1. exploit the zero-knot reduction recursively, or prove that a negative
    minimum on a coordinate face must have at most two distinct knot values;
@@ -2195,11 +2458,10 @@ The committed output is
 It certifies the obstruction, checks rational equal-block instances,
 regression-checks the exact algebra used in the two-level, two-positive-knot,
 arbitrary-order sparse-core, four-positive far-cap, three-positive subregion,
-complete `n=2`, `n=3`, and `n=4` proofs, and the complete four-positive face
-at `n=5`.  It also supplies the directed interval components of the complete
-three-positive-face, `n=4`, and `n=5` face proofs, including deterministic
-terminal-box counts and transcript digests.  The general inequality remains
-explicitly open.
+and complete `n=2`, `n=3`, `n=4`, and `n=5` proofs.  It also supplies the
+directed interval components of the complete three-positive-face, `n=4`,
+and both `n=5` face proofs, including deterministic terminal-box counts and
+transcript digests.  The general inequality remains explicitly open.
 
 ## References
 

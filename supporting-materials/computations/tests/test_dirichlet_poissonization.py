@@ -183,7 +183,7 @@ class DirichletPoissonizationTests(unittest.TestCase):
 
     def test_certificate_is_explicitly_non_theorem_research_support(self):
         certificate = build_certificate()
-        self.assertEqual(certificate["schema_version"], 15)
+        self.assertEqual(certificate["schema_version"], 16)
         self.assertIn("not an all-sample-size coverage certificate", certificate["status"])
         self.assertEqual(
             len(certificate["equal_block_profiles"]["regression_checks"]),
@@ -226,6 +226,23 @@ class DirichletPoissonizationTests(unittest.TestCase):
                 "symbolic_exact_and_interval_checks"
             ],
             "passed",
+        )
+        self.assertEqual(
+            certificate["n5_six_knot_theorem"][
+                "symbolic_exact_and_interval_checks"
+            ],
+            "passed",
+        )
+        complete_n5 = certificate["n5_six_knot_theorem"]["proof_record"]
+        self.assertEqual(
+            complete_n5["five_positive_boundary"]["total_branch_calls"],
+            1669573,
+        )
+        self.assertEqual(
+            complete_n5["five_positive_boundary"][
+                "terminal_transcript_sha256"
+            ],
+            "c07fa042526bb48d7a79cf67c80297fcbcd59481ac8b3560645bafd80e23a5f2",
         )
         self.assertEqual(
             certificate["three_positive_convex_core_all_n"][

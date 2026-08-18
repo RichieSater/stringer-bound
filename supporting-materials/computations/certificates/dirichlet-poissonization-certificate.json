@@ -3089,12 +3089,95 @@
     "scope": "Every n=5 profile having two zero coordinates and four ordered nonnegative coordinates with total sum at most 5",
     "symbolic_exact_and_interval_checks": "passed"
   },
+  "n5_six_knot_theorem": {
+    "analytic_basis": "The radial zero-knot reduction, the complete n=5 four-positive face, exact scalar core and derivative bounds, a recursive knot-insertion estimate, and a deterministic directed 160-bit Arb branch certificate for the residual ordered five-positive boundary",
+    "proof_record": {
+      "arb_precision_bits": 160,
+      "beta_tail_moment_formulas": "symbolically checked for h=1,2,3,4",
+      "central_affine_minorant": {
+        "claim": "q(u)>=(13/50)(1-u) on [5/8,5/2]",
+        "interval_records": [
+          {
+            "certified_leaf_intervals": 9,
+            "interval": "[5/8,1]",
+            "maximum_bisection_depth": 7
+          },
+          {
+            "certified_leaf_intervals": 520,
+            "interval": "[1,5/2]",
+            "maximum_bisection_depth": 14
+          }
+        ]
+      },
+      "derivative_bounds": {
+        "exp_5_upper_margin": {
+          "decimal": "0.186302404835390947",
+          "denominator": "124416",
+          "numerator": "23179"
+        },
+        "global": "q is globally 33/8-Lipschitz; abs(q'(u))<33/8 on each smooth piece",
+        "outside_transition": "abs(q'(u))<1 on the lower piece 0<u<1 and on the upper piece 6/5<=u<=5",
+        "transition_endpoint_margin": {
+          "decimal": "0.088153853710287360",
+          "denominator": "26852456025980928",
+          "numerator": "2367147480276247"
+        },
+        "transition_interval": "1<u<6/5"
+      },
+      "extended_convex_core": {
+        "endpoint_exp_threshold": {
+          "decimal": "68.708230270195296328",
+          "denominator": "475841",
+          "numerator": "32694193"
+        },
+        "endpoint_exp_upper": {
+          "decimal": "68.206176297502415227",
+          "denominator": "26675014527",
+          "numerator": "1819400743567"
+        },
+        "exact_margin": {
+          "decimal": "0.502053972692881101",
+          "denominator": "12693065587542207",
+          "numerator": "6372604003876864"
+        },
+        "largest_knot_upper": "19/16"
+      },
+      "five_positive_boundary": {
+        "cumulative_coordinate_weights": [
+          5,
+          4,
+          3,
+          2,
+          1
+        ],
+        "direct_lipschitz_pruning": "unit derivative bound outside 1<U<6/5, global 33/8 bound, and directed Beta-tail coordinate moments",
+        "evaluation_point_rule": "coordinate midpoint, moved from the lower box corner along their connecting segment to weighted budget 5 when the midpoint is infeasible",
+        "initial_parameter_box": "[0,1]x[0,5/4]x[0,5/3]x[0,5/2]x[0,5]",
+        "maximum_bisection_depth": 38,
+        "parameterization": "(a,b,c,d,e)=(a,a+r,a+r+s,a+r+s+t,a+r+s+t+v), 5a+4r+3s+2t+v<=5",
+        "recursive_pruning": "[a,b,c,d,e](u*f3)=(e*[b,c,d,e]f3-a*[a,b,c,d]f3)/(e-a), using the proved four-positive face, A<=1, and abs(q3')<1",
+        "terminal_box_counts": {
+          "central_minorant": 6,
+          "convex_core": 43171,
+          "direct_lipschitz": 127706,
+          "infeasible": 0,
+          "recursive_global_A": 105885,
+          "recursive_local_A": 558019
+        },
+        "terminal_transcript_sha256": "c07fa042526bb48d7a79cf67c80297fcbcd59481ac8b3560645bafd80e23a5f2",
+        "total_branch_calls": 1669573
+      },
+      "scalar_terminal_transcript_sha256": "bdf4f9223239168671e7eb3517d210b90f270b6394c668e6b21703065234fe97"
+    },
+    "scope": "Every nonnegative six-coordinate profile with sum_i y_i<=5",
+    "symbolic_exact_and_interval_checks": "passed"
+  },
   "radial_zero_knot_reduction": {
     "analytic_basis": "The Laplace-transform convolution identity, the resulting mode-below-mean bound for weighted exponential sums, and the density-derivative argument in DIRICHLET-POISSONIZATION.md",
     "scope": "Any strictly positive coefficient profile with sum_i y_i<=n can be moved to a zero-knot boundary without increasing the Dirichlet--Poissonization gap.",
     "symbolic_identity_check": "passed"
   },
-  "schema_version": 15,
+  "schema_version": 16,
   "sparse_convex_core_all_n": {
     "analytic_basis": "The repeated divided-difference multiplication identity, the arbitrary-order derivative-CDF identities proved by induction, and Anderson--Samuels (1967)",
     "corroboration_record": {

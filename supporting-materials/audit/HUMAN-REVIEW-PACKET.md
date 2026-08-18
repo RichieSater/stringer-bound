@@ -399,7 +399,7 @@ Questions:
     using any proved boundary, symmetry, or local-corner result as a full
     three-coordinate convexity or general-`n` coverage theorem?
 
-## Review J: Dirichlet--Poissonization reductions through the `n=5` four-positive face
+## Review J: Dirichlet--Poissonization reductions through complete `n=5`
 
 Primary files:
 
@@ -519,15 +519,35 @@ Questions:
     rescaling, tie-breaking, and continuity arguments preserve every
     feasible point?  Does regeneration reproduce all 81,703 calls, the four
     terminal counts, maximum depth 28, and the terminal-transcript digest?
-29. Does the new theorem prove exactly every `n=5` profile with at most four
-    nonzero coordinates while leaving the five-positive boundary open?
-30. Is the conclusion limited to the complete `n=2`, `n=3`, and `n=4`
-    Poissonization inequalities, every two-level profile, every profile with
-    at most three nonzero coefficients, the complete `n=5` four-positive
-    face, the sparse convex cores, the four-positive far cap, and the radial
-    boundary reduction, without being promoted to the still-open complete
-    `n=5` or general-dimensional comparison, the separate exponential-
-    quantile convexity target, or a Stringer coverage theorem by itself?
+29. Does the face theorem prove exactly every `n=5` profile with at most four
+    nonzero coordinates, supplying the recursive input for the remaining
+    boundary without by itself claiming the complete `n=5` result?
+30. For the five-positive boundary, does one zero-knot multiplication give
+    `[a,b,c,d,e]F`, and does Hermite--Genocchi give the scalar integrand and
+    mean constraint in (15ci) with the correct normalization?
+31. Do the exact exponential comparisons prove the core through `19/16`,
+    and do the 529 directed intervals prove the affine minorant (15cj) over
+    its entire two-piece domain rather than only at sampled points?
+32. Is the knot-insertion identity (15ck) correct; does Section 13 imply
+    `A,B>=0` on every required quadruple; is `A<=1` justified pointwise; and
+    do the two cumulative-parameter radii give valid directed bounds for
+    `A` and `B` on every feasible box?
+33. Do the one-turn derivative calculation and exact Taylor bounds prove
+    both inequalities in (15cm), including the derivative jump at one?  Are
+    the eight beta-tail moments in (15cp) normalized correctly, and do the
+    upper- and lower-knot implications bound the whole transition event
+    `1<U<6/5`?
+34. Does (15cq) cover the complete constrained ordered boundary; is the
+    cumulative radius (15cr) correct; and do tightening, budget-clipped
+    midpoint selection, recursive pruning, directed moment selection,
+    bisection, and continuity preserve every feasible profile?  Does regeneration produce
+    1,669,573 calls, all six terminal counts, maximum depth 38, and both
+    stated transcript digests?
+35. Does the radial lemma extend the certified boundary to every `n=5`
+    profile, making `n=6` the first open complete simplex dimension, without
+    promoting this result to the still-open general-dimensional comparison,
+    the separate exponential-quantile convexity target, or a Stringer
+    coverage theorem by itself?
 
 ## Minimum reproduction record
 
