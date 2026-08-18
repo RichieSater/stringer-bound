@@ -182,7 +182,10 @@ certificate or a written proof:
   also shows that the equal-weight Hessian thresholds increase from this
   two-coordinate value
   ([program note](supporting-materials/theory/ALL-N-POISSON-PROGRAM.md)).
-  Neither result proves the unequal-weight
+  The first unequal case is now reduced exactly to one explicit two-variable
+  tilted-simplex inequality
+  ([three-coordinate reduction](supporting-materials/theory/THREE-EXPONENTIAL-QUANTILE.md)),
+  but that inequality remains open. These results do not prove the
   three-or-more-coordinate case or general-\(n\) Stringer coverage.
 
 - **All-sample-size scalar calibration of the Poisson bound**
@@ -282,6 +285,8 @@ single-crossing identity isolated in
 [`ORDERED-SIMPLEX-CAP.md`](supporting-materials/theory/ORDERED-SIMPLEX-CAP.md);
 extend the sharp two-coordinate weighted-exponential theorem in
 [`TWO-EXPONENTIAL-QUANTILE.md`](supporting-materials/theory/TWO-EXPONENTIAL-QUANTILE.md),
+starting with the explicit three-coordinate inequality in
+[`THREE-EXPONENTIAL-QUANTILE.md`](supporting-materials/theory/THREE-EXPONENTIAL-QUANTILE.md),
 and pursue the general Dirichlet--Poissonization inequality isolated in
 [`ALL-N-POISSON-PROGRAM.md`](supporting-materials/theory/ALL-N-POISSON-PROGRAM.md)
 using the proved zero-knot reduction and all-two-level case in
@@ -325,6 +330,7 @@ supporting-materials/
 │   ├── ORDERED-SIMPLEX-CAP.md vertex equalities + open transfer target
 │   ├── ALL-N-POISSON-PROGRAM.md exact reductions for the open all-n target
 │   ├── TWO-EXPONENTIAL-QUANTILE.md sharp two-weight convexity theorem
+│   ├── THREE-EXPONENTIAL-QUANTILE.md exact reduction of first open dimension
 │   └── DIRICHLET-POISSONIZATION.md sharper divided-difference target
 └── computations/python/
     ├── stringer.py           numerical factors for searches + exact-sign

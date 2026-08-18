@@ -6,6 +6,7 @@ the algebra that isolates them:
 * the ordered-weight Poisson Stringer identity;
 * the exact two-exponential quantile-convexity threshold ``4*exp(-3)``;
 * the exact equal-weight Hessian in every dimension;
+* the three-exponential tilted-simplex curvature reduction;
 * the gamma-kernel antiderivative identity; and
 * a decisive numerical counterexample to the tempting SymPol shortcut.
 """
@@ -16,8 +17,8 @@ from fractions import Fraction
 from math import comb
 
 from mpmath import mp
-from sympy import (Rational, diff, exp, factorial, log, simplify, symbols,
-                   series)
+from sympy import (Function, Rational, diff, exp, factorial, log, simplify,
+                   symbols, series)
 
 from stringer import factor_prefix
 
@@ -155,6 +156,52 @@ def check_equal_weight_hessian_thresholds() -> None:
         assert simplify(diff(poisson_cdf, lam) + poisson_mass) == 0
 
 
+def check_three_exponential_reduction() -> None:
+    """Check the exact tail and curvature prefactor in the three-weight note."""
+
+    w, x, z = symbols("w x z", positive=True)
+
+    def bfun(value):
+        return (1 - exp(-value)) / value
+
+    partition = (bfun(w) - bfun(z)) / (z - w)
+    linear = (z * bfun(w) - w * bfun(z)) / (z - w)
+    assert simplify(linear - bfun(z) - z * partition) == 0
+    assert simplify(linear - bfun(w) - w * partition) == 0
+
+    a = x / (x + z)
+    b = x / (x + w)
+    weights = (a, b, Rational(1, 1))
+    direct_tail = 0
+    for i, weight in enumerate(weights):
+        denominator = 1
+        for j, other in enumerate(weights):
+            if i != j:
+                denominator *= weight - other
+        direct_tail += weight**2 * exp(-x / weight) / denominator
+    expected_tail = exp(-x) * (
+        1 + linear * x + partition * x**2
+    )
+    assert simplify(direct_tail - expected_tail) == 0
+
+    # At fixed original weights, z and w vary proportionally with x.  This
+    # total derivative checks the sign and the factor x/Z in equation (10).
+    k = Function("k")(z, w)
+    weighted_covariance = exp(-x) * x**4 * k
+    total_derivative = (
+        diff(weighted_covariance, x)
+        + z / x * diff(weighted_covariance, z)
+        + w / x * diff(weighted_covariance, w)
+    )
+    density_without_constants = exp(-x) * x**2 * partition
+    radial_k = z * diff(k, z) + w * diff(k, w)
+    expected_curvature = x / partition * ((x - 4) * k - radial_k)
+    assert simplify(
+        -total_derivative / density_without_constants
+        - expected_curvature
+    ) == 0
+
+
 def check_kernel_identity() -> None:
     """Verify the nth-derivative identity for several symbolic n."""
     y = symbols("y", positive=True)
@@ -201,6 +248,7 @@ def main() -> int:
     check_two_exponential_obstruction()
     check_two_exponential_global_convexity()
     check_equal_weight_hessian_thresholds()
+    check_three_exponential_reduction()
     check_kernel_identity()
     poisson, sympol, gap, active_k = sympol_shortcut_counterexample()
     print("all-n reduction algebra: PASS")
@@ -208,6 +256,8 @@ def main() -> int:
           mp.nstr(4 * mp.e**-3, 16))
     print("equal-weight local thresholds: strictly increasing from the "
           "same m=2 value")
+    print("three-exponential convexity: reduced exactly to the documented "
+          "two-variable inequality")
     print("SymPol shortcut counterexample (numerical):")
     print("  n=15 alpha=0.05 one full taint")
     print("  active elementary-symmetric order:", active_k)

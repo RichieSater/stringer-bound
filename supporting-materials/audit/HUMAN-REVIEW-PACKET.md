@@ -300,6 +300,33 @@ Questions:
     thresholds strictly increase from `4e^-3`, and is this result described
     only as a pointwise Hessian theorem?
 
+## Review I: the exact three-exponential reduction
+
+Primary files:
+
+- [`../theory/THREE-EXPONENTIAL-QUANTILE.md`](../theory/THREE-EXPONENTIAL-QUANTILE.md)
+- [`../computations/python/all_n_poisson_reductions.py`](../computations/python/all_n_poisson_reductions.py)
+
+Questions:
+
+1. Do homogeneity and permutation symmetry justify normalization to a cone
+   with weights `(a,b,1)` without losing a Hessian direction?
+2. Does the change of variables on the conditional slice give the tilted-
+   simplex partition function, density, and covariance factors exactly?
+3. Does differentiating the density-weighted covariance at fixed original
+   weights give the matrix and the factor `x/Z` in equation (10)?
+4. Is the radial derivative of `K` the stated tilted third central moment,
+   with the correct sign?
+5. Does the smaller generalized eigenvalue in (12) give the exact curvature
+   threshold `h=4-rho`?
+6. Are the closed-form tail and its pathwise monotonicity in the transformed
+   threshold correct?
+7. Does inequality (16), if proved, imply three-coordinate convexity at and
+   below `4e^-3`, and is (16) itself consistently labeled open rather than
+   used as a theorem?
+8. Do the equal-weight and coordinate-face limits have the stated values and
+   preserve the sharp two-coordinate obstruction?
+
 ## Minimum reproduction record
 
 Run from a clean checkout:
@@ -343,6 +370,7 @@ Review E disposition:
 Review F disposition:
 Review G disposition:
 Review H disposition:
+Review I disposition:
 
 Issues found and exact locations:
 Corrections rechecked:

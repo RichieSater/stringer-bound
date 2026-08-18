@@ -696,6 +696,33 @@
       "limitations": "This is a pointwise Hessian theorem at equal weights. It does not establish global convexity at unequal weights in dimensions three or higher or general-n Stringer coverage."
     },
     {
+      "id": "three-exponential-quantile-reduction",
+      "classification": "proved_theorem",
+      "statement": "At tail threshold 4 exp(-3), convexity of the three-coordinate weighted-exponential quantile map is equivalent to the explicit two-variable tilted-simplex inequality stated in THREE-EXPONENTIAL-QUANTILE.md.",
+      "manuscript_labels": [],
+      "evidence": [
+        {
+          "path": "supporting-materials/theory/THREE-EXPONENTIAL-QUANTILE.md",
+          "role": "complete normalization, conditional-curvature, generalized-eigenvalue, and tail reduction",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/python/all_n_poisson_reductions.py",
+          "role": "exact symbolic checks of the transformed tail and curvature prefactor",
+          "trust": "corroboration_only"
+        },
+        {
+          "path": "supporting-materials/computations/tests/test_all_n_poisson_reductions.py",
+          "role": "regression test for the symbolic reduction",
+          "trust": "corroboration_only"
+        }
+      ],
+      "verification_commands": [
+        "make all-n-reduction-check"
+      ],
+      "limitations": "The final two-variable inequality is open. This record certifies the equivalence and reduction only, not three-coordinate convexity or general-n Stringer coverage."
+    },
+    {
       "id": "general-n-standard-confidence-status",
       "classification": "date_stamped_literature_status",
       "statement": "General finite-sample coverage for arbitrary n and arbitrary taint distributions at conventional confidence levels remains unresolved in the reviewed literature. This repository proves the binomial-factor result through n=7 at 90%, 95%, and 99%; the direct Poisson-factor ranges reach n=8, n=11, and n=20, respectively.",
@@ -711,6 +738,11 @@
         {
           "path": "supporting-materials/theory/ALL-N-POISSON-PROGRAM.md",
           "role": "exact reduction of a possible all-n Poisson proof to two explicitly unproved quantile inequalities",
+          "trust": "corroboration_only"
+        },
+        {
+          "path": "supporting-materials/theory/THREE-EXPONENTIAL-QUANTILE.md",
+          "role": "exact reduction of the first unequal exponential-quantile dimension to an explicitly open two-variable inequality",
           "trust": "corroboration_only"
         },
         {

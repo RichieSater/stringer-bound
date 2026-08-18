@@ -263,7 +263,9 @@ make all-n-reduction-check
 ```
 
 No floating-point sign decision enters the theorem. The next unresolved
-case is convexity of the same quantile map in three coordinates. Even a
-proof on every two-coordinate face does not by itself imply convexity in
-higher dimension; that distinction is retained explicitly in the project
-status language.
+case is convexity of the same quantile map in three coordinates.  It is
+reduced to an explicit two-variable tilted-simplex inequality in
+[`THREE-EXPONENTIAL-QUANTILE.md`](THREE-EXPONENTIAL-QUANTILE.md), but that
+inequality remains open. Even a proof on every two-coordinate face does not
+by itself imply convexity in higher dimension; that distinction is retained
+explicitly in the project status language.

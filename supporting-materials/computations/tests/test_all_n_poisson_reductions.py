@@ -12,6 +12,7 @@ sys.path.insert(0, str(PYTHON_DIR))
 
 from all_n_poisson_reductions import (  # noqa: E402
     check_equal_weight_hessian_thresholds,
+    check_three_exponential_reduction,
     check_two_exponential_global_convexity,
     check_two_exponential_obstruction,
 )
@@ -26,6 +27,9 @@ class AllNPoissonReductionTests(unittest.TestCase):
 
     def test_equal_weight_hessian_thresholds(self):
         check_equal_weight_hessian_thresholds()
+
+    def test_three_exponential_reduction(self):
+        check_three_exponential_reduction()
 
 
 if __name__ == "__main__":
