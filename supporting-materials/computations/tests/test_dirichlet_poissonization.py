@@ -16,6 +16,7 @@ from dirichlet_poissonization import (  # noqa: E402
     equal_block_check,
     saffine_localization_obstruction,
     two_level_profile_regression,
+    verify_four_positive_far_cap,
     verify_n2_three_knot_theorem,
     verify_n3_four_knot_theorem,
     verify_radial_symbolic_identities,
@@ -105,6 +106,17 @@ class DirichletPoissonizationTests(unittest.TestCase):
     def test_all_n_three_positive_far_cap_algebra(self):
         verify_three_positive_far_cap()
 
+    def test_all_n_four_positive_far_cap_algebra(self):
+        record = verify_four_positive_far_cap()
+        self.assertEqual(
+            record["n4_left_endpoint_margin"]["numerator"],
+            "29899236229",
+        )
+        self.assertEqual(
+            record["n4_right_endpoint_margin"]["numerator"],
+            "6461863",
+        )
+
     def test_all_n_three_positive_middle_knot_algebra(self):
         verify_three_positive_middle_knot_region()
 
@@ -121,7 +133,7 @@ class DirichletPoissonizationTests(unittest.TestCase):
 
     def test_certificate_is_explicitly_non_theorem_research_support(self):
         certificate = build_certificate()
-        self.assertEqual(certificate["schema_version"], 12)
+        self.assertEqual(certificate["schema_version"], 13)
         self.assertIn("not an all-sample-size coverage certificate", certificate["status"])
         self.assertEqual(
             len(certificate["equal_block_profiles"]["regression_checks"]),
@@ -167,6 +179,12 @@ class DirichletPoissonizationTests(unittest.TestCase):
         self.assertIn("four-positive", sparse_core["scope"])
         self.assertEqual(
             certificate["three_positive_far_cap_all_n"][
+                "symbolic_identity_and_constant_check"
+            ],
+            "passed",
+        )
+        self.assertEqual(
+            certificate["four_positive_far_cap_all_n"][
                 "symbolic_identity_and_constant_check"
             ],
             "passed",

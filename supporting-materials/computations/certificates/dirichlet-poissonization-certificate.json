@@ -2781,6 +2781,48 @@
     ]
   },
   "exponential_series_pairs": 48,
+  "four_positive_far_cap_all_n": {
+    "analytic_basis": "The multiplication identity expressing the third divided difference through two weighted second divided differences, the complete three-positive machinery for g_n, and exact endpoint estimates",
+    "exact_rational_bounds": {
+      "n4_exp_3_degree_8_lower": {
+        "decimal": "20.009151785714285714",
+        "denominator": "4480",
+        "numerator": "89641"
+      },
+      "n4_exp_4_degree_12_upper": {
+        "decimal": "54.598293459626792960",
+        "denominator": "10135125",
+        "numerator": "553360529"
+      },
+      "n4_exp_8_over_3_degree_10_lower": {
+        "decimal": "14.390363187145294661",
+        "denominator": "837019575",
+        "numerator": "12045015679"
+      },
+      "n4_left_endpoint_margin": {
+        "decimal": "0.449635867193353349",
+        "denominator": "66496555125",
+        "numerator": "29899236229"
+      },
+      "n4_right_endpoint_margin": {
+        "decimal": "0.268975316350316350",
+        "denominator": "24024000",
+        "numerator": "6461863"
+      },
+      "n_ge_5_exp_115_over_32_degree_5_lower": {
+        "decimal": "30.732025830696026484",
+        "denominator": "805306368",
+        "numerator": "24748696103"
+      },
+      "n_ge_5_exp_5_degree_8_lower": {
+        "decimal": "138.307167658730158730",
+        "denominator": "8064",
+        "numerator": "1115309"
+      }
+    },
+    "scope": "Every n>=4 profile having n-3 zero coefficients and four ordered nonnegative coefficients a<=b<=c<=d with sum at most n and d>=n-1",
+    "symbolic_identity_and_constant_check": "passed"
+  },
   "localization_obstruction": {
     "comparison_tail_probability": {
       "decimal": "0.466666666666666667",
@@ -2894,7 +2936,7 @@
     "scope": "Any strictly positive coefficient profile with sum_i y_i<=n can be moved to a zero-knot boundary without increasing the Dirichlet--Poissonization gap.",
     "symbolic_identity_check": "passed"
   },
-  "schema_version": 12,
+  "schema_version": 13,
   "sparse_convex_core_all_n": {
     "analytic_basis": "The repeated divided-difference multiplication identity, the arbitrary-order derivative-CDF identities proved by induction, and Anderson--Samuels (1967)",
     "corroboration_record": {

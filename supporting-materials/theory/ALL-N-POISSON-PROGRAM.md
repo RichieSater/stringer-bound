@@ -4,7 +4,8 @@
 > Exponential-quantile convexity is now proved sharply in two coordinates but
 > remains open in three or more; Dirichlet Poissonization remains open in
 > general, although it is proved for every profile with at most three nonzero
-> coefficients, on a sparse convex core of every coordinate face, and
+> coefficients, on a sparse convex core of every coordinate face, on the
+> four-positive far cap, and
 > completely for `n=2` and `n=3`.  This is a research roadmap,
 > not a coverage claim.  The paper
 > continues to state that ordinary Stringer coverage is unresolved for
@@ -453,6 +454,14 @@ theorem gives, in particular, the first dimension-free four-positive region
 `d<=n^2/{3(n+1)}`; on the first open `n=4` coordinate face, this is
 `d<=16/15`.
 
+A separate weighted divided-difference argument proves the opposite
+four-positive far cap `d>=n-1` for every `n>=4`.  It expresses the third
+divided difference of `F_{n,3}=u g_n` through two weighted second divided
+differences of `g_n`, then uses the one-turn shape proved for `f_n`, exact
+endpoint bounds, and the constraint that the three smaller knots sum to at
+most one.  Thus the first open `n=4` boundary is now restricted to
+`16/15<d<3`.
+
 For three positive knots, much more is known.  With `n-2` zero knots
 and ordered positive knots `a<=b<=c`, multiplication reduces (16) to the
 second divided difference of
@@ -480,7 +489,8 @@ The radial derivative is the density derivative at the threshold.  A
 Laplace-transform convolution identity shows that the mode of every
 weighted exponential sum is no larger than its mean, giving the required
 sign.  In dimensions `n>=4`, coordinate-face profiles with four or more
-nonzero knots remain open outside the sparse convex cores just described.  See
+nonzero knots remain open outside the sparse convex cores and the
+four-positive far cap just described.  See
 [`DIRICHLET-POISSONIZATION.md`](DIRICHLET-POISSONIZATION.md) for the proof,
 the full reduction, and the exact localization obstruction.
 
@@ -521,8 +531,9 @@ seemingly simpler but false domination claim.
    actual B-spline counterexample satisfying the sum-of-knots constraint;
    the complete `n=2` and `n=3` cases and every two-level profile are already
    proved, as is the entire three-positive face and a sparse convex core on
-   every coordinate face.  The first open region is the part of the `n=4`
-   four-positive boundary outside `d<=16/15`.
+   every coordinate face, together with the four-positive far cap.  The first
+   open region is the part of the `n=4` four-positive boundary with
+   `16/15<d<3`.
 3. Use the zero-knot reduction recursively, or prove that a negative minimum
    on a coordinate face must have at most two distinct knot values.
 4. Only after both analytic steps pass, connect (6)--(7) to the published

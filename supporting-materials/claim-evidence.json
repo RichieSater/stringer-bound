@@ -1000,7 +1000,7 @@
       "verification_commands": [
         "make dirichlet-poissonization-check"
       ],
-      "limitations": "This theorem itself covers only profiles with at most two nonzero coefficients; a separate theorem now covers every profile with three nonzero coefficients. Profiles with four or more nonzero coordinates outside the proved sparse convex cores, general Dirichlet--Poissonization, higher-dimensional exponential-quantile convexity, and general-n Stringer coverage remain open."
+      "limitations": "This theorem itself covers only profiles with at most two nonzero coefficients; a separate theorem now covers every profile with three nonzero coefficients. Profiles with four or more nonzero coordinates outside the proved sparse convex cores and the four-positive far cap, general Dirichlet--Poissonization, higher-dimensional exponential-quantile convexity, and general-n Stringer coverage remain open."
     },
     {
       "id": "dirichlet-poissonization-three-positive-convex-core",
@@ -1032,7 +1032,7 @@
       "verification_commands": [
         "make dirichlet-poissonization-check"
       ],
-      "limitations": "This analytic subtheorem covers only the stated convex core; a separate theorem now completes the entire three-positive face. Profiles with four or more nonzero coordinates outside the proved sparse convex cores, general Dirichlet--Poissonization, higher-dimensional exponential-quantile convexity, and general-n Stringer coverage remain open."
+      "limitations": "This analytic subtheorem covers only the stated convex core; a separate theorem now completes the entire three-positive face. Profiles with four or more nonzero coordinates outside the proved sparse convex cores and the four-positive far cap, general Dirichlet--Poissonization, higher-dimensional exponential-quantile convexity, and general-n Stringer coverage remain open."
     },
     {
       "id": "dirichlet-poissonization-sparse-convex-core",
@@ -1064,7 +1064,39 @@
       "verification_commands": [
         "make dirichlet-poissonization-check"
       ],
-      "limitations": "This proves only the stated convex core on each coordinate face. A separate theorem completes every three-positive face, but four-positive profiles outside d<=n^2/(3(n+1)), profiles with still more nonzero coordinates outside their corresponding cores, general Dirichlet--Poissonization, higher-dimensional exponential-quantile convexity, and general-n Stringer coverage remain open."
+      "limitations": "This proves only the stated convex core on each coordinate face. A separate theorem completes every three-positive face, and another proves the four-positive far cap d>=n-1; the intervening four-positive region, profiles with still more nonzero coordinates outside their corresponding cores, general Dirichlet--Poissonization, higher-dimensional exponential-quantile convexity, and general-n Stringer coverage remain open."
+    },
+    {
+      "id": "dirichlet-poissonization-four-positive-far-cap",
+      "classification": "proved_theorem",
+      "statement": "For every n at least 4, the constrained Dirichlet--Poissonization comparison holds for profiles with n-3 zero coordinates and four ordered nonnegative coordinates a<=b<=c<=d whenever their sum is at most n and d>=n-1.",
+      "manuscript_labels": [],
+      "evidence": [
+        {
+          "path": "supporting-materials/theory/DIRICHLET-POISSONIZATION.md",
+          "role": "complete weighted-divided-difference, endpoint, and secant proof",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/python/dirichlet_poissonization.py",
+          "role": "exact symbolic checks and rational Taylor bounds for the four-positive far-cap proof",
+          "trust": "corroboration_only"
+        },
+        {
+          "path": "supporting-materials/computations/certificates/dirichlet-poissonization-certificate.json",
+          "role": "regenerated exact endpoint margins for the four-positive far cap",
+          "trust": "corroboration_only"
+        },
+        {
+          "path": "supporting-materials/computations/tests/test_dirichlet_poissonization.py",
+          "role": "regression test for the four-positive far-cap identities and constants",
+          "trust": "corroboration_only"
+        }
+      ],
+      "verification_commands": [
+        "make dirichlet-poissonization-check"
+      ],
+      "limitations": "This proves only the four-positive far cap d>=n-1. The sparse-core theorem separately proves d<=n^2/(3(n+1)); the intervening four-positive region, profiles with still more nonzero coordinates outside their sparse cores, general Dirichlet--Poissonization, higher-dimensional exponential-quantile convexity, and general-n Stringer coverage remain open."
     },
     {
       "id": "dirichlet-poissonization-three-positive-far-cap",
@@ -1096,7 +1128,7 @@
       "verification_commands": [
         "make dirichlet-poissonization-check"
       ],
-      "limitations": "This analytic subtheorem covers only the stated far cap; a separate theorem now completes the entire three-positive face. Profiles with four or more nonzero coordinates outside the proved sparse convex cores, general Dirichlet--Poissonization, higher-dimensional exponential-quantile convexity, and general-n Stringer coverage remain open."
+      "limitations": "This analytic subtheorem covers only the stated far cap; a separate theorem now completes the entire three-positive face. Profiles with four or more nonzero coordinates outside the proved sparse convex cores and the four-positive far cap, general Dirichlet--Poissonization, higher-dimensional exponential-quantile convexity, and general-n Stringer coverage remain open."
     },
     {
       "id": "dirichlet-poissonization-three-positive-middle-knot",
@@ -1128,7 +1160,7 @@
       "verification_commands": [
         "make dirichlet-poissonization-check"
       ],
-      "limitations": "This analytic subtheorem covers only the stated middle-knot region; a separate theorem now completes the entire three-positive face. Profiles with four or more nonzero coordinates outside the proved sparse convex cores, general Dirichlet--Poissonization, higher-dimensional exponential-quantile convexity, and general-n Stringer coverage remain open."
+      "limitations": "This analytic subtheorem covers only the stated middle-knot region; a separate theorem now completes the entire three-positive face. Profiles with four or more nonzero coordinates outside the proved sparse convex cores and the four-positive far cap, general Dirichlet--Poissonization, higher-dimensional exponential-quantile convexity, and general-n Stringer coverage remain open."
     },
     {
       "id": "dirichlet-poissonization-three-positive-full-face",
@@ -1160,7 +1192,7 @@
       "verification_commands": [
         "make dirichlet-poissonization-check"
       ],
-      "limitations": "This proves every profile with at most three nonzero coordinates, but profiles with four or more nonzero coordinates are proved only inside the separate sparse convex cores. General Dirichlet--Poissonization, higher-dimensional exponential-quantile convexity, and general-n Stringer coverage remain open."
+      "limitations": "This proves every profile with at most three nonzero coordinates, but profiles with four or more nonzero coordinates are proved only inside the separate sparse convex cores and, for four-positive profiles, the far cap. General Dirichlet--Poissonization, higher-dimensional exponential-quantile convexity, and general-n Stringer coverage remain open."
     },
     {
       "id": "dirichlet-poissonization-n2",

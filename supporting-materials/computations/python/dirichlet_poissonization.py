@@ -33,6 +33,8 @@ boundary reduction, a proved structured family, and one obstruction:
   for profiles with four nonzero coefficients; and
 * an exact monotonicity and endpoint argument proves a dimension-free far
   cap for profiles with three nonzero coefficients; and
+* a weighted divided-difference argument and exact endpoint bounds prove a
+  dimension-free far cap for profiles with four nonzero coefficients; and
 * a one-crossing curvature argument, a quantitative curvature inequality,
   and exact endpoint comparisons prove the full region where the middle knot
   is at most ``n/3``; and
@@ -632,6 +634,110 @@ def verify_three_positive_far_cap() -> None:
     assert factor(
         2 * (n + 1) ** 3 - n * (n + 2) ** 2
     ) == n**3 + 2 * n**2 + 2 * n + 2
+
+
+def verify_four_positive_far_cap() -> dict[str, object]:
+    """Check the all-``n`` four-positive far-cap proof and constants."""
+    from sympy import Rational, factor, simplify, symbols
+
+    a, b, c, d = symbols("a b c d", real=True)
+    ga, gb, gc, gd = symbols("g_a g_b g_c g_d", real=True)
+
+    def first_dd(x0, x1, y0, y1):
+        return (y1 - y0) / (x1 - x0)
+
+    def second_dd(x0, x1, x2, y0, y1, y2):
+        return (
+            first_dd(x1, x2, y1, y2)
+            - first_dd(x0, x1, y0, y1)
+        ) / (x2 - x0)
+
+    q_abc = second_dd(a, b, c, ga, gb, gc)
+    q_bcd = second_dd(b, c, d, gb, gc, gd)
+    f_abc = second_dd(a, b, c, a * ga, b * gb, c * gc)
+    f_bcd = second_dd(b, c, d, b * gb, c * gc, d * gd)
+    third_f = (f_bcd - f_abc) / (d - a)
+    assert simplify(
+        third_f - (d * q_bcd - a * q_abc) / (d - a)
+    ) == 0
+
+    n = symbols("n", integer=True, positive=True)
+    endpoint_coefficient = (
+        1 / (n - 1)
+        + n
+        + 2
+        + (1 + n + n**2 / 2) / 3
+    )
+    expected_coefficient = (
+        n**2 / 6 + 4 * n / 3 + Rational(7, 3) + 1 / (n - 1)
+    )
+    assert simplify(endpoint_coefficient - expected_coefficient) == 0
+    assert simplify(expected_coefficient.subs(n, 4) - Rational(32, 3)) == 0
+    assert simplify(expected_coefficient.subs(n, 5) - Rational(161, 12)) == 0
+    assert factor(
+        2 * expected_coefficient
+        - expected_coefficient.subs(n, n + 1)
+    ) == (
+        (n + 1) * (n**3 + 4 * n**2 - 5 * n + 6)
+        / (6 * n * (n - 1))
+    )
+
+    # The n=4 endpoint margins use positive Taylor lower bounds and the
+    # geometric-tail upper bound for exp(4).
+    exp_three_lower = _exp_taylor_lower(Fraction(3), 8)
+    exp_eight_thirds_lower = _exp_taylor_lower(Fraction(8, 3), 10)
+    exp_four_upper = _exp_taylor_upper(Fraction(4), 12)
+    n4_left_endpoint_margin = (
+        9 * exp_eight_thirds_lower
+        - Fraction(16, 9) * exp_four_upper
+        - 32
+    )
+    n4_right_endpoint_margin = (
+        4 * exp_three_lower
+        - Fraction(81, 64) * exp_four_upper
+        - Fraction(32, 3)
+    )
+    assert exp_three_lower == Fraction(89641, 4480)
+    assert exp_eight_thirds_lower == Fraction(12045015679, 837019575)
+    assert exp_four_upper == Fraction(553360529, 10135125)
+    assert n4_left_endpoint_margin == Fraction(
+        29899236229,
+        66496555125,
+    )
+    assert n4_right_endpoint_margin == Fraction(6461863, 24024000)
+    assert n4_left_endpoint_margin > 0
+    assert n4_right_endpoint_margin > 0
+
+    # For n>=5, the endpoint coefficient times exp(-n) decreases.  These
+    # two Taylor checks give T_5<1/10 and
+    # exp(-45/32)/2>T_5, respectively.
+    exp_five_lower = _exp_taylor_lower(Fraction(5), 8)
+    exp_115_over_32_lower = _exp_taylor_lower(Fraction(115, 32), 5)
+    assert exp_five_lower == Fraction(1115309, 8064)
+    assert exp_five_lower > Fraction(805, 6)
+    assert exp_115_over_32_lower == Fraction(
+        24748696103,
+        805306368,
+    )
+    assert exp_115_over_32_lower > Fraction(161, 6)
+
+    return {
+        "n4_exp_3_degree_8_lower": _fraction_record(exp_three_lower),
+        "n4_exp_8_over_3_degree_10_lower": _fraction_record(
+            exp_eight_thirds_lower
+        ),
+        "n4_exp_4_degree_12_upper": _fraction_record(exp_four_upper),
+        "n4_left_endpoint_margin": _fraction_record(
+            n4_left_endpoint_margin
+        ),
+        "n4_right_endpoint_margin": _fraction_record(
+            n4_right_endpoint_margin
+        ),
+        "n_ge_5_exp_5_degree_8_lower": _fraction_record(exp_five_lower),
+        "n_ge_5_exp_115_over_32_degree_5_lower": _fraction_record(
+            exp_115_over_32_lower
+        ),
+    }
 
 
 def _middle_knot_d_coefficient(lam: Fraction, order: int) -> Fraction:
@@ -1612,6 +1718,7 @@ def build_certificate() -> dict[str, object]:
     verify_three_positive_convex_core()
     sparse_convex_core_record = verify_sparse_convex_core()
     verify_three_positive_far_cap()
+    four_positive_far_cap_record = verify_four_positive_far_cap()
     verify_three_positive_middle_knot_region()
     full_three_positive_record = verify_three_positive_full_face()
     checks = []
@@ -1641,7 +1748,7 @@ def build_certificate() -> dict[str, object]:
         two_level_checks.append(two_level_profile_regression(n, k, a, b))
 
     return {
-        "schema_version": 12,
+        "schema_version": 13,
         "status": (
             "Research certificate: exact reductions and an obstruction, "
             "not an all-sample-size coverage certificate."
@@ -1771,6 +1878,21 @@ def build_certificate() -> dict[str, object]:
                 ),
             },
         },
+        "four_positive_far_cap_all_n": {
+            "analytic_basis": (
+                "The multiplication identity expressing the third divided "
+                "difference through two weighted second divided "
+                "differences, the complete three-positive machinery for "
+                "g_n, and exact endpoint estimates"
+            ),
+            "scope": (
+                "Every n>=4 profile having n-3 zero coefficients and four "
+                "ordered nonnegative coefficients a<=b<=c<=d with sum at "
+                "most n and d>=n-1"
+            ),
+            "symbolic_identity_and_constant_check": "passed",
+            "exact_rational_bounds": four_positive_far_cap_record,
+        },
         "three_positive_middle_knot_all_n": {
             "analytic_basis": (
                 "The divided-difference multiplication identity, an exact "
@@ -1893,6 +2015,12 @@ def main(argv: list[str] | None = None) -> int:
     print(
         "all-n three-positive far cap:",
         certificate["three_positive_far_cap_all_n"][
+            "symbolic_identity_and_constant_check"
+        ],
+    )
+    print(
+        "all-n four-positive far cap:",
+        certificate["four_positive_far_cap_all_n"][
             "symbolic_identity_and_constant_check"
         ],
     )

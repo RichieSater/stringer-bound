@@ -452,25 +452,29 @@ Questions:
     that `g_n` is increasing on `[0,n]` for every `n>=4`, do
     (15ac)--(15af) prove the required endpoint estimate, and does the final
     secant comparison cover every ordered triple with `c>=n-1`?
-16. For the three-positive middle-knot region, does (15ai) prove the
+16. For the four-positive far cap, is the multiplication identity (15ag1)
+    correct; do the exact endpoint comparisons prove (15ag2), including the
+    close `n=4` case; and do (15ag3)--(15ag5) imply
+    `dQ(b,c,d)>aQ(a,b,c)` for every ordered quadruple with `d>=n-1`?
+17. For the three-positive middle-knot region, does (15ai) prove the
     one-crossing curvature property, do the exact series bounds
     (15ak)--(15an) justify all four endpoint comparisons, does (15ap) give
     the quantitative curvature bound, and do (15at)--(15av) and the
     tangent-remainder argument imply the two required secant inequalities
     whenever `b<=n/3`?
-17. For the residual three-positive region, does (15aw) reduce the sign to
+18. For the residual three-positive region, does (15aw) reduce the sign to
     the two weighted secant slopes of `f_n`; do (15ba)--(15bd) prove the
     one-maximum and endpoint ordering; does the 128-bit Arb subdivision
     certify the finite prefix in (15be); do the logarithmic, Taylor, and
     Bernstein bounds prove the analytic tail of (15be) and all of (15bf);
     and do the final two inequalities exhaust every profile not already
     covered by Sections 8--10?
-18. Is the conclusion limited to the complete `n=2` and `n=3`
+19. Is the conclusion limited to the complete `n=2` and `n=3`
     Poissonization inequalities, every two-level profile, every profile with
-    at most three nonzero coefficients, the sparse convex cores, and the
-    radial boundary reduction, without being promoted to the still-open
-    general-dimensional comparison or to a Stringer coverage theorem by
-    itself?
+    at most three nonzero coefficients, the sparse convex cores, the
+    four-positive far cap, and the radial boundary reduction, without being
+    promoted to the still-open general-dimensional comparison or to a
+    Stringer coverage theorem by itself?
 
 ## Minimum reproduction record
 

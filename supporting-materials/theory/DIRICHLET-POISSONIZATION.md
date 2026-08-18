@@ -6,7 +6,8 @@
 > every profile with three nonzero coefficients (including analytic
 > convex-core, far-cap, and middle-knot subregions), proves a sparse
 > convex-core region on every coordinate face (including a four-positive
-> region in every dimension `n>=4`),
+> region in every dimension `n>=4`), proves the four-positive far cap
+> `d>=n-1`,
 > proves the complete comparison for `n=2` and `n=3`, and rules out an
 > over-broad
 > localization shortcut. The central
@@ -824,6 +825,166 @@ and 9 settle both the convex core `c<=n^2/{2(n+1)}` and the far cap
 `c>=n-1` of every three-positive face.  Section 10 below covers an additional
 part of the intervening region.
 
+The same endpoint machinery also proves a far cap on the first unresolved
+coordinate face.
+
+> **Four-positive far-cap theorem.**  Let `n>=4`, and suppose the coefficient
+> vector consists of `n-3` zeros and four values
+> `0<=a<=b<=c<=d` satisfying
+>
+> \[
+>  a+b+c+d\le n,
+>  \qquad
+>  d\ge n-1.
+> \]
+>
+> Then `Pr{Z_y>n}>=Pr{T_y>1}`.
+
+Write `F_{n,3}=u g_n` and put
+
+\[
+ Q(x,y,z)=[x,y,z]g_n.
+\]
+
+For distinct knots, two applications of the multiplication rule give
+
+\[
+ [a,b,c,d]F_{n,3}
+ =\frac{dQ(b,c,d)-aQ(a,b,c)}{d-a}.                 \tag{15ag1}
+\]
+
+We first establish the endpoint estimate needed to compare the two terms.
+Set
+
+\[
+ q_n=\frac{g_n''(1)}2
+ =e^{-n}\left(1+n+\frac{n^2}{2}\right)
+\]
+
+and
+
+\[
+ \begin{aligned}
+ T_n
+ &=e^{-n}\left\{\frac1{n-1}+(n+2)
+        +\frac{1+n+n^2/2}{3}\right\}\\
+ &=e^{-n}\left\{\frac{n^2}{6}+\frac{4n}{3}
+        +\frac73+\frac1{n-1}\right\}.
+ \end{aligned}
+\]
+
+Then
+
+\[
+ \min\{f_n(n-1),f_n(n)\}>T_n,
+ \qquad n\ge4.                                    \tag{15ag2}
+\]
+
+For `n=4`, the coefficient in braces is `32/3`.  Positive Taylor sums and a
+geometric bound for the positive tail give
+
+\[
+ e^3>\frac{89641}{4480},\qquad
+ e^{8/3}>\frac{12045015679}{837019575},\qquad
+ e^4<\frac{553360529}{10135125}.
+\]
+
+Substitution in the two endpoint inequalities leaves the exact positive
+margins
+
+\[
+ \begin{aligned}
+ 9e^{8/3}-\frac{16}{9}e^4-32
+ &>\frac{29899236229}{66496555125},\\
+ 4e^3-\frac{81}{64}e^4-\frac{32}{3}
+ &>\frac{6461863}{24024000}.
+ \end{aligned}
+\]
+
+These are respectively `f_4(3)>T_4` and `f_4(4)>T_4` after multiplication
+by the relevant positive power of `e`.
+
+For `n>=5`, write
+
+\[
+ P_n=\frac{n^2}{6}+\frac{4n}{3}+\frac73+\frac1{n-1}.
+\]
+
+The exact identity
+
+\[
+ 2P_n-P_{n+1}
+ =\frac{(n+1)(n^3+4n^2-5n+6)}{6n(n-1)}>0
+\]
+
+and `e>2` show that `T_n=P_ne^{-n}` decreases.  The degree-eight Taylor
+sum gives `e^5>1115309/8064>805/6`, and hence `T_5<1/10`.  On the other
+hand, (15ae) gives
+
+\[
+ f_n(n-1)>\frac12e^{-45/32}>T_5;
+\]
+
+the last comparison follows from the degree-five bound
+
+\[
+ e^{115/32}>\frac{24748696103}{805306368}>\frac{161}{6}.
+\]
+
+Finally, (15f) gives `f_n(n)>1/(2e)>1/6>1/10`.  This proves (15ag2).
+
+We now return to (15ag1).  The hypothesis implies
+`a+b+c<=1`, hence `c<=1` and `a<=1/3`.  On `[0,1]`, the quantity
+`g_n''(u)/2=Pr{Pois(n/u)<=2}` increases with `u`.  The
+Hermite--Genocchi formula therefore gives
+
+\[
+ 0\le Q(a,b,c)\le q_n.                             \tag{15ag3}
+\]
+
+Also, convexity on `[0,1]` gives
+
+\[
+ [b,c]g_n\le g_n'(1)=(n+2)e^{-n}.                 \tag{15ag4}
+\]
+
+Put `R_n(d)=\{g_n(d)-g_n(1)\}/d`.  The one-turn derivative argument in
+Section 5 says that the minimum of `f_n` on `[n-1,n]` occurs at an endpoint.
+Since `g_n=uf_n`, (15ag2) yields
+
+\[
+ \begin{aligned}
+ R_n(d)
+ &=f_n(d)-\frac{e^{-n}}d\\
+ &>T_n-\frac{e^{-n}}{n-1}
+  =(n+2)e^{-n}+\frac{q_n}{3}.                     \tag{15ag5}
+ \end{aligned}
+\]
+
+Monotonicity of `g_n` from (15z)--(15ab), together with `c<=1`, now gives
+
+\[
+ [c,d]g_n
+ =\frac{g_n(d)-g_n(c)}{d-c}
+ \ge R_n(d).
+\]
+
+Combining this inequality with (15ag4)--(15ag5),
+
+\[
+ \begin{aligned}
+ dQ(b,c,d)
+ &=\frac d{d-b}\{[c,d]g_n-[b,c]g_n\}
+ >\frac{q_n}{3}\\
+ &\ge a q_n\ge aQ(a,b,c).
+ \end{aligned}
+\]
+
+Thus (15ag1) is positive.  Repeated and zero knots follow by continuity,
+proving the theorem.  This settles the region `d>=n-1` of every
+four-positive face; it does not settle the intervening region between that
+far cap and the sparse convex core in Section 8.
+
 
 ## 10. A dimension-free middle-knot region
 
@@ -1533,9 +1694,10 @@ having at most two distinct coefficient values or at most two nonzero
 coefficients, and Sections 6--7 prove the complete target for `n=2` and
 `n=3`.  Sections 8--11 prove every profile having exactly three nonzero
 coefficients.  Section 8 also proves a convex core on every coordinate face,
-including the region `d<=n^2/{3(n+1)}` for four nonzero knots.  Profiles with
-four or more nonzero knots outside those sparse cores remain open.  Three
-plausible routes remain for general `n`:
+including the region `d<=n^2/{3(n+1)}` for four nonzero knots, and Section 9
+proves the opposite four-positive far cap `d>=n-1`.  Profiles with four or
+more nonzero knots outside those regions remain open.  Three plausible routes
+remain for general `n`:
 
 1. exploit the zero-knot reduction recursively, or prove that a negative
    minimum on a coordinate face must have at most two distinct knot values;
@@ -1555,9 +1717,10 @@ The committed output is
 [`dirichlet-poissonization-certificate.json`](../computations/certificates/dirichlet-poissonization-certificate.json).
 It certifies the obstruction, checks rational equal-block instances,
 regression-checks the exact algebra used in the two-level, two-positive-knot,
-arbitrary-order sparse-core, three-positive subregion, and complete `n=2`
-and `n=3` proofs, and supplies the rigorous finite-prefix interval component of the complete
-three-positive-face proof.  The general inequality remains explicitly open.
+arbitrary-order sparse-core, four-positive far-cap, three-positive subregion,
+and complete `n=2` and `n=3` proofs.  It also supplies the rigorous
+finite-prefix interval component of the complete three-positive-face proof.
+The general inequality remains explicitly open.
 
 ## References
 
