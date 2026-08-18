@@ -307,8 +307,8 @@ and pursue the general Dirichlet--Poissonization inequality isolated in
 using the proved zero-knot reduction and all-two-level case in
 [`DIRICHLET-POISSONIZATION.md`](supporting-materials/theory/DIRICHLET-POISSONIZATION.md),
 which now also proves the complete threshold comparison for $n=2$ and
-$n=3$, together with dimension-free convex-core, far-cap, and middle-knot
-budget regions of the same comparison for profiles having three nonzero
+$n=3$, together with dimension-free convex-core and far-cap regions and the
+full middle-knot region $b\le n/3$ for profiles having three nonzero
 coefficients;
 and develop a certified branch-and-bound or atoms-reduction argument for
 ordinary audit sample sizes.

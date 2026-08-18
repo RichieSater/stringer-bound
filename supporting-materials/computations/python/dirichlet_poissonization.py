@@ -30,8 +30,9 @@ boundary reduction, a proved structured family, and one obstruction:
   core for profiles with three nonzero coefficients; and
 * an exact monotonicity and endpoint argument proves a dimension-free far
   cap for profiles with three nonzero coefficients; and
-* a one-crossing curvature argument and exact endpoint comparisons prove a
-  dimension-free middle-knot budget region for those profiles; and
+* a one-crossing curvature argument, a quantitative curvature inequality,
+  and exact endpoint comparisons prove the full region where the middle knot
+  is at most ``n/3``; and
 * a fully explicit, mean-constrained ``1/n``-concave law shows why generic
   one-dimensional s-concave localization is too broad to prove the
   comparison.
@@ -531,7 +532,7 @@ def verify_three_positive_far_cap() -> None:
     ) == n**3 + 2 * n**2 + 2 * n + 2
 
 
-def _middle_budget_d_coefficient(lam: Fraction, order: int) -> Fraction:
+def _middle_knot_d_coefficient(lam: Fraction, order: int) -> Fraction:
     """Coefficient of ``z**order`` in the logarithm (15ak)."""
     lam = Fraction(lam)
     if order < 1 or lam <= 0:
@@ -543,9 +544,34 @@ def _middle_budget_d_coefficient(lam: Fraction, order: int) -> Fraction:
     )
 
 
-def verify_three_positive_middle_budget() -> None:
-    """Check the all-``n`` three-positive middle-budget proof."""
+def _quadratic_log_coefficient(
+    linear: Fraction,
+    quadratic: Fraction,
+    order: int,
+) -> Fraction:
+    """Coefficient of ``z**order`` in ``-log(1-A*z-B*z**2)``."""
+    linear = Fraction(linear)
+    quadratic = Fraction(quadratic)
+    if order < 1:
+        raise ValueError("require order>=1")
+    result = Fraction()
+    # In (A*z+B*z**2)^power, choosing ``twos`` quadratic factors
+    # gives total degree ``power+twos``.
+    for power in range((order + 1) // 2, order + 1):
+        twos = order - power
+        if 0 <= twos <= power:
+            result += (
+                Fraction(math.comb(power, twos), power)
+                * linear ** (power - twos)
+                * quadratic**twos
+            )
+    return result
+
+
+def verify_three_positive_middle_knot_region() -> None:
+    """Check the all-``n`` three-positive middle-knot proof."""
     from sympy import (
+        Poly,
         Rational,
         exp,
         factor,
@@ -609,7 +635,7 @@ def verify_three_positive_middle_budget() -> None:
     lambda_one_differences = []
     for order in range(1, 4):
         difference = (
-            _middle_budget_d_coefficient(Fraction(1), order)
+            _middle_knot_d_coefficient(Fraction(1), order)
             - Fraction(1, 6) ** order / order
         )
         lambda_one_differences.append(difference)
@@ -641,7 +667,7 @@ def verify_three_positive_middle_budget() -> None:
     for order in range(1, 9):
         difference = (
             Fraction(16, 5) ** order / order
-            - _middle_budget_d_coefficient(Fraction(3), order)
+            - _middle_knot_d_coefficient(Fraction(3), order)
         )
         lambda_three_differences.append(difference)
     assert lambda_three_differences == [
@@ -693,6 +719,193 @@ def verify_three_positive_middle_budget() -> None:
     b = n / r
     reflected_lambda = simplify(n / (n - 2 * b))
     assert simplify(reflected_lambda - r / (r - 2)) == 0
+
+    # Quantitative curvature inequality (15ap).  Its Poisson and binomial
+    # pieces factor exactly as stated in the written proof.
+    e_poisson = (lam**3 - 3 * lam - 6) * exp(-lam)
+    e_r_poly = (
+        (n - 1) * (n - 2) * lam**3
+        + 3 * (n - 2) * lam**2
+        - 3 * n * (n - 4) * lam
+        - 6 * n**2
+    )
+    assert factor(
+        2 * (lam - 2) * (1 + lam + lam**2 / 2)
+        - (lam + 2)
+        - (lam**3 - 3 * lam - 6)
+    ) == 0
+    t_symbol = symbols("t", positive=True)
+    binomial_two_bracket = (
+        t_symbol**2
+        + lam * t_symbol
+        + (n - 1) * lam**2 / (2 * n)
+    )
+    binomial_derivative_bracket = t_symbol * (
+        lam + 2 - 2 * lam / n
+    )
+    assert simplify(
+        (
+            2 * (lam - 2) * binomial_two_bracket
+            - binomial_derivative_bracket
+        ).subs(t_symbol, 1 - lam / n)
+        - e_r_poly / n**2
+    ) == 0
+
+    e_binomial = (1 - lam / n) ** (n - 2) * e_r_poly / n**2
+    e_ratio = e_poisson / e_binomial
+    e_w_poly = (
+        lam**5 * n**2
+        - 3 * lam**5 * n
+        + 2 * lam**5
+        - 2 * lam**4 * n**2
+        + 9 * lam**4 * n
+        - 10 * lam**4
+        - 6 * lam**3 * n**2
+        + 12 * lam**3 * n
+        + 12 * lam**3
+        + 3 * lam**2 * n**2
+        - 45 * lam**2 * n
+        + 6 * lam**2
+        + 39 * lam * n**2
+        - 15 * lam * n
+        + 6 * lam
+        - 27 * n**2
+        + 18 * n
+    )
+    e_expected_log_derivative = (
+        -lam**2 * e_w_poly
+        / ((lam - n) * (lam**3 - 3 * lam - 6) * e_r_poly)
+    )
+    assert powsimp(
+        factor(log(e_ratio).diff(lam) - e_expected_log_derivative),
+        force=True,
+    ) == 0
+
+    x, m = symbols("x m", nonnegative=True)
+    e_r_shifted = Poly(
+        e_r_poly.subs({lam: x + 3, n: x + 3 + m}),
+        x,
+        m,
+    )
+    e_w_shifted = Poly(
+        e_w_poly.subs({lam: x + 3, n: x + 3 + m}),
+        x,
+        m,
+    )
+    assert min(e_r_shifted.coeffs()) > 0
+    assert min(e_w_shifted.coeffs()) > 0
+
+    # The lambda=3 binomial piece is exactly the expression compared in
+    # (15as), after cancelling the common factor 12.
+    assert factor(e_r_poly.subs(lam, 3)) == 6 * n * (2 * n - 3)
+
+    # At lambda=3, the logarithmic ratio is positive term by term after
+    # t=3/n.  This identity is the coefficient in (15as).
+    assert simplify(
+        (2 - order_symbol) / (order_symbol * (order_symbol + 1))
+        - 1 / (order_symbol * 2**order_symbol)
+        + (
+            (order_symbol - 2)
+            / (order_symbol * (order_symbol + 1))
+            + 1 / (order_symbol * 2**order_symbol)
+        )
+    ) == 0
+
+    # Refined lambda=3/2 lower bound.  The first two logarithmic
+    # coefficients agree exactly; all later differences are positive by the
+    # two-root comparison in the written proof.
+    lambda_three_halves_differences = [
+        _middle_knot_d_coefficient(Fraction(3, 2), order)
+        - _quadratic_log_coefficient(
+            Fraction(27, 56),
+            Fraction(225, 896),
+            order,
+        )
+        for order in range(1, 9)
+    ]
+    assert lambda_three_halves_differences[:2] == [Fraction(0), Fraction(0)]
+    assert all(value > 0 for value in lambda_three_halves_differences[2:])
+    assert 3879 < 69**2  # both quadratic roots have modulus below 6/7
+    assert Fraction(7, 4) ** 4 * Fraction(2, 2 * 5) > 1
+    assert Fraction(7, 4) > 1
+
+    # Refined lambda=3 upper bound.  The exact finite polynomial through
+    # order nine is positive on z in [0,1/4] by its degree-eight Bernstein
+    # coefficients; the remaining coefficients are positive analytically.
+    refined_three_differences = [
+        _quadratic_log_coefficient(
+            Fraction(27, 10),
+            Fraction(7, 4),
+            order,
+        )
+        - _middle_knot_d_coefficient(Fraction(3), order)
+        for order in range(1, 11)
+    ]
+    assert refined_three_differences[0] == 0
+    assert refined_three_differences[1] == Fraction(7, 40)
+    assert all(value < 0 for value in refined_three_differences[2:5])
+    assert all(value > 0 for value in refined_three_differences[5:])
+
+    # C(z)=sum_{r=2}^9 c_r z^(r-2), with z=x/4.  Convert its power
+    # coefficients directly to degree-eight Bernstein coefficients.
+    power_coefficients = [
+        refined_three_differences[order - 1] / 4 ** (order - 2)
+        for order in range(2, 10)
+    ]
+    bernstein_degree = 8
+    bernstein_coefficients = []
+    for index in range(bernstein_degree + 1):
+        coefficient = sum(
+            power_coefficients[power_order]
+            * Fraction(
+                math.comb(index, power_order),
+                math.comb(bernstein_degree, power_order),
+            )
+            for power_order in range(min(index, 7) + 1)
+        )
+        bernstein_coefficients.append(coefficient)
+    assert min(bernstein_coefficients) == Fraction(
+        264755763361,
+        68812800000000,
+    )
+    assert min(bernstein_coefficients) > 0
+    assert 37**2 < 1429 < 39**2  # 16/5<p<33/10 and |q|<3/5
+    tail_order = 11
+    tail_margin = (
+        Fraction(16, 5) ** tail_order
+        - Fraction(3, 5) ** tail_order
+        - 2 * 3**tail_order
+        - Fraction(6, 5) ** tail_order
+    )
+    assert tail_margin > 0
+    # If A_r is the left-minus-right tail margin, then
+    # A_(r+1)-3*A_r is the displayed positive expression in the proof.
+    next_tail_margin = (
+        Fraction(16, 5) ** (tail_order + 1)
+        - Fraction(3, 5) ** (tail_order + 1)
+        - 2 * 3 ** (tail_order + 1)
+        - Fraction(6, 5) ** (tail_order + 1)
+    )
+    assert next_tail_margin - 3 * tail_margin == (
+        Fraction(1, 5) * Fraction(16, 5) ** tail_order
+        + Fraction(12, 5) * Fraction(3, 5) ** tail_order
+        + Fraction(9, 5) * Fraction(6, 5) ** tail_order
+    )
+
+    # Translate the refined logarithmic bounds into h_n(3/2)>h_n(3).
+    endpoint_ratio = (
+        (Fraction(9, 2) + Fraction(35, 12) * Fraction(1, 4))
+        / (Fraction(9, 8) + Fraction(75, 128) * Fraction(1, 4))
+    )
+    assert endpoint_ratio == Fraction(8032, 1953)
+    assert (
+        Fraction(35, 12) * Fraction(9, 8)
+        - Fraction(9, 2) * Fraction(75, 128)
+        == Fraction(165, 256)
+    )
+    exp_three_degree_five_lower = _exp_taylor_lower(Fraction(3), 5)
+    assert exp_three_degree_five_lower == Fraction(92, 5)
+    assert exp_three_degree_five_lower > endpoint_ratio**2
 
 
 def two_level_profile_regression(
@@ -853,7 +1066,7 @@ def build_certificate() -> dict[str, object]:
     verify_n3_four_knot_theorem()
     verify_three_positive_convex_core()
     verify_three_positive_far_cap()
-    verify_three_positive_middle_budget()
+    verify_three_positive_middle_knot_region()
     checks = []
     # Include both the boundary lambda=k and strict lambda>k cases.  These
     # finite checks guard the beta/binomial and gamma/Poisson translations;
@@ -881,7 +1094,7 @@ def build_certificate() -> dict[str, object]:
         two_level_checks.append(two_level_profile_regression(n, k, a, b))
 
     return {
-        "schema_version": 9,
+        "schema_version": 10,
         "status": (
             "Research certificate: exact reductions and an obstruction, "
             "not an all-sample-size coverage certificate."
@@ -995,16 +1208,17 @@ def build_certificate() -> dict[str, object]:
                 ),
             },
         },
-        "three_positive_middle_budget_all_n": {
+        "three_positive_middle_knot_all_n": {
             "analytic_basis": (
                 "The divided-difference multiplication identity, an exact "
                 "one-crossing curvature proof, exact logarithmic-series "
-                "endpoint comparisons, and the derivative-reflection lemma"
+                "endpoint comparisons, a quantitative curvature inequality, "
+                "and the endpoint tangent-remainder argument"
             ),
             "scope": (
                 "Every n>=4 profile having n-2 zero coefficients and three "
                 "ordered nonnegative coefficients a<=b<=c with sum at most "
-                "n and 2b+c<=n"
+                "n and b<=n/3"
             ),
             "symbolic_identity_and_constant_check": "passed",
             "exact_rational_bounds": {
@@ -1016,6 +1230,12 @@ def build_certificate() -> dict[str, object]:
                 ),
                 "e_degree_4_lower": _fraction_record(
                     Fraction(65, 24)
+                ),
+                "refined_lambda_3_bernstein_minimum": _fraction_record(
+                    Fraction(264755763361, 68812800000000)
+                ),
+                "exp_3_degree_5_lower": _fraction_record(
+                    Fraction(92, 5)
                 ),
             },
         },
@@ -1094,8 +1314,8 @@ def main(argv: list[str] | None = None) -> int:
         ],
     )
     print(
-        "all-n three-positive middle budget:",
-        certificate["three_positive_middle_budget_all_n"][
+        "all-n three-positive middle-knot region:",
+        certificate["three_positive_middle_knot_all_n"][
             "symbolic_identity_and_constant_check"
         ],
     )

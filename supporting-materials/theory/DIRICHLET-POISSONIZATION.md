@@ -3,8 +3,8 @@
 > **Status.** This note gives an exact reduction, pushes any possible
 > counterexample to a zero-knot boundary, proves every profile having at most
 > two distinct coefficient values or at most two nonzero coefficients, proves
-> dimension-free convex-core, far-cap, and middle-knot budget regions for
-> profiles with three nonzero coefficients,
+> dimension-free convex-core and far-cap regions and the full middle-knot
+> region `b<=n/3` for profiles with three nonzero coefficients,
 > proves the complete comparison for `n=2` and `n=3`, and rules out an
 > over-broad
 > localization shortcut. The central
@@ -723,20 +723,20 @@ and 9 settle both the convex core `c<=n^2/{2(n+1)}` and the far cap
 part of the intervening region.
 
 
-## 10. A dimension-free middle-knot budget region
+## 10. A dimension-free middle-knot region
 
 There is also a dimension-free region that can pass through the nonconvex
 part of `g_n`.  It is controlled by the middle knot rather than by the largest
 knot alone.
 
-> **Three-positive middle-budget theorem.**  Let `n>=4`, and suppose the
+> **Three-positive middle-knot theorem.**  Let `n>=4`, and suppose the
 > coefficient vector consists of `n-2` zeros and three values
 > `0<=a<=b<=c` satisfying
 >
 > \[
 >  a+b+c\le n,
 >  \qquad
->  2b+c\le n.                                      \tag{15ah}
+>  b\le\frac n3.                                    \tag{15ah}
 > \]
 >
 > Then `Pr{Z_y>n}>=Pr{T_y>1}`.
@@ -893,23 +893,245 @@ If `0<=b<=1`, then `n-2b` has `lambda` coordinate in `[1,2]`, so
 `12<e^3` at `n=4` and propagates by induction.  Thus (15ao) holds in every
 case.
 
-We finish the proof of the theorem.  Condition (15ah) gives `b<=n/3` and
-`c<=n-2b`.  The curvature is positive on `[0,b]`, so
+The reflection already proves the theorem in the subregion `2b+c<=n`.  To
+cover the rest of (15ah), we first strengthen the curvature estimate to
+
+\[
+ (n-2b)g_n''(b)\ge g_n'(b),
+ \qquad 0\le b\le n/3.                             \tag{15ap}
+\]
+
+For `0<b<=1`, put `lambda=n/b>=n`.  The left side of (15ap) minus the
+right side is
+
+\[
+ \frac n\lambda e^{-\lambda}
+ (\lambda^3-3\lambda-6)>0.
+\]
+
+At `b=0`, (15ap) follows by continuity.
+
+For `b>1`, let `A_n(lambda)` denote the difference in braces in (15aj).
+By (15x), inequality (15ap) is equivalent to
+
+\[
+ E_n(\lambda):=2(\lambda-2)D_n(\lambda)-A_n(\lambda)\ge0,
+ \qquad 3\le\lambda<n.                             \tag{15aq}
+\]
+
+The Poisson part of `E_n` is
+`(lambda^3-3lambda-6)e^{-lambda}`.  Its binomial part is
+
+\[
+ \left(1-\frac\lambda n\right)^{n-2}
+ \frac{R_n(\lambda)}{n^2},
+\]
+
+where
+
+\[
+ \begin{aligned}
+ R_n(\lambda)={}&(n-1)(n-2)\lambda^3
+ +3(n-2)\lambda^2\\
+ &-3n(n-4)\lambda-6n^2.
+ \end{aligned}
+\]
+
+This polynomial is positive for `3<=lambda<=n`.  The logarithmic derivative
+of the ratio of the Poisson part to the binomial part is
+
+\[
+ \frac{-\lambda^2W_n(\lambda)}
+ {(\lambda-n)(\lambda^3-3\lambda-6)R_n(\lambda)}, \tag{15ar}
+\]
+
+and `W_n(lambda)>0` on the same interval.  Both positivity claims are
+transparent after putting `x=lambda-3` and `m=n-lambda`: the expansions of
+`R_n` and `W_n` have only positive coefficients.  For reference,
+
+\[
+ \begin{aligned}
+ R_n={}&x^5+2x^4m+12x^4+x^3m^2+21x^3m+56x^3\\
+ &+9x^2m^2+78x^2m+126x^2+24xm^2+117xm+135x\\
+ &+12m^2+54m+54.
+ \end{aligned}
+\]
+
+Also,
+
+\[
+ \begin{aligned}
+ W_n={}&x^7+2x^6m+16x^6+x^5m^2+29x^5m+104x^5\\
+ &+13x^4m^2+162x^4m+350x^4+60x^3m^2+432x^3m+651x^3\\
+ &+111x^2m^2+573x^2m+666x^2+84xm^2+372xm+348x\\
+ &+36m^2+108m+72.
+ \end{aligned}
+\]
+
+At `lambda=3`, the Poisson-to-binomial ratio whose logarithmic derivative is
+displayed in (15ar) is at least one because
+
+\[
+ \left(1-\frac3{2n}\right)
+ \left(1-\frac3n\right)^{n-2}<e^{-3}.             \tag{15as}
+\]
+
+Indeed, with `t=3/n`, the logarithm of the left side plus three is
+
+\[
+ -\sum_{r\ge2}\left\{
+ \frac{r-2}{r(r+1)}+\frac1{r2^r}
+ \right\}t^r<0.
+\]
+
+On `3<=lambda<n`, both the numerator and denominator in (15ar) are
+negative.  The ratio is therefore increasing, so (15as) proves (15aq), and
+hence (15ap).
+
+One more endpoint comparison will be useful.  The series (15ak) gives
+
+\[
+ \begin{aligned}
+ d_{3/2}(z)
+ &>-\log\left(1-\frac{27}{56}z-\frac{225}{896}z^2\right),\\
+ d_3(z)
+ &<-\log\left(1-\frac{27}{10}z-\frac74z^2\right).
+                                                               \tag{15at}
+ \end{aligned}
+\]
+
+For the first inequality, the two series agree through order two.  If
+`p,q` are defined by
+
+\[
+ (1-pz)(1-qz)=1-\frac{27}{56}z-\frac{225}{896}z^2,
+\]
+
+then `0<p<6/7` and `|q|<6/7`; these bounds follow from
+`p=(27+sqrt(3879))/112` and `3879<69^2`.  Moreover,
+
+\[
+ r[z^r]d_{3/2}(z)
+ =\left(\frac32\right)^r\frac{r-2}{2(r+1)}
+  +\left(\frac67\right)^r.
+\]
+
+For odd `r>=3`, this exceeds `p^r+q^r` because `q<0`.  For even `r>=4`,
+use
+
+\[
+ \left(\frac32\right)^r\frac{r-2}{2(r+1)}
+ >\left(\frac67\right)^r,
+\]
+
+which holds at `r=4` and propagates because `(7/4)^r(r-2)/(2(r+1))`
+is increasing.
+
+For the second inequality in (15at), define `c_r` as the coefficient of the
+right side minus `d_3`.  The coefficients `c_2,c_6,\ldots,c_{10}` are
+positive, while only `c_3,c_4,c_5` are negative among the first ten orders.
+The polynomial
+
+\[
+ \sum_{r=2}^9c_r z^{r-2}
+\]
+
+has positive degree-eight Bernstein coefficients on `[0,1/4]`; the smallest
+is `264755763361/68812800000000`.  For all `r>=11`, factor
+
+\[
+ 1-\frac{27}{10}z-\frac74z^2=(1-pz)(1-qz).
+\]
+
+Here `p=(27+sqrt(1429))/20`, so `37^2<1429<39^2` gives
+`16/5<p<33/10` and `|q|<3/5`.  Both logarithmic series therefore converge
+on `[0,1/4]`.  Direct coefficient extraction gives
+
+\[
+ rc_r=p^r+q^r-3^r\frac{2r-1}{r+1}-\left(\frac65\right)^r.
+\]
+
+The elementary inequality
+
+\[
+ \left(\frac{16}{5}\right)^r-\left(\frac35\right)^r
+ >2\,3^r+\left(\frac65\right)^r
+\]
+
+holds at `r=11`; subtracting three times its left-minus-right difference at
+order `r` from that at order `r+1` leaves
+
+\[
+ \frac15\left(\frac{16}{5}\right)^r
+ +\frac{12}{5}\left(\frac35\right)^r
+ +\frac95\left(\frac65\right)^r>0.
+\]
+
+It therefore holds at every later order.  This proves `c_r>0` for the
+remaining orders and completes (15at).
+
+Substitution in (15aj) yields
+
+\[
+ \begin{aligned}
+ h_n(3/2)&>e^{-3/2}\left(\frac98+\frac{75}{128}z\right),\\
+ h_n(3)&<e^{-3}\left(\frac92+\frac{35}{12}z\right).
+ \end{aligned}                                      \tag{15au}
+\]
+
+The ratio of the second parenthesis to the first is increasing in `z` and is
+at most `8032/1953` for `0<=z<=1/4`.  Its square is smaller than `92/5`,
+whereas the degree-five Taylor sum gives `e^3>92/5`.  Consequently,
+
+\[
+ h_n(3/2)>h_n(3).                                  \tag{15av}
+\]
+
+We can now finish the proof.  For `0<=b<=n/3`, define the endpoint tangent
+remainder
+
+\[
+ K_n(b)=g_n(n-b)-g_n(b)-(n-2b)g_n'(b).
+\]
+
+Differentiation, (15ap), and the strict positivity of `g_n'` proved in
+Section 9 give
+
+\[
+ K_n'(b)=g_n'(b)-g_n'(n-b)-(n-2b)g_n''(b)<0.
+\]
+
+At `b=n/3`, the two endpoint derivatives are `h_n(3)` and `h_n(3/2)`.
+The one-maximum property and (15av) therefore show that
+`g_n'(u)>=g_n'(n/3)` throughout `[n/3,2n/3]`, so `K_n(n/3)>0`.
+Hence `K_n(b)>0` for every `0<=b<=n/3`.
+
+For fixed `b`, put
+
+\[
+ F_b(v)=g_n(v)-g_n(b)-(v-b)g_n'(b).
+\]
+
+Because `g_n'` has at most one maximum, `F_b'` is either nonpositive
+throughout `[b,n-b]` or is first nonnegative and then nonpositive.  Thus the
+minimum of `F_b` occurs at an endpoint.  We have `F_b(b)=0` and
+`F_b(n-b)=K_n(b)>0`, so `F_b(v)>=0` throughout that interval.
+
+Finally, (15ah) and the sum constraint give `c<=n-a-b<=n-b`.  The curvature
+is positive on `[0,b]`, so
 
 \[
  [a,b]g_n\le g_n'(b).
 \]
 
-The derivative `g_n'` has at most one maximum.  Its values at both endpoints
-of `[b,n-2b]` are at least `g_n'(b)` by (15ao), so the same is true throughout
-that interval.  Consequently,
+The nonnegativity of `F_b(c)` gives
 
 \[
  [b,c]g_n\ge g_n'(b)\ge[a,b]g_n.
 \]
 
 Hence `[a,b,c]g_n>=0`; confluent cases follow by continuity.  Equation (15w)
-proves the middle-budget theorem.
+proves the middle-knot theorem.
 
 
 ## 11. Why generic $s$-concave localization is too broad
@@ -980,10 +1202,10 @@ having at most two distinct coefficient values or at most two nonzero
 coefficients, and Sections 6--7 prove the complete target for `n=2` and
 `n=3`.  Section 8 also proves every three-positive profile whose largest
 knot is at most `n^2/{2(n+1)}`, Section 9 proves every such profile whose
-largest knot is at least `n-1`, and Section 10 proves the additional region
-`2b+c<=n`.  Three-positive profiles outside those regions and all profiles
-with four or more nonzero knots remain open.  Three plausible routes remain
-for general `n`:
+largest knot is at least `n-1`, and Section 10 proves the full middle-knot
+region `b<=n/3`.  Three-positive profiles outside those regions and all
+profiles with four or more nonzero knots remain open.  Three plausible routes
+remain for general `n`:
 
 1. exploit the zero-knot reduction recursively, or prove that a negative
    minimum on a coordinate face must have at most two distinct knot values;
@@ -1003,7 +1225,7 @@ The committed output is
 [`dirichlet-poissonization-certificate.json`](../computations/certificates/dirichlet-poissonization-certificate.json).
 It certifies the obstruction, checks rational equal-block instances, and
 regression-checks the exact algebra used in the two-level, two-positive-knot,
-three-positive convex-core, far-cap, and middle-budget regions, and complete
+three-positive convex-core, far-cap, and middle-knot regions, and complete
 `n=2` and `n=3` proofs.
 The all-parameter statements rest on the written arguments; the general
 inequality remains explicitly open.

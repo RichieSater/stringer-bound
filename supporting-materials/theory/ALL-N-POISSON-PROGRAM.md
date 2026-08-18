@@ -452,7 +452,7 @@ Its curvature has the exact probability representation
 The Anderson--Samuels inequality therefore makes `g_n` convex through
 `n^2/{2(n+1)}`.  The comparison is proved whenever
 `c<=n^2/{2(n+1)}`.  Separate analytic arguments also prove the far cap
-`c>=n-1` and the middle-knot budget region `2b+c<=n`.  The part of the
+`c>=n-1` and the full middle-knot region `b<=n/3`.  The part of the
 three-positive face outside those regions remains open in general dimensions.
 
 The radial derivative is the density derivative at the threshold.  A
@@ -460,7 +460,7 @@ Laplace-transform convolution identity shows that the mode of every
 weighted exponential sum is no larger than its mean, giving the required
 sign.  In dimensions `n>=4`, coordinate-face profiles with three or more
 nonzero knots and at least three distinct coefficient values remain open
-outside the proved convex-core, far-cap, and middle-budget regions.  See
+outside the proved convex-core, far-cap, and middle-knot regions.  See
 [`DIRICHLET-POISSONIZATION.md`](DIRICHLET-POISSONIZATION.md) for the proof,
 the full reduction, and the exact localization obstruction.
 

@@ -22,7 +22,7 @@ from dirichlet_poissonization import (  # noqa: E402
     verify_saffine_symbolic_identities,
     verify_three_positive_convex_core,
     verify_three_positive_far_cap,
-    verify_three_positive_middle_budget,
+    verify_three_positive_middle_knot_region,
     verify_two_positive_knot_theorem,
     verify_two_level_symbolic_identities,
 )
@@ -95,14 +95,15 @@ class DirichletPoissonizationTests(unittest.TestCase):
     def test_all_n_three_positive_far_cap_algebra(self):
         verify_three_positive_far_cap()
 
-    def test_all_n_three_positive_middle_budget_algebra(self):
-        verify_three_positive_middle_budget()
+    def test_all_n_three_positive_middle_knot_algebra(self):
+        verify_three_positive_middle_knot_region()
 
     def test_all_n_two_positive_knot_algebra(self):
         verify_two_positive_knot_theorem()
 
     def test_certificate_is_explicitly_non_theorem_research_support(self):
         certificate = build_certificate()
+        self.assertEqual(certificate["schema_version"], 10)
         self.assertIn("not an all-sample-size coverage certificate", certificate["status"])
         self.assertEqual(
             len(certificate["equal_block_profiles"]["regression_checks"]),
@@ -146,11 +147,17 @@ class DirichletPoissonizationTests(unittest.TestCase):
             ],
             "passed",
         )
+        middle_knot = certificate["three_positive_middle_knot_all_n"]
         self.assertEqual(
-            certificate["three_positive_middle_budget_all_n"][
-                "symbolic_identity_and_constant_check"
-            ],
+            middle_knot["symbolic_identity_and_constant_check"],
             "passed",
+        )
+        self.assertIn("b<=n/3", middle_knot["scope"])
+        self.assertEqual(
+            middle_knot["exact_rational_bounds"][
+                "refined_lambda_3_bernstein_minimum"
+            ]["numerator"],
+            "264755763361",
         )
         self.assertEqual(
             certificate["two_positive_knots_all_n"][

@@ -446,15 +446,16 @@ Questions:
     that `g_n` is increasing on `[0,n]` for every `n>=4`, do
     (15ac)--(15af) prove the required endpoint estimate, and does the final
     secant comparison cover every ordered triple with `c>=n-1`?
-15. For the three-positive middle-budget region, does (15ai) prove the
+15. For the three-positive middle-knot region, does (15ai) prove the
     one-crossing curvature property, do the exact series bounds
-    (15ak)--(15an) justify all four endpoint comparisons, and does the
-    reflection (15ao) imply the two required secant inequalities whenever
-    `2b+c<=n`?
+    (15ak)--(15an) justify all four endpoint comparisons, does (15ap) give
+    the quantitative curvature bound, and do (15at)--(15av) and the
+    tangent-remainder argument imply the two required secant inequalities
+    whenever `b<=n/3`?
 16. Is the conclusion limited to the complete `n=2` and `n=3`
     Poissonization inequalities, every two-level profile, every profile with
     at most two nonzero coefficients, the stated three-positive convex-core,
-    far-cap, and middle-budget regions, and the radial boundary reduction,
+    far-cap, and middle-knot regions, and the radial boundary reduction,
     without being promoted to the still-open general-dimensional comparison
     or to a Stringer coverage theorem by itself?
 
