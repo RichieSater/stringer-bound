@@ -738,13 +738,13 @@ def check_three_exponential_two_large_gap_region() -> None:
 def check_three_exponential_small_gap_region() -> None:
     """Check the exact rational constants in the small-gap theorem."""
 
-    radius = Fraction(2, 5)
+    radius = Fraction(4, 9)
     exponential_lower = sum(
         radius**order / Fraction(factorial(order))
-        for order in range(5)
+        for order in range(6)
     )
-    assert exponential_lower == Fraction(2797, 1875)
-    assert exponential_lower > Fraction(1000, 671)
+    assert exponential_lower == Fraction(1381403, 885735)
+    assert exponential_lower > Fraction(2500, 1603)
 
     # For k>=7, k! >= 7! 8^(k-7), so the omitted exponential tail is at
     # most (1/7!) sum_{j>=0} 8^(-j) = 1/4410.
@@ -753,14 +753,14 @@ def check_three_exponential_small_gap_region() -> None:
         + Fraction(1, 4410)
     )
     assert exponential_upper == Fraction(31967, 11760)
-    assert exponential_upper < Fraction(2719, 1000)
+    assert exponential_upper < Fraction(271829, 100000)
 
     tail_polynomial_lower = (
-        Fraction(121) - 164 * Fraction(671, 1000)
+        Fraction(100) - 139 * Fraction(1603, 2500)
     )
-    assert tail_polynomial_lower == Fraction(2739, 250)
-    assert 4 * Fraction(2719, 1000) == Fraction(2719, 250)
-    assert tail_polynomial_lower > Fraction(2719, 250)
+    assert tail_polynomial_lower == Fraction(27183, 2500)
+    assert 4 * Fraction(271829, 100000) == Fraction(271829, 25000)
+    assert tail_polynomial_lower > Fraction(271829, 25000)
 
 
 def check_three_exponential_equal_smaller_line() -> None:
@@ -1207,7 +1207,7 @@ def main() -> int:
     print("three-exponential axis transversality: STRICTLY POSITIVE")
     print("three-exponential equal-smaller symmetry line: PROVED")
     print("three-exponential diagonal transverse second derivative: NEGATIVE")
-    print("three-exponential max-gap-at-most-2/5 region: PROVED")
+    print("three-exponential max-gap-at-most-4/9 region: PROVED")
     print("three-exponential min-gap-at-least-13 region: PROVED")
     print("three-exponential infinite-gap boundary: REDUCED TO PROVED 2D CASE")
     print("three-exponential sharp corner: POSITIVE PUNCTURED NEIGHBORHOOD")

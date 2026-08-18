@@ -367,7 +367,7 @@ Questions:
     `mathcal E(s)>0` for every `s>0`, and therefore
     `Psi_s''(0)<0`?
 23. Does `rho>=0`, tail monotonicity, and coordinatewise monotonicity of
-    `A` and `Z` reduce the square `0<=z,w<=2/5` to the diagonal corner, and
+    `A` and `Z` reduce the square `0<=z,w<=4/9` to the diagonal corner, and
     do the rational exponential bounds in (18e)--(18f) prove the strict
     target there?
 24. Does conditioning independent exponentials on their sum being at most
@@ -395,7 +395,7 @@ Questions:
     and does the two-scale remainder argument prove a punctured positive
     neighborhood rather than only positivity along fixed rays?
 32. Are the remaining claims limited to finite `0<z<w<infinity` with
-    `z<13` and `w>2/5`, without
+    `z<13` and `w>4/9`, without
     using any proved boundary, symmetry, or local-corner result as a full
     three-coordinate convexity or general-`n` coverage theorem?
 

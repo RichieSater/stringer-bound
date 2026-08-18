@@ -59,9 +59,9 @@ fixed-sum transverse second derivative is strictly negative, and its complete
 infinite-gap boundary reduces to the two-coordinate theorem.  A joint
 expansion proves positivity in a punctured neighborhood of the sharp corner.
 A direct tail comparison proves the full square in which both gaps are at
-most `2/5`, and an analytic Gram-matrix comparison proves the full region in
+most `4/9`, and an analytic Gram-matrix comparison proves the full region in
 which both gaps are at least `13`.  Its remaining finite off-symmetry region,
-whose larger gap exceeds `2/5` and whose smaller gap is below `13`, remains
+whose larger gap exceeds `4/9` and whose smaller gap is below `13`, remains
 open.
 
 ## Layers

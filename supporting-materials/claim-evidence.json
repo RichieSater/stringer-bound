@@ -860,7 +860,7 @@
     {
       "id": "three-exponential-small-gap-region",
       "classification": "proved_theorem",
-      "statement": "At tail threshold 4 exp(-3), the explicit three-exponential tilted-simplex inequality holds strictly whenever both gap coordinates are at most 2/5.",
+      "statement": "At tail threshold 4 exp(-3), the explicit three-exponential tilted-simplex inequality holds strictly whenever both gap coordinates are at most 4/9.",
       "manuscript_labels": [],
       "evidence": [
         {
@@ -882,7 +882,7 @@
       "verification_commands": [
         "make all-n-reduction-check"
       ],
-      "limitations": "This proves only the square max(z,w)<=2/5. It does not prove the remaining finite off-symmetry region with larger gap above 2/5 and smaller gap below 13, full three-coordinate convexity, or general-n Stringer coverage."
+      "limitations": "This proves only the square max(z,w)<=4/9. It does not prove the remaining finite off-symmetry region with larger gap above 4/9 and smaller gap below 13, full three-coordinate convexity, or general-n Stringer coverage."
     },
     {
       "id": "three-exponential-two-large-gap-region",
@@ -909,7 +909,7 @@
       "verification_commands": [
         "make all-n-reduction-check"
       ],
-      "limitations": "This proves only the region min(z,w)>=13. It does not prove the remaining finite off-symmetry region with larger gap above 2/5 and smaller gap below 13, full three-coordinate convexity, or general-n Stringer coverage."
+      "limitations": "This proves only the region min(z,w)>=13. It does not prove the remaining finite off-symmetry region with larger gap above 4/9 and smaller gap below 13, full three-coordinate convexity, or general-n Stringer coverage."
     },
     {
       "id": "three-exponential-infinite-gap-boundary",
