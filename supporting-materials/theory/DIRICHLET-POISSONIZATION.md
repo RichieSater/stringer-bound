@@ -3,8 +3,8 @@
 > **Status.** This note gives an exact reduction, pushes any possible
 > counterexample to a zero-knot boundary, proves every profile having at most
 > two distinct coefficient values or at most two nonzero coefficients, proves
-> dimension-free convex-core and far-cap regions and the full middle-knot
-> region `b<=n/3` for profiles with three nonzero coefficients,
+> every profile with three nonzero coefficients (including analytic
+> convex-core, far-cap, and middle-knot subregions),
 > proves the complete comparison for `n=2` and `n=3`, and rules out an
 > over-broad
 > localization shortcut. The central
@@ -1134,7 +1134,236 @@ Hence `[a,b,c]g_n>=0`; confluent cases follow by continuity.  Equation (15w)
 proves the middle-knot theorem.
 
 
-## 11. Why generic $s$-concave localization is too broad
+## 11. The complete three-positive face
+
+The preceding regions can be joined by a derivative estimate that closes the
+entire face.
+
+> **Three-positive face theorem.**  Let `n>=4`, and suppose the coefficient
+> vector consists of `n-2` zeros and three values `0<=a<=b<=c` satisfying
+> `a+b+c<=n`.  Then
+>
+> \[
+>  \Pr\{Z_y>n\}\ge\Pr\{T_y>1\}.
+> \]
+
+Put `f_n(u)=g_n(u)/u`, with `f_n(0)=0`, as in Section 5.  The divided-
+difference multiplication rule gives
+
+\[
+ [a,b,c]g_n
+ =\frac{c[b,c]f_n-a[a,b]f_n}{c-a}.               \tag{15aw}
+\]
+
+Confluent cases follow by continuity.  Sections 8--10 already cover
+`c<=n^2/{2(n+1)}`, `c>=n-1`, and `b<=n/3`.  It remains to consider
+
+\[
+ \frac n3<b\le c,\qquad
+ \frac{n^2}{2(n+1)}<c<n-1,
+ \qquad a+b+c\le n.                               \tag{15ax}
+\]
+
+In particular,
+
+\[
+ c<\frac{2n}{3},
+ \qquad
+ a\le\frac{2n}{3}-c.                             \tag{15ay}
+\]
+
+We need two bounds for `phi_n=f_n'`.  With `lambda=n/u`, formula (15c)
+becomes
+
+\[
+ \phi_n(n/\lambda)
+ =e^{-\lambda}(1+\lambda)
+  -\left(1-\frac\lambda n\right)^{n-1}
+   \left(1+\lambda-\frac\lambda n\right).        \tag{15az}
+\]
+
+First, `phi_n` has only one maximum on `[0,n-1]`.  For `u>1`, direct
+differentiation gives
+
+\[
+ f_n''(u)=\frac{\lambda^2}{u}
+ \left\{e^{-\lambda}
+ -(1-1/n)(1-\lambda/n)^{n-2}\right\}.             \tag{15ba}
+\]
+
+The logarithmic derivative, with respect to `lambda`, of the ratio of the
+two terms in braces is
+
+\[
+ \frac{\lambda-2}{n-\lambda}.                    \tag{15bb}
+\]
+
+At `lambda=1` the ratio is less than one because
+`(1-1/n)^{n-1}>e^{-1}`, whereas it tends to infinity as `lambda` tends to
+`n`.  Thus `f_n''` changes sign only once as `u` increases, from positive to
+negative.  On `(0,1]`, the same conclusion follows directly from
+`f_n(u)=u e^{-n/u}`.
+
+For `n>=5`, the maximum occurs before `n/3`.  Indeed,
+
+\[
+ (1-1/n)(1-3/n)^{n-2}>e^{-3}.                    \tag{15bc}
+\]
+
+For `5<=n<=12`, this follows from the degree-seven lower Taylor bound
+`e^3>5557/280`; the smallest resulting rational margin is `353/21875`.
+For `n>=13`, put `z=1/n`.  The elementary bound
+`log(1-x)>=-x-x^2/{2(1-x)}` gives
+
+\[
+ \begin{aligned}
+ &\log(1-z)+(z^{-1}-2)\log(1-3z)+3\\
+ &\quad\ge
+ \frac{z(15z^2-14z+1)}{2(z-1)(3z-1)}>0,
+ \end{aligned}
+\]
+
+where the numerator at `z=1/13` is `2/169` and is larger for smaller
+positive `z`.  Hence `phi_n` is decreasing on `[n/3,n-1]` when `n>=5`.
+
+For `n=4`, its maximum lies before `8/5`, and
+`phi_4(4/3)>phi_4(8/5)`.  The first assertion follows from
+`e^{5/2}>256/27`.  After multiplication by `e^3`, the second follows from
+
+\[
+ 4-\frac72e^{1/2}+\frac{413}{4096}e^3>0;
+\]
+
+the Taylor bounds used in the certificate leave the rational margin
+`1297/15360`.  The one-maximum property now gives, under (15ax),
+
+\[
+ \phi_n(b)\ge\phi_n(c),
+ \qquad
+ [b,c]f_n\ge\phi_n(c).                            \tag{15bd}
+\]
+
+The second ingredient is the pair of uniform estimates
+
+\[
+ \phi_n(u)<\frac{3}{5n}\qquad(0<u\le n-1),      \tag{15be}
+\]
+
+and
+
+\[
+ n\phi_n(n/\lambda)\ge\frac{2\lambda-3}{5},
+ \qquad
+ \frac32\le\lambda\le2+\frac2n.                 \tag{15bf}
+\]
+
+Here are complete certification details.  For (15be), the finite prefix
+`4<=n<=21` is covered by a 128-bit Arb interval proof.  It bisects
+`1<=lambda<=n` until the whole image of (15az) lies strictly below the exact
+rational `3/(5n)`.  Regeneration produces 2,006 certified terminal intervals;
+the certificate records their counts by `n`, and the maximum bisection depth
+is ten.  On `0<u<=1`, the
+bound follows from `(1+lambda)e^{-lambda}<3/(5n)` at `lambda>=n`, starting
+from `e^4>54`.
+
+For the analytic tail `n>=22`, put `p=lambda/n` and let `d` be the logarithm
+of the first term in (15az) divided by the second.  If `phi_n>0`, then
+`d>0`.  The positive logarithmic series and `log(1+x)<=x` give
+
+\[
+ d\le
+ \frac{(n-1)p^2(\lambda-1+p)}
+ {2(1-p)(1+\lambda-p)}.
+\]
+
+Since `1-e^{-d}<=d`, it follows that
+
+\[
+ n\phi_n(n/\lambda)\le e^{-\lambda}U_n(\lambda),
+\]
+
+where
+
+\[
+ U_n(\lambda)=
+ \frac{(1-1/n)(1+\lambda)\lambda^2
+       (\lambda-1+\lambda/n)}
+ {2(1-\lambda/n)(1+\lambda-\lambda/n)}.           \tag{15bg}
+\]
+
+If `p>=1/4`, the Poisson term alone suffices:
+`n(1+n/4)e^{-n/4}<3/5` at `n=22`, and the left side decreases thereafter.
+If `p<=1/4` and `lambda>=9/2`, then
+
+\[
+ U_n(\lambda)\le
+ \frac23(1+\lambda)\lambda^2
+ \frac{\lambda-3/4}{\lambda+3/4}.
+\]
+
+The right side after multiplication by `e^{-lambda}` is decreasing from
+`lambda=9/2`; the exact bounds
+`e^{9/2}>202948427/2293760>2475/28` put it below `3/5` there.
+Finally, if `p<=1/4` and `lambda<=9/2`, the rational factor in (15bg) is
+increasing in `1/n`, so `n=22` is worst.  After replacing `e^lambda` by its
+degree-seven Taylor polynomial, the remaining cleared polynomial has
+positive Bernstein coefficients on
+
+\[
+ [1,15/8],\ [15/8,11/4],\ [11/4,29/8],\ [29/8,9/2].
+\]
+
+The smallest is `6341019244847/25165824`.  This proves (15be).
+
+For (15bf), the exact logarithmic series is
+
+\[
+ d=\sum_{r\ge1}\left\{
+ \frac{\lambda^{r+1}}{r+1}-\frac{\lambda^r}{r}
+ +\frac1r\left(\frac{\lambda}{\lambda+1}\right)^r
+ \right\}n^{-r}.                                  \tag{15bh}
+\]
+
+Every coefficient is positive for `lambda>=3/2`.  If `n>=9`, retain only
+
+\[
+ c_1=\frac{\lambda^2(\lambda-1)}{2(\lambda+1)}.
+\]
+
+Using `1-e^{-d}>=d/(1+d)` reduces (15bf) to a decreasing function on
+`[3/2,20/9]`.  The derivative claim is certified by four exact Bernstein
+blocks with smallest coefficient `26185/189`.  At the right endpoint it
+reduces to
+
+\[
+ e^{20/9}<\frac{2871000}{303433}.
+\]
+
+This follows from `e<11/4`, `e^{2/9}<5/4`, and
+`605/64<2871000/303433`.  For `4<=n<=8`, retaining the first three terms in
+(15bh) gives the same monotonicity.  Exact degree-five Taylor--Bernstein
+checks and endpoint exponential enclosures are recorded in the certificate.
+This proves (15bf).
+
+We can now finish.  Put `lambda=n/c`.  Conditions (15ax)--(15ay) give the
+range in (15bf).  Equations (15bd)--(15bf) yield
+
+\[
+ \begin{aligned}
+ c[b,c]f_n
+ &\ge c\phi_n(c)
+ \ge\frac{2\lambda-3}{5\lambda},\\
+ a[a,b]f_n
+ &\le \frac{3a}{5n}
+ \le\frac{2\lambda-3}{5\lambda}.
+ \end{aligned}
+\]
+
+Thus the numerator in (15aw) is nonnegative.  Together with Sections 8--10,
+this proves the three-positive face theorem.
+
+
+## 12. Why generic $s$-concave localization is too broad
 
 A one-dimensional localization theorem for $1/n$-concave probability
 laws reduces a linear extremal problem to point masses or densities of the
@@ -1194,18 +1423,15 @@ coefficients $y_i$; not every density in (16) is such a projection with
 the constraint (2). The example shows precisely which structural
 information a successful localization argument must preserve.
 
-## 12. Remaining proof problem
+## 13. Remaining proof problem
 
 The cleanest current target is (6).  Section 4 shows that it is enough to
 work on coordinate faces, Sections 3--5 establish it for every profile
 having at most two distinct coefficient values or at most two nonzero
 coefficients, and Sections 6--7 prove the complete target for `n=2` and
-`n=3`.  Section 8 also proves every three-positive profile whose largest
-knot is at most `n^2/{2(n+1)}`, Section 9 proves every such profile whose
-largest knot is at least `n-1`, and Section 10 proves the full middle-knot
-region `b<=n/3`.  Three-positive profiles outside those regions and all
-profiles with four or more nonzero knots remain open.  Three plausible routes
-remain for general `n`:
+`n=3`.  Sections 8--11 prove every profile having exactly three nonzero
+coefficients.  Profiles with four or more nonzero knots remain open.  Three
+plausible routes remain for general `n`:
 
 1. exploit the zero-knot reduction recursively, or prove that a negative
    minimum on a coordinate face must have at most two distinct knot values;
@@ -1223,12 +1449,11 @@ make dirichlet-poissonization-check
 
 The committed output is
 [`dirichlet-poissonization-certificate.json`](../computations/certificates/dirichlet-poissonization-certificate.json).
-It certifies the obstruction, checks rational equal-block instances, and
+It certifies the obstruction, checks rational equal-block instances,
 regression-checks the exact algebra used in the two-level, two-positive-knot,
-three-positive convex-core, far-cap, and middle-knot regions, and complete
-`n=2` and `n=3` proofs.
-The all-parameter statements rest on the written arguments; the general
-inequality remains explicitly open.
+three-positive subregion, and complete `n=2` and `n=3` proofs, and supplies
+the rigorous finite-prefix interval component of the complete
+three-positive-face proof.  The general inequality remains explicitly open.
 
 ## References
 

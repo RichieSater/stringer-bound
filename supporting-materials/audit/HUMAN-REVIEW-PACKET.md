@@ -452,10 +452,16 @@ Questions:
     the quantitative curvature bound, and do (15at)--(15av) and the
     tangent-remainder argument imply the two required secant inequalities
     whenever `b<=n/3`?
-16. Is the conclusion limited to the complete `n=2` and `n=3`
+16. For the residual three-positive region, does (15aw) reduce the sign to
+    the two weighted secant slopes of `f_n`; do (15ba)--(15bd) prove the
+    one-maximum and endpoint ordering; does the 128-bit Arb subdivision
+    certify the finite prefix in (15be); do the logarithmic, Taylor, and
+    Bernstein bounds prove the analytic tail of (15be) and all of (15bf);
+    and do the final two inequalities exhaust every profile not already
+    covered by Sections 8--10?
+17. Is the conclusion limited to the complete `n=2` and `n=3`
     Poissonization inequalities, every two-level profile, every profile with
-    at most two nonzero coefficients, the stated three-positive convex-core,
-    far-cap, and middle-knot regions, and the radial boundary reduction,
+    at most three nonzero coefficients, and the radial boundary reduction,
     without being promoted to the still-open general-dimensional comparison
     or to a Stringer coverage theorem by itself?
 

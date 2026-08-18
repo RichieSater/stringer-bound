@@ -2894,7 +2894,7 @@
     "scope": "Any strictly positive coefficient profile with sum_i y_i<=n can be moved to a zero-knot boundary without increasing the Dirichlet--Poissonization gap.",
     "symbolic_identity_check": "passed"
   },
-  "schema_version": 10,
+  "schema_version": 11,
   "status": "Research certificate: exact reductions and an obstruction, not an all-sample-size coverage certificate.",
   "three_positive_convex_core_all_n": {
     "analytic_basis": "The divided-difference multiplication identity, the exact k=2 Poisson-minus-binomial CDF formula for g_n''/2, and Anderson--Samuels (1967)",
@@ -2926,6 +2926,136 @@
       }
     },
     "scope": "Every n>=4 profile having n-2 zero coefficients and three ordered nonnegative coefficients a<=b<=c with sum at most n and c>=n-1",
+    "symbolic_identity_and_constant_check": "passed"
+  },
+  "three_positive_full_face_all_n": {
+    "analytic_basis": "The divided-difference multiplication identity, the one-maximum derivative lemma, exact global upper and residual-region lower bounds for f_n', and a rigorous real-ball check of the finite n=4,...,21 prefix",
+    "proof_record": {
+      "arb_precision_bits": 128,
+      "finite_curvature_margin_minimum": {
+        "decimal": "0.016137142857142857",
+        "denominator": "21875",
+        "numerator": "353"
+      },
+      "finite_fprime_upper_bound": [
+        {
+          "certified_leaf_intervals": 105,
+          "maximum_bisection_depth": 9,
+          "n": 4
+        },
+        {
+          "certified_leaf_intervals": 59,
+          "maximum_bisection_depth": 7,
+          "n": 5
+        },
+        {
+          "certified_leaf_intervals": 57,
+          "maximum_bisection_depth": 7,
+          "n": 6
+        },
+        {
+          "certified_leaf_intervals": 70,
+          "maximum_bisection_depth": 8,
+          "n": 7
+        },
+        {
+          "certified_leaf_intervals": 77,
+          "maximum_bisection_depth": 8,
+          "n": 8
+        },
+        {
+          "certified_leaf_intervals": 92,
+          "maximum_bisection_depth": 8,
+          "n": 9
+        },
+        {
+          "certified_leaf_intervals": 85,
+          "maximum_bisection_depth": 8,
+          "n": 10
+        },
+        {
+          "certified_leaf_intervals": 86,
+          "maximum_bisection_depth": 9,
+          "n": 11
+        },
+        {
+          "certified_leaf_intervals": 102,
+          "maximum_bisection_depth": 9,
+          "n": 12
+        },
+        {
+          "certified_leaf_intervals": 124,
+          "maximum_bisection_depth": 9,
+          "n": 13
+        },
+        {
+          "certified_leaf_intervals": 120,
+          "maximum_bisection_depth": 9,
+          "n": 14
+        },
+        {
+          "certified_leaf_intervals": 114,
+          "maximum_bisection_depth": 9,
+          "n": 15
+        },
+        {
+          "certified_leaf_intervals": 110,
+          "maximum_bisection_depth": 9,
+          "n": 16
+        },
+        {
+          "certified_leaf_intervals": 136,
+          "maximum_bisection_depth": 10,
+          "n": 17
+        },
+        {
+          "certified_leaf_intervals": 173,
+          "maximum_bisection_depth": 10,
+          "n": 18
+        },
+        {
+          "certified_leaf_intervals": 170,
+          "maximum_bisection_depth": 10,
+          "n": 19
+        },
+        {
+          "certified_leaf_intervals": 165,
+          "maximum_bisection_depth": 10,
+          "n": 20
+        },
+        {
+          "certified_leaf_intervals": 161,
+          "maximum_bisection_depth": 10,
+          "n": 21
+        }
+      ],
+      "finite_lower_bernstein_minimum": {
+        "decimal": "5958465908.455347061157226562",
+        "denominator": "524288",
+        "numerator": "3123952174212237"
+      },
+      "finite_lower_endpoint_margin_minimum": {
+        "decimal": "0.226768099200352093",
+        "denominator": "17606692992",
+        "numerator": "3992636303"
+      },
+      "lower_n9_bernstein_minimum": {
+        "decimal": "138.544973544973544974",
+        "denominator": "189",
+        "numerator": "26185"
+      },
+      "n4_endpoint_margin": {
+        "decimal": "0.084440104166666667",
+        "denominator": "15360",
+        "numerator": "1297"
+      },
+      "upper_n22_bernstein_minimum": {
+        "decimal": "251969.466402014096577962",
+        "denominator": "25165824",
+        "numerator": "6341019244847"
+      }
+    },
+    "scope": "Every n>=4 profile having n-2 zero coefficients and three ordered nonnegative coefficients a<=b<=c with sum at most n",
     "symbolic_identity_and_constant_check": "passed"
   },
   "three_positive_middle_knot_all_n": {

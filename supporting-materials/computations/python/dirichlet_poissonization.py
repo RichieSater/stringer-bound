@@ -33,6 +33,9 @@ boundary reduction, a proved structured family, and one obstruction:
 * a one-crossing curvature argument, a quantitative curvature inequality,
   and exact endpoint comparisons prove the full region where the middle knot
   is at most ``n/3``; and
+* a derivative comparison, exact analytic tail bounds, and a rigorous Arb
+  check of the finite prefix complete every profile with three nonzero
+  coefficients; and
 * a fully explicit, mean-constrained ``1/n``-concave law shows why generic
   one-dimensional s-concave localization is too broad to prove the
   comparison.
@@ -908,6 +911,449 @@ def verify_three_positive_middle_knot_region() -> None:
     assert exp_three_degree_five_lower > endpoint_ratio**2
 
 
+def verify_three_positive_full_face() -> dict[str, object]:
+    """Check the residual argument completing every three-positive face."""
+    from flint import arb, ctx, fmpq
+    from sympy import (
+        Poly,
+        Rational,
+        diff,
+        exp,
+        expand,
+        factor,
+        fraction,
+        log,
+        simplify,
+        symbols,
+    )
+
+    lam = symbols("lambda", positive=True)
+    n = symbols("n", integer=True, positive=True)
+    z = symbols("z", nonnegative=True)
+    x = symbols("x", nonnegative=True)
+    a, b, c = symbols("a b c", nonnegative=True)
+    f_a, f_b, f_c = symbols("f_a f_b f_c")
+
+    def bernstein_coefficients(poly, variable, lo, hi):
+        """Exact Bernstein coefficients after mapping ``[lo,hi]`` to ``[0,1]``."""
+        transformed = Poly(
+            expand(poly.subs(variable, lo + (hi - lo) * x)),
+            x,
+        )
+        degree = transformed.degree()
+        power = [transformed.nth(index) for index in range(degree + 1)]
+        return [
+            factor(
+                sum(
+                    power[order]
+                    * Rational(
+                        math.comb(index, order),
+                        math.comb(degree, order),
+                    )
+                    for order in range(index + 1)
+                )
+            )
+            for index in range(degree + 1)
+        ]
+
+    # Multiplication by the coordinate function gives (15aw) exactly.
+    first_ab = (b * f_b - a * f_a) / (b - a)
+    first_bc = (c * f_c - b * f_b) / (c - b)
+    second_g = (first_bc - first_ab) / (c - a)
+    second_f_reduction = (
+        c * (f_c - f_b) / (c - b)
+        - a * (f_b - f_a) / (b - a)
+    ) / (c - a)
+    assert simplify(second_g - second_f_reduction) == 0
+
+    # The derivative phi_n=f_n' and the exact one-maximum calculation.
+    phi = exp(-lam) * (1 + lam) - (1 - lam / n) ** (n - 1) * (
+        1 + lam - lam / n
+    )
+    t_symbol = symbols("t", positive=True)
+    binomial_derivative = (
+        -(n - 1)
+        / n
+        * t_symbol ** (n - 2)
+        * (1 + (n - 1) * lam / n)
+        + t_symbol ** (n - 1) * (n - 1) / n
+    )
+    assert factor(
+        (
+            binomial_derivative
+            + (n - 1) * lam / n * t_symbol ** (n - 2)
+        ).subs(lam, n * (1 - t_symbol))
+    ) == 0
+    curvature_log = (
+        -lam
+        - log(1 - 1 / n)
+        - (n - 2) * log(1 - lam / n)
+    )
+    assert simplify(
+        diff(curvature_log, lam) - (lam - 2) / (n - lam)
+    ) == 0
+
+    # For n>=13, this lower logarithmic bound puts the maximum of phi_n
+    # before n/3.  The remaining n=5,...,12 cases use the degree-seven
+    # Taylor lower bound for exp(3).
+    curvature_log_lower = (
+        -z
+        - z**2 / (2 * (1 - z))
+        + (1 / z - 2)
+        * (-3 * z - 9 * z**2 / (2 * (1 - 3 * z)))
+        + 3
+    )
+    assert simplify(
+        curvature_log_lower
+        - z
+        * (15 * z**2 - 14 * z + 1)
+        / (2 * (z - 1) * (3 * z - 1))
+    ) == 0
+    assert 15 * Fraction(1, 13) ** 2 - 14 * Fraction(1, 13) + 1 == Fraction(
+        2,
+        169,
+    )
+    exp_three_degree_seven = _exp_taylor_lower(Fraction(3), 7)
+    assert exp_three_degree_seven == Fraction(5557, 280)
+    finite_curvature_margins = [
+        exp_three_degree_seven
+        * Fraction(sample_n - 1, sample_n)
+        * Fraction(sample_n - 3, sample_n) ** (sample_n - 2)
+        - 1
+        for sample_n in range(5, 13)
+    ]
+    assert min(finite_curvature_margins) == Fraction(353, 21875)
+
+    # The n=4 endpoint comparison used when its maximum lies just to the
+    # right of n/3.
+    exp_five_halves_lower = _exp_taylor_lower(Fraction(5, 2), 4)
+    assert exp_five_halves_lower > Fraction(256, 27)
+    exp_half_upper = _exp_taylor_upper(Fraction(1, 2), 2)
+    n4_endpoint_margin = (
+        Fraction(4)
+        - Fraction(7, 2) * exp_half_upper
+        + Fraction(413, 4096) * _exp_taylor_lower(Fraction(3), 5)
+    )
+    assert exp_half_upper == Fraction(277, 168)
+    assert n4_endpoint_margin == Fraction(1297, 15360)
+
+    # Analytic upper bound for n*phi_n when n>=22.  The exact logarithmic
+    # bound is encoded by the rational factor below.
+    p_symbol = symbols("p", nonnegative=True)
+    logarithmic_upper = (
+        -p_symbol
+        + (n - 1) * p_symbol**2 / (2 * (1 - p_symbol))
+        + p_symbol / (1 + (n - 1) * p_symbol)
+    )
+    expected_logarithmic_upper = (
+        (n - 1)
+        * p_symbol**2
+        * (n * p_symbol - 1 + p_symbol)
+        / (
+            2
+            * (1 - p_symbol)
+            * (1 + (n - 1) * p_symbol)
+        )
+    )
+    assert simplify(logarithmic_upper - expected_logarithmic_upper) == 0
+    upper_factor = (
+        (1 - z)
+        * (1 + lam)
+        * lam**2
+        * (lam - 1 + lam * z)
+        / (2 * (1 - lam * z) * (1 + lam - lam * z))
+    )
+    assert simplify(
+        upper_factor.subs(z, 1 / n)
+        - n
+        * (1 + lam)
+        * expected_logarithmic_upper.subs(p_symbol, lam / n)
+    ) == 0
+    upper_factor_derivative_numerator = factor(diff(
+        (1 - z)
+        * (lam - 1 + lam * z)
+        / ((1 - lam * z) * (1 + lam - lam * z)),
+        z,
+    )).as_numer_denom()[0]
+    expected_upper_derivative_numerator = (
+        lam**3 * z**2
+        - 2 * lam**3 * z
+        + lam**3
+        + lam**2 * z**2
+        + lam**2
+        - 2 * lam * z
+        - lam
+        + 1
+    )
+    assert factor(
+        upper_factor_derivative_numerator
+        - expected_upper_derivative_numerator
+    ) == 0
+    shifted_upper_derivative = Poly(
+        expand(expected_upper_derivative_numerator.subs(lam, 1 + x)),
+        x,
+    )
+    # Every coefficient in x is a positive quadratic on 0<=z<=1/22.
+    assert shifted_upper_derivative.all_coeffs() == [
+        z**2 - 2 * z + 1,
+        4 * z**2 - 6 * z + 4,
+        5 * z**2 - 8 * z + 4,
+        2 * z**2 - 4 * z + 2,
+    ]
+    for coefficient in shifted_upper_derivative.all_coeffs():
+        assert coefficient.subs(z, Fraction(1, 22)) > 0
+        assert diff(coefficient, z).subs(z, Fraction(1, 22)) < 0
+
+    upper_factor_22 = factor(upper_factor.subs(z, Rational(1, 22)))
+    exp_taylor_seven = sum(lam**order / math.factorial(order) for order in range(8))
+    upper_22_gap = factor(Rational(3, 5) * exp_taylor_seven - upper_factor_22)
+    upper_22_numerator, upper_22_denominator = fraction(upper_22_gap)
+    assert simplify(
+        upper_22_denominator
+        - 8400 * (lam - 22) * (21 * lam + 22)
+    ) == 0
+    upper_22_positive_polynomial = -upper_22_numerator
+    upper_22_breaks = [
+        Rational(1),
+        Rational(15, 8),
+        Rational(11, 4),
+        Rational(29, 8),
+        Rational(9, 2),
+    ]
+    upper_22_bernstein = []
+    for lo, hi in zip(upper_22_breaks, upper_22_breaks[1:]):
+        upper_22_bernstein.extend(
+            bernstein_coefficients(
+                upper_22_positive_polynomial,
+                lam,
+                lo,
+                hi,
+            )
+        )
+    assert min(upper_22_bernstein) == Rational(
+        6341019244847,
+        25165824,
+    )
+    assert min(upper_22_bernstein) > 0
+
+    # For lambda>=9/2, the p<=1/4 envelope is decreasing and below 3/5.
+    envelope_log_derivative = factor(
+        -1
+        + 1 / (1 + lam)
+        + 2 / lam
+        + 1 / (lam - Rational(3, 4))
+        - 1 / (lam + Rational(3, 4))
+    )
+    envelope_numerator = fraction(envelope_log_derivative)[0]
+    shifted_envelope = Poly(
+        expand((-envelope_numerator).subs(lam, x + Rational(9, 2))),
+        x,
+    )
+    assert min(shifted_envelope.all_coeffs()) > 0
+    exp_nine_halves_lower = _exp_taylor_lower(Fraction(9, 2), 9)
+    assert exp_nine_halves_lower == Fraction(202948427, 2293760)
+    assert exp_nine_halves_lower > Fraction(2475, 28)
+
+    # In the p>=1/4 branch, n=22 is the worst analytic endpoint.
+    exp_eleven_halves_lower = _exp_taylor_lower(Fraction(11, 2), 10)
+    assert exp_eleven_halves_lower == Fraction(886288933661, 3715891200)
+    assert exp_eleven_halves_lower > Fraction(715, 3)
+    assert factor(
+        5 * n * (n + 4) - 4 * (n + 1) * (n + 5)
+    ) == n**2 - 4 * n - 20
+
+    # Rigorous real-ball verification of max phi_n < 3/(5n) for the finite
+    # prefix n=4,...,21.  The analytic argument above handles n>=22.
+    previous_precision = ctx.prec
+    ctx.prec = 128
+
+    def arb_interval(lo: Fraction, hi: Fraction) -> arb:
+        lo_q = fmpq(lo.numerator, lo.denominator)
+        hi_q = fmpq(hi.numerator, hi.denominator)
+        return arb((lo_q + hi_q) / 2, (hi_q - lo_q) / 2)
+
+    finite_prefix_records = []
+    try:
+        for sample_n in range(4, 22):
+            target = arb(fmpq(3, 5 * sample_n))
+            stack = [(Fraction(1), Fraction(sample_n), 0)]
+            leaves = 0
+            maximum_depth = 0
+            while stack:
+                lo, hi, depth = stack.pop()
+                lam_ball = arb_interval(lo, hi)
+                value = (-lam_ball).exp() * (1 + lam_ball) - (
+                    1 - lam_ball / sample_n
+                ) ** (sample_n - 1) * (
+                    1 + lam_ball - lam_ball / sample_n
+                )
+                if value < target:
+                    leaves += 1
+                    maximum_depth = max(maximum_depth, depth)
+                    continue
+                if depth >= 24:
+                    raise AssertionError(
+                        "finite f-prime upper-bound subdivision did not close"
+                    )
+                midpoint = (lo + hi) / 2
+                stack.append((lo, midpoint, depth + 1))
+                stack.append((midpoint, hi, depth + 1))
+            finite_prefix_records.append(
+                {
+                    "n": sample_n,
+                    "certified_leaf_intervals": leaves,
+                    "maximum_bisection_depth": maximum_depth,
+                }
+            )
+    finally:
+        ctx.prec = previous_precision
+
+    assert sum(
+        record["certified_leaf_intervals"] for record in finite_prefix_records
+    ) == 2006
+    assert max(
+        record["maximum_bisection_depth"] for record in finite_prefix_records
+    ) == 10
+
+    # Lower bound n*phi_n(n/lambda)>=(2lambda-3)/5.  For n>=9, retain only
+    # the first positive logarithmic coefficient and use the n=9 endpoint.
+    c_one = lam**2 * (lam - 1) / (2 * (lam + 1))
+    lower_nine_rational = factor(
+        exp(-lam)
+        * (1 + lam)
+        * c_one
+        / (1 + c_one / 9)
+    )
+    lower_nine_without_exp = factor(lower_nine_rational / exp(-lam))
+    lower_nine_derivative_gap = factor(
+        Rational(5, 3)
+        - (diff(lower_nine_without_exp, lam) - lower_nine_without_exp)
+    )
+    lower_nine_gap_numerator, lower_nine_gap_denominator = fraction(
+        lower_nine_derivative_gap
+    )
+    assert lower_nine_gap_denominator.subs(lam, Rational(3, 2)) > 0
+    lower_nine_breaks = [
+        Rational(3, 2),
+        Rational(7, 4),
+        Rational(2),
+        Rational(13, 6),
+        Rational(20, 9),
+    ]
+    lower_nine_bernstein = []
+    for lo, hi in zip(lower_nine_breaks, lower_nine_breaks[1:]):
+        lower_nine_bernstein.extend(
+            bernstein_coefficients(
+                lower_nine_gap_numerator,
+                lam,
+                lo,
+                hi,
+            )
+        )
+    assert min(lower_nine_bernstein) == Rational(26185, 189)
+    exp_three_degree_five = _exp_taylor_lower(Fraction(3), 5)
+    assert exp_three_degree_five > Fraction(625, 36)
+    exp_two_ninths_upper = _exp_taylor_upper(Fraction(2, 9), 1)
+    assert exp_two_ninths_upper == Fraction(281, 225)
+    assert exp_two_ninths_upper < Fraction(5, 4)
+    e_upper = _exp_taylor_upper(Fraction(1), 6)
+    assert e_upper < Fraction(11, 4)
+    assert Fraction(11, 4) ** 2 * Fraction(5, 4) == Fraction(605, 64)
+    lower_nine_endpoint = Rational(20, 9)
+    lower_nine_endpoint_threshold = factor(
+        lower_nine_without_exp.subs(lam, lower_nine_endpoint)
+        / ((2 * lower_nine_endpoint - 3) / 5)
+    )
+    assert lower_nine_endpoint_threshold == Rational(2871000, 303433)
+    assert Fraction(605, 64) < Fraction(2871000, 303433)
+
+    # For n=4,...,8, three positive logarithmic coefficients suffice.
+    finite_lower_bernstein_minima = []
+    finite_lower_endpoint_margins = []
+    for sample_n in range(4, 9):
+        d_lower = sum(
+            (
+                lam ** (order + 1) / (order + 1)
+                - lam**order / order
+                + (lam / (lam + 1)) ** order / order
+            )
+            / sample_n**order
+            for order in range(1, 4)
+        )
+        lower_rational = factor(
+            sample_n * (1 + lam) * d_lower / (1 + d_lower)
+        )
+        derivative_gap = factor(
+            Rational(2, 5)
+            * sum(lam**order / math.factorial(order) for order in range(6))
+            - (diff(lower_rational, lam) - lower_rational)
+        )
+        derivative_numerator, derivative_denominator = fraction(derivative_gap)
+        assert derivative_denominator.subs(lam, Rational(3, 2)) > 0
+        endpoint = Rational(2) + Rational(2, sample_n)
+        coefficients = bernstein_coefficients(
+            derivative_numerator,
+            lam,
+            Rational(3, 2),
+            endpoint,
+        )
+        assert min(coefficients) > 0
+        finite_lower_bernstein_minima.append(min(coefficients))
+
+        endpoint_threshold = factor(
+            5 * lower_rational.subs(lam, endpoint) / (2 * endpoint - 3)
+        )
+        taylor_order = 4 if sample_n == 4 else 3
+        endpoint_exp_upper = _exp_taylor_upper(
+            Fraction(int(endpoint.p), int(endpoint.q)),
+            taylor_order,
+        )
+        endpoint_margin = Rational(
+            endpoint_threshold.p,
+            endpoint_threshold.q,
+        ) - Rational(
+            endpoint_exp_upper.numerator,
+            endpoint_exp_upper.denominator,
+        )
+        assert endpoint_margin > 0
+        finite_lower_endpoint_margins.append(endpoint_margin)
+
+    # Final residual-region constant matching.
+    assert simplify(
+        Rational(3, 5) / n * (Rational(2, 3) * n - n / lam)
+        - (2 * lam - 3) / (5 * lam)
+    ) == 0
+    convex_core = n**2 / (2 * (n + 1))
+    assert simplify(n / convex_core - (2 + 2 / n)) == 0
+
+    return {
+        "arb_precision_bits": 128,
+        "finite_fprime_upper_bound": finite_prefix_records,
+        "finite_curvature_margin_minimum": _fraction_record(
+            Fraction(353, 21875)
+        ),
+        "n4_endpoint_margin": _fraction_record(Fraction(1297, 15360)),
+        "upper_n22_bernstein_minimum": _fraction_record(
+            Fraction(6341019244847, 25165824)
+        ),
+        "lower_n9_bernstein_minimum": _fraction_record(
+            Fraction(26185, 189)
+        ),
+        "finite_lower_bernstein_minimum": _fraction_record(
+            Fraction(
+                int(min(finite_lower_bernstein_minima).p),
+                int(min(finite_lower_bernstein_minima).q),
+            )
+        ),
+        "finite_lower_endpoint_margin_minimum": _fraction_record(
+            Fraction(
+                int(min(finite_lower_endpoint_margins).p),
+                int(min(finite_lower_endpoint_margins).q),
+            )
+        ),
+    }
+
+
 def two_level_profile_regression(
     n: int,
     k: int,
@@ -1067,6 +1513,7 @@ def build_certificate() -> dict[str, object]:
     verify_three_positive_convex_core()
     verify_three_positive_far_cap()
     verify_three_positive_middle_knot_region()
+    full_three_positive_record = verify_three_positive_full_face()
     checks = []
     # Include both the boundary lambda=k and strict lambda>k cases.  These
     # finite checks guard the beta/binomial and gamma/Poisson translations;
@@ -1094,7 +1541,7 @@ def build_certificate() -> dict[str, object]:
         two_level_checks.append(two_level_profile_regression(n, k, a, b))
 
     return {
-        "schema_version": 10,
+        "schema_version": 11,
         "status": (
             "Research certificate: exact reductions and an obstruction, "
             "not an all-sample-size coverage certificate."
@@ -1239,6 +1686,20 @@ def build_certificate() -> dict[str, object]:
                 ),
             },
         },
+        "three_positive_full_face_all_n": {
+            "analytic_basis": (
+                "The divided-difference multiplication identity, the "
+                "one-maximum derivative lemma, exact global upper and "
+                "residual-region lower bounds for f_n', and a rigorous "
+                "real-ball check of the finite n=4,...,21 prefix"
+            ),
+            "scope": (
+                "Every n>=4 profile having n-2 zero coefficients and three "
+                "ordered nonnegative coefficients a<=b<=c with sum at most n"
+            ),
+            "symbolic_identity_and_constant_check": "passed",
+            "proof_record": full_three_positive_record,
+        },
         "two_positive_knots_all_n": {
             "analytic_basis": (
                 "A divided-difference multiplication identity and the "
@@ -1316,6 +1777,12 @@ def main(argv: list[str] | None = None) -> int:
     print(
         "all-n three-positive middle-knot region:",
         certificate["three_positive_middle_knot_all_n"][
+            "symbolic_identity_and_constant_check"
+        ],
+    )
+    print(
+        "all-n complete three-positive face:",
+        certificate["three_positive_full_face_all_n"][
             "symbolic_identity_and_constant_check"
         ],
     )

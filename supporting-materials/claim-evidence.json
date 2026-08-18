@@ -1000,7 +1000,7 @@
       "verification_commands": [
         "make dirichlet-poissonization-check"
       ],
-      "limitations": "This proves only profiles with at most two nonzero coefficients. Profiles with three or more nonzero coefficients and at least three distinct values remain open in general, as do three-coordinate exponential-quantile convexity and general-n Stringer coverage."
+      "limitations": "This theorem itself covers only profiles with at most two nonzero coefficients; a separate theorem now covers every profile with three nonzero coefficients. Profiles with four or more nonzero coordinates, general Dirichlet--Poissonization, higher-dimensional exponential-quantile convexity, and general-n Stringer coverage remain open."
     },
     {
       "id": "dirichlet-poissonization-three-positive-convex-core",
@@ -1032,7 +1032,7 @@
       "verification_commands": [
         "make dirichlet-poissonization-check"
       ],
-      "limitations": "This covers only the three-positive face with largest knot at most n^2/(2(n+1)); separate theorems cover c>=n-1 and b<=n/3. The remaining three-positive region has c>n^2/(2(n+1)), c<n-1, and b>n/3. Profiles with four or more nonzero coordinates, general Dirichlet--Poissonization, higher-dimensional exponential-quantile convexity, and general-n Stringer coverage remain open."
+      "limitations": "This analytic subtheorem covers only the stated convex core; a separate theorem now completes the entire three-positive face. Profiles with four or more nonzero coordinates, general Dirichlet--Poissonization, higher-dimensional exponential-quantile convexity, and general-n Stringer coverage remain open."
     },
     {
       "id": "dirichlet-poissonization-three-positive-far-cap",
@@ -1064,7 +1064,7 @@
       "verification_commands": [
         "make dirichlet-poissonization-check"
       ],
-      "limitations": "This covers only the three-positive face with largest knot at least n-1; separate theorems cover c<=n^2/(2(n+1)) and b<=n/3. The remaining three-positive region has c>n^2/(2(n+1)), c<n-1, and b>n/3. Profiles with four or more nonzero coordinates, general Dirichlet--Poissonization, higher-dimensional exponential-quantile convexity, and general-n Stringer coverage remain open."
+      "limitations": "This analytic subtheorem covers only the stated far cap; a separate theorem now completes the entire three-positive face. Profiles with four or more nonzero coordinates, general Dirichlet--Poissonization, higher-dimensional exponential-quantile convexity, and general-n Stringer coverage remain open."
     },
     {
       "id": "dirichlet-poissonization-three-positive-middle-knot",
@@ -1096,7 +1096,39 @@
       "verification_commands": [
         "make dirichlet-poissonization-check"
       ],
-      "limitations": "This covers only the three-positive face region b<=n/3. The remaining three-positive region has c>n^2/(2(n+1)), c<n-1, and b>n/3. Profiles with four or more nonzero coordinates, general Dirichlet--Poissonization, higher-dimensional exponential-quantile convexity, and general-n Stringer coverage remain open."
+      "limitations": "This analytic subtheorem covers only the stated middle-knot region; a separate theorem now completes the entire three-positive face. Profiles with four or more nonzero coordinates, general Dirichlet--Poissonization, higher-dimensional exponential-quantile convexity, and general-n Stringer coverage remain open."
+    },
+    {
+      "id": "dirichlet-poissonization-three-positive-full-face",
+      "classification": "proved_theorem",
+      "statement": "For every n at least 4, the constrained Dirichlet--Poissonization comparison holds for every profile with n-2 zero coordinates and three nonnegative coordinates a<=b<=c satisfying a+b+c<=n.",
+      "manuscript_labels": [],
+      "evidence": [
+        {
+          "path": "supporting-materials/theory/DIRICHLET-POISSONIZATION.md",
+          "role": "complete divided-difference reduction, one-maximum derivative argument, analytic tail bounds, and assembly with the three analytic subregions",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/python/dirichlet_poissonization.py",
+          "role": "exact symbolic and rational checks plus the rigorous Arb subdivision proving the finite derivative-bound prefix",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/certificates/dirichlet-poissonization-certificate.json",
+          "role": "regenerated exact constants, Bernstein minima, Arb precision, and per-dimension finite-prefix subdivision counts",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/tests/test_dirichlet_poissonization.py",
+          "role": "regression test for the complete all-n three-positive-face proof record",
+          "trust": "corroboration_only"
+        }
+      ],
+      "verification_commands": [
+        "make dirichlet-poissonization-check"
+      ],
+      "limitations": "This proves every profile with at most three nonzero coordinates, but not profiles with four or more nonzero coordinates. General Dirichlet--Poissonization, higher-dimensional exponential-quantile convexity, and general-n Stringer coverage remain open."
     },
     {
       "id": "dirichlet-poissonization-n2",
