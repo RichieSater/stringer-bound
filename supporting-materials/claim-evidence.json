@@ -1000,7 +1000,7 @@
       "verification_commands": [
         "make dirichlet-poissonization-check"
       ],
-      "limitations": "This theorem itself covers only profiles with at most two nonzero coefficients; a separate theorem now covers every profile with three nonzero coefficients, and the complete n=4 comparison is also proved. In dimensions n>=5, profiles with four or more nonzero coordinates outside the proved sparse convex cores and the four-positive far cap, general Dirichlet--Poissonization, higher-dimensional exponential-quantile convexity, and general-n Stringer coverage remain open."
+      "limitations": "This theorem itself covers only profiles with at most two nonzero coefficients; separate theorems cover every three-positive profile, complete n=4, and complete the n=5 four-positive face. At n=5 only the five-positive boundary remains unresolved; in dimensions n>=6, profiles with four or more nonzero coordinates outside the proved regions remain open, as do general Dirichlet--Poissonization, higher-dimensional exponential-quantile convexity, and general-n Stringer coverage."
     },
     {
       "id": "dirichlet-poissonization-three-positive-convex-core",
@@ -1032,7 +1032,7 @@
       "verification_commands": [
         "make dirichlet-poissonization-check"
       ],
-      "limitations": "This analytic subtheorem covers only the stated convex core; separate theorems complete the entire three-positive face and the complete n=4 comparison. In dimensions n>=5, profiles with four or more nonzero coordinates outside the proved sparse convex cores and the four-positive far cap, general Dirichlet--Poissonization, higher-dimensional exponential-quantile convexity, and general-n Stringer coverage remain open."
+      "limitations": "This analytic subtheorem covers only the stated convex core; separate theorems complete every three-positive face, complete n=4, and complete the n=5 four-positive face. At n=5 only the five-positive boundary remains unresolved; in dimensions n>=6, profiles with four or more nonzero coordinates outside the proved regions remain open, as do general Dirichlet--Poissonization, higher-dimensional exponential-quantile convexity, and general-n Stringer coverage."
     },
     {
       "id": "dirichlet-poissonization-sparse-convex-core",
@@ -1064,7 +1064,7 @@
       "verification_commands": [
         "make dirichlet-poissonization-check"
       ],
-      "limitations": "This proves only the stated convex core on each coordinate face. Separate theorems complete every three-positive face, the complete n=4 comparison, and the four-positive far cap d>=n-1. In dimensions n>=5, intervening four-positive regions and profiles with still more nonzero coordinates outside their corresponding cores remain open, as do general Dirichlet--Poissonization, higher-dimensional exponential-quantile convexity, and general-n Stringer coverage."
+      "limitations": "This proves only the stated convex core on each coordinate face. Separate theorems complete every three-positive face, complete n=4, complete the n=5 four-positive face, and prove the four-positive far cap d>=n-1. At n=5 only the five-positive boundary remains unresolved; in dimensions n>=6, intervening four-positive regions and profiles with still more nonzero coordinates outside their corresponding cores remain open, as do general Dirichlet--Poissonization, higher-dimensional exponential-quantile convexity, and general-n Stringer coverage."
     },
     {
       "id": "dirichlet-poissonization-four-positive-far-cap",
@@ -1096,7 +1096,7 @@
       "verification_commands": [
         "make dirichlet-poissonization-check"
       ],
-      "limitations": "This proves only the four-positive far cap d>=n-1. The sparse-core theorem separately proves d<=n^2/(3(n+1)), and another theorem completes the n=4 comparison. In dimensions n>=5, the intervening four-positive region and profiles with still more nonzero coordinates outside their sparse cores remain open, as do general Dirichlet--Poissonization, higher-dimensional exponential-quantile convexity, and general-n Stringer coverage."
+      "limitations": "This proves only the four-positive far cap d>=n-1. The sparse-core theorem separately proves d<=n^2/(3(n+1)); other theorems complete n=4 and the n=5 four-positive face. At n=5 only the five-positive boundary remains unresolved; in dimensions n>=6, intervening four-positive regions and profiles with still more nonzero coordinates outside their sparse cores remain open, as do general Dirichlet--Poissonization, higher-dimensional exponential-quantile convexity, and general-n Stringer coverage."
     },
     {
       "id": "dirichlet-poissonization-three-positive-far-cap",
@@ -1128,7 +1128,7 @@
       "verification_commands": [
         "make dirichlet-poissonization-check"
       ],
-      "limitations": "This analytic subtheorem covers only the stated far cap; separate theorems complete the entire three-positive face and the complete n=4 comparison. In dimensions n>=5, profiles with four or more nonzero coordinates outside the proved sparse convex cores and the four-positive far cap, general Dirichlet--Poissonization, higher-dimensional exponential-quantile convexity, and general-n Stringer coverage remain open."
+      "limitations": "This analytic subtheorem covers only the stated far cap; separate theorems complete every three-positive face, complete n=4, and complete the n=5 four-positive face. At n=5 only the five-positive boundary remains unresolved; in dimensions n>=6, profiles with four or more nonzero coordinates outside the proved regions remain open, as do general Dirichlet--Poissonization, higher-dimensional exponential-quantile convexity, and general-n Stringer coverage."
     },
     {
       "id": "dirichlet-poissonization-three-positive-middle-knot",
@@ -1160,7 +1160,7 @@
       "verification_commands": [
         "make dirichlet-poissonization-check"
       ],
-      "limitations": "This analytic subtheorem covers only the stated middle-knot region; separate theorems complete the entire three-positive face and the complete n=4 comparison. In dimensions n>=5, profiles with four or more nonzero coordinates outside the proved sparse convex cores and the four-positive far cap, general Dirichlet--Poissonization, higher-dimensional exponential-quantile convexity, and general-n Stringer coverage remain open."
+      "limitations": "This analytic subtheorem covers only the stated middle-knot region; separate theorems complete every three-positive face, complete n=4, and complete the n=5 four-positive face. At n=5 only the five-positive boundary remains unresolved; in dimensions n>=6, profiles with four or more nonzero coordinates outside the proved regions remain open, as do general Dirichlet--Poissonization, higher-dimensional exponential-quantile convexity, and general-n Stringer coverage."
     },
     {
       "id": "dirichlet-poissonization-three-positive-full-face",
@@ -1192,7 +1192,7 @@
       "verification_commands": [
         "make dirichlet-poissonization-check"
       ],
-      "limitations": "This proves every profile with at most three nonzero coordinates, and a separate theorem completes n=4. In dimensions n>=5, profiles with four or more nonzero coordinates are proved only inside the separate sparse convex cores and, for four-positive profiles, the far cap. General Dirichlet--Poissonization, higher-dimensional exponential-quantile convexity, and general-n Stringer coverage remain open."
+      "limitations": "This proves every profile with at most three nonzero coordinates; separate theorems complete n=4 and the n=5 four-positive face. At n=5 only the five-positive boundary remains unresolved. In dimensions n>=6, profiles with four or more nonzero coordinates are proved only inside the separate sparse convex cores and, for four-positive profiles, the far cap. General Dirichlet--Poissonization, higher-dimensional exponential-quantile convexity, and general-n Stringer coverage remain open."
     },
     {
       "id": "dirichlet-poissonization-n2",
@@ -1288,7 +1288,39 @@
       "verification_commands": [
         "make dirichlet-poissonization-check"
       ],
-      "limitations": "This is a computer-assisted theorem for n=4, not a proof of the general-dimensional comparison. The first open complete simplex dimension is n=5. The result does not prove higher-dimensional exponential-quantile convexity or general-n Stringer coverage by itself."
+      "limitations": "This is a computer-assisted theorem for n=4, not a proof of the general-dimensional comparison. The first open complete simplex dimension is n=5, where a separate theorem proves all profiles with at most four nonzero coordinates but leaves the five-positive boundary open. The result does not prove higher-dimensional exponential-quantile convexity or general-n Stringer coverage by itself."
+    },
+    {
+      "id": "dirichlet-poissonization-n5-four-positive-face",
+      "classification": "proved_theorem",
+      "statement": "For n=5, the constrained Dirichlet--Poissonization comparison holds for every coefficient profile with at most four nonzero coordinates; equivalently, it holds on the complete four-positive coordinate face after the radial zero-knot reduction.",
+      "manuscript_labels": [],
+      "evidence": [
+        {
+          "path": "supporting-materials/theory/DIRICHLET-POISSONIZATION.md",
+          "role": "complete divided-difference reduction, affine-minorant proof, Lipschitz argument, and exhaustive interval-proof specification",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/python/dirichlet_poissonization.py",
+          "role": "exact symbolic checks and deterministic directed 160-bit Arb certificates for the scalar bounds and residual four-parameter region",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/certificates/dirichlet-poissonization-certificate.json",
+          "role": "regenerated scalar interval records, branch counts, maximum depths, and ordered transcript digests",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/tests/test_dirichlet_poissonization.py",
+          "role": "regression test for the complete n=5 four-positive-face proof record",
+          "trust": "corroboration_only"
+        }
+      ],
+      "verification_commands": [
+        "make dirichlet-poissonization-check"
+      ],
+      "limitations": "This computer-assisted theorem closes every n=5 profile with at most four nonzero coordinates but does not prove the five-positive boundary or the complete n=5 comparison. It does not prove higher-dimensional exponential-quantile convexity or general-n Stringer coverage by itself."
     },
     {
       "id": "general-n-standard-confidence-status",

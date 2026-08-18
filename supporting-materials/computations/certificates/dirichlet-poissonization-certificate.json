@@ -3037,12 +3037,64 @@
     "scope": "Every nonnegative five-coordinate profile with sum_i y_i<=4",
     "symbolic_exact_and_interval_checks": "passed"
   },
+  "n5_four_positive_face": {
+    "analytic_basis": "The all-n sparse core and four-positive far cap, a directed affine-minorant certificate, and a deterministic 160-bit Arb branch certificate for the residual ordered four-knot face",
+    "proof_record": {
+      "arb_precision_bits": 160,
+      "central_affine_minorant": {
+        "claim": "q(u)>=(2/25)(5/4-u) on [13/20,61/20]",
+        "interval_records": [
+          {
+            "certified_leaf_intervals": 7,
+            "interval": "[13/20,1]",
+            "maximum_bisection_depth": 5
+          },
+          {
+            "certified_leaf_intervals": 256,
+            "interval": "[1,61/20]",
+            "maximum_bisection_depth": 10
+          }
+        ]
+      },
+      "four_positive_face": {
+        "box_preprocessing": "tighten each upper endpoint from the other lower endpoints and the weighted budget",
+        "cumulative_coordinate_weights": [
+          4,
+          3,
+          2,
+          1
+        ],
+        "evaluation_point_rule": "coordinate midpoint, radially scaled to weighted budget 5 when necessary",
+        "initial_parameter_box": "[0,5/4]x[0,5/3]x[0,5/2]x[0,5]",
+        "maximum_bisection_depth": 28,
+        "parameterization": "(a,b,c,d)=(a,a+r,a+r+s,a+r+s+t), 4a+3r+2s+t<=5",
+        "split_rule": "bisect the first coordinate maximizing weight*width; push lower child then upper child on a LIFO stack",
+        "terminal_box_counts": {
+          "central_minorant": 82,
+          "direct_lipschitz": 38701,
+          "far_cap": 350,
+          "sparse_core": 1719
+        },
+        "terminal_transcript_sha256": "f4bae2dcb30244286c97891596caffa5c8b1580f41aa80c600fba63c5af7d5a3",
+        "total_branch_calls": 81703
+      },
+      "global_q_derivative_bound": {
+        "analytic_lower_piece": "0<=u<=1",
+        "claim": "abs(q'(u))<1 for 0<=u<=5",
+        "upper_piece_certified_leaf_intervals": 17,
+        "upper_piece_maximum_bisection_depth": 5
+      },
+      "scalar_terminal_transcript_sha256": "b5cc3d8cbda175722021249a795d275b0f29adbb6b76c658dada7a3903b2db2e"
+    },
+    "scope": "Every n=5 profile having two zero coordinates and four ordered nonnegative coordinates with total sum at most 5",
+    "symbolic_exact_and_interval_checks": "passed"
+  },
   "radial_zero_knot_reduction": {
     "analytic_basis": "The Laplace-transform convolution identity, the resulting mode-below-mean bound for weighted exponential sums, and the density-derivative argument in DIRICHLET-POISSONIZATION.md",
     "scope": "Any strictly positive coefficient profile with sum_i y_i<=n can be moved to a zero-knot boundary without increasing the Dirichlet--Poissonization gap.",
     "symbolic_identity_check": "passed"
   },
-  "schema_version": 14,
+  "schema_version": 15,
   "sparse_convex_core_all_n": {
     "analytic_basis": "The repeated divided-difference multiplication identity, the arbitrary-order derivative-CDF identities proved by induction, and Anderson--Samuels (1967)",
     "corroboration_record": {

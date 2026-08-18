@@ -20,6 +20,7 @@ from dirichlet_poissonization import (  # noqa: E402
     verify_n2_three_knot_theorem,
     verify_n3_four_knot_theorem,
     verify_n4_five_knot_theorem,
+    verify_n5_four_positive_face,
     verify_radial_symbolic_identities,
     verify_saffine_symbolic_identities,
     verify_sparse_convex_core,
@@ -125,6 +126,22 @@ class DirichletPoissonizationTests(unittest.TestCase):
             "4159877",
         )
 
+    def test_complete_n5_four_positive_face_certificate(self):
+        record = verify_n5_four_positive_face()
+        self.assertEqual(record["arb_precision_bits"], 160)
+        self.assertEqual(
+            record["four_positive_face"]["total_branch_calls"],
+            81703,
+        )
+        self.assertEqual(
+            record["four_positive_face"]["terminal_transcript_sha256"],
+            "f4bae2dcb30244286c97891596caffa5c8b1580f41aa80c600fba63c5af7d5a3",
+        )
+        self.assertEqual(
+            record["scalar_terminal_transcript_sha256"],
+            "b5cc3d8cbda175722021249a795d275b0f29adbb6b76c658dada7a3903b2db2e",
+        )
+
     def test_all_n_three_positive_convex_core_algebra(self):
         verify_three_positive_convex_core()
 
@@ -166,7 +183,7 @@ class DirichletPoissonizationTests(unittest.TestCase):
 
     def test_certificate_is_explicitly_non_theorem_research_support(self):
         certificate = build_certificate()
-        self.assertEqual(certificate["schema_version"], 14)
+        self.assertEqual(certificate["schema_version"], 15)
         self.assertIn("not an all-sample-size coverage certificate", certificate["status"])
         self.assertEqual(
             len(certificate["equal_block_profiles"]["regression_checks"]),
@@ -200,6 +217,12 @@ class DirichletPoissonizationTests(unittest.TestCase):
         )
         self.assertEqual(
             certificate["n4_five_knot_theorem"][
+                "symbolic_exact_and_interval_checks"
+            ],
+            "passed",
+        )
+        self.assertEqual(
+            certificate["n5_four_positive_face"][
                 "symbolic_exact_and_interval_checks"
             ],
             "passed",

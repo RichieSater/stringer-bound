@@ -7,7 +7,9 @@
 > coefficients, on a sparse convex core of every coordinate face, on the
 > four-positive far cap, and
 > completely for `n=2`, `n=3`, and `n=4`.  The first open complete simplex
-> dimension is `n=5`.  This is a research roadmap,
+> dimension is `n=5`, where every profile with at most four nonzero
+> coordinates is proved and only the five-positive boundary remains.  This
+> is a research roadmap,
 > not a coverage claim.  The paper
 > continues to state that ordinary Stringer coverage is unresolved for
 > arbitrary `n`.
@@ -483,6 +485,23 @@ counts and ordered terminal-transcript digests.  The radial lemma therefore
 proves (B) completely for `n=4`; this is a computer-assisted theorem, not a
 numerical search.
 
+At `n=5`, the complete four-positive coordinate face is now proved as well.
+For `(0,0,a,b,c,d)`, multiplication reduces (16) to the third divided
+difference of
+
+\[
+ u^3\{e^{-5/u}-(1-u^{-1})_+^5\}.
+\]
+
+The sparse core `d<=25/18` and far cap `d>=4` are analytic consequences of
+the dimension-free results above.  A directed affine-minorant certificate
+closes the region `a>=13/20`; a global derivative enclosure then gives a
+Lipschitz constant for an exhaustive four-parameter Arb subdivision of the
+residual compact set.  The committed proof record regenerates 81,703 branch
+calls and its terminal-transcript digest.  Thus every `n=5` profile with at
+most four nonzero coordinates satisfies (B).  The five-positive boundary is
+still open, so this is not a complete `n=5` theorem.
+
 For three positive knots, much more is known.  With `n-2` zero knots
 and ordered positive knots `a<=b<=c`, multiplication reduces (16) to the
 second divided difference of
@@ -509,9 +528,10 @@ complete the entire three-positive face.
 The radial derivative is the density derivative at the threshold.  A
 Laplace-transform convolution identity shows that the mode of every
 weighted exponential sum is no larger than its mean, giving the required
-sign.  In dimensions `n>=5`, coordinate-face profiles with four or more
-nonzero knots remain open outside the sparse convex cores and the
-four-positive far cap just described.  See
+sign.  At `n=5`, only the five-positive coordinate face remains open.  In
+dimensions `n>=6`, coordinate-face profiles with four or more nonzero knots
+remain open outside the sparse convex cores and the four-positive far cap
+just described.  See
 [`DIRICHLET-POISSONIZATION.md`](DIRICHLET-POISSONIZATION.md) for the proof,
 the full reduction, and the exact localization obstruction.
 
@@ -553,8 +573,9 @@ seemingly simpler but false domination claim.
    the complete `n=2`, `n=3`, and `n=4` cases and every two-level profile are
    already proved, as is the entire three-positive face and a sparse convex
    core on every coordinate face, together with the four-positive far cap.
-   The first open complete simplex dimension is `n=5`; there the unresolved
-   profiles have at least four positive knots outside the proved regions.
+   At `n=5`, the complete four-positive face is also proved.  The first open
+   complete simplex dimension is therefore still `n=5`, but only its
+   five-positive boundary remains unresolved.
 3. Use the zero-knot reduction recursively, or prove that a negative minimum
    on a coordinate face must have at most two distinct knot values.
 4. Only after both analytic steps pass, connect (6)--(7) to the published

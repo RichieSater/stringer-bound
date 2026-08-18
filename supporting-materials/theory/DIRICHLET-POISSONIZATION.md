@@ -8,7 +8,8 @@
 > convex-core region on every coordinate face (including a four-positive
 > region in every dimension `n>=4`), proves the four-positive far cap
 > `d>=n-1`,
-> proves the complete comparison for `n=2`, `n=3`, and `n=4`, and rules out an
+> proves the complete comparison for `n=2`, `n=3`, and `n=4`, proves every
+> `n=5` profile with at most four nonzero coordinates, and rules out an
 > over-broad
 > localization shortcut. The central
 > divided-difference inequality remains open for general `n`. Nothing here is
@@ -1948,7 +1949,156 @@ It does not prove the separate exponential-quantile convexity target and is
 not, by itself, a general-`n` Stringer coverage theorem.
 
 
-## 13. Why generic $s$-concave localization is too broad
+## 13. The complete four-positive face for `n=5`
+
+The same expectation-and-subdivision method closes the next complete
+coordinate face.
+
+> **`n=5` four-positive-face theorem.**  Suppose the coefficient profile has
+> two zero coordinates and four nonnegative coordinates.  If its coordinates
+> sum to at most five, then
+>
+> \[
+>  \Pr\{Z_y>5\}\ge\Pr\{T_y>1\}.                  \tag{15by}
+> \]
+
+After ordering, write the positive face as `(0,0,a,b,c,d)`, where
+
+\[
+ 0\le a\le b\le c\le d,
+ \qquad a+b+c+d\le5.
+\]
+
+Put, with its continuous value at zero,
+
+\[
+ F(u)=u^3\{e^{-5/u}-(1-u^{-1})_+^5\}.
+\]
+
+Repeated multiplication by the two zero knots reduces the target to
+`[a,b,c,d]F>=0`.  If `U` is the uniform-simplex convex combination of these
+four knots, then
+
+\[
+ [a,b,c,d]F=E q(U),
+ \qquad EU=\frac{a+b+c+d}{4}\le\frac54,          \tag{15bz}
+\]
+
+where, for `lambda=5/u`,
+
+\[
+ q(u)=\frac{F'''(u)}6
+ =\begin{cases}
+ e^{-\lambda}(1+\lambda+\lambda^2/2+\lambda^3/6),&0<u\le1,\\
+ e^{-\lambda}(1+\lambda+\lambda^2/2+\lambda^3/6)
+ -1+5u^{-4}-4u^{-5},&u>1.
+ \end{cases}                                      \tag{15ca}
+\]
+
+The two pieces make `F` a `C^4` function on `[0,5]`, so `q` is continuously
+differentiable and confluent divided differences follow by continuity.
+
+The sparse-core theorem proves the face when `d<=25/18`, and the
+four-positive far-cap theorem proves it when `d>=4`.  A third analytic
+region follows from the affine minorant
+
+\[
+ q(u)\ge\frac2{25}\left(\frac54-u\right),
+ \qquad \frac{13}{20}\le u\le\frac{61}{20}.     \tag{15cb}
+\]
+
+The two pieces of (15ca) are evaluated with directed 160-bit Arb arithmetic.
+Dyadic bisection proves (15cb) with seven terminal intervals and maximum
+depth five on `[13/20,1]`, and with 256 terminal intervals and maximum depth
+ten on `[1,61/20]`.  These are strict interval enclosures of the complete
+pieces, not point samples.  Their ordered transcript, combined with the
+derivative transcript below, has SHA-256 digest
+
+```text
+b5cc3d8cbda175722021249a795d275b0f29adbb6b76c658dada7a3903b2db2e
+```
+
+If `a>=13/20`, the sum constraint gives `d<=5-3a<=61/20`.  Equations
+(15bz)--(15cb) therefore yield
+
+\[
+ [a,b,c,d]F
+ \ge\frac2{25}\left(\frac54-EU\right)\ge0.       \tag{15cc}
+\]
+
+For the remaining boxes, we use the global bound
+
+\[
+ |q'(u)|<1,
+ \qquad 0\le u\le5.                              \tag{15cd}
+\]
+
+On `u<=1`, the derivative is
+`e^{-lambda}lambda^5/30`.  It decreases for `lambda>=5`, and its value at
+five is below one because the degree-six Taylor lower bound gives
+`e^5>16289/144>625/6`.  On `u>1`, direct differentiation gives
+
+\[
+ q'(u)=\frac{e^{-\lambda}\lambda^5}{30}
+       -\frac{4\lambda^5(5-\lambda)}{3125}.
+\]
+
+Seventeen directed intervals certify that this expression lies in `(-1,1)`
+for `1<=lambda<=5`, with maximum bisection depth five.  This completes
+(15cd), including the matching value at one.
+
+Parameterize the ordered face by
+
+\[
+ (a,b,c,d)=(a,a+r,a+r+s,a+r+s+t),
+ \qquad 4a+3r+2s+t\le5.                          \tag{15ce}
+\]
+
+Because the Hermite--Genocchi simplex now has four vertices, (15cd) makes
+the expectation in (15bz) `1/4`-Lipschitz in each knot.  A parameter box
+therefore has error at most
+
+\[
+ \frac14(4\Delta a+3\Delta r+2\Delta s+\Delta t). \tag{15cf}
+\]
+
+The initial box is
+`[0,5/4] x [0,5/3] x [0,5/2] x [0,5]`.  Upper endpoints are tightened from
+the other lower endpoints and the budget in (15ce).  The midpoint is scaled
+radially to the budget boundary when necessary.  As in Section 12, each
+`Delta` is the maximum distance from this evaluation point to the two box
+endpoints.  Unresolved boxes are bisected in the first coordinate maximizing
+`w_i(U_i-L_i)`, for weights `(4,3,2,1)`, and inserted lower then upper on the
+last-in, first-out stack.
+
+The Lipschitz conclusion is applied only to budget-feasible points in each
+box.  Both a feasible target and the radially scaled evaluation point satisfy
+(15ce), so their connecting segment is feasible and every knot on it lies in
+`[0,5]`, the certified domain of (15cd).  Using the full box endpoints in
+(15cf) merely enlarges the distance bound.
+
+The subdivision terminates after 81,703 branch calls.  Its terminal boxes
+comprise 1,719 sparse-core boxes, 350 far-cap boxes, 82 central-minorant
+boxes, and 38,701 boxes certified directly by (15cf).  The maximum depth is
+28.  Every direct center value is enclosed by directed 160-bit Arb
+arithmetic and strictly exceeds its exact rational Lipschitz radius.  The
+ordered terminal-transcript digest is
+
+```text
+f4bae2dcb30244286c97891596caffa5c8b1580f41aa80c600fba63c5af7d5a3
+```
+
+The source regenerates the scalar enclosures, subdivision, counts, depths,
+and both digests.  Hence `[a,b,c,d]F>=0` throughout the ordered face, with
+confluent cases supplied by continuity, proving (15by).
+
+Together with the lower-dimensional face theorems, this proves the
+comparison for every `n=5` profile having at most four nonzero coordinates.
+It does not close the five-positive boundary and therefore does not prove the
+complete `n=5` comparison.
+
+
+## 14. Why generic $s$-concave localization is too broad
 
 A one-dimensional localization theorem for $1/n$-concave probability
 laws reduces a linear extremal problem to point masses or densities of the
@@ -2008,19 +2158,22 @@ coefficients $y_i$; not every density in (16) is such a projection with
 the constraint (2). The example shows precisely which structural
 information a successful localization argument must preserve.
 
-## 14. Remaining proof problem
+## 15. Remaining proof problem
 
 The cleanest current target is (6).  Section 4 shows that it is enough to
 work on coordinate faces, Sections 3--5 establish it for every profile
 having at most two distinct coefficient values or at most two nonzero
 coefficients, and Sections 6--7 prove the complete target for `n=2` and
 `n=3`, while Section 12 proves the complete target for `n=4`.  Sections
-8--11 prove every profile having exactly three nonzero coefficients.
+8--11 prove every profile having exactly three nonzero coefficients, and
+Section 13 proves every `n=5` profile having at most four nonzero
+coefficients.
 Section 8 also proves a convex core on every coordinate face, including the
 region `d<=n^2/{3(n+1)}` for four nonzero knots, and Section 9 proves the
-opposite four-positive far cap `d>=n-1`.  In dimensions `n>=5`, profiles
-with four or more nonzero knots outside the proved regions remain open.  The
-first open complete simplex dimension is therefore `n=5`.  Three plausible
+opposite four-positive far cap `d>=n-1`.  At `n=5`, only the five-positive
+boundary remains unresolved; in dimensions `n>=6`, profiles with four or
+more nonzero knots outside the proved regions remain open.  The first open
+complete simplex dimension is therefore still `n=5`.  Three plausible
 routes remain for general `n`:
 
 1. exploit the zero-knot reduction recursively, or prove that a negative
@@ -2042,10 +2195,11 @@ The committed output is
 It certifies the obstruction, checks rational equal-block instances,
 regression-checks the exact algebra used in the two-level, two-positive-knot,
 arbitrary-order sparse-core, four-positive far-cap, three-positive subregion,
-and complete `n=2`, `n=3`, and `n=4` proofs.  It also supplies the directed
-interval components of the complete three-positive-face and `n=4` proofs,
-including deterministic terminal-box counts and transcript digests.  The
-general inequality remains explicitly open.
+complete `n=2`, `n=3`, and `n=4` proofs, and the complete four-positive face
+at `n=5`.  It also supplies the directed interval components of the complete
+three-positive-face, `n=4`, and `n=5` face proofs, including deterministic
+terminal-box counts and transcript digests.  The general inequality remains
+explicitly open.
 
 ## References
 

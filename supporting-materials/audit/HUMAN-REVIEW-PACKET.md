@@ -399,7 +399,7 @@ Questions:
     using any proved boundary, symmetry, or local-corner result as a full
     three-coordinate convexity or general-`n` coverage theorem?
 
-## Review J: Dirichlet--Poissonization reductions and the `n=2`, `n=3`, `n=4` theorems
+## Review J: Dirichlet--Poissonization reductions through the `n=5` four-positive face
 
 Primary files:
 
@@ -504,13 +504,30 @@ Questions:
 25. Do continuity and the radial boundary lemma extend the certified
     ordered face, including repeated or zero knots, to every five-coordinate
     profile with nonnegative coordinates summing to at most four?
-26. Is the conclusion limited to the complete `n=2`, `n=3`, and `n=4`
+26. For the `n=5` four-positive face, do two zero-knot multiplications give
+    the third divided difference in Section 13, and are the formulas
+    (15bz)--(15ca), including the mean bound `EU<=5/4`, normalized correctly?
+27. Do the directed interval records prove the complete affine minorant
+    (15cb), rather than values only at a grid; does `a>=13/20` imply that all
+    four knots lie in its certified interval; and do the analytic lower-piece
+    argument plus the 17 upper-piece intervals prove `|q'|<1` on `[0,5]`?
+    Does regeneration reproduce the scalar counts, depths, and digest?
+28. Does (15ce) cover the complete constrained ordered face, and is the
+    `1/4` factor in the Lipschitz radius (15cf) the correct
+    Hermite--Genocchi normalization?  Are the sparse-core, far-cap, and
+    central-minorant whole-box prunings valid, and do the tightening,
+    rescaling, tie-breaking, and continuity arguments preserve every
+    feasible point?  Does regeneration reproduce all 81,703 calls, the four
+    terminal counts, maximum depth 28, and the terminal-transcript digest?
+29. Does the new theorem prove exactly every `n=5` profile with at most four
+    nonzero coordinates while leaving the five-positive boundary open?
+30. Is the conclusion limited to the complete `n=2`, `n=3`, and `n=4`
     Poissonization inequalities, every two-level profile, every profile with
-    at most three nonzero coefficients, the sparse convex cores, the
-    four-positive far cap, and the radial boundary reduction, without being
-    promoted to the still-open general-dimensional comparison, the separate
-    exponential-quantile convexity target, or a Stringer coverage theorem by
-    itself?
+    at most three nonzero coefficients, the complete `n=5` four-positive
+    face, the sparse convex cores, the four-positive far cap, and the radial
+    boundary reduction, without being promoted to the still-open complete
+    `n=5` or general-dimensional comparison, the separate exponential-
+    quantile convexity target, or a Stringer coverage theorem by itself?
 
 ## Minimum reproduction record
 
