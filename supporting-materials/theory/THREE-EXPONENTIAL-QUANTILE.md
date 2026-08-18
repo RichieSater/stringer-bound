@@ -1,9 +1,10 @@
 # Exact reduction of the three-exponential convexity problem
 
 > **Status.** This note reduces three-coordinate exponential-quantile
-> convexity to one explicit two-variable inequality.  The reduction is
-> proved; the final inequality is open.  Nothing in this note is a
-> general-`n` Stringer coverage theorem.
+> convexity to one explicit two-variable inequality and proves that
+> inequality on the repeated-maximum boundary.  The reduction and boundary
+> result are proved; the strict two-variable interior remains open.  Nothing
+> in this note is a general-`n` Stringer coverage theorem.
 
 Let `E_1,E_2,E_3` be independent unit exponentials and put
 
@@ -228,8 +229,137 @@ infinity; the limit is the equal-weight two-exponential problem,
 \]
 
 These endpoint calculations explain both the candidate constant and where
-equality must occur.  What remains is a proof that no finite unequal pair
-`(z,w)` makes the left side of (16) smaller.  Because `Z`, `A`, and every
+equality must occur.  Section 4 rules out every finite unequal pair on the
+coordinate axes; the strict interior remains.  Because `Z`, `A`, and every
 entry of `K` are elementary divided differences of the exponential, (16) is
 an explicit two-variable analytic inequality rather than an optimization
 over distributions.
+
+## 4. A proved boundary: two equal maximal weights
+
+**Boundary theorem.** Inequality (16) holds whenever `z=0` or `w=0`, and it
+is strict at every finite point on those axes.  Consequently, for
+`alpha<=4e^-3`, the Hessian criterion (10) is positive semidefinite at every
+positive coefficient vector having two equal maximal coordinates.
+
+By symmetry, it is enough to put `z=0` and `w=s>0`.  The corresponding
+coefficient vector has two equal maximal weights.  Under the tilted-simplex
+law, the marginal density of `V` is proportional to
+
+\[
+ (1-v)e^{-sv},\qquad 0\le v\le1,
+\]
+
+and, conditionally on `V=v`, the coordinate `U` is uniform on `[0,1-v]`.
+The symmetry interchanging `U` and `1-U-V` splits the two transverse
+curvature directions into two eigenspaces.
+
+More explicitly, write `R_3=1-U-V`.  The two centered contrasts are
+`U-R_3=2U+V-1` and `V-EV`, corresponding to coordinate directions `(2,1)`
+and `(0,1)`.  Because `E[U-R_3\mid V]=0`, their cross term vanishes for both
+the covariance form in the denominator of (12) and its `T=sV`-weighted
+counterpart in the numerator.  They are therefore the two generalized
+eigendirections.  Moreover,
+
+\[
+ \operatorname{Var}(U-R_3\mid V=v)=\frac{(1-v)^2}{3}.
+\]
+
+For the antisymmetric direction, put
+
+\[
+ I_j(s)=\int_0^1v^j(1-v)^3e^{-sv}\,dv.
+\]
+
+Equation (12) gives
+
+\[
+ \mathcal R_-(s)=s\frac{I_1(s)}{I_0(s)}.              \tag{19}
+\]
+
+For the other transverse direction, let expectation refer to the normalized
+density proportional to `(1-v)e^(-sv)`.  Its generalized eigenvalue is
+
+\[
+ \mathcal R_+(s)
+ =s\frac{E[V\{V-EV\}^2]}{\operatorname{Var}(V)}.      \tag{20}
+\]
+
+The first eigenvalue is always smaller.  Define
+
+\[
+ \begin{aligned}
+ N(s)&=s^2e^s-2se^s+2e^s-2,\\
+ D(s)&=s^3e^s-3s^2e^s+6se^s-6e^s+6,\\
+ L(s)&=s^4e^s+2s^2e^{2s}+8s^2e^s+2s^2
+       -12se^{2s}+12s\\
+     &\hspace{4.5em}+12e^{2s}-24e^s+12.
+ \end{aligned}                                       \tag{21}
+\]
+
+Also put
+
+\[
+ J(s)=\int_0^1(1-v)e^{-sv}\,dv,
+ \qquad G(s)=s^2e^sJ(s),
+ \qquad H(s)=s^2G(s)^2\operatorname{Var}(V).
+\]
+
+All three quantities are positive.  A direct common-denominator calculation
+in (19)--(20) gives
+
+\[
+ \mathcal R_+(s)-\mathcal R_-(s)
+ =\frac{s^2N(s)L(s)e^s}{G(s)D(s)H(s)}.               \tag{22}
+\]
+
+Indeed, `D(s)=s^4e^sI_0(s)>0`.  Moreover, `N(0)=0` and
+`N'(s)=s^2e^s>0`.  The power-series coefficients of `L` vanish through
+degree seven.  For every integer `j>=4`, its coefficient of `s^j`,
+multiplied by `j!`, is
+
+\[
+ j(j-1)(j-2)(j-3)+8j(j-1)-24
+ +2^{j-1}(j^2-13j+24).                               \tag{23}
+\]
+
+This is `56`, `504`, and `2664` at `j=8,9,10`, respectively.  For `j>=11`,
+both the first polynomial part and `j^2-13j+24` are positive.  Thus
+`L(s)>0`, proving
+`mathcal R_+(s)>mathcal R_-(s)` for `s>0`.
+
+Consequently, (13) and direct evaluation of (19) give
+
+\[
+ h(0,s)=4-\mathcal R_-(s)=\frac{3sN(s)}{D(s)}.         \tag{24}
+\]
+
+On this axis, `A(0,s)=1` and `Z(0,s)=\{1-B(s)\}/s`.  Define the logarithmic
+margin
+
+\[
+ M_0(s)=3-h(0,s)
+ +\log\{1+h(0,s)+Z(0,s)h(0,s)^2\}-\log4.             \tag{25}
+\]
+
+Exact differentiation simplifies to
+
+\[
+ M_0'(s)
+ =-\frac{27s^2N(s)^2L(s)}
+ {D(s)^4\{1+h(0,s)+Z(0,s)h(0,s)^2\}}<0.              \tag{26}
+\]
+
+Every factor in the denominator is positive.  Finally,
+
+\[
+ h(0,s)\longrightarrow3,
+ \qquad Z(0,s)\longrightarrow0,
+ \qquad M_0(s)\longrightarrow0
+ \quad(s\longrightarrow\infty).                     \tag{27}
+\]
+
+Hence `M_0(s)>0` for every finite `s`, which proves (16) on `z=0` and, by
+symmetry, on `w=0`.  Equality is approached only at the coordinate-face
+corner in (18).  The remaining open domain can therefore be restricted to
+`z,w>0`.

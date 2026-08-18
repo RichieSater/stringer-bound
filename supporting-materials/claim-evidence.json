@@ -720,7 +720,34 @@
       "verification_commands": [
         "make all-n-reduction-check"
       ],
-      "limitations": "The final two-variable inequality is open. This record certifies the equivalence and reduction only, not three-coordinate convexity or general-n Stringer coverage."
+      "limitations": "The two-variable inequality is proved separately on the coordinate axes, but its strict interior is open. This record certifies the equivalence and reduction only, not three-coordinate convexity or general-n Stringer coverage."
+    },
+    {
+      "id": "three-exponential-repeated-max-boundary",
+      "classification": "proved_theorem",
+      "statement": "At tail threshold 4 exp(-3), the explicit three-exponential tilted-simplex inequality holds strictly at every finite point with z=0 or w=0, corresponding to positive coefficient vectors with two equal maximal weights.",
+      "manuscript_labels": [],
+      "evidence": [
+        {
+          "path": "supporting-materials/theory/THREE-EXPONENTIAL-QUANTILE.md",
+          "role": "complete eigenspace, moment-factorization, and logarithmic-margin proof on both coordinate axes",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/python/all_n_poisson_reductions.py",
+          "role": "exact symbolic checks of the generalized-eigenvalue ordering, threshold formula, margin derivative, and coefficient identities",
+          "trust": "corroboration_only"
+        },
+        {
+          "path": "supporting-materials/computations/tests/test_all_n_poisson_reductions.py",
+          "role": "regression test for the repeated-maximum boundary identities",
+          "trust": "corroboration_only"
+        }
+      ],
+      "verification_commands": [
+        "make all-n-reduction-check"
+      ],
+      "limitations": "This proves only the coordinate-axis boundary of the reduced three-exponential inequality. The strict interior z,w>0, full three-coordinate convexity, and general-n Stringer coverage remain open."
     },
     {
       "id": "general-n-standard-confidence-status",
@@ -742,7 +769,7 @@
         },
         {
           "path": "supporting-materials/theory/THREE-EXPONENTIAL-QUANTILE.md",
-          "role": "exact reduction of the first unequal exponential-quantile dimension to an explicitly open two-variable inequality",
+          "role": "exact reduction of the first unequal exponential-quantile dimension, with a proved coordinate-axis boundary and explicitly open strict interior",
           "trust": "corroboration_only"
         },
         {

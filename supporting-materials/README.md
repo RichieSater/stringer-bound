@@ -50,7 +50,8 @@ and the second Dirichlet--Poissonization step remain open.  The program note
 also gives the exact Hessian and the increasing Hessian-threshold sequence at
 equal weights in every dimension.  The first unequal dimension is reduced in
 `theory/THREE-EXPONENTIAL-QUANTILE.md` to one explicit two-variable
-inequality, which remains open.
+inequality.  That inequality is proved on the repeated-maximum boundary;
+its strict interior remains open.
 
 ## Layers
 
@@ -87,10 +88,10 @@ inequality, which remains open.
 | `theory/ORDERED-SIMPLEX-CAP.md` | Exact tight-vertex reduction and adjacent-transfer identity for the still-open all-`n` comparison | research roadmap |
 | `theory/ALL-N-POISSON-PROGRAM.md` | Exact weighted-exponential reductions, sharp two-coordinate theorem, and explicitly open higher-dimensional route | research roadmap |
 | `theory/TWO-EXPONENTIAL-QUANTILE.md` | Written proof that the two-weight exponential quantile is convex exactly for `alpha<=4e^-3` | proof-essential |
-| `theory/THREE-EXPONENTIAL-QUANTILE.md` | Exact tilted-simplex Hessian and tail reduction of three-weight convexity to an explicitly open two-variable inequality | research roadmap |
+| `theory/THREE-EXPONENTIAL-QUANTILE.md` | Exact tilted-simplex Hessian and tail reduction of three-weight convexity, with a proof on the repeated-maximum boundary and an explicitly open strict interior | proof-essential for the boundary theorem; research roadmap for the interior |
 | `theory/DIRICHLET-POISSONIZATION.md` | Constrained divided-difference reduction, zero-knot boundary reduction, proof for every two-level profile, and exact obstruction to generic `s`-concave localization | research roadmap |
 | `gaffke.py` | Exact-rational Dirichlet tail signs, certified dyadic Gaffke bracket, and safeguarded Stringer report | proof-essential for the implemented floor |
-| `all_n_poisson_reductions.py` | Symbolic checks of the ordered-weight identity, the exact two-exponential theorem, the equal-weight Hessian, the three-weight reduction, and the open-route kernel identity | proof support |
+| `all_n_poisson_reductions.py` | Symbolic checks of the ordered-weight identity, the exact two-exponential theorem, the equal-weight Hessian, the three-weight reduction and repeated-maximum boundary, and the open-route kernel identity | proof support |
 | `dirichlet_poissonization.py` | Symbolic checks for the zero-knot and all-two-level reductions plus the exact `s`-affine obstruction; does not claim the general inequality | research support |
 | `audit/PRACTICE-SAFEGUARD.md` | Methodology-facing workflow, worked example, record-retention fields, and explicit scope boundaries | implementation guidance |
 | `audit/HUMAN-REVIEW-PACKET.md` | Scoped independent-review questions, reproduction record, and sign-off template | review protocol |

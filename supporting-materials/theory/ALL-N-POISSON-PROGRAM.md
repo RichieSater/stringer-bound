@@ -254,7 +254,9 @@ curvature matrix and hypoexponential tail reduce global convexity at
 `alpha=4e^-3` to one explicit inequality in two nonnegative gap variables;
 see
 [`THREE-EXPONENTIAL-QUANTILE.md`](THREE-EXPONENTIAL-QUANTILE.md).  That
-reduction is exact, but its final two-variable inequality remains open.
+reduction is exact.  The same note proves the inequality on both coordinate
+axes, corresponding to coefficient vectors with two equal maximal weights.
+The strict interior with both gap variables positive remains open.
 
 Random Jensen tests conducted during exploration found no violation of (A)
 at or below (8) in dimensions through 12 and found the failures predicted by
@@ -408,9 +410,11 @@ seemingly simpler but false domination claim.
 
 ## 6. Next proof tasks
 
-1. Prove the explicit tilted-simplex inequality in
+1. Prove the explicit tilted-simplex inequality in the strict interior
+   `z,w>0` in
    [`THREE-EXPONENTIAL-QUANTILE.md`](THREE-EXPONENTIAL-QUANTILE.md), or find
-   an exact three-coordinate counterexample to (A) below `4e^-3`; then seek a
+   an exact three-coordinate counterexample to (A) below `4e^-3`; the
+   repeated-maximum boundary `zw=0` is already proved.  Then seek a
    dimension-free argument for (11).
 2. Prove the constrained divided-difference inequality (16), or find an
    actual B-spline counterexample satisfying the sum-of-knots constraint.

@@ -6,7 +6,8 @@ the algebra that isolates them:
 * the ordered-weight Poisson Stringer identity;
 * the exact two-exponential quantile-convexity threshold ``4*exp(-3)``;
 * the exact equal-weight Hessian in every dimension;
-* the three-exponential tilted-simplex curvature reduction;
+* the three-exponential tilted-simplex curvature reduction and its proved
+  repeated-maximum boundary;
 * the gamma-kernel antiderivative identity; and
 * a decisive numerical counterexample to the tempting SymPol shortcut.
 """
@@ -17,8 +18,8 @@ from fractions import Fraction
 from math import comb
 
 from mpmath import mp
-from sympy import (Function, Rational, diff, exp, factorial, log, simplify,
-                   symbols, series)
+from sympy import (Function, Rational, diff, exp, factorial, integrate, log,
+                   simplify, symbols, series, together)
 
 from stringer import factor_prefix
 
@@ -202,6 +203,112 @@ def check_three_exponential_reduction() -> None:
     ) == 0
 
 
+def check_three_exponential_repeated_max_boundary() -> None:
+    """Check the exact repeated-max boundary proof for the open 3D target."""
+
+    s, v = symbols("s v", positive=True)
+    i0 = integrate((1 - v)**3 * exp(-s * v), (v, 0, 1))
+    i1 = integrate(v * (1 - v)**3 * exp(-s * v), (v, 0, 1))
+    r_minus = simplify(s * i1 / i0)
+
+    raw = [
+        integrate(v**j * (1 - v) * exp(-s * v), (v, 0, 1))
+        for j in range(4)
+    ]
+    mean = raw[1] / raw[0]
+    variance = raw[2] / raw[0] - mean**2
+    weighted_centered_square = (
+        raw[3] / raw[0]
+        - 2 * mean * raw[2] / raw[0]
+        + mean**2 * raw[1] / raw[0]
+    )
+    r_plus = simplify(s * weighted_centered_square / variance)
+
+    # Verify directly that (2,1) and (0,1) are the two generalized
+    # eigendirections of (s E[V(R-mu)(R-mu)^T], Cov(R)).  Integrating out U
+    # leaves the common triangle normalizer raw[0].
+    def triangle_expectation(integrand):
+        return integrate(integrand * exp(-s * v), (v, 0, 1)) / raw[0]
+
+    mean_v = mean
+    mean_u = triangle_expectation((1 - v)**2 / 2)
+    ev2 = raw[2] / raw[0]
+    euv = triangle_expectation(v * (1 - v)**2 / 2)
+    eu2 = triangle_expectation((1 - v)**3 / 3)
+    c_uv = simplify(euv - mean_u * mean_v)
+    c_vv = variance
+    c_uu = simplify(eu2 - mean_u**2)
+
+    evu2 = triangle_expectation(v * (1 - v)**3 / 3)
+    ev2u = triangle_expectation(v**2 * (1 - v)**2 / 2)
+    h_uu = simplify(
+        s * (evu2 - 2 * mean_u * euv + mean_u**2 * mean_v)
+    )
+    h_uv = simplify(
+        s * (
+            ev2u - mean_v * euv - mean_u * ev2
+            + mean_u * mean_v**2
+        )
+    )
+    h_vv = simplify(s * weighted_centered_square)
+
+    assert simplify(2 * c_uv + c_vv) == 0
+    assert simplify(2 * h_uv + h_vv) == 0
+    assert simplify(
+        (4 * h_uu + 4 * h_uv + h_vv)
+        / (4 * c_uu + 4 * c_uv + c_vv)
+        - r_minus
+    ) == 0
+    assert simplify(h_vv / c_vv - r_plus) == 0
+
+    nfun = s**2 * exp(s) - 2 * s * exp(s) + 2 * exp(s) - 2
+    dfun = (
+        s**3 * exp(s) - 3 * s**2 * exp(s) + 6 * s * exp(s)
+        - 6 * exp(s) + 6
+    )
+    lfun = (
+        s**4 * exp(s) + 2 * s**2 * exp(2 * s)
+        + 8 * s**2 * exp(s) + 2 * s**2
+        - 12 * s * exp(2 * s) + 12 * s
+        + 12 * exp(2 * s) - 24 * exp(s) + 12
+    )
+
+    difference_numerator, difference_denominator = together(
+        r_plus - r_minus
+    ).as_numer_denom()
+    assert simplify(
+        difference_numerator - s**2 * nfun * lfun * exp(s)
+    ) == 0
+    gfun = simplify(s**2 * exp(s) * raw[0])
+    hden = simplify(s**2 * gfun**2 * variance)
+    assert simplify(difference_denominator - gfun * dfun * hden) == 0
+
+    h = simplify(4 - r_minus)
+    assert simplify(h - 3 * s * nfun / dfun) == 0
+
+    bfun = (1 - exp(-s)) / s
+    partition = (1 - bfun) / s
+    positive_tail_factor = 1 + h + partition * h**2
+    margin = 3 - h + log(positive_tail_factor) - log(4)
+    expected_derivative = (
+        -27 * s**2 * nfun**2 * lfun
+        / (dfun**4 * positive_tail_factor)
+    )
+    assert simplify(diff(margin, s) - expected_derivative) == 0
+
+    lseries = series(lfun, s, 0, 19).removeO().expand()
+    assert all(lseries.coeff(s, j) == 0 for j in range(8))
+    for j in range(8, 19):
+        scaled = simplify(factorial(j) * lseries.coeff(s, j))
+        expected = (
+            j * (j - 1) * (j - 2) * (j - 3)
+            + 8 * j * (j - 1) - 24
+            + 2 ** (j - 1) * (j**2 - 13 * j + 24)
+        )
+        assert scaled == expected
+        assert scaled > 0
+
+
 def check_kernel_identity() -> None:
     """Verify the nth-derivative identity for several symbolic n."""
     y = symbols("y", positive=True)
@@ -249,6 +356,7 @@ def main() -> int:
     check_two_exponential_global_convexity()
     check_equal_weight_hessian_thresholds()
     check_three_exponential_reduction()
+    check_three_exponential_repeated_max_boundary()
     check_kernel_identity()
     poisson, sympol, gap, active_k = sympol_shortcut_counterexample()
     print("all-n reduction algebra: PASS")
@@ -258,6 +366,7 @@ def main() -> int:
           "same m=2 value")
     print("three-exponential convexity: reduced exactly to the documented "
           "two-variable inequality")
+    print("three-exponential repeated-max boundary: PROVED")
     print("SymPol shortcut counterexample (numerical):")
     print("  n=15 alpha=0.05 one full taint")
     print("  active elementary-symmetric order:", active_k)

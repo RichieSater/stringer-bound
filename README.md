@@ -185,8 +185,10 @@ certificate or a written proof:
   The first unequal case is now reduced exactly to one explicit two-variable
   tilted-simplex inequality
   ([three-coordinate reduction](supporting-materials/theory/THREE-EXPONENTIAL-QUANTILE.md)),
-  but that inequality remains open. These results do not prove the
-  three-or-more-coordinate case or general-\(n\) Stringer coverage.
+  and the inequality is proved on the repeated-maximum boundary where the
+  two largest weights are equal. Its strict two-variable interior remains
+  open. These results do not prove the three-or-more-coordinate case or
+  general-\(n\) Stringer coverage.
 
 - **All-sample-size scalar calibration of the Poisson bound**
   ([`POISSON-BAND-CALIBRATION.md`](supporting-materials/theory/POISSON-BAND-CALIBRATION.md)):
@@ -285,7 +287,8 @@ single-crossing identity isolated in
 [`ORDERED-SIMPLEX-CAP.md`](supporting-materials/theory/ORDERED-SIMPLEX-CAP.md);
 extend the sharp two-coordinate weighted-exponential theorem in
 [`TWO-EXPONENTIAL-QUANTILE.md`](supporting-materials/theory/TWO-EXPONENTIAL-QUANTILE.md),
-starting with the explicit three-coordinate inequality in
+by proving the strict-interior case of the explicit three-coordinate
+inequality in
 [`THREE-EXPONENTIAL-QUANTILE.md`](supporting-materials/theory/THREE-EXPONENTIAL-QUANTILE.md),
 and pursue the general Dirichlet--Poissonization inequality isolated in
 [`ALL-N-POISSON-PROGRAM.md`](supporting-materials/theory/ALL-N-POISSON-PROGRAM.md)

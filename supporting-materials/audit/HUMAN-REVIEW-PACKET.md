@@ -300,7 +300,7 @@ Questions:
     thresholds strictly increase from `4e^-3`, and is this result described
     only as a pointwise Hessian theorem?
 
-## Review I: the exact three-exponential reduction
+## Review I: the three-exponential reduction and repeated-maximum boundary
 
 Primary files:
 
@@ -326,6 +326,20 @@ Questions:
    used as a theorem?
 8. Do the equal-weight and coordinate-face limits have the stated values and
    preserve the sharp two-coordinate obstruction?
+9. On `z=0`, does the symmetry exchanging `U` with the residual simplex
+   coordinate split the generalized-eigenvalue problem into the two stated
+   transverse eigenspaces?
+10. Are the moment formulas for `mathcal R_-` and `mathcal R_+` exact, and
+    are every normalizing integral and conditional variance used to clear
+    denominators strictly positive?
+11. Does the factorization through `N(s)L(s)` and the coefficient formula
+    for `L` prove `mathcal R_+(s)>mathcal R_-(s)` for every `s>0`?
+12. Are the formula for `h(0,s)`, the derivative of the logarithmic margin
+    `M_0`, and its limit at infinity all correct and sufficient to prove the
+    target inequality strictly at every finite axis point?
+13. Is the new conclusion limited to the repeated-maximum boundary, with
+    the strict interior `z,w>0` and full three-coordinate theorem still
+    stated as open?
 
 ## Minimum reproduction record
 

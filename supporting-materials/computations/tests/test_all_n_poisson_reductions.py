@@ -13,6 +13,7 @@ sys.path.insert(0, str(PYTHON_DIR))
 from all_n_poisson_reductions import (  # noqa: E402
     check_equal_weight_hessian_thresholds,
     check_three_exponential_reduction,
+    check_three_exponential_repeated_max_boundary,
     check_two_exponential_global_convexity,
     check_two_exponential_obstruction,
 )
@@ -30,6 +31,9 @@ class AllNPoissonReductionTests(unittest.TestCase):
 
     def test_three_exponential_reduction(self):
         check_three_exponential_reduction()
+
+    def test_three_exponential_repeated_max_boundary(self):
+        check_three_exponential_repeated_max_boundary()
 
 
 if __name__ == "__main__":
