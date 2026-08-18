@@ -720,7 +720,7 @@
       "verification_commands": [
         "make all-n-reduction-check"
       ],
-      "limitations": "The two-variable inequality is proved separately on the coordinate axes and diagonal, and its infinite-gap boundary reduces to the two-coordinate theorem, but its finite off-symmetry interior is open. This record certifies the equivalence and reduction only, not three-coordinate convexity or general-n Stringer coverage."
+      "limitations": "The two-variable inequality is proved separately on the coordinate axes and diagonal, its infinite-gap boundary reduces to the two-coordinate theorem, and a punctured sharp-corner neighborhood is positive, but its finite off-symmetry interior is open. This record certifies the equivalence and reduction only, not three-coordinate convexity or general-n Stringer coverage."
     },
     {
       "id": "three-exponential-repeated-max-boundary",
@@ -809,6 +809,33 @@
       "limitations": "This proves only the compactified infinite-gap boundary. The finite off-symmetry interior 0<z<w<infinity, full three-coordinate convexity, and general-n Stringer coverage remain open."
     },
     {
+      "id": "three-exponential-sharp-corner-neighborhood",
+      "classification": "proved_theorem",
+      "statement": "There exists a punctured two-variable neighborhood of the sharp corner z=0, w=infinity throughout which the reduced three-exponential comparison margin is strictly positive.",
+      "manuscript_labels": [],
+      "evidence": [
+        {
+          "path": "supporting-materials/theory/THREE-EXPONENTIAL-QUANTILE.md",
+          "role": "joint generalized-eigenvalue and margin expansion with a two-scale remainder proof",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/python/all_n_poisson_reductions.py",
+          "role": "exact symbolic derivation of the rescaled matrix, eigenvalue, and logarithmic-margin expansions",
+          "trust": "corroboration_only"
+        },
+        {
+          "path": "supporting-materials/computations/tests/test_all_n_poisson_reductions.py",
+          "role": "regression test for the sharp-corner expansion",
+          "trust": "corroboration_only"
+        }
+      ],
+      "verification_commands": [
+        "make all-n-reduction-check"
+      ],
+      "limitations": "The neighborhood radius is proved to exist but is not numerically optimized or stated explicitly. The finite off-symmetry interior, full three-coordinate convexity, and general-n Stringer coverage remain open."
+    },
+    {
       "id": "general-n-standard-confidence-status",
       "classification": "date_stamped_literature_status",
       "statement": "General finite-sample coverage for arbitrary n and arbitrary taint distributions at conventional confidence levels remains unresolved in the reviewed literature. This repository proves the binomial-factor result through n=7 at 90%, 95%, and 99%; the direct Poisson-factor ranges reach n=8, n=11, and n=20, respectively.",
@@ -828,7 +855,7 @@
         },
         {
           "path": "supporting-materials/theory/THREE-EXPONENTIAL-QUANTILE.md",
-          "role": "exact reduction of the first unequal exponential-quantile dimension, with proved coordinate-axis, diagonal, and infinite-gap families and an explicitly open finite off-symmetry interior",
+          "role": "exact reduction of the first unequal exponential-quantile dimension, with proved coordinate-axis, diagonal, infinite-gap, and sharp-corner-neighborhood results and an explicitly open finite off-symmetry interior",
           "trust": "corroboration_only"
         },
         {

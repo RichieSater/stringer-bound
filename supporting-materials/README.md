@@ -52,8 +52,9 @@ equal weights in every dimension.  The first unequal dimension is reduced in
 `theory/THREE-EXPONENTIAL-QUANTILE.md` to one explicit two-variable
 inequality.  That inequality is proved on the repeated-maximum boundary;
 it is also proved on the equal-smaller symmetry line, and its complete
-infinite-gap boundary reduces to the two-coordinate theorem.  Its finite
-off-symmetry interior remains open.
+infinite-gap boundary reduces to the two-coordinate theorem.  A joint
+expansion proves positivity in a punctured neighborhood of the sharp corner.
+Its finite off-symmetry interior remains open.
 
 ## Layers
 
@@ -90,10 +91,10 @@ off-symmetry interior remains open.
 | `theory/ORDERED-SIMPLEX-CAP.md` | Exact tight-vertex reduction and adjacent-transfer identity for the still-open all-`n` comparison | research roadmap |
 | `theory/ALL-N-POISSON-PROGRAM.md` | Exact weighted-exponential reductions, sharp two-coordinate theorem, and explicitly open higher-dimensional route | research roadmap |
 | `theory/TWO-EXPONENTIAL-QUANTILE.md` | Written proof that the two-weight exponential quantile is convex exactly for `alpha<=4e^-3` | proof-essential |
-| `theory/THREE-EXPONENTIAL-QUANTILE.md` | Exact tilted-simplex Hessian and tail reduction of three-weight convexity, with proofs on the repeated-maximum and infinite-gap boundaries and equal-smaller symmetry line and an explicitly open finite off-symmetry interior | proof-essential for the boundary and symmetry-line theorems; research roadmap for the interior |
+| `theory/THREE-EXPONENTIAL-QUANTILE.md` | Exact tilted-simplex Hessian and tail reduction of three-weight convexity, with proofs on the repeated-maximum and infinite-gap boundaries, the equal-smaller symmetry line, and a sharp-corner neighborhood, and an explicitly open finite off-symmetry interior | proof-essential for the boundary, symmetry-line, and local-corner theorems; research roadmap for the interior |
 | `theory/DIRICHLET-POISSONIZATION.md` | Constrained divided-difference reduction, zero-knot boundary reduction, proof for every two-level profile, and exact obstruction to generic `s`-concave localization | research roadmap |
 | `gaffke.py` | Exact-rational Dirichlet tail signs, certified dyadic Gaffke bracket, and safeguarded Stringer report | proof-essential for the implemented floor |
-| `all_n_poisson_reductions.py` | Symbolic and exact-rational checks of the ordered-weight identity, the exact two-exponential theorem, the equal-weight Hessian, the three-weight reduction and its three proved boundary or symmetry families, and the open-route kernel identity | proof support |
+| `all_n_poisson_reductions.py` | Symbolic and exact-rational checks of the ordered-weight identity, the exact two-exponential theorem, the equal-weight Hessian, the three-weight reduction, its proved boundary and symmetry families, the sharp-corner expansion, and the open-route kernel identity | proof support |
 | `dirichlet_poissonization.py` | Symbolic checks for the zero-knot and all-two-level reductions plus the exact `s`-affine obstruction; does not claim the general inequality | research support |
 | `audit/PRACTICE-SAFEGUARD.md` | Methodology-facing workflow, worked example, record-retention fields, and explicit scope boundaries | implementation guidance |
 | `audit/HUMAN-REVIEW-PACKET.md` | Scoped independent-review questions, reproduction record, and sign-off template | review protocol |

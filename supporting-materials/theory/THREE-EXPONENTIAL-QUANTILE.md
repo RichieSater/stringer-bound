@@ -4,8 +4,9 @@
 > convexity to one explicit two-variable inequality and proves that
 > inequality on the repeated-maximum boundary and the equal-smaller symmetry
 > line.  It also reduces the complete infinite-gap boundary to the proved
-> two-exponential theorem.  The finite off-symmetry interior remains open.
-> Nothing in this note is a general-`n` Stringer coverage theorem.
+> two-exponential theorem and proves positivity in a punctured neighborhood
+> of the only zero-margin corner.  The finite off-symmetry interior remains
+> open.  Nothing in this note is a general-`n` Stringer coverage theorem.
 
 Let `E_1,E_2,E_3` be independent unit exponentials and put
 
@@ -677,7 +678,99 @@ and therefore
 
 The inequality in (51) is exactly the sharp comparison (16) in the
 two-exponential proof.  It is strict for `z>0` and becomes equality only at
-`z=0`, the sharp corner already identified in (18).  Thus every finite point
-on the coordinate axes, every point on the diagonal, and the complete
-infinite-gap boundary satisfy the target.  What remains is the finite
-off-symmetry domain `0<z<w<infinity`, up to interchange of `z` and `w`.
+`z=0`, the sharp corner already identified in (18).
+
+For completeness, the case in which both gaps diverge is uniformly benign.
+Set `X=zU` and `Y=wV`.  If `min(z,w)` tends to infinity, the rescaled domain
+
+\[
+ \{(x,y):x\ge0,\ y\ge0,\ x/z+y/w\le1\}
+\]
+
+exhausts the nonnegative quadrant, and the tilted law converges in all
+moments to two independent unit exponentials.  In these coordinates,
+write `R_hat=(X,Y)`.  Then
+
+\[
+ \operatorname{Cov}(\widehat R)\longrightarrow I_2,
+ \qquad E[(X+Y)(\widehat R-E\widehat R)
+                 (\widehat R-E\widehat R)^{\mathsf T}]
+ \longrightarrow4I_2.                               \tag{52}
+\]
+
+Thus `rho(z,w)->4`, `h(z,w)->0`, `A(z,w)->0`, and `Z(z,w)->0`; the left side
+of (16) tends to one.  Hence every finite point on the coordinate axes,
+every point on the diagonal, and the complete infinite-gap boundary satisfy
+the target.  What remains is the finite off-symmetry domain
+`0<z<w<infinity`, up to interchange of `z` and `w`.
+
+## 7. A positive neighborhood of the sharp corner
+
+The zero margin at `(z,w)=(0,infinity)` cannot conceal a sequence of
+violations approaching that corner.  Put `t=1/w` and rescale the second
+simplex coordinate to `Y=wV`.  Since
+
+\[
+ B(w)=t\{1-e^{-1/t}\},
+\]
+
+the exponentially small term is flat at `t=0`.  After dropping only that
+flat remainder, the partition function is
+
+\[
+ Z_0(z,t)=\frac{t\{B(z)-t\}}{1-zt}.                  \tag{53}
+\]
+
+Use the congruence transformation from `(U,V)` to `(U,Y)` in both matrices
+of the generalized-eigenvalue problem.  The rescaled matrices extend
+smoothly to `(z,t)=(0,0)`, where the limiting covariance and
+weighted-covariance matrices are
+
+\[
+ C_0=\begin{pmatrix}1/12&0\\0&1\end{pmatrix},
+ \qquad
+ H_0=\begin{pmatrix}1/12&0\\0&3\end{pmatrix}.
+\]
+
+The smaller generalized eigenvalue is therefore simple.  Taylor expansion
+of that eigenvalue, using (53), gives
+
+\[
+ \begin{aligned}
+ \rho(z,1/t)={}&1+\frac z2-3t+\frac{z^2}{60}+3t^2
+ -\frac{z^2t}{60}-\frac32zt^2+9t^3\\
+ &+O\{(z+t)^4\}.                                    \tag{54}
+ \end{aligned}
+\]
+
+The flat `e^(-1/t)` contribution and all of its polynomially rescaled
+derivatives are absorbed by the remainder.  Substituting `h=4-rho` together
+with the corresponding expansions of `A` and `Z` into the logarithmic
+margin gives the especially simple expression
+
+\[
+ M(z,1/t)
+ =\frac{3}{40}z^2-\frac{3}{20}z^2t+\frac92t^3
+  +O\{(z+t)^4\}.                                    \tag{55}
+\]
+
+This expansion proves a genuine two-variable neighborhood result.  For
+`0<=z,t<=delta<=1/4`, the displayed part of (55) is at least
+
+\[
+ \frac{3}{80}z^2+\frac92t^3.
+\]
+
+If the absolute remainder is at most `C(z+t)^4`, then
+
+\[
+ (z+t)^4\le8(z^4+t^4)
+ \le8\delta(z^2+t^3).
+\]
+
+Choosing `delta>0` sufficiently small makes the remainder less than half of
+the displayed positive lower bound.  Hence `M(z,1/t)>0` throughout a
+punctured neighborhood of the sharp corner.  In particular, any sequence of
+failures of (16) would have to remain a positive distance from every
+compactified boundary family already treated; the unresolved task is an
+interior sign problem, not a singular-boundary problem.

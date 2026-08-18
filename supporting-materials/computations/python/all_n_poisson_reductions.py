@@ -7,7 +7,8 @@ the algebra that isolates them:
 * the exact two-exponential quantile-convexity threshold ``4*exp(-3)``;
 * the exact equal-weight Hessian in every dimension;
 * the three-exponential tilted-simplex curvature reduction and its proved
-  repeated-maximum, equal-smaller, and infinite-gap boundary families;
+  repeated-maximum, equal-smaller, and infinite-gap boundary families,
+  including the positive sharp-corner expansion;
 * the gamma-kernel antiderivative identity; and
 * a decisive numerical counterexample to the tempting SymPol shortcut.
 """
@@ -597,6 +598,92 @@ def check_three_exponential_infinite_gap_boundary() -> None:
     assert simplify(limit(tail_linear, w, oo) - bfun) == 0
 
 
+def check_three_exponential_sharp_corner_expansion() -> None:
+    """Check the joint zero-gap/infinite-gap margin expansion."""
+
+    z, t, eps, a, b = symbols("z t eps a b", positive=True)
+    # Terms omitted from B(1/t)=t*(1-exp(-1/t)) are flat at t=0.  Eight
+    # terms of B(z) are more than enough for every total degree checked.
+    bpoly = sum((-z)**k / factorial(k + 1) for k in range(9))
+    partition = t * (bpoly - t) / (1 - z * t)
+    log_partition = log(t) + log(bpoly - t) - log(1 - z * t)
+
+    c11 = diff(log_partition, z, 2)
+    c12 = -t**2 * diff(log_partition, z, t)
+    c22 = (
+        t**4 * diff(log_partition, t, 2)
+        + 2 * t**3 * diff(log_partition, t)
+    )
+    k11 = partition * c11
+    k12 = partition * c12
+    k22 = partition * c22
+
+    def radial_derivative(value):
+        return z * diff(value, z) - t * diff(value, t)
+
+    h11 = -radial_derivative(k11) / partition
+    h12 = -radial_derivative(k12) / (t * partition)
+    h22 = -radial_derivative(k22) / (t**2 * partition)
+    # Congruence by diag(1,1/t) converts (U,V) to (U,wV).
+    covariance = (c11, c12 / t, c22 / t**2)
+    weighted_covariance = (h11, h12, h22)
+
+    def scaled_series(value, order=5):
+        return series(
+            value.subs({z: eps * a, t: eps * b}), eps, 0, order,
+        ).removeO().expand()
+
+    c_scaled = tuple(scaled_series(value) for value in covariance)
+    h_scaled = tuple(
+        scaled_series(value) for value in weighted_covariance
+    )
+    assert [value.subs(eps, 0) for value in c_scaled] == [
+        Rational(1, 12), 0, 1,
+    ]
+    assert [value.subs(eps, 0) for value in h_scaled] == [
+        Rational(1, 12), 0, 3,
+    ]
+
+    rho = (
+        1 + eps * (a / 2 - 3 * b)
+        + eps**2 * (a**2 / 60 + 3 * b**2)
+        + eps**3 * (
+            -a**2 * b / 60 - Rational(3, 2) * a * b**2
+            + 9 * b**3
+        )
+    )
+    characteristic = (
+        (h_scaled[0] - rho * c_scaled[0])
+        * (h_scaled[2] - rho * c_scaled[2])
+        - (h_scaled[1] - rho * c_scaled[1])**2
+    )
+    assert series(characteristic, eps, 0, 4).removeO().expand() == 0
+
+    z_scaled = eps * a
+    t_scaled = eps * b
+    b_scaled = sum((-z_scaled)**k / factorial(k + 1)
+                   for k in range(9))
+    partition_scaled = (
+        t_scaled * (b_scaled - t_scaled) / (1 - z_scaled * t_scaled)
+    )
+    tail_linear = b_scaled + z_scaled * partition_scaled
+    h_threshold = 4 - rho
+    margin = (
+        3 - h_threshold
+        + log(1 + tail_linear * h_threshold
+              + partition_scaled * h_threshold**2)
+        - log(4)
+    )
+    expected_margin = (
+        Rational(3, 40) * a**2 * eps**2
+        + (-Rational(3, 20) * a**2 * b
+           + Rational(9, 2) * b**3) * eps**3
+    )
+    assert simplify(
+        series(margin, eps, 0, 4).removeO().expand() - expected_margin
+    ) == 0
+
+
 def check_kernel_identity() -> None:
     """Verify the nth-derivative identity for several symbolic n."""
     y = symbols("y", positive=True)
@@ -647,6 +734,7 @@ def main() -> int:
     check_three_exponential_repeated_max_boundary()
     check_three_exponential_equal_smaller_line()
     check_three_exponential_infinite_gap_boundary()
+    check_three_exponential_sharp_corner_expansion()
     check_kernel_identity()
     poisson, sympol, gap, active_k = sympol_shortcut_counterexample()
     print("all-n reduction algebra: PASS")
@@ -659,6 +747,7 @@ def main() -> int:
     print("three-exponential repeated-max boundary: PROVED")
     print("three-exponential equal-smaller symmetry line: PROVED")
     print("three-exponential infinite-gap boundary: REDUCED TO PROVED 2D CASE")
+    print("three-exponential sharp corner: POSITIVE PUNCTURED NEIGHBORHOOD")
     print("SymPol shortcut counterexample (numerical):")
     print("  n=15 alpha=0.05 one full taint")
     print("  active elementary-symmetric order:", active_k)

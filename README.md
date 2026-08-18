@@ -188,9 +188,10 @@ certificate or a written proof:
   and the inequality is proved on the repeated-maximum boundary where the
   two largest weights are equal and on the symmetry line where the two
   smaller weights are equal. The complete infinite-gap boundary reduces to
-  the proved two-coordinate theorem. The finite off-symmetry interior
-  remains open. These results do not prove the three-or-more-coordinate case
-  or general-\(n\) Stringer coverage.
+  the proved two-coordinate theorem, and an exact joint expansion proves a
+  positive punctured neighborhood of its only zero-margin corner. The finite
+  off-symmetry interior remains open. These results do not prove the
+  three-or-more-coordinate case or general-\(n\) Stringer coverage.
 
 - **All-sample-size scalar calibration of the Poisson bound**
   ([`POISSON-BAND-CALIBRATION.md`](supporting-materials/theory/POISSON-BAND-CALIBRATION.md)):

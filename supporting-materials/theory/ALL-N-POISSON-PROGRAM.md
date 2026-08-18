@@ -258,7 +258,8 @@ reduction is exact.  The same note proves the inequality on both coordinate
 axes, corresponding to coefficient vectors with two equal maximal weights.
 It also proves the diagonal, corresponding to two equal smaller weights.
 The complete infinite-gap boundary reduces to the proved two-exponential
-case.  The finite off-symmetry interior remains open.
+case, and a joint expansion proves positivity in a punctured neighborhood of
+its only zero-margin corner.  The finite off-symmetry interior remains open.
 
 Random Jensen tests conducted during exploration found no violation of (A)
 at or below (8) in dimensions through 12 and found the failures predicted by
@@ -417,8 +418,8 @@ seemingly simpler but false domination claim.
    [`THREE-EXPONENTIAL-QUANTILE.md`](THREE-EXPONENTIAL-QUANTILE.md), or find
    an exact three-coordinate counterexample to (A) below `4e^-3`; the
    repeated-maximum boundary `zw=0`, equal-smaller diagonal `z=w`, and
-   infinite-gap boundary are already proved.  Then seek a dimension-free
-   argument for (11).
+   infinite-gap boundary are already proved, as is a punctured neighborhood
+   of the sharp corner.  Then seek a dimension-free argument for (11).
 2. Prove the constrained divided-difference inequality (16), or find an
    actual B-spline counterexample satisfying the sum-of-knots constraint.
 3. Use the zero-knot reduction recursively, or prove that a negative minimum

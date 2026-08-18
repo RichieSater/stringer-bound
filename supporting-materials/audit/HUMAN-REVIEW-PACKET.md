@@ -359,9 +359,15 @@ Questions:
 20. Do the partition-function and tail limits in (50)--(51) reduce the full
     infinite-gap edge, not merely its sharp corner, to the proved
     two-exponential comparison?
-21. Are the remaining claims limited to finite `0<z<w<infinity`, without
-    using any proved boundary or symmetry family as a full three-coordinate
-    convexity or general-`n` coverage theorem?
+21. After setting `t=1/w` and rescaling `(U,V)` to `(U,wV)`, does the simple
+    generalized eigenvalue at the sharp corner have the expansion in (54),
+    and does substitution give the margin expansion in (55)?
+22. Is the discarded `e^(-1/t)` contribution flat to the required order,
+    and does the two-scale remainder argument prove a punctured positive
+    neighborhood rather than only positivity along fixed rays?
+23. Are the remaining claims limited to finite `0<z<w<infinity`, without
+    using any proved boundary, symmetry, or local-corner result as a full
+    three-coordinate convexity or general-`n` coverage theorem?
 
 ## Minimum reproduction record
 
