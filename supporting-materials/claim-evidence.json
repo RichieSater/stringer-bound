@@ -1032,7 +1032,39 @@
       "verification_commands": [
         "make dirichlet-poissonization-check"
       ],
-      "limitations": "This covers only the three-positive face with largest knot at most n^2/(2(n+1)). The one-large-knot remainder, profiles with four or more nonzero coordinates, general Dirichlet--Poissonization, higher-dimensional exponential-quantile convexity, and general-n Stringer coverage remain open."
+      "limitations": "This covers only the three-positive face with largest knot at most n^2/(2(n+1)); a separate theorem covers c>=n-1. The intervening region, profiles with four or more nonzero coordinates, general Dirichlet--Poissonization, higher-dimensional exponential-quantile convexity, and general-n Stringer coverage remain open."
+    },
+    {
+      "id": "dirichlet-poissonization-three-positive-far-cap",
+      "classification": "proved_theorem",
+      "statement": "For every n at least 4, the constrained Dirichlet--Poissonization comparison holds for profiles with n-2 zero coordinates and three nonnegative coordinates a<=b<=c whenever a+b+c<=n and c>=n-1.",
+      "manuscript_labels": [],
+      "evidence": [
+        {
+          "path": "supporting-materials/theory/DIRICHLET-POISSONIZATION.md",
+          "role": "complete multiplication, monotonicity, endpoint, and secant-slope proof",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/python/dirichlet_poissonization.py",
+          "role": "exact symbolic checks and rational Taylor bounds for the monotonicity and endpoint argument",
+          "trust": "corroboration_only"
+        },
+        {
+          "path": "supporting-materials/computations/certificates/dirichlet-poissonization-certificate.json",
+          "role": "regenerated record of the dimension-free far-cap check",
+          "trust": "corroboration_only"
+        },
+        {
+          "path": "supporting-materials/computations/tests/test_dirichlet_poissonization.py",
+          "role": "regression test for the all-n three-positive far-cap identities and constants",
+          "trust": "corroboration_only"
+        }
+      ],
+      "verification_commands": [
+        "make dirichlet-poissonization-check"
+      ],
+      "limitations": "This covers only the three-positive face with largest knot at least n-1. The intervening region n^2/(2(n+1))<c<n-1, profiles with four or more nonzero coordinates, general Dirichlet--Poissonization, higher-dimensional exponential-quantile convexity, and general-n Stringer coverage remain open."
     },
     {
       "id": "dirichlet-poissonization-n2",

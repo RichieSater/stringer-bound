@@ -21,6 +21,7 @@ from dirichlet_poissonization import (  # noqa: E402
     verify_radial_symbolic_identities,
     verify_saffine_symbolic_identities,
     verify_three_positive_convex_core,
+    verify_three_positive_far_cap,
     verify_two_positive_knot_theorem,
     verify_two_level_symbolic_identities,
 )
@@ -90,6 +91,9 @@ class DirichletPoissonizationTests(unittest.TestCase):
     def test_all_n_three_positive_convex_core_algebra(self):
         verify_three_positive_convex_core()
 
+    def test_all_n_three_positive_far_cap_algebra(self):
+        verify_three_positive_far_cap()
+
     def test_all_n_two_positive_knot_algebra(self):
         verify_two_positive_knot_theorem()
 
@@ -129,6 +133,12 @@ class DirichletPoissonizationTests(unittest.TestCase):
         self.assertEqual(
             certificate["three_positive_convex_core_all_n"][
                 "symbolic_identity_check"
+            ],
+            "passed",
+        )
+        self.assertEqual(
+            certificate["three_positive_far_cap_all_n"][
+                "symbolic_identity_and_constant_check"
             ],
             "passed",
         )

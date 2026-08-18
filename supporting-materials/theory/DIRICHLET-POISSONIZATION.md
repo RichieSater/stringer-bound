@@ -3,7 +3,8 @@
 > **Status.** This note gives an exact reduction, pushes any possible
 > counterexample to a zero-knot boundary, proves every profile having at most
 > two distinct coefficient values or at most two nonzero coefficients, proves
-> a dimension-free convex core for profiles with three nonzero coefficients,
+> dimension-free convex-core and far-cap regions for profiles with three
+> nonzero coefficients,
 > proves the complete comparison for `n=2` and `n=3`, and rules out an
 > over-broad
 > localization shortcut. The central
@@ -592,7 +593,136 @@ all three knots lie in that interval, so `[a,b,c]g_n>=0`.  Equations
 it removes the restriction `c<=9/8`.
 
 
-## 9. Why generic $s$-concave localization is too broad
+## 9. A dimension-free three-positive far cap
+
+The opposite end of the three-positive face can also be settled in every
+dimension.
+
+> **Three-positive far-cap theorem.**  Let `n>=4`, and suppose the
+> coefficient vector consists of `n-2` zeros and three values
+> `0<=a<=b<=c` satisfying
+>
+> \[
+>  a+b+c\le n,
+>  \qquad
+>  c\ge n-1.                                       \tag{15y}
+> \]
+>
+> Then `Pr{Z_y>n}>=Pr{T_y>1}`.
+
+We continue to use the function `g_n` from (15w).  We first record a
+monotonicity fact.  On `(0,1]`, direct differentiation shows that `g_n` is
+strictly increasing and strictly convex.  For `1<u<=n`, put
+`lambda=n/u`.  Then
+
+\[
+ \frac{g_n'(u)}u
+ =e^{-\lambda}(2+\lambda)
+  -\left(1-\frac\lambda n\right)^{n-1}
+   \left(2+\lambda-\frac{2\lambda}n\right).        \tag{15z}
+\]
+
+The ratio of the first term in (15z) to the second is
+
+\[
+ R_n(\lambda)=
+ \frac{e^{-\lambda}(2+\lambda)}
+ {(1-\lambda/n)^{n-1}(2+\lambda-2\lambda/n)}.
+\]
+
+For `1<=lambda<n`, direct differentiation gives
+
+\[
+ \frac{d}{d\lambda}\log R_n(\lambda)
+ =\frac{-\lambda^2\{\lambda n-2\lambda+3n-2\}}
+ {(\lambda+2)(\lambda-n)(\lambda n-2\lambda+2n)}>0. \tag{15aa}
+\]
+
+Moreover,
+
+\[
+ \begin{aligned}
+ \log R_n(1)
+ &=-1-(n-1)\log(1-1/n)-\log(1-2/(3n))\\
+ &> -1+(n-1)\left(\frac1n+\frac1{2n^2}\right)
+       +\frac2{3n}
+ =\frac{n-3}{6n^2}>0.                              \tag{15ab}
+ \end{aligned}
+\]
+
+Here we used the positive power series for `-log(1-x)`.  Equations
+(15z)--(15ab) prove that `g_n` is strictly increasing on `[0,n]` for
+`n>=4`.
+
+The remaining ingredient is the endpoint estimate
+
+\[
+ g_n(n-1)>(n+1)^2e^{-n},\qquad n\ge4.              \tag{15ac}
+\]
+
+For `n=4`, the finite Taylor bounds `e<11/4` and `e^4>54` give
+
+\[
+ g_4(3)=9e^{-4/3}-\frac{16}{9}
+ >\frac{17}{36}>\frac{25}{54}>25e^{-4}.            \tag{15ad}
+\]
+
+For `n>=5`, set
+
+\[
+ x=\frac n{n-1},\qquad y=\frac n{2(n-1)^2}.
+\]
+
+The first two nonzero terms of the logarithmic series and the inequality
+`1-e^{-y}>ye^{-y}` yield
+
+\[
+ \begin{aligned}
+ g_n(n-1)
+ &=(n-1)^2\left\{e^{-x}
+       -\left(1-\frac1{n-1}\right)^n\right\}\\
+ &>(n-1)^2e^{-x}(1-e^{-y})
+ >\frac n2e^{-x-y}.                                \tag{15ae}
+ \end{aligned}
+\]
+
+Now `x+y=1+3/{2(n-1)}+1/{2(n-1)^2}<=45/32`.  The inequality
+
+\[
+ e^{\,n-45/32}>\frac{2(n+1)^2}{n},\qquad n\ge5,   \tag{15af}
+\]
+
+follows by induction.  At `n=5`, its left side exceeds
+`e^3>131/8>72/5`; thereafter the left side is multiplied by `e>2`,
+whereas the ratio of consecutive right sides is
+
+\[
+ \frac{n(n+2)^2}{(n+1)^3}<2.
+\]
+
+Combining (15ae)--(15af) proves (15ac).
+
+We now compare the two secant slopes.  Condition (15y) implies `a+b<=1`,
+so `b<=1`.  Convexity on `[0,1]`, monotonicity on `[0,n]`, and (15ac) give
+
+\[
+ \begin{aligned}
+ [a,b]g_n
+ &\le g_n'(1)=(n+2)e^{-n},\\
+ [b,c]g_n
+ &\ge\frac{g_n(n-1)-g_n(1)}n
+ >(n+2)e^{-n}.                                     \tag{15ag}
+ \end{aligned}
+\]
+
+The second line uses `c-b<=n`, `g_n(b)<=g_n(1)=e^{-n}`, and
+`g_n(c)>=g_n(n-1)`.  Thus `[a,b,c]g_n>0`, with confluent endpoints supplied
+by continuity.  Equation (15w) proves the theorem.  Together, Sections 8
+and 9 settle both the convex core `c<=n^2/{2(n+1)}` and the far cap
+`c>=n-1` of every three-positive face.  The intervening region remains open.
+
+
+## 10. Why generic $s$-concave localization is too broad
 
 A one-dimensional localization theorem for $1/n$-concave probability
 laws reduces a linear extremal problem to point masses or densities of the
@@ -652,15 +782,17 @@ coefficients $y_i$; not every density in (16) is such a projection with
 the constraint (2). The example shows precisely which structural
 information a successful localization argument must preserve.
 
-## 10. Remaining proof problem
+## 11. Remaining proof problem
 
 The cleanest current target is (6).  Section 4 shows that it is enough to
 work on coordinate faces, Sections 3--5 establish it for every profile
 having at most two distinct coefficient values or at most two nonzero
 coefficients, and Sections 6--7 prove the complete target for `n=2` and
 `n=3`.  Section 8 also proves every three-positive profile whose largest
-knot is at most `n^2/{2(n+1)}`.  Three plausible routes remain for general
-`n`:
+knot is at most `n^2/{2(n+1)}`, and Section 9 proves every such profile whose
+largest knot is at least `n-1`.  The intervening three-positive region and
+all profiles with four or more nonzero knots remain open.  Three plausible
+routes remain for general `n`:
 
 1. exploit the zero-knot reduction recursively, or prove that a negative
    minimum on a coordinate face must have at most two distinct knot values;
@@ -680,7 +812,7 @@ The committed output is
 [`dirichlet-poissonization-certificate.json`](../computations/certificates/dirichlet-poissonization-certificate.json).
 It certifies the obstruction, checks rational equal-block instances, and
 regression-checks the exact algebra used in the two-level, two-positive-knot,
-three-positive convex-core, and complete `n=2` and `n=3` proofs.
+three-positive convex-core and far-cap, and complete `n=2` and `n=3` proofs.
 The all-parameter statements rest on the written arguments; the general
 inequality remains explicitly open.
 

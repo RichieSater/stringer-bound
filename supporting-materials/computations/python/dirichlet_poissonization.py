@@ -28,6 +28,8 @@ boundary reduction, a proved structured family, and one obstruction:
   for ``n=3``; and
 * the ``k=2`` Anderson--Samuels comparison proves a dimension-free convex
   core for profiles with three nonzero coefficients; and
+* an exact monotonicity and endpoint argument proves a dimension-free far
+  cap for profiles with three nonzero coefficients; and
 * a fully explicit, mean-constrained ``1/n``-concave law shows why generic
   one-dimensional s-concave localization is too broad to prove the
   comparison.
@@ -449,6 +451,84 @@ def verify_three_positive_convex_core() -> None:
     ) == 0
 
 
+def verify_three_positive_far_cap() -> None:
+    """Check the all-``n`` three-positive far-cap identities and bounds."""
+    from sympy import exp, factor, log, powsimp, simplify, symbols
+
+    n = symbols("n", integer=True, positive=True)
+    u, lam = symbols("u lambda", positive=True)
+    upper_piece = u**2 * (
+        exp(-n / u) - (1 - 1 / u) ** n
+    )
+    scaled_derivative = (
+        exp(-lam) * (2 + lam)
+        - (1 - lam / n) ** (n - 1)
+        * (2 + lam - 2 * lam / n)
+    )
+    assert simplify(
+        upper_piece.diff(u) / u
+        - scaled_derivative.subs(lam, n / u)
+    ) == 0
+
+    ratio = (
+        exp(-lam) * (2 + lam)
+        / (
+            (1 - lam / n) ** (n - 1)
+            * (2 + lam - 2 * lam / n)
+        )
+    )
+    expected_log_derivative = (
+        -lam**2 * (lam * n - 2 * lam + 3 * n - 2)
+        / (
+            (lam + 2)
+            * (lam - n)
+            * (lam * n - 2 * lam + 2 * n)
+        )
+    )
+    assert powsimp(
+        factor(log(ratio).diff(lam) - expected_log_derivative),
+        force=True,
+    ) == 0
+
+    # The positive logarithmic-series terms at lambda=1 leave a strictly
+    # positive rational lower bound for every n>=4.
+    log_ratio_one_lower = (
+        -1
+        + (n - 1) * (1 / n + 1 / (2 * n**2))
+        + 2 / (3 * n)
+    )
+    assert simplify(
+        log_ratio_one_lower - (n - 3) / (6 * n**2)
+    ) == 0
+
+    # Exact algebra in the general endpoint estimate.
+    x_plus_y = n / (n - 1) + n / (2 * (n - 1) ** 2)
+    assert simplify(
+        x_plus_y
+        - (1 + 3 / (2 * (n - 1)) + 1 / (2 * (n - 1) ** 2))
+    ) == 0
+
+    # At n=4, e<11/4 implies exp(4/3)<4, while the degree-nine
+    # positive Taylor sum gives exp(4)>54.
+    e_upper = _exp_taylor_upper(Fraction(1), 6)
+    exp_four_lower = _exp_taylor_lower(Fraction(4), 9)
+    assert e_upper < Fraction(11, 4)
+    assert Fraction(11, 4) ** 4 < 64
+    assert exp_four_lower == Fraction(153527, 2835)
+    assert exp_four_lower > 54
+    assert Fraction(17, 36) > Fraction(25, 54)
+
+    # The induction proving the endpoint estimate for n>=5 starts at this
+    # exact degree-four Taylor bound.  The difference below proves that the
+    # ratio of consecutive right sides is less than two.
+    exp_three_lower = _exp_taylor_lower(Fraction(3), 4)
+    assert exp_three_lower == Fraction(131, 8)
+    assert exp_three_lower > Fraction(72, 5)
+    assert factor(
+        2 * (n + 1) ** 3 - n * (n + 2) ** 2
+    ) == n**3 + 2 * n**2 + 2 * n + 2
+
+
 def two_level_profile_regression(
     n: int,
     k: int,
@@ -606,6 +686,7 @@ def build_certificate() -> dict[str, object]:
     verify_two_positive_knot_theorem()
     verify_n3_four_knot_theorem()
     verify_three_positive_convex_core()
+    verify_three_positive_far_cap()
     checks = []
     # Include both the boundary lambda=k and strict lambda>k cases.  These
     # finite checks guard the beta/binomial and gamma/Poisson translations;
@@ -633,7 +714,7 @@ def build_certificate() -> dict[str, object]:
         two_level_checks.append(two_level_profile_regression(n, k, a, b))
 
     return {
-        "schema_version": 7,
+        "schema_version": 8,
         "status": (
             "Research certificate: exact reductions and an obstruction, "
             "not an all-sample-size coverage certificate."
@@ -720,6 +801,33 @@ def build_certificate() -> dict[str, object]:
             ),
             "symbolic_identity_check": "passed",
         },
+        "three_positive_far_cap_all_n": {
+            "analytic_basis": (
+                "The divided-difference multiplication identity, an exact "
+                "monotonicity proof for g_n on [0,n], and exact endpoint "
+                "bounds comparing the two secant slopes"
+            ),
+            "scope": (
+                "Every n>=4 profile having n-2 zero coefficients and three "
+                "ordered nonnegative coefficients a<=b<=c with sum at most "
+                "n and c>=n-1"
+            ),
+            "symbolic_identity_and_constant_check": "passed",
+            "exact_rational_bounds": {
+                "exp_4_degree_9_lower": _fraction_record(
+                    Fraction(153527, 2835)
+                ),
+                "exp_3_degree_4_lower": _fraction_record(
+                    Fraction(131, 8)
+                ),
+                "n4_g4_at_3_lower": _fraction_record(
+                    Fraction(17, 36)
+                ),
+                "n4_25_exp_neg_4_upper": _fraction_record(
+                    Fraction(25, 54)
+                ),
+            },
+        },
         "two_positive_knots_all_n": {
             "analytic_basis": (
                 "A divided-difference multiplication identity and the "
@@ -786,6 +894,12 @@ def main(argv: list[str] | None = None) -> int:
         "all-n three-positive convex core:",
         certificate["three_positive_convex_core_all_n"][
             "symbolic_identity_check"
+        ],
+    )
+    print(
+        "all-n three-positive far cap:",
+        certificate["three_positive_far_cap_all_n"][
+            "symbolic_identity_and_constant_check"
         ],
     )
     print(

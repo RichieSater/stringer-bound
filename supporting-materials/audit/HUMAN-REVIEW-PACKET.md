@@ -442,12 +442,16 @@ Questions:
     `g_n` give the exact `k=2` Poisson-minus-binomial CDF identity (15x), and
     does Anderson--Samuels give precisely the threshold
     `c<=n^2/{2(n+1)}` including its continuity endpoint?
-14. Is the conclusion limited to the complete `n=2` and `n=3`
+14. For the dimension-free three-positive far cap, do (15z)--(15ab) prove
+    that `g_n` is increasing on `[0,n]` for every `n>=4`, do
+    (15ac)--(15af) prove the required endpoint estimate, and does the final
+    secant comparison cover every ordered triple with `c>=n-1`?
+15. Is the conclusion limited to the complete `n=2` and `n=3`
     Poissonization inequalities, every two-level profile, every profile with
-    at most two nonzero coefficients, the stated three-positive convex core,
-    and the radial boundary reduction, without being promoted to the still-open
-    general-dimensional comparison or to a Stringer coverage theorem by
-    itself?
+    at most two nonzero coefficients, the stated three-positive convex-core
+    and far-cap regions, and the radial boundary reduction, without being
+    promoted to the still-open general-dimensional comparison or to a
+    Stringer coverage theorem by itself?
 
 ## Minimum reproduction record
 

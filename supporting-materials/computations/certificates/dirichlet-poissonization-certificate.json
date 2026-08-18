@@ -2894,12 +2894,39 @@
     "scope": "Any strictly positive coefficient profile with sum_i y_i<=n can be moved to a zero-knot boundary without increasing the Dirichlet--Poissonization gap.",
     "symbolic_identity_check": "passed"
   },
-  "schema_version": 7,
+  "schema_version": 8,
   "status": "Research certificate: exact reductions and an obstruction, not an all-sample-size coverage certificate.",
   "three_positive_convex_core_all_n": {
     "analytic_basis": "The divided-difference multiplication identity, the exact k=2 Poisson-minus-binomial CDF formula for g_n''/2, and Anderson--Samuels (1967)",
     "scope": "Every n>=3 profile having n-2 zero coefficients and three ordered nonzero coefficients a<=b<=c with sum at most n and c<=n^2/(2(n+1))",
     "symbolic_identity_check": "passed"
+  },
+  "three_positive_far_cap_all_n": {
+    "analytic_basis": "The divided-difference multiplication identity, an exact monotonicity proof for g_n on [0,n], and exact endpoint bounds comparing the two secant slopes",
+    "exact_rational_bounds": {
+      "exp_3_degree_4_lower": {
+        "decimal": "16.375000000000000000",
+        "denominator": "8",
+        "numerator": "131"
+      },
+      "exp_4_degree_9_lower": {
+        "decimal": "54.154144620811287478",
+        "denominator": "2835",
+        "numerator": "153527"
+      },
+      "n4_25_exp_neg_4_upper": {
+        "decimal": "0.462962962962962963",
+        "denominator": "54",
+        "numerator": "25"
+      },
+      "n4_g4_at_3_lower": {
+        "decimal": "0.472222222222222222",
+        "denominator": "36",
+        "numerator": "17"
+      }
+    },
+    "scope": "Every n>=4 profile having n-2 zero coefficients and three ordered nonnegative coefficients a<=b<=c with sum at most n and c>=n-1",
+    "symbolic_identity_and_constant_check": "passed"
   },
   "two_level_profiles": {
     "analytic_basis": "The radial zero-knot reduction in DIRICHLET-POISSONIZATION.md and Anderson--Samuels (1967) at the resulting equal-block endpoint",
