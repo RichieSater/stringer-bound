@@ -300,7 +300,8 @@ three-coordinate inequality in
 [`THREE-EXPONENTIAL-QUANTILE.md`](supporting-materials/theory/THREE-EXPONENTIAL-QUANTILE.md),
 whose margin is now known to point strictly inward from the finite axes and
 to have a strictly negative fixed-sum transverse second derivative on the
-positive diagonal,
+positive diagonal, and whose full region with both gaps at least (13) is
+proved by an analytic Gram-matrix comparison,
 and pursue the general Dirichlet--Poissonization inequality isolated in
 [`ALL-N-POISSON-PROGRAM.md`](supporting-materials/theory/ALL-N-POISSON-PROGRAM.md)
 using the proved zero-knot reduction and all-two-level case in

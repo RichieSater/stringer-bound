@@ -858,6 +858,33 @@
       "limitations": "This proves strict local transverse concavity at the positive diagonal only. It does not prove global monotonicity in gap asymmetry, the finite off-symmetry interior inequality, three-coordinate convexity, or general-n Stringer coverage."
     },
     {
+      "id": "three-exponential-two-large-gap-region",
+      "classification": "proved_theorem",
+      "statement": "At tail threshold 4 exp(-3), the explicit three-exponential tilted-simplex inequality holds whenever both gap coordinates are at least 13.",
+      "manuscript_labels": [],
+      "evidence": [
+        {
+          "path": "supporting-materials/theory/THREE-EXPONENTIAL-QUANTILE.md",
+          "role": "complete boundary upper bound, full-quadrant complement Gram lower bound, and exact threshold comparison",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/python/all_n_poisson_reductions.py",
+          "role": "exact integer checks of the constants and the threshold comparison at gap 23",
+          "trust": "corroboration_only"
+        },
+        {
+          "path": "supporting-materials/computations/tests/test_all_n_poisson_reductions.py",
+          "role": "regression test for the two-large-gap constants",
+          "trust": "corroboration_only"
+        }
+      ],
+      "verification_commands": [
+        "make all-n-reduction-check"
+      ],
+      "limitations": "This proves only the region min(z,w)>=13. It does not prove the remaining finite off-symmetry region with smaller gap below 13, full three-coordinate convexity, or general-n Stringer coverage."
+    },
+    {
       "id": "three-exponential-infinite-gap-boundary",
       "classification": "proved_theorem",
       "statement": "At tail threshold 4 exp(-3), the complete infinite-gap boundary of the reduced three-exponential inequality satisfies the target by an exact moment limit to the proved two-exponential comparison; equality occurs only at the sharp zero-gap corner.",

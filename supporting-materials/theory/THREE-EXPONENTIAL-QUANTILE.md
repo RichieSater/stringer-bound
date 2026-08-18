@@ -8,8 +8,10 @@
 > strictly negative fixed-sum transverse second derivative at the latter,
 > reduces the complete
 > infinite-gap boundary to the two-exponential theorem, and proves positivity
-> in a punctured neighborhood of the only zero-margin corner.  The finite off-symmetry interior remains
-> open.  Nothing in this note is a general-`n` Stringer coverage theorem.
+> in a punctured neighborhood of the only zero-margin corner.  It also proves
+> the full region in which both gaps are at least `13`.  The remaining finite
+> off-symmetry region with smaller gap below `13` is open.  Nothing in this
+> note is a general-`n` Stringer coverage theorem.
 
 Let `E_1,E_2,E_3` be independent unit exponentials and put
 
@@ -1041,10 +1043,154 @@ write `R_hat=(X,Y)`.  Then
 \]
 
 Thus `rho(z,w)->4`, `h(z,w)->0`, `A(z,w)->0`, and `Z(z,w)->0`; the left side
-of (16) tends to one.  Hence every finite point on the coordinate axes,
-every point on the diagonal, and the complete infinite-gap boundary satisfy
-the target.  What remains is the finite off-symmetry domain
-`0<z<w<infinity`, up to interchange of `z` and `w`.
+of (16) tends to one.
+
+There is also a useful nonasymptotic version of this two-large-gap
+conclusion.
+
+**Two-large-gap theorem.** Inequality (16) holds throughout
+
+\[
+ \min(z,w)\ge13.                                     \tag{52a}
+\]
+
+To prove this, assume by symmetry that `1<=z<=w` and put `delta=w-z`.
+The tilted-simplex law is the law of independent exponential variables of
+rates `z,w`, conditioned on their sum being at most one.  This decreasing
+conditioning event gives
+
+\[
+ 0\le\mu_1\le\frac1z,
+ \qquad 0\le\mu_2\le\frac1w.                        \tag{52b}
+\]
+
+For completeness, condition first on the first exponential.  The
+conditional probability of the event is a decreasing function of that
+coordinate, so its covariance with the coordinate is nonpositive; division
+by the event probability proves the first bound.  The second is symmetric.
+
+On the boundary `u+v=1`, set `r=1-u`.  Its density is
+`e^{-z}e^{-\delta r}`.  For `c=(c_1,c_2)`, the elementary inequality
+`(x+y)^2<=2x^2+2y^2`, (52b), and
+
+\[
+ \begin{aligned}
+ \int_0^1e^{-\delta r}\,dr
+ &\le\frac2{1+\delta},\\
+ \int_0^1r^2e^{-\delta r}\,dr
+ &\le\frac4{(1+\delta)^3}.                          \tag{52c}
+ \end{aligned}
+\]
+
+The first bound follows by combining the elementary bounds `1` and
+`1/delta`.  For the second, multiply the desired inequality by
+`delta^3(1+delta)^3e^delta`.  The resulting exponential polynomial is
+
+\[
+ H(\delta)=\delta^5+5\delta^4+11\delta^3+13\delta^2+8\delta+2
+ +(2\delta^3-6\delta^2-6\delta-2)e^\delta.
+\]
+
+Its coefficients vanish through degree two; after multiplication by `n!`,
+the coefficients in degrees `3,4,5` are `22,70,88`, and for `n>=6` they are
+`2n^3-12n^2+4n-2=2n^2(n-6)+4n-2>0`.  Thus `H(delta)>0`.
+
+give
+
+\[
+ \begin{aligned}
+ c^{\mathsf T}Lc
+ \le{}&\frac{4e^{-z}(1+1/z)^2}{1+\delta}\,c_1^2\\
+ &+e^{-z}\left\{
+ \frac{16}{(1+\delta)^3}
+ +\frac{8}{w^2(1+\delta)}\right\}c_2^2.            \tag{52d}
+ \end{aligned}
+\]
+
+These estimates use only `(r+1/w)^2<=2r^2+2/w^2` in addition to (52c).
+
+For a sharper bulk lower bound, extend the integral temporarily to the full
+nonnegative quadrant.  Set
+
+\[
+ r_1=\frac{c_1}{z},\qquad r_2=\frac{c_2}{w},
+ \qquad d=c^{\mathsf T}\mu.
+\]
+
+After `x=zu` and `y=wv`, direct integration over the quadrant gives
+
+\[
+ \int_{\mathbb R_+^2}\{c^{\mathsf T}((u,v)-\mu)\}^2
+ e^{-zu-wv}\,du\,dv
+ =\frac{r_1^2+r_2^2+(r_1+r_2-d)^2}{zw}
+ \ge\frac{r_1^2+r_2^2}{zw}.                         \tag{52e}
+\]
+
+The complement of `Delta` is contained, after this scaling, in
+`{x+y>z}`.  By (52b), `|d|<=|r_1|+|r_2|`.  Hence
+
+\[
+ (r_1x+r_2y-d)^2
+ \le2(r_1^2+r_2^2)(x^2+y^2+2).
+\]
+
+Writing `s=x+y`, integrating first along the segment `x+y=s`, and using
+`x^2+y^2<=s^2`, the complement contributes at most
+
+\[
+ \frac{2(r_1^2+r_2^2)}{zw}
+ \int_z^\infty(s^3+2s)e^{-s}\,ds
+ =\frac{\theta(z)(r_1^2+r_2^2)}{zw},                \tag{52f}
+\]
+
+where
+
+\[
+ \theta(z)=2e^{-z}(z^3+3z^2+8z+8).
+\]
+
+Subtracting (52f) from (52e) therefore yields
+
+\[
+ c^{\mathsf T}Kc
+ \ge\frac{1-\theta(z)}{zw}
+ \left(\frac{c_1^2}{z^2}+\frac{c_2^2}{w^2}\right). \tag{52g}
+\]
+
+Since `w/(1+delta)<=z` for `z>=1`, comparing (52d) and (52g) gives
+
+\[
+ h(z,w)=\sup_{c\ne0}\frac{c^{\mathsf T}Lc}{c^{\mathsf T}Kc}
+ \le\frac{24z^4e^{-z}}{1-\theta(z)}.                \tag{52h}
+\]
+
+Both `theta(z)` and `z^4e^{-z}` decrease for `z>=4`; for the first function,
+differentiate its polynomial factor to obtain
+`e^z\theta'(z)/2=-z^3-2z<0`.  The exponential series gives
+`e>163/60>19/7`.  Since the polynomial in `theta` equals `2816` at `z=13`,
+the exact integer inequalities
+
+\[
+ 163^{13}>100\cdot2816\cdot60^{13},
+ \qquad
+ 49\,163^{13}>750\cdot13^4\,60^{13}                \tag{52i}
+\]
+
+imply `theta(13)<1/50` and make the right side of (52h) less than `8/5`
+at `z=13`.  It remains below `8/5` thereafter.  Thus `h(z,w)<8/5` under
+(52a).  If `h<=0`, the curvature condition is automatic.  Otherwise,
+
+\[
+ e^{-h}\{1+Ah+Zh^2\}\ge e^{-8/5}>4e^{-3},           \tag{52j}
+\]
+
+The last inequality is equivalent to `e^7>4^5`; it follows from
+`e>19/7` and the exact inequality `19^7>4^5 7^7`.  This proves the theorem.
+
+Hence every finite point on the coordinate axes, every point on the
+diagonal, the complete infinite-gap boundary, and the explicit region
+(52a) satisfy the target.  What remains is the finite off-symmetry domain
+`0<z<w<infinity` with `z<13`, up to interchange of `z` and `w`.
 
 ## 7. A positive neighborhood of the sharp corner
 

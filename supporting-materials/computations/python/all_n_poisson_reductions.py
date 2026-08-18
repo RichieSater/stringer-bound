@@ -691,6 +691,49 @@ def check_three_exponential_diagonal_transversality() -> None:
         assert 0 < ratio_six < Rational(1, 10000)
 
 
+def check_three_exponential_two_large_gap_region() -> None:
+    """Check the exact constants in the analytic two-large-gap bound."""
+
+    # Check the coefficient proof of
+    # integral_0^1 r^2 exp(-d r) dr <= 4/(1+d)^3.
+    d = symbols("d", positive=True)
+    hfun = (
+        d**5 + 5 * d**4 + 11 * d**3 + 13 * d**2 + 8 * d + 2
+        + (2 * d**3 - 6 * d**2 - 6 * d - 2) * exp(d)
+    )
+    hseries = series(hfun, d, 0, 20).removeO().expand()
+    assert all(hseries.coeff(d, order) == 0 for order in range(3))
+    assert [
+        factorial(order) * hseries.coeff(d, order)
+        for order in range(3, 6)
+    ] == [22, 70, 88]
+    for order in range(6, 20):
+        scaled = factorial(order) * hseries.coeff(d, order)
+        expected = 2 * order**3 - 12 * order**2 + 4 * order - 2
+        assert scaled == expected
+        assert expected > 0
+
+    # The full-quadrant complement polynomial has the documented value at
+    # z=13.  The two boundary/bulk coordinate comparisons contribute the
+    # constants 16 and 16+8=24 in the common trace bound.
+    complement_polynomial = 13**3 + 3 * 13**2 + 8 * 13 + 8
+    assert complement_polynomial == 2816
+    assert 4 * 4 == 16
+    assert 16 + 8 == 24
+
+    # e > 163/60 by its series through degree five.  These exact integer
+    # inequalities respectively prove theta(13)<1/50 and the final trace
+    # bound at z=13 is less than 8/5.
+    exponential_partial_sum = sum(
+        Fraction(1, factorial(order)) for order in range(6)
+    )
+    assert exponential_partial_sum == Fraction(163, 60)
+    assert exponential_partial_sum > Fraction(19, 7)
+    assert 163**13 > 100 * complement_polynomial * 60**13
+    assert 49 * 163**13 > 750 * 13**4 * 60**13
+    assert 19**7 > 4**5 * 7**7
+
+
 def check_three_exponential_equal_smaller_line() -> None:
     """Check the exact two-equal-smaller-weights proof for the 3D target."""
 
@@ -1117,6 +1160,7 @@ def main() -> int:
     check_three_exponential_axis_transversality()
     check_three_exponential_equal_smaller_line()
     check_three_exponential_diagonal_transversality()
+    check_three_exponential_two_large_gap_region()
     check_three_exponential_infinite_gap_boundary()
     check_three_exponential_sharp_corner_expansion()
     check_kernel_identity()
@@ -1133,6 +1177,7 @@ def main() -> int:
     print("three-exponential axis transversality: STRICTLY POSITIVE")
     print("three-exponential equal-smaller symmetry line: PROVED")
     print("three-exponential diagonal transverse second derivative: NEGATIVE")
+    print("three-exponential min-gap-at-least-13 region: PROVED")
     print("three-exponential infinite-gap boundary: REDUCED TO PROVED 2D CASE")
     print("three-exponential sharp corner: POSITIVE PUNCTURED NEIGHBORHOOD")
     print("SymPol shortcut counterexample (numerical):")

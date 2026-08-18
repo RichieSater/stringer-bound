@@ -366,22 +366,32 @@ Questions:
     checks and the decreasing negative-to-base-7 ratios, prove
     `mathcal E(s)>0` for every `s>0`, and therefore
     `Psi_s''(0)<0`?
-23. Under `Y=wV`, does dominated convergence give the stated product limit
+23. Does conditioning independent exponentials on their sum being at most
+    one prove the two mean bounds in (52b)?
+24. Do the boundary estimates (52c)--(52d) and the full-quadrant complement
+    bound (52e)--(52g) imply the uniform trace estimate (52h), with all
+    constants, inclusions, and coordinate scalings correct?
+25. Do the exact coefficient and integer comparisons at `z=13`, together with monotonicity
+    of `theta(z)` and `z^4e^{-z}`, prove the entire region
+    `min(z,w)>=13`, rather than only
+    an asymptotic statement?
+26. Under `Y=wV`, does dominated convergence give the stated product limit
     on the infinite-gap boundary for every moment entering the generalized
     eigenvalue problem?
-24. Are the two limiting generalized eigenvalues in (46) correct, and does
+27. Are the two limiting generalized eigenvalues in (46) correct, and does
     (48) prove that the eigenvalue inherited from the two-exponential problem
     is the smaller one?
-25. Do the partition-function and tail limits in (50)--(51) reduce the full
+28. Do the partition-function and tail limits in (50)--(51) reduce the full
     infinite-gap edge, not merely its sharp corner, to the proved
     two-exponential comparison?
-26. After setting `t=1/w` and rescaling `(U,V)` to `(U,wV)`, does the simple
+29. After setting `t=1/w` and rescaling `(U,V)` to `(U,wV)`, does the simple
     generalized eigenvalue at the sharp corner have the expansion in (54),
     and does substitution give the margin expansion in (55)?
-27. Is the discarded `e^(-1/t)` contribution flat to the required order,
+30. Is the discarded `e^(-1/t)` contribution flat to the required order,
     and does the two-scale remainder argument prove a punctured positive
     neighborhood rather than only positivity along fixed rays?
-28. Are the remaining claims limited to finite `0<z<w<infinity`, without
+31. Are the remaining claims limited to finite `0<z<w<infinity` with
+    `z<13`, without
     using any proved boundary, symmetry, or local-corner result as a full
     three-coordinate convexity or general-`n` coverage theorem?
 
