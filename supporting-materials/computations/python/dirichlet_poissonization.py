@@ -22,7 +22,8 @@ boundary reduction, a proved structured family, and one obstruction:
   exact algebra and rational instances both on and strictly inside the sum
   boundary; and
 * the radial reduction and a one-variable divided-difference argument prove
-  the complete comparison for ``n=2``; and
+  the comparison in every dimension when at most two coefficients are
+  nonzero, and therefore the complete comparison for ``n=2``; and
 * a fully explicit, mean-constrained ``1/n``-concave law shows why generic
   one-dimensional s-concave localization is too broad to prove the
   comparison.
@@ -238,33 +239,54 @@ def verify_two_level_symbolic_identities() -> None:
     assert factor(together(endpoint_sum_from_path - ell * b_star)) == 0
 
 
-def verify_n2_three_knot_theorem() -> None:
-    """Check the algebra and exact constants in the complete ``n=2`` proof."""
-    from sympy import diff, exp, simplify, symbols
+def verify_two_positive_knot_theorem() -> None:
+    """Check the algebra in the all-``n`` two-positive-knot proof."""
+    from sympy import diff, exp, factor, log, powsimp, simplify, symbols
 
-    u, x = symbols("u x", positive=True)
-    lower_piece = u * exp(-2 / u)
-    upper_piece = lower_piece - u + 2 - 1 / u
-    g = exp(-2 * x) * (1 + 2 * x) - 1 + x**2
-
-    assert simplify(diff(lower_piece, u) - exp(-2 / u) * (1 + 2 / u)) == 0
-    assert simplify(diff(upper_piece, u) - g.subs(x, 1 / u)) == 0
-    assert simplify(diff(g, x) - 2 * x * (1 - 2 * exp(-2 * x))) == 0
-
-    # With H(0)=0 and f(u)=H(u)/u, the boundary divided difference is
-    # exactly (f(b)-f(a))/(b-a).
-    a, b, fa, fb = symbols("a b fa fb", positive=True)
-    divided_difference = ((b * fb - a * fa) / (b - a) - a * fa / a) / b
-    assert simplify(divided_difference - (fb - fa) / (b - a)) == 0
-
-    # Exact series bounds used to justify 2<e<3 in the endpoint argument.
-    e_lower = sum(Fraction(1, math.factorial(order)) for order in range(3))
-    e_upper = (
-        sum(Fraction(1, math.factorial(order)) for order in range(7))
-        + Fraction(1, 4410)
+    n = symbols("n", integer=True, positive=True)
+    u, x, r = symbols("u x r", positive=True)
+    upper_piece = u * (exp(-n / u) - (1 - 1 / u) ** n)
+    expected_derivative = (
+        exp(-n / u) * (1 + n / u)
+        - (1 - 1 / u) ** (n - 1) * (1 + (n - 1) / u)
     )
+    assert simplify(diff(upper_piece, u) - expected_derivative) == 0
+
+    ratio = (
+        exp(-n * x) * (1 + n * x)
+        / ((1 - x) ** (n - 1) * (1 + (n - 1) * x))
+    )
+    expected_log_derivative = (
+        -n * x * (n * (n - 1) * x**2 + n * x - 1)
+        / ((x - 1) * (1 + n * x) * (1 + (n - 1) * x))
+    )
+    assert powsimp(
+        factor(diff(log(ratio), x) - expected_log_derivative),
+        force=True,
+    ) == 0
+
+    # The lower bounds in the proof of log R_n(1/(n-1))>0 leave exactly
+    # 5r^2/24.
+    log_ratio_lower = (
+        -1 - r + (r / 2 - r**2 / 8) + 1 + r / 2 + r**2 / 3
+    )
+    assert simplify(log_ratio_lower - 5 * r**2 / 24) == 0
+
+    # The termwise logarithmic-series comparison uses j*2^j>=j+1.  The
+    # base case is equality and this recurrence makes the induction strict.
+    j = symbols("j", integer=True, positive=True)
+    sequence = j * 2**j - j - 1
+    assert sequence.subs(j, 1) == 0
+    assert simplify(sequence.subs(j, j + 1) - 2 * sequence - (2 ** (j + 1) + j)) == 0
+
+    # The final endpoint comparison only needs e>2.
+    e_lower = sum(Fraction(1, math.factorial(order)) for order in range(3))
     assert e_lower > 2
-    assert e_upper < 3
+
+
+def verify_n2_three_knot_theorem() -> None:
+    """Check the complete ``n=2`` corollary through its stronger theorem."""
+    verify_two_positive_knot_theorem()
 
 
 def two_level_profile_regression(
@@ -421,7 +443,7 @@ def build_certificate() -> dict[str, object]:
     verify_saffine_symbolic_identities()
     verify_radial_symbolic_identities()
     verify_two_level_symbolic_identities()
-    verify_n2_three_knot_theorem()
+    verify_two_positive_knot_theorem()
     checks = []
     # Include both the boundary lambda=k and strict lambda>k cases.  These
     # finite checks guard the beta/binomial and gamma/Poisson translations;
@@ -449,7 +471,7 @@ def build_certificate() -> dict[str, object]:
         two_level_checks.append(two_level_profile_regression(n, k, a, b))
 
     return {
-        "schema_version": 4,
+        "schema_version": 5,
         "status": (
             "Research certificate: exact reductions and an obstruction, "
             "not an all-sample-size coverage certificate."
@@ -490,12 +512,23 @@ def build_certificate() -> dict[str, object]:
         },
         "n2_three_knot_theorem": {
             "analytic_basis": (
-                "The radial zero-knot reduction followed by monotonicity of "
-                "H_2(u)/u on the two ranges forced by a+b<=2"
+                "The radial zero-knot reduction followed by the all-n "
+                "two-positive-knot theorem"
             ),
             "scope": (
                 "Every nonnegative three-coordinate profile with "
                 "sum_i y_i<=2"
+            ),
+            "symbolic_identity_and_constant_check": "passed",
+        },
+        "two_positive_knots_all_n": {
+            "analytic_basis": (
+                "A divided-difference multiplication identity and the "
+                "one-variable monotonicity proof for H_n(u)/u^(n-1)"
+            ),
+            "scope": (
+                "Every n>=2 profile having at most two nonzero "
+                "coefficients and sum_i y_i<=n"
             ),
             "symbolic_identity_and_constant_check": "passed",
         },
@@ -531,6 +564,12 @@ def main(argv: list[str] | None = None) -> int:
                 "exact_rational_regression_checks"
             ]
         ),
+    )
+    print(
+        "all-n two-positive-knot comparison:",
+        certificate["two_positive_knots_all_n"][
+            "symbolic_identity_and_constant_check"
+        ],
     )
     print(
         "complete n=2 three-knot comparison:",

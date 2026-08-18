@@ -2853,7 +2853,7 @@
     }
   },
   "n2_three_knot_theorem": {
-    "analytic_basis": "The radial zero-knot reduction followed by monotonicity of H_2(u)/u on the two ranges forced by a+b<=2",
+    "analytic_basis": "The radial zero-knot reduction followed by the all-n two-positive-knot theorem",
     "scope": "Every nonnegative three-coordinate profile with sum_i y_i<=2",
     "symbolic_identity_and_constant_check": "passed"
   },
@@ -2862,7 +2862,7 @@
     "scope": "Any strictly positive coefficient profile with sum_i y_i<=n can be moved to a zero-knot boundary without increasing the Dirichlet--Poissonization gap.",
     "symbolic_identity_check": "passed"
   },
-  "schema_version": 4,
+  "schema_version": 5,
   "status": "Research certificate: exact reductions and an obstruction, not an all-sample-size coverage certificate.",
   "two_level_profiles": {
     "analytic_basis": "The radial zero-knot reduction in DIRICHLET-POISSONIZATION.md and Anderson--Samuels (1967) at the resulting equal-block endpoint",
@@ -3639,5 +3639,10 @@
       }
     ],
     "symbolic_identity_check": "passed"
+  },
+  "two_positive_knots_all_n": {
+    "analytic_basis": "A divided-difference multiplication identity and the one-variable monotonicity proof for H_n(u)/u^(n-1)",
+    "scope": "Every n>=2 profile having at most two nonzero coefficients and sum_i y_i<=n",
+    "symbolic_identity_and_constant_check": "passed"
   }
 }

@@ -3,8 +3,9 @@
 > **Status.** This note separates proved reductions from two analytic targets.
 > Exponential-quantile convexity is now proved sharply in two coordinates but
 > remains open in three or more; Dirichlet Poissonization remains open in
-> general, although its complete `n=2` case is proved.  This is a research
-> roadmap, not a coverage claim.  The paper
+> general, although every profile with at most two nonzero coefficients and
+> the complete `n=2` case are proved.  This is a research roadmap, not a
+> coverage claim.  The paper
 > continues to state that ordinary Stringer coverage is unresolved for
 > arbitrary `n`.
 
@@ -396,27 +397,26 @@ particular, it includes every active-boundary profile
  \qquad ka+(n+1-k)b=n.
 \]
 
-The first nontrivial simplex dimension is also complete.  For `n=2`, the
-radial lemma reduces every profile to `(0,a,b)` with `a+b<=2`.  At that
-boundary,
+There is a second dimension-free family.  If all but two knots vanish and
+the remaining values are `0<=a<=b` with `a+b<=n`, then
 
 \[
- [0,a,b]H_2
- =\frac{H_2(b)/b-H_2(a)/a}{b-a}\ge0.              \tag{16a}
+ [\underbrace{0,\ldots,0}_{n-1},a,b]H_n
+ =[a,b]\frac{H_n(u)}{u^{n-1}}\ge0.                 \tag{16a}
 \]
 
-The last sign follows from a direct one-variable argument: `H_2(u)/u`
-increases up to `u=1`, while its minimum on `[1,2]` is its value at `1`.
-Thus the threshold comparison underlying (B) is proved for every
-three-coordinate coefficient vector satisfying the induced sum constraint.
-At the tail levels in this program, this proves (B) in three coordinates;
-the general dimension remains open.
+The last sign follows from a one-variable monotonicity argument that uses the
+sum constraint to cover all possible positions of `a` and `b`.  Combining
+this theorem with the radial lemma proves the complete `n=2` threshold
+comparison: every three-knot profile moves to a boundary profile with at
+most two nonzero knots.  At the tail levels in this program, this proves (B)
+in three coordinates; the general dimension remains open.
 
 The radial derivative is the density derivative at the threshold.  A
 Laplace-transform convolution identity shows that the mode of every
 weighted exponential sum is no larger than its mean, giving the required
-sign.  Coordinate-face profiles with two or more distinct positive knot
-values remain open.  See
+sign.  Coordinate-face profiles with three or more nonzero knots and at
+least three distinct coefficient values remain open.  See
 [`DIRICHLET-POISSONIZATION.md`](DIRICHLET-POISSONIZATION.md) for the proof,
 the full reduction, and the exact localization obstruction.
 

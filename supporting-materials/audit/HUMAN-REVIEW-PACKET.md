@@ -418,16 +418,21 @@ Questions:
 4. Does the equal-block endpoint reduce to the cited Anderson--Samuels
    binomial--Poisson comparison with the correct indices and endpoint
    continuity?
-5. For `n=2`, does the radial lemma reduce every profile to an ordered
-   boundary vector `(0,a,b)` with `a+b<=2`?
-6. Is `[0,a,b]H_2` exactly the secant slope of `H_2(u)/u` in (15c), including
-   confluent and zero endpoints by continuity?
-7. Do (15d)--(15f) prove that `H_2(u)/u` increases on `(0,1]` and is never
-   below its value at one on `[1,2]`, thereby covering every permitted
-   `(a,b)`?
-8. Is the conclusion limited to the complete `n=2` Poissonization inequality,
-   every two-level profile, and the radial boundary reduction, without being
-   promoted to the still-open general-dimensional comparison?
+5. For a profile with `n-1` zero knots, does the divided-difference
+   multiplication rule give exactly (15b), including confluent endpoints?
+6. Is the derivative formula (15c) correct, and does (15d) prove that its
+   sign can change at most once on `[1,n]`, only from positive to negative?
+7. Does the termwise logarithmic-series comparison prove (15e), and does it
+   imply the strict endpoint comparison (15f) for every `n>=2`?
+8. Does the lower bound (15g) keep `f_n` increasing on `[1,n-1]`, and do the
+   three cases following it exhaust all ordered `a,b` with `a+b<=n`?
+9. For `n=2`, does the radial lemma reduce every profile to one covered by
+   the all-`n` two-positive-knot theorem, with the inequality direction
+   preserved?
+10. Is the conclusion limited to the complete `n=2` Poissonization
+    inequality, every two-level profile, every profile with at most two
+    nonzero coefficients, and the radial boundary reduction, without being
+    promoted to the still-open general-dimensional comparison?
 
 ## Minimum reproduction record
 

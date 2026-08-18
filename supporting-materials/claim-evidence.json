@@ -971,6 +971,38 @@
       "limitations": "The neighborhood radius is proved to exist but is not numerically optimized or stated explicitly. The finite off-symmetry interior, full three-coordinate convexity, and general-n Stringer coverage remain open."
     },
     {
+      "id": "dirichlet-poissonization-two-positive-knots",
+      "classification": "proved_theorem",
+      "statement": "For every n at least 2, the constrained Dirichlet--Poissonization tail comparison holds for every coefficient profile having at most two nonzero coordinates.",
+      "manuscript_labels": [],
+      "evidence": [
+        {
+          "path": "supporting-materials/theory/DIRICHLET-POISSONIZATION.md",
+          "role": "complete divided-difference multiplication and one-variable monotonicity proof",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/python/dirichlet_poissonization.py",
+          "role": "exact symbolic checks of the derivative, logarithmic ratio, and series-comparison identities",
+          "trust": "corroboration_only"
+        },
+        {
+          "path": "supporting-materials/computations/certificates/dirichlet-poissonization-certificate.json",
+          "role": "regenerated record of the all-n two-positive-knot symbolic check",
+          "trust": "corroboration_only"
+        },
+        {
+          "path": "supporting-materials/computations/tests/test_dirichlet_poissonization.py",
+          "role": "regression test for the all-n two-positive-knot algebra",
+          "trust": "corroboration_only"
+        }
+      ],
+      "verification_commands": [
+        "make dirichlet-poissonization-check"
+      ],
+      "limitations": "This proves only profiles with at most two nonzero coefficients. Profiles with three or more nonzero coefficients and at least three distinct values remain open in general, as do three-coordinate exponential-quantile convexity and general-n Stringer coverage."
+    },
+    {
       "id": "dirichlet-poissonization-n2",
       "classification": "proved_theorem",
       "statement": "For n=2 and every nonnegative three-coordinate coefficient vector y with sum at most 2, the poissonized tail P(sum_i y_i E_i>2) is at least the uniform-simplex tail P(sum_i y_i D_i>1).",
@@ -978,12 +1010,12 @@
       "evidence": [
         {
           "path": "supporting-materials/theory/DIRICHLET-POISSONIZATION.md",
-          "role": "complete radial boundary reduction and one-variable divided-difference proof",
+          "role": "complete radial boundary reduction to the all-n two-positive-knot theorem",
           "trust": "proof_essential"
         },
         {
           "path": "supporting-materials/computations/python/dirichlet_poissonization.py",
-          "role": "exact symbolic checks of the boundary divided difference, derivative identities, and endpoint constants",
+          "role": "exact symbolic checks of the all-n two-positive-knot identities used at the radial endpoint",
           "trust": "corroboration_only"
         },
         {
