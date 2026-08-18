@@ -3,8 +3,9 @@
 > **Status.** This note reduces three-coordinate exponential-quantile
 > convexity to one explicit two-variable inequality and proves that
 > inequality on the repeated-maximum boundary and the equal-smaller symmetry
-> line.  Those results are proved; the off-symmetry strict interior remains
-> open.  Nothing in this note is a general-`n` Stringer coverage theorem.
+> line.  It also reduces the complete infinite-gap boundary to the proved
+> two-exponential theorem.  The finite off-symmetry interior remains open.
+> Nothing in this note is a general-`n` Stringer coverage theorem.
 
 Let `E_1,E_2,E_3` be independent unit exponentials and put
 
@@ -229,11 +230,11 @@ infinity; the limit is the equal-weight two-exponential problem,
 \]
 
 These endpoint calculations explain both the candidate constant and where
-equality must occur.  Sections 4 and 5 prove the coordinate axes and the
-diagonal; the off-symmetry strict interior remains.  Because `Z`, `A`, and
-every entry of `K` are elementary divided differences of the exponential,
-(16) is an explicit two-variable analytic inequality rather than an
-optimization over distributions.
+equality must occur.  Sections 4--6 prove the coordinate axes, the diagonal,
+and the infinite-gap boundary; the finite off-symmetry interior remains.
+Because `Z`, `A`, and every entry of `K` are elementary divided differences
+of the exponential, (16) is an explicit two-variable analytic inequality
+rather than an optimization over distributions.
 
 ## 4. A proved boundary: two equal maximal weights
 
@@ -592,5 +593,91 @@ Equations (36), (41)--(43) now imply
 \]
 
 This proves (16) on the full diagonal, including `s=0` by (17).  Together
-with Section 4, the remaining open domain is
-`z,w>0` with `z\ne w`.
+with Section 4, this leaves finite points with `z,w>0` and `z\ne w`.
+Section 6 checks the remaining boundary at infinity.
+
+## 6. The infinite-gap boundary
+
+The other boundary of the compactified gap domain also reduces exactly to
+the proved two-exponential theorem.  Fix `z>=0` and let `w` tend to infinity.
+After the rescaling `Y=wV`, the tilted-simplex law converges to the product
+of
+
+\[
+ U\ hbox{with density}\ \frac{e^{-zu}}{B(z)},
+ \quad 0\le u\le1,
+ \qquad\hbox{and}\qquad
+ Y\sim\operatorname{Exp}(1).                         \tag{45}
+\]
+
+Indeed, the rescaled domain is
+`{(u,y):0<=u<=1, 0<=y<=w(1-u)}`, its density is proportional to
+`e^(-zu-y)`, and dominated convergence applies to every moment used in
+(12).  Generalized eigenvalues are unchanged by the coordinate rescaling
+from `(U,V)` to `(U,Y)`.
+
+Let `mu_z=EU` and `sigma_z^2=Var(U)` under (45).  For
+`T=zU+Y`, independence makes both limiting covariance matrices diagonal.
+Their generalized eigenvalues are
+
+\[
+ \rho_U(z)=1+z\frac{E[U\{U-\mu_z\}^2]}{\sigma_z^2},
+ \qquad
+ \rho_Y(z)=3+z\mu_z.                                \tag{46}
+\]
+
+The first expression is `1` plus the tilted-interval Rayleigh quotient in
+the two-exponential proof.  Consequently,
+
+\[
+ \rho_U(z)=4-h_2(z),                                 \tag{47}
+\]
+
+where `h_2` is the function in equation (11) of
+[`TWO-EXPONENTIAL-QUANTILE.md`](TWO-EXPONENTIAL-QUANTILE.md).  Also,
+
+\[
+ \mu_z=\frac1z-\frac1{e^z-1}
+\]
+
+by continuous extension at zero.  The other eigenvalue is no smaller,
+because
+
+\[
+ \begin{aligned}
+ \rho_Y(z)-\rho_U(z)
+ &=h_2(z)-\frac{z}{e^z-1}\\
+ &=\frac{-z^2e^z\{ze^z+z-2e^z+2\}}
+ {(e^z-1)\{z^2e^z-(e^z-1)^2\}}>0                  \tag{48}
+ \end{aligned}
+\]
+
+for finite `z>0`.  The numerator's braced factor has positive power-series
+coefficients from degree three onward, and the last denominator factor is
+negative by (10) of the two-exponential note.  Thus
+
+\[
+ h(z,w)\longrightarrow h_2(z).                       \tag{49}
+\]
+
+Finally, (5) and (14) give
+
+\[
+ wZ(z,w)\longrightarrow B(z),
+ \qquad A(z,w)\longrightarrow B(z),                 \tag{50}
+\]
+
+and therefore
+
+\[
+ S_{z,w}\{h(z,w)\}
+ \longrightarrow e^{-h_2(z)}\{1+B(z)h_2(z)\}
+ \ge4e^{-3}.                                        \tag{51}
+\]
+
+The inequality in (51) is exactly the sharp comparison (16) in the
+two-exponential proof.  It is strict for `z>0` and becomes equality only at
+`z=0`, the sharp corner already identified in (18).  Thus every finite point
+on the coordinate axes, every point on the diagonal, and the complete
+infinite-gap boundary satisfy the target.  What remains is the finite
+off-symmetry domain `0<z<w<infinity`, up to interchange of `z` and `w`.

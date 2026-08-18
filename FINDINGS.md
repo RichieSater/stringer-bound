@@ -167,7 +167,8 @@ in the first unequal dimension is reduced to an explicit two-variable
 inequality, now proved on the boundary where two maximal weights are equal
 and on the symmetry line where two smaller weights are equal
 ([reduction and symmetry proofs](supporting-materials/theory/THREE-EXPONENTIAL-QUANTILE.md)).
-The off-symmetry strict interior and the separate
+The same analysis reduces the complete infinite-gap boundary to the proved
+two-coordinate theorem. The finite off-symmetry interior and the separate
 Dirichlet--Poissonization inequality remain open, so these analytic results
 are not a general coverage theorem.
 

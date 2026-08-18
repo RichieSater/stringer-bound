@@ -6,8 +6,8 @@ the algebra that isolates them:
 * the ordered-weight Poisson Stringer identity;
 * the exact two-exponential quantile-convexity threshold ``4*exp(-3)``;
 * the exact equal-weight Hessian in every dimension;
-* the three-exponential tilted-simplex curvature reduction, its proved
-  repeated-maximum boundary, and its proved equal-smaller symmetry line;
+* the three-exponential tilted-simplex curvature reduction and its proved
+  repeated-maximum, equal-smaller, and infinite-gap boundary families;
 * the gamma-kernel antiderivative identity; and
 * a decisive numerical counterexample to the tempting SymPol shortcut.
 """
@@ -18,8 +18,8 @@ from fractions import Fraction
 from math import comb
 
 from mpmath import mp
-from sympy import (Function, Rational, diff, exp, factorial, integrate, log,
-                   simplify, symbols, series, together)
+from sympy import (Function, Rational, diff, exp, factorial, integrate, limit,
+                   log, oo, simplify, symbols, series, together)
 
 from stringer import exact_exp_neg_bounds, factor_prefix
 
@@ -561,6 +561,42 @@ def check_three_exponential_equal_smaller_line() -> None:
     assert exp_x_upper < Fraction(8, 5)
 
 
+def check_three_exponential_infinite_gap_boundary() -> None:
+    """Check the reduction of the infinite-gap edge to two exponentials."""
+
+    z, u, w = symbols("z u w", positive=True)
+    ez = exp(z)
+    bfun = (1 - exp(-z)) / z
+    moments = [
+        integrate(u**j * exp(-z * u), (u, 0, 1)) / bfun
+        for j in range(1, 4)
+    ]
+    mean = moments[0]
+    variance = moments[1] - mean**2
+    weighted_centered_square = (
+        moments[2] - 2 * mean * moments[1] + mean**2 * moments[0]
+    )
+    rho_u = simplify(1 + z * weighted_centered_square / variance)
+    rho_y = simplify(3 + z * mean)
+    h_two = (
+        z * (z * ez - ez + 1)**2
+        / ((ez - 1) * ((ez - 1)**2 - z**2 * ez))
+    )
+    assert simplify(rho_u - (4 - h_two)) == 0
+    assert simplify(mean - (1 / z - 1 / (ez - 1))) == 0
+    expected_gap = (
+        -z**2 * ez * (z * ez + z - 2 * ez + 2)
+        / ((ez - 1) * (z**2 * ez - (ez - 1)**2))
+    )
+    assert simplify(rho_y - rho_u - expected_gap) == 0
+
+    b_w = (1 - exp(-w)) / w
+    partition = (b_w - bfun) / (z - w)
+    tail_linear = bfun + z * partition
+    assert simplify(limit(w * partition, w, oo) - bfun) == 0
+    assert simplify(limit(tail_linear, w, oo) - bfun) == 0
+
+
 def check_kernel_identity() -> None:
     """Verify the nth-derivative identity for several symbolic n."""
     y = symbols("y", positive=True)
@@ -610,6 +646,7 @@ def main() -> int:
     check_three_exponential_reduction()
     check_three_exponential_repeated_max_boundary()
     check_three_exponential_equal_smaller_line()
+    check_three_exponential_infinite_gap_boundary()
     check_kernel_identity()
     poisson, sympol, gap, active_k = sympol_shortcut_counterexample()
     print("all-n reduction algebra: PASS")
@@ -621,6 +658,7 @@ def main() -> int:
           "two-variable inequality")
     print("three-exponential repeated-max boundary: PROVED")
     print("three-exponential equal-smaller symmetry line: PROVED")
+    print("three-exponential infinite-gap boundary: REDUCED TO PROVED 2D CASE")
     print("SymPol shortcut counterexample (numerical):")
     print("  n=15 alpha=0.05 one full taint")
     print("  active elementary-symmetric order:", active_k)

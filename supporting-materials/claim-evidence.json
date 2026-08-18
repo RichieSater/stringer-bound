@@ -720,7 +720,7 @@
       "verification_commands": [
         "make all-n-reduction-check"
       ],
-      "limitations": "The two-variable inequality is proved separately on the coordinate axes and diagonal, but its off-symmetry strict interior is open. This record certifies the equivalence and reduction only, not three-coordinate convexity or general-n Stringer coverage."
+      "limitations": "The two-variable inequality is proved separately on the coordinate axes and diagonal, and its infinite-gap boundary reduces to the two-coordinate theorem, but its finite off-symmetry interior is open. This record certifies the equivalence and reduction only, not three-coordinate convexity or general-n Stringer coverage."
     },
     {
       "id": "three-exponential-repeated-max-boundary",
@@ -747,7 +747,7 @@
       "verification_commands": [
         "make all-n-reduction-check"
       ],
-      "limitations": "This proves only the coordinate-axis boundary of the reduced three-exponential inequality. The diagonal is covered by a separate theorem, but the off-symmetry strict interior, full three-coordinate convexity, and general-n Stringer coverage remain open."
+      "limitations": "This proves only the coordinate-axis boundary of the reduced three-exponential inequality. The diagonal and infinite-gap boundary are covered separately, but the finite off-symmetry interior, full three-coordinate convexity, and general-n Stringer coverage remain open."
     },
     {
       "id": "three-exponential-equal-smaller-symmetry-line",
@@ -774,7 +774,39 @@
       "verification_commands": [
         "make all-n-reduction-check"
       ],
-      "limitations": "This proves only the diagonal z=w of the reduced three-exponential inequality. The coordinate axes are covered separately, but the off-symmetry strict interior z,w>0 with z not equal to w, full three-coordinate convexity, and general-n Stringer coverage remain open."
+      "limitations": "This proves only the diagonal z=w of the reduced three-exponential inequality. The coordinate axes and infinite-gap boundary are covered separately, but the finite off-symmetry interior, full three-coordinate convexity, and general-n Stringer coverage remain open."
+    },
+    {
+      "id": "three-exponential-infinite-gap-boundary",
+      "classification": "proved_theorem",
+      "statement": "At tail threshold 4 exp(-3), the complete infinite-gap boundary of the reduced three-exponential inequality satisfies the target by an exact moment limit to the proved two-exponential comparison; equality occurs only at the sharp zero-gap corner.",
+      "manuscript_labels": [],
+      "evidence": [
+        {
+          "path": "supporting-materials/theory/THREE-EXPONENTIAL-QUANTILE.md",
+          "role": "complete product-limit, limiting generalized-eigenvalue, and tail-comparison proof",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/theory/TWO-EXPONENTIAL-QUANTILE.md",
+          "role": "proved sharp comparison inherited on the infinite-gap boundary",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/python/all_n_poisson_reductions.py",
+          "role": "exact symbolic verification of the limiting eigenvalues, their ordering, and the partition-function limits",
+          "trust": "corroboration_only"
+        },
+        {
+          "path": "supporting-materials/computations/tests/test_all_n_poisson_reductions.py",
+          "role": "regression test for the infinite-gap boundary identities",
+          "trust": "corroboration_only"
+        }
+      ],
+      "verification_commands": [
+        "make all-n-reduction-check"
+      ],
+      "limitations": "This proves only the compactified infinite-gap boundary. The finite off-symmetry interior 0<z<w<infinity, full three-coordinate convexity, and general-n Stringer coverage remain open."
     },
     {
       "id": "general-n-standard-confidence-status",
@@ -796,7 +828,7 @@
         },
         {
           "path": "supporting-materials/theory/THREE-EXPONENTIAL-QUANTILE.md",
-          "role": "exact reduction of the first unequal exponential-quantile dimension, with proved coordinate-axis and diagonal families and an explicitly open off-symmetry interior",
+          "role": "exact reduction of the first unequal exponential-quantile dimension, with proved coordinate-axis, diagonal, and infinite-gap families and an explicitly open finite off-symmetry interior",
           "trust": "corroboration_only"
         },
         {

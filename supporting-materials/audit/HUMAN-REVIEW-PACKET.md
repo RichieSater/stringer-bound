@@ -350,9 +350,18 @@ Questions:
 17. Do the exact rational exponential enclosures prove all endpoint bounds
     in (41), and do the rational estimates in (42)--(44) keep the diagonal
     margin strictly positive?
-18. Are the remaining claims limited to `z,w>0` with `z!=w`, without using
-    either proved symmetry family as a full three-coordinate convexity or
-    general-`n` coverage theorem?
+18. Under `Y=wV`, does dominated convergence give the stated product limit
+    on the infinite-gap boundary for every moment entering the generalized
+    eigenvalue problem?
+19. Are the two limiting generalized eigenvalues in (46) correct, and does
+    (48) prove that the eigenvalue inherited from the two-exponential problem
+    is the smaller one?
+20. Do the partition-function and tail limits in (50)--(51) reduce the full
+    infinite-gap edge, not merely its sharp corner, to the proved
+    two-exponential comparison?
+21. Are the remaining claims limited to finite `0<z<w<infinity`, without
+    using any proved boundary or symmetry family as a full three-coordinate
+    convexity or general-`n` coverage theorem?
 
 ## Minimum reproduction record
 

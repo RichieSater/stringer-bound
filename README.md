@@ -187,9 +187,10 @@ certificate or a written proof:
   ([three-coordinate reduction](supporting-materials/theory/THREE-EXPONENTIAL-QUANTILE.md)),
   and the inequality is proved on the repeated-maximum boundary where the
   two largest weights are equal and on the symmetry line where the two
-  smaller weights are equal. The off-symmetry strict interior remains open.
-  These results do not prove the three-or-more-coordinate case or general-\(n\)
-  Stringer coverage.
+  smaller weights are equal. The complete infinite-gap boundary reduces to
+  the proved two-coordinate theorem. The finite off-symmetry interior
+  remains open. These results do not prove the three-or-more-coordinate case
+  or general-\(n\) Stringer coverage.
 
 - **All-sample-size scalar calibration of the Poisson bound**
   ([`POISSON-BAND-CALIBRATION.md`](supporting-materials/theory/POISSON-BAND-CALIBRATION.md)):
@@ -288,7 +289,7 @@ single-crossing identity isolated in
 [`ORDERED-SIMPLEX-CAP.md`](supporting-materials/theory/ORDERED-SIMPLEX-CAP.md);
 extend the sharp two-coordinate weighted-exponential theorem in
 [`TWO-EXPONENTIAL-QUANTILE.md`](supporting-materials/theory/TWO-EXPONENTIAL-QUANTILE.md),
-by proving the off-symmetry strict-interior case of the explicit
+by proving the finite off-symmetry case of the explicit
 three-coordinate inequality in
 [`THREE-EXPONENTIAL-QUANTILE.md`](supporting-materials/theory/THREE-EXPONENTIAL-QUANTILE.md),
 and pursue the general Dirichlet--Poissonization inequality isolated in
