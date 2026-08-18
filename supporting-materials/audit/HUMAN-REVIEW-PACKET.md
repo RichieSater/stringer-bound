@@ -399,7 +399,7 @@ Questions:
     using any proved boundary, symmetry, or local-corner result as a full
     three-coordinate convexity or general-`n` coverage theorem?
 
-## Review J: Dirichlet--Poissonization reductions and the `n=2`, `n=3` theorems
+## Review J: Dirichlet--Poissonization reductions and the `n=2`, `n=3`, `n=4` theorems
 
 Primary files:
 
@@ -469,12 +469,48 @@ Questions:
     Bernstein bounds prove the analytic tail of (15be) and all of (15bf);
     and do the final two inequalities exhaust every profile not already
     covered by Sections 8--10?
-19. Is the conclusion limited to the complete `n=2` and `n=3`
+19. For `n=4`, does multiplication by the zero knot give
+    `[0,a,b,c,d]H_4=[a,b,c,d]F`, and does Hermite--Genocchi give the
+    expectation (15bk), including `EU<=(a+b+c+d)/4<=1` and all confluent
+    limits?
+20. Do the mass-ratio calculation and exact exponential bound prove the
+    extended convex core through `d=19/15`; and do the Taylor--Bernstein
+    inequalities prove the affine minorant (15bm) on the entire interval
+    `[9/16,37/16]`, with the sum constraint correctly closing every profile
+    having `a>=9/16`?
+21. Does the exact scalar argument prove `g''(u)/2<=u/4` for all `u>=0`,
+    including positivity of the multiplier before the exponential Taylor
+    lower bound is substituted?  Does the differentiated formula for
+    `r=f''/2`, together with the 438 directed Arb intervals, prove
+    `|r'|<3/5` globally?
+22. For the auxiliary inequality (15bq), does the cumulative-coordinate
+    parameterization cover the complete constrained ordered region; is the
+    Lipschitz radius (15br) correct; and do tightening, infeasibility pruning,
+    center rescaling, subdivision, and continuity preserve every feasible
+    boundary point?  Does regeneration reproduce all 24,479 calls, terminal
+    counts, maximum depth, and the stated transcript digest?
+23. Are the two knot-insertion identities (15bs) correct?  Do the one-turn
+    arguments and exact endpoint comparisons establish both
+    `[b,d]h>=0` and the monotonicity needed when the scalar branch evaluates
+    `f` at its lower `d` endpoint?  Does (15bp) then imply (15bu), so that
+    (15bv) is a sufficient condition with the stated inequality direction?
+24. For the final four-parameter certificate, does (15bw) cover the entire
+    ordered face; is `|q'|<4` global; and is the cumulative-coordinate
+    Lipschitz radius (15bx) correct?  Are the convex-core, far-cap, central,
+    and scalar pruning tests valid on whole boxes, including partially
+    feasible boxes after coordinatewise upper tightening and any rescaled
+    center?  Does regeneration reproduce all 77,401 calls, every terminal
+    count, maximum depth 28, and the stated transcript digest?
+25. Do continuity and the radial boundary lemma extend the certified
+    ordered face, including repeated or zero knots, to every five-coordinate
+    profile with nonnegative coordinates summing to at most four?
+26. Is the conclusion limited to the complete `n=2`, `n=3`, and `n=4`
     Poissonization inequalities, every two-level profile, every profile with
     at most three nonzero coefficients, the sparse convex cores, the
     four-positive far cap, and the radial boundary reduction, without being
-    promoted to the still-open general-dimensional comparison or to a
-    Stringer coverage theorem by itself?
+    promoted to the still-open general-dimensional comparison, the separate
+    exponential-quantile convexity target, or a Stringer coverage theorem by
+    itself?
 
 ## Minimum reproduction record
 
@@ -486,6 +522,7 @@ uv --version
 tectonic --version
 make reproduce
 make all-n-reduction-check
+make dirichlet-poissonization-check
 make poisson-band-calibration-check
 make n7-structure-data-check
 make n7-factor-order-check

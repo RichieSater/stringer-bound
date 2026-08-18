@@ -19,6 +19,7 @@ from dirichlet_poissonization import (  # noqa: E402
     verify_four_positive_far_cap,
     verify_n2_three_knot_theorem,
     verify_n3_four_knot_theorem,
+    verify_n4_five_knot_theorem,
     verify_radial_symbolic_identities,
     verify_saffine_symbolic_identities,
     verify_sparse_convex_core,
@@ -92,6 +93,38 @@ class DirichletPoissonizationTests(unittest.TestCase):
     def test_complete_n3_four_knot_algebra(self):
         verify_n3_four_knot_theorem()
 
+    def test_complete_n4_five_knot_certificate(self):
+        record = verify_n4_five_knot_theorem()
+        self.assertEqual(record["arb_precision_bits"], 160)
+        self.assertEqual(
+            record["main_four_positive_face"]["total_branch_calls"],
+            77401,
+        )
+        self.assertEqual(
+            record["secondary_constrained_convexity"][
+                "lipschitz_terminal_boxes"
+            ],
+            12187,
+        )
+        self.assertEqual(
+            record["secondary_constrained_convexity"][
+                "terminal_transcript_sha256"
+            ],
+            "baf76e5da205718ac2f7e7037bde03a4d02e5cacfa9351c14254c24f1ca31dfe",
+        )
+        self.assertEqual(
+            record["main_four_positive_face"][
+                "terminal_transcript_sha256"
+            ],
+            "66dfba78573895b27c4ba6dd7616b68ed96a377f0c767107d30a5f08de8fbf94",
+        )
+        self.assertEqual(
+            record["scalar_pruning_monotonicity"][
+                "f_4_4_minus_f_4_3_lower_margin"
+            ]["numerator"],
+            "4159877",
+        )
+
     def test_all_n_three_positive_convex_core_algebra(self):
         verify_three_positive_convex_core()
 
@@ -133,7 +166,7 @@ class DirichletPoissonizationTests(unittest.TestCase):
 
     def test_certificate_is_explicitly_non_theorem_research_support(self):
         certificate = build_certificate()
-        self.assertEqual(certificate["schema_version"], 13)
+        self.assertEqual(certificate["schema_version"], 14)
         self.assertIn("not an all-sample-size coverage certificate", certificate["status"])
         self.assertEqual(
             len(certificate["equal_block_profiles"]["regression_checks"]),
@@ -162,6 +195,12 @@ class DirichletPoissonizationTests(unittest.TestCase):
         self.assertEqual(
             certificate["n3_four_knot_theorem"][
                 "symbolic_identity_and_constant_check"
+            ],
+            "passed",
+        )
+        self.assertEqual(
+            certificate["n4_five_knot_theorem"][
+                "symbolic_exact_and_interval_checks"
             ],
             "passed",
         )

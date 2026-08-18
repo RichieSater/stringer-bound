@@ -26,6 +26,8 @@ boundary reduction, a proved structured family, and one obstruction:
   nonzero, and therefore the complete comparison for ``n=2``; and
 * a constrained three-knot secant argument proves the complete comparison
   for ``n=3``; and
+* exact scalar bounds plus deterministic real-ball branch certificates prove
+  the complete comparison for ``n=4``; and
 * the ``k=2`` Anderson--Samuels comparison proves a dimension-free convex
   core for profiles with three nonzero coefficients; and
 * the same derivative-CDF identity at arbitrary order proves a sparse
@@ -737,6 +739,768 @@ def verify_four_positive_far_cap() -> dict[str, object]:
         "n_ge_5_exp_115_over_32_degree_5_lower": _fraction_record(
             exp_115_over_32_lower
         ),
+    }
+
+
+def verify_n4_five_knot_theorem() -> dict[str, object]:
+    """Rigorously certify the complete constrained comparison for ``n=4``.
+
+    The proof combines exact one-variable inequalities with two deterministic
+    real-ball branch certificates.  The smaller certificate proves an
+    auxiliary constrained second-divided-difference inequality.  The larger
+    certificate closes the remaining ordered four-knot boxes after the
+    analytic convex-core, central, far-cap, and scalar-comparison regions
+    have been removed.
+    """
+    from flint import arb, ctx, fmpq
+    from sympy import (
+        Poly,
+        Rational,
+        diff,
+        exp,
+        expand,
+        factor,
+        log,
+        simplify,
+        symbols,
+        together,
+    )
+
+    lam = symbols("lambda", positive=True)
+    u = symbols("u", positive=True)
+    x = symbols("x", nonnegative=True)
+
+    def bernstein_coefficients(poly, variable, lo, hi):
+        transformed = Poly(
+            expand(poly.subs(variable, lo + (hi - lo) * x)),
+            x,
+        )
+        degree = transformed.degree()
+        power = [transformed.nth(index) for index in range(degree + 1)]
+        return [
+            factor(
+                sum(
+                    power[order]
+                    * Rational(
+                        math.comb(index, order),
+                        math.comb(degree, order),
+                    )
+                    for order in range(index + 1)
+                )
+            )
+            for index in range(degree + 1)
+        ]
+
+    # Differentiate every piece used later, before applying any inequalities.
+    exponential_piece = exp(-4 / u)
+    f3_lower = u**3 * exponential_piece
+    f3_upper = f3_lower - (u - 1) ** 4 / u
+    g2_lower = u**2 * exponential_piece
+    g2_upper = g2_lower - (u - 1) ** 4 / u**2
+    f1_lower = u * exponential_piece
+    f1_upper = f1_lower - (u - 1) ** 4 / u**3
+    h0_upper = exponential_piece - (u - 1) ** 4 / u**4
+    q_lower_u = exponential_piece * (
+        1 + 4 / u + 8 / u**2 + Rational(32, 3) / u**3
+    )
+    q_upper_u = q_lower_u - 1 + u**-4
+    assert simplify(diff(f3_lower, u, 3) / 6 - q_lower_u) == 0
+    assert simplify(diff(f3_upper, u, 3) / 6 - q_upper_u) == 0
+    assert simplify(
+        diff(g2_lower, u, 2) / 2
+        - exponential_piece * (1 + 4 / u + 8 / u**2)
+    ) == 0
+    assert simplify(
+        diff(f1_lower, u, 2) / 2
+        - 8 * exponential_piece / u**3
+    ) == 0
+
+    # The exact n=4 convexity endpoint.  If q=F_(4,3)'''/6, then
+    # q'=4/u times the difference of the fourth Poisson and binomial masses.
+    # Their ratio is (32/3)exp(-4/u), so q decreases through 19/15.
+    exp_eight_thirds_lower = _exp_taylor_lower(Fraction(8, 3), 4)
+    assert exp_eight_thirds_lower > Fraction(32, 3)
+    core_lambda = Fraction(60, 19)
+    core_poisson_polynomial = sum(
+        core_lambda**j / math.factorial(j) for j in range(4)
+    )
+    core_binomial_tail = 1 - Fraction(15, 19) ** 4
+    core_exp_threshold = core_poisson_polynomial / core_binomial_tail
+    core_exp_upper = _exp_taylor_upper(core_lambda, 7)
+    core_endpoint_margin = core_exp_threshold - core_exp_upper
+    assert core_poisson_polynomial == Fraction(98719, 6859)
+    assert core_binomial_tail == Fraction(79696, 130321)
+    assert core_exp_threshold == Fraction(110333, 4688)
+    assert core_exp_upper == Fraction(778209455563, 33073254343)
+    assert core_endpoint_margin == Fraction(
+        825443746875,
+        155047416359984,
+    )
+    assert core_endpoint_margin > 0
+
+    # Central affine minorant q(u)>=(1-u)/6 on [9/16,37/16].
+    # Below one, q increases and the affine function decreases, so one exact
+    # endpoint check suffices.
+    central_u_lower = Fraction(9, 16)
+    central_lambda_upper = Fraction(64, 9)
+    central_poisson_polynomial = sum(
+        central_lambda_upper**j / math.factorial(j) for j in range(4)
+    )
+    central_endpoint_rhs = (1 - central_u_lower) / 6
+    central_exp_threshold = (
+        central_poisson_polynomial / central_endpoint_rhs
+    )
+    central_exp_upper = _exp_taylor_upper(central_lambda_upper, 9)
+    central_endpoint_margin = central_exp_threshold - central_exp_upper
+    assert central_exp_threshold == Fraction(6531424, 5103)
+    assert central_exp_upper == Fraction(
+        242470438074164581,
+        192208990105125,
+    )
+    assert central_endpoint_margin == Fraction(
+        3541400253951419,
+        192208990105125,
+    )
+    assert central_endpoint_margin > 0
+
+    poisson_three = sum(lam**j / math.factorial(j) for j in range(4))
+    poisson_four_mass = exp(-lam) * lam**4 / math.factorial(4)
+    binomial_four_mass = lam**4 / 4**4
+    q_lambda = exp(-lam) * poisson_three - 1 + lam**4 / 4**4
+    assert simplify(q_upper_u.subs(u, 4 / lam) - q_lambda) == 0
+    assert simplify(
+        -lam**2 / 4 * diff(q_lambda, lam)
+        - lam * (poisson_four_mass - binomial_four_mass)
+    ) == 0
+    assert simplify(
+        poisson_four_mass / binomial_four_mass
+        - Rational(32, 3) * exp(-lam)
+    ) == 0
+    central_r = (
+        Rational(7, 6) - Rational(2, 3) / lam - lam**4 / 256
+    )
+    central_factor_polynomial = (
+        3 * lam**4
+        + 12 * lam**3
+        + 48 * lam**2
+        + 192 * lam
+        - 128
+    )
+    assert simplify(
+        factor(together(central_r))
+        + (lam - 4)
+        * central_factor_polynomial
+        / (768 * lam)
+    ) == 0
+    assert min(
+        Poly(diff(central_factor_polynomial, lam), lam).all_coeffs()
+    ) > 0
+    assert central_factor_polynomial.subs(lam, Rational(64, 37)) > 0
+    central_exp_upper_poly = sum(
+        lam**j / math.factorial(j) for j in range(7)
+    ) + lam**7 / math.factorial(7) / (1 - lam / 8)
+    central_gap = together(
+        poisson_three - central_exp_upper_poly * central_r
+    )
+    central_numerator, central_denominator = central_gap.as_numer_denom()
+    assert simplify(
+        central_denominator - 3870720 * lam * (8 - lam)
+    ) == 0
+    central_breaks = [
+        Rational(64, 37),
+        Rational(2),
+        Rational(5, 2),
+        Rational(3),
+        Rational(7, 2),
+        Rational(4),
+    ]
+    central_bernstein = []
+    for lo, hi in zip(central_breaks, central_breaks[1:]):
+        central_bernstein.extend(
+            bernstein_coefficients(central_numerator, lam, lo, hi)
+        )
+    assert min(central_bernstein) == Rational(11480818817, 25344)
+    assert min(central_bernstein) > 0
+
+    # Global scalar upper bound g_4''(u)/2<=u/4.  For u<=1 it follows from
+    # monotonicity of lambda*P(Pois(lambda)<=2) on lambda>=4 and exp(4)>52.
+    exp_four_degree_eight = _exp_taylor_lower(Fraction(4), 8)
+    assert exp_four_degree_eight > 52
+    assert simplify(
+        diff(lam * exp(-lam) * (1 + lam + lam**2 / 2), lam)
+        + (lam**3 - lam**2 - 2 * lam - 2) * exp(-lam) / 2
+    ) == 0
+    scalar_lower_monotonicity = Poly(
+        (lam**3 - lam**2 - 2 * lam - 2).subs(lam, x + 4),
+        x,
+    )
+    assert min(scalar_lower_monotonicity.all_coeffs()) > 0
+
+    # For u>1, multiply the desired inequality by exp(lambda), retain the
+    # degree-eight positive Taylor lower bound, and certify the resulting
+    # polynomial by exact Bernstein coefficients.
+    q2_r = 1 / lam + 1 - lam**3 / 16 + 3 * lam**4 / 256
+    assert simplify(
+        (
+            1 / lam
+            - (diff(g2_upper, u, 2) / 2).subs(u, 4 / lam)
+        )
+        - exp(-lam)
+        * (q2_r * exp(lam) - (1 + lam + lam**2 / 2))
+    ) == 0
+    # The multiplier of exp(lambda) is positive on (0,4]: its polynomial
+    # part decreases from one to zero, and the remaining 1/lambda is
+    # positive.  This makes substitution of a Taylor lower bound legitimate.
+    q2_polynomial_part = 1 - lam**3 / 16 + 3 * lam**4 / 256
+    assert factor(diff(q2_polynomial_part, lam)) == (
+        3 * lam**2 * (lam - 4) / 64
+    )
+    assert q2_polynomial_part.subs(lam, 4) == 0
+    exp_degree_eight = sum(
+        lam**j / math.factorial(j) for j in range(9)
+    )
+    q2_upper_polynomial = factor(
+        lam * (q2_r * exp_degree_eight - (1 + lam + lam**2 / 2))
+    )
+    q2_breaks = [Rational(index, 2) for index in range(9)]
+    q2_bernstein = []
+    for lo, hi in zip(q2_breaks, q2_breaks[1:]):
+        q2_bernstein.extend(
+            bernstein_coefficients(q2_upper_polynomial, lam, lo, hi)
+        )
+    assert min(q2_bernstein) == Rational(90499, 640640)
+    assert min(q2_bernstein) > 0
+
+    # Algebra for the auxiliary lower bound [b,c,d]g_4>=g_4(d)/d^2.
+    # It is obtained by two knot insertions once [b,c,d]f_4>=0 and
+    # [b,d]h_4>=0 have been established.
+    b, c, d = symbols("b c d", positive=True)
+    gb, gc, gd = symbols("g_b g_c g_d")
+
+    def symbolic_dd(nodes, values):
+        current = list(values)
+        for order in range(1, len(nodes)):
+            current = [
+                (current[index + 1] - current[index])
+                / (nodes[index + order] - nodes[index])
+                for index in range(len(current) - 1)
+            ]
+        return current[0]
+
+    q_bcd = symbolic_dd([b, c, d], [gb, gc, gd])
+    q_0bd = symbolic_dd([0, b, d], [0, gb, gd])
+    q_00d = gd / d**2
+    insertion_four = symbolic_dd([0, b, c, d], [0, gb, gc, gd])
+    assert simplify(q_bcd - q_0bd - c * insertion_four) == 0
+    insertion_b = (gb / b**2 - gd / d**2) / (b - d)
+    assert simplify(q_0bd - q_00d - b * insertion_b) == 0
+
+    # On [0,2], h_4 is increasing; thereafter it is one-turn.  These exact
+    # ratio derivatives encode the analytic comparison h_4(d)>=h_4(b) under
+    # 2b+d<=4.  The final endpoint ordering is checked just below.
+    h_ratio_log_derivative = -1 + 3 / (4 - lam)
+    assert simplify(h_ratio_log_derivative - (lam - 1) / (4 - lam)) == 0
+    exp_two_upper = _exp_taylor_upper(Fraction(2), 4)
+    assert exp_two_upper < 8
+
+    # The endpoint comparison needed after the single-turn argument for h_4.
+    # Multiplication by exp(4) reduces h_4(4)>h_4(1) to
+    # exp(3){1-81 exp(1)/256}>1.  The displayed Taylor bounds leave a
+    # strictly positive rational margin.
+    exp_one_upper = _exp_taylor_upper(Fraction(1), 1)
+    exp_three_degree_two_lower = _exp_taylor_lower(Fraction(3), 2)
+    h_endpoint_margin = (
+        exp_three_degree_two_lower
+        * (1 - Fraction(81, 256) * exp_one_upper)
+        - 1
+    )
+    assert simplify(
+        exp(4) * (h0_upper.subs(u, 4) - exp(-4))
+        - (exp(3) * (1 - Rational(81, 256) * exp(1)) - 1)
+    ) == 0
+    assert exp_one_upper == Fraction(11, 4)
+    assert exp_three_degree_two_lower == Fraction(17, 2)
+    assert h_endpoint_margin == Fraction(213, 2048)
+    assert h_endpoint_margin > 0
+
+    # The scalar pruning test below evaluates f_4 at the lower d-endpoint.
+    # Section 11 gives the one-maximum property of f_4'.  The following
+    # exact endpoint estimates show that f_4 increases through 3 and that
+    # f_4(4)>f_4(3).  Consequently f_4(d)>=f_4(d_0) whenever
+    # 1<d_0<3 and d_0<=d<=4, which is precisely the branch-test regime.
+    exp_four_thirds_upper = _exp_taylor_upper(Fraction(4, 3), 1)
+    exp_four_thirds_lower = _exp_taylor_lower(Fraction(4, 3), 5)
+    exp_one_degree_two_upper = _exp_taylor_upper(Fraction(1), 2)
+    exp_one_degree_two_lower = _exp_taylor_lower(Fraction(1), 2)
+    f_curvature_ratio = (
+        4 * exp(-lam) / (3 * (1 - lam / 4) ** 2)
+    )
+    assert simplify(
+        diff(log(f_curvature_ratio), lam) - (lam - 2) / (4 - lam)
+    ) == 0
+    assert simplify(
+        diff(f1_upper, u).subs(u, 3)
+        - (Rational(7, 3) * exp(-Rational(4, 3)) - Rational(16, 27))
+    ) == 0
+    assert exp_four_thirds_upper == Fraction(59, 15)
+    assert exp_four_thirds_upper < Fraction(63, 16)
+    assert exp_one_degree_two_lower == Fraction(5, 2)
+    assert exp_one_degree_two_lower > Fraction(64, 27)
+    assert exp_four_thirds_lower == Fraction(13793, 3645)
+    assert exp_one_degree_two_upper == Fraction(49, 18)
+    f_four_minus_f_three_margin = (
+        4 / exp_one_degree_two_upper
+        - Fraction(81, 64)
+        - 3 / exp_four_thirds_lower
+        + Fraction(16, 27)
+    )
+    assert f_four_minus_f_three_margin == Fraction(
+        4159877,
+        1167880896,
+    )
+    assert f_four_minus_f_three_margin > 0
+    assert simplify(
+        f1_upper.subs(u, 4)
+        - f1_upper.subs(u, 3)
+        - (
+            4 * exp(-1)
+            - Rational(81, 64)
+            - 3 * exp(-Rational(4, 3))
+            + Rational(16, 27)
+        )
+    ) == 0
+
+    # The auxiliary convex core d<=4/3 follows from the exact mass ratio for
+    # f_4''/2.  It is increasing in lambda on [3,4), and its lambda=3 value
+    # exceeds one because exp(3)<64/3.
+    pmf_two_ratio = f_curvature_ratio
+    assert simplify(
+        diff(log(pmf_two_ratio), lam) - (lam - 2) / (4 - lam)
+    ) == 0
+    exp_three_upper = _exp_taylor_upper(Fraction(3), 4)
+    assert exp_three_upper == Fraction(817, 40)
+    assert exp_three_upper < Fraction(64, 3)
+
+    # Uniform derivative bound for the auxiliary Hermite--Genocchi
+    # integrand r=f_4''/2.  For u<=1 its derivative is maximized at lambda=6.
+    exp_six_degree_six = _exp_taylor_lower(Fraction(6), 6)
+    assert exp_six_degree_six > Fraction(405, 2)
+    auxiliary_lower_derivative = (
+        exp(-lam) * lam**4 * (lam - 3) / 32
+    )
+    assert factor(diff(auxiliary_lower_derivative, lam)) == (
+        -exp(-lam) * lam**3 * (lam - 6) * (lam - 2) / 32
+    )
+    r_prime = (
+        15 * lam**6 / 2048
+        - 3 * lam**5 / 64
+        + 9 * lam**4 / 128
+        + exp(-lam) * (lam**5 / 32 - 3 * lam**4 / 32)
+    )
+    r_lambda = (
+        exp(-lam) * lam**3 / 8
+        - Rational(3, 32) * lam**3 * (1 - lam / 4) ** 2
+    )
+    assert simplify(
+        (diff(f1_upper, u, 2) / 2).subs(u, 4 / lam) - r_lambda
+    ) == 0
+    assert simplify(-lam**2 / 4 * diff(r_lambda, lam) - r_prime) == 0
+
+    expected_h_prime = 4 / u**2 * (
+        exp(-4 / u) - (1 - 1 / u) ** 3
+    )
+    assert simplify(diff(h0_upper, u) - expected_h_prime) == 0
+
+    # The main Hermite--Genocchi integrand has |q'|<4 globally.  For u>1
+    # this is immediate from the difference of two probabilities.  For
+    # u<=1, lambda*P(Pois(lambda)=4) is maximized at lambda=5.
+    exp_five_degree_four = _exp_taylor_lower(Fraction(5), 4)
+    assert exp_five_degree_four > Fraction(3125, 96)
+    main_lower_derivative = exp(-lam) * lam**5 / 24
+    assert factor(diff(main_lower_derivative, lam)) == (
+        -exp(-lam) * lam**4 * (lam - 5) / 24
+    )
+
+    previous_precision = ctx.prec
+    ctx.prec = 160
+
+    def arb_exact(value: Fraction) -> arb:
+        value = Fraction(value)
+        return arb(fmpq(value.numerator, value.denominator))
+
+    def arb_interval(lo: Fraction, hi: Fraction) -> arb:
+        lo_q = fmpq(lo.numerator, lo.denominator)
+        hi_q = fmpq(hi.numerator, hi.denominator)
+        return arb((lo_q + hi_q) / 2, (hi_q - lo_q) / 2)
+
+    derivative_stack = [(Fraction(0), Fraction(4), 0)]
+    derivative_leaves = 0
+    derivative_max_depth = 0
+    try:
+        while derivative_stack:
+            lo, hi, depth = derivative_stack.pop()
+            lam_ball = arb_interval(lo, hi)
+            value = (
+                15 * lam_ball**6 / 2048
+                - 3 * lam_ball**5 / 64
+                + 9 * lam_ball**4 / 128
+                + (-lam_ball).exp()
+                * (lam_ball**5 / 32 - 3 * lam_ball**4 / 32)
+            )
+            target = arb_exact(Fraction(3, 5))
+            if value < target and value > -target:
+                derivative_leaves += 1
+                derivative_max_depth = max(derivative_max_depth, depth)
+                continue
+            if depth >= 30:
+                raise AssertionError(
+                    "n=4 auxiliary derivative bound did not close"
+                )
+            midpoint = (lo + hi) / 2
+            derivative_stack.append((lo, midpoint, depth + 1))
+            derivative_stack.append((midpoint, hi, depth + 1))
+        assert derivative_leaves == 438
+        assert derivative_max_depth == 12
+
+        def arb_f1(value: Fraction) -> arb:
+            if value == 0:
+                return arb(0)
+            u = arb_exact(value)
+            result = u * (-4 / u).exp()
+            if value > 1:
+                result -= (u - 1) ** 4 / u**3
+            return result
+
+        def arb_f3(value: Fraction) -> arb:
+            if value == 0:
+                return arb(0)
+            u = arb_exact(value)
+            result = u**3 * (-4 / u).exp()
+            if value > 1:
+                result -= (u - 1) ** 4 / u
+            return result
+
+        def arb_divided_difference(function, parameters):
+            knots = []
+            knot = Fraction()
+            for parameter in parameters:
+                knot += parameter
+                knots.append(knot)
+            values = [function(knot_value) for knot_value in knots]
+            for order in range(1, len(knots)):
+                values = [
+                    (values[index + 1] - values[index])
+                    / arb_exact(knots[index + order] - knots[index])
+                    for index in range(len(values) - 1)
+                ]
+            return values[0]
+
+        def update_transcript(digest, reason, lower, upper):
+            digest.update(reason.encode("ascii") + b"|")
+            for endpoint in (lower, upper):
+                for value in endpoint:
+                    digest.update(
+                        f"{value.numerator}/{value.denominator},".encode(
+                            "ascii"
+                        )
+                    )
+            digest.update(b"\n")
+
+        def tightened_upper(lower, upper, weights):
+            result = list(upper)
+            for index, weight in enumerate(weights):
+                available = 4 - sum(
+                    weights[other] * lower[other]
+                    for other in range(len(weights))
+                    if other != index
+                )
+                result[index] = min(result[index], available / weight)
+            return tuple(result)
+
+        # Auxiliary certificate: [b,c,d]f_4>=0 when b+c+d<=4.
+        secondary_weights = (3, 2, 1)
+        secondary_stack = [
+            (
+                (Fraction(0),) * 3,
+                (Fraction(4, 3), Fraction(2), Fraction(4)),
+                0,
+            )
+        ]
+        secondary_lipschitz_leaves = 0
+        secondary_core_leaves = 0
+        secondary_calls = 0
+        secondary_max_depth = 0
+        secondary_digest = hashlib.sha256()
+        while secondary_stack:
+            lower, upper, depth = secondary_stack.pop()
+            secondary_calls += 1
+            upper = tightened_upper(lower, upper, secondary_weights)
+            if any(
+                upper[index] < lower[index] for index in range(3)
+            ):
+                update_transcript(
+                    secondary_digest, "infeasible", lower, upper
+                )
+                continue
+            if sum(upper) <= Fraction(4, 3):
+                secondary_core_leaves += 1
+                update_transcript(secondary_digest, "core", lower, upper)
+                continue
+
+            center = tuple(
+                (lower[index] + upper[index]) / 2 for index in range(3)
+            )
+            weighted_center = sum(
+                secondary_weights[index] * center[index]
+                for index in range(3)
+            )
+            if weighted_center > 4:
+                scale = Fraction(4, 1) / weighted_center
+                center = tuple(value * scale for value in center)
+            if center[1] == 0 or center[2] == 0:
+                raise AssertionError("unexpected confluent secondary center")
+            center_value = arb_divided_difference(arb_f1, center)
+            radii = [
+                max(
+                    center[index] - lower[index],
+                    upper[index] - center[index],
+                )
+                for index in range(3)
+            ]
+            error = Fraction(1, 5) * sum(
+                secondary_weights[index] * radii[index]
+                for index in range(3)
+            )
+            if center_value > arb_exact(error):
+                secondary_lipschitz_leaves += 1
+                secondary_max_depth = max(secondary_max_depth, depth)
+                update_transcript(
+                    secondary_digest, "L", lower, upper
+                )
+                continue
+            if depth >= 40:
+                raise AssertionError("n=4 secondary subdivision did not close")
+            split_index = max(
+                range(3),
+                key=lambda index: secondary_weights[index]
+                * (upper[index] - lower[index]),
+            )
+            midpoint = (lower[split_index] + upper[split_index]) / 2
+            lower_child = list(lower)
+            lower_child[split_index] = midpoint
+            upper_child = list(upper)
+            upper_child[split_index] = midpoint
+            secondary_stack.append((tuple(lower_child), upper, depth + 1))
+            secondary_stack.append((lower, tuple(upper_child), depth + 1))
+
+        assert secondary_calls == 24479
+        assert secondary_lipschitz_leaves == 12187
+        assert secondary_core_leaves == 53
+        assert secondary_calls == 2 * (
+            secondary_lipschitz_leaves + secondary_core_leaves
+        ) - 1
+        assert secondary_max_depth == 20
+        assert secondary_digest.hexdigest() == (
+            "baf76e5da205718ac2f7e7037bde03a4d02e5cacfa9351c14254c24f1ca31dfe"
+        )
+
+        # Main certificate for the residual ordered four-knot face.
+        main_weights = (4, 3, 2, 1)
+        main_stack = [
+            (
+                (Fraction(0),) * 4,
+                (
+                    Fraction(1),
+                    Fraction(4, 3),
+                    Fraction(2),
+                    Fraction(4),
+                ),
+                0,
+            )
+        ]
+        main_counts = {
+            "core": 0,
+            "far": 0,
+            "central": 0,
+            "scalar": 0,
+            "lipschitz": 0,
+        }
+        main_calls = 0
+        main_max_depth = 0
+        main_digest = hashlib.sha256()
+        while main_stack:
+            lower, upper, depth = main_stack.pop()
+            main_calls += 1
+            upper = tightened_upper(lower, upper, main_weights)
+            if any(
+                upper[index] < lower[index] for index in range(4)
+            ):
+                update_transcript(main_digest, "infeasible", lower, upper)
+                continue
+            d_lower = sum(lower)
+            d_upper = sum(upper)
+            reason = None
+            if d_upper <= Fraction(19, 15):
+                reason = "core"
+            elif d_lower >= 3:
+                reason = "far"
+            elif lower[0] >= Fraction(9, 16):
+                reason = "central"
+            elif d_lower > 1:
+                u = arb_exact(d_lower)
+                f_lower = u * (-4 / u).exp() - (u - 1) ** 4 / u**3
+                scalar_upper = upper[0] * (4 - d_lower) / 12
+                if f_lower > arb_exact(scalar_upper):
+                    reason = "scalar"
+            if reason is not None:
+                main_counts[reason] += 1
+                update_transcript(main_digest, reason, lower, upper)
+                continue
+
+            center = tuple(
+                (lower[index] + upper[index]) / 2 for index in range(4)
+            )
+            weighted_center = sum(
+                main_weights[index] * center[index]
+                for index in range(4)
+            )
+            if weighted_center > 4:
+                scale = Fraction(4, 1) / weighted_center
+                center = tuple(value * scale for value in center)
+            if any(center[index] == 0 for index in range(1, 4)):
+                raise AssertionError("unexpected confluent main center")
+            center_value = arb_divided_difference(arb_f3, center)
+            radii = [
+                max(
+                    center[index] - lower[index],
+                    upper[index] - center[index],
+                )
+                for index in range(4)
+            ]
+            error = sum(
+                main_weights[index] * radii[index]
+                for index in range(4)
+            )
+            if center_value > arb_exact(error):
+                main_counts["lipschitz"] += 1
+                main_max_depth = max(main_max_depth, depth)
+                update_transcript(main_digest, "L", lower, upper)
+                continue
+            if depth >= 40:
+                raise AssertionError("n=4 main subdivision did not close")
+            split_index = max(
+                range(4),
+                key=lambda index: main_weights[index]
+                * (upper[index] - lower[index]),
+            )
+            midpoint = (lower[split_index] + upper[split_index]) / 2
+            lower_child = list(lower)
+            lower_child[split_index] = midpoint
+            upper_child = list(upper)
+            upper_child[split_index] = midpoint
+            main_stack.append((tuple(lower_child), upper, depth + 1))
+            main_stack.append((lower, tuple(upper_child), depth + 1))
+
+        assert main_calls == 77401
+        assert main_counts == {
+            "core": 6190,
+            "far": 0,
+            "central": 23,
+            "scalar": 7599,
+            "lipschitz": 24889,
+        }
+        assert main_calls == 2 * sum(main_counts.values()) - 1
+        assert main_max_depth == 28
+        assert main_digest.hexdigest() == (
+            "66dfba78573895b27c4ba6dd7616b68ed96a377f0c767107d30a5f08de8fbf94"
+        )
+    finally:
+        ctx.prec = previous_precision
+
+    return {
+        "arb_precision_bits": 160,
+        "extended_convex_core": {
+            "largest_knot_upper": "19/15",
+            "endpoint_exp_threshold": _fraction_record(core_exp_threshold),
+            "endpoint_exp_upper": _fraction_record(core_exp_upper),
+            "exact_margin": _fraction_record(core_endpoint_margin),
+        },
+        "central_affine_minorant": {
+            "knot_interval": "[9/16,37/16]",
+            "minorant": "q(u)>=(1-u)/6",
+            "lower_endpoint_margin": _fraction_record(
+                central_endpoint_margin
+            ),
+            "bernstein_minimum": _fraction_record(
+                Fraction(11480818817, 25344)
+            ),
+        },
+        "q2_linear_upper_bound": {
+            "bound": "g_4''(u)/2<=u/4 for u>=0",
+            "bernstein_minimum": _fraction_record(
+                Fraction(90499, 640640)
+            ),
+        },
+        "scalar_pruning_monotonicity": {
+            "h_4_4_minus_h_4_1_scaled_margin": _fraction_record(
+                h_endpoint_margin
+            ),
+            "f_4_4_minus_f_4_3_lower_margin": _fraction_record(
+                f_four_minus_f_three_margin
+            ),
+        },
+        "auxiliary_derivative_bound": {
+            "bound": "abs((f_4''/2)')<3/5",
+            "certified_leaf_intervals": derivative_leaves,
+            "maximum_bisection_depth": derivative_max_depth,
+        },
+        "secondary_constrained_convexity": {
+            "claim": "[b,c,d]f_4>=0 when 0<=b<=c<=d and b+c+d<=4",
+            "parameterization": "(b,c,d)=(b,b+s,b+s+t), 3b+2s+t<=4",
+            "initial_parameter_box": "[0,4/3]x[0,2]x[0,4]",
+            "cumulative_coordinate_weights": [3, 2, 1],
+            "box_preprocessing": (
+                "tighten each upper endpoint from the other lower "
+                "endpoints and the weighted budget"
+            ),
+            "evaluation_point_rule": (
+                "coordinate midpoint, radially scaled to weighted budget "
+                "4 when necessary"
+            ),
+            "split_rule": (
+                "bisect the first coordinate maximizing weight*width; "
+                "push lower child then upper child on a LIFO stack"
+            ),
+            "total_branch_calls": secondary_calls,
+            "analytic_core_terminal_boxes": secondary_core_leaves,
+            "lipschitz_terminal_boxes": secondary_lipschitz_leaves,
+            "maximum_bisection_depth": secondary_max_depth,
+            "terminal_transcript_sha256": secondary_digest.hexdigest(),
+        },
+        "main_four_positive_face": {
+            "parameterization": (
+                "(a,b,c,d)=(a,a+r,a+r+s,a+r+s+t), "
+                "4a+3r+2s+t<=4"
+            ),
+            "initial_parameter_box": "[0,1]x[0,4/3]x[0,2]x[0,4]",
+            "cumulative_coordinate_weights": [4, 3, 2, 1],
+            "box_preprocessing": (
+                "tighten each upper endpoint from the other lower "
+                "endpoints and the weighted budget"
+            ),
+            "evaluation_point_rule": (
+                "coordinate midpoint, radially scaled to weighted budget "
+                "4 when necessary"
+            ),
+            "split_rule": (
+                "bisect the first coordinate maximizing weight*width; "
+                "push lower child then upper child on a LIFO stack"
+            ),
+            "total_branch_calls": main_calls,
+            "terminal_box_counts": main_counts,
+            "maximum_bisection_depth": main_max_depth,
+            "terminal_transcript_sha256": main_digest.hexdigest(),
+        },
     }
 
 
@@ -1715,6 +2479,7 @@ def build_certificate() -> dict[str, object]:
     verify_two_level_symbolic_identities()
     verify_two_positive_knot_theorem()
     verify_n3_four_knot_theorem()
+    n4_five_knot_record = verify_n4_five_knot_theorem()
     verify_three_positive_convex_core()
     sparse_convex_core_record = verify_sparse_convex_core()
     verify_three_positive_far_cap()
@@ -1748,7 +2513,7 @@ def build_certificate() -> dict[str, object]:
         two_level_checks.append(two_level_profile_regression(n, k, a, b))
 
     return {
-        "schema_version": 13,
+        "schema_version": 14,
         "status": (
             "Research certificate: exact reductions and an obstruction, "
             "not an all-sample-size coverage certificate."
@@ -1821,6 +2586,21 @@ def build_certificate() -> dict[str, object]:
                 "e_lower": _fraction_record(Fraction(685, 252)),
                 "e_upper": _fraction_record(Fraction(31967, 11760)),
             },
+        },
+        "n4_five_knot_theorem": {
+            "analytic_basis": (
+                "The radial zero-knot reduction followed by exact scalar "
+                "convex-core, affine-minorant, and comparison bounds, an "
+                "auxiliary constrained-convexity certificate, and a "
+                "deterministic 160-bit Arb branch certificate for the "
+                "residual ordered four-knot face"
+            ),
+            "scope": (
+                "Every nonnegative five-coordinate profile with "
+                "sum_i y_i<=4"
+            ),
+            "symbolic_exact_and_interval_checks": "passed",
+            "proof_record": n4_five_knot_record,
         },
         "three_positive_convex_core_all_n": {
             "analytic_basis": (
@@ -1998,6 +2778,12 @@ def main(argv: list[str] | None = None) -> int:
         "complete n=3 four-knot comparison:",
         certificate["n3_four_knot_theorem"][
             "symbolic_identity_and_constant_check"
+        ],
+    )
+    print(
+        "complete n=4 five-knot comparison:",
+        certificate["n4_five_knot_theorem"][
+            "symbolic_exact_and_interval_checks"
         ],
     )
     print(

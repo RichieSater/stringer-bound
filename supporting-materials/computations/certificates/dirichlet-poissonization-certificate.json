@@ -2931,12 +2931,118 @@
     "scope": "Every nonnegative four-coordinate profile with sum_i y_i<=3",
     "symbolic_identity_and_constant_check": "passed"
   },
+  "n4_five_knot_theorem": {
+    "analytic_basis": "The radial zero-knot reduction followed by exact scalar convex-core, affine-minorant, and comparison bounds, an auxiliary constrained-convexity certificate, and a deterministic 160-bit Arb branch certificate for the residual ordered four-knot face",
+    "proof_record": {
+      "arb_precision_bits": 160,
+      "auxiliary_derivative_bound": {
+        "bound": "abs((f_4''/2)')<3/5",
+        "certified_leaf_intervals": 438,
+        "maximum_bisection_depth": 12
+      },
+      "central_affine_minorant": {
+        "bernstein_minimum": {
+          "decimal": "452999.479837436868686869",
+          "denominator": "25344",
+          "numerator": "11480818817"
+        },
+        "knot_interval": "[9/16,37/16]",
+        "lower_endpoint_margin": {
+          "decimal": "18.424737844023416564",
+          "denominator": "192208990105125",
+          "numerator": "3541400253951419"
+        },
+        "minorant": "q(u)>=(1-u)/6"
+      },
+      "extended_convex_core": {
+        "endpoint_exp_threshold": {
+          "decimal": "23.535196245733788396",
+          "denominator": "4688",
+          "numerator": "110333"
+        },
+        "endpoint_exp_upper": {
+          "decimal": "23.529872430824428592",
+          "denominator": "33073254343",
+          "numerator": "778209455563"
+        },
+        "exact_margin": {
+          "decimal": "0.005323814909359804",
+          "denominator": "155047416359984",
+          "numerator": "825443746875"
+        },
+        "largest_knot_upper": "19/15"
+      },
+      "main_four_positive_face": {
+        "box_preprocessing": "tighten each upper endpoint from the other lower endpoints and the weighted budget",
+        "cumulative_coordinate_weights": [
+          4,
+          3,
+          2,
+          1
+        ],
+        "evaluation_point_rule": "coordinate midpoint, radially scaled to weighted budget 4 when necessary",
+        "initial_parameter_box": "[0,1]x[0,4/3]x[0,2]x[0,4]",
+        "maximum_bisection_depth": 28,
+        "parameterization": "(a,b,c,d)=(a,a+r,a+r+s,a+r+s+t), 4a+3r+2s+t<=4",
+        "split_rule": "bisect the first coordinate maximizing weight*width; push lower child then upper child on a LIFO stack",
+        "terminal_box_counts": {
+          "central": 23,
+          "core": 6190,
+          "far": 0,
+          "lipschitz": 24889,
+          "scalar": 7599
+        },
+        "terminal_transcript_sha256": "66dfba78573895b27c4ba6dd7616b68ed96a377f0c767107d30a5f08de8fbf94",
+        "total_branch_calls": 77401
+      },
+      "q2_linear_upper_bound": {
+        "bernstein_minimum": {
+          "decimal": "0.141263424075924076",
+          "denominator": "640640",
+          "numerator": "90499"
+        },
+        "bound": "g_4''(u)/2<=u/4 for u>=0"
+      },
+      "scalar_pruning_monotonicity": {
+        "f_4_4_minus_f_4_3_lower_margin": {
+          "decimal": "0.003561901743788778",
+          "denominator": "1167880896",
+          "numerator": "4159877"
+        },
+        "h_4_4_minus_h_4_1_scaled_margin": {
+          "decimal": "0.104003906250000000",
+          "denominator": "2048",
+          "numerator": "213"
+        }
+      },
+      "secondary_constrained_convexity": {
+        "analytic_core_terminal_boxes": 53,
+        "box_preprocessing": "tighten each upper endpoint from the other lower endpoints and the weighted budget",
+        "claim": "[b,c,d]f_4>=0 when 0<=b<=c<=d and b+c+d<=4",
+        "cumulative_coordinate_weights": [
+          3,
+          2,
+          1
+        ],
+        "evaluation_point_rule": "coordinate midpoint, radially scaled to weighted budget 4 when necessary",
+        "initial_parameter_box": "[0,4/3]x[0,2]x[0,4]",
+        "lipschitz_terminal_boxes": 12187,
+        "maximum_bisection_depth": 20,
+        "parameterization": "(b,c,d)=(b,b+s,b+s+t), 3b+2s+t<=4",
+        "split_rule": "bisect the first coordinate maximizing weight*width; push lower child then upper child on a LIFO stack",
+        "terminal_transcript_sha256": "baf76e5da205718ac2f7e7037bde03a4d02e5cacfa9351c14254c24f1ca31dfe",
+        "total_branch_calls": 24479
+      }
+    },
+    "scope": "Every nonnegative five-coordinate profile with sum_i y_i<=4",
+    "symbolic_exact_and_interval_checks": "passed"
+  },
   "radial_zero_knot_reduction": {
     "analytic_basis": "The Laplace-transform convolution identity, the resulting mode-below-mean bound for weighted exponential sums, and the density-derivative argument in DIRICHLET-POISSONIZATION.md",
     "scope": "Any strictly positive coefficient profile with sum_i y_i<=n can be moved to a zero-knot boundary without increasing the Dirichlet--Poissonization gap.",
     "symbolic_identity_check": "passed"
   },
-  "schema_version": 13,
+  "schema_version": 14,
   "sparse_convex_core_all_n": {
     "analytic_basis": "The repeated divided-difference multiplication identity, the arbitrary-order derivative-CDF identities proved by induction, and Anderson--Samuels (1967)",
     "corroboration_record": {

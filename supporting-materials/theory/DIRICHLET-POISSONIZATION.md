@@ -8,7 +8,7 @@
 > convex-core region on every coordinate face (including a four-positive
 > region in every dimension `n>=4`), proves the four-positive far cap
 > `d>=n-1`,
-> proves the complete comparison for `n=2` and `n=3`, and rules out an
+> proves the complete comparison for `n=2`, `n=3`, and `n=4`, and rules out an
 > over-broad
 > localization shortcut. The central
 > divided-difference inequality remains open for general `n`. Nothing here is
@@ -825,8 +825,8 @@ and 9 settle both the convex core `c<=n^2/{2(n+1)}` and the far cap
 `c>=n-1` of every three-positive face.  Section 10 below covers an additional
 part of the intervening region.
 
-The same endpoint machinery also proves a far cap on the first unresolved
-coordinate face.
+The same endpoint machinery also proves a far cap on the next coordinate
+face.
 
 > **Four-positive far-cap theorem.**  Let `n>=4`, and suppose the coefficient
 > vector consists of `n-3` zeros and four values
@@ -1626,7 +1626,329 @@ Thus the numerator in (15aw) is nonnegative.  Together with Sections 8--10,
 this proves the three-positive face theorem.
 
 
-## 12. Why generic $s$-concave localization is too broad
+## 12. The complete comparison for `n=4`
+
+The next simplex dimension can also be closed.  The proof uses
+exact scalar inequalities and two finite real-ball subdivisions; it is not a
+floating-point search.
+
+> **Five-knot theorem.**  Let `n=4` and let
+> `y_0,...,y_4>=0` satisfy `sum_i y_i<=4`.  Then
+>
+> \[
+>  \Pr\{Z_y>4\}\ge\Pr\{T_y>1\}.                  \tag{15bi}
+> \]
+
+By the radial boundary lemma, it is enough to treat
+`(0,a,b,c,d)` with
+
+\[
+ 0\le a\le b\le c\le d,
+ \qquad a+b+c+d\le4.
+\]
+
+Put
+
+\[
+ F(u)=u^3\{e^{-4/u}-(1-u^{-1})_+^4\}.
+\]
+
+Use the continuous value `F(0)=0`.
+
+The multiplication rule gives
+
+\[
+ [0,a,b,c,d]H_4=[a,b,c,d]F.                       \tag{15bj}
+\]
+
+If `W=(W_0,...,W_3)` is uniform on the three-simplex and
+`U=aW_0+bW_1+cW_2+dW_3`, the Hermite--Genocchi formula gives
+
+\[
+ [a,b,c,d]F=E q(U),
+ \qquad E U=\frac{a+b+c+d}{4}\le1,                \tag{15bk}
+\]
+
+where, with `lambda=4/u`,
+
+\[
+ q(u)=\frac{F'''(u)}6
+ =\begin{cases}
+ e^{-\lambda}(1+\lambda+\lambda^2/2+\lambda^3/6),&0<u\le1,\\
+ e^{-\lambda}(1+\lambda+\lambda^2/2+\lambda^3/6)-1+u^{-4},&u>1.
+\end{cases}                                      \tag{15bl}
+\]
+
+The two pieces make `F` a `C^3` function, so repeated knots are obtained by
+continuity from the strict-knot formulas below.
+
+We first remove two analytic regions.  For `u>1`, differentiation gives
+
+\[
+ u q'(u)=4\{\Pr(\operatorname{Pois}(\lambda)=4)
+              -\Pr(\operatorname{Bin}(4,1/u)=4)\},
+\]
+
+and the ratio of the two masses is `(32/3)e^{-lambda}`.  Hence `q` decreases
+on `[1,3/2]`.  At `u=19/15`, the inequality `q(u)>0` is equivalent to
+
+\[
+ e^{60/19}<\frac{110333}{4688}.
+\]
+
+The degree-seven Taylor upper bound is
+
+\[
+ e^{60/19}<\frac{778209455563}{33073254343},
+\]
+
+leaving the exact margin
+`825443746875/155047416359984`.  Thus `q>=0` through `19/15`, and (15bk)
+proves every profile with `d<=19/15`.
+
+The second scalar bound is
+
+\[
+ q(u)\ge\frac{1-u}{6},
+ \qquad \frac9{16}\le u\le\frac{37}{16}.         \tag{15bm}
+\]
+
+On `[9/16,1]`, the left side increases and the right side decreases, so the
+claim follows from one rational Taylor upper bound at `9/16`.  For `u>1`,
+putting `lambda=4/u` reduces (15bm) to
+
+\[
+ 1+\lambda+\frac{\lambda^2}{2}+\frac{\lambda^3}{6}
+ \ge e^\lambda\left(
+ \frac76-\frac{2}{3\lambda}-\frac{\lambda^4}{256}
+ \right).                                         \tag{15bn}
+\]
+
+The factor in parentheses is nonnegative for `64/37<=lambda<=4`.
+Replacing `e^lambda` by its degree-six Taylor sum plus the geometric tail
+majorant produces a rational polynomial after multiplication by the positive
+denominator `3870720 lambda(8-lambda)`.  Its exact Bernstein coefficients on
+
+\[
+ [64/37,2], [2,5/2], [5/2,3], [3,7/2], [7/2,4]
+\]
+
+are positive; the smallest is `11480818817/25344`.  This proves (15bm).
+If `a>=9/16`, the sum constraint gives `d<=37/16`, so (15bk)--(15bm) yield
+
+\[
+ [a,b,c,d]F\ge\frac{1-EU}{6}\ge0.                \tag{15bo}
+\]
+
+We next record the quantitative comparison used to prune another part of
+the face.  Write
+
+\[
+ g(u)=u^2\{e^{-4/u}-(1-u^{-1})_+^4\},\quad
+ f(u)=u\{e^{-4/u}-(1-u^{-1})_+^4\},\quad
+ h(u)=e^{-4/u}-(1-u^{-1})_+^4.
+\]
+
+Each function is assigned its continuous value zero at `u=0`.
+
+Exact Taylor--Bernstein bounds give
+
+\[
+ \frac{g''(u)}2\le\frac u4,
+ \qquad u\ge0.                                    \tag{15bp}
+\]
+
+For `u<=1`, this follows because
+`lambda Pr{Pois(lambda)<=2}` decreases for `lambda>=4` and is below one at
+four.  For `u>1`, the multiplier
+`1/lambda+1-lambda^3/16+3lambda^4/256` is positive on `0<lambda<=4`.
+Multiplication by `e^lambda` and substitution of the degree-eight Taylor
+lower bound therefore leave a polynomial whose exact Bernstein coefficients
+on the eight half-unit subintervals of `[0,4]` are positive; the smallest is
+`90499/640640`.
+
+The first interval stage certifies the following auxiliary inequality:
+
+\[
+ [b,c,d]f\ge0
+ \quad\text{whenever}\quad
+ 0\le b\le c\le d,\qquad b+c+d\le4.             \tag{15bq}
+\]
+
+Here `r=f''/2` satisfies `|r'|<3/5`.  On `u<=1`, this follows by maximizing
+`e^{-lambda}lambda^4(lambda-3)/32` at `lambda=6`.  On `u>1`, the exact
+formula is
+
+\[
+ r'(u)=\frac{15\lambda^6}{2048}-\frac{3\lambda^5}{64}
+       +\frac{9\lambda^4}{128}
+       +e^{-\lambda}\left(\frac{\lambda^5}{32}
+                          -\frac{3\lambda^4}{32}\right).
+\]
+
+On `0<=lambda<=4`, 438 directed 160-bit Arb intervals enclose this expression
+strictly inside `(-3/5,3/5)`, to maximum bisection depth 12.  The region
+`d<=4/3` is analytic: for `u<=1`, `r>0`, while for `1<u<=4/3` the ratio of
+the positive and negative mass terms is
+
+\[
+ \frac{4e^{-\lambda}}{3(1-\lambda/4)^2}.
+\]
+
+Its logarithmic derivative is `(lambda-2)/(4-lambda)`, and its value at
+`lambda=3` exceeds one because `e^3<64/3`.  Hence `f''>=0` throughout the
+core.
+The function `f` is `C^2`, so confluent divided differences again follow by
+continuity.
+
+For the remainder, set
+
+\[
+ (b,c,d)=(b,b+s,b+s+t),qquad 3b+2s+t\le4.
+\]
+
+Since a partial derivative of `E r(bW_0+cW_1+dW_2)` with respect to any
+knot has absolute value at most `(3/5)E W_i=1/5`, a parameter box has the
+certified Lipschitz error
+
+\[
+ \frac15(3\Delta b+2\Delta s+\Delta t).           \tag{15br}
+\]
+
+Here each `Delta` is the larger distance from the chosen evaluation point to
+the two endpoints in that coordinate; this remains valid if the radial
+scaling moves the evaluation point away from the coordinate midpoint.
+
+The initial box is `[0,4/3] x [0,2] x [0,4]`.  Before testing a box, each
+upper endpoint is tightened using the other lower endpoints and
+`3b+2s+t<=4`.  The center is the coordinate midpoint, scaled radially to the
+budget boundary if necessary.  An unresolved box is bisected in the first
+coordinate maximizing `w_i(U_i-L_i)`, with weights `(3,2,1)`; the children
+are inserted lower then upper on the last-in, first-out stack.  These rules
+and the pinned Arb precision make the transcript deterministic.
+
+The deterministic longest-weighted-side subdivision terminates after
+24,479 branch calls.  It has 53 analytic-core terminal boxes and 12,187
+Lipschitz-certified terminal boxes, with maximum depth 20.  Every center is
+evaluated by directed 160-bit Arb arithmetic.  The SHA-256 digest of the
+ordered terminal transcript is
+
+```text
+baf76e5da205718ac2f7e7037bde03a4d02e5cacfa9351c14254c24f1ca31dfe
+```
+
+Thus (15bq) is an exhaustive interval proof, not evidence from sampled
+points.
+
+We use (15bq) to obtain a simple lower bound.  Two knot-insertion identities
+give
+
+\[
+ [b,c,d]g-h(d)
+ =b[b,d]h+c[b,c,d]f.                              \tag{15bs}
+\]
+
+The sum constraint implies `2b+d<=4`.  The derivative is
+
+\[
+ h'(u)=\frac4{u^2}\{e^{-4/u}-(1-u^{-1})^3\},
+\]
+
+and the logarithmic derivative of the ratio inside braces is
+`(lambda-1)/(4-lambda)`.  Since `e^2<8`, the function `h` increases through
+two and thereafter has at most one turn, necessarily a maximum, on `[2,4]`.
+If `d<=2`, this gives `h(d)>=h(b)`
+directly.  If `d>2`, then `b<1`.  Moreover, rational Taylor bounds give
+
+\[
+ e^3\left(1-\frac{81e}{256}\right)-1
+ >\frac{213}{2048}>0,
+\]
+
+which is exactly `h(4)>h(1)` after multiplication by `e^4`.  Thus the
+one-turn shape gives
+`h(d)>=min\{h(2),h(4)\}>h(1)>=h(b)`.  Therefore both terms on the right of
+(15bs) are nonnegative, and
+
+\[
+ [b,c,d]g\ge h(d).                                \tag{15bt}
+\]
+
+On the other hand, (15bp) and Hermite--Genocchi give
+
+\[
+ [a,b,c]g\le\frac{a+b+c}{12}\le\frac{4-d}{12}.
+                                                               \tag{15bu}
+\]
+
+The scalar test below uses the value of `f` at a lower bound for `d`.  This
+is legitimate in the branch where that lower bound is below three.  Indeed,
+the one-maximum analysis of `f'` in Section 11, together with the first
+bound below, shows that `f` increases through three.  On `[3,4]`, equations
+(15ba)--(15bb) and `e>64/27` give `f''<0`, so `f'` can cross zero at most
+once and `f` has no interior minimum.  Rational Taylor bounds give
+
+\[
+ e^{4/3}<\frac{59}{15}<\frac{63}{16},
+ \qquad
+ e>\frac52>\frac{64}{27},
+ \qquad
+ f(4)-f(3)>
+ \frac{4159877}{1167880896}>0.
+\]
+
+Consequently `f(d)>=f(d_0)` whenever `1<d_0<3` and `d_0<=d<=4`.
+Using the multiplication identity (15ag1), equations (15bt)--(15bu) now
+prove the target whenever
+
+\[
+ f(d)\ge\frac{a(4-d)}{12}.                         \tag{15bv}
+\]
+
+It remains to certify the boxes not covered by `d<=19/15`, `d>=3`,
+`a>=9/16`, or (15bv).  Parameterize them by
+
+\[
+ (a,b,c,d)=(a,a+r,a+r+s,a+r+s+t),qquad
+ 4a+3r+2s+t\le4.                                  \tag{15bw}
+\]
+
+For `u>1`, the mass-difference formula gives `|q'(u)|<4` directly.  For
+`u<=1`, it reduces to
+`e^{-lambda}lambda^5/24`, whose maximum on `lambda>=4` occurs at five and is
+also below four.  Thus `q` is globally four-Lipschitz.  Coupling the
+Hermite--Genocchi expectations shows that changing one knot by `delta`
+changes (15bk) by at most `|delta|`.  A parameter box therefore has
+Lipschitz error
+
+\[
+ 4\Delta a+3\Delta r+2\Delta s+\Delta t.          \tag{15bx}
+\]
+
+The main initial box is
+`[0,1] x [0,4/3] x [0,2] x [0,4]`.  The same tightening, center-scaling,
+stack, and tie-breaking rules apply, now with weights `(4,3,2,1)`.  This
+deterministic subdivision closes after 77,401 branch calls.
+Its terminal boxes comprise 6,190 convex-core boxes, 23 central boxes, 7,599
+boxes certified by (15bv), and 24,889 boxes certified directly by (15bx).
+The maximum depth is 28, and the ordered terminal-transcript digest is
+
+```text
+66dfba78573895b27c4ba6dd7616b68ed96a377f0c767107d30a5f08de8fbf94
+```
+
+At every directly certified box, the Arb lower bound at the rational center
+strictly exceeds the exact Lipschitz radius.  The source regenerates the
+partition, all scalar checks, both digests, and every count.  Thus
+`[a,b,c,d]F>=0` on the complete ordered face.  Equations (15bj) and (5),
+followed by the radial boundary lemma, prove (15bi).
+
+This theorem completes the Dirichlet--Poissonization comparison for `n=4`.
+It does not prove the separate exponential-quantile convexity target and is
+not, by itself, a general-`n` Stringer coverage theorem.
+
+
+## 13. Why generic $s$-concave localization is too broad
 
 A one-dimensional localization theorem for $1/n$-concave probability
 laws reduces a linear extremal problem to point masses or densities of the
@@ -1686,18 +2008,20 @@ coefficients $y_i$; not every density in (16) is such a projection with
 the constraint (2). The example shows precisely which structural
 information a successful localization argument must preserve.
 
-## 13. Remaining proof problem
+## 14. Remaining proof problem
 
 The cleanest current target is (6).  Section 4 shows that it is enough to
 work on coordinate faces, Sections 3--5 establish it for every profile
 having at most two distinct coefficient values or at most two nonzero
 coefficients, and Sections 6--7 prove the complete target for `n=2` and
-`n=3`.  Sections 8--11 prove every profile having exactly three nonzero
-coefficients.  Section 8 also proves a convex core on every coordinate face,
-including the region `d<=n^2/{3(n+1)}` for four nonzero knots, and Section 9
-proves the opposite four-positive far cap `d>=n-1`.  Profiles with four or
-more nonzero knots outside those regions remain open.  Three plausible routes
-remain for general `n`:
+`n=3`, while Section 12 proves the complete target for `n=4`.  Sections
+8--11 prove every profile having exactly three nonzero coefficients.
+Section 8 also proves a convex core on every coordinate face, including the
+region `d<=n^2/{3(n+1)}` for four nonzero knots, and Section 9 proves the
+opposite four-positive far cap `d>=n-1`.  In dimensions `n>=5`, profiles
+with four or more nonzero knots outside the proved regions remain open.  The
+first open complete simplex dimension is therefore `n=5`.  Three plausible
+routes remain for general `n`:
 
 1. exploit the zero-knot reduction recursively, or prove that a negative
    minimum on a coordinate face must have at most two distinct knot values;
@@ -1718,9 +2042,10 @@ The committed output is
 It certifies the obstruction, checks rational equal-block instances,
 regression-checks the exact algebra used in the two-level, two-positive-knot,
 arbitrary-order sparse-core, four-positive far-cap, three-positive subregion,
-and complete `n=2` and `n=3` proofs.  It also supplies the rigorous
-finite-prefix interval component of the complete three-positive-face proof.
-The general inequality remains explicitly open.
+and complete `n=2`, `n=3`, and `n=4` proofs.  It also supplies the directed
+interval components of the complete three-positive-face and `n=4` proofs,
+including deterministic terminal-box counts and transcript digests.  The
+general inequality remains explicitly open.
 
 ## References
 
