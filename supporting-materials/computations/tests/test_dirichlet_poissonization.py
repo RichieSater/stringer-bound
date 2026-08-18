@@ -20,6 +20,7 @@ from dirichlet_poissonization import (  # noqa: E402
     verify_n3_four_knot_theorem,
     verify_radial_symbolic_identities,
     verify_saffine_symbolic_identities,
+    verify_sparse_convex_core,
     verify_three_positive_convex_core,
     verify_three_positive_far_cap,
     verify_three_positive_full_face,
@@ -93,6 +94,14 @@ class DirichletPoissonizationTests(unittest.TestCase):
     def test_all_n_three_positive_convex_core_algebra(self):
         verify_three_positive_convex_core()
 
+    def test_all_n_sparse_convex_core_algebra(self):
+        record = verify_sparse_convex_core()
+        self.assertEqual(
+            record["symbolic_n_derivative_orders_checked"],
+            [1, 2, 3, 4, 5, 6],
+        )
+        self.assertEqual(record["integer_parameter_pair_count"], 45)
+
     def test_all_n_three_positive_far_cap_algebra(self):
         verify_three_positive_far_cap()
 
@@ -112,7 +121,7 @@ class DirichletPoissonizationTests(unittest.TestCase):
 
     def test_certificate_is_explicitly_non_theorem_research_support(self):
         certificate = build_certificate()
-        self.assertEqual(certificate["schema_version"], 11)
+        self.assertEqual(certificate["schema_version"], 12)
         self.assertIn("not an all-sample-size coverage certificate", certificate["status"])
         self.assertEqual(
             len(certificate["equal_block_profiles"]["regression_checks"]),
@@ -150,6 +159,12 @@ class DirichletPoissonizationTests(unittest.TestCase):
             ],
             "passed",
         )
+        sparse_core = certificate["sparse_convex_core_all_n"]
+        self.assertEqual(
+            sparse_core["symbolic_identity_and_threshold_check"],
+            "passed",
+        )
+        self.assertIn("four-positive", sparse_core["scope"])
         self.assertEqual(
             certificate["three_positive_far_cap_all_n"][
                 "symbolic_identity_and_constant_check"

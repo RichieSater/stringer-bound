@@ -308,7 +308,8 @@ using the proved zero-knot reduction and all-two-level case in
 [`DIRICHLET-POISSONIZATION.md`](supporting-materials/theory/DIRICHLET-POISSONIZATION.md),
 which now also proves the complete threshold comparison for $n=2$ and
 $n=3$, together with every profile having three nonzero coefficients in
-every dimension;
+every dimension and a sparse convex-core region on every coordinate face,
+including `d<=n^2/{3(n+1)}` for four nonzero coefficients;
 and develop a certified branch-and-bound or atoms-reduction argument for
 ordinary audit sample sizes.
 The immediate fixed-dimension target is \(n=8\) at 90%, 95%, and 99%, not more

@@ -4,7 +4,9 @@
 > counterexample to a zero-knot boundary, proves every profile having at most
 > two distinct coefficient values or at most two nonzero coefficients, proves
 > every profile with three nonzero coefficients (including analytic
-> convex-core, far-cap, and middle-knot subregions),
+> convex-core, far-cap, and middle-knot subregions), proves a sparse
+> convex-core region on every coordinate face (including a four-positive
+> region in every dimension `n>=4`),
 > proves the complete comparison for `n=2` and `n=3`, and rules out an
 > over-broad
 > localization shortcut. The central
@@ -532,10 +534,110 @@ knots follow by continuity.  Together with (15k) and the radial boundary
 lemma, this proves (15i).
 
 
-## 8. A dimension-free three-positive convex core
+## 8. A sparse convex-core theorem
 
-The same multiplication step gives a nontrivial all-`n` region with three
-arbitrary positive knots.
+The multiplication step and the Anderson--Samuels comparison extend to
+every derivative order.  This gives a dimension-free core on every
+coordinate face.
+
+> **Sparse convex-core theorem.**  Let `n>=2` and `1<=k<=n-1`.  Suppose the
+> coefficient vector consists of `n-k` zeros and `k+1` further values
+> `0<=x_0<=...<=x_k` satisfying
+>
+> \[
+>  \sum_{j=0}^k x_j\le n,
+>  \qquad
+>  x_k\le c_{n,k}:=\frac{n^2}{k(n+1)}.
+> \]
+>
+> Then `Pr{Z_y>n}>=Pr{T_y>1}`.
+
+The flatness of `H_n` at zero and `n-k` applications of the
+divided-difference multiplication rule give
+
+\[
+ [\underbrace{0,\ldots,0}_{n-k},x_0,\ldots,x_k]H_n
+ =[x_0,\ldots,x_k]F_{n,k},
+ \qquad
+ F_{n,k}(u)=u^k\{e^{-n/u}-(1-u^{-1})_+^n\}.
+\]
+
+For `u>1`, put `lambda=n/u`.  Direct induction in `k` gives
+
+\[
+ \begin{aligned}
+ \frac{F_{n,k}^{(k)}(u)}{k!}
+ &=e^{-\lambda}\sum_{j=0}^k\frac{\lambda^j}{j!}
+   -\sum_{j=0}^k\binom nj u^{-j}(1-u^{-1})^{n-j}\\
+ &=\Pr\{\operatorname{Pois}(\lambda)\le k\}
+   -\Pr\{\operatorname{Bin}(n,\lambda/n)\le k\}.
+ \end{aligned}
+\]
+
+For completeness, the induction uses the following elementary recurrence.
+If
+
+\[
+ A_j(u)=\frac1{j!}\frac{d^j}{du^j}\{u^jh(u)\},
+\]
+
+then the product rule gives
+
+\[
+ A_{j+1}(u)=A_j(u)+\frac{u}{j+1}A_j'(u).
+\]
+
+Starting with `h(u)=e^{-n/u}` or `h(u)=(1-u^{-1})^n`, the corresponding
+Poisson or binomial lower-tail CDF satisfies this recurrence because
+
+\[
+ -\lambda\frac d{d\lambda}
+   \Pr\{\operatorname{Pois}(\lambda)\le j\}
+ =(j+1)\Pr\{\operatorname{Pois}(\lambda)=j+1\}
+\]
+
+and, with `p=1/u`,
+
+\[
+ -p\frac d{dp}\Pr\{\operatorname{Bin}(n,p)\le j\}
+ =(j+1)\Pr\{\operatorname{Bin}(n,p)=j+1\}.
+\]
+
+On `(0,1]`, the binomial term in `F_{n,k}` vanishes, and the same derivative
+identity makes `F_{n,k}^{(k)}` positive.  The binomial component switched on
+for `u>1` is `(u-1)^n/u^{n-k}`.  Because `k<=n-1`, its derivatives through
+order `k` vanish at one, so `F_{n,k}^{(k)}` is continuous there.  Notice also
+that `c_{n,k}>1`, since `k<=n-1`.
+
+For `1<u<c_{n,k}`, the Anderson--Samuels inequality applies because
+
+\[
+ k<\lambda-\frac{\lambda}{n+1}.
+\]
+
+The endpoint `u=c_{n,k}` follows by continuity.  Consequently,
+`F_{n,k}^{(k)}>=0` throughout `[0,c_{n,k}]`.  The Hermite--Genocchi formula
+now gives `[x_0,...,x_k]F_{n,k}>=0`, including repeated knots by continuity,
+and (5) proves the theorem.
+
+The first consequence on a previously untreated coordinate face is worth
+recording explicitly.
+
+> **Four-positive convex-core corollary.**  Let `n>=4`, and suppose the
+> coefficient vector consists of `n-3` zeros and four ordered nonnegative
+> values `a<=b<=c<=d` whose sum is at most `n`.  If
+>
+> \[
+>  d\le\frac{n^2}{3(n+1)},
+> \]
+>
+> then `Pr{Z_y>n}>=Pr{T_y>1}`.  For the first open dimension `n=4`, the
+> condition is `d<=16/15`.
+
+This corollary is a proper region of the four-positive face, not a proof of
+that complete face.  Taking `k=2` in the sparse theorem gives the following
+three-positive subcase, for which it is useful to display the curvature
+identity separately.
 
 > **Three-positive convex-core theorem.**  Let `n>=3`, and suppose the
 > coefficient vector consists of `n-2` zeros and three values
@@ -1430,7 +1532,9 @@ work on coordinate faces, Sections 3--5 establish it for every profile
 having at most two distinct coefficient values or at most two nonzero
 coefficients, and Sections 6--7 prove the complete target for `n=2` and
 `n=3`.  Sections 8--11 prove every profile having exactly three nonzero
-coefficients.  Profiles with four or more nonzero knots remain open.  Three
+coefficients.  Section 8 also proves a convex core on every coordinate face,
+including the region `d<=n^2/{3(n+1)}` for four nonzero knots.  Profiles with
+four or more nonzero knots outside those sparse cores remain open.  Three
 plausible routes remain for general `n`:
 
 1. exploit the zero-knot reduction recursively, or prove that a negative
@@ -1451,8 +1555,8 @@ The committed output is
 [`dirichlet-poissonization-certificate.json`](../computations/certificates/dirichlet-poissonization-certificate.json).
 It certifies the obstruction, checks rational equal-block instances,
 regression-checks the exact algebra used in the two-level, two-positive-knot,
-three-positive subregion, and complete `n=2` and `n=3` proofs, and supplies
-the rigorous finite-prefix interval component of the complete
+arbitrary-order sparse-core, three-positive subregion, and complete `n=2`
+and `n=3` proofs, and supplies the rigorous finite-prefix interval component of the complete
 three-positive-face proof.  The general inequality remains explicitly open.
 
 ## References

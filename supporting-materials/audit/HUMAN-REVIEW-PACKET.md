@@ -442,28 +442,35 @@ Questions:
     `g_n` give the exact `k=2` Poisson-minus-binomial CDF identity (15x), and
     does Anderson--Samuels give precisely the threshold
     `c<=n^2/{2(n+1)}` including its continuity endpoint?
-14. For the dimension-free three-positive far cap, do (15z)--(15ab) prove
+14. For the arbitrary-order sparse convex core, does the recurrence for
+    `A_j` prove the stated `k`th-derivative Poisson-minus-binomial CDF
+    identity, including continuity at one, and does Anderson--Samuels give
+    precisely `x_k<=n^2/{k(n+1)}`?  In particular, does this establish the
+    four-positive region `d<=n^2/{3(n+1)}` without claiming the rest of that
+    face?
+15. For the dimension-free three-positive far cap, do (15z)--(15ab) prove
     that `g_n` is increasing on `[0,n]` for every `n>=4`, do
     (15ac)--(15af) prove the required endpoint estimate, and does the final
     secant comparison cover every ordered triple with `c>=n-1`?
-15. For the three-positive middle-knot region, does (15ai) prove the
+16. For the three-positive middle-knot region, does (15ai) prove the
     one-crossing curvature property, do the exact series bounds
     (15ak)--(15an) justify all four endpoint comparisons, does (15ap) give
     the quantitative curvature bound, and do (15at)--(15av) and the
     tangent-remainder argument imply the two required secant inequalities
     whenever `b<=n/3`?
-16. For the residual three-positive region, does (15aw) reduce the sign to
+17. For the residual three-positive region, does (15aw) reduce the sign to
     the two weighted secant slopes of `f_n`; do (15ba)--(15bd) prove the
     one-maximum and endpoint ordering; does the 128-bit Arb subdivision
     certify the finite prefix in (15be); do the logarithmic, Taylor, and
     Bernstein bounds prove the analytic tail of (15be) and all of (15bf);
     and do the final two inequalities exhaust every profile not already
     covered by Sections 8--10?
-17. Is the conclusion limited to the complete `n=2` and `n=3`
+18. Is the conclusion limited to the complete `n=2` and `n=3`
     Poissonization inequalities, every two-level profile, every profile with
-    at most three nonzero coefficients, and the radial boundary reduction,
-    without being promoted to the still-open general-dimensional comparison
-    or to a Stringer coverage theorem by itself?
+    at most three nonzero coefficients, the sparse convex cores, and the
+    radial boundary reduction, without being promoted to the still-open
+    general-dimensional comparison or to a Stringer coverage theorem by
+    itself?
 
 ## Minimum reproduction record
 

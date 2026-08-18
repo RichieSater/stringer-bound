@@ -4,7 +4,8 @@
 > Exponential-quantile convexity is now proved sharply in two coordinates but
 > remains open in three or more; Dirichlet Poissonization remains open in
 > general, although it is proved for every profile with at most three nonzero
-> coefficients and completely for `n=2` and `n=3`.  This is a research roadmap,
+> coefficients, on a sparse convex core of every coordinate face, and
+> completely for `n=2` and `n=3`.  This is a research roadmap,
 > not a coverage claim.  The paper
 > continues to state that ordinary Stringer coverage is unresolved for
 > arbitrary `n`.
@@ -431,7 +432,28 @@ bound.  Thus (B) is complete in four coordinates too.  This does not prove
 route (A) in four coordinates and therefore is not, by itself, a Stringer
 coverage theorem.
 
-There is also a dimension-free three-positive region.  With `n-2` zero knots
+More generally, suppose there are `n-k` zero knots and `k+1` ordered
+nonnegative knots `x_0<=...<=x_k`, where `1<=k<=n-1`.  Multiplication reduces
+(16) to the `k`th divided difference of
+
+\[
+ F_{n,k}(u)=u^k\{e^{-n/u}-(1-u^{-1})_+^n\}.
+\]
+
+Its `k`th derivative, divided by `k!`, is exactly
+
+\[
+ \Pr\{\operatorname{Pois}(n/u)\le k\}
+ -\Pr\{\operatorname{Bin}(n,1/u)\le k\}.
+\]
+
+The Anderson--Samuels inequality therefore proves the comparison whenever
+the largest knot satisfies `x_k<=n^2/{k(n+1)}`.  This sparse convex-core
+theorem gives, in particular, the first dimension-free four-positive region
+`d<=n^2/{3(n+1)}`; on the first open `n=4` coordinate face, this is
+`d<=16/15`.
+
+For three positive knots, much more is known.  With `n-2` zero knots
 and ordered positive knots `a<=b<=c`, multiplication reduces (16) to the
 second divided difference of
 
@@ -458,7 +480,7 @@ The radial derivative is the density derivative at the threshold.  A
 Laplace-transform convolution identity shows that the mode of every
 weighted exponential sum is no larger than its mean, giving the required
 sign.  In dimensions `n>=4`, coordinate-face profiles with four or more
-nonzero knots remain open.  See
+nonzero knots remain open outside the sparse convex cores just described.  See
 [`DIRICHLET-POISSONIZATION.md`](DIRICHLET-POISSONIZATION.md) for the proof,
 the full reduction, and the exact localization obstruction.
 
@@ -498,8 +520,9 @@ seemingly simpler but false domination claim.
 2. Prove the constrained divided-difference inequality (16), or find an
    actual B-spline counterexample satisfying the sum-of-knots constraint;
    the complete `n=2` and `n=3` cases and every two-level profile are already
-   proved, as is the entire three-positive face in every dimension.  The
-   first open simplex dimension is `n=4`.
+   proved, as is the entire three-positive face and a sparse convex core on
+   every coordinate face.  The first open region is the part of the `n=4`
+   four-positive boundary outside `d<=16/15`.
 3. Use the zero-knot reduction recursively, or prove that a negative minimum
    on a coordinate face must have at most two distinct knot values.
 4. Only after both analytic steps pass, connect (6)--(7) to the published

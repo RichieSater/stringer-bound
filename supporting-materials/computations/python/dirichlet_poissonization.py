@@ -28,6 +28,9 @@ boundary reduction, a proved structured family, and one obstruction:
   for ``n=3``; and
 * the ``k=2`` Anderson--Samuels comparison proves a dimension-free convex
   core for profiles with three nonzero coefficients; and
+* the same derivative-CDF identity at arbitrary order proves a sparse
+  convex core on every coordinate face, including a first all-``n`` region
+  for profiles with four nonzero coefficients; and
 * an exact monotonicity and endpoint argument proves a dimension-free far
   cap for profiles with three nonzero coefficients; and
 * a one-crossing curvature argument, a quantitative curvature inequality,
@@ -455,6 +458,102 @@ def verify_three_positive_convex_core() -> None:
         - lambda_at_boundary / (n + 1)
         - 2
     ) == 0
+
+
+def verify_sparse_convex_core() -> dict[str, object]:
+    """Check the arbitrary-order sparse convex-core identities.
+
+    The written proof uses induction in ``k``.  These exact SymPy checks
+    cover symbolic ``n`` through the first six derivative orders, including
+    the new four-positive case ``k=3``, and every admissible order for the
+    integer prefix ``2<=n<=10``.  They corroborate rather than replace the
+    all-parameter induction and Anderson--Samuels argument in the note.
+    """
+    from sympy import (
+        binomial,
+        diff,
+        exp,
+        factorial,
+        simplify,
+        symbols,
+        together,
+    )
+
+    n = symbols("n", integer=True, positive=True)
+    u = symbols("u", positive=True)
+
+    symbolic_orders: list[int] = []
+    for order in range(1, 7):
+        poisson_piece = diff(
+            u**order * exp(-n / u),
+            u,
+            order,
+        ) / factorial(order)
+        poisson_cdf = exp(-n / u) * sum(
+            (n / u) ** j / factorial(j)
+            for j in range(order + 1)
+        )
+        assert simplify(poisson_piece - poisson_cdf) == 0
+
+        binomial_piece = diff(
+            u**order * (1 - 1 / u) ** n,
+            u,
+            order,
+        ) / factorial(order)
+        binomial_cdf = sum(
+            binomial(n, j)
+            * u ** (-j)
+            * (1 - 1 / u) ** (n - j)
+            for j in range(order + 1)
+        )
+        assert simplify(together(binomial_piece - binomial_cdf)) == 0
+        symbolic_orders.append(order)
+
+    integer_pairs: list[str] = []
+    for dimension in range(2, 11):
+        for order in range(1, dimension):
+            poisson_piece = diff(
+                u**order * exp(-dimension / u),
+                u,
+                order,
+            ) / factorial(order)
+            poisson_cdf = exp(-dimension / u) * sum(
+                (dimension / u) ** j / factorial(j)
+                for j in range(order + 1)
+            )
+            assert simplify(poisson_piece - poisson_cdf) == 0
+
+            binomial_piece = diff(
+                u**order * (1 - 1 / u) ** dimension,
+                u,
+                order,
+            ) / factorial(order)
+            binomial_cdf = sum(
+                math.comb(dimension, j)
+                * u ** (-j)
+                * (1 - 1 / u) ** (dimension - j)
+                for j in range(order + 1)
+            )
+            assert simplify(together(binomial_piece - binomial_cdf)) == 0
+            integer_pairs.append(f"n={dimension},k={order}")
+
+    k = symbols("k", integer=True, positive=True)
+    core_endpoint = n**2 / (k * (n + 1))
+    lambda_at_boundary = simplify(n / core_endpoint)
+    assert simplify(
+        lambda_at_boundary
+        - lambda_at_boundary / (n + 1)
+        - k
+    ) == 0
+
+    return {
+        "symbolic_n_derivative_orders_checked": symbolic_orders,
+        "integer_parameter_pairs_checked": integer_pairs,
+        "integer_parameter_pair_count": len(integer_pairs),
+        "threshold_identity": (
+            "At u=n^2/(k(n+1)), lambda-lambda/(n+1)=k"
+        ),
+    }
 
 
 def verify_three_positive_far_cap() -> None:
@@ -1511,6 +1610,7 @@ def build_certificate() -> dict[str, object]:
     verify_two_positive_knot_theorem()
     verify_n3_four_knot_theorem()
     verify_three_positive_convex_core()
+    sparse_convex_core_record = verify_sparse_convex_core()
     verify_three_positive_far_cap()
     verify_three_positive_middle_knot_region()
     full_three_positive_record = verify_three_positive_full_face()
@@ -1541,7 +1641,7 @@ def build_certificate() -> dict[str, object]:
         two_level_checks.append(two_level_profile_regression(n, k, a, b))
 
     return {
-        "schema_version": 11,
+        "schema_version": 12,
         "status": (
             "Research certificate: exact reductions and an obstruction, "
             "not an all-sample-size coverage certificate."
@@ -1627,6 +1727,22 @@ def build_certificate() -> dict[str, object]:
                 "and c<=n^2/(2(n+1))"
             ),
             "symbolic_identity_check": "passed",
+        },
+        "sparse_convex_core_all_n": {
+            "analytic_basis": (
+                "The repeated divided-difference multiplication identity, "
+                "the arbitrary-order derivative-CDF identities proved by "
+                "induction, and Anderson--Samuels (1967)"
+            ),
+            "scope": (
+                "For every n>=2 and 1<=k<=n-1, every profile having n-k "
+                "zero coefficients and k+1 ordered nonnegative coefficients "
+                "x_0<=...<=x_k with sum at most n and "
+                "x_k<=n^2/(k(n+1)); in particular, every n>=4 "
+                "four-positive profile in the core d<=n^2/(3(n+1))"
+            ),
+            "symbolic_identity_and_threshold_check": "passed",
+            "corroboration_record": sparse_convex_core_record,
         },
         "three_positive_far_cap_all_n": {
             "analytic_basis": (
@@ -1766,6 +1882,12 @@ def main(argv: list[str] | None = None) -> int:
         "all-n three-positive convex core:",
         certificate["three_positive_convex_core_all_n"][
             "symbolic_identity_check"
+        ],
+    )
+    print(
+        "all-n sparse convex core:",
+        certificate["sparse_convex_core_all_n"][
+            "symbolic_identity_and_threshold_check"
         ],
     )
     print(
