@@ -17,6 +17,7 @@ from dirichlet_poissonization import (  # noqa: E402
     saffine_localization_obstruction,
     two_level_profile_regression,
     verify_n2_three_knot_theorem,
+    verify_n3_four_knot_theorem,
     verify_radial_symbolic_identities,
     verify_saffine_symbolic_identities,
     verify_two_positive_knot_theorem,
@@ -82,6 +83,9 @@ class DirichletPoissonizationTests(unittest.TestCase):
     def test_complete_n2_three_knot_algebra(self):
         verify_n2_three_knot_theorem()
 
+    def test_complete_n3_four_knot_algebra(self):
+        verify_n3_four_knot_theorem()
+
     def test_all_n_two_positive_knot_algebra(self):
         verify_two_positive_knot_theorem()
 
@@ -108,6 +112,12 @@ class DirichletPoissonizationTests(unittest.TestCase):
         )
         self.assertEqual(
             certificate["n2_three_knot_theorem"][
+                "symbolic_identity_and_constant_check"
+            ],
+            "passed",
+        )
+        self.assertEqual(
+            certificate["n3_four_knot_theorem"][
                 "symbolic_identity_and_constant_check"
             ],
             "passed",

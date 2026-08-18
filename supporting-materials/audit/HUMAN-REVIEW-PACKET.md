@@ -399,7 +399,7 @@ Questions:
     using any proved boundary, symmetry, or local-corner result as a full
     three-coordinate convexity or general-`n` coverage theorem?
 
-## Review J: Dirichlet--Poissonization reductions and the `n=2` theorem
+## Review J: Dirichlet--Poissonization reductions and the `n=2`, `n=3` theorems
 
 Primary files:
 
@@ -429,10 +429,20 @@ Questions:
 9. For `n=2`, does the radial lemma reduce every profile to one covered by
    the all-`n` two-positive-knot theorem, with the inequality direction
    preserved?
-10. Is the conclusion limited to the complete `n=2` Poissonization
-    inequality, every two-level profile, every profile with at most two
-    nonzero coefficients, and the radial boundary reduction, without being
-    promoted to the still-open general-dimensional comparison?
+10. For `n=3`, does the radial lemma reduce every profile to `(0,a,b,c)`,
+    and does the divided-difference multiplication rule give
+    `[0,a,b,c]H_3=[a,b,c]f` with the stated `f`?
+11. Do the derivative formulas (15l), exact rational Taylor bounds, and
+    endpoint signs prove strict convexity through `7/5` and the one-turn
+    shape of `f'` on `[0,3]`?
+12. Does the split at `b=9/10`, including the auxiliary function `Q`, prove
+    `[a,b]f<=[b,c]f` for every ordered triple with `a+b+c<=3`, including all
+    confluent limits?
+13. Is the conclusion limited to the complete `n=2` and `n=3`
+    Poissonization inequalities, every two-level profile, every profile with
+    at most two nonzero coefficients, and the radial boundary reduction,
+    without being promoted to the still-open general-dimensional comparison
+    or to a Stringer coverage theorem by itself?
 
 ## Minimum reproduction record
 

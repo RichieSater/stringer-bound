@@ -24,6 +24,8 @@ boundary reduction, a proved structured family, and one obstruction:
 * the radial reduction and a one-variable divided-difference argument prove
   the comparison in every dimension when at most two coefficients are
   nonzero, and therefore the complete comparison for ``n=2``; and
+* a constrained three-knot secant argument proves the complete comparison
+  for ``n=3``; and
 * a fully explicit, mean-constrained ``1/n``-concave law shows why generic
   one-dimensional s-concave localization is too broad to prove the
   comparison.
@@ -289,6 +291,129 @@ def verify_n2_three_knot_theorem() -> None:
     verify_two_positive_knot_theorem()
 
 
+def _exp_taylor_lower(x: Fraction, order: int) -> Fraction:
+    """Positive Taylor lower bound for ``exp(x)`` at rational ``x>=0``."""
+    x = Fraction(x)
+    if x < 0 or order < 0:
+        raise ValueError("require x>=0 and order>=0")
+    return sum(x**k / math.factorial(k) for k in range(order + 1))
+
+
+def _exp_taylor_upper(x: Fraction, order: int) -> Fraction:
+    """Taylor upper bound with a geometric majorant for the positive tail."""
+    x = Fraction(x)
+    if x < 0 or order < 0 or x >= order + 2:
+        raise ValueError("require x>=0, order>=0, and x<order+2")
+    partial = _exp_taylor_lower(x, order)
+    first_omitted = x ** (order + 1) / math.factorial(order + 1)
+    ratio = x / (order + 2)
+    return partial + first_omitted / (1 - ratio)
+
+
+def verify_n3_four_knot_theorem() -> None:
+    """Check every exact identity and rational bound in the ``n=3`` proof."""
+    from sympy import Rational, diff, exp, factor, simplify, symbols
+
+    u = symbols("u", positive=True)
+    lower_piece = u**2 * exp(-3 / u)
+    upper_piece = lower_piece - (u - 1) ** 3 / u
+    expected_first = (2 * u + 3) * exp(-3 / u) - (
+        2 * u - 3 + u**-2
+    )
+    expected_second = (
+        (2 + 6 / u + 9 / u**2) * exp(-3 / u) - 2 + 2 / u**3
+    )
+    expected_third = (27 * exp(-3 / u) - 6) / u**4
+    h_upper_piece = u**3 * exp(-3 / u) - (u - 1) ** 3
+    assert simplify(h_upper_piece - u * upper_piece) == 0
+    assert simplify(diff(upper_piece, u) - expected_first) == 0
+    assert simplify(diff(upper_piece, u, 2) - expected_second) == 0
+    assert simplify(diff(upper_piece, u, 3) - expected_third) == 0
+    assert factor(diff(lower_piece, u, 2)) == (
+        (2 * u**2 + 6 * u + 9) * exp(-3 / u) / u**2
+    )
+    assert simplify(
+        expected_second.subs(u, Rational(7, 5))
+        - (
+            Rational(533, 49) * exp(-Rational(15, 7))
+            - Rational(436, 343)
+        )
+    ) == 0
+    assert simplify(expected_second.subs(u, 1) - 17 * exp(-3)) == 0
+    assert simplify(
+        expected_second.subs(u, 3) - (5 * exp(-1) - Rational(52, 27))
+    ) == 0
+    assert simplify(
+        diff(lower_piece, u).subs(u, Rational(9, 10))
+        - Rational(24, 5) * exp(-Rational(10, 3))
+    ) == 0
+    assert simplify(
+        expected_first.subs(u, Rational(3, 2))
+        - (6 * exp(-2) - Rational(4, 9))
+    ) == 0
+    assert simplify(
+        expected_first.subs(u, 3) - (9 * exp(-1) - Rational(28, 9))
+    ) == 0
+
+    # Taylor bounds used to certify strict convexity through 7/5.
+    exp_15_7_lower = _exp_taylor_lower(Fraction(15, 7), 2)
+    exp_15_7_upper = _exp_taylor_upper(Fraction(15, 7), 6)
+    assert exp_15_7_lower > Fraction(9, 2)
+    assert exp_15_7_upper == Fraction(4605295343, 540244208)
+    assert exp_15_7_upper < Fraction(341, 40)
+    f_second_7_5_lower = (
+        Fraction(533, 49) * Fraction(40, 341) - Fraction(436, 343)
+    )
+    assert f_second_7_5_lower == Fraction(564, 116963)
+    assert f_second_7_5_lower > 0
+
+    # Exact sandwich for exp(10/3), used at the 9/10 slope split.
+    exp_10_3_lower = _exp_taylor_lower(Fraction(10, 3), 7)
+    exp_10_3_upper = _exp_taylor_upper(Fraction(10, 3), 7)
+    assert exp_10_3_lower == Fraction(3781751, 137781)
+    assert exp_10_3_lower > Fraction(192, 7)
+    assert exp_10_3_upper == Fraction(65696017, 2342277)
+    assert exp_10_3_upper < Fraction(144, 5)
+
+    # The e-bounds control f'(1), f'(3/2), f'(3), and Q(3/2).
+    e_lower = _exp_taylor_lower(Fraction(1), 7)
+    e_upper = _exp_taylor_upper(Fraction(1), 6)
+    assert e_lower == Fraction(685, 252)
+    assert e_lower > Fraction(405, 149)
+    assert e_lower > Fraction(8, 3)
+    assert e_upper == Fraction(31967, 11760)
+    assert e_upper < Fraction(68, 25)
+    assert e_upper < Fraction(11, 4)
+
+    # Translate the exponential bounds into the displayed derivative chain.
+    assert Fraction(24, 5) * Fraction(5, 144) == Fraction(1, 6)
+    assert Fraction(24, 5) * Fraction(7, 192) == Fraction(7, 40)
+    f_prime_3_lower = 9 * Fraction(25, 68) - Fraction(28, 9)
+    assert f_prime_3_lower == Fraction(121, 612)
+    assert f_prime_3_lower > Fraction(7, 40)
+    f_prime_3_upper = 9 * Fraction(149, 405) - Fraction(28, 9)
+    assert f_prime_3_upper == Fraction(1, 5)
+    f_prime_1_lower = 5 * Fraction(4, 11) ** 3
+    assert f_prime_1_lower > Fraction(1, 5)
+    f_prime_3_2_lower = 6 * Fraction(4, 11) ** 2 - Fraction(4, 9)
+    assert f_prime_3_2_lower == Fraction(380, 1089)
+    assert f_prime_3_2_lower > Fraction(1, 3)
+
+    # Endpoint checks for Q(u)=u/3-4/15-f(u).
+    f_9_10_upper = Fraction(81, 100) * Fraction(7, 192)
+    assert f_9_10_upper == Fraction(189, 6400)
+    assert Fraction(1, 30) - f_9_10_upper > 0
+    assert Fraction(19, 60) - Fraction(81, 256) == Fraction(1, 3840)
+
+    # Algebra in the final secant comparison.
+    a, b, c = symbols("a b c", real=True)
+    assert factor(
+        (3 - b - c)
+        - (Rational(8, 5) - b)
+        + (c - Rational(7, 5))
+    ) == 0
+
+
 def two_level_profile_regression(
     n: int,
     k: int,
@@ -444,6 +569,7 @@ def build_certificate() -> dict[str, object]:
     verify_radial_symbolic_identities()
     verify_two_level_symbolic_identities()
     verify_two_positive_knot_theorem()
+    verify_n3_four_knot_theorem()
     checks = []
     # Include both the boundary lambda=k and strict lambda>k cases.  These
     # finite checks guard the beta/binomial and gamma/Poisson translations;
@@ -471,7 +597,7 @@ def build_certificate() -> dict[str, object]:
         two_level_checks.append(two_level_profile_regression(n, k, a, b))
 
     return {
-        "schema_version": 5,
+        "schema_version": 6,
         "status": (
             "Research certificate: exact reductions and an obstruction, "
             "not an all-sample-size coverage certificate."
@@ -520,6 +646,30 @@ def build_certificate() -> dict[str, object]:
                 "sum_i y_i<=2"
             ),
             "symbolic_identity_and_constant_check": "passed",
+        },
+        "n3_four_knot_theorem": {
+            "analytic_basis": (
+                "The radial zero-knot reduction followed by the constrained "
+                "three-knot secant proof for H_3(u)/u"
+            ),
+            "scope": (
+                "Every nonnegative four-coordinate profile with "
+                "sum_i y_i<=3"
+            ),
+            "symbolic_identity_and_constant_check": "passed",
+            "exact_taylor_bounds": {
+                "exp_15_over_7_upper": _fraction_record(
+                    Fraction(4605295343, 540244208)
+                ),
+                "exp_10_over_3_lower": _fraction_record(
+                    Fraction(3781751, 137781)
+                ),
+                "exp_10_over_3_upper": _fraction_record(
+                    Fraction(65696017, 2342277)
+                ),
+                "e_lower": _fraction_record(Fraction(685, 252)),
+                "e_upper": _fraction_record(Fraction(31967, 11760)),
+            },
         },
         "two_positive_knots_all_n": {
             "analytic_basis": (
@@ -574,6 +724,12 @@ def main(argv: list[str] | None = None) -> int:
     print(
         "complete n=2 three-knot comparison:",
         certificate["n2_three_knot_theorem"][
+            "symbolic_identity_and_constant_check"
+        ],
+    )
+    print(
+        "complete n=3 four-knot comparison:",
+        certificate["n3_four_knot_theorem"][
             "symbolic_identity_and_constant_check"
         ],
     )

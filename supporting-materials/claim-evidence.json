@@ -1035,6 +1035,38 @@
       "limitations": "This proves the Dirichlet--Poissonization comparison only for n=2. The comparison remains open in general dimensions, and this theorem alone does not establish three-coordinate exponential-quantile convexity or general-n Stringer coverage."
     },
     {
+      "id": "dirichlet-poissonization-n3",
+      "classification": "proved_theorem",
+      "statement": "For n=3 and every nonnegative four-coordinate coefficient vector y with sum at most 3, the poissonized tail P(sum_i y_i E_i>3) is at least the uniform-simplex tail P(sum_i y_i D_i>1).",
+      "manuscript_labels": [],
+      "evidence": [
+        {
+          "path": "supporting-materials/theory/DIRICHLET-POISSONIZATION.md",
+          "role": "complete radial boundary reduction and constrained three-knot secant proof",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/python/dirichlet_poissonization.py",
+          "role": "exact symbolic checks and rational Taylor bounds for every derivative and endpoint comparison",
+          "trust": "corroboration_only"
+        },
+        {
+          "path": "supporting-materials/computations/certificates/dirichlet-poissonization-certificate.json",
+          "role": "regenerated record of the symbolic identities and exact rational constants",
+          "trust": "corroboration_only"
+        },
+        {
+          "path": "supporting-materials/computations/tests/test_dirichlet_poissonization.py",
+          "role": "regression test for the complete n=3 algebra and constants",
+          "trust": "corroboration_only"
+        }
+      ],
+      "verification_commands": [
+        "make dirichlet-poissonization-check"
+      ],
+      "limitations": "This proves the Dirichlet--Poissonization comparison only through n=3. The comparison remains open for general n, and this theorem alone does not establish four-coordinate exponential-quantile convexity or general-n Stringer coverage."
+    },
+    {
       "id": "general-n-standard-confidence-status",
       "classification": "date_stamped_literature_status",
       "statement": "General finite-sample coverage for arbitrary n and arbitrary taint distributions at conventional confidence levels remains unresolved in the reviewed literature. This repository proves the binomial-factor result through n=7 at 90%, 95%, and 99%; the direct Poisson-factor ranges reach n=8, n=11, and n=20, respectively.",

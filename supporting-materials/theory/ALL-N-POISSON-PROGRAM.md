@@ -4,8 +4,8 @@
 > Exponential-quantile convexity is now proved sharply in two coordinates but
 > remains open in three or more; Dirichlet Poissonization remains open in
 > general, although every profile with at most two nonzero coefficients and
-> the complete `n=2` case are proved.  This is a research roadmap, not a
-> coverage claim.  The paper
+> the complete `n=2` and `n=3` cases are proved.  This is a research roadmap,
+> not a coverage claim.  The paper
 > continues to state that ordinary Stringer coverage is unresolved for
 > arbitrary `n`.
 
@@ -412,11 +412,30 @@ comparison: every three-knot profile moves to a boundary profile with at
 most two nonzero knots.  At the tail levels in this program, this proves (B)
 in three coordinates; the general dimension remains open.
 
+The next complete dimension is now proved as well.  For `n=3`, the radial
+lemma moves every four-knot profile to an ordered boundary profile
+`(0,a,b,c)` with `a+b+c<=3`.  Multiplication by the zero knot reduces (16)
+to
+
+\[
+ [a,b,c]f_3\ge0,
+ \qquad
+ f_3(u)=u^2\{e^{-3/u}-(1-u^{-1})_+^3\}.             \tag{16b}
+\]
+
+Although `f_3` is not globally convex on `[0,3]`, an exact secant argument
+proves (16b) on every ordered triple satisfying the sum constraint.  It uses
+strict convexity through `7/5`, the one-turn shape of `f_3'`, and the split
+`b=9/10`; every exponential comparison is reduced to a rational Taylor
+bound.  Thus (B) is complete in four coordinates too.  This does not prove
+route (A) in four coordinates and therefore is not, by itself, a Stringer
+coverage theorem.
+
 The radial derivative is the density derivative at the threshold.  A
 Laplace-transform convolution identity shows that the mode of every
 weighted exponential sum is no larger than its mean, giving the required
-sign.  Coordinate-face profiles with three or more nonzero knots and at
-least three distinct coefficient values remain open.  See
+sign.  In dimensions `n>=4`, coordinate-face profiles with three or more
+nonzero knots and at least three distinct coefficient values remain open.  See
 [`DIRICHLET-POISSONIZATION.md`](DIRICHLET-POISSONIZATION.md) for the proof,
 the full reduction, and the exact localization obstruction.
 
@@ -455,7 +474,8 @@ seemingly simpler but false domination claim.
    `8/9` are also proved.  Then seek a dimension-free argument for (11).
 2. Prove the constrained divided-difference inequality (16), or find an
    actual B-spline counterexample satisfying the sum-of-knots constraint;
-   the complete `n=2` case and every two-level profile are already proved.
+   the complete `n=2` and `n=3` cases and every two-level profile are already
+   proved.  The first open simplex dimension is `n=4`.
 3. Use the zero-knot reduction recursively, or prove that a negative minimum
    on a coordinate face must have at most two distinct knot values.
 4. Only after both analytic steps pass, connect (6)--(7) to the published

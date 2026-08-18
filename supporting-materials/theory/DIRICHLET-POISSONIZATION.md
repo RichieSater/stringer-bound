@@ -3,8 +3,8 @@
 > **Status.** This note gives an exact reduction, pushes any possible
 > counterexample to a zero-knot boundary, proves every profile having at most
 > two distinct coefficient values or at most two nonzero coefficients, proves
-> the complete comparison for `n=2`, and rules out an over-broad localization
-> shortcut. The central
+> the complete comparison for `n=2` and `n=3`, and rules out an over-broad
+> localization shortcut. The central
 > divided-difference inequality remains open for general `n`. Nothing here is
 > yet an all-sample-size coverage theorem.
 
@@ -374,7 +374,162 @@ two-positive-knot theorem.  Profiles already on the boundary and all
 degenerate cases follow directly or by continuity.  This proves (15h).
 
 
-## 7. Why generic $s$-concave localization is too broad
+## 7. The complete comparison for `n=3`
+
+The next dimension also admits a closed analytic proof.
+
+> **Four-knot corollary.**  Let `n=3` and let
+> `y_0,y_1,y_2,y_3>=0` satisfy
+> `y_0+y_1+y_2+y_3<=3`.  Then
+>
+> \[
+>  \Pr\{Z_y>3\}\ge\Pr\{T_y>1\}.                    \tag{15i}
+> \]
+
+By the radial boundary lemma, it is enough to consider an ordered endpoint
+`(0,a,b,c)` with
+
+\[
+ 0\le a\le b\le c,
+ \qquad a+b+c\le3.                                  \tag{15j}
+\]
+
+The divided-difference multiplication rule gives
+
+\[
+ [0,a,b,c]H_3=[a,b,c]f,
+ \qquad
+ f(u)=\frac{H_3(u)}u
+ =u^2\{e^{-3/u}-(1-u^{-1})_+^3\},                  \tag{15k}
+\]
+
+where `f(0)=0`.  The elementary inequality
+`1-u^{-1}<e^{-1/u}` also gives `f(u)>=0`.  We shall prove that
+`[a,b,c]f>=0` under (15j),
+although `f` is not convex on the whole interval `[0,3]`.
+
+The required derivative structure is elementary.  For `u>1`,
+
+\[
+ \begin{aligned}
+ f'(u)&=(2u+3)e^{-3/u}-(2u-3+u^{-2}),\\
+ f''(u)&=(2+6u^{-1}+9u^{-2})e^{-3/u}-2+2u^{-3},\\
+ f'''(u)&=u^{-4}\{27e^{-3/u}-6\}.                  \tag{15l}
+ \end{aligned}
+\]
+
+On `(0,1]`, the subtraction term in (15k) vanishes and `f''>0`.
+On `[1,7/5]`, equation (15l) gives `f'''<0`, while
+
+\[
+ f''(7/5)
+ =\frac{533}{49}e^{-15/7}-\frac{436}{343}
+ >\frac{564}{116963}>0.                             \tag{15m}
+\]
+
+Indeed, `9/2<e^(15/7)<341/40`; the upper bound gives
+`e^(-15/7)>40/341`, which yields (15m).  Thus `f` is strictly convex on
+`[0,7/5]`.
+
+The last expression in (15l) changes sign at most once.  Hence `f''`
+first decreases and then increases on `[1,3]`.  Since
+
+\[
+ f''(1)=17e^{-3}>0,
+ \qquad
+ f''(3)=5e^{-1}-\frac{52}{27}<0,                    \tag{15n}
+\]
+
+`f''` has exactly one zero on `[0,3]`.  In particular, `f'` first
+increases and then decreases, so its minimum on every subinterval is attained
+at an endpoint.  The inequality in (15n) follows already from `e>8/3`.
+
+We use the following exact endpoint bounds:
+
+\[
+ \frac16<f'(9/10)<\frac7{40}<f'(3)<\frac15<f'(1),  \tag{15o}
+\]
+
+and
+
+\[
+ f'(3/2)>\frac13.                                   \tag{15p}
+\]
+
+For completeness, these follow from
+
+\[
+ \frac{192}{7}<e^{10/3}<\frac{144}{5},
+ \qquad
+ \frac{405}{149}<e<\frac{68}{25}<\frac{11}{4}.     \tag{15q}
+\]
+
+For example,
+`f'(9/10)=(24/5)e^(-10/3)`,
+`f'(3)=9/e-28/9`, and
+`f'(3/2)=6/e^2-4/9`.  All bounds in (15m)--(15q) follow from finite
+positive Taylor sums; for an upper bound, the remaining terms are dominated
+by a geometric series.  Exact rational bounds used by the regression check
+are recorded in the accompanying certificate.
+
+We can now compare the two secant slopes.  If `c<=7/5`, strict convexity
+already gives
+
+\[
+ [a,b]f\le[b,c]f.                                   \tag{15r}
+\]
+
+Suppose `c>=7/5`.  If `b<=9/10`, convexity on `[0,b]` gives
+`[a,b]f<=f'(b)`.  Here `f'(b)<=f'(9/10)<f'(3)`.  Since
+`c>=7/5>1`, the endpoint-minimum property on `[1,3]` and
+`f'(1)>f'(3)` give `f'(c)>=f'(3)`.  Unimodality then shows that every
+derivative on `[b,c]` is at least `f'(b)`.  Hence (15r) follows again.
+
+It remains to consider `b>=9/10`.  The sum constraint also gives
+`b<=3/2`, and
+
+\[
+ a\le3-b-c\le\frac85-b,
+ \qquad b-a\ge2b-\frac85.                           \tag{15s}
+\]
+
+Define
+
+\[
+ Q(u)=\frac u3-\frac4{15}-f(u),
+ \qquad \frac9{10}\le u\le\frac32.
+\]
+
+By (15o)--(15p) and the unimodality of `f'`, the derivative
+`Q'(u)=1/3-f'(u)` changes sign at most once, from positive to negative.
+Thus the minimum of `Q` occurs at an endpoint.  The same exact bounds give
+
+\[
+ Q(9/10)>\frac1{30}-\frac{189}{6400}>0,
+ \qquad
+ Q(3/2)>\frac{19}{60}-\frac{81}{256}
+ =\frac1{3840}>0.                                   \tag{15t}
+\]
+
+Consequently, using `f(a)>=0` and (15s),
+
+\[
+ [a,b]f
+ \le\frac{f(b)}{b-a}
+ <\frac{2b-8/5}{6(b-a)}
+ \le\frac16.                                       \tag{15u}
+\]
+
+On the other hand, (15n)--(15o) and unimodality show that
+`f'(u)>1/6` throughout `[9/10,3]`.  Therefore `[b,c]f>1/6`, proving
+(15r) in the final case.
+
+For distinct knots, (15r) is exactly `[a,b,c]f>=0`.  Repeated and zero
+knots follow by continuity.  Together with (15k) and the radial boundary
+lemma, this proves (15i).
+
+
+## 8. Why generic $s$-concave localization is too broad
 
 A one-dimensional localization theorem for $1/n$-concave probability
 laws reduces a linear extremal problem to point masses or densities of the
@@ -434,13 +589,13 @@ coefficients $y_i$; not every density in (16) is such a projection with
 the constraint (2). The example shows precisely which structural
 information a successful localization argument must preserve.
 
-## 8. Remaining proof problem
+## 9. Remaining proof problem
 
 The cleanest current target is (6).  Section 4 shows that it is enough to
 work on coordinate faces, Sections 3--5 establish it for every profile
 having at most two distinct coefficient values or at most two nonzero
-coefficients, and Section 6 proves the complete target for `n=2`.  Three
-plausible routes remain for general `n`:
+coefficients, and Sections 6--7 prove the complete target for `n=2` and
+`n=3`.  Three plausible routes remain for general `n`:
 
 1. exploit the zero-knot reduction recursively, or prove that a negative
    minimum on a coordinate face must have at most two distinct knot values;
@@ -459,7 +614,8 @@ make dirichlet-poissonization-check
 The committed output is
 [`dirichlet-poissonization-certificate.json`](../computations/certificates/dirichlet-poissonization-certificate.json).
 It certifies the obstruction, checks rational equal-block instances, and
-regression-checks the exact algebra used in the two-level lemma.
+regression-checks the exact algebra used in the two-level, two-positive-knot,
+and complete `n=2` and `n=3` proofs.
 The all-parameter statements rest on the written arguments; the general
 inequality remains explicitly open.
 

@@ -2857,12 +2857,44 @@
     "scope": "Every nonnegative three-coordinate profile with sum_i y_i<=2",
     "symbolic_identity_and_constant_check": "passed"
   },
+  "n3_four_knot_theorem": {
+    "analytic_basis": "The radial zero-knot reduction followed by the constrained three-knot secant proof for H_3(u)/u",
+    "exact_taylor_bounds": {
+      "e_lower": {
+        "decimal": "2.718253968253968254",
+        "denominator": "252",
+        "numerator": "685"
+      },
+      "e_upper": {
+        "decimal": "2.718282312925170068",
+        "denominator": "11760",
+        "numerator": "31967"
+      },
+      "exp_10_over_3_lower": {
+        "decimal": "27.447550823408162228",
+        "denominator": "137781",
+        "numerator": "3781751"
+      },
+      "exp_10_over_3_upper": {
+        "decimal": "28.047928148549467036",
+        "denominator": "2342277",
+        "numerator": "65696017"
+      },
+      "exp_15_over_7_upper": {
+        "decimal": "8.524469628372211998",
+        "denominator": "540244208",
+        "numerator": "4605295343"
+      }
+    },
+    "scope": "Every nonnegative four-coordinate profile with sum_i y_i<=3",
+    "symbolic_identity_and_constant_check": "passed"
+  },
   "radial_zero_knot_reduction": {
     "analytic_basis": "The Laplace-transform convolution identity, the resulting mode-below-mean bound for weighted exponential sums, and the density-derivative argument in DIRICHLET-POISSONIZATION.md",
     "scope": "Any strictly positive coefficient profile with sum_i y_i<=n can be moved to a zero-knot boundary without increasing the Dirichlet--Poissonization gap.",
     "symbolic_identity_check": "passed"
   },
-  "schema_version": 5,
+  "schema_version": 6,
   "status": "Research certificate: exact reductions and an obstruction, not an all-sample-size coverage certificate.",
   "two_level_profiles": {
     "analytic_basis": "The radial zero-knot reduction in DIRICHLET-POISSONIZATION.md and Anderson--Samuels (1967) at the resulting equal-block endpoint",
