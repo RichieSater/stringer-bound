@@ -2894,8 +2894,13 @@
     "scope": "Any strictly positive coefficient profile with sum_i y_i<=n can be moved to a zero-knot boundary without increasing the Dirichlet--Poissonization gap.",
     "symbolic_identity_check": "passed"
   },
-  "schema_version": 6,
+  "schema_version": 7,
   "status": "Research certificate: exact reductions and an obstruction, not an all-sample-size coverage certificate.",
+  "three_positive_convex_core_all_n": {
+    "analytic_basis": "The divided-difference multiplication identity, the exact k=2 Poisson-minus-binomial CDF formula for g_n''/2, and Anderson--Samuels (1967)",
+    "scope": "Every n>=3 profile having n-2 zero coefficients and three ordered nonzero coefficients a<=b<=c with sum at most n and c<=n^2/(2(n+1))",
+    "symbolic_identity_check": "passed"
+  },
   "two_level_profiles": {
     "analytic_basis": "The radial zero-knot reduction in DIRICHLET-POISSONIZATION.md and Anderson--Samuels (1967) at the resulting equal-block endpoint",
     "exact_rational_regression_checks": [

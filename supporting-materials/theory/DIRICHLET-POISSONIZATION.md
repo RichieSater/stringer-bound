@@ -3,7 +3,9 @@
 > **Status.** This note gives an exact reduction, pushes any possible
 > counterexample to a zero-knot boundary, proves every profile having at most
 > two distinct coefficient values or at most two nonzero coefficients, proves
-> the complete comparison for `n=2` and `n=3`, and rules out an over-broad
+> a dimension-free convex core for profiles with three nonzero coefficients,
+> proves the complete comparison for `n=2` and `n=3`, and rules out an
+> over-broad
 > localization shortcut. The central
 > divided-difference inequality remains open for general `n`. Nothing here is
 > yet an all-sample-size coverage theorem.
@@ -529,7 +531,68 @@ knots follow by continuity.  Together with (15k) and the radial boundary
 lemma, this proves (15i).
 
 
-## 8. Why generic $s$-concave localization is too broad
+## 8. A dimension-free three-positive convex core
+
+The same multiplication step gives a nontrivial all-`n` region with three
+arbitrary positive knots.
+
+> **Three-positive convex-core theorem.**  Let `n>=3`, and suppose the
+> coefficient vector consists of `n-2` zeros and three values
+> `0<=a<=b<=c` satisfying
+>
+> \[
+>  a+b+c\le n,
+>  \qquad
+>  c\le c_n:=\frac{n^2}{2(n+1)}.                    \tag{15v}
+> \]
+>
+> Then `Pr{Z_y>n}>=Pr{T_y>1}`.
+
+As before, the flatness of `H_n` at zero and the divided-difference
+multiplication rule give
+
+\[
+ [\underbrace{0,\ldots,0}_{n-2},a,b,c]H_n
+ =[a,b,c]g_n,
+ \qquad
+ g_n(u)=u^2\{e^{-n/u}-(1-u^{-1})_+^n\}.            \tag{15w}
+\]
+
+For `u>1`, put `lambda=n/u`.  Direct differentiation yields the exact
+probabilistic identity
+
+\[
+ \begin{aligned}
+ \frac{g_n''(u)}2
+ &=e^{-\lambda}\left(1+\lambda+\frac{\lambda^2}{2}\right)\\
+ &\quad-\left\{
+ (1-u^{-1})^n
+ +\frac n u(1-u^{-1})^{n-1}
+ +\binom{n}{2}u^{-2}(1-u^{-1})^{n-2}
+ \right\}\\
+ &=\Pr\{\operatorname{Pois}(\lambda)\le2\}
+   -\Pr\{\operatorname{Bin}(n,\lambda/n)\le2\}.   \tag{15x}
+ \end{aligned}
+\]
+
+The Anderson--Samuels comparison used in Section 3 makes the last difference
+strictly positive whenever
+
+\[
+ 2<\lambda-\frac{\lambda}{n+1},
+ \quad\text{equivalently}\quad
+ u<\frac{n^2}{2(n+1)}.
+\]
+
+At equality the weak inequality follows by continuity.  On `(0,1]`, the
+binomial term in (15w) vanishes and direct differentiation gives
+`g_n''(u)>0`.  Hence `g_n` is convex throughout `[0,c_n]`.  Under (15v),
+all three knots lie in that interval, so `[a,b,c]g_n>=0`.  Equations
+(5) and (15w) prove the theorem.  For `n=3`, Section 7 is strictly stronger:
+it removes the restriction `c<=9/8`.
+
+
+## 9. Why generic $s$-concave localization is too broad
 
 A one-dimensional localization theorem for $1/n$-concave probability
 laws reduces a linear extremal problem to point masses or densities of the
@@ -589,13 +652,15 @@ coefficients $y_i$; not every density in (16) is such a projection with
 the constraint (2). The example shows precisely which structural
 information a successful localization argument must preserve.
 
-## 9. Remaining proof problem
+## 10. Remaining proof problem
 
 The cleanest current target is (6).  Section 4 shows that it is enough to
 work on coordinate faces, Sections 3--5 establish it for every profile
 having at most two distinct coefficient values or at most two nonzero
 coefficients, and Sections 6--7 prove the complete target for `n=2` and
-`n=3`.  Three plausible routes remain for general `n`:
+`n=3`.  Section 8 also proves every three-positive profile whose largest
+knot is at most `n^2/{2(n+1)}`.  Three plausible routes remain for general
+`n`:
 
 1. exploit the zero-knot reduction recursively, or prove that a negative
    minimum on a coordinate face must have at most two distinct knot values;
@@ -615,7 +680,7 @@ The committed output is
 [`dirichlet-poissonization-certificate.json`](../computations/certificates/dirichlet-poissonization-certificate.json).
 It certifies the obstruction, checks rational equal-block instances, and
 regression-checks the exact algebra used in the two-level, two-positive-knot,
-and complete `n=2` and `n=3` proofs.
+three-positive convex-core, and complete `n=2` and `n=3` proofs.
 The all-parameter statements rest on the written arguments; the general
 inequality remains explicitly open.
 

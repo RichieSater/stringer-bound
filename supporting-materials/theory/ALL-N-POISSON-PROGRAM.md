@@ -3,8 +3,9 @@
 > **Status.** This note separates proved reductions from two analytic targets.
 > Exponential-quantile convexity is now proved sharply in two coordinates but
 > remains open in three or more; Dirichlet Poissonization remains open in
-> general, although every profile with at most two nonzero coefficients and
-> the complete `n=2` and `n=3` cases are proved.  This is a research roadmap,
+> general, although it is proved for every profile with at most two nonzero
+> coefficients, for a dimension-free convex core with three nonzero
+> coefficients, and completely for `n=2` and `n=3`.  This is a research roadmap,
 > not a coverage claim.  The paper
 > continues to state that ordinary Stringer coverage is unresolved for
 > arbitrary `n`.
@@ -431,11 +432,33 @@ bound.  Thus (B) is complete in four coordinates too.  This does not prove
 route (A) in four coordinates and therefore is not, by itself, a Stringer
 coverage theorem.
 
+There is also a dimension-free three-positive region.  With `n-2` zero knots
+and ordered positive knots `a<=b<=c`, multiplication reduces (16) to the
+second divided difference of
+
+\[
+ g_n(u)=u^2\{e^{-n/u}-(1-u^{-1})_+^n\}.
+\]
+
+Its curvature has the exact probability representation
+
+\[
+ \frac{g_n''(u)}2
+ =\Pr\{\operatorname{Pois}(n/u)\le2\}
+  -\Pr\{\operatorname{Bin}(n,1/u)\le2\}.           \tag{16c}
+\]
+
+The Anderson--Samuels inequality therefore makes `g_n` convex through
+`n^2/{2(n+1)}`.  The comparison is proved whenever
+`c<=n^2/{2(n+1)}`.  Only the one-large-knot portion of this three-positive
+face remains open in general dimensions.
+
 The radial derivative is the density derivative at the threshold.  A
 Laplace-transform convolution identity shows that the mode of every
 weighted exponential sum is no larger than its mean, giving the required
 sign.  In dimensions `n>=4`, coordinate-face profiles with three or more
-nonzero knots and at least three distinct coefficient values remain open.  See
+nonzero knots and at least three distinct coefficient values remain open
+outside the proved convex core.  See
 [`DIRICHLET-POISSONIZATION.md`](DIRICHLET-POISSONIZATION.md) for the proof,
 the full reduction, and the exact localization obstruction.
 
@@ -475,7 +498,8 @@ seemingly simpler but false domination claim.
 2. Prove the constrained divided-difference inequality (16), or find an
    actual B-spline counterexample satisfying the sum-of-knots constraint;
    the complete `n=2` and `n=3` cases and every two-level profile are already
-   proved.  The first open simplex dimension is `n=4`.
+   proved.  The three-positive face is also proved whenever its largest knot
+   is at most `n^2/{2(n+1)}`.  The first open simplex dimension is `n=4`.
 3. Use the zero-knot reduction recursively, or prove that a negative minimum
    on a coordinate face must have at most two distinct knot values.
 4. Only after both analytic steps pass, connect (6)--(7) to the published

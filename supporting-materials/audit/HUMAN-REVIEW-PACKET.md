@@ -438,11 +438,16 @@ Questions:
 12. Does the split at `b=9/10`, including the auxiliary function `Q`, prove
     `[a,b]f<=[b,c]f` for every ordered triple with `a+b+c<=3`, including all
     confluent limits?
-13. Is the conclusion limited to the complete `n=2` and `n=3`
+13. For the dimension-free three-positive convex core, does differentiating
+    `g_n` give the exact `k=2` Poisson-minus-binomial CDF identity (15x), and
+    does Anderson--Samuels give precisely the threshold
+    `c<=n^2/{2(n+1)}` including its continuity endpoint?
+14. Is the conclusion limited to the complete `n=2` and `n=3`
     Poissonization inequalities, every two-level profile, every profile with
-    at most two nonzero coefficients, and the radial boundary reduction,
-    without being promoted to the still-open general-dimensional comparison
-    or to a Stringer coverage theorem by itself?
+    at most two nonzero coefficients, the stated three-positive convex core,
+    and the radial boundary reduction, without being promoted to the still-open
+    general-dimensional comparison or to a Stringer coverage theorem by
+    itself?
 
 ## Minimum reproduction record
 

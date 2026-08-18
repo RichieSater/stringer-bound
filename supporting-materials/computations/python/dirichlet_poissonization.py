@@ -26,6 +26,8 @@ boundary reduction, a proved structured family, and one obstruction:
   nonzero, and therefore the complete comparison for ``n=2``; and
 * a constrained three-knot secant argument proves the complete comparison
   for ``n=3``; and
+* the ``k=2`` Anderson--Samuels comparison proves a dimension-free convex
+  core for profiles with three nonzero coefficients; and
 * a fully explicit, mean-constrained ``1/n``-concave law shows why generic
   one-dimensional s-concave localization is too broad to prove the
   comparison.
@@ -414,6 +416,39 @@ def verify_n3_four_knot_theorem() -> None:
     ) == 0
 
 
+def verify_three_positive_convex_core() -> None:
+    """Check the all-``n`` three-positive convex-core identities."""
+    from sympy import binomial, exp, factor, simplify, symbols
+
+    n = symbols("n", integer=True, positive=True)
+    u = symbols("u", positive=True)
+    lam = n / u
+    lower_piece = u**2 * exp(-n / u)
+    upper_piece = lower_piece - u**2 * (1 - 1 / u) ** n
+    poisson_lower_two = exp(-lam) * (1 + lam + lam**2 / 2)
+    binomial_lower_two = (
+        (1 - 1 / u) ** n
+        + n / u * (1 - 1 / u) ** (n - 1)
+        + binomial(n, 2) / u**2 * (1 - 1 / u) ** (n - 2)
+    )
+    assert simplify(
+        upper_piece.diff(u, 2) / 2
+        - (poisson_lower_two - binomial_lower_two)
+    ) == 0
+    assert factor(lower_piece.diff(u, 2)) == (
+        (2 * u**2 + 2 * n * u + n**2) * exp(-n / u) / u**2
+    )
+
+    c_n = n**2 / (2 * (n + 1))
+    lambda_at_boundary = simplify(n / c_n)
+    assert simplify(lambda_at_boundary - 2 * (n + 1) / n) == 0
+    assert simplify(
+        lambda_at_boundary
+        - lambda_at_boundary / (n + 1)
+        - 2
+    ) == 0
+
+
 def two_level_profile_regression(
     n: int,
     k: int,
@@ -570,6 +605,7 @@ def build_certificate() -> dict[str, object]:
     verify_two_level_symbolic_identities()
     verify_two_positive_knot_theorem()
     verify_n3_four_knot_theorem()
+    verify_three_positive_convex_core()
     checks = []
     # Include both the boundary lambda=k and strict lambda>k cases.  These
     # finite checks guard the beta/binomial and gamma/Poisson translations;
@@ -597,7 +633,7 @@ def build_certificate() -> dict[str, object]:
         two_level_checks.append(two_level_profile_regression(n, k, a, b))
 
     return {
-        "schema_version": 6,
+        "schema_version": 7,
         "status": (
             "Research certificate: exact reductions and an obstruction, "
             "not an all-sample-size coverage certificate."
@@ -671,6 +707,19 @@ def build_certificate() -> dict[str, object]:
                 "e_upper": _fraction_record(Fraction(31967, 11760)),
             },
         },
+        "three_positive_convex_core_all_n": {
+            "analytic_basis": (
+                "The divided-difference multiplication identity, the exact "
+                "k=2 Poisson-minus-binomial CDF formula for g_n''/2, and "
+                "Anderson--Samuels (1967)"
+            ),
+            "scope": (
+                "Every n>=3 profile having n-2 zero coefficients and three "
+                "ordered nonzero coefficients a<=b<=c with sum at most n "
+                "and c<=n^2/(2(n+1))"
+            ),
+            "symbolic_identity_check": "passed",
+        },
         "two_positive_knots_all_n": {
             "analytic_basis": (
                 "A divided-difference multiplication identity and the "
@@ -731,6 +780,12 @@ def main(argv: list[str] | None = None) -> int:
         "complete n=3 four-knot comparison:",
         certificate["n3_four_knot_theorem"][
             "symbolic_identity_and_constant_check"
+        ],
+    )
+    print(
+        "all-n three-positive convex core:",
+        certificate["three_positive_convex_core_all_n"][
+            "symbolic_identity_check"
         ],
     )
     print(
