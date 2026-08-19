@@ -33,6 +33,8 @@ boundary reduction, a proved structured family, and one obstruction:
 * a recursive knot-insertion bound, exact scalar estimates, and a third
   deterministic branch certificate prove the complete comparison for
   ``n=5``; and
+* three nested scalar, recursive, and directed real-ball certificates prove
+  the complete comparison for ``n=6``; and
 * the ``k=2`` Anderson--Samuels comparison proves a dimension-free convex
   core for profiles with three nonzero coefficients; and
 * the same derivative-CDF identity at arbitrary order proves a sparse
@@ -68,6 +70,7 @@ from decimal import Decimal, localcontext
 from fractions import Fraction
 from pathlib import Path
 
+from n6_dirichlet_poissonization import verify_n6_seven_knot_theorem
 from stringer import EXACT_EXP_PAIRS, exact_exp_neg_bounds
 
 
@@ -3530,6 +3533,7 @@ def build_certificate() -> dict[str, object]:
     n4_five_knot_record = verify_n4_five_knot_theorem()
     n5_four_positive_record = verify_n5_four_positive_face()
     n5_six_knot_record = verify_n5_six_knot_theorem()
+    n6_seven_knot_record = verify_n6_seven_knot_theorem()
     verify_three_positive_convex_core()
     sparse_convex_core_record = verify_sparse_convex_core()
     verify_three_positive_far_cap()
@@ -3563,7 +3567,7 @@ def build_certificate() -> dict[str, object]:
         two_level_checks.append(two_level_profile_regression(n, k, a, b))
 
     return {
-        "schema_version": 16,
+        "schema_version": 17,
         "status": (
             "Research certificate: exact reductions and an obstruction, "
             "not an all-sample-size coverage certificate."
@@ -3680,6 +3684,23 @@ def build_certificate() -> dict[str, object]:
             ),
             "symbolic_exact_and_interval_checks": "passed",
             "proof_record": n5_six_knot_record,
+        },
+        "n6_seven_knot_theorem": {
+            "analytic_basis": (
+                "The radial zero-knot reduction; complete nested n=6 "
+                "four- and five-positive face certificates; exact scalar "
+                "core, affine-minorant, derivative, and pointwise bounds; "
+                "recursive knot-insertion estimates; exact "
+                "Beta(h,5-h) event moments; and a fixed-root parallel "
+                "directed 160-bit Arb subdivision of the residual "
+                "six-positive boundary"
+            ),
+            "scope": (
+                "Every nonnegative seven-coordinate profile with "
+                "sum_i y_i<=6"
+            ),
+            "symbolic_exact_and_interval_checks": "passed",
+            "proof_record": n6_seven_knot_record,
         },
         "three_positive_convex_core_all_n": {
             "analytic_basis": (
@@ -3878,6 +3899,12 @@ def main(argv: list[str] | None = None) -> int:
         ],
     )
     print(
+        "complete n=6 seven-knot comparison:",
+        certificate["n6_seven_knot_theorem"][
+            "symbolic_exact_and_interval_checks"
+        ],
+    )
+    print(
         "all-n three-positive convex core:",
         certificate["three_positive_convex_core_all_n"][
             "symbolic_identity_check"
@@ -3922,7 +3949,7 @@ def main(argv: list[str] | None = None) -> int:
             ],
         )
     )
-    print("first open complete simplex dimension: n=6")
+    print("first open complete simplex dimension: n=7")
     print("general Dirichlet-average inequality: OPEN")
     return 0
 

@@ -399,12 +399,13 @@ Questions:
     using any proved boundary, symmetry, or local-corner result as a full
     three-coordinate convexity or general-`n` coverage theorem?
 
-## Review J: Dirichlet--Poissonization reductions through complete `n=5`
+## Review J: Dirichlet--Poissonization reductions through complete `n=6`
 
 Primary files:
 
 - [`../theory/DIRICHLET-POISSONIZATION.md`](../theory/DIRICHLET-POISSONIZATION.md)
 - [`../computations/python/dirichlet_poissonization.py`](../computations/python/dirichlet_poissonization.py)
+- [`../computations/python/n6_dirichlet_poissonization.py`](../computations/python/n6_dirichlet_poissonization.py)
 
 Questions:
 
@@ -544,10 +545,53 @@ Questions:
     1,669,573 calls, all six terminal counts, maximum depth 38, and both
     stated transcript digests?
 35. Does the radial lemma extend the certified boundary to every `n=5`
-    profile, making `n=6` the first open complete simplex dimension, without
-    promoting this result to the still-open general-dimensional comparison,
-    the separate exponential-quantile convexity target, or a Stringer
-    coverage theorem by itself?
+    profile without promoting that result to the then-unproved `n=6` case,
+    the still-open general-dimensional comparison, the separate
+    exponential-quantile convexity target, or a Stringer coverage theorem by
+    itself?
+36. For the `n=6` four-positive face, do three zero-knot multiplications give
+    `[a,b,c,d]F_3`; are the formula for `q_3`, its mean bound, the scalar core
+    through `31/16`, the affine minorant, the global derivative bound, and the
+    `41/200` pointwise cap all normalized and certified correctly?
+37. Does the cumulative-parameter radius use the correct `1/4`
+    Hermite--Genocchi coordinate moments; are the scalar-core, far-cap, and
+    central prunings valid on whole boxes; and does regeneration reproduce
+    36,203 calls, all terminal counts, maximum depth 24, and both relevant
+    transcript digests?
+38. For the five-positive face, does the zero-knot reduction give
+    `[a,b,c,d,e]F_4`; are the formula for `q_4`, the scalar core through
+    `23/16`, the affine minorant, the global derivative bound, and the
+    `149/500` pointwise cap correct?
+39. Does the knot-insertion formula `eB-aA` have the correct denominator and
+    inequality direction; do the `q_3` derivative and cap bounds give valid
+    boxwise estimates for both endpoint faces; and does regeneration
+    reproduce 725,061 calls, all terminal counts, maximum depth 37, and the
+    stated transcript digest?
+40. For the six-positive boundary, does Hermite--Genocchi give the displayed
+    `q_5`; do the directed core through `37/32` and affine minorant on
+    `[27/40,21/8]` close exactly the two claimed whole-box regions?
+41. Is the five-step pointwise envelope for `|q_4'|` valid on all of `[0,6]`?
+    In particular, do monotonicity plus the four exact Taylor bounds prove the
+    lower piece, and do the directed upper-piece partitions prove both signs
+    on every stated interval?
+42. Are the individual-coordinate `Beta(h,5-h)` tail-moment formulas
+    normalized correctly; do the low/high knot implications bound the whole
+    transition event from each side; and is adding the nested event moments
+    a valid directed bound for every partial derivative of `E q_4(U)`?
+43. Does coordinatewise budget tightening preserve every feasible point; do
+    the 1,150 exact root boxes (including the two fixed corner refinements)
+    cover the initial constrained box; and is the
+    sensitivity-based directed split deterministic even when two Arb score
+    balls overlap?
+44. Does every recursive terminal test substitute a lower bound for `B` and
+    an upper bound for `A` in the correct direction? Does regeneration
+    reproduce the stated total calls, terminal counts, maximum depth, root
+    digest, scalar digest, and aggregate terminal-transcript digest?
+45. Do continuity and the radial lemma extend the nested face certificates to
+    every nonnegative seven-coordinate profile with sum at most six, making
+    `n=7` the first open complete simplex dimension without claiming the
+    general Dirichlet--Poissonization inequality, higher-dimensional
+    exponential-quantile convexity, or general-`n` Stringer coverage?
 
 ## Minimum reproduction record
 

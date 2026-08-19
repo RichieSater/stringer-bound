@@ -3172,12 +3172,231 @@
     "scope": "Every nonnegative six-coordinate profile with sum_i y_i<=5",
     "symbolic_exact_and_interval_checks": "passed"
   },
+  "n6_seven_knot_theorem": {
+    "analytic_basis": "The radial zero-knot reduction; complete nested n=6 four- and five-positive face certificates; exact scalar core, affine-minorant, derivative, and pointwise bounds; recursive knot-insertion estimates; exact Beta(h,5-h) event moments; and a fixed-root parallel directed 160-bit Arb subdivision of the residual six-positive boundary",
+    "proof_record": {
+      "arb_precision_bits": 160,
+      "beta_tail_moment_formulas": "symbolically checked for Beta(h,5-h), h=1,...,4",
+      "derivative_bounds": {
+        "q3_global": "abs(q3'(u))<11/20",
+        "q4_global": "abs(q4'(u))<24/25",
+        "q4_localized": "the nested 1/20, 1/4, 11/20, 81/100, and 24/25 step envelope recorded in the six-positive proof"
+      },
+      "exact_exponential_lower_bounds": {
+        "exp_120_over_11_degree_14": {
+          "decimal": "47048.63056561673",
+          "denominator": "2660907083917769687",
+          "numerator": "125192034360679668826127"
+        },
+        "exp_15_degree_15": {
+          "decimal": "1857094.691784638",
+          "denominator": "7175168",
+          "numerator": "13324966405463"
+        },
+        "exp_60_over_7_degree_14": {
+          "decimal": "5124.641610327726",
+          "denominator": "4752309071452943",
+          "numerator": "24353880812705672483"
+        },
+        "exp_6_degree_11": {
+          "decimal": "395.3231168831169",
+          "denominator": "1925",
+          "numerator": "760997"
+        },
+        "exp_6_degree_13": {
+          "decimal": "401.964955044955",
+          "denominator": "25025",
+          "numerator": "10059173"
+        }
+      },
+      "five_positive_face": {
+        "cumulative_coordinate_weights": [
+          5,
+          4,
+          3,
+          2,
+          1
+        ],
+        "maximum_bisection_depth": 37,
+        "parameterization": "(a,b,c,d,e)=(a,a+r,a+r+s,a+r+s+t,a+r+s+t+v), 5a+4r+3s+2t+v<=6",
+        "recursive_pruning": "knot insertion from the proved four-positive face, A<=41/200, and abs(q3')<11/20",
+        "terminal_box_counts": {
+          "central_minorant": 164,
+          "direct_lipschitz": 6936,
+          "infeasible": 0,
+          "recursive_global_A": 189416,
+          "recursive_local_A": 144720,
+          "scalar_core": 21295
+        },
+        "terminal_transcript_sha256": "d3442eed3224f9c4dc1fb65624c1d375aa5d223670830948f7a13009ac9039b8",
+        "total_branch_calls": 725061
+      },
+      "four_positive_face": {
+        "cumulative_coordinate_weights": [
+          4,
+          3,
+          2,
+          1
+        ],
+        "maximum_bisection_depth": 24,
+        "parameterization": "(a,b,c,d)=(a,a+r,a+r+s,a+r+s+t), 4a+3r+2s+t<=6",
+        "terminal_box_counts": {
+          "central_minorant": 1,
+          "direct_lipschitz": 17615,
+          "far_cap": 152,
+          "infeasible": 0,
+          "scalar_core": 334
+        },
+        "terminal_transcript_sha256": "796d71cff3aebbbaf38f6b63814f8a25d03eaa2a0baf701d9b62e23689ec888b",
+        "total_branch_calls": 36203
+      },
+      "pointwise_upper_bounds": {
+        "q3": "q3(u)<41/200",
+        "q4": "q4(u)<149/500"
+      },
+      "scalar_interval_records": {
+        "q3-central-lower": {
+          "certified_leaf_intervals": 5,
+          "interval": "[3/4,1]",
+          "maximum_bisection_depth": 4
+        },
+        "q3-central-upper": {
+          "certified_leaf_intervals": 529,
+          "interval": "[1,15/4]",
+          "maximum_bisection_depth": 12
+        },
+        "q3-core": {
+          "certified_leaf_intervals": 444,
+          "interval": "[1,31/16]",
+          "maximum_bisection_depth": 18
+        },
+        "q3-derivative-lower": {
+          "certified_leaf_intervals": 25,
+          "interval": "[1,6]",
+          "maximum_bisection_depth": 6
+        },
+        "q3-derivative-upper": {
+          "certified_leaf_intervals": 26,
+          "interval": "[1,6]",
+          "maximum_bisection_depth": 8
+        },
+        "q3-upper-cap": {
+          "certified_leaf_intervals": 4834,
+          "interval": "[1,6]",
+          "maximum_bisection_depth": 18
+        },
+        "q4-central-lower": {
+          "certified_leaf_intervals": 7,
+          "interval": "[7/10,1]",
+          "maximum_bisection_depth": 5
+        },
+        "q4-central-upper": {
+          "certified_leaf_intervals": 1151,
+          "interval": "[1,16/5]",
+          "maximum_bisection_depth": 15
+        },
+        "q4-core": {
+          "certified_leaf_intervals": 64,
+          "interval": "[1,23/16]",
+          "maximum_bisection_depth": 9
+        },
+        "q4-derivative-lower": {
+          "certified_leaf_intervals": 125,
+          "interval": "[1,6]",
+          "maximum_bisection_depth": 11
+        },
+        "q4-derivative-upper": {
+          "certified_leaf_intervals": 12,
+          "interval": "[1,6]",
+          "maximum_bisection_depth": 6
+        },
+        "q4-local-middle-lower": {
+          "certified_leaf_intervals": 9,
+          "interval": "[60/19,15/4]",
+          "maximum_bisection_depth": 5
+        },
+        "q4-local-middle-upper": {
+          "certified_leaf_intervals": 3,
+          "interval": "[60/19,15/4]",
+          "maximum_bisection_depth": 2
+        },
+        "q4-local-outer-lower": {
+          "certified_leaf_intervals": 13,
+          "interval": "[1,60/19]",
+          "maximum_bisection_depth": 6
+        },
+        "q4-local-outer-upper": {
+          "certified_leaf_intervals": 102,
+          "interval": "[1,60/19]",
+          "maximum_bisection_depth": 9
+        },
+        "q4-local-shoulder-lower": {
+          "certified_leaf_intervals": 2,
+          "interval": "[15/4,4]",
+          "maximum_bisection_depth": 1
+        },
+        "q4-local-shoulder-upper": {
+          "certified_leaf_intervals": 1,
+          "interval": "[15/4,4]",
+          "maximum_bisection_depth": 0
+        },
+        "q4-upper-cap": {
+          "certified_leaf_intervals": 1467,
+          "interval": "[1,6]",
+          "maximum_bisection_depth": 18
+        },
+        "q5-central-lower": {
+          "certified_leaf_intervals": 12,
+          "interval": "[27/40,1]",
+          "maximum_bisection_depth": 9
+        },
+        "q5-central-upper": {
+          "certified_leaf_intervals": 164,
+          "interval": "[1,21/8]",
+          "maximum_bisection_depth": 11
+        },
+        "q5-core": {
+          "certified_leaf_intervals": 17,
+          "interval": "[1,37/32]",
+          "maximum_bisection_depth": 9
+        }
+      },
+      "scalar_terminal_transcript_sha256": "45911d92da792ce6dd0ce418ed617c0530f033ac98f80a4a5d0ece0c8d909db1",
+      "six_positive_boundary": {
+        "cumulative_coordinate_weights": [
+          6,
+          5,
+          4,
+          3,
+          2,
+          1
+        ],
+        "initial_root_boxes": 1150,
+        "localized_q4_derivative_envelope": "1/20 off [2/5,19/10], 1/4 on [2/5,19/10] off [11/20,8/5], 11/20 on [11/20,8/5] off the two inner intervals, 81/100 on [7/10,1], and 24/25 on [1,3/2]",
+        "maximum_bisection_depth": 45,
+        "parameterization": "(a,b,c,d,e,f)=(a,a+r,a+r+s,a+r+s+t,a+r+s+t+v,a+r+s+t+v+w), 6a+5r+4s+3t+2v+w<=6",
+        "recursive_pruning": "knot insertion from the proved five-positive face, A<=149/500, and a localized step envelope for abs(q4')",
+        "root_partition_sha256": "2c8df24aedb29c4b796687d8f79ebeed0bc85b6c6784682da480deef727fbf36",
+        "terminal_box_counts": {
+          "central_minorant": 348,
+          "infeasible": 0,
+          "recursive_global_A": 10442544,
+          "recursive_local_A": 11906872,
+          "scalar_core": 809393
+        },
+        "terminal_transcript_sha256": "0c6ff61e6a587c8e00975053ad00848c008ee530c6bfcab961175397ee801431",
+        "total_branch_calls": 46317164
+      }
+    },
+    "scope": "Every nonnegative seven-coordinate profile with sum_i y_i<=6",
+    "symbolic_exact_and_interval_checks": "passed"
+  },
   "radial_zero_knot_reduction": {
     "analytic_basis": "The Laplace-transform convolution identity, the resulting mode-below-mean bound for weighted exponential sums, and the density-derivative argument in DIRICHLET-POISSONIZATION.md",
     "scope": "Any strictly positive coefficient profile with sum_i y_i<=n can be moved to a zero-knot boundary without increasing the Dirichlet--Poissonization gap.",
     "symbolic_identity_check": "passed"
   },
-  "schema_version": 16,
+  "schema_version": 17,
   "sparse_convex_core_all_n": {
     "analytic_basis": "The repeated divided-difference multiplication identity, the arbitrary-order derivative-CDF identities proved by induction, and Anderson--Samuels (1967)",
     "corroboration_record": {

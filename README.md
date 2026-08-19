@@ -198,6 +198,18 @@ certificate or a written proof:
   off-symmetry interior remains open. These results do not prove the
   three-or-more-coordinate case or general-\(n\) Stringer coverage.
 
+- **The second all-\(n\) analytic step is complete through \(n=6\)**
+  ([`DIRICHLET-POISSONIZATION.md`](supporting-materials/theory/DIRICHLET-POISSONIZATION.md)):
+  for every nonnegative \((n+1)\)-coordinate profile whose coefficient sum
+  is at most \(n\), the required Poissonized tail dominates the corresponding
+  uniform-simplex tail for every \(n=2,3,4,5,6\). The new \(n=6\) theorem uses
+  three nested coordinate-face arguments, exact scalar bounds and beta-tail
+  moments, and a deterministic directed 160-bit Arb certificate. The fixed
+  proof partition has 46,317,164 branch calls and reproducible transcript
+  digests. This advances one explicitly isolated component of the proposed
+  general proof; it does not prove the separate higher-dimensional
+  exponential-quantile convexity step or general-\(n\) Stringer coverage.
+
 - **All-sample-size scalar calibration of the Poisson bound**
   ([`POISSON-BAND-CALIBRATION.md`](supporting-materials/theory/POISSON-BAND-CALIBRATION.md)):
   let \(\kappa_{n,\alpha}\) be the smallest scalar at least one that makes
@@ -306,12 +318,12 @@ and pursue the general Dirichlet--Poissonization inequality isolated in
 [`ALL-N-POISSON-PROGRAM.md`](supporting-materials/theory/ALL-N-POISSON-PROGRAM.md)
 using the proved zero-knot reduction and all-two-level case in
 [`DIRICHLET-POISSONIZATION.md`](supporting-materials/theory/DIRICHLET-POISSONIZATION.md),
-which now also proves the complete threshold comparison for $n=2,3,4,5$,
+which now also proves the complete threshold comparison for $n=2,3,4,5,6$,
 every profile having three nonzero coefficients in every dimension, and a sparse
 convex-core region on every coordinate face, including
 `d<=n^2/{3(n+1)}` for four nonzero coefficients, together with the opposite
-four-positive far cap `d>=n-1`.  The first open complete simplex dimension in
-that comparison is now $n=6$;
+four-positive far cap `d>=n-1`. Its first open complete simplex dimension is
+$n=7$;
 and develop a certified branch-and-bound or atoms-reduction argument for
 ordinary audit sample sizes.
 The immediate fixed-dimension target is \(n=8\) at 90%, 95%, and 99%, not more

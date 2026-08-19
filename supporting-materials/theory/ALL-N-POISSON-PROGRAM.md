@@ -5,8 +5,8 @@
 > remains open in three or more; Dirichlet Poissonization remains open in
 > general, although it is proved for every profile with at most three nonzero
 > coefficients, on a sparse convex core of every coordinate face, on the
-> four-positive far cap, and completely for `n=2`, `n=3`, `n=4`, and `n=5`.
-> The first open complete simplex dimension is `n=6`.  This is a research
+> four-positive far cap, and completely for `n=2`, `n=3`, `n=4`, `n=5`, and
+> `n=6`. The first open complete simplex dimension is `n=7`. This is a research
 > roadmap,
 > not a coverage claim.  The paper
 > continues to state that ordinary Stringer coverage is unresolved for
@@ -516,6 +516,25 @@ certificate regenerates 1,669,573 branch calls, every terminal count, and
 the ordered transcript digest.  The radial lemma therefore proves (B)
 completely for `n=5`.
 
+At `n=6`, three nested face certificates close the next dimension. After the
+radial reduction, the four-positive face is proved from a scalar positive
+core through `31/16`, the all-`n` far cap, a directed affine minorant, and a
+36,203-call Arb subdivision. The five-positive face then follows from a
+second affine minorant, a recursive knot-insertion estimate using the proved
+four-positive face, and a 725,061-call subdivision.
+
+For the remaining six-positive boundary, knot insertion reduces the sign to
+two five-positive divided differences. A five-step pointwise envelope for the
+scalar derivative is integrated against exact `Beta(h,5-h)` coordinate-tail
+moments, producing directed local radii for both endpoint faces. A fixed
+partition into 1,150 rational root boxes (a 1,024-box base partition with
+two fixed 64-way refinements along its most expensive corner) makes the
+exhaustive 160-bit Arb certificate parallel without making its mathematical
+output depend on process scheduling. The certificate records the complete terminal partition,
+maximum depth, and aggregate transcript digest. The radial lemma therefore
+proves (B) completely for `n=6`; this remains a finite-dimensional theorem,
+not a proof of (B) for arbitrary `n`.
+
 For three positive knots, much more is known.  With `n-2` zero knots
 and ordered positive knots `a<=b<=c`, multiplication reduces (16) to the
 second divided difference of
@@ -542,7 +561,7 @@ complete the entire three-positive face.
 The radial derivative is the density derivative at the threshold.  A
 Laplace-transform convolution identity shows that the mode of every
 weighted exponential sum is no larger than its mean, giving the required
-sign.  In dimensions `n>=6`, coordinate-face profiles with four or more
+sign. In dimensions `n>=7`, coordinate-face profiles with four or more
 nonzero knots remain open outside the sparse convex cores and the four-positive far cap
 just described.  See
 [`DIRICHLET-POISSONIZATION.md`](DIRICHLET-POISSONIZATION.md) for the proof,
@@ -583,10 +602,10 @@ seemingly simpler but false domination claim.
    `8/9` are also proved.  Then seek a dimension-free argument for (11).
 2. Prove the constrained divided-difference inequality (16), or find an
    actual B-spline counterexample satisfying the sum-of-knots constraint;
-   the complete `n=2`, `n=3`, `n=4`, and `n=5` cases and every two-level
+   the complete `n=2`, `n=3`, `n=4`, `n=5`, and `n=6` cases and every two-level
    profile are already proved, as is the entire three-positive face and a sparse convex
    core on every coordinate face, together with the four-positive far cap.
-   The first open complete simplex dimension is now `n=6`.
+   The first open complete simplex dimension is now `n=7`.
 3. Use the zero-knot reduction recursively, or prove that a negative minimum
    on a coordinate face must have at most two distinct knot values.
 4. Only after both analytic steps pass, connect (6)--(7) to the published

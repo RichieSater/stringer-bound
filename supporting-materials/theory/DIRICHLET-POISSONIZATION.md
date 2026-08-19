@@ -2357,12 +2357,273 @@ depths, and both transcript digests.  Continuity supplies repeated-knot
 cases.  This proves (15ch), and the radial boundary lemma proves (15cg).
 
 Thus the Dirichlet--Poissonization comparison is complete through `n=5`.
-The first open complete simplex dimension is `n=6`.  This result does not by
-itself prove the separate exponential-quantile convexity target or a
+Section 15 closes the next dimension. The `n=5` result does not by itself
+prove the separate exponential-quantile convexity target or a
 general-sample-size Stringer coverage theorem.
 
 
-## 15. Why generic $s$-concave localization is too broad
+## 15. The complete comparison for `n=6`
+
+A nested use of the preceding face argument closes the next complete
+simplex dimension.
+
+> **Complete `n=6` theorem.** For every nonnegative seven-coordinate vector
+> `y` with `sum_i y_i<=6`, one has
+>
+> \[
+>  \Pr\{Z_y>6\}\ge\Pr\{T_y>1\}.                 \tag{15cs}
+> \]
+
+The radial boundary lemma reduces the theorem to profiles having at least
+one zero coordinate. Lower-dimensional faces are already covered by the
+results above, so three ordered faces remain. They are certified in order,
+because each face supplies the recursive estimate for the next one.
+
+### Four positive knots
+
+For `(0,0,0,a,b,c,d)`, three zero-knot multiplications reduce the target to
+`[a,b,c,d]F_3>=0`, where
+
+\[
+ F_3(u)=u^3\{e^{-6/u}-(1-u^{-1})_+^6\}.
+\]
+
+Hermite--Genocchi represents this divided difference as `E q_3(U)`, with
+`EU<=(a+b+c+d)/4<=3/2`, and
+
+\[
+ q_3(u)=\begin{cases}
+ e^{-\lambda}\displaystyle\sum_{j=0}^3\lambda^j/j!,&0<u\le1,\\
+ e^{-\lambda}\displaystyle\sum_{j=0}^3\lambda^j/j!
+ -1+15u^{-4}-24u^{-5}+10u^{-6},&u>1,
+ \end{cases}\qquad \lambda=6/u.                 \tag{15ct}
+\]
+
+Directed 160-bit Arb subdivisions certify
+
+\[
+\begin{aligned}
+ q_3(u)&\ge0 &&(0\le u\le31/16),\\
+ q_3(u)&\ge\frac1{20}(3/2-u)
+   &&(3/4\le u\le15/4),\\
+ |q_3'(u)|&<11/20 &&(0\le u\le6),\\
+ q_3(u)&<41/200 &&(0\le u\le6).
+\end{aligned}                                      \tag{15cu}
+\]
+
+The lower exponential pieces are completed analytically from exact Taylor
+bounds; the certificate evaluates every compact upper piece as a directed
+interval, not as a grid. The scalar nonnegativity bound and the all-`n` far
+cap cover `d<=31/16` and `d>=5`, respectively. (The dimension-free sparse
+core separately reaches `d<=12/7`.) If `a>=3/4`, the budget implies
+`d<=15/4`, and the affine minorant in (15cu) applies.
+
+On the residual region, use cumulative parameters
+
+\[
+ (a,b,c,d)=(a,a+r,a+r+s,a+r+s+t),\qquad
+ 4a+3r+2s+t\le6.
+\]
+
+The derivative bound in (15cu) gives the exact cumulative-parameter radius
+`(11/80)(4 Delta a+3 Delta r+2 Delta s+Delta t)`. Coordinatewise budget
+tightening, a budget-clipped midpoint, and deterministic longest-weighted-
+edge bisection close the complete box. The certificate records 36,203 branch
+calls and maximum depth 24. Its 18,102 terminal boxes comprise 334 scalar-
+core boxes, 152 far-cap boxes, one central-minorant box, and 17,615 boxes
+closed by the directed Lipschitz test. The terminal-transcript digest is
+
+```text
+796d71cff3aebbbaf38f6b63814f8a25d03eaa2a0baf701d9b62e23689ec888b
+```
+
+### Five positive knots
+
+For `(0,0,a,b,c,d,e)`, put
+
+\[
+ F_4(u)=u^4\{e^{-6/u}-(1-u^{-1})_+^6\}.
+\]
+
+The target is `[a,b,c,d,e]F_4>=0`, with scalar integrand
+
+\[
+ q_4(u)=\begin{cases}
+ e^{-\lambda}\displaystyle\sum_{j=0}^4\lambda^j/j!,&0<u\le1,\\
+ e^{-\lambda}\displaystyle\sum_{j=0}^4\lambda^j/j!
+ -1+6u^{-5}-5u^{-6},&u>1.
+ \end{cases}                                      \tag{15cv}
+\]
+
+The directed scalar certificate proves
+
+\[
+\begin{aligned}
+ q_4(u)&\ge0 &&(0\le u\le23/16),\\
+ q_4(u)&\ge\frac{13}{100}(6/5-u)
+   &&(7/10\le u\le16/5),\\
+ |q_4'(u)|&<24/25 &&(0\le u\le6),\\
+ q_4(u)&<149/500 &&(0\le u\le6).
+\end{aligned}                                      \tag{15cw}
+\]
+
+Let `f_3=F_4/u` and set
+
+\[
+ A=[a,b,c,d]f_3,\qquad B=[b,c,d,e]f_3.
+\]
+
+The four-positive theorem gives `A,B>=0`, and knot insertion gives
+
+\[
+ [a,b,c,d,e]F_4=\frac{eB-aA}{e-a}.                \tag{15cx}
+\]
+
+The pointwise bound in (15cu) yields `A<=41/200`; its derivative bound gives
+directed local radii for `A` and `B`. The recursive test `e_-B_->a_+A_+`
+closes almost the entire residual region, and the global derivative bound in
+(15cw) closes the remainder directly. With cumulative weights `(5,4,3,2,1)`,
+the deterministic subdivision terminates after 725,061 calls and maximum
+depth 37. Its 362,531 terminal boxes comprise 21,295 scalar-core boxes, 164
+central-minorant boxes, 189,416 global-`A` recursive boxes, 144,720 local-`A`
+recursive boxes, and 6,936 direct Lipschitz boxes. The terminal-transcript
+digest is
+
+```text
+d3442eed3224f9c4dc1fb65624c1d375aa5d223670830948f7a13009ac9039b8
+```
+
+### Six positive knots
+
+It remains to consider `(0,a,b,c,d,e,f)`. Put
+
+\[
+ F_5(u)=u^5\{e^{-6/u}-(1-u^{-1})_+^6\}.
+\]
+
+The target is `[a,b,c,d,e,f]F_5>=0`. Its Hermite--Genocchi integrand is
+
+\[
+ q_5(u)=\begin{cases}
+ e^{-\lambda}\displaystyle\sum_{j=0}^5\lambda^j/j!,&0<u\le1,\\
+ e^{-\lambda}\displaystyle\sum_{j=0}^5\lambda^j/j!-1+u^{-6},&u>1.
+ \end{cases}                                      \tag{15cy}
+\]
+
+Directed interval evaluation proves
+
+\[
+ q_5(u)\ge0\quad(0\le u\le37/32),\qquad
+ q_5(u)\ge\frac38(1-u)\quad(27/40\le u\le21/8). \tag{15cz}
+\]
+
+These bounds close the largest-knot core and, using `EU<=1`, every box with
+`a>=27/40`.
+
+For the residual region, let `f_4=F_5/u` and define
+
+\[
+ A=[a,b,c,d,e]f_4,\qquad B=[b,c,d,e,f]f_4.
+\]
+
+The five-positive theorem gives `A,B>=0`, (15cw) gives `A<=149/500`, and
+
+\[
+ [a,b,c,d,e,f]F_5=\frac{fB-aA}{f-a}.              \tag{15da}
+\]
+
+A sharper localized radius makes this recursion effective. In addition to
+the global bound in (15cw), exact scalar estimates give the nested envelope
+
+\[
+ |q_4'(u)|<\frac1{20}
+ +\frac15\mathbf1_{\{2/5\le u\le19/10\}}
+ +\frac3{10}\mathbf1_{\{11/20\le u\le8/5\}}
+ +\frac{13}{50}\mathbf1_{\{7/10\le u\le1\}}
+ +\frac{41}{100}\mathbf1_{\{1\le u\le3/2\}}.    \tag{15db}
+\]
+
+Thus the successive bounds are `1/20`, `1/4`, and `11/20` outside the
+nested intervals, `81/100` on `[7/10,1]`, and `24/25` on `[1,3/2]` (with an
+irrelevant larger value at the shared endpoint in the displayed envelope).
+On `u<=1`, one has
+`q_4'(u)=e^{-lambda}lambda^6/144`; its derivative in `lambda` is negative
+for `lambda>=6`. Exact Taylor lower bounds at
+`lambda=15,120/11,60/7,6` prove the four successive lower-piece bounds. On
+`u>1`, the certificate evaluates the exact derivative over the three outer
+`lambda` intervals. The upper and lower signs require respectively 102 and
+13 terminal intervals for the `1/20` bound, three and nine for the `1/4`
+bound, and one and two for the `11/20` bound; their maximum depths are nine,
+six, two, five, zero, and one. The global directed bound in (15cw) supplies
+the upper inner interval.
+
+For five Dirichlet coordinates,
+
+\[
+\begin{aligned}
+ \left|\frac{\partial}{\partial x_i}E q_4(U)\right|
+ \le{}&\frac1{100}
+   +\frac15E\{W_i\mathbf1_{\{2/5\le U\le19/10\}}\}\\
+ &+\frac3{10}E\{W_i\mathbf1_{\{11/20\le U\le8/5\}}\}
+   +\frac{13}{50}E\{W_i\mathbf1_{\{7/10\le U\le1\}}\}\\
+ &+\frac{41}{100}E\{W_i\mathbf1_{\{1\le U\le3/2\}}\}.
+                                                               \tag{15dc}
+\end{aligned}
+\]
+
+Every event moment in (15dc) is bounded by the exact `Beta(h,5-h)` tail
+formulas already used in Section 14. The source rederives those formulas
+symbolically and takes the smallest directed bound supplied by every
+admissible low/high knot split. Support-disjoint boxes receive moment zero.
+The resulting local upper bound for `A` is intersected with `149/500`, and
+the lower bound for `B` is substituted in (15da).
+
+With cumulative parameters and weights `(6,5,4,3,2,1)`, the exact initial
+box is first divided into 1,024 fixed rational base boxes. Along the
+all-zero corner, the first and most expensive box is refined twice by the
+same exact budget-aware 64-way rule. This yields 1,150 fixed roots for
+parallel regeneration. Within each root, an unresolved box is split in the
+coordinate with the largest directed
+contribution to the current lower-bound radius. This recursive test, together
+with the two scalar regions in (15cz), certifies the complete six-positive
+boundary after 46,317,164 branch calls and maximum depth 45. Its 23,159,157
+terminal boxes comprise 809,393 scalar-core boxes, 348 central-minorant
+boxes, 10,442,544 boxes closed by the global cap for `A`, and 11,906,872
+boxes closed by its local directed bound. No infeasible terminal box occurs.
+The fixed-root partition digest is
+
+```text
+2c8df24aedb29c4b796687d8f79ebeed0bc85b6c6784682da480deef727fbf36
+```
+
+The ordered aggregate terminal-transcript digest is
+
+```text
+0c6ff61e6a587c8e00975053ad00848c008ee530c6bfcab961175397ee801431
+```
+
+The 21 directed scalar partitions used across the three faces contain 9,012
+terminal intervals and have maximum depth 18. Their aggregate transcript
+digest is
+
+```text
+45911d92da792ce6dd0ce418ed617c0530f033ac98f80a4a5d0ece0c8d909db1
+```
+
+Every numerical sign in the three subdivisions is a directed 160-bit Arb
+inclusion; all box endpoints, budgets, derivative constants, and Taylor
+comparisons are exact rationals. The source regenerates the scalar interval
+partition, symbolic beta moments, all terminal counts and depths, and every
+transcript digest. Continuity supplies repeated knots. The radial boundary
+lemma then proves (15cs).
+
+Thus the Dirichlet--Poissonization comparison is complete through `n=6`.
+The first open complete simplex dimension is `n=7`. This theorem does not
+prove the separate exponential-quantile convexity target and is not, by
+itself, a general-sample-size Stringer coverage theorem.
+
+
+## 16. Why generic $s$-concave localization is too broad
 
 A one-dimensional localization theorem for $1/n$-concave probability
 laws reduces a linear extremal problem to point masses or densities of the
@@ -2422,21 +2683,22 @@ coefficients $y_i$; not every density in (16) is such a projection with
 the constraint (2). The example shows precisely which structural
 information a successful localization argument must preserve.
 
-## 16. Remaining proof problem
+## 17. Remaining proof problem
 
 The cleanest current target is (6).  Section 4 shows that it is enough to
 work on coordinate faces, Sections 3--5 establish it for every profile
 having at most two distinct coefficient values or at most two nonzero
 coefficients, and Sections 6--7 prove the complete target for `n=2` and
-`n=3`, while Section 12 proves the complete target for `n=4` and Section 14
-proves it for `n=5`.  Sections 8--11 prove every profile having exactly
-three nonzero coefficients, and Section 13 separately proves every `n=5`
-profile having at most four nonzero coefficients.
+`n=3`, while Section 12 proves the complete target for `n=4`, Section 14
+proves it for `n=5`, and Section 15 proves it for `n=6`.  Sections 8--11
+prove every profile having exactly three nonzero coefficients, and Sections
+13 and 15 prove the additional coordinate faces used in the two recursive
+complete theorems.
 Section 8 also proves a convex core on every coordinate face, including the
 region `d<=n^2/{3(n+1)}` for four nonzero knots, and Section 9 proves the
-opposite four-positive far cap `d>=n-1`.  In dimensions `n>=6`, profiles
+opposite four-positive far cap `d>=n-1`.  In dimensions `n>=7`, profiles
 with four or more nonzero knots outside the proved regions remain open.  The
-first open complete simplex dimension is now `n=6`.  Three plausible routes
+first open complete simplex dimension is now `n=7`.  Three plausible routes
 remain for general `n`:
 
 1. exploit the zero-knot reduction recursively, or prove that a negative
@@ -2458,10 +2720,11 @@ The committed output is
 It certifies the obstruction, checks rational equal-block instances,
 regression-checks the exact algebra used in the two-level, two-positive-knot,
 arbitrary-order sparse-core, four-positive far-cap, three-positive subregion,
-and complete `n=2`, `n=3`, `n=4`, and `n=5` proofs.  It also supplies the
+and complete `n=2`, `n=3`, `n=4`, `n=5`, and `n=6` proofs.  It also supplies the
 directed interval components of the complete three-positive-face, `n=4`,
-and both `n=5` face proofs, including deterministic terminal-box counts and
-transcript digests.  The general inequality remains explicitly open.
+both `n=5` face proofs, and all three nested `n=6` face proofs, including
+deterministic terminal-box counts and transcript digests.  The general
+inequality remains explicitly open.
 
 ## References
 

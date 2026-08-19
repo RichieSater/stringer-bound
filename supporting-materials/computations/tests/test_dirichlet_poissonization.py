@@ -6,6 +6,7 @@ import sys
 import unittest
 from fractions import Fraction
 from pathlib import Path
+from unittest.mock import patch
 
 
 PYTHON_DIR = Path(__file__).resolve().parents[1] / "python"
@@ -30,6 +31,11 @@ from dirichlet_poissonization import (  # noqa: E402
     verify_three_positive_middle_knot_region,
     verify_two_positive_knot_theorem,
     verify_two_level_symbolic_identities,
+)
+from n6_dirichlet_poissonization import (  # noqa: E402
+    _root_partition_digest,
+    _six_boundary_roots,
+    _six_boundary_worker,
 )
 
 
@@ -142,6 +148,22 @@ class DirichletPoissonizationTests(unittest.TestCase):
             "b5cc3d8cbda175722021249a795d275b0f29adbb6b76c658dada7a3903b2db2e",
         )
 
+    def test_n6_fixed_root_partition_and_one_boundary_root(self):
+        roots = _six_boundary_roots()
+        self.assertEqual(len(roots), 1150)
+        self.assertEqual(
+            _root_partition_digest(roots),
+            "2c8df24aedb29c4b796687d8f79ebeed0bc85b6c6784682da480deef727fbf36",
+        )
+        # Root 133 is base root 7 after the two fixed corner refinements.
+        record = _six_boundary_worker(roots[133])
+        self.assertEqual(record["total_branch_calls"], 17147)
+        self.assertEqual(record["maximum_bisection_depth"], 32)
+        self.assertEqual(
+            record["terminal_transcript_sha256"],
+            "45e2f41abc8d683fc061dd91cc89401b75231e38af675a003ce993df55753c62",
+        )
+
     def test_all_n_three_positive_convex_core_algebra(self):
         verify_three_positive_convex_core()
 
@@ -182,8 +204,23 @@ class DirichletPoissonizationTests(unittest.TestCase):
         verify_two_positive_knot_theorem()
 
     def test_certificate_is_explicitly_non_theorem_research_support(self):
-        certificate = build_certificate()
-        self.assertEqual(certificate["schema_version"], 16)
+        n6_stub = {
+            "four_positive_face": {"total_branch_calls": 36203},
+            "five_positive_face": {"total_branch_calls": 725061},
+            "six_positive_boundary": {
+                "initial_root_boxes": 1150,
+                "total_branch_calls": 46317164,
+                "terminal_transcript_sha256": (
+                    "0c6ff61e6a587c8e00975053ad00848c008ee530c6bfcab961175397ee801431"
+                ),
+            },
+        }
+        with patch(
+            "dirichlet_poissonization.verify_n6_seven_knot_theorem",
+            return_value=n6_stub,
+        ):
+            certificate = build_certificate()
+        self.assertEqual(certificate["schema_version"], 17)
         self.assertIn("not an all-sample-size coverage certificate", certificate["status"])
         self.assertEqual(
             len(certificate["equal_block_profiles"]["regression_checks"]),
@@ -243,6 +280,35 @@ class DirichletPoissonizationTests(unittest.TestCase):
                 "terminal_transcript_sha256"
             ],
             "c07fa042526bb48d7a79cf67c80297fcbcd59481ac8b3560645bafd80e23a5f2",
+        )
+        self.assertEqual(
+            certificate["n6_seven_knot_theorem"][
+                "symbolic_exact_and_interval_checks"
+            ],
+            "passed",
+        )
+        complete_n6 = certificate["n6_seven_knot_theorem"]["proof_record"]
+        self.assertEqual(
+            complete_n6["four_positive_face"]["total_branch_calls"],
+            36203,
+        )
+        self.assertEqual(
+            complete_n6["five_positive_face"]["total_branch_calls"],
+            725061,
+        )
+        self.assertEqual(
+            complete_n6["six_positive_boundary"]["initial_root_boxes"],
+            1150,
+        )
+        self.assertEqual(
+            complete_n6["six_positive_boundary"]["total_branch_calls"],
+            46317164,
+        )
+        self.assertEqual(
+            complete_n6["six_positive_boundary"][
+                "terminal_transcript_sha256"
+            ],
+            "0c6ff61e6a587c8e00975053ad00848c008ee530c6bfcab961175397ee801431",
         )
         self.assertEqual(
             certificate["three_positive_convex_core_all_n"][
