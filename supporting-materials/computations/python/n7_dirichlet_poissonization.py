@@ -93,6 +93,7 @@ FACE7_EXTRA_REFINED_PARENT_IDS: tuple[int, ...] = (
 )
 FACE7_SHARD_COUNT = 192
 FACE7_SHARD_SALT = "n7-dirichlet-poissonization-v1"
+FACE7_WORKER_CALL_LIMIT = int(os.environ.get("N7_FACE7_CALL_LIMIT", "0"))
 
 SCALAR_EXPECTATION = {
     "compact_terminal_intervals": 140197,
@@ -458,6 +459,15 @@ ENV7 = _LocalEnvelope(
 )
 
 
+class FaceCallLimitExceeded(RuntimeError):
+    """Signal that an audit traversal has proved a root exceeds a call limit."""
+
+    def __init__(self, root_index: int, calls: int):
+        super().__init__(root_index, calls)
+        self.root_index = root_index
+        self.calls = calls
+
+
 def recursive_worker(task, dim, env, core, central, scalar_k, maxdepth):
     """Certify one six- or seven-positive root by recursive knot insertion."""
     root_index, lower0, upper0, depth0 = task
@@ -474,6 +484,8 @@ def recursive_worker(task, dim, env, core, central, scalar_k, maxdepth):
     while stack:
         lower, upper, depth = stack.pop()
         calls += 1
+        if FACE7_WORKER_CALL_LIMIT and calls > FACE7_WORKER_CALL_LIMIT:
+            raise FaceCallLimitExceeded(root_index, calls)
         upper = _tightened_upper(lower, upper, weights)
         reason = None
         sensitivities = None
