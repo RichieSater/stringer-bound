@@ -91,7 +91,7 @@ FACE7_EXTRA_REFINED_PARENT_IDS: tuple[int, ...] = (
     73838,
     74222,
 )
-FACE7_SHARD_COUNT = 192
+FACE7_SHARD_COUNT = 256
 FACE7_SHARD_SALT = "n7-dirichlet-poissonization-v1"
 FACE7_WORKER_CALL_LIMIT = int(os.environ.get("N7_FACE7_CALL_LIMIT", "0"))
 
