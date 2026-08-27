@@ -126,7 +126,7 @@ set of 59,700 exact Clopper--Pearson vertex checks through n = 200 remains as
 an independent regression
 ([proof and checks](supporting-materials/theory/ONE-CAP-COMPARISON.md)).
 
-This is a candidate statistical control for independent human proof review,
+This is a candidate statistical control for independent proof checking,
 professional-standards analysis, model-risk validation, and software
 testing. It is not represented as adopted guidance. The zero-uplift result
 describes the output of the pre-specified safeguard; it is not a

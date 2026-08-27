@@ -22,9 +22,9 @@
           "trust": "corroboration_only"
         },
         {
-          "path": "supporting-materials/audit/REVIEW-N2.md",
-          "role": "recorded adversarial proof review",
-          "trust": "review_record"
+          "path": "supporting-materials/audit/N2-CORRECTION-LEDGER.md",
+          "role": "recorded adversarial proof audit",
+          "trust": "audit_record"
         }
       ],
       "verification_commands": [
@@ -47,9 +47,9 @@
           "trust": "proof_essential"
         },
         {
-          "path": "supporting-materials/audit/REVIEW-N2.md",
-          "role": "review record including repaired equality analysis",
-          "trust": "review_record"
+          "path": "supporting-materials/audit/N2-CORRECTION-LEDGER.md",
+          "role": "audit record including repaired equality analysis",
+          "trust": "audit_record"
         }
       ],
       "verification_commands": [

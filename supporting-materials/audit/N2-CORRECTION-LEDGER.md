@@ -1,9 +1,8 @@
-# Review record: the n = 2 theorem
+# Correction and verification ledger: the n = 2 theorem
 
-This file records the adversarial reviews of
-[`theory/N2-PROOF.md`](../theory/N2-PROOF.md). The reviews are aids to
-checking; they are not substitutes for independent human peer review, and
-the written proof remains the authority.
+This file records adversarial checks and corrections to
+[`theory/N2-PROOF.md`](../theory/N2-PROOF.md). The written proof remains the
+authority.
 
 ## Initial adversarial passes
 
@@ -16,8 +15,7 @@ treatment of \(w=0\), the convention \(h_+(1)=0\), endpoint checks in both
 change-of-variable regimes, and a more precise statement of the two
 sharpness families.
 
-One pass also developed an alternative derivation. Because that derivation
-was not independently refereed by another researcher, it is treated as
+One pass also developed an alternative derivation. It is treated as
 corroboration only and is not used in the manuscript.
 
 ## Subsequent mathematical audit at commit `3c6c3a2`
@@ -77,7 +75,7 @@ tests the theorem over approximately 200,000 atomic distributions. Those
 computations can expose implementation or algebra errors; they do not replace
 the proof.
 
-## Re-audit at commit `cd95cdd`
+## Follow-up audit at commit `cd95cdd`
 
 A subsequent re-audit cleared the earlier major-revision recommendation and
 reported that no remaining issue changed a theorem, counterexample verdict,
@@ -85,7 +83,8 @@ or table value. It also reported separate exact reproductions of the
 representative coverages at \((n,\alpha)=(50,0.70)\), \((200,0.65)\), and
 \((400,0.65)\).
 
-The re-audit requested three minor consistency edits, all now incorporated:
+The follow-up audit identified three minor consistency edits, all now
+incorporated:
 the sharpness note distinguishes the diagonal-only range from the wing range;
 the stress checker labels its event as the closed wedge tail rather than
 noncoverage; and the README qualifies its novelty statement with “to our

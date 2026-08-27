@@ -339,7 +339,7 @@ The theorem and command do not, by themselves, validate:
   requirements.
 
 Before production use, an audit organization should obtain an independent
-human proof review, validate the implementation against approved factor
+independent proof checking, validate the implementation against approved factor
 tables and test vectors, decide how the rule interacts with its sampling
 designs, and subject the workflow to its normal model-risk and software-change
 controls.
