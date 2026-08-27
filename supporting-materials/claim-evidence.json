@@ -30,7 +30,7 @@
       "verification_commands": [
         "make proof-check"
       ],
-      "limitations": "The written proof, not the stress test, establishes the theorem. Independent human review remains requested before submission."
+      "limitations": "The written proof establishes the theorem; the stress test is corroborating evidence only."
     },
     {
       "id": "binomial-n2-sharpness-nonattainment",

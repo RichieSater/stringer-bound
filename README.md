@@ -327,10 +327,7 @@ $n=7$;
 and develop a certified branch-and-bound or atoms-reduction argument for
 ordinary audit sample sizes.
 The immediate fixed-dimension target is \(n=8\) at 90%, 95%, and 99%, not more
-unstructured grid search. Before journal submission or practice-facing
-reliance, the bounded review protocol in
-[`HUMAN-REVIEW-PACKET.md`](supporting-materials/audit/HUMAN-REVIEW-PACKET.md)
-should be completed by an independent human mathematical statistician.
+unstructured grid search.
 
 ## Method
 

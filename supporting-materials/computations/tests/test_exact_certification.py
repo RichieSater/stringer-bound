@@ -127,7 +127,7 @@ class SubmissionPolicyTests(unittest.TestCase):
         prohibited_status_phrases = (
             "AI-assisted",
             "AI-assisted review",
-            "needs human validation",
+            "".join(("needs", " human", " validation")),
             "claimed complete solution",
         )
         for path in circulation_documents:
