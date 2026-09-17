@@ -15,6 +15,8 @@ CLASSIFICATIONS = {
     "exact_computational_certificate",
     "numerical_search_evidence",
     "date_stamped_literature_status",
+    "unresolved_claim",
+    "conjectural_claim",
 }
 TRUST_LEVELS = {
     "proof_essential",
@@ -25,8 +27,10 @@ TRUST_LEVELS = {
 }
 
 
-def validate() -> list[str]:
-    payload = json.loads(MANIFEST.read_text())
+def validate(payload: dict | None = None, root: Path = ROOT) -> list[str]:
+    """Check document anchors and evidence paths, not mathematical truth."""
+    if payload is None:
+        payload = json.loads(MANIFEST.read_text())
     errors: list[str] = []
     claims = payload.get("claims", [])
     ids = [claim.get("id") for claim in claims]
@@ -35,15 +39,27 @@ def validate() -> list[str]:
     if len(ids) != len(set(ids)):
         errors.append("claim ids are not unique")
 
-    manuscript_path = ROOT / payload.get("manuscript", "")
-    if not manuscript_path.is_file():
-        errors.append(f"missing manuscript: {manuscript_path}")
-        manuscript = ""
-    else:
-        manuscript = manuscript_path.read_text()
+    default_manuscript = payload.get("manuscript", "")
+    manuscript_cache: dict[str, str] = {}
+
+    def manuscript_text(relative: str) -> str:
+        if relative in manuscript_cache:
+            return manuscript_cache[relative]
+        path = root / relative
+        if not path.is_file():
+            errors.append(f"missing manuscript: {path}")
+            text = ""
+        else:
+            text = path.read_text()
+        manuscript_cache[relative] = text
+        return text
+
+    manuscript_text(default_manuscript)
 
     for claim in claims:
         claim_id = claim.get("id", "<missing-id>")
+        claim_manuscript = claim.get("manuscript", default_manuscript)
+        manuscript = manuscript_text(claim_manuscript)
         if claim.get("classification") not in CLASSIFICATIONS:
             errors.append(f"{claim_id}: invalid classification")
         if not claim.get("statement"):
@@ -52,8 +68,24 @@ def validate() -> list[str]:
             errors.append(f"{claim_id}: missing limitations")
         if "verification_commands" not in claim:
             errors.append(f"{claim_id}: missing verification_commands")
+        if claim.get("classification") in {"unresolved_claim", "conjectural_claim"}:
+            if not claim.get("proof_obligation"):
+                errors.append(f"{claim_id}: missing explicit proof_obligation")
 
-        for label in claim.get("manuscript_labels", []):
+        labels = claim.get("manuscript_labels", [])
+        markers = claim.get("source_markers", [])
+        if not labels and not markers:
+            errors.append(f"{claim_id}: missing document anchor")
+        if not isinstance(markers, list) or any(
+            not isinstance(marker, str) or not marker.strip() for marker in markers
+        ):
+            errors.append(f"{claim_id}: invalid source_markers")
+        else:
+            for marker in markers:
+                if marker not in manuscript.splitlines():
+                    errors.append(f"{claim_id}: source marker not found: {marker}")
+
+        for label in labels:
             if (f"\\label{{{label}}}" not in manuscript
                     and f"\\tag{{{label}}}" not in manuscript):
                 errors.append(f"{claim_id}: manuscript label not found: {label}")
@@ -62,7 +94,7 @@ def validate() -> list[str]:
         if not evidence:
             errors.append(f"{claim_id}: no evidence entries")
         for item in evidence:
-            path = ROOT / item.get("path", "")
+            path = root / item.get("path", "")
             if not path.is_file():
                 errors.append(f"{claim_id}: missing evidence file: {path}")
             if item.get("trust") not in TRUST_LEVELS:

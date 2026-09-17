@@ -1,14 +1,24 @@
-# Certified finite-sample conservatism at `n = 3`
+# Certified finite-sample conservatism over a confidence range at `n = 3`
 
-This note supplies the proof and exact-computation details for the manuscript's
-`n = 3` result. It proves the binomial-factor Stringer bound conservative at
-the three confidence levels most directly relevant to audit practice:
+> **Current role.**  This is an independent exact proof on
+> `0.01 <= alpha <= 0.20`.  The stronger four-coordinate
+> section-centroid theorem in
+> [`TETRAHEDRAL-VERTEX-BARRIER.md`](TETRAHEDRAL-VERTEX-BARRIER.md) now proves
+> the complete range
+> `0 < alpha <= ((19+sqrt(21))/34)^3 = 0.3336852118...`.
 
-| `alpha` | nominal confidence |
+This note supplies the independent direct proof and exact-computation details
+for a subrange of the manuscript's `n = 3` result. It proves the
+binomial-factor Stringer bound conservative
+uniformly over the following closed range:
+
+| `alpha` | nominal confidence `1-alpha` |
 |---:|---:|
-| `0.10` | 90% |
-| `0.05` | 95% |
-| `0.01` | 99% |
+| `0.01 <= alpha <= 0.20` | 80% through 99% |
+
+The certificate also records `alpha = 0.01, 0.05, 0.10` separately as
+representative audit levels, but the theorem is not obtained by checking only
+those three points. It covers every real `alpha` in the displayed interval.
 
 The proof is a pointwise comparison with the one-sided Gaffke bound. Vlassis
 and Thomas proved the finite-sample validity of Gaffke's test, and inversion
@@ -86,10 +96,40 @@ The Clopper--Pearson defining equations imply the useful identities
 (a+b)^2 (3-2(a+b))        = alpha.                       (2)
 ```
 
+### Uniformity in `alpha`
+
+Let
+
+```text
+F_j(p) = P(Binomial(3,p) <= j),       j = 0,1,2.
+```
+
+Direct differentiation gives
+
+```text
+F_j'(p) = -3 binom(2,j) p^j (1-p)^(2-j) < 0,
+```
+
+for `0 < p < 1`. Consequently, the inverse Clopper--Pearson factor
+`p_j(alpha)` is strictly decreasing in `alpha`. On any rational alpha cell
+`[ell,u]`, exact dyadic root brackets at the two endpoints therefore give the
+simultaneous enclosure
+
+```text
+lower(p_j(u)) <= p_j(alpha) <= upper(p_j(ell))
+```
+
+for every real `alpha` in the cell. Exact rational interval arithmetic then
+encloses all the margins and Bernstein coefficients used below. Adaptive
+dyadic subdivision of `[0.01,0.20]` produces 414 contiguous cells, with
+maximum bisection depth 11, on each of which every nonstructural lower bound
+is strictly positive. This is a finite proof of a continuum statement, not a
+grid search.
+
 ## 2. The region `s <= x`: an analytic AM--GM bound
 
-Put `g = b+c+d = (1-alpha)^(1/3)`. For each certified level, the exact
-factor enclosures verify
+Put `g = b+c+d = (1-alpha)^(1/3)`. On every cell in the certified range, the
+exact factor enclosures verify
 
 ```text
 b <= g/3,       c <= g/3.                                (3)
@@ -135,8 +175,8 @@ P_A(X,Y) = alpha X Y - (a+bX+cY)^3.                       (4)
 After the affine map from the standard triangle, every degree-three
 Bernstein coefficient of (4) is strictly positive except the coefficient at
 `(X,Y)=(1,1)`. That coefficient is exactly zero by the first identity in
-(2). The exact interval checker verifies all remaining signs separately for
-`alpha = 0.01, 0.05, 0.10`.
+(2). The exact interval checker verifies all remaining signs throughout
+`0.01 <= alpha <= 0.20`.
 
 ## 4. The middle region `x <= s <= y`
 
@@ -197,12 +237,12 @@ is positive except the endpoint coefficient at `q=1`. That coefficient is
 zero by the third identity in (2). Thus (7) is at most `alpha`, completing
 the middle-region proof.
 
-Together, Sections 2--4 prove (1) at all three certified levels. Pointwise
-domination of the valid Gaffke bound then proves distribution-free
-finite-sample conservatism of the binomial Stringer bound at `n=3` and 90%,
-95%, and 99% nominal confidence. The all-`n` Poisson-factor comparison in
-`POISSON-DOMINATION.md` transfers the same conclusion to the Poisson-factor
-Stringer bound.
+Together, Sections 2--4 prove (1) for every
+`0.01 <= alpha <= 0.20`. Pointwise domination of the valid Gaffke bound then
+proves distribution-free finite-sample conservatism of the binomial Stringer
+bound at `n=3` throughout the 80%--99% nominal-confidence range. The all-`n`
+Poisson-factor comparison in `POISSON-DOMINATION.md` transfers the same
+conclusion to the Poisson-factor Stringer bound.
 
 ## 5. What is exact and how to reproduce it
 
@@ -223,12 +263,16 @@ The second command:
 1. encloses every `n=3` Clopper--Pearson factor on a `2^-120` dyadic grid;
 2. checks the binomial-CDF sign at every bracket endpoint using integer
    arithmetic;
-3. propagates the brackets through exact rational interval arithmetic;
-4. verifies (3) and every nonzero Bernstein coefficient in (4), (6), and
-   (8); and
-5. regenerates `n3-gaffke-certificate.json` byte-for-byte.
+3. uses the proved monotonicity of the factors to enclose them on each alpha
+   cell;
+4. propagates those brackets through exact rational interval arithmetic;
+5. verifies (3) and every nonstructural Bernstein coefficient in (4), (6),
+   and (8) on all 414 cells; and
+6. regenerates `n3-gaffke-certificate.json` byte-for-byte.
 
-The smallest positive certified Bernstein lower bound is about
-`1.37e-9` (at `alpha=0.01`), many orders of magnitude larger than the factor
-bracket widths. Floating-point arithmetic is used only to print readable
-decimal summaries, never to decide a sign.
+The smallest cell-wise lower bound among all checked conditions is about
+`5.04e-10`, and the maximum subdivision depth is 11. The certificate stores
+the exact rational lower bound for the weakest condition in every cell, plus
+the contiguous partition itself. Floating-point arithmetic is used only to
+print readable decimal summaries, never to decide a sign. No conclusion is
+claimed here for `alpha < 0.01` or `alpha > 0.20`.

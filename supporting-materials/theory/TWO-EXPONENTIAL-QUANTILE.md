@@ -45,7 +45,7 @@ perspective construction and continuous extension to the axes, to convexity
 of (1). Symmetry also gives
 
 \[
- q(t)=tq(1/t),qquad t>0.                               \tag{4}
+ q(t)=tq(1/t),\qquad t>0.                               \tag{4}
 \]
 
 Let `q0=q(1)`. Since `E1+E2` is Erlang with shape two,

@@ -8,10 +8,30 @@ for every sample size.  The reduction and all vertex equalities below are
 exact.  The complete cap inequality remains **open**.  One entire region is
 now proved for every sample size at nominal confidence of at least
 `75%`; see
-[`ONE-CAP-COMPARISON.md`](ONE-CAP-COMPARISON.md). Separate fixed-dimension
+[`ONE-CAP-COMPARISON.md`](ONE-CAP-COMPARISON.md). A certified two-cap collar
+strictly extends that region through `n=200` at 90%, 95%, and 99%; see
+[`TWO-CAP-COMPARISON.md`](TWO-CAP-COMPARISON.md). Separate fixed-dimension
 certificates prove the complete comparison through `n=7` at 90%, 95%, and
 99%; see
 [`N7-CONVENTIONAL.md`](N7-CONVENTIONAL.md).
+The four-coordinate weight-independent theorem proves that every cap with
+nondecreasing barycentric weights is bounded by its largest step cap. It
+extends the `n=3` Stringer result to every
+`0<alpha<=((19+sqrt(21))/34)^3`; see
+[`TETRAHEDRAL-VERTEX-BARRIER.md`](TETRAHEDRAL-VERTEX-BARRIER.md).
+
+The analogous global theorems in five and six coordinates remain
+conjectural. The local identities and the nine six-coordinate families give
+their stated cap bounds, but on repeated-lowest-knot faces these are not yet
+the active-prefix bounds required by stationary-face induction. See
+[`ORDERED-COLLISION-OBLIGATION.md`](ORDERED-COLLISION-OBLIGATION.md).
+The exact Clopper--Pearson weight-order intervals through
+`alpha_4=0.3214292869970077...` and
+`alpha_5=0.3141689898050253288...` are proved separately, but their
+conversion to full Stringer coverage intervals is conjectural:
+[`N4-MONOTONE-RANGE.md`](N4-MONOTONE-RANGE.md) and
+[`N5-MONOTONE-RANGE.md`](N5-MONOTONE-RANGE.md).
+Independent direct certificates still prove the three conventional levels.
 
 Nothing in this note should be cited as a general-`n` coverage theorem.
 
@@ -113,6 +133,15 @@ By (8), that maximum would be `alpha`.  This statement is stronger than the
 coverage conjecture because it asserts pointwise domination of a separately
 valid confidence limit.
 
+The conjecture is proved for four Dirichlet coordinates and nondecreasing
+weights. The proof compares every stationary section with a beta cap at an
+active boundary rank, then inducts over knot faces. Its only nonsimplex
+section is a quadrilateral. Five-coordinate mixed-section identities and
+six-coordinate projective charts prove local inequalities, but the
+active-prefix implication on repeated-lowest-knot faces remains unresolved;
+see [`ORDERED-COLLISION-OBLIGATION.md`](ORDERED-COLLISION-OBLIGATION.md).
+The local algebra alone does not establish either higher global theorem.
+
 ## 3. The region already removed from the open problem
 
 When `s_c(x)>=x_(n-1)`, only the knot at one is above the threshold.  The
@@ -129,6 +158,26 @@ at most `alpha` for all `n` whenever `0<alpha<=1/4`. Hence (5) is already
 established on this complete region of (4) without a sample-size cutoff.
 An older exact calculation through `n=200` remains as an independent finite
 regression.
+
+The adjacent two-upper-knot region also admits a dimension-free bound. If
+`x_(n-2)<=s_c(x)<=x_(n-1)<1` and
+
+\[
+q=\frac{1-x_{n-1}}{1-s_c(x)},
+\]
+
+then `TWO-CAP-COMPARISON.md` proves
+
+\[
+\Phi_c(x)\le \frac{1-(1-q)^n}{q}
+\max_{1\le r<n}
+\left(\frac{C_r}{C_r+c_n+c_{n-1}(1-q)}\right)^r.     \tag{9a}
+\]
+
+Each term has no interior maximum as `q` varies over a collar ending at one.
+Exact factor certificates therefore prove complete zero-uplift collars
+through `n=200`: `q>=5/12`, `1/3`, and `1/4` at 90%, 95%, and 99%,
+respectively. This does not settle the residual two-cap region.
 
 ## 4. An exact adjacent-transfer formula for the remaining regions
 
@@ -152,7 +201,7 @@ and parameterize
 so that
 
 \[
- x_i=m-bd,qquad x_{i+1}=m+ad.                          \tag{10}
+ x_i=m-bd,\qquad x_{i+1}=m+ad.                          \tag{10}
 \]
 
 The Stringer threshold is constant as `d` varies.  Put
@@ -205,14 +254,15 @@ approximately `0.73467`, above `alpha`, even though the paper's separate
 `n=2` theorem still proves ordinary Stringer coverage.  Thus pointwise
 Gaffke domination and coverage are genuinely different claims.
 
-The highest-value next steps are:
+The structural questions are:
 
-1. prove the single-crossing direction in (13) for the CP weight vector;
-2. extend the one-cap factor comparison below `75%` confidence, if
-   useful for locating the exact boundary of this stronger pointwise
-   statement; or
-3. falsify the adjacent-transfer route with an exact ordered-knot
-   counterexample, while keeping the weaker ordinary-coverage question open.
+1. prove an active-prefix cap bound on the repeated-lowest-knot faces in
+   five and six coordinates, or obtain the proposed global inequalities
+   without that induction;
+2. retain the proved weight-order intervals separately from their
+   conjectural coverage consequences; and
+3. use the terminal-edge and one-/two-cap results as boundary information
+   for the remaining higher-dimensional cap regions.
 
 More unconstrained grid search over taint distributions does not address
 these geometric targets.

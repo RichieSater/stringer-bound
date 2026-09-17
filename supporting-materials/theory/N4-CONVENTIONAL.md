@@ -1,8 +1,12 @@
-# Certified finite-sample conservatism at `n = 4`
+# Independent fixed-level certificate at `n = 4`
 
-This note supplies the complete reduction and exact-computation details for
-the manuscript's `n = 4` result. It proves the binomial-factor Stringer bound
-conservative at:
+This note proves binomial-factor Stringer conservatism at `n=4` by
+independent fixed-triangulation certificates at the three levels below.
+The proposed continuum `0<alpha<=0.3214292869970077...` remains
+conjectural because the five-coordinate structural argument has an
+unresolved repeated-lowest-knot face implication; see
+[`ORDERED-COLLISION-OBLIGATION.md`](ORDERED-COLLISION-OBLIGATION.md).
+The direct proof here does not use that structural argument.
 
 | `alpha` | nominal confidence |
 |---:|---:|
@@ -236,11 +240,12 @@ The smallest positive exact lower bounds are:
 | 0.10 | 7.74e-6 | 1.18e-8 | 7.93e-8 |
 
 Thus (4)--(6) are nonnegative throughout their regions. Together with the
-AM--GM region, this proves (1). Pointwise domination of the valid Gaffke
-upper limit proves distribution-free finite-sample conservatism of the
-binomial Stringer bound at `n=4` and 90%, 95%, and 99% nominal confidence.
-The all-`n` factor comparison in `POISSON-DOMINATION.md` transfers the same
-conclusion to the Poisson-factor Stringer bound.
+AM--GM region, this independently proves (1) at the three listed levels.
+Pointwise domination of the valid Gaffke upper limit proves distribution-free
+finite-sample conservatism of the binomial Stringer bound there. The all-`n`
+factor comparison in `POISSON-DOMINATION.md` transfers the same conclusion to
+the Poisson-factor Stringer bound. The broader continuum remains
+conjectural for the reason stated at the beginning of this note.
 
 ## 5. What is exact and how to reproduce it
 

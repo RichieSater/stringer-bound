@@ -1,0 +1,2902 @@
+{
+  "case_count": 10,
+  "cases": [
+    {
+      "alpha": "0.05",
+      "id": "all-zero-n25-95",
+      "methods": {
+        "full_scale_calibrated_factorwise_cap": {
+          "amount_upper_per_10m": {
+            "decimal_dollars": "1349572.49",
+            "exact_ceiling_cents": "134957249"
+          },
+          "basis_points_upper": "1349.572487",
+          "kappa_upper": {
+            "decimal_ceiling_12": "1.126245908440",
+            "denominator": "134217728",
+            "numerator": "151162167"
+          },
+          "mathematical_status": "proved finite-sample valid modified Poisson rule under the independent bounded-mean model",
+          "rate_upper": {
+            "decimal_ceiling_12": "0.134957248635",
+            "denominator": "1547425049106725343623905280",
+            "numerator": "208836227095972023932494539"
+          }
+        },
+        "gaffke_valid_endpoint": {
+          "amount_upper_per_10m": {
+            "decimal_dollars": "1129281.46",
+            "exact_ceiling_cents": "112928146"
+          },
+          "basis_points_upper": "1129.281451",
+          "certificate_bits": 64,
+          "mathematical_status": "proved finite-sample valid under the independent bounded-mean model, using the cited external validity theorem",
+          "rate_interval": {
+            "lower": {
+              "decimal_floor_12": "0.112928145006",
+              "denominator": "4503599627370496",
+              "numerator": "508583151772459"
+            },
+            "upper": {
+              "decimal_ceiling_12": "0.112928145007",
+              "denominator": "18446744073709551616",
+              "numerator": "2083156589660000257"
+            },
+            "width": {
+              "decimal_ceiling_12": "0.000000000001",
+              "denominator": "18446744073709551616",
+              "numerator": "8193"
+            }
+          },
+          "rate_upper": {
+            "decimal_ceiling_12": "0.112928145007",
+            "denominator": "18446744073709551616",
+            "numerator": "2083156589660000257"
+          },
+          "tail_at_lower_at_least_alpha": true,
+          "tail_at_upper_at_most_alpha": true
+        },
+        "ordinary_binomial_stringer_reference": {
+          "amount_upper_per_10m": {
+            "decimal_dollars": "1129281.46",
+            "exact_ceiling_cents": "112928146"
+          },
+          "basis_points_upper": "1129.281451",
+          "mathematical_status": "ordinary coverage unresolved at this sample size; exact reference calculation only",
+          "rate_interval": {
+            "lower": {
+              "decimal_floor_12": "0.112928145006",
+              "denominator": "39614081257132168796771975168",
+              "numerator": "4473544712518292263381425449"
+            },
+            "upper": {
+              "decimal_ceiling_12": "0.112928145007",
+              "denominator": "79228162514264337593543950336",
+              "numerator": "8947089425036584526762850899"
+            },
+            "width": {
+              "decimal_ceiling_12": "0.000000000001",
+              "denominator": "79228162514264337593543950336",
+              "numerator": "1"
+            }
+          },
+          "rate_upper": {
+            "decimal_ceiling_12": "0.112928145007",
+            "denominator": "79228162514264337593543950336",
+            "numerator": "8947089425036584526762850899"
+          }
+        },
+        "ordinary_poisson_stringer_reference": {
+          "amount_upper_per_10m": {
+            "decimal_dollars": "1198292.91",
+            "exact_ceiling_cents": "119829291"
+          },
+          "basis_points_upper": "1198.292910",
+          "mathematical_status": "ordinary coverage unresolved at this sample size; exact reference calculation only",
+          "rate_interval": {
+            "lower": {
+              "decimal_floor_12": "0.119829290942",
+              "denominator": "461168601842738790400",
+              "numerator": "55261506563602524679"
+            },
+            "upper": {
+              "decimal_ceiling_12": "0.119829290943",
+              "denominator": "11529215046068469760",
+              "numerator": "1381537664090063117"
+            },
+            "width": {
+              "decimal_ceiling_12": "0.000000000001",
+              "denominator": "461168601842738790400",
+              "numerator": "1"
+            }
+          },
+          "rate_upper": {
+            "decimal_ceiling_12": "0.119829290943",
+            "denominator": "11529215046068469760",
+            "numerator": "1381537664090063117"
+          }
+        },
+        "poisson_stringer_gaffke_max": {
+          "amount_upper_per_10m": {
+            "decimal_dollars": "1198292.91",
+            "exact_ceiling_cents": "119829291"
+          },
+          "basis_points_upper": "1198.292910",
+          "governing_component_certified": "ordinary_poisson_stringer",
+          "mathematical_status": "proved finite-sample valid under the independent bounded-mean model",
+          "rate_interval": {
+            "lower": {
+              "decimal_floor_12": "0.119829290942",
+              "denominator": "461168601842738790400",
+              "numerator": "55261506563602524679"
+            },
+            "upper": {
+              "decimal_ceiling_12": "0.119829290943",
+              "denominator": "11529215046068469760",
+              "numerator": "1381537664090063117"
+            },
+            "width": {
+              "decimal_ceiling_12": "0.000000000001",
+              "denominator": "461168601842738790400",
+              "numerator": "1"
+            }
+          },
+          "rate_upper": {
+            "decimal_ceiling_12": "0.119829290943",
+            "denominator": "11529215046068469760",
+            "numerator": "1381537664090063117"
+          }
+        },
+        "zero_anchor_calibrated_factorwise_cap": {
+          "amount_upper_per_10m": {
+            "decimal_dollars": "1198292.91",
+            "exact_ceiling_cents": "119829291"
+          },
+          "basis_points_upper": "1198.292910",
+          "eta_upper": {
+            "decimal_ceiling_12": "1.511562403292",
+            "denominator": "268435456",
+            "numerator": "405756943"
+          },
+          "mathematical_status": "proved finite-sample valid modified Poisson rule under the independent bounded-mean model",
+          "rate_upper": {
+            "decimal_ceiling_12": "0.119829290943",
+            "denominator": "11529215046068469760",
+            "numerator": "1381537664090063117"
+          }
+        }
+      },
+      "nominal_confidence": "19/20",
+      "nonzero_taint_count": 0,
+      "nonzero_taints_descending": [],
+      "sample_size": 25,
+      "threshold_switch_bands": {
+        "full_scale_vs_ordinary_poisson": {
+          "has_nonempty_switch_band": true,
+          "interpretation": "For a rate threshold in [lower,upper), the method at the lower endpoint is at or below the threshold while the method at the upper endpoint is above it, using the certified upper enclosures shown.",
+          "lower_endpoint_method": "ordinary_poisson_stringer_reference",
+          "threshold_interval": {
+            "lower_inclusive": {
+              "decimal_ceiling_12": "0.119829290943",
+              "denominator": "11529215046068469760",
+              "numerator": "1381537664090063117"
+            },
+            "upper_exclusive": {
+              "decimal_ceiling_12": "0.134957248635",
+              "denominator": "1547425049106725343623905280",
+              "numerator": "208836227095972023932494539"
+            }
+          },
+          "upper_endpoint_method": "full_scale_calibrated_factorwise_cap",
+          "width_amount_per_10m_upper": {
+            "decimal_dollars": "151279.58",
+            "exact_ceiling_cents": "15127958"
+          },
+          "width_basis_points_upper": "151.279577",
+          "width_rate": {
+            "decimal_ceiling_12": "0.015127957693",
+            "denominator": "1547425049106725343623905280",
+            "numerator": "23409380675376564992156363"
+          }
+        },
+        "full_scale_vs_zero_anchor": {
+          "has_nonempty_switch_band": true,
+          "interpretation": "For a rate threshold in [lower,upper), the method at the lower endpoint is at or below the threshold while the method at the upper endpoint is above it, using the certified upper enclosures shown.",
+          "lower_endpoint_method": "zero_anchor_calibrated_factorwise_cap",
+          "threshold_interval": {
+            "lower_inclusive": {
+              "decimal_ceiling_12": "0.119829290943",
+              "denominator": "11529215046068469760",
+              "numerator": "1381537664090063117"
+            },
+            "upper_exclusive": {
+              "decimal_ceiling_12": "0.134957248635",
+              "denominator": "1547425049106725343623905280",
+              "numerator": "208836227095972023932494539"
+            }
+          },
+          "upper_endpoint_method": "full_scale_calibrated_factorwise_cap",
+          "width_amount_per_10m_upper": {
+            "decimal_dollars": "151279.58",
+            "exact_ceiling_cents": "15127958"
+          },
+          "width_basis_points_upper": "151.279577",
+          "width_rate": {
+            "decimal_ceiling_12": "0.015127957693",
+            "denominator": "1547425049106725343623905280",
+            "numerator": "23409380675376564992156363"
+          }
+        },
+        "gaffke_vs_ordinary_poisson": {
+          "has_nonempty_switch_band": true,
+          "interpretation": "For a rate threshold in [lower,upper), the method at the lower endpoint is at or below the threshold while the method at the upper endpoint is above it, using the certified upper enclosures shown.",
+          "lower_endpoint_method": "gaffke_valid_endpoint",
+          "threshold_interval": {
+            "lower_inclusive": {
+              "decimal_ceiling_12": "0.112928145007",
+              "denominator": "18446744073709551616",
+              "numerator": "2083156589660000257"
+            },
+            "upper_exclusive": {
+              "decimal_ceiling_12": "0.119829290943",
+              "denominator": "11529215046068469760",
+              "numerator": "1381537664090063117"
+            }
+          },
+          "upper_endpoint_method": "ordinary_poisson_stringer_reference",
+          "width_amount_per_10m_upper": {
+            "decimal_dollars": "69011.46",
+            "exact_ceiling_cents": "6901146"
+          },
+          "width_basis_points_upper": "69.011460",
+          "width_rate": {
+            "decimal_ceiling_12": "0.006901145936",
+            "denominator": "92233720368547758080",
+            "numerator": "636518364420503651"
+          }
+        },
+        "zero_anchor_vs_ordinary_poisson": {
+          "has_nonempty_switch_band": false,
+          "interpretation": "For a rate threshold in [lower,upper), the method at the lower endpoint is at or below the threshold while the method at the upper endpoint is above it, using the certified upper enclosures shown.",
+          "lower_endpoint_method": "zero_anchor_calibrated_factorwise_cap",
+          "threshold_interval": {
+            "lower_inclusive": {
+              "decimal_ceiling_12": "0.119829290943",
+              "denominator": "11529215046068469760",
+              "numerator": "1381537664090063117"
+            },
+            "upper_exclusive": {
+              "decimal_ceiling_12": "0.119829290943",
+              "denominator": "11529215046068469760",
+              "numerator": "1381537664090063117"
+            }
+          },
+          "upper_endpoint_method": "ordinary_poisson_stringer_reference",
+          "width_amount_per_10m_upper": {
+            "decimal_dollars": "0.00",
+            "exact_ceiling_cents": "0"
+          },
+          "width_basis_points_upper": "0.000000",
+          "width_rate": {
+            "decimal_ceiling_12": "0.000000000000",
+            "denominator": "1",
+            "numerator": "0"
+          }
+        }
+      },
+      "zero_taint_count": 25
+    },
+    {
+      "alpha": "0.05",
+      "id": "mixed-three-n25-95",
+      "methods": {
+        "full_scale_calibrated_factorwise_cap": {
+          "amount_upper_per_10m": {
+            "decimal_dollars": "2482436.30",
+            "exact_ceiling_cents": "248243630"
+          },
+          "basis_points_upper": "2482.436296",
+          "kappa_upper": {
+            "decimal_ceiling_12": "1.126245908440",
+            "denominator": "134217728",
+            "numerator": "151162167"
+          },
+          "mathematical_status": "proved finite-sample valid modified Poisson rule under the independent bounded-mean model",
+          "rate_upper": {
+            "decimal_ceiling_12": "0.248243629541",
+            "denominator": "618970019642690137449562112000",
+            "numerator": "153655364253094703695236525621"
+          }
+        },
+        "gaffke_valid_endpoint": {
+          "amount_upper_per_10m": {
+            "decimal_dollars": "1960489.93",
+            "exact_ceiling_cents": "196048993"
+          },
+          "basis_points_upper": "1960.489926",
+          "certificate_bits": 64,
+          "mathematical_status": "proved finite-sample valid under the independent bounded-mean model, using the cited external validity theorem",
+          "rate_interval": {
+            "lower": {
+              "decimal_floor_12": "0.196048992590",
+              "denominator": "36028797018963968",
+              "numerator": "7063409359815577"
+            },
+            "upper": {
+              "decimal_ceiling_12": "0.196048992591",
+              "denominator": "18446744073709551616",
+              "numerator": "3616465592225583617"
+            },
+            "width": {
+              "decimal_ceiling_12": "0.000000000001",
+              "denominator": "18446744073709551616",
+              "numerator": "8193"
+            }
+          },
+          "rate_upper": {
+            "decimal_ceiling_12": "0.196048992591",
+            "denominator": "18446744073709551616",
+            "numerator": "3616465592225583617"
+          },
+          "tail_at_lower_at_least_alpha": true,
+          "tail_at_upper_at_most_alpha": true
+        },
+        "ordinary_binomial_stringer_reference": {
+          "amount_upper_per_10m": {
+            "decimal_dollars": "2031566.58",
+            "exact_ceiling_cents": "203156658"
+          },
+          "basis_points_upper": "2031.566574",
+          "mathematical_status": "ordinary coverage unresolved at this sample size; exact reference calculation only",
+          "rate_interval": {
+            "lower": {
+              "decimal_floor_12": "0.203156657347",
+              "denominator": "396140812571321687967719751680",
+              "numerator": "80478643321080763864658256579"
+            },
+            "upper": {
+              "decimal_ceiling_12": "0.203156657348",
+              "denominator": "49517601571415210995964968960",
+              "numerator": "10059830415135095483082282073"
+            },
+            "width": {
+              "decimal_ceiling_12": "0.000000000001",
+              "denominator": "79228162514264337593543950336",
+              "numerator": "1"
+            }
+          },
+          "rate_upper": {
+            "decimal_ceiling_12": "0.203156657348",
+            "denominator": "49517601571415210995964968960",
+            "numerator": "10059830415135095483082282073"
+          }
+        },
+        "ordinary_poisson_stringer_reference": {
+          "amount_upper_per_10m": {
+            "decimal_dollars": "2204168.99",
+            "exact_ceiling_cents": "220416899"
+          },
+          "basis_points_upper": "2204.168981",
+          "mathematical_status": "ordinary coverage unresolved at this sample size; exact reference calculation only",
+          "rate_interval": {
+            "lower": {
+              "decimal_floor_12": "0.220416898015",
+              "denominator": "4611686018427387904000",
+              "numerator": "1016493526803533477353"
+            },
+            "upper": {
+              "decimal_ceiling_12": "0.220416898016",
+              "denominator": "4611686018427387904000",
+              "numerator": "1016493526803533477363"
+            },
+            "width": {
+              "decimal_ceiling_12": "0.000000000001",
+              "denominator": "461168601842738790400",
+              "numerator": "1"
+            }
+          },
+          "rate_upper": {
+            "decimal_ceiling_12": "0.220416898016",
+            "denominator": "4611686018427387904000",
+            "numerator": "1016493526803533477363"
+          }
+        },
+        "poisson_stringer_gaffke_max": {
+          "amount_upper_per_10m": {
+            "decimal_dollars": "2204168.99",
+            "exact_ceiling_cents": "220416899"
+          },
+          "basis_points_upper": "2204.168981",
+          "governing_component_certified": "ordinary_poisson_stringer",
+          "mathematical_status": "proved finite-sample valid under the independent bounded-mean model",
+          "rate_interval": {
+            "lower": {
+              "decimal_floor_12": "0.220416898015",
+              "denominator": "4611686018427387904000",
+              "numerator": "1016493526803533477353"
+            },
+            "upper": {
+              "decimal_ceiling_12": "0.220416898016",
+              "denominator": "4611686018427387904000",
+              "numerator": "1016493526803533477363"
+            },
+            "width": {
+              "decimal_ceiling_12": "0.000000000001",
+              "denominator": "461168601842738790400",
+              "numerator": "1"
+            }
+          },
+          "rate_upper": {
+            "decimal_ceiling_12": "0.220416898016",
+            "denominator": "4611686018427387904000",
+            "numerator": "1016493526803533477363"
+          }
+        },
+        "zero_anchor_calibrated_factorwise_cap": {
+          "amount_upper_per_10m": {
+            "decimal_dollars": "2718737.37",
+            "exact_ceiling_cents": "271873737"
+          },
+          "basis_points_upper": "2718.737361",
+          "eta_upper": {
+            "decimal_ceiling_12": "1.511562403292",
+            "denominator": "268435456",
+            "numerator": "405756943"
+          },
+          "mathematical_status": "proved finite-sample valid modified Poisson rule under the independent bounded-mean model",
+          "rate_upper": {
+            "decimal_ceiling_12": "0.271873736032",
+            "denominator": "1237940039285380274899124224000",
+            "numerator": "336563383463348717714225804579"
+          }
+        }
+      },
+      "nominal_confidence": "19/20",
+      "nonzero_taint_count": 3,
+      "nonzero_taints_descending": [
+        "1",
+        "2/5",
+        "1/10"
+      ],
+      "sample_size": 25,
+      "threshold_switch_bands": {
+        "full_scale_vs_ordinary_poisson": {
+          "has_nonempty_switch_band": true,
+          "interpretation": "For a rate threshold in [lower,upper), the method at the lower endpoint is at or below the threshold while the method at the upper endpoint is above it, using the certified upper enclosures shown.",
+          "lower_endpoint_method": "ordinary_poisson_stringer_reference",
+          "threshold_interval": {
+            "lower_inclusive": {
+              "decimal_ceiling_12": "0.220416898016",
+              "denominator": "4611686018427387904000",
+              "numerator": "1016493526803533477363"
+            },
+            "upper_exclusive": {
+              "decimal_ceiling_12": "0.248243629541",
+              "denominator": "618970019642690137449562112000",
+              "numerator": "153655364253094703695236525621"
+            }
+          },
+          "upper_endpoint_method": "full_scale_calibrated_factorwise_cap",
+          "width_amount_per_10m_upper": {
+            "decimal_dollars": "278267.32",
+            "exact_ceiling_cents": "27826732"
+          },
+          "width_basis_points_upper": "278.267316",
+          "width_rate": {
+            "decimal_ceiling_12": "0.027826731526",
+            "denominator": "618970019642690137449562112000",
+            "numerator": "17223912558817337991635234357"
+          }
+        },
+        "full_scale_vs_zero_anchor": {
+          "has_nonempty_switch_band": true,
+          "interpretation": "For a rate threshold in [lower,upper), the method at the lower endpoint is at or below the threshold while the method at the upper endpoint is above it, using the certified upper enclosures shown.",
+          "lower_endpoint_method": "full_scale_calibrated_factorwise_cap",
+          "threshold_interval": {
+            "lower_inclusive": {
+              "decimal_ceiling_12": "0.248243629541",
+              "denominator": "618970019642690137449562112000",
+              "numerator": "153655364253094703695236525621"
+            },
+            "upper_exclusive": {
+              "decimal_ceiling_12": "0.271873736032",
+              "denominator": "1237940039285380274899124224000",
+              "numerator": "336563383463348717714225804579"
+            }
+          },
+          "upper_endpoint_method": "zero_anchor_calibrated_factorwise_cap",
+          "width_amount_per_10m_upper": {
+            "decimal_dollars": "236301.07",
+            "exact_ceiling_cents": "23630107"
+          },
+          "width_basis_points_upper": "236.301065",
+          "width_rate": {
+            "decimal_ceiling_12": "0.023630106491",
+            "denominator": "1237940039285380274899124224000",
+            "numerator": "29252654957159310323752753337"
+          }
+        },
+        "gaffke_vs_ordinary_poisson": {
+          "has_nonempty_switch_band": true,
+          "interpretation": "For a rate threshold in [lower,upper), the method at the lower endpoint is at or below the threshold while the method at the upper endpoint is above it, using the certified upper enclosures shown.",
+          "lower_endpoint_method": "gaffke_valid_endpoint",
+          "threshold_interval": {
+            "lower_inclusive": {
+              "decimal_ceiling_12": "0.196048992591",
+              "denominator": "18446744073709551616",
+              "numerator": "3616465592225583617"
+            },
+            "upper_exclusive": {
+              "decimal_ceiling_12": "0.220416898016",
+              "denominator": "4611686018427387904000",
+              "numerator": "1016493526803533477363"
+            }
+          },
+          "upper_endpoint_method": "ordinary_poisson_stringer_reference",
+          "width_amount_per_10m_upper": {
+            "decimal_dollars": "243679.06",
+            "exact_ceiling_cents": "24367906"
+          },
+          "width_basis_points_upper": "243.679055",
+          "width_rate": {
+            "decimal_ceiling_12": "0.024367905426",
+            "denominator": "4611686018427387904000",
+            "numerator": "112377128747137573113"
+          }
+        },
+        "zero_anchor_vs_ordinary_poisson": {
+          "has_nonempty_switch_band": true,
+          "interpretation": "For a rate threshold in [lower,upper), the method at the lower endpoint is at or below the threshold while the method at the upper endpoint is above it, using the certified upper enclosures shown.",
+          "lower_endpoint_method": "ordinary_poisson_stringer_reference",
+          "threshold_interval": {
+            "lower_inclusive": {
+              "decimal_ceiling_12": "0.220416898016",
+              "denominator": "4611686018427387904000",
+              "numerator": "1016493526803533477363"
+            },
+            "upper_exclusive": {
+              "decimal_ceiling_12": "0.271873736032",
+              "denominator": "1237940039285380274899124224000",
+              "numerator": "336563383463348717714225804579"
+            }
+          },
+          "upper_endpoint_method": "zero_anchor_calibrated_factorwise_cap",
+          "width_amount_per_10m_upper": {
+            "decimal_dollars": "514568.39",
+            "exact_ceiling_cents": "51456839"
+          },
+          "width_basis_points_upper": "514.568381",
+          "width_rate": {
+            "decimal_ceiling_12": "0.051456838016",
+            "denominator": "1237940039285380274899124224000",
+            "numerator": "63700480074793986307023222051"
+          }
+        }
+      },
+      "zero_taint_count": 22
+    },
+    {
+      "alpha": "0.05",
+      "id": "all-zero-n100-95",
+      "methods": {
+        "full_scale_calibrated_factorwise_cap": {
+          "amount_upper_per_10m": {
+            "decimal_dollars": "370259.06",
+            "exact_ceiling_cents": "37025906"
+          },
+          "basis_points_upper": "370.259051",
+          "kappa_upper": {
+            "decimal_ceiling_12": "1.235955074430",
+            "denominator": "67108864",
+            "numerator": "82943541"
+          },
+          "mathematical_status": "proved finite-sample valid modified Poisson rule under the independent bounded-mean model",
+          "rate_upper": {
+            "decimal_ceiling_12": "0.037025905052",
+            "denominator": "3094850098213450687247810560",
+            "numerator": "114589625884498377837477297"
+          }
+        },
+        "gaffke_valid_endpoint": {
+          "amount_upper_per_10m": {
+            "decimal_dollars": "295130.50",
+            "exact_ceiling_cents": "29513050"
+          },
+          "basis_points_upper": "295.130497",
+          "certificate_bits": 64,
+          "mathematical_status": "proved finite-sample valid under the independent bounded-mean model, using the cited external validity theorem",
+          "rate_interval": {
+            "lower": {
+              "decimal_floor_12": "0.029513049607",
+              "denominator": "1152921504606846976",
+              "numerator": "34026229558484995"
+            },
+            "upper": {
+              "decimal_ceiling_12": "0.029513049608",
+              "denominator": "18446744073709551616",
+              "numerator": "544419672935759953"
+            },
+            "width": {
+              "decimal_ceiling_12": "0.000000000001",
+              "denominator": "18446744073709551616",
+              "numerator": "33"
+            }
+          },
+          "rate_upper": {
+            "decimal_ceiling_12": "0.029513049608",
+            "denominator": "18446744073709551616",
+            "numerator": "544419672935759953"
+          },
+          "tail_at_lower_at_least_alpha": true,
+          "tail_at_upper_at_most_alpha": true
+        },
+        "ordinary_binomial_stringer_reference": {
+          "amount_upper_per_10m": {
+            "decimal_dollars": "295130.50",
+            "exact_ceiling_cents": "29513050"
+          },
+          "basis_points_upper": "295.130497",
+          "mathematical_status": "ordinary coverage unresolved at this sample size; exact reference calculation only",
+          "rate_interval": {
+            "lower": {
+              "decimal_floor_12": "0.029513049607",
+              "denominator": "79228162514264337593543950336",
+              "numerator": "2338264690558105177602879117"
+            },
+            "upper": {
+              "decimal_ceiling_12": "0.029513049608",
+              "denominator": "39614081257132168796771975168",
+              "numerator": "1169132345279052588801439559"
+            },
+            "width": {
+              "decimal_ceiling_12": "0.000000000001",
+              "denominator": "79228162514264337593543950336",
+              "numerator": "1"
+            }
+          },
+          "rate_upper": {
+            "decimal_ceiling_12": "0.029513049608",
+            "denominator": "39614081257132168796771975168",
+            "numerator": "1169132345279052588801439559"
+          }
+        },
+        "ordinary_poisson_stringer_reference": {
+          "amount_upper_per_10m": {
+            "decimal_dollars": "299573.23",
+            "exact_ceiling_cents": "29957323"
+          },
+          "basis_points_upper": "299.573228",
+          "mathematical_status": "ordinary coverage unresolved at this sample size; exact reference calculation only",
+          "rate_interval": {
+            "lower": {
+              "decimal_floor_12": "0.029957322735",
+              "denominator": "1844674407370955161600",
+              "numerator": "55261506563602524679"
+            },
+            "upper": {
+              "decimal_ceiling_12": "0.029957322736",
+              "denominator": "46116860184273879040",
+              "numerator": "1381537664090063117"
+            },
+            "width": {
+              "decimal_ceiling_12": "0.000000000001",
+              "denominator": "1844674407370955161600",
+              "numerator": "1"
+            }
+          },
+          "rate_upper": {
+            "decimal_ceiling_12": "0.029957322736",
+            "denominator": "46116860184273879040",
+            "numerator": "1381537664090063117"
+          }
+        },
+        "poisson_stringer_gaffke_max": {
+          "amount_upper_per_10m": {
+            "decimal_dollars": "299573.23",
+            "exact_ceiling_cents": "29957323"
+          },
+          "basis_points_upper": "299.573228",
+          "governing_component_certified": "ordinary_poisson_stringer",
+          "mathematical_status": "proved finite-sample valid under the independent bounded-mean model",
+          "rate_interval": {
+            "lower": {
+              "decimal_floor_12": "0.029957322735",
+              "denominator": "1844674407370955161600",
+              "numerator": "55261506563602524679"
+            },
+            "upper": {
+              "decimal_ceiling_12": "0.029957322736",
+              "denominator": "46116860184273879040",
+              "numerator": "1381537664090063117"
+            },
+            "width": {
+              "decimal_ceiling_12": "0.000000000001",
+              "denominator": "1844674407370955161600",
+              "numerator": "1"
+            }
+          },
+          "rate_upper": {
+            "decimal_ceiling_12": "0.029957322736",
+            "denominator": "46116860184273879040",
+            "numerator": "1381537664090063117"
+          }
+        },
+        "zero_anchor_calibrated_factorwise_cap": {
+          "amount_upper_per_10m": {
+            "decimal_dollars": "299573.23",
+            "exact_ceiling_cents": "29957323"
+          },
+          "basis_points_upper": "299.573228",
+          "eta_upper": {
+            "decimal_ceiling_12": "2.367559682578",
+            "denominator": "268435456",
+            "numerator": "635536963"
+          },
+          "mathematical_status": "proved finite-sample valid modified Poisson rule under the independent bounded-mean model",
+          "rate_upper": {
+            "decimal_ceiling_12": "0.029957322736",
+            "denominator": "46116860184273879040",
+            "numerator": "1381537664090063117"
+          }
+        }
+      },
+      "nominal_confidence": "19/20",
+      "nonzero_taint_count": 0,
+      "nonzero_taints_descending": [],
+      "sample_size": 100,
+      "threshold_switch_bands": {
+        "full_scale_vs_ordinary_poisson": {
+          "has_nonempty_switch_band": true,
+          "interpretation": "For a rate threshold in [lower,upper), the method at the lower endpoint is at or below the threshold while the method at the upper endpoint is above it, using the certified upper enclosures shown.",
+          "lower_endpoint_method": "ordinary_poisson_stringer_reference",
+          "threshold_interval": {
+            "lower_inclusive": {
+              "decimal_ceiling_12": "0.029957322736",
+              "denominator": "46116860184273879040",
+              "numerator": "1381537664090063117"
+            },
+            "upper_exclusive": {
+              "decimal_ceiling_12": "0.037025905052",
+              "denominator": "3094850098213450687247810560",
+              "numerator": "114589625884498377837477297"
+            }
+          },
+          "upper_endpoint_method": "full_scale_calibrated_factorwise_cap",
+          "width_amount_per_10m_upper": {
+            "decimal_dollars": "70685.83",
+            "exact_ceiling_cents": "7068583"
+          },
+          "width_basis_points_upper": "70.685824",
+          "width_rate": {
+            "decimal_ceiling_12": "0.007068582316",
+            "denominator": "3094850098213450687247810560",
+            "numerator": "21876202674200648367308209"
+          }
+        },
+        "full_scale_vs_zero_anchor": {
+          "has_nonempty_switch_band": true,
+          "interpretation": "For a rate threshold in [lower,upper), the method at the lower endpoint is at or below the threshold while the method at the upper endpoint is above it, using the certified upper enclosures shown.",
+          "lower_endpoint_method": "zero_anchor_calibrated_factorwise_cap",
+          "threshold_interval": {
+            "lower_inclusive": {
+              "decimal_ceiling_12": "0.029957322736",
+              "denominator": "46116860184273879040",
+              "numerator": "1381537664090063117"
+            },
+            "upper_exclusive": {
+              "decimal_ceiling_12": "0.037025905052",
+              "denominator": "3094850098213450687247810560",
+              "numerator": "114589625884498377837477297"
+            }
+          },
+          "upper_endpoint_method": "full_scale_calibrated_factorwise_cap",
+          "width_amount_per_10m_upper": {
+            "decimal_dollars": "70685.83",
+            "exact_ceiling_cents": "7068583"
+          },
+          "width_basis_points_upper": "70.685824",
+          "width_rate": {
+            "decimal_ceiling_12": "0.007068582316",
+            "denominator": "3094850098213450687247810560",
+            "numerator": "21876202674200648367308209"
+          }
+        },
+        "gaffke_vs_ordinary_poisson": {
+          "has_nonempty_switch_band": true,
+          "interpretation": "For a rate threshold in [lower,upper), the method at the lower endpoint is at or below the threshold while the method at the upper endpoint is above it, using the certified upper enclosures shown.",
+          "lower_endpoint_method": "gaffke_valid_endpoint",
+          "threshold_interval": {
+            "lower_inclusive": {
+              "decimal_ceiling_12": "0.029513049608",
+              "denominator": "18446744073709551616",
+              "numerator": "544419672935759953"
+            },
+            "upper_exclusive": {
+              "decimal_ceiling_12": "0.029957322736",
+              "denominator": "46116860184273879040",
+              "numerator": "1381537664090063117"
+            }
+          },
+          "upper_endpoint_method": "ordinary_poisson_stringer_reference",
+          "width_amount_per_10m_upper": {
+            "decimal_dollars": "4442.74",
+            "exact_ceiling_cents": "444274"
+          },
+          "width_basis_points_upper": "4.442732",
+          "width_rate": {
+            "decimal_ceiling_12": "0.000444273129",
+            "denominator": "92233720368547758080",
+            "numerator": "40976963501326469"
+          }
+        },
+        "zero_anchor_vs_ordinary_poisson": {
+          "has_nonempty_switch_band": false,
+          "interpretation": "For a rate threshold in [lower,upper), the method at the lower endpoint is at or below the threshold while the method at the upper endpoint is above it, using the certified upper enclosures shown.",
+          "lower_endpoint_method": "zero_anchor_calibrated_factorwise_cap",
+          "threshold_interval": {
+            "lower_inclusive": {
+              "decimal_ceiling_12": "0.029957322736",
+              "denominator": "46116860184273879040",
+              "numerator": "1381537664090063117"
+            },
+            "upper_exclusive": {
+              "decimal_ceiling_12": "0.029957322736",
+              "denominator": "46116860184273879040",
+              "numerator": "1381537664090063117"
+            }
+          },
+          "upper_endpoint_method": "ordinary_poisson_stringer_reference",
+          "width_amount_per_10m_upper": {
+            "decimal_dollars": "0.00",
+            "exact_ceiling_cents": "0"
+          },
+          "width_basis_points_upper": "0.000000",
+          "width_rate": {
+            "decimal_ceiling_12": "0.000000000000",
+            "denominator": "1",
+            "numerator": "0"
+          }
+        }
+      },
+      "zero_taint_count": 100
+    },
+    {
+      "alpha": "0.05",
+      "id": "one-small-n100-95",
+      "methods": {
+        "full_scale_calibrated_factorwise_cap": {
+          "amount_upper_per_10m": {
+            "decimal_dollars": "391865.18",
+            "exact_ceiling_cents": "39186518"
+          },
+          "basis_points_upper": "391.865180",
+          "kappa_upper": {
+            "decimal_ceiling_12": "1.235955074430",
+            "denominator": "67108864",
+            "numerator": "82943541"
+          },
+          "mathematical_status": "proved finite-sample valid modified Poisson rule under the independent bounded-mean model",
+          "rate_upper": {
+            "decimal_ceiling_12": "0.039186517971",
+            "denominator": "1237940039285380274899124224000",
+            "numerator": "48510559595353911754867231869"
+          }
+        },
+        "gaffke_valid_endpoint": {
+          "amount_upper_per_10m": {
+            "decimal_dollars": "305350.22",
+            "exact_ceiling_cents": "30535022"
+          },
+          "basis_points_upper": "305.350212",
+          "certificate_bits": 64,
+          "mathematical_status": "proved finite-sample valid under the independent bounded-mean model, using the cited external validity theorem",
+          "rate_interval": {
+            "lower": {
+              "decimal_floor_12": "0.030535021190",
+              "denominator": "288230376151711744",
+              "numerator": "8801120643555937"
+            },
+            "upper": {
+              "decimal_ceiling_12": "0.030535021191",
+              "denominator": "18446744073709551616",
+              "numerator": "563271721187584065"
+            },
+            "width": {
+              "decimal_ceiling_12": "0.000000000001",
+              "denominator": "18446744073709551616",
+              "numerator": "4097"
+            }
+          },
+          "rate_upper": {
+            "decimal_ceiling_12": "0.030535021191",
+            "denominator": "18446744073709551616",
+            "numerator": "563271721187584065"
+          },
+          "tail_at_lower_at_least_alpha": true,
+          "tail_at_upper_at_most_alpha": true
+        },
+        "ordinary_binomial_stringer_reference": {
+          "amount_upper_per_10m": {
+            "decimal_dollars": "312177.26",
+            "exact_ceiling_cents": "31217726"
+          },
+          "basis_points_upper": "312.177258",
+          "mathematical_status": "ordinary coverage unresolved at this sample size; exact reference calculation only",
+          "rate_interval": {
+            "lower": {
+              "decimal_floor_12": "0.031217725791",
+              "denominator": "396140812571321687967719751680",
+              "numerator": "12366615261748718145372708333"
+            },
+            "upper": {
+              "decimal_ceiling_12": "0.031217725792",
+              "denominator": "198070406285660843983859875840",
+              "numerator": "6183307630874359072686354169"
+            },
+            "width": {
+              "decimal_ceiling_12": "0.000000000001",
+              "denominator": "79228162514264337593543950336",
+              "numerator": "1"
+            }
+          },
+          "rate_upper": {
+            "decimal_ceiling_12": "0.031217725792",
+            "denominator": "198070406285660843983859875840",
+            "numerator": "6183307630874359072686354169"
+          }
+        },
+        "ordinary_poisson_stringer_reference": {
+          "amount_upper_per_10m": {
+            "decimal_dollars": "317054.55",
+            "exact_ceiling_cents": "31705455"
+          },
+          "basis_points_upper": "317.054550",
+          "mathematical_status": "ordinary coverage unresolved at this sample size; exact reference calculation only",
+          "rate_interval": {
+            "lower": {
+              "decimal_floor_12": "0.031705454980",
+              "denominator": "18446744073709551616000",
+              "numerator": "584862413763525139999"
+            },
+            "upper": {
+              "decimal_ceiling_12": "0.031705454981",
+              "denominator": "18446744073709551616000",
+              "numerator": "584862413763525140009"
+            },
+            "width": {
+              "decimal_ceiling_12": "0.000000000001",
+              "denominator": "1844674407370955161600",
+              "numerator": "1"
+            }
+          },
+          "rate_upper": {
+            "decimal_ceiling_12": "0.031705454981",
+            "denominator": "18446744073709551616000",
+            "numerator": "584862413763525140009"
+          }
+        },
+        "poisson_stringer_gaffke_max": {
+          "amount_upper_per_10m": {
+            "decimal_dollars": "317054.55",
+            "exact_ceiling_cents": "31705455"
+          },
+          "basis_points_upper": "317.054550",
+          "governing_component_certified": "ordinary_poisson_stringer",
+          "mathematical_status": "proved finite-sample valid under the independent bounded-mean model",
+          "rate_interval": {
+            "lower": {
+              "decimal_floor_12": "0.031705454980",
+              "denominator": "18446744073709551616000",
+              "numerator": "584862413763525139999"
+            },
+            "upper": {
+              "decimal_ceiling_12": "0.031705454981",
+              "denominator": "18446744073709551616000",
+              "numerator": "584862413763525140009"
+            },
+            "width": {
+              "decimal_ceiling_12": "0.000000000001",
+              "denominator": "1844674407370955161600",
+              "numerator": "1"
+            }
+          },
+          "rate_upper": {
+            "decimal_ceiling_12": "0.031705454981",
+            "denominator": "18446744073709551616000",
+            "numerator": "584862413763525140009"
+          }
+        },
+        "zero_anchor_calibrated_factorwise_cap": {
+          "amount_upper_per_10m": {
+            "decimal_dollars": "340961.31",
+            "exact_ceiling_cents": "34096131"
+          },
+          "basis_points_upper": "340.961302",
+          "eta_upper": {
+            "decimal_ceiling_12": "2.367559682578",
+            "denominator": "268435456",
+            "numerator": "635536963"
+          },
+          "mathematical_status": "proved finite-sample valid modified Poisson rule under the independent bounded-mean model",
+          "rate_upper": {
+            "decimal_ceiling_12": "0.034096130159",
+            "denominator": "4951760157141521099596496896000",
+            "numerator": "168835858830231386065142725067"
+          }
+        }
+      },
+      "nominal_confidence": "19/20",
+      "nonzero_taint_count": 1,
+      "nonzero_taints_descending": [
+        "1/10"
+      ],
+      "sample_size": 100,
+      "threshold_switch_bands": {
+        "full_scale_vs_ordinary_poisson": {
+          "has_nonempty_switch_band": true,
+          "interpretation": "For a rate threshold in [lower,upper), the method at the lower endpoint is at or below the threshold while the method at the upper endpoint is above it, using the certified upper enclosures shown.",
+          "lower_endpoint_method": "ordinary_poisson_stringer_reference",
+          "threshold_interval": {
+            "lower_inclusive": {
+              "decimal_ceiling_12": "0.031705454981",
+              "denominator": "18446744073709551616000",
+              "numerator": "584862413763525140009"
+            },
+            "upper_exclusive": {
+              "decimal_ceiling_12": "0.039186517971",
+              "denominator": "1237940039285380274899124224000",
+              "numerator": "48510559595353911754867231869"
+            }
+          },
+          "upper_endpoint_method": "full_scale_calibrated_factorwise_cap",
+          "width_amount_per_10m_upper": {
+            "decimal_dollars": "74810.63",
+            "exact_ceiling_cents": "7481063"
+          },
+          "width_basis_points_upper": "74.810630",
+          "width_rate": {
+            "decimal_ceiling_12": "0.007481062990",
+            "denominator": "1237940039285380274899124224000",
+            "numerator": "9261107411385774973422292093"
+          }
+        },
+        "full_scale_vs_zero_anchor": {
+          "has_nonempty_switch_band": true,
+          "interpretation": "For a rate threshold in [lower,upper), the method at the lower endpoint is at or below the threshold while the method at the upper endpoint is above it, using the certified upper enclosures shown.",
+          "lower_endpoint_method": "zero_anchor_calibrated_factorwise_cap",
+          "threshold_interval": {
+            "lower_inclusive": {
+              "decimal_ceiling_12": "0.034096130159",
+              "denominator": "4951760157141521099596496896000",
+              "numerator": "168835858830231386065142725067"
+            },
+            "upper_exclusive": {
+              "decimal_ceiling_12": "0.039186517971",
+              "denominator": "1237940039285380274899124224000",
+              "numerator": "48510559595353911754867231869"
+            }
+          },
+          "upper_endpoint_method": "full_scale_calibrated_factorwise_cap",
+          "width_amount_per_10m_upper": {
+            "decimal_dollars": "50903.88",
+            "exact_ceiling_cents": "5090388"
+          },
+          "width_basis_points_upper": "50.903879",
+          "width_rate": {
+            "decimal_ceiling_12": "0.005090387812",
+            "denominator": "4951760157141521099596496896000",
+            "numerator": "25206379551184260954326202409"
+          }
+        },
+        "gaffke_vs_ordinary_poisson": {
+          "has_nonempty_switch_band": true,
+          "interpretation": "For a rate threshold in [lower,upper), the method at the lower endpoint is at or below the threshold while the method at the upper endpoint is above it, using the certified upper enclosures shown.",
+          "lower_endpoint_method": "gaffke_valid_endpoint",
+          "threshold_interval": {
+            "lower_inclusive": {
+              "decimal_ceiling_12": "0.030535021191",
+              "denominator": "18446744073709551616",
+              "numerator": "563271721187584065"
+            },
+            "upper_exclusive": {
+              "decimal_ceiling_12": "0.031705454981",
+              "denominator": "18446744073709551616000",
+              "numerator": "584862413763525140009"
+            }
+          },
+          "upper_endpoint_method": "ordinary_poisson_stringer_reference",
+          "width_amount_per_10m_upper": {
+            "decimal_dollars": "11704.34",
+            "exact_ceiling_cents": "1170434"
+          },
+          "width_basis_points_upper": "11.704338",
+          "width_rate": {
+            "decimal_ceiling_12": "0.001170433790",
+            "denominator": "18446744073709551616000",
+            "numerator": "21590692575941075009"
+          }
+        },
+        "zero_anchor_vs_ordinary_poisson": {
+          "has_nonempty_switch_band": true,
+          "interpretation": "For a rate threshold in [lower,upper), the method at the lower endpoint is at or below the threshold while the method at the upper endpoint is above it, using the certified upper enclosures shown.",
+          "lower_endpoint_method": "ordinary_poisson_stringer_reference",
+          "threshold_interval": {
+            "lower_inclusive": {
+              "decimal_ceiling_12": "0.031705454981",
+              "denominator": "18446744073709551616000",
+              "numerator": "584862413763525140009"
+            },
+            "upper_exclusive": {
+              "decimal_ceiling_12": "0.034096130159",
+              "denominator": "4951760157141521099596496896000",
+              "numerator": "168835858830231386065142725067"
+            }
+          },
+          "upper_endpoint_method": "zero_anchor_calibrated_factorwise_cap",
+          "width_amount_per_10m_upper": {
+            "decimal_dollars": "23906.76",
+            "exact_ceiling_cents": "2390676"
+          },
+          "width_basis_points_upper": "23.906752",
+          "width_rate": {
+            "decimal_ceiling_12": "0.002390675178",
+            "denominator": "4951760157141521099596496896000",
+            "numerator": "11838050094358838939362965963"
+          }
+        }
+      },
+      "zero_taint_count": 99
+    },
+    {
+      "alpha": "0.05",
+      "id": "one-full-n100-95",
+      "methods": {
+        "full_scale_calibrated_factorwise_cap": {
+          "amount_upper_per_10m": {
+            "decimal_dollars": "586320.35",
+            "exact_ceiling_cents": "58632035"
+          },
+          "basis_points_upper": "586.320343",
+          "kappa_upper": {
+            "decimal_ceiling_12": "1.235955074430",
+            "denominator": "67108864",
+            "numerator": "82943541"
+          },
+          "mathematical_status": "proved finite-sample valid modified Poisson rule under the independent bounded-mean model",
+          "rate_upper": {
+            "decimal_ceiling_12": "0.058632034240",
+            "denominator": "123794003928538027489912422400",
+            "numerator": "7258294276934495733375404949"
+          }
+        },
+        "gaffke_valid_endpoint": {
+          "amount_upper_per_10m": {
+            "decimal_dollars": "465598.12",
+            "exact_ceiling_cents": "46559812"
+          },
+          "basis_points_upper": "465.598115",
+          "certificate_bits": 64,
+          "mathematical_status": "proved finite-sample valid under the independent bounded-mean model, using the cited external validity theorem",
+          "rate_interval": {
+            "lower": {
+              "decimal_floor_12": "0.046559811453",
+              "denominator": "144115188075855872",
+              "numerator": "6709975984403123"
+            },
+            "upper": {
+              "decimal_ceiling_12": "0.046559811454",
+              "denominator": "18446744073709551616",
+              "numerator": "858876926003603841"
+            },
+            "width": {
+              "decimal_ceiling_12": "0.000000000001",
+              "denominator": "18446744073709551616",
+              "numerator": "4097"
+            }
+          },
+          "rate_upper": {
+            "decimal_ceiling_12": "0.046559811454",
+            "denominator": "18446744073709551616",
+            "numerator": "858876926003603841"
+          },
+          "tail_at_lower_at_least_alpha": true,
+          "tail_at_upper_at_most_alpha": true
+        },
+        "ordinary_binomial_stringer_reference": {
+          "amount_upper_per_10m": {
+            "decimal_dollars": "465598.12",
+            "exact_ceiling_cents": "46559812"
+          },
+          "basis_points_upper": "465.598115",
+          "mathematical_status": "ordinary coverage unresolved at this sample size; exact reference calculation only",
+          "rate_interval": {
+            "lower": {
+              "decimal_floor_12": "0.046559811453",
+              "denominator": "79228162514264337593543950336",
+              "numerator": "3688848308474489692319504613"
+            },
+            "upper": {
+              "decimal_ceiling_12": "0.046559811454",
+              "denominator": "39614081257132168796771975168",
+              "numerator": "1844424154237244846159752307"
+            },
+            "width": {
+              "decimal_ceiling_12": "0.000000000001",
+              "denominator": "79228162514264337593543950336",
+              "numerator": "1"
+            }
+          },
+          "rate_upper": {
+            "decimal_ceiling_12": "0.046559811454",
+            "denominator": "39614081257132168796771975168",
+            "numerator": "1844424154237244846159752307"
+          }
+        },
+        "ordinary_poisson_stringer_reference": {
+          "amount_upper_per_10m": {
+            "decimal_dollars": "474386.46",
+            "exact_ceiling_cents": "47438646"
+          },
+          "basis_points_upper": "474.386452",
+          "mathematical_status": "ordinary coverage unresolved at this sample size; exact reference calculation only",
+          "rate_interval": {
+            "lower": {
+              "decimal_floor_12": "0.047438645183",
+              "denominator": "57646075230342348800",
+              "numerator": "2734651709096950559"
+            },
+            "upper": {
+              "decimal_ceiling_12": "0.047438645184",
+              "denominator": "1844674407370955161600",
+              "numerator": "87508854691102417889"
+            },
+            "width": {
+              "decimal_ceiling_12": "0.000000000001",
+              "denominator": "1844674407370955161600",
+              "numerator": "1"
+            }
+          },
+          "rate_upper": {
+            "decimal_ceiling_12": "0.047438645184",
+            "denominator": "1844674407370955161600",
+            "numerator": "87508854691102417889"
+          }
+        },
+        "poisson_stringer_gaffke_max": {
+          "amount_upper_per_10m": {
+            "decimal_dollars": "474386.46",
+            "exact_ceiling_cents": "47438646"
+          },
+          "basis_points_upper": "474.386452",
+          "governing_component_certified": "ordinary_poisson_stringer",
+          "mathematical_status": "proved finite-sample valid under the independent bounded-mean model",
+          "rate_interval": {
+            "lower": {
+              "decimal_floor_12": "0.047438645183",
+              "denominator": "57646075230342348800",
+              "numerator": "2734651709096950559"
+            },
+            "upper": {
+              "decimal_ceiling_12": "0.047438645184",
+              "denominator": "1844674407370955161600",
+              "numerator": "87508854691102417889"
+            },
+            "width": {
+              "decimal_ceiling_12": "0.000000000001",
+              "denominator": "1844674407370955161600",
+              "numerator": "1"
+            }
+          },
+          "rate_upper": {
+            "decimal_ceiling_12": "0.047438645184",
+            "denominator": "1844674407370955161600",
+            "numerator": "87508854691102417889"
+          }
+        },
+        "zero_anchor_calibrated_factorwise_cap": {
+          "amount_upper_per_10m": {
+            "decimal_dollars": "713453.97",
+            "exact_ceiling_cents": "71345397"
+          },
+          "basis_points_upper": "713.453970",
+          "eta_upper": {
+            "decimal_ceiling_12": "2.367559682578",
+            "denominator": "268435456",
+            "numerator": "635536963"
+          },
+          "mathematical_status": "proved finite-sample valid modified Poisson rule under the independent bounded-mean model",
+          "rate_upper": {
+            "decimal_ceiling_12": "0.071345396963",
+            "denominator": "247588007857076054979824844800",
+            "numerator": "17664264703701327814233169927"
+          }
+        }
+      },
+      "nominal_confidence": "19/20",
+      "nonzero_taint_count": 1,
+      "nonzero_taints_descending": [
+        "1"
+      ],
+      "sample_size": 100,
+      "threshold_switch_bands": {
+        "full_scale_vs_ordinary_poisson": {
+          "has_nonempty_switch_band": true,
+          "interpretation": "For a rate threshold in [lower,upper), the method at the lower endpoint is at or below the threshold while the method at the upper endpoint is above it, using the certified upper enclosures shown.",
+          "lower_endpoint_method": "ordinary_poisson_stringer_reference",
+          "threshold_interval": {
+            "lower_inclusive": {
+              "decimal_ceiling_12": "0.047438645184",
+              "denominator": "1844674407370955161600",
+              "numerator": "87508854691102417889"
+            },
+            "upper_exclusive": {
+              "decimal_ceiling_12": "0.058632034240",
+              "denominator": "123794003928538027489912422400",
+              "numerator": "7258294276934495733375404949"
+            }
+          },
+          "upper_endpoint_method": "full_scale_calibrated_factorwise_cap",
+          "width_amount_per_10m_upper": {
+            "decimal_dollars": "111933.90",
+            "exact_ceiling_cents": "11193390"
+          },
+          "width_basis_points_upper": "111.933891",
+          "width_rate": {
+            "decimal_ceiling_12": "0.011193389056",
+            "denominator": "123794003928538027489912422400",
+            "numerator": "1385674448673541561191336853"
+          }
+        },
+        "full_scale_vs_zero_anchor": {
+          "has_nonempty_switch_band": true,
+          "interpretation": "For a rate threshold in [lower,upper), the method at the lower endpoint is at or below the threshold while the method at the upper endpoint is above it, using the certified upper enclosures shown.",
+          "lower_endpoint_method": "full_scale_calibrated_factorwise_cap",
+          "threshold_interval": {
+            "lower_inclusive": {
+              "decimal_ceiling_12": "0.058632034240",
+              "denominator": "123794003928538027489912422400",
+              "numerator": "7258294276934495733375404949"
+            },
+            "upper_exclusive": {
+              "decimal_ceiling_12": "0.071345396963",
+              "denominator": "247588007857076054979824844800",
+              "numerator": "17664264703701327814233169927"
+            }
+          },
+          "upper_endpoint_method": "zero_anchor_calibrated_factorwise_cap",
+          "width_amount_per_10m_upper": {
+            "decimal_dollars": "127133.63",
+            "exact_ceiling_cents": "12713363"
+          },
+          "width_basis_points_upper": "127.133628",
+          "width_rate": {
+            "decimal_ceiling_12": "0.012713362724",
+            "denominator": "247588007857076054979824844800",
+            "numerator": "3147676149832336347482360029"
+          }
+        },
+        "gaffke_vs_ordinary_poisson": {
+          "has_nonempty_switch_band": true,
+          "interpretation": "For a rate threshold in [lower,upper), the method at the lower endpoint is at or below the threshold while the method at the upper endpoint is above it, using the certified upper enclosures shown.",
+          "lower_endpoint_method": "gaffke_valid_endpoint",
+          "threshold_interval": {
+            "lower_inclusive": {
+              "decimal_ceiling_12": "0.046559811454",
+              "denominator": "18446744073709551616",
+              "numerator": "858876926003603841"
+            },
+            "upper_exclusive": {
+              "decimal_ceiling_12": "0.047438645184",
+              "denominator": "1844674407370955161600",
+              "numerator": "87508854691102417889"
+            }
+          },
+          "upper_endpoint_method": "ordinary_poisson_stringer_reference",
+          "width_amount_per_10m_upper": {
+            "decimal_dollars": "8788.34",
+            "exact_ceiling_cents": "878834"
+          },
+          "width_basis_points_upper": "8.788338",
+          "width_rate": {
+            "decimal_ceiling_12": "0.000878833731",
+            "denominator": "1844674407370955161600",
+            "numerator": "1621162090742033789"
+          }
+        },
+        "zero_anchor_vs_ordinary_poisson": {
+          "has_nonempty_switch_band": true,
+          "interpretation": "For a rate threshold in [lower,upper), the method at the lower endpoint is at or below the threshold while the method at the upper endpoint is above it, using the certified upper enclosures shown.",
+          "lower_endpoint_method": "ordinary_poisson_stringer_reference",
+          "threshold_interval": {
+            "lower_inclusive": {
+              "decimal_ceiling_12": "0.047438645184",
+              "denominator": "1844674407370955161600",
+              "numerator": "87508854691102417889"
+            },
+            "upper_exclusive": {
+              "decimal_ceiling_12": "0.071345396963",
+              "denominator": "247588007857076054979824844800",
+              "numerator": "17664264703701327814233169927"
+            }
+          },
+          "upper_endpoint_method": "zero_anchor_calibrated_factorwise_cap",
+          "width_amount_per_10m_upper": {
+            "decimal_dollars": "239067.52",
+            "exact_ceiling_cents": "23906752"
+          },
+          "width_basis_points_upper": "239.067518",
+          "width_rate": {
+            "decimal_ceiling_12": "0.023906751779",
+            "denominator": "49517601571415210995964968960",
+            "numerator": "1183805009435883893973006747"
+          }
+        }
+      },
+      "zero_taint_count": 99
+    },
+    {
+      "alpha": "0.05",
+      "id": "mixed-three-n100-95",
+      "methods": {
+        "full_scale_calibrated_factorwise_cap": {
+          "amount_upper_per_10m": {
+            "decimal_dollars": "681063.46",
+            "exact_ceiling_cents": "68106346"
+          },
+          "basis_points_upper": "681.063459",
+          "kappa_upper": {
+            "decimal_ceiling_12": "1.235955074430",
+            "denominator": "67108864",
+            "numerator": "82943541"
+          },
+          "mathematical_status": "proved finite-sample valid modified Poisson rule under the independent bounded-mean model",
+          "rate_upper": {
+            "decimal_ceiling_12": "0.068106345899",
+            "denominator": "1237940039285380274899124224000",
+            "numerator": "84311572516663477924530562383"
+          }
+        },
+        "gaffke_valid_endpoint": {
+          "amount_upper_per_10m": {
+            "decimal_dollars": "521583.73",
+            "exact_ceiling_cents": "52158373"
+          },
+          "basis_points_upper": "521.583722",
+          "certificate_bits": 64,
+          "mathematical_status": "proved finite-sample valid under the independent bounded-mean model, using the cited external validity theorem",
+          "rate_interval": {
+            "lower": {
+              "decimal_floor_12": "0.052158372127",
+              "denominator": "144115188075855872",
+              "numerator": "7516813608899443"
+            },
+            "upper": {
+              "decimal_ceiling_12": "0.052158372128",
+              "denominator": "18446744073709551616",
+              "numerator": "962152141939132801"
+            },
+            "width": {
+              "decimal_ceiling_12": "0.000000000001",
+              "denominator": "18446744073709551616",
+              "numerator": "4097"
+            }
+          },
+          "rate_upper": {
+            "decimal_ceiling_12": "0.052158372128",
+            "denominator": "18446744073709551616",
+            "numerator": "962152141939132801"
+          },
+          "tail_at_lower_at_least_alpha": true,
+          "tail_at_upper_at_most_alpha": true
+        },
+        "ordinary_binomial_stringer_reference": {
+          "amount_upper_per_10m": {
+            "decimal_dollars": "539927.27",
+            "exact_ceiling_cents": "53992727"
+          },
+          "basis_points_upper": "539.927264",
+          "mathematical_status": "ordinary coverage unresolved at this sample size; exact reference calculation only",
+          "rate_interval": {
+            "lower": {
+              "decimal_floor_12": "0.053992726365",
+              "denominator": "792281625142643375935439503360",
+              "numerator": "42777444991072026080704139597"
+            },
+            "upper": {
+              "decimal_ceiling_12": "0.053992726366",
+              "denominator": "792281625142643375935439503360",
+              "numerator": "42777444991072026080704139607"
+            },
+            "width": {
+              "decimal_ceiling_12": "0.000000000001",
+              "denominator": "79228162514264337593543950336",
+              "numerator": "1"
+            }
+          },
+          "rate_upper": {
+            "decimal_ceiling_12": "0.053992726366",
+            "denominator": "792281625142643375935439503360",
+            "numerator": "42777444991072026080704139607"
+          }
+        },
+        "ordinary_poisson_stringer_reference": {
+          "amount_upper_per_10m": {
+            "decimal_dollars": "551042.25",
+            "exact_ceiling_cents": "55104225"
+          },
+          "basis_points_upper": "551.042246",
+          "mathematical_status": "ordinary coverage unresolved at this sample size; exact reference calculation only",
+          "rate_interval": {
+            "lower": {
+              "decimal_floor_12": "0.055104224503",
+              "denominator": "18446744073709551616000",
+              "numerator": "1016493526803533477353"
+            },
+            "upper": {
+              "decimal_ceiling_12": "0.055104224504",
+              "denominator": "18446744073709551616000",
+              "numerator": "1016493526803533477363"
+            },
+            "width": {
+              "decimal_ceiling_12": "0.000000000001",
+              "denominator": "1844674407370955161600",
+              "numerator": "1"
+            }
+          },
+          "rate_upper": {
+            "decimal_ceiling_12": "0.055104224504",
+            "denominator": "18446744073709551616000",
+            "numerator": "1016493526803533477363"
+          }
+        },
+        "poisson_stringer_gaffke_max": {
+          "amount_upper_per_10m": {
+            "decimal_dollars": "551042.25",
+            "exact_ceiling_cents": "55104225"
+          },
+          "basis_points_upper": "551.042246",
+          "governing_component_certified": "ordinary_poisson_stringer",
+          "mathematical_status": "proved finite-sample valid under the independent bounded-mean model",
+          "rate_interval": {
+            "lower": {
+              "decimal_floor_12": "0.055104224503",
+              "denominator": "18446744073709551616000",
+              "numerator": "1016493526803533477353"
+            },
+            "upper": {
+              "decimal_ceiling_12": "0.055104224504",
+              "denominator": "18446744073709551616000",
+              "numerator": "1016493526803533477363"
+            },
+            "width": {
+              "decimal_ceiling_12": "0.000000000001",
+              "denominator": "1844674407370955161600",
+              "numerator": "1"
+            }
+          },
+          "rate_upper": {
+            "decimal_ceiling_12": "0.055104224504",
+            "denominator": "18446744073709551616000",
+            "numerator": "1016493526803533477363"
+          }
+        },
+        "zero_anchor_calibrated_factorwise_cap": {
+          "amount_upper_per_10m": {
+            "decimal_dollars": "894941.14",
+            "exact_ceiling_cents": "89494114"
+          },
+          "basis_points_upper": "894.941136",
+          "eta_upper": {
+            "decimal_ceiling_12": "2.367559682578",
+            "denominator": "268435456",
+            "numerator": "635536963"
+          },
+          "mathematical_status": "proved finite-sample valid modified Poisson rule under the independent bounded-mean model",
+          "rate_upper": {
+            "decimal_ceiling_12": "0.089494113505",
+            "denominator": "4951760157141521099596496896000",
+            "numerator": "443153385547987982285454356039"
+          }
+        }
+      },
+      "nominal_confidence": "19/20",
+      "nonzero_taint_count": 3,
+      "nonzero_taints_descending": [
+        "1",
+        "2/5",
+        "1/10"
+      ],
+      "sample_size": 100,
+      "threshold_switch_bands": {
+        "full_scale_vs_ordinary_poisson": {
+          "has_nonempty_switch_band": true,
+          "interpretation": "For a rate threshold in [lower,upper), the method at the lower endpoint is at or below the threshold while the method at the upper endpoint is above it, using the certified upper enclosures shown.",
+          "lower_endpoint_method": "ordinary_poisson_stringer_reference",
+          "threshold_interval": {
+            "lower_inclusive": {
+              "decimal_ceiling_12": "0.055104224504",
+              "denominator": "18446744073709551616000",
+              "numerator": "1016493526803533477363"
+            },
+            "upper_exclusive": {
+              "decimal_ceiling_12": "0.068106345899",
+              "denominator": "1237940039285380274899124224000",
+              "numerator": "84311572516663477924530562383"
+            }
+          },
+          "upper_endpoint_method": "full_scale_calibrated_factorwise_cap",
+          "width_amount_per_10m_upper": {
+            "decimal_dollars": "130021.22",
+            "exact_ceiling_cents": "13002122"
+          },
+          "width_basis_points_upper": "130.021214",
+          "width_rate": {
+            "decimal_ceiling_12": "0.013002121395",
+            "denominator": "1237940039285380274899124224000",
+            "numerator": "16095846669524795072729916751"
+          }
+        },
+        "full_scale_vs_zero_anchor": {
+          "has_nonempty_switch_band": true,
+          "interpretation": "For a rate threshold in [lower,upper), the method at the lower endpoint is at or below the threshold while the method at the upper endpoint is above it, using the certified upper enclosures shown.",
+          "lower_endpoint_method": "full_scale_calibrated_factorwise_cap",
+          "threshold_interval": {
+            "lower_inclusive": {
+              "decimal_ceiling_12": "0.068106345899",
+              "denominator": "1237940039285380274899124224000",
+              "numerator": "84311572516663477924530562383"
+            },
+            "upper_exclusive": {
+              "decimal_ceiling_12": "0.089494113505",
+              "denominator": "4951760157141521099596496896000",
+              "numerator": "443153385547987982285454356039"
+            }
+          },
+          "upper_endpoint_method": "zero_anchor_calibrated_factorwise_cap",
+          "width_amount_per_10m_upper": {
+            "decimal_dollars": "213877.68",
+            "exact_ceiling_cents": "21387768"
+          },
+          "width_basis_points_upper": "213.877677",
+          "width_rate": {
+            "decimal_ceiling_12": "0.021387767606",
+            "denominator": "4951760157141521099596496896000",
+            "numerator": "105907095481334070587332106507"
+          }
+        },
+        "gaffke_vs_ordinary_poisson": {
+          "has_nonempty_switch_band": true,
+          "interpretation": "For a rate threshold in [lower,upper), the method at the lower endpoint is at or below the threshold while the method at the upper endpoint is above it, using the certified upper enclosures shown.",
+          "lower_endpoint_method": "gaffke_valid_endpoint",
+          "threshold_interval": {
+            "lower_inclusive": {
+              "decimal_ceiling_12": "0.052158372128",
+              "denominator": "18446744073709551616",
+              "numerator": "962152141939132801"
+            },
+            "upper_exclusive": {
+              "decimal_ceiling_12": "0.055104224504",
+              "denominator": "18446744073709551616000",
+              "numerator": "1016493526803533477363"
+            }
+          },
+          "upper_endpoint_method": "ordinary_poisson_stringer_reference",
+          "width_amount_per_10m_upper": {
+            "decimal_dollars": "29458.53",
+            "exact_ceiling_cents": "2945853"
+          },
+          "width_basis_points_upper": "29.458524",
+          "width_rate": {
+            "decimal_ceiling_12": "0.002945852377",
+            "denominator": "18446744073709551616000",
+            "numerator": "54341384864400676363"
+          }
+        },
+        "zero_anchor_vs_ordinary_poisson": {
+          "has_nonempty_switch_band": true,
+          "interpretation": "For a rate threshold in [lower,upper), the method at the lower endpoint is at or below the threshold while the method at the upper endpoint is above it, using the certified upper enclosures shown.",
+          "lower_endpoint_method": "ordinary_poisson_stringer_reference",
+          "threshold_interval": {
+            "lower_inclusive": {
+              "decimal_ceiling_12": "0.055104224504",
+              "denominator": "18446744073709551616000",
+              "numerator": "1016493526803533477363"
+            },
+            "upper_exclusive": {
+              "decimal_ceiling_12": "0.089494113505",
+              "denominator": "4951760157141521099596496896000",
+              "numerator": "443153385547987982285454356039"
+            }
+          },
+          "upper_endpoint_method": "zero_anchor_calibrated_factorwise_cap",
+          "width_amount_per_10m_upper": {
+            "decimal_dollars": "343898.90",
+            "exact_ceiling_cents": "34389890"
+          },
+          "width_basis_points_upper": "343.898891",
+          "width_rate": {
+            "decimal_ceiling_12": "0.034389889001",
+            "denominator": "4951760157141521099596496896000",
+            "numerator": "170290482159433250878251773511"
+          }
+        }
+      },
+      "zero_taint_count": 97
+    },
+    {
+      "alpha": "0.05",
+      "id": "six-small-n100-95",
+      "methods": {
+        "full_scale_calibrated_factorwise_cap": {
+          "amount_upper_per_10m": {
+            "decimal_dollars": "447623.88",
+            "exact_ceiling_cents": "44762388"
+          },
+          "basis_points_upper": "447.623871",
+          "kappa_upper": {
+            "decimal_ceiling_12": "1.235955074430",
+            "denominator": "67108864",
+            "numerator": "82943541"
+          },
+          "mathematical_status": "proved finite-sample valid modified Poisson rule under the independent bounded-mean model",
+          "rate_upper": {
+            "decimal_ceiling_12": "0.044762387063",
+            "denominator": "12379400392853802748991242240000",
+            "numerator": "554131511988877656263131414983"
+          }
+        },
+        "gaffke_valid_endpoint": {
+          "amount_upper_per_10m": {
+            "decimal_dollars": "335328.32",
+            "exact_ceiling_cents": "33532832"
+          },
+          "basis_points_upper": "335.328316",
+          "certificate_bits": 64,
+          "mathematical_status": "proved finite-sample valid under the independent bounded-mean model, using the cited external validity theorem",
+          "rate_interval": {
+            "lower": {
+              "decimal_floor_12": "0.033532831594",
+              "denominator": "72057594037927936",
+              "numerator": "2416295165964889"
+            },
+            "upper": {
+              "decimal_ceiling_12": "0.033532831595",
+              "denominator": "18446744073709551616",
+              "numerator": "618571562487015681"
+            },
+            "width": {
+              "decimal_ceiling_12": "0.000000000001",
+              "denominator": "18446744073709551616",
+              "numerator": "4097"
+            }
+          },
+          "rate_upper": {
+            "decimal_ceiling_12": "0.033532831595",
+            "denominator": "18446744073709551616",
+            "numerator": "618571562487015681"
+          },
+          "tail_at_lower_at_least_alpha": true,
+          "tail_at_upper_at_most_alpha": true
+        },
+        "ordinary_binomial_stringer_reference": {
+          "amount_upper_per_10m": {
+            "decimal_dollars": "355968.61",
+            "exact_ceiling_cents": "35596861"
+          },
+          "basis_points_upper": "355.968604",
+          "mathematical_status": "ordinary coverage unresolved at this sample size; exact reference calculation only",
+          "rate_interval": {
+            "lower": {
+              "decimal_floor_12": "0.035596860331",
+              "denominator": "15845632502852867518708790067200",
+              "numerator": "564054767062428675797164584559"
+            },
+            "upper": {
+              "decimal_ceiling_12": "0.035596860332",
+              "denominator": "15845632502852867518708790067200",
+              "numerator": "564054767062428675797164584759"
+            },
+            "width": {
+              "decimal_ceiling_12": "0.000000000001",
+              "denominator": "79228162514264337593543950336",
+              "numerator": "1"
+            }
+          },
+          "rate_upper": {
+            "decimal_ceiling_12": "0.035596860332",
+            "denominator": "15845632502852867518708790067200",
+            "numerator": "564054767062428675797164584759"
+          }
+        },
+        "ordinary_poisson_stringer_reference": {
+          "amount_upper_per_10m": {
+            "decimal_dollars": "362168.40",
+            "exact_ceiling_cents": "36216840"
+          },
+          "basis_points_upper": "362.168400",
+          "mathematical_status": "ordinary coverage unresolved at this sample size; exact reference calculation only",
+          "rate_interval": {
+            "lower": {
+              "decimal_floor_12": "0.036216839906",
+              "denominator": "184467440737095516160000",
+              "numerator": "6680827769203603885863"
+            },
+            "upper": {
+              "decimal_ceiling_12": "0.036216839907",
+              "denominator": "184467440737095516160000",
+              "numerator": "6680827769203603885963"
+            },
+            "width": {
+              "decimal_ceiling_12": "0.000000000001",
+              "denominator": "1844674407370955161600",
+              "numerator": "1"
+            }
+          },
+          "rate_upper": {
+            "decimal_ceiling_12": "0.036216839907",
+            "denominator": "184467440737095516160000",
+            "numerator": "6680827769203603885963"
+          }
+        },
+        "poisson_stringer_gaffke_max": {
+          "amount_upper_per_10m": {
+            "decimal_dollars": "362168.40",
+            "exact_ceiling_cents": "36216840"
+          },
+          "basis_points_upper": "362.168400",
+          "governing_component_certified": "ordinary_poisson_stringer",
+          "mathematical_status": "proved finite-sample valid under the independent bounded-mean model",
+          "rate_interval": {
+            "lower": {
+              "decimal_floor_12": "0.036216839906",
+              "denominator": "184467440737095516160000",
+              "numerator": "6680827769203603885863"
+            },
+            "upper": {
+              "decimal_ceiling_12": "0.036216839907",
+              "denominator": "184467440737095516160000",
+              "numerator": "6680827769203603885963"
+            },
+            "width": {
+              "decimal_ceiling_12": "0.000000000001",
+              "denominator": "1844674407370955161600",
+              "numerator": "1"
+            }
+          },
+          "rate_upper": {
+            "decimal_ceiling_12": "0.036216839907",
+            "denominator": "184467440737095516160000",
+            "numerator": "6680827769203603885963"
+          }
+        },
+        "zero_anchor_calibrated_factorwise_cap": {
+          "amount_upper_per_10m": {
+            "decimal_dollars": "447771.04",
+            "exact_ceiling_cents": "44777104"
+          },
+          "basis_points_upper": "447.771033",
+          "eta_upper": {
+            "decimal_ceiling_12": "2.367559682578",
+            "denominator": "268435456",
+            "numerator": "635536963"
+          },
+          "mathematical_status": "proved finite-sample valid modified Poisson rule under the independent bounded-mean model",
+          "rate_upper": {
+            "decimal_ceiling_12": "0.044777103223",
+            "denominator": "49517601571415210995964968960000",
+            "numerator": "2217254756906835526436654074369"
+          }
+        }
+      },
+      "nominal_confidence": "19/20",
+      "nonzero_taint_count": 6,
+      "nonzero_taints_descending": [
+        "1/5",
+        "1/10",
+        "1/20",
+        "1/50",
+        "1/100",
+        "1/200"
+      ],
+      "sample_size": 100,
+      "threshold_switch_bands": {
+        "full_scale_vs_ordinary_poisson": {
+          "has_nonempty_switch_band": true,
+          "interpretation": "For a rate threshold in [lower,upper), the method at the lower endpoint is at or below the threshold while the method at the upper endpoint is above it, using the certified upper enclosures shown.",
+          "lower_endpoint_method": "ordinary_poisson_stringer_reference",
+          "threshold_interval": {
+            "lower_inclusive": {
+              "decimal_ceiling_12": "0.036216839907",
+              "denominator": "184467440737095516160000",
+              "numerator": "6680827769203603885963"
+            },
+            "upper_exclusive": {
+              "decimal_ceiling_12": "0.044762387063",
+              "denominator": "12379400392853802748991242240000",
+              "numerator": "554131511988877656263131414983"
+            }
+          },
+          "upper_endpoint_method": "full_scale_calibrated_factorwise_cap",
+          "width_amount_per_10m_upper": {
+            "decimal_dollars": "85455.48",
+            "exact_ceiling_cents": "8545548"
+          },
+          "width_basis_points_upper": "85.455472",
+          "width_rate": {
+            "decimal_ceiling_12": "0.008545547156",
+            "denominator": "12379400392853802748991242240000",
+            "numerator": "105788749817969614770168938951"
+          }
+        },
+        "full_scale_vs_zero_anchor": {
+          "has_nonempty_switch_band": true,
+          "interpretation": "For a rate threshold in [lower,upper), the method at the lower endpoint is at or below the threshold while the method at the upper endpoint is above it, using the certified upper enclosures shown.",
+          "lower_endpoint_method": "full_scale_calibrated_factorwise_cap",
+          "threshold_interval": {
+            "lower_inclusive": {
+              "decimal_ceiling_12": "0.044762387063",
+              "denominator": "12379400392853802748991242240000",
+              "numerator": "554131511988877656263131414983"
+            },
+            "upper_exclusive": {
+              "decimal_ceiling_12": "0.044777103223",
+              "denominator": "49517601571415210995964968960000",
+              "numerator": "2217254756906835526436654074369"
+            }
+          },
+          "upper_endpoint_method": "zero_anchor_calibrated_factorwise_cap",
+          "width_amount_per_10m_upper": {
+            "decimal_dollars": "147.17",
+            "exact_ceiling_cents": "14717"
+          },
+          "width_basis_points_upper": "0.147162",
+          "width_rate": {
+            "decimal_ceiling_12": "0.000014716161",
+            "denominator": "49517601571415210995964968960000",
+            "numerator": "728708951324901384128414437"
+          }
+        },
+        "gaffke_vs_ordinary_poisson": {
+          "has_nonempty_switch_band": true,
+          "interpretation": "For a rate threshold in [lower,upper), the method at the lower endpoint is at or below the threshold while the method at the upper endpoint is above it, using the certified upper enclosures shown.",
+          "lower_endpoint_method": "gaffke_valid_endpoint",
+          "threshold_interval": {
+            "lower_inclusive": {
+              "decimal_ceiling_12": "0.033532831595",
+              "denominator": "18446744073709551616",
+              "numerator": "618571562487015681"
+            },
+            "upper_exclusive": {
+              "decimal_ceiling_12": "0.036216839907",
+              "denominator": "184467440737095516160000",
+              "numerator": "6680827769203603885963"
+            }
+          },
+          "upper_endpoint_method": "ordinary_poisson_stringer_reference",
+          "width_amount_per_10m_upper": {
+            "decimal_dollars": "26840.09",
+            "exact_ceiling_cents": "2684009"
+          },
+          "width_basis_points_upper": "26.840084",
+          "width_rate": {
+            "decimal_ceiling_12": "0.002684008313",
+            "denominator": "184467440737095516160000",
+            "numerator": "495112144333447075963"
+          }
+        },
+        "zero_anchor_vs_ordinary_poisson": {
+          "has_nonempty_switch_band": true,
+          "interpretation": "For a rate threshold in [lower,upper), the method at the lower endpoint is at or below the threshold while the method at the upper endpoint is above it, using the certified upper enclosures shown.",
+          "lower_endpoint_method": "ordinary_poisson_stringer_reference",
+          "threshold_interval": {
+            "lower_inclusive": {
+              "decimal_ceiling_12": "0.036216839907",
+              "denominator": "184467440737095516160000",
+              "numerator": "6680827769203603885963"
+            },
+            "upper_exclusive": {
+              "decimal_ceiling_12": "0.044777103223",
+              "denominator": "49517601571415210995964968960000",
+              "numerator": "2217254756906835526436654074369"
+            }
+          },
+          "upper_endpoint_method": "zero_anchor_calibrated_factorwise_cap",
+          "width_amount_per_10m_upper": {
+            "decimal_dollars": "85602.64",
+            "exact_ceiling_cents": "8560264"
+          },
+          "width_basis_points_upper": "85.602634",
+          "width_rate": {
+            "decimal_ceiling_12": "0.008560263316",
+            "denominator": "49517601571415210995964968960000",
+            "numerator": "423883708223203360464804170241"
+          }
+        }
+      },
+      "zero_taint_count": 94
+    },
+    {
+      "alpha": "0.05",
+      "id": "mixed-three-n200-95",
+      "methods": {
+        "full_scale_calibrated_factorwise_cap": {
+          "amount_upper_per_10m": {
+            "decimal_dollars": "346599.74",
+            "exact_ceiling_cents": "34659974"
+          },
+          "basis_points_upper": "346.599736",
+          "kappa_upper": {
+            "decimal_ceiling_12": "1.257978815586",
+            "denominator": "268435456",
+            "numerator": "337686117"
+          },
+          "mathematical_status": "proved finite-sample valid modified Poisson rule under the independent bounded-mean model",
+          "rate_upper": {
+            "decimal_ceiling_12": "0.034659973538",
+            "denominator": "9903520314283042199192993792000",
+            "numerator": "343255752021920641850218869471"
+          }
+        },
+        "gaffke_valid_endpoint": {
+          "amount_upper_per_10m": {
+            "decimal_dollars": "263513.44",
+            "exact_ceiling_cents": "26351344"
+          },
+          "basis_points_upper": "263.513439",
+          "certificate_bits": 64,
+          "mathematical_status": "proved finite-sample valid under the independent bounded-mean model, using the cited external validity theorem",
+          "rate_interval": {
+            "lower": {
+              "decimal_floor_12": "0.026351343832",
+              "denominator": "288230376151711744",
+              "numerator": "7595257744913413"
+            },
+            "upper": {
+              "decimal_ceiling_12": "0.026351343833",
+              "denominator": "18446744073709551616",
+              "numerator": "486096495674474817"
+            },
+            "width": {
+              "decimal_ceiling_12": "0.000000000001",
+              "denominator": "18446744073709551616",
+              "numerator": "16385"
+            }
+          },
+          "rate_upper": {
+            "decimal_ceiling_12": "0.026351343833",
+            "denominator": "18446744073709551616",
+            "numerator": "486096495674474817"
+          },
+          "tail_at_lower_at_least_alpha": true,
+          "tail_at_upper_at_most_alpha": true
+        },
+        "ordinary_binomial_stringer_reference": {
+          "amount_upper_per_10m": {
+            "decimal_dollars": "272728.33",
+            "exact_ceiling_cents": "27272833"
+          },
+          "basis_points_upper": "272.728330",
+          "mathematical_status": "ordinary coverage unresolved at this sample size; exact reference calculation only",
+          "rate_interval": {
+            "lower": {
+              "decimal_floor_12": "0.027272832935",
+              "denominator": "158456325028528675187087900672",
+              "numerator": "4321552880005437403062601989"
+            },
+            "upper": {
+              "decimal_ceiling_12": "0.027272832936",
+              "denominator": "158456325028528675187087900672",
+              "numerator": "4321552880005437403062601991"
+            },
+            "width": {
+              "decimal_ceiling_12": "0.000000000001",
+              "denominator": "79228162514264337593543950336",
+              "numerator": "1"
+            }
+          },
+          "rate_upper": {
+            "decimal_ceiling_12": "0.027272832936",
+            "denominator": "158456325028528675187087900672",
+            "numerator": "4321552880005437403062601991"
+          }
+        },
+        "ordinary_poisson_stringer_reference": {
+          "amount_upper_per_10m": {
+            "decimal_dollars": "275521.13",
+            "exact_ceiling_cents": "27552113"
+          },
+          "basis_points_upper": "275.521123",
+          "mathematical_status": "ordinary coverage unresolved at this sample size; exact reference calculation only",
+          "rate_interval": {
+            "lower": {
+              "decimal_floor_12": "0.027552112251",
+              "denominator": "36893488147419103232000",
+              "numerator": "1016493526803533477353"
+            },
+            "upper": {
+              "decimal_ceiling_12": "0.027552112252",
+              "denominator": "36893488147419103232000",
+              "numerator": "1016493526803533477363"
+            },
+            "width": {
+              "decimal_ceiling_12": "0.000000000001",
+              "denominator": "3689348814741910323200",
+              "numerator": "1"
+            }
+          },
+          "rate_upper": {
+            "decimal_ceiling_12": "0.027552112252",
+            "denominator": "36893488147419103232000",
+            "numerator": "1016493526803533477363"
+          }
+        },
+        "poisson_stringer_gaffke_max": {
+          "amount_upper_per_10m": {
+            "decimal_dollars": "275521.13",
+            "exact_ceiling_cents": "27552113"
+          },
+          "basis_points_upper": "275.521123",
+          "governing_component_certified": "ordinary_poisson_stringer",
+          "mathematical_status": "proved finite-sample valid under the independent bounded-mean model",
+          "rate_interval": {
+            "lower": {
+              "decimal_floor_12": "0.027552112251",
+              "denominator": "36893488147419103232000",
+              "numerator": "1016493526803533477353"
+            },
+            "upper": {
+              "decimal_ceiling_12": "0.027552112252",
+              "denominator": "36893488147419103232000",
+              "numerator": "1016493526803533477363"
+            },
+            "width": {
+              "decimal_ceiling_12": "0.000000000001",
+              "denominator": "3689348814741910323200",
+              "numerator": "1"
+            }
+          },
+          "rate_upper": {
+            "decimal_ceiling_12": "0.027552112252",
+            "denominator": "36893488147419103232000",
+            "numerator": "1016493526803533477363"
+          }
+        },
+        "zero_anchor_calibrated_factorwise_cap": {
+          "amount_upper_per_10m": {
+            "decimal_dollars": "499113.46",
+            "exact_ceiling_cents": "49911346"
+          },
+          "basis_points_upper": "499.113457",
+          "eta_upper": {
+            "decimal_ceiling_12": "2.778289318085",
+            "denominator": "2097152",
+            "numerator": "5826495"
+          },
+          "mathematical_status": "proved finite-sample valid modified Poisson rule under the independent bounded-mean model",
+          "rate_upper": {
+            "decimal_ceiling_12": "0.049911345651",
+            "denominator": "15474250491067253436239052800",
+            "numerator": "772340664945780497249714743"
+          }
+        }
+      },
+      "nominal_confidence": "19/20",
+      "nonzero_taint_count": 3,
+      "nonzero_taints_descending": [
+        "1",
+        "2/5",
+        "1/10"
+      ],
+      "sample_size": 200,
+      "threshold_switch_bands": {
+        "full_scale_vs_ordinary_poisson": {
+          "has_nonempty_switch_band": true,
+          "interpretation": "For a rate threshold in [lower,upper), the method at the lower endpoint is at or below the threshold while the method at the upper endpoint is above it, using the certified upper enclosures shown.",
+          "lower_endpoint_method": "ordinary_poisson_stringer_reference",
+          "threshold_interval": {
+            "lower_inclusive": {
+              "decimal_ceiling_12": "0.027552112252",
+              "denominator": "36893488147419103232000",
+              "numerator": "1016493526803533477363"
+            },
+            "upper_exclusive": {
+              "decimal_ceiling_12": "0.034659973538",
+              "denominator": "9903520314283042199192993792000",
+              "numerator": "343255752021920641850218869471"
+            }
+          },
+          "upper_endpoint_method": "full_scale_calibrated_factorwise_cap",
+          "width_amount_per_10m_upper": {
+            "decimal_dollars": "71078.62",
+            "exact_ceiling_cents": "7107862"
+          },
+          "width_basis_points_upper": "71.078613",
+          "width_rate": {
+            "decimal_ceiling_12": "0.007107861286",
+            "denominator": "9903520314283042199192993792000",
+            "numerator": "70392848633365910443016286943"
+          }
+        },
+        "full_scale_vs_zero_anchor": {
+          "has_nonempty_switch_band": true,
+          "interpretation": "For a rate threshold in [lower,upper), the method at the lower endpoint is at or below the threshold while the method at the upper endpoint is above it, using the certified upper enclosures shown.",
+          "lower_endpoint_method": "full_scale_calibrated_factorwise_cap",
+          "threshold_interval": {
+            "lower_inclusive": {
+              "decimal_ceiling_12": "0.034659973538",
+              "denominator": "9903520314283042199192993792000",
+              "numerator": "343255752021920641850218869471"
+            },
+            "upper_exclusive": {
+              "decimal_ceiling_12": "0.049911345651",
+              "denominator": "15474250491067253436239052800",
+              "numerator": "772340664945780497249714743"
+            }
+          },
+          "upper_endpoint_method": "zero_anchor_calibrated_factorwise_cap",
+          "width_amount_per_10m_upper": {
+            "decimal_dollars": "152513.73",
+            "exact_ceiling_cents": "15251373"
+          },
+          "width_basis_points_upper": "152.513722",
+          "width_rate": {
+            "decimal_ceiling_12": "0.015251372114",
+            "denominator": "9903520314283042199192993792000",
+            "numerator": "151042273543378876389598566049"
+          }
+        },
+        "gaffke_vs_ordinary_poisson": {
+          "has_nonempty_switch_band": true,
+          "interpretation": "For a rate threshold in [lower,upper), the method at the lower endpoint is at or below the threshold while the method at the upper endpoint is above it, using the certified upper enclosures shown.",
+          "lower_endpoint_method": "gaffke_valid_endpoint",
+          "threshold_interval": {
+            "lower_inclusive": {
+              "decimal_ceiling_12": "0.026351343833",
+              "denominator": "18446744073709551616",
+              "numerator": "486096495674474817"
+            },
+            "upper_exclusive": {
+              "decimal_ceiling_12": "0.027552112252",
+              "denominator": "36893488147419103232000",
+              "numerator": "1016493526803533477363"
+            }
+          },
+          "upper_endpoint_method": "ordinary_poisson_stringer_reference",
+          "width_amount_per_10m_upper": {
+            "decimal_dollars": "12007.69",
+            "exact_ceiling_cents": "1200769"
+          },
+          "width_basis_points_upper": "12.007685",
+          "width_rate": {
+            "decimal_ceiling_12": "0.001200768420",
+            "denominator": "36893488147419103232000",
+            "numerator": "44300535454583843363"
+          }
+        },
+        "zero_anchor_vs_ordinary_poisson": {
+          "has_nonempty_switch_band": true,
+          "interpretation": "For a rate threshold in [lower,upper), the method at the lower endpoint is at or below the threshold while the method at the upper endpoint is above it, using the certified upper enclosures shown.",
+          "lower_endpoint_method": "ordinary_poisson_stringer_reference",
+          "threshold_interval": {
+            "lower_inclusive": {
+              "decimal_ceiling_12": "0.027552112252",
+              "denominator": "36893488147419103232000",
+              "numerator": "1016493526803533477363"
+            },
+            "upper_exclusive": {
+              "decimal_ceiling_12": "0.049911345651",
+              "denominator": "15474250491067253436239052800",
+              "numerator": "772340664945780497249714743"
+            }
+          },
+          "upper_endpoint_method": "zero_anchor_calibrated_factorwise_cap",
+          "width_amount_per_10m_upper": {
+            "decimal_dollars": "223592.34",
+            "exact_ceiling_cents": "22359234"
+          },
+          "width_basis_points_upper": "223.592334",
+          "width_rate": {
+            "decimal_ceiling_12": "0.022359233399",
+            "denominator": "77371252455336267181195264000",
+            "numerator": "1729961892005818647129803539"
+          }
+        }
+      },
+      "zero_taint_count": 197
+    },
+    {
+      "alpha": "0.10",
+      "id": "mixed-three-n100-90",
+      "methods": {
+        "full_scale_calibrated_factorwise_cap": {
+          "amount_upper_per_10m": {
+            "decimal_dollars": "591461.41",
+            "exact_ceiling_cents": "59146141"
+          },
+          "basis_points_upper": "591.461409",
+          "kappa_upper": {
+            "decimal_ceiling_12": "1.286175295711",
+            "denominator": "67108864",
+            "numerator": "86313763"
+          },
+          "mathematical_status": "proved finite-sample valid modified Poisson rule under the independent bounded-mean model",
+          "rate_upper": {
+            "decimal_ceiling_12": "0.059146140880",
+            "denominator": "1237940039285380274899124224000",
+            "numerator": "73219375964313797976323098269"
+          }
+        },
+        "gaffke_valid_endpoint": {
+          "amount_upper_per_10m": {
+            "decimal_dollars": "439126.09",
+            "exact_ceiling_cents": "43912609"
+          },
+          "basis_points_upper": "439.126088",
+          "certificate_bits": 64,
+          "mathematical_status": "proved finite-sample valid under the independent bounded-mean model, using the cited external validity theorem",
+          "rate_interval": {
+            "lower": {
+              "decimal_floor_12": "0.043912608740",
+              "denominator": "144115188075855872",
+              "numerator": "6328473867528763"
+            },
+            "upper": {
+              "decimal_ceiling_12": "0.043912608741",
+              "denominator": "18446744073709551616",
+              "numerator": "810044655043683713"
+            },
+            "width": {
+              "decimal_ceiling_12": "0.000000000001",
+              "denominator": "18446744073709551616",
+              "numerator": "2049"
+            }
+          },
+          "rate_upper": {
+            "decimal_ceiling_12": "0.043912608741",
+            "denominator": "18446744073709551616",
+            "numerator": "810044655043683713"
+          },
+          "tail_at_lower_at_least_alpha": true,
+          "tail_at_upper_at_most_alpha": true
+        },
+        "ordinary_binomial_stringer_reference": {
+          "amount_upper_per_10m": {
+            "decimal_dollars": "452658.61",
+            "exact_ceiling_cents": "45265861"
+          },
+          "basis_points_upper": "452.658608",
+          "mathematical_status": "ordinary coverage unresolved at this sample size; exact reference calculation only",
+          "rate_interval": {
+            "lower": {
+              "decimal_floor_12": "0.045265860701",
+              "denominator": "396140812571321687967719751680",
+              "numerator": "17931654840087054526758581909"
+            },
+            "upper": {
+              "decimal_ceiling_12": "0.045265860702",
+              "denominator": "198070406285660843983859875840",
+              "numerator": "8965827420043527263379290957"
+            },
+            "width": {
+              "decimal_ceiling_12": "0.000000000001",
+              "denominator": "79228162514264337593543950336",
+              "numerator": "1"
+            }
+          },
+          "rate_upper": {
+            "decimal_ceiling_12": "0.045265860702",
+            "denominator": "198070406285660843983859875840",
+            "numerator": "8965827420043527263379290957"
+          }
+        },
+        "ordinary_poisson_stringer_reference": {
+          "amount_upper_per_10m": {
+            "decimal_dollars": "459860.66",
+            "exact_ceiling_cents": "45986066"
+          },
+          "basis_points_upper": "459.860652",
+          "mathematical_status": "ordinary coverage unresolved at this sample size; exact reference calculation only",
+          "rate_interval": {
+            "lower": {
+              "decimal_floor_12": "0.045986065100",
+              "denominator": "18446744073709551616000",
+              "numerator": "848293173874412102453"
+            },
+            "upper": {
+              "decimal_ceiling_12": "0.045986065101",
+              "denominator": "18446744073709551616000",
+              "numerator": "848293173874412102463"
+            },
+            "width": {
+              "decimal_ceiling_12": "0.000000000001",
+              "denominator": "1844674407370955161600",
+              "numerator": "1"
+            }
+          },
+          "rate_upper": {
+            "decimal_ceiling_12": "0.045986065101",
+            "denominator": "18446744073709551616000",
+            "numerator": "848293173874412102463"
+          }
+        },
+        "poisson_stringer_gaffke_max": {
+          "amount_upper_per_10m": {
+            "decimal_dollars": "459860.66",
+            "exact_ceiling_cents": "45986066"
+          },
+          "basis_points_upper": "459.860652",
+          "governing_component_certified": "ordinary_poisson_stringer",
+          "mathematical_status": "proved finite-sample valid under the independent bounded-mean model",
+          "rate_interval": {
+            "lower": {
+              "decimal_floor_12": "0.045986065100",
+              "denominator": "18446744073709551616000",
+              "numerator": "848293173874412102453"
+            },
+            "upper": {
+              "decimal_ceiling_12": "0.045986065101",
+              "denominator": "18446744073709551616000",
+              "numerator": "848293173874412102463"
+            },
+            "width": {
+              "decimal_ceiling_12": "0.000000000001",
+              "denominator": "1844674407370955161600",
+              "numerator": "1"
+            }
+          },
+          "rate_upper": {
+            "decimal_ceiling_12": "0.045986065101",
+            "denominator": "18446744073709551616000",
+            "numerator": "848293173874412102463"
+          }
+        },
+        "zero_anchor_calibrated_factorwise_cap": {
+          "amount_upper_per_10m": {
+            "decimal_dollars": "865018.06",
+            "exact_ceiling_cents": "86501806"
+          },
+          "basis_points_upper": "865.018060",
+          "eta_upper": {
+            "decimal_ceiling_12": "2.764606397599",
+            "denominator": "268435456",
+            "numerator": "742118379"
+          },
+          "mathematical_status": "proved finite-sample valid modified Poisson rule under the independent bounded-mean model",
+          "rate_upper": {
+            "decimal_ceiling_12": "0.086501805918",
+            "denominator": "4951760157141521099596496896000",
+            "numerator": "428336196062532204660452842107"
+          }
+        }
+      },
+      "nominal_confidence": "9/10",
+      "nonzero_taint_count": 3,
+      "nonzero_taints_descending": [
+        "1",
+        "2/5",
+        "1/10"
+      ],
+      "sample_size": 100,
+      "threshold_switch_bands": {
+        "full_scale_vs_ordinary_poisson": {
+          "has_nonempty_switch_band": true,
+          "interpretation": "For a rate threshold in [lower,upper), the method at the lower endpoint is at or below the threshold while the method at the upper endpoint is above it, using the certified upper enclosures shown.",
+          "lower_endpoint_method": "ordinary_poisson_stringer_reference",
+          "threshold_interval": {
+            "lower_inclusive": {
+              "decimal_ceiling_12": "0.045986065101",
+              "denominator": "18446744073709551616000",
+              "numerator": "848293173874412102463"
+            },
+            "upper_exclusive": {
+              "decimal_ceiling_12": "0.059146140880",
+              "denominator": "1237940039285380274899124224000",
+              "numerator": "73219375964313797976323098269"
+            }
+          },
+          "upper_endpoint_method": "full_scale_calibrated_factorwise_cap",
+          "width_amount_per_10m_upper": {
+            "decimal_dollars": "131600.76",
+            "exact_ceiling_cents": "13160076"
+          },
+          "width_basis_points_upper": "131.600758",
+          "width_rate": {
+            "decimal_ceiling_12": "0.013160075779",
+            "denominator": "1237940039285380274899124224000",
+            "numerator": "16291384726647523112179566237"
+          }
+        },
+        "full_scale_vs_zero_anchor": {
+          "has_nonempty_switch_band": true,
+          "interpretation": "For a rate threshold in [lower,upper), the method at the lower endpoint is at or below the threshold while the method at the upper endpoint is above it, using the certified upper enclosures shown.",
+          "lower_endpoint_method": "full_scale_calibrated_factorwise_cap",
+          "threshold_interval": {
+            "lower_inclusive": {
+              "decimal_ceiling_12": "0.059146140880",
+              "denominator": "1237940039285380274899124224000",
+              "numerator": "73219375964313797976323098269"
+            },
+            "upper_exclusive": {
+              "decimal_ceiling_12": "0.086501805918",
+              "denominator": "4951760157141521099596496896000",
+              "numerator": "428336196062532204660452842107"
+            }
+          },
+          "upper_endpoint_method": "zero_anchor_calibrated_factorwise_cap",
+          "width_amount_per_10m_upper": {
+            "decimal_dollars": "273556.66",
+            "exact_ceiling_cents": "27355666"
+          },
+          "width_basis_points_upper": "273.556651",
+          "width_rate": {
+            "decimal_ceiling_12": "0.027355665038",
+            "denominator": "4951760157141521099596496896000",
+            "numerator": "135458692205277012755160449031"
+          }
+        },
+        "gaffke_vs_ordinary_poisson": {
+          "has_nonempty_switch_band": true,
+          "interpretation": "For a rate threshold in [lower,upper), the method at the lower endpoint is at or below the threshold while the method at the upper endpoint is above it, using the certified upper enclosures shown.",
+          "lower_endpoint_method": "gaffke_valid_endpoint",
+          "threshold_interval": {
+            "lower_inclusive": {
+              "decimal_ceiling_12": "0.043912608741",
+              "denominator": "18446744073709551616",
+              "numerator": "810044655043683713"
+            },
+            "upper_exclusive": {
+              "decimal_ceiling_12": "0.045986065101",
+              "denominator": "18446744073709551616000",
+              "numerator": "848293173874412102463"
+            }
+          },
+          "upper_endpoint_method": "ordinary_poisson_stringer_reference",
+          "width_amount_per_10m_upper": {
+            "decimal_dollars": "20734.57",
+            "exact_ceiling_cents": "2073457"
+          },
+          "width_basis_points_upper": "20.734564",
+          "width_rate": {
+            "decimal_ceiling_12": "0.002073456361",
+            "denominator": "18446744073709551616000",
+            "numerator": "38248518830728389463"
+          }
+        },
+        "zero_anchor_vs_ordinary_poisson": {
+          "has_nonempty_switch_band": true,
+          "interpretation": "For a rate threshold in [lower,upper), the method at the lower endpoint is at or below the threshold while the method at the upper endpoint is above it, using the certified upper enclosures shown.",
+          "lower_endpoint_method": "ordinary_poisson_stringer_reference",
+          "threshold_interval": {
+            "lower_inclusive": {
+              "decimal_ceiling_12": "0.045986065101",
+              "denominator": "18446744073709551616000",
+              "numerator": "848293173874412102463"
+            },
+            "upper_exclusive": {
+              "decimal_ceiling_12": "0.086501805918",
+              "denominator": "4951760157141521099596496896000",
+              "numerator": "428336196062532204660452842107"
+            }
+          },
+          "upper_endpoint_method": "zero_anchor_calibrated_factorwise_cap",
+          "width_amount_per_10m_upper": {
+            "decimal_dollars": "405157.41",
+            "exact_ceiling_cents": "40515741"
+          },
+          "width_basis_points_upper": "405.157409",
+          "width_rate": {
+            "decimal_ceiling_12": "0.040515740817",
+            "denominator": "4951760157141521099596496896000",
+            "numerator": "200624231111867105203878713979"
+          }
+        }
+      },
+      "zero_taint_count": 97
+    },
+    {
+      "alpha": "0.01",
+      "id": "mixed-three-n100-99",
+      "methods": {
+        "full_scale_calibrated_factorwise_cap": {
+          "amount_upper_per_10m": {
+            "decimal_dollars": "871921.73",
+            "exact_ceiling_cents": "87192173"
+          },
+          "basis_points_upper": "871.921727",
+          "kappa_upper": {
+            "decimal_ceiling_12": "1.161121416837",
+            "denominator": "268435456",
+            "numerator": "311686157"
+          },
+          "mathematical_status": "proved finite-sample valid modified Poisson rule under the independent bounded-mean model",
+          "rate_upper": {
+            "decimal_ceiling_12": "0.087192172609",
+            "denominator": "4951760157141521099596496896000",
+            "numerator": "431754726335048334258551620633"
+          }
+        },
+        "gaffke_valid_endpoint": {
+          "amount_upper_per_10m": {
+            "decimal_dollars": "701280.91",
+            "exact_ceiling_cents": "70128091"
+          },
+          "basis_points_upper": "701.280905",
+          "certificate_bits": 64,
+          "mathematical_status": "proved finite-sample valid under the independent bounded-mean model, using the cited external validity theorem",
+          "rate_interval": {
+            "lower": {
+              "decimal_floor_12": "0.070128090493",
+              "denominator": "36028797018963968",
+              "numerator": "2526630737706621"
+            },
+            "upper": {
+              "decimal_ceiling_12": "0.070128090494",
+              "denominator": "18446744073709551616",
+              "numerator": "1293634937705794049"
+            },
+            "width": {
+              "decimal_ceiling_12": "0.000000000001",
+              "denominator": "18446744073709551616",
+              "numerator": "4097"
+            }
+          },
+          "rate_upper": {
+            "decimal_ceiling_12": "0.070128090494",
+            "denominator": "18446744073709551616",
+            "numerator": "1293634937705794049"
+          },
+          "tail_at_lower_at_least_alpha": true,
+          "tail_at_upper_at_most_alpha": true
+        },
+        "ordinary_binomial_stringer_reference": {
+          "amount_upper_per_10m": {
+            "decimal_dollars": "728463.28",
+            "exact_ceiling_cents": "72846328"
+          },
+          "basis_points_upper": "728.463277",
+          "mathematical_status": "ordinary coverage unresolved at this sample size; exact reference calculation only",
+          "rate_interval": {
+            "lower": {
+              "decimal_floor_12": "0.072846327646",
+              "denominator": "792281625142643375935439503360",
+              "numerator": "57714806853463062852760821913"
+            },
+            "upper": {
+              "decimal_ceiling_12": "0.072846327647",
+              "denominator": "792281625142643375935439503360",
+              "numerator": "57714806853463062852760821923"
+            },
+            "width": {
+              "decimal_ceiling_12": "0.000000000001",
+              "denominator": "79228162514264337593543950336",
+              "numerator": "1"
+            }
+          },
+          "rate_upper": {
+            "decimal_ceiling_12": "0.072846327647",
+            "denominator": "792281625142643375935439503360",
+            "numerator": "57714806853463062852760821923"
+          }
+        },
+        "ordinary_poisson_stringer_reference": {
+          "amount_upper_per_10m": {
+            "decimal_dollars": "750930.71",
+            "exact_ceiling_cents": "75093071"
+          },
+          "basis_points_upper": "750.930707",
+          "mathematical_status": "ordinary coverage unresolved at this sample size; exact reference calculation only",
+          "rate_interval": {
+            "lower": {
+              "decimal_floor_12": "0.075093070667",
+              "denominator": "18446744073709551616000",
+              "numerator": "1385222656311452209459"
+            },
+            "upper": {
+              "decimal_ceiling_12": "0.075093070668",
+              "denominator": "18446744073709551616000",
+              "numerator": "1385222656311452209469"
+            },
+            "width": {
+              "decimal_ceiling_12": "0.000000000001",
+              "denominator": "1844674407370955161600",
+              "numerator": "1"
+            }
+          },
+          "rate_upper": {
+            "decimal_ceiling_12": "0.075093070668",
+            "denominator": "18446744073709551616000",
+            "numerator": "1385222656311452209469"
+          }
+        },
+        "poisson_stringer_gaffke_max": {
+          "amount_upper_per_10m": {
+            "decimal_dollars": "750930.71",
+            "exact_ceiling_cents": "75093071"
+          },
+          "basis_points_upper": "750.930707",
+          "governing_component_certified": "ordinary_poisson_stringer",
+          "mathematical_status": "proved finite-sample valid under the independent bounded-mean model",
+          "rate_interval": {
+            "lower": {
+              "decimal_floor_12": "0.075093070667",
+              "denominator": "18446744073709551616000",
+              "numerator": "1385222656311452209459"
+            },
+            "upper": {
+              "decimal_ceiling_12": "0.075093070668",
+              "denominator": "18446744073709551616000",
+              "numerator": "1385222656311452209469"
+            },
+            "width": {
+              "decimal_ceiling_12": "0.000000000001",
+              "denominator": "1844674407370955161600",
+              "numerator": "1"
+            }
+          },
+          "rate_upper": {
+            "decimal_ceiling_12": "0.075093070668",
+            "denominator": "18446744073709551616000",
+            "numerator": "1385222656311452209469"
+          }
+        },
+        "zero_anchor_calibrated_factorwise_cap": {
+          "amount_upper_per_10m": {
+            "decimal_dollars": "994625.92",
+            "exact_ceiling_cents": "99462592"
+          },
+          "basis_points_upper": "994.625916",
+          "eta_upper": {
+            "decimal_ceiling_12": "1.839131277055",
+            "denominator": "268435456",
+            "numerator": "493688043"
+          },
+          "mathematical_status": "proved finite-sample valid modified Poisson rule under the independent bounded-mean model",
+          "rate_upper": {
+            "decimal_ceiling_12": "0.099462591563",
+            "denominator": "4951760157141521099596496896000",
+            "numerator": "492514898024530731838706110237"
+          }
+        }
+      },
+      "nominal_confidence": "99/100",
+      "nonzero_taint_count": 3,
+      "nonzero_taints_descending": [
+        "1",
+        "2/5",
+        "1/10"
+      ],
+      "sample_size": 100,
+      "threshold_switch_bands": {
+        "full_scale_vs_ordinary_poisson": {
+          "has_nonempty_switch_band": true,
+          "interpretation": "For a rate threshold in [lower,upper), the method at the lower endpoint is at or below the threshold while the method at the upper endpoint is above it, using the certified upper enclosures shown.",
+          "lower_endpoint_method": "ordinary_poisson_stringer_reference",
+          "threshold_interval": {
+            "lower_inclusive": {
+              "decimal_ceiling_12": "0.075093070668",
+              "denominator": "18446744073709551616000",
+              "numerator": "1385222656311452209469"
+            },
+            "upper_exclusive": {
+              "decimal_ceiling_12": "0.087192172609",
+              "denominator": "4951760157141521099596496896000",
+              "numerator": "431754726335048334258551620633"
+            }
+          },
+          "upper_endpoint_method": "full_scale_calibrated_factorwise_cap",
+          "width_amount_per_10m_upper": {
+            "decimal_dollars": "120991.02",
+            "exact_ceiling_cents": "12099102"
+          },
+          "width_basis_points_upper": "120.991020",
+          "width_rate": {
+            "decimal_ceiling_12": "0.012099101941",
+            "denominator": "4951760157141521099596496896000",
+            "numerator": "59911850926552382387533087769"
+          }
+        },
+        "full_scale_vs_zero_anchor": {
+          "has_nonempty_switch_band": true,
+          "interpretation": "For a rate threshold in [lower,upper), the method at the lower endpoint is at or below the threshold while the method at the upper endpoint is above it, using the certified upper enclosures shown.",
+          "lower_endpoint_method": "full_scale_calibrated_factorwise_cap",
+          "threshold_interval": {
+            "lower_inclusive": {
+              "decimal_ceiling_12": "0.087192172609",
+              "denominator": "4951760157141521099596496896000",
+              "numerator": "431754726335048334258551620633"
+            },
+            "upper_exclusive": {
+              "decimal_ceiling_12": "0.099462591563",
+              "denominator": "4951760157141521099596496896000",
+              "numerator": "492514898024530731838706110237"
+            }
+          },
+          "upper_endpoint_method": "zero_anchor_calibrated_factorwise_cap",
+          "width_amount_per_10m_upper": {
+            "decimal_dollars": "122704.19",
+            "exact_ceiling_cents": "12270419"
+          },
+          "width_basis_points_upper": "122.704190",
+          "width_rate": {
+            "decimal_ceiling_12": "0.012270418955",
+            "denominator": "1237940039285380274899124224000",
+            "numerator": "15190042922370599395038622401"
+          }
+        },
+        "gaffke_vs_ordinary_poisson": {
+          "has_nonempty_switch_band": true,
+          "interpretation": "For a rate threshold in [lower,upper), the method at the lower endpoint is at or below the threshold while the method at the upper endpoint is above it, using the certified upper enclosures shown.",
+          "lower_endpoint_method": "gaffke_valid_endpoint",
+          "threshold_interval": {
+            "lower_inclusive": {
+              "decimal_ceiling_12": "0.070128090494",
+              "denominator": "18446744073709551616",
+              "numerator": "1293634937705794049"
+            },
+            "upper_exclusive": {
+              "decimal_ceiling_12": "0.075093070668",
+              "denominator": "18446744073709551616000",
+              "numerator": "1385222656311452209469"
+            }
+          },
+          "upper_endpoint_method": "ordinary_poisson_stringer_reference",
+          "width_amount_per_10m_upper": {
+            "decimal_dollars": "49649.81",
+            "exact_ceiling_cents": "4964981"
+          },
+          "width_basis_points_upper": "49.649802",
+          "width_rate": {
+            "decimal_ceiling_12": "0.004964980175",
+            "denominator": "18446744073709551616000",
+            "numerator": "91587718605658160469"
+          }
+        },
+        "zero_anchor_vs_ordinary_poisson": {
+          "has_nonempty_switch_band": true,
+          "interpretation": "For a rate threshold in [lower,upper), the method at the lower endpoint is at or below the threshold while the method at the upper endpoint is above it, using the certified upper enclosures shown.",
+          "lower_endpoint_method": "ordinary_poisson_stringer_reference",
+          "threshold_interval": {
+            "lower_inclusive": {
+              "decimal_ceiling_12": "0.075093070668",
+              "denominator": "18446744073709551616000",
+              "numerator": "1385222656311452209469"
+            },
+            "upper_exclusive": {
+              "decimal_ceiling_12": "0.099462591563",
+              "denominator": "4951760157141521099596496896000",
+              "numerator": "492514898024530731838706110237"
+            }
+          },
+          "upper_endpoint_method": "zero_anchor_calibrated_factorwise_cap",
+          "width_amount_per_10m_upper": {
+            "decimal_dollars": "243695.21",
+            "exact_ceiling_cents": "24369521"
+          },
+          "width_basis_points_upper": "243.695209",
+          "width_rate": {
+            "decimal_ceiling_12": "0.024369520895",
+            "denominator": "4951760157141521099596496896000",
+            "numerator": "120672022616034779967687577373"
+          }
+        }
+      },
+      "zero_taint_count": 97
+    }
+  ],
+  "claim": "A fixed suite of practical-size, zero-heavy samples has exact method-comparison outputs and exact threshold-switch bands.",
+  "decision_semantics": "For a pre-specified upper-rate method and a separately given rate threshold tau, the numerical comparison is bound<=tau. The benchmark does not choose tau or turn that comparison into an audit conclusion.",
+  "factor_bits": 96,
+  "gaffke_certificate_bits": 64,
+  "generated_by": "supporting-materials/computations/python/audit_decision_benchmark.py",
+  "illustrative_recorded_amount_dollars": "10000000",
+  "mathematical_status": "Reproducible exact benchmark. It illustrates the output scale of proved valid alternatives; it does not establish coverage of ordinary Stringer at these sample sizes.",
+  "method_selection_semantics": "The full-scale and zero-anchor calibration paths are separate proved procedures. Selecting the smaller path after observing the sample is not certified.",
+  "model_scope": "The validity labels assume independent [0,1]-valued observations with a common mean. No without-replacement, systematic-PPS, stratification, or audit-unit-cap bridge is asserted.",
+  "schema_version": 1,
+  "source_sha256": {
+    "supporting-materials/computations/certificates/poisson-band-calibration-certificate.json": "3f92e6d34ee4f4477faa4f4ce72a7a4cdb7a89708d8e30b7e87f36fa230e74c6",
+    "supporting-materials/computations/python/gaffke.py": "0b9f9f19b2d59c7be61e1986d394205c62484772928789a17ed6328b77d58e81",
+    "supporting-materials/computations/python/poisson_band_calibration.py": "e2da094c425335e36ac01eb9f8042ef7b9d1cab4b22f1159844c23b53c42907c",
+    "supporting-materials/computations/python/stringer.py": "699b135b2287fd2142855643b3ef66aa87dc287a57065d9853830347150dbb70"
+  }
+}

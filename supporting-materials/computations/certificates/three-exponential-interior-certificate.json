@@ -1,0 +1,79 @@
+{
+  "arithmetic": {
+    "arb_precision_bits": 256,
+    "flint": "3.3.1",
+    "floating_point_role": "Only proposes each rational witness and selects which already-positive lower margin to summarize.",
+    "moment_series_terms": 120,
+    "parameter_taylor_degree": 4,
+    "python_flint": "0.8.0",
+    "witness_dyadic_bits": 30
+  },
+  "claim": "The explicit three-exponential inequality (16) holds strictly throughout the closed gap-coordinate square 1<=z,w<=4.",
+  "conclusion": "All leafwise Arb positivity checks passed; no unresolved box remains inside 1<=z,w<=4.",
+  "domain": {
+    "w": [
+      "1",
+      "4"
+    ],
+    "z": [
+      "1",
+      "4"
+    ]
+  },
+  "implication": "At alpha<=4*exp(-3), the three-exponential quantile Hessian is positive semidefinite at every coefficient vector whose normalized gap coordinates lie in this square.",
+  "leaf_trace_sha256": "ee5f5131586001d5ede0f8595da9eeba0d0ba4fb1a3673f7806b7a06e65749e4",
+  "limitation": "This closes a compact interior square only. It does not prove three-exponential convexity on the remaining off-symmetry domain or imply a general-n Stringer theorem.",
+  "mathematical_status": "rigorous computer-assisted theorem",
+  "minimum_rigorous_lower_enclosures": {
+    "leading_principal_minor": {
+      "coarse_indices": [
+        14,
+        149
+      ],
+      "half_indices": [
+        0,
+        0
+      ],
+      "lower_enclosure": "[0.001022654689193119660140682736799529327022400507672605730702168446672623108037 +/- 1.87e-79]",
+      "witness": "100264633/33554432"
+    },
+    "matrix_determinant": {
+      "coarse_indices": [
+        19,
+        103
+      ],
+      "half_indices": [
+        0,
+        0
+      ],
+      "lower_enclosure": "[2.362995438666551378824833268729675653492835764938688203871806133574347670374e-11 +/- 4.16e-87]",
+      "witness": "410180121/134217728"
+    },
+    "tail_margin": {
+      "coarse_indices": [
+        149,
+        0
+      ],
+      "half_indices": [
+        1,
+        0
+      ],
+      "lower_enclosure": "[0.007662255623256812730764117010217518595793854372366008761719300862829390061103 +/- 3.23e-79]",
+      "witness": "3326190187/1073741824"
+    }
+  },
+  "partition": {
+    "coarse_grid_shape": [
+      150,
+      150
+    ],
+    "coarse_leaf_count": 15587,
+    "coarse_step": "1/50",
+    "coverage": "closed square, with shared box boundaries",
+    "fine_leaf_count": 27652,
+    "fine_step_on_failed_coarse_cells": "1/100",
+    "total_leaf_count": 43239
+  },
+  "proof_interface": "Each leaf has a rational x with x*K-L positive definite and S_(z,w)(x)>4*exp(-3). Therefore h(z,w)<x and monotonicity gives S_(z,w)(h)>4*exp(-3).",
+  "schema_version": 1
+}

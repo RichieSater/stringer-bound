@@ -1,0 +1,270 @@
+{
+  "arithmetic": {
+    "bernstein_conversion_and_signs": "Python Fraction arithmetic",
+    "derivation_and_division": "SymPy exact rational polynomial arithmetic",
+    "floating_point_role": "none",
+    "sparse_linear_witness": "FLINT exact rational matrix solve"
+  },
+  "endpoint_crossings": {
+    "four_below_one_above": "AM--GM gives p<=I_{M_4}(4,1).",
+    "one_below_four_above": "Knot order and centroid order force the four upper knots to coincide, so this crossing has no distinct-knot instance."
+  },
+  "mathematical_status": "ordinary reduction with an exact rational polynomial certificate",
+  "schema_version": 2,
+  "scope": {
+    "conclusion": "The section satisfies the local maximum barrier. In both mixed crossing types, the stronger inequality p<=I_{gamma_0}(1,4)=1-(1-gamma_0)^4 holds.",
+    "hypothesis": "Every regular section has five distinct ordered knots and an ordered section centroid.",
+    "nonclaim": "Repeated-knot block faces are not covered, so this is not yet a complete five-coordinate vertex-maximization theorem."
+  },
+  "three_below_two_above": {
+    "bernstein_basis": {
+      "domain": "[0,1]^4",
+      "multiplier_S": {
+        "degree": [
+          3,
+          3,
+          10,
+          12
+        ],
+        "largest": {
+          "denominator": "2195352022165",
+          "numerator": "372443453174633499936"
+        },
+        "negative_coefficients": 0,
+        "positive_coefficients": 363,
+        "sha256_all_coefficients": "a35201138de220041db5e1e01a57c4a95f75ffe0310ee07ae5403e27cfe75494",
+        "smallest_positive": {
+          "denominator": "3313531636270668047484232747269307299177319294552302063591680774258799515680349601984000000000",
+          "numerator": "62854379802560977810070482942552416719830500137044336770638465069326372785941786582933708563"
+        },
+        "total_coefficients": 2288,
+        "zero_coefficients": 1925
+      },
+      "residual_H": {
+        "degree": [
+          6,
+          6,
+          14,
+          19
+        ],
+        "largest": {
+          "denominator": "1",
+          "numerator": "1498714638336"
+        },
+        "negative_coefficients": 0,
+        "positive_coefficients": 7526,
+        "sha256_all_coefficients": "7c45cb9822cb7f4b2403803af6747994fd56056d346fedeafad397448238b34c",
+        "smallest_positive": {
+          "denominator": "404960427074964984956450460186366639816130758290801402729145610524634133959801648977829444405941205117748093861692223814251597365459173778488449823526578858725747579549103033547142696010558368216308454482274213232421875000",
+          "numerator": "1050393153528419297327717088492566199120900965857689617022137047222889699469147637555228425842467582544855687420810027058367946280333943366754854652996786777567038927906887963972282928090991773160466305524637130130013"
+        },
+        "total_coefficients": 14700,
+        "zero_coefficients": 7174
+      },
+      "variables": [
+        "u",
+        "v",
+        "w",
+        "tau"
+      ]
+    },
+    "compactness_sign_audit": {
+      "basis": "Bernstein in (u,v,w), power basis in rho",
+      "degree": [
+        3,
+        3,
+        4,
+        7
+      ],
+      "largest": {
+        "denominator": "1",
+        "numerator": "18468"
+      },
+      "negative_coefficients": 0,
+      "positive_coefficients": 366,
+      "sha256_all_coefficients": "4c59c0b6a6bae3372e4820ec27952d9c4b200c277f4371347fee1c707090ca0c",
+      "smallest_positive": {
+        "denominator": "18",
+        "numerator": "1"
+      },
+      "total_coefficients": 640,
+      "zero_coefficients": 274
+    },
+    "domain": "0<v<u<1, 0<w<1, t>0",
+    "exact_linear_witness": {
+      "active_target_rows_flat_index_sha256": "f0c54ed3e84ee6d373a270be279ace49296a60460e38ba6fc6f022cff95e81dd",
+      "matrix_order": 363,
+      "multiplier_support_flat_index_sha256": "c2ad074376bb0a2c89b93ad1c4182ad5be1d6da9107a92d5a3c38f0373bd63e6",
+      "solution_method": "exact nonsingular rational solve; the resulting multiplier is then checked against every target row"
+    },
+    "hypothesis_used": "gamma_4>=gamma_3",
+    "identities": {
+      "certificate": "T_tilde=S*G_tilde+H",
+      "compactness": "The mixed Bernstein/power expansion of R(u,v,w,2+rho) is nonnegative and strictly positive in the open parameter domain; hence R<=0 implies t<2.",
+      "comparison": "I_{gamma_0}(1,4)-p=t*T/Delta_margin, with Delta_margin>0",
+      "logic": "G_tilde,S,H>=0 imply T_tilde>=0",
+      "order_gap": "gamma_4-gamma_3=(w-1)*R/Delta_order, with Delta_order>0 and G=-R",
+      "rescaling": "t=2*tau maps the ordered domain into [0,1]^4"
+    },
+    "normalized_knots": [
+      "-1",
+      "-u",
+      "-v",
+      "t*w",
+      "t"
+    ],
+    "polynomials": {
+      "comparison_T_before_rescaling": {
+        "degree": [
+          6,
+          6,
+          14,
+          19
+        ],
+        "power_terms": 4015,
+        "sha256_power_expansion": "90318bd38f547045b96539409042939b4b138d74964509f3dedd64af83bfe0f8"
+      },
+      "order_G_before_rescaling": {
+        "degree": [
+          3,
+          3,
+          4,
+          7
+        ],
+        "power_terms": 87,
+        "sha256_power_expansion": "5a92f4cb1703109607478ff8e1a38ecd2d44144325ccdc0e6b8eae3148f5ed78"
+      },
+      "shifted_R_for_t_at_least_2": {
+        "degree": [
+          3,
+          3,
+          4,
+          7
+        ],
+        "power_terms": 227,
+        "sha256_power_expansion": "92e2bcc964b90d9ac4552ce1458999c7b55f49546cc91a764611ca3133049909"
+      }
+    }
+  },
+  "two_below_three_above": {
+    "bernstein_basis": {
+      "domain": "[0,1]^4",
+      "quotient_S": {
+        "degree": [
+          7,
+          15,
+          22,
+          54
+        ],
+        "largest": {
+          "denominator": "1",
+          "numerator": "15092597657260130304"
+        },
+        "negative_coefficients": 0,
+        "positive_coefficients": 151230,
+        "sha256_all_coefficients": "c469dca6c885b078c3229de75c0a27902a181c3fd10a3090c7ed09416c03f0fd",
+        "smallest_positive": {
+          "denominator": "36840513835125",
+          "numerator": "64"
+        },
+        "total_coefficients": 161920,
+        "zero_coefficients": 10690
+      },
+      "remainder_H": {
+        "degree": [
+          3,
+          16,
+          24,
+          59
+        ],
+        "largest": {
+          "denominator": "1",
+          "numerator": "724444687547806777344"
+        },
+        "negative_coefficients": 0,
+        "positive_coefficients": 80067,
+        "sha256_all_coefficients": "fb5412edbad29673a576c5d52e6876fa32e336cffe0f69aa03b267a078e60454",
+        "smallest_positive": {
+          "denominator": "4284919345485303525",
+          "numerator": "16"
+        },
+        "total_coefficients": 102000,
+        "zero_coefficients": 21933
+      },
+      "variables": [
+        "u",
+        "v",
+        "w",
+        "t"
+      ]
+    },
+    "domain": "0<u<1, 0<v<w<1, t>0",
+    "hypothesis_used": "gamma_4>=gamma_3",
+    "identities": {
+      "comparison": "I_{gamma_0}(1,4)-p=t*T/Delta_margin, with Delta_margin>0",
+      "division": "T=S*G+H",
+      "logic": "G,S,H>=0 on the unit cube imply T>=0",
+      "order_gap": "gamma_4-gamma_3=(w-1)*R/Delta_order, with Delta_order>0 and G=-R",
+      "unit_cube": "R=t^2*u^3-u^4+Q, where every power coefficient of Q is positive; hence R<=0 implies t^2<=u<1"
+    },
+    "normalized_knots": [
+      "-1",
+      "-u",
+      "t*v",
+      "t*w",
+      "t"
+    ],
+    "polynomials": {
+      "comparison_T": {
+        "degree": [
+          11,
+          9,
+          9,
+          22
+        ],
+        "power_terms": 6895,
+        "sha256_power_expansion": "ed4fe6fc9e45e299d802db1fce0e6e0c875645c3341b179c538d9c0594f5d32c"
+      },
+      "confinement_Q": {
+        "degree": [
+          3,
+          1,
+          2,
+          5
+        ],
+        "power_terms": 27,
+        "sha256_power_expansion": "c27d867a90fd0bea63419452e8545f2db1cc28a559e0ffc34dfef1a76e646e4a"
+      },
+      "order_G": {
+        "degree": [
+          4,
+          1,
+          2,
+          5
+        ],
+        "power_terms": 29,
+        "sha256_power_expansion": "c019e37ecf1937b0865961aa81bd39a25a81d9af87665db3bef51277a3fded69"
+      },
+      "quotient_S": {
+        "degree": [
+          7,
+          15,
+          22,
+          54
+        ],
+        "power_terms": 28236,
+        "sha256_power_expansion": "d270283f2bb646935f0a76386645b81d556949ddb83a70d463c7f12b711990e0"
+      },
+      "remainder_H": {
+        "degree": [
+          3,
+          16,
+          24,
+          59
+        ],
+        "power_terms": 35697,
+        "sha256_power_expansion": "b64a055334d3d4120e0c952712f80c28542957ab499ef63b95e9662dd65f9f71"
+      }
+    }
+  }
+}

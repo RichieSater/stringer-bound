@@ -69,12 +69,27 @@ rule.
 The exact comparisons already proved in this repository give a stronger
 uniform statement:
 
-- for `n=3,4,5,6,7` and `alpha in {0.10,0.05,0.01}`, binomial Stringer is at
-  least `G_alpha` for **every** sample, so the safeguard is mathematically
-  identical to ordinary binomial Stringer;
+- for `n=3` and every
+  `0<alpha<=((19+sqrt(21))/34)^3=0.3336852118...`, for `n=4` and every
+  `0<alpha<=0.3214292869970077...`, for `n=5` and every
+  `0<alpha<=0.3141689898050253...`, and for `n=6,7` with
+  `alpha in {0.10,0.05,0.01}`, binomial Stringer is at least `G_alpha` for
+  **every** sample, so the safeguard is mathematically identical to ordinary
+  binomial Stringer;
 - at those levels and sample sizes, Poisson Stringer is no smaller than
   binomial Stringer, so the Poisson safeguard is also identical to ordinary
   Poisson Stringer.
+
+The enlarged `n=3`, `n=4`, and `n=5` scopes follow from the four-, five-, and
+six-coordinate
+monotone-weight cap theorems in
+[`TETRAHEDRAL-VERTEX-BARRIER.md`](TETRAHEDRAL-VERTEX-BARRIER.md); the older
+414-cell certificate remains an independent `n=3` proof on `[0.01,0.20]`.
+See also
+[`FIVE-COORDINATE-VERTEX-BARRIER.md`](FIVE-COORDINATE-VERTEX-BARRIER.md)
+and [`N4-MONOTONE-RANGE.md`](N4-MONOTONE-RANGE.md),
+[`SIX-COORDINATE-UNIQUE-TOP-L2-L3.md`](SIX-COORDINATE-UNIQUE-TOP-L2-L3.md),
+and [`N5-MONOTONE-RANGE.md`](N5-MONOTONE-RANGE.md).
 
 There is also a larger, sample-checkable region. At every
 `0<alpha<=1/4` and every sample size, if the **binomial** Stringer value

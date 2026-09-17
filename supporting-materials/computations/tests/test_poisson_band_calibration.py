@@ -18,7 +18,6 @@ CERTIFICATE = (
     / "certificates"
     / "poisson-band-calibration-certificate.json"
 )
-PAPER = Path(__file__).resolve().parents[2] / "paper" / "stringer.tex"
 THEORY = Path(__file__).resolve().parents[2] / "theory" / "POISSON-BAND-CALIBRATION.md"
 PRACTICE = (
     Path(__file__).resolve().parents[2]
@@ -68,11 +67,9 @@ class ScalarCalibrationTests(unittest.TestCase):
             self.assertLess(rho, 1)
             self.assertLessEqual(alpha, 1 - rho)
 
-        paper = PAPER.read_text()
         theory = THEORY.read_text()
         practice = PRACTICE.read_text()
-        self.assertIn(r"\label{cor:poissonuniform}", paper)
-        self.assertIn(r"\alpha\le1-\frac2e", paper)
+        self.assertIn("## 3. A sample-size-uniform analytic multiplier", theory)
         self.assertIn(r"\alpha\le1-2/e", theory)
         self.assertIn("sample size", practice)
         self.assertIn("2/e", practice)
@@ -110,14 +107,13 @@ class ScalarCalibrationTests(unittest.TestCase):
         )
 
     def test_refined_uniform_table_matches_production_choices(self):
-        paper = PAPER.read_text()
         theory = THEORY.read_text()
         for alpha_text, (kappa, prefix_terms) in (
             REFINED_UNIFORM_MULTIPLIERS.items()
         ):
             confidence = int(100 * (1 - Fraction(alpha_text)))
             decimal = _upward_decimal(kappa, 6)
-            self.assertIn(f"${decimal}$", paper)
+            self.assertIn(f"`{decimal}`", PRACTICE.read_text())
             self.assertIn(
                 f"| {confidence}% | {decimal} |", theory)
             self.assertIn(f"`J={prefix_terms}`", theory)
@@ -515,9 +511,8 @@ class ScalarCalibrationTests(unittest.TestCase):
                     nominal,
                 )
 
-    def test_manuscript_table_rounds_every_certified_upper_upward(self):
+    def test_documented_tables_round_every_certified_upper_upward(self):
         payload = json.loads(CERTIFICATE.read_text())
-        paper = PAPER.read_text()
         theory = THEORY.read_text()
         practice = PRACTICE.read_text()
         confidence = {"0.10": "90", "0.05": "95", "0.01": "99"}
@@ -535,11 +530,8 @@ class ScalarCalibrationTests(unittest.TestCase):
                 text for text in confidence
                 if Fraction(text) == Fraction(case["alpha"])
             )
-            paper_row = "$%s\\%%$ & $%s$ & $%s$\\\\" % (
-                confidence[alpha_text], displayed, elementary_displayed)
             theory_row = "| %s%% | %s | %s |" % (
                 confidence[alpha_text], displayed, elementary_displayed)
-            self.assertIn(paper_row, paper)
             self.assertIn(theory_row, theory)
             self.assertIn(f"`{displayed}`", practice)
         for level in payload["levels"]:
@@ -548,9 +540,9 @@ class ScalarCalibrationTests(unittest.TestCase):
                     _record_fraction(case["kappa_upper"]), 6)
                 for case in level["cases"]
             ]
-            row = "$%s\\%%$ & %s\\\\" % (
-                confidence[level["alpha"]], " & ".join(f"${x}$" for x in displayed))
-            self.assertIn(row, paper)
+            row = "| %s%% | %s |" % (
+                confidence[level["alpha"]], " | ".join(displayed))
+            self.assertIn(row, practice)
             for case in level["cases"]:
                 displayed_12 = _upward_decimal(
                     _record_fraction(case["kappa_upper"]), 12)

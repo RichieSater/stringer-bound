@@ -1,0 +1,385 @@
+{
+  "challenge_path": "supporting-materials/computations/challenges/simplex-cap-challenge.json",
+  "challenge_sha256": "58d3668766e1a8f5efa8e474106f1b25a92030dd7c5f12e91afb5e44a28d31b7",
+  "composition_status": "The challenge is solution-free; this index binds each declared instance to its written reduction, deterministic data, checker, and regeneration commands.",
+  "instances": [
+    {
+      "id": "binomial-n3-confidence-range",
+      "mathematical_status": "proved",
+      "proof_obligation": null,
+      "scope_copy": {
+        "alpha_domain": {
+          "lower": "1/100",
+          "type": "closed_interval",
+          "upper": "1/5"
+        },
+        "sample_size": 3
+      },
+      "sources": [
+        {
+          "path": "supporting-materials/theory/N3-CONVENTIONAL.md",
+          "role": "written cap reduction and uniform-alpha proof",
+          "sha256": "ac404a76911ca93d3d28a15211f5fb981d0b8b47feda973355ef5975acd6bfb8"
+        },
+        {
+          "path": "supporting-materials/computations/certificates/n3-gaffke-bernstein-formulas.json",
+          "role": "derived middle-region Bernstein formulas",
+          "sha256": "59393c29eac31db01c0574fc8e4c0dc05abaed920e5f610428b9d08c5bdd2965"
+        },
+        {
+          "path": "supporting-materials/computations/certificates/n3-gaffke-certificate.json",
+          "role": "exact 414-cell range sign data",
+          "sha256": "f3c8ca18592f252f0daa11ae8502bbab74f7b4bfa3717710f70e863e14f9a29d"
+        },
+        {
+          "path": "supporting-materials/computations/python/derive_n3_bernstein_formulas.py",
+          "role": "symbolic formula regeneration",
+          "sha256": "8c7fa0c54b7f30546147ab6dd0a3a8ca1834b8b11ad894a414a12aa0e387003e"
+        },
+        {
+          "path": "supporting-materials/computations/python/n3_gaffke_certificate.py",
+          "role": "exact range-certificate regeneration",
+          "sha256": "6dd1e04ef64b9d60a723e5050a0551e59d5f00a33ff9e00c47c6a9ed9b614cdb"
+        }
+      ],
+      "verification_commands": [
+        "make n3-formula-check",
+        "make n3-certificate-check"
+      ]
+    },
+    {
+      "id": "binomial-n4-confidence-range",
+      "mathematical_status": "unresolved",
+      "proof_obligation": "The first-coordinate beta bound is not an active-prefix bound on repeated-lowest faces. The global monotone cap theorem remains unresolved.",
+      "scope_copy": {
+        "alpha_domain": {
+          "defining_polynomial": "49*r_4^3-79*r_4^2+41*r_4-7",
+          "lower": "0",
+          "lower_inclusive": false,
+          "root_interval": [
+            "1/2",
+            "7/8"
+          ],
+          "type": "algebraic_right_closed_interval",
+          "upper": "r_4^4",
+          "upper_inclusive": true
+        },
+        "sample_size": 4
+      },
+      "sources": [
+        {
+          "path": "supporting-materials/theory/FIVE-COORDINATE-VERTEX-BARRIER.md",
+          "role": "local inequalities and incomplete global face implication",
+          "sha256": "c33f7a79cb21aa404a90b3bbe0f4fbc5d1954b874b2a05f431c0a5497809ca39"
+        },
+        {
+          "path": "supporting-materials/theory/FIVE-COORDINATE-MIXED-SECTION.md",
+          "role": "distinct-knot and unique-top local reductions",
+          "sha256": "909e79b7c466a938a46a0390130af085a930a9a165c272109404c05624f5a3ae"
+        },
+        {
+          "path": "supporting-materials/computations/certificates/five-coordinate-mixed-section-certificate.json",
+          "role": "exact mixed-section coefficient-sign data",
+          "sha256": "6af403435ea01f99ce3cbdd0b9c42699e3747d2ea2e3cb4fafc465c11e51b68b"
+        },
+        {
+          "path": "supporting-materials/computations/python/five_coordinate_mixed_section.py",
+          "role": "exact mixed-section identity and sign regeneration",
+          "sha256": "300dd120edd2b95b02a23826e16b743ac29cd1fe783fb4ebb99d1b8d1e485c00"
+        },
+        {
+          "path": "supporting-materials/computations/python/five_coordinate_mixed_witness.py",
+          "role": "index-only sparse exact-system witness",
+          "sha256": "a1c6e8cf34c0ce826f52ac6083338987240ec89421a1cb5558194530684c4dcc"
+        },
+        {
+          "path": "supporting-materials/computations/certificates/five-coordinate-block-faces-certificate.json",
+          "role": "exact repeated-top coefficient-sign data",
+          "sha256": "28cb8487577b3d76336275fb5d3522b93745956ac5c83413fd4af6c54e269199"
+        },
+        {
+          "path": "supporting-materials/computations/python/five_coordinate_block_faces.py",
+          "role": "exact repeated-top identity and sign regeneration",
+          "sha256": "ab44601d2c36067d3f3313f14a1bda43529b056b88f430e328c1102994f77c6b"
+        },
+        {
+          "path": "supporting-materials/computations/python/five_coordinate_block_witness.py",
+          "role": "index-only repeated-top exact-system witnesses",
+          "sha256": "559b86ad1ecb7b526a3909441de323c6c763f4b03be1e0b7a4fa7e6b88f8fdfb"
+        },
+        {
+          "path": "supporting-materials/theory/N4-MONOTONE-RANGE.md",
+          "role": "proved weight-order analysis and conditional coverage implication",
+          "sha256": "c26ffa9d3dcfef80cb8c224d4ffd87791d861171f4119a1b8da2fdd31cb09c40"
+        },
+        {
+          "path": "supporting-materials/computations/certificates/n4-weight-monotonicity-certificate.json",
+          "role": "exact resultant, Sturm, and endpoint data",
+          "sha256": "471847f75f4471b8d6c0fea886666fefc87f776b4f54a537d4b152f0112e2c10"
+        },
+        {
+          "path": "supporting-materials/computations/python/n4_weight_monotonicity.py",
+          "role": "exact resultant and weight-range regeneration",
+          "sha256": "973165fe7496324fce32cceb3d376f1ca74268d9c7afd809ad70c85705a0bae5"
+        }
+      ],
+      "verification_commands": [
+        "make five-coordinate-mixed-section-check",
+        "make five-coordinate-block-faces-check",
+        "make n4-weight-monotonicity-check"
+      ]
+    },
+    {
+      "id": "binomial-n5-confidence-range",
+      "mathematical_status": "unresolved",
+      "proof_obligation": "The first-coordinate beta bound is not an active-prefix bound on repeated-lowest faces. The global monotone cap theorem remains unresolved.",
+      "scope_copy": {
+        "alpha_domain": {
+          "defining_polynomial": "129*r_5^4-271*r_5^3+209*r_5^2-71*r_5+9",
+          "lower": "0",
+          "lower_inclusive": false,
+          "root_interval": [
+            "1/2",
+            "9/10"
+          ],
+          "type": "algebraic_right_closed_interval",
+          "upper": "r_5^5",
+          "upper_inclusive": true
+        },
+        "sample_size": 5
+      },
+      "sources": [
+        {
+          "path": "supporting-materials/theory/ADJACENT-BLOCK-HIERARCHY.md",
+          "role": "ordered-composition reduction and exhaustive family count",
+          "sha256": "385e4101fe2fe973be2b3343cd77f996f1a9d43bf7b49f14273ce984b9b151d3"
+        },
+        {
+          "path": "supporting-materials/theory/SIX-COORDINATE-REPEATED-TOP.md",
+          "role": "all six repeated-top local barriers",
+          "sha256": "3a85848a10d8b688af76d5da387740f6f8146de0011ede1b74df7bb39fe9ff57"
+        },
+        {
+          "path": "supporting-materials/computations/certificates/six-coordinate-repeated-top-certificate.json",
+          "role": "exact repeated-top coefficient-sign data",
+          "sha256": "a7a20b8768bc0097fbce628d65df7db44fef0efeaeb0302c2377443cc44bc511"
+        },
+        {
+          "path": "supporting-materials/computations/python/six_coordinate_repeated_top.py",
+          "role": "exact repeated-top identity and sign regeneration",
+          "sha256": "5056cac994336e6676e45714cd98e51973b66759dc724362dd22030f22110b96"
+        },
+        {
+          "path": "supporting-materials/computations/python/six_coordinate_face32.py",
+          "role": "exact final repeated-top projective certificate",
+          "sha256": "24927ed8241966a089f371c5471b146806caee8417db788f2d14a939e2009dfb"
+        },
+        {
+          "path": "supporting-materials/theory/SIX-COORDINATE-UNIQUE-TOP.md",
+          "role": "unique-top L=4 projective reduction",
+          "sha256": "9d098d452fd0a1d54d70aaed3b379cccac12451407dda70834d5ca510042f427"
+        },
+        {
+          "path": "supporting-materials/computations/certificates/six-coordinate-unique-top-certificate.json",
+          "role": "exact unique-top L=4 coefficient-sign data",
+          "sha256": "b8627be09e504bddbc77d65cca85ddcce82e2f765752db7b044995e12ac8acac"
+        },
+        {
+          "path": "supporting-materials/computations/python/six_coordinate_unique_top.py",
+          "role": "exact unique-top L=4 sign regeneration",
+          "sha256": "9994cfa33c1af2888ac6948d0035596dd7f819aa307f0b87b1d45a9808c5c113"
+        },
+        {
+          "path": "supporting-materials/theory/SIX-COORDINATE-UNIQUE-TOP-L2-L3.md",
+          "role": "sharp minorant and final unique-top projective reductions",
+          "sha256": "6c7f92501367e2d1ebaaa0634599cb705a5c555310268cb7a97457ba357aa05a"
+        },
+        {
+          "path": "supporting-materials/computations/certificates/six-coordinate-unique-top-l2-l3-certificate.json",
+          "role": "exact and rigorously enclosed L=2/L=3 sign data",
+          "sha256": "9715ee9a5f1f44ef4eb2cb3314a95e2c5a4e43a17833fe4d86a7ae8229aedaaa"
+        },
+        {
+          "path": "supporting-materials/computations/python/six_coordinate_unique_top_l2_l3.py",
+          "role": "L=2/L=3 symbolic and certificate regeneration",
+          "sha256": "e4e8e985124a4e2f9f15bc3d154e7a6164a275502fe1eb4f155bcc54eff29555"
+        },
+        {
+          "path": "supporting-materials/computations/python/certified_binary64_bernstein.py",
+          "role": "exact forward-error verification of the large L=2 chart",
+          "sha256": "95590ce7cd913068c6eb28fa9c1142fe95f54bc17b5d0a0a83d057526ad95d78"
+        },
+        {
+          "path": "supporting-materials/theory/N5-MONOTONE-RANGE.md",
+          "role": "proved weight-order analysis and conditional coverage implication",
+          "sha256": "0885c810e1a083e8fa6ca4c1038615f447b120f5442757cbc4298cebe57e9a4d"
+        },
+        {
+          "path": "supporting-materials/computations/certificates/n5-weight-monotonicity-certificate.json",
+          "role": "exact resultant, Sturm, and endpoint data",
+          "sha256": "4f94f726285a4827f666fbd3b8e6714fc1c75d82eddb41b5fb94e5a19810bc50"
+        },
+        {
+          "path": "supporting-materials/computations/python/n5_weight_monotonicity.py",
+          "role": "exact resultant and weight-range regeneration",
+          "sha256": "cbf5ac88128ddf1d58031c3f1fd1f3d30a643f027a4e30b385c7bda7359249a0"
+        }
+      ],
+      "verification_commands": [
+        "make six-coordinate-repeated-top-check",
+        "make six-coordinate-unique-top-check",
+        "make six-coordinate-unique-top-l2-l3-check",
+        "make n5-weight-monotonicity-check"
+      ]
+    },
+    {
+      "id": "binomial-n5-conventional-levels",
+      "mathematical_status": "proved",
+      "proof_obligation": null,
+      "scope_copy": {
+        "alpha_domain": {
+          "type": "finite_set",
+          "values": [
+            "1/100",
+            "1/20",
+            "1/10"
+          ]
+        },
+        "sample_size": 5
+      },
+      "sources": [
+        {
+          "path": "supporting-materials/theory/N5-CONVENTIONAL.md",
+          "role": "written five-region cap reduction",
+          "sha256": "61e0bc54d8a65b18d63c45d736fd4dab8ce0ce794bab67670c7abb56b6ec3abd"
+        },
+        {
+          "path": "supporting-materials/computations/certificates/n5-gaffke-bernstein-structure.json",
+          "role": "exact residual, face, and triangulation structure",
+          "sha256": "343508e36d23e65fc7cd7915157debdc7527021fee92a5feba87923f8298f2df"
+        },
+        {
+          "path": "supporting-materials/computations/certificates/n5-gaffke-certificate.json",
+          "role": "directed-dyadic coefficient-sign data",
+          "sha256": "76a430467608d6951bd7442eec81dfa275557939f76d47089b1bcc8b8526cee1"
+        },
+        {
+          "path": "supporting-materials/computations/python/derive_n5_bernstein_structure.py",
+          "role": "symbolic structure regeneration",
+          "sha256": "cf98de7c84639988733ac51c3749d52e93ab53fdd48104d869b934a61233fb70"
+        },
+        {
+          "path": "supporting-materials/computations/python/n5_gaffke_certificate.py",
+          "role": "directed-dyadic sign regeneration",
+          "sha256": "2d06905cc4cff26c90100d5d1f08d6b7b440df99b026a7b4b85f66d8f490b340"
+        }
+      ],
+      "verification_commands": [
+        "make n5-structure-check",
+        "make n5-certificate-check"
+      ]
+    },
+    {
+      "id": "binomial-n6-conventional-levels",
+      "mathematical_status": "proved",
+      "proof_obligation": null,
+      "scope_copy": {
+        "alpha_domain": {
+          "type": "finite_set",
+          "values": [
+            "1/100",
+            "1/20",
+            "1/10"
+          ]
+        },
+        "sample_size": 6
+      },
+      "sources": [
+        {
+          "path": "supporting-materials/theory/N6-CONVENTIONAL.md",
+          "role": "written six-region cap reduction",
+          "sha256": "bde13f50e82f558bdbe245d440b888347ec3fd369d2a87d53b472cc51bb02aec"
+        },
+        {
+          "path": "supporting-materials/computations/certificates/n6-gaffke-bernstein-structure.json",
+          "role": "exact residual, face, and triangulation structure",
+          "sha256": "d2fe5305d34f46c6fde9c46416067817f933939d7b0ff626857024d3e2835889"
+        },
+        {
+          "path": "supporting-materials/computations/certificates/n6-gaffke-certificate.json",
+          "role": "directed-dyadic coefficient-sign data",
+          "sha256": "d871441c3febb668d4018a755e701e0157b9be5eac1274c11aef7fc80fb8d763"
+        },
+        {
+          "path": "supporting-materials/computations/python/derive_n6_bernstein_structure.py",
+          "role": "symbolic structure and face-ideal regeneration",
+          "sha256": "06f125fc6a8d03f52923376c097de33cbc0857d408281b260f5a3c48ededd2d1"
+        },
+        {
+          "path": "supporting-materials/computations/python/n6_gaffke_certificate.py",
+          "role": "directed-dyadic sign regeneration",
+          "sha256": "97e304a6fa5cd63b7706a0fbeb35f544940436ddcac889c803cbb3bf21767804"
+        }
+      ],
+      "verification_commands": [
+        "make n6-structure-check",
+        "make n6-certificate-check"
+      ]
+    },
+    {
+      "id": "binomial-n7-conventional-levels",
+      "mathematical_status": "proved",
+      "proof_obligation": null,
+      "scope_copy": {
+        "alpha_domain": {
+          "type": "finite_set",
+          "values": [
+            "1/100",
+            "1/20",
+            "1/10"
+          ]
+        },
+        "sample_size": 7
+      },
+      "sources": [
+        {
+          "path": "supporting-materials/theory/N7-CONVENTIONAL.md",
+          "role": "written seven-region cap reduction",
+          "sha256": "94ba9984540780c386437dacfe4d5ee98aa703a78117af7c2bfeba89d9c60c14"
+        },
+        {
+          "path": "supporting-materials/computations/certificates/n7-gaffke-bernstein-structure.json.gz",
+          "role": "exact compressed residual and face structure",
+          "sha256": "ae59d92bfd8bdbe5b413d38e758db921b4e80e9d6373c9120fbc0ec358888f83"
+        },
+        {
+          "path": "supporting-materials/computations/certificates/n7-gaffke-certificate.json",
+          "role": "rigorous Arb sign summary",
+          "sha256": "0a7ff105635d510f3e14468f83bc25b47310c51fe35b3092165d26b0820653cd"
+        },
+        {
+          "path": "supporting-materials/computations/python/n7_gaffke_structure_data.py",
+          "role": "fixed triangulation and face conditions",
+          "sha256": "9f3828e1b837197d3920e88045a3528b434555bcb0de2a5a662c26cf0ff1cbe7"
+        },
+        {
+          "path": "supporting-materials/computations/python/derive_n7_bernstein_structure.py",
+          "role": "symbolic structure and face-proof regeneration",
+          "sha256": "66b39d7a44770ac47ce57810a8dbfb0ae980adc95a1f2f40dda23f36dbbde99b"
+        },
+        {
+          "path": "supporting-materials/computations/python/n7_gaffke_certificate.py",
+          "role": "outward-rounded Arb sign regeneration",
+          "sha256": "59e175a3be7f96297629654df8d0ea42f1e3760bdb5bccd65f786ae65559fc1d"
+        }
+      ],
+      "verification_commands": [
+        "make n7-structure-data-check",
+        "make n7-certificate-check"
+      ]
+    }
+  ],
+  "interface": "ordered-simplex-cap-comparison",
+  "limitation": "Index regeneration checks scope and artifact integrity. The listed commands perform symbolic and numerical sign checks. An unresolved global implication is not proved by artifact integrity.",
+  "schema_version": 1
+}

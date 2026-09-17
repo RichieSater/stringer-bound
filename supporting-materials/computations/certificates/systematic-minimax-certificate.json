@@ -1,0 +1,284 @@
+{
+  "algorithm": {
+    "coalition_step": "enumerate every inclusion-minimal atom coalition with probability strictly above alpha",
+    "complexity_note": "coalition enumeration is exponential in the worst case and fails closed at explicit limits",
+    "optimization_step": "solve each compatible least-favourable-completion LP by exact rational simplex, check matching feasible primal and dual objectives, and take the exact maximum",
+    "phase_step": "combine identical grid-incidence atoms"
+  },
+  "arithmetic_status": "phase probabilities, coalitions, LP coefficients, primal-dual simplex solutions, witnesses, and comparisons are exact rationals; no floating-point optimizer is used",
+  "factor_bracket_bits": 80,
+  "four_item_nonbinary_fixture": {
+    "alpha": {
+      "decimal_18": "0.250000000000000000",
+      "denominator": "4",
+      "numerator": "1"
+    },
+    "completion_bound": {
+      "decimal_18": "0.875000000000000000",
+      "denominator": "8",
+      "numerator": "7"
+    },
+    "exact_minimax_bound": {
+      "decimal_18": "0.750000000000000000",
+      "denominator": "4",
+      "numerator": "3"
+    },
+    "least_favourable_lower_tail_probability": {
+      "decimal_18": "0.500000000000000000",
+      "denominator": "2",
+      "numerator": "1"
+    },
+    "markov_bound": {
+      "decimal_18": "0.875000000000000000",
+      "denominator": "8",
+      "numerator": "7"
+    },
+    "observed_taint": {
+      "decimal_18": "0.500000000000000000",
+      "denominator": "2",
+      "numerator": "1"
+    },
+    "phase_probabilities": [
+      {
+        "decimal_18": "0.250000000000000000",
+        "denominator": "4",
+        "numerator": "1"
+      },
+      {
+        "decimal_18": "0.250000000000000000",
+        "denominator": "4",
+        "numerator": "1"
+      },
+      {
+        "decimal_18": "0.250000000000000000",
+        "denominator": "4",
+        "numerator": "1"
+      },
+      {
+        "decimal_18": "0.250000000000000000",
+        "denominator": "4",
+        "numerator": "1"
+      }
+    ],
+    "sample_size": 1,
+    "weights": [
+      1,
+      1,
+      1,
+      1
+    ]
+  },
+  "method": "exact inversion of the lower-tail randomization rank of the systematic grid mean, maximized over compatible taint completions",
+  "practical_95pct_all_zero_benchmark": {
+    "alpha": {
+      "decimal_18": "0.050000000000000000",
+      "denominator": "20",
+      "numerator": "1"
+    },
+    "coalition_lps_evaluated": 190,
+    "coalition_search_nodes": 419,
+    "completion_bound": {
+      "decimal_18": "0.950000000000000000",
+      "denominator": "20",
+      "numerator": "19"
+    },
+    "distinct_observed_items": 100,
+    "distinct_phase_atom_count": 20,
+    "exact_minimax_bound": {
+      "decimal_18": "0.900000000000000000",
+      "denominator": "10",
+      "numerator": "9"
+    },
+    "improvement_over_prior_hybrid": {
+      "decimal_18": "0.050000000000000000",
+      "denominator": "20",
+      "numerator": "1"
+    },
+    "infeasible_coalitions": 0,
+    "integer_random_start_positions": 20,
+    "items_per_phase": 100,
+    "least_favourable_witness": {
+      "coalition_probability": {
+        "decimal_18": "0.100000000000000000",
+        "denominator": "10",
+        "numerator": "1"
+      },
+      "exact_lower_tail_probability": {
+        "decimal_18": "0.100000000000000000",
+        "denominator": "10",
+        "numerator": "1"
+      },
+      "maximizing_atom_coalition_zero_based": [
+        0,
+        1
+      ],
+      "one_taints": 1800,
+      "target": {
+        "decimal_18": "0.900000000000000000",
+        "denominator": "10",
+        "numerator": "9"
+      },
+      "zero_taints": 200
+    },
+    "markov_bound": {
+      "decimal_18": "0.950000000000000000",
+      "denominator": "20",
+      "numerator": "19"
+    },
+    "minimal_coalitions_enumerated": 190,
+    "observed_grid_mean": {
+      "decimal_18": "0.000000000000000000",
+      "denominator": "1",
+      "numerator": "0"
+    },
+    "observed_phase_zero_based": 0,
+    "observed_taint": 0,
+    "ordinary_binomial_all_zero": {
+      "lower": {
+        "decimal_18": "0.029513049607039935",
+        "denominator": "1208925819614629174706176",
+        "numerator": "35679087685517962304731"
+      },
+      "upper": {
+        "decimal_18": "0.029513049607039935",
+        "denominator": "302231454903657293676544",
+        "numerator": "8919771921379490576183"
+      }
+    },
+    "ordinary_poisson_all_zero": {
+      "lower": {
+        "decimal_18": "0.029957322735539910",
+        "denominator": "120892581961462917470617600",
+        "numerator": "3621618094152255057392447"
+      },
+      "upper": {
+        "decimal_18": "0.029957322735539910",
+        "denominator": "1888946593147858085478400",
+        "numerator": "56587782721128985271757"
+      }
+    },
+    "phase_probabilities": [
+      {
+        "decimal_18": "0.050000000000000000",
+        "denominator": "20",
+        "numerator": "1"
+      },
+      {
+        "decimal_18": "0.050000000000000000",
+        "denominator": "20",
+        "numerator": "1"
+      },
+      {
+        "decimal_18": "0.050000000000000000",
+        "denominator": "20",
+        "numerator": "1"
+      },
+      {
+        "decimal_18": "0.050000000000000000",
+        "denominator": "20",
+        "numerator": "1"
+      },
+      {
+        "decimal_18": "0.050000000000000000",
+        "denominator": "20",
+        "numerator": "1"
+      },
+      {
+        "decimal_18": "0.050000000000000000",
+        "denominator": "20",
+        "numerator": "1"
+      },
+      {
+        "decimal_18": "0.050000000000000000",
+        "denominator": "20",
+        "numerator": "1"
+      },
+      {
+        "decimal_18": "0.050000000000000000",
+        "denominator": "20",
+        "numerator": "1"
+      },
+      {
+        "decimal_18": "0.050000000000000000",
+        "denominator": "20",
+        "numerator": "1"
+      },
+      {
+        "decimal_18": "0.050000000000000000",
+        "denominator": "20",
+        "numerator": "1"
+      },
+      {
+        "decimal_18": "0.050000000000000000",
+        "denominator": "20",
+        "numerator": "1"
+      },
+      {
+        "decimal_18": "0.050000000000000000",
+        "denominator": "20",
+        "numerator": "1"
+      },
+      {
+        "decimal_18": "0.050000000000000000",
+        "denominator": "20",
+        "numerator": "1"
+      },
+      {
+        "decimal_18": "0.050000000000000000",
+        "denominator": "20",
+        "numerator": "1"
+      },
+      {
+        "decimal_18": "0.050000000000000000",
+        "denominator": "20",
+        "numerator": "1"
+      },
+      {
+        "decimal_18": "0.050000000000000000",
+        "denominator": "20",
+        "numerator": "1"
+      },
+      {
+        "decimal_18": "0.050000000000000000",
+        "denominator": "20",
+        "numerator": "1"
+      },
+      {
+        "decimal_18": "0.050000000000000000",
+        "denominator": "20",
+        "numerator": "1"
+      },
+      {
+        "decimal_18": "0.050000000000000000",
+        "denominator": "20",
+        "numerator": "1"
+      },
+      {
+        "decimal_18": "0.050000000000000000",
+        "denominator": "20",
+        "numerator": "1"
+      }
+    ],
+    "population_items": 2000,
+    "prior_hybrid_bound": {
+      "decimal_18": "0.950000000000000000",
+      "denominator": "20",
+      "numerator": "19"
+    },
+    "raw_phase_count": 20,
+    "safe_binomial_overlay": {
+      "decimal_18": "0.900000000000000000",
+      "denominator": "10",
+      "numerator": "9"
+    },
+    "safe_poisson_overlay": {
+      "decimal_18": "0.900000000000000000",
+      "denominator": "10",
+      "numerator": "9"
+    },
+    "sample_size": 100,
+    "unit_book_weight_per_item": 1
+  },
+  "schema_version": 1,
+  "scope": "one-start systematic PPS on a fixed known rational frame with rational observed taints in [0,1]"
+}

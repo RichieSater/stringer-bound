@@ -1,0 +1,727 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1.2in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs}
+\usepackage{array,tabularx}
+\usepackage[hidelinks]{hyperref}
+
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\SB}{\mathrm{SB}}
+\newcommand{\pr}{\mathbb{P}}
+\newcommand{\E}{\mathbb{E}}
+
+\title{Exact finite-frame inference under one-start systematic
+probability-proportional-to-size sampling}
+\author{Richie Sater\\
+\small Independent researcher, Silver Spring, Maryland, USA\\
+\small \texttt{richiesater@gmail.com}}
+\date{September 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The ordinary Stringer upper bound is routinely paired with monetary-unit
+sampling, although a one-start systematic probability-proportional-to-size
+(PPS) sample is dependent rather than i.i.d.  We determine what can be
+guaranteed under the systematic design itself.  For every sample size
+$n\ge2$ and every tail level $\alpha\in(0,1)$, a periodic two-item-per-cell
+population makes binomial-factor Stringer undercover; the analogous
+Poisson rule also fails whenever $-\log(\alpha)/n<1-\alpha$.  The systematic
+sample mean nevertheless remains exactly design-unbiased.  This identity
+implies both a sharp impossibility result and a remedy: every universally
+valid taint-only bound must be at least $1-\alpha+\alpha y$ on the constant
+sample $(y,\ldots,y)$, and that floor is attained.  Intersecting it with a
+deterministic item-completion bound and then taking the maximum with capped
+Stringer yields a design-valid overlay.  When the ordered frame is known,
+exact inversion of the grid-mean randomization rank gives a pointwise
+smaller least-favourable-completion bound, expressible as finitely many
+rational linear programs.  For phase-partitioned frames this optimization
+reduces to a minimum-coalition formula; equal phases give a closed form,
+rational unequal phases admit an $O(KD)$ pseudo-polynomial algorithm, and
+exact evaluation is weakly NP-hard.  Independent starts yield an explicit
+all-zero formula.  In a 2,000-item, 100-draw example, exact inversion lowers
+the valid fallback from $0.95$ to $0.90$.
+\end{abstract}
+
+\noindent\textbf{Keywords:} monetary-unit sampling; systematic PPS;
+Stringer bound; finite-population inference; randomization inference;
+linear programming; subset sum.
+
+\section{Introduction}
+
+Monetary-unit sampling selects book units with probability proportional to
+recorded amount.  A common implementation places the ordered population on
+the cumulative-book-value line, chooses one random start, and takes equally
+spaced points thereafter.  This one-start systematic PPS design is easy to
+implement, but the observations within its grid are dependent.  Professional
+guidance permits systematic selection with random starts \cite{pcaob2315},
+and statistical treatments of monetary-unit sampling emphasize the
+importance of the actual unequal-probability design \cite{berger2021}.
+
+For comparison, let $t_{(1)}\ge\cdots\ge t_{(n)}$ be observed taints in
+nonincreasing order.  At tail level $\alpha$, the ordinary Stringer
+calculation is
+\begin{equation}\label{eq:sb}
+ \SB_\alpha=p_n(0)+\sum_{j=1}^{n}
+       \{p_n(j)-p_n(j-1)\}t_{(j)}.
+\end{equation}
+For the binomial convention, $p_n(j)$ is the upper Clopper--Pearson limit:
+for $j<n$ it is the solution of
+\[
+ \sum_{i=0}^{j}\binom ni p^i(1-p)^{n-i}=\alpha,
+ \qquad p_n(n)=1.
+\]
+For the Poisson convention, if $\lambda_j$ solves
+\[
+ e^{-\lambda_j}\sum_{i=0}^{j}\frac{\lambda_j^i}{i!}=\alpha,
+\]
+then $p_n(j)=\min(1,\lambda_j/n)$.  These factor sequences arise from
+independent count models; applying them to one systematic grid therefore
+requires a separate design argument.  Audit tables have long used the
+Poisson convention \cite{aicpa2012}, while Stringer's original construction
+uses binomial limits \cite{stringer1963}.
+
+Prior work already warns against identifying systematic selection with
+simple random sampling.  Hoogduin, Hall, Tsay, and Pierce \cite{hoogduin2015}
+showed by simulation that this mismatch can materially distort assessed
+risk.  Fienberg, Neter, and Leitch \cite{fienberg1977} obtained finite-sample
+audit bounds by maximizing over a multinomial confidence region.  Their
+discretized multinomial model differs from the fixed ordered-frame
+randomization problem studied here, but it is an important
+optimization-based predecessor. Recent work on randomized systematic
+unequal-probability sampling derives exact second-order inclusion
+probabilities for variance estimation \cite{vanberkel2026}; its target is
+different from the one-sided taint-completion problem here. Thus the
+contribution below is not a first warning about systematic sampling. It is an exact analysis: an
+all-$n$, all-confidence binomial failure family, the sharp information limit
+for taint-only bounds, a closed-form valid overlay, and a finite-frame
+randomization inversion.
+
+The main mechanism is the distinction between first moments and joint
+dependence.  Averaging over the random start makes the systematic grid mean
+exactly unbiased for the finite-population taint ratio.  A periodic ordering
+can nevertheless make every point in the grid reveal the same phase.  The
+first fact yields a Markov bound; the second proves that its value on
+constant samples cannot be improved without using item identities or frame
+structure.  Once the complete ordered frame is available, the unobserved
+taints become nuisance variables in an exact randomization test.  Maximizing
+the population ratio over compatible completions produces the sharper
+finite-frame bound.
+
+Sections~\ref{sec:one-start} and~\ref{sec:finite-frame} develop these two
+levels.  Section~\ref{sec:disjoint} identifies the phase-partitioned case in
+which the general linear programs collapse to subset sum and derives the
+independent-start formula.  Section~\ref{sec:calculation-boundary} states the
+role of the exact finite computations.  The universal theorems assume a
+fixed ordered population with positive known book weights, taints in
+$[0,1]$, and a uniform random start; they do not cover successive PPS,
+stratification, nonrandom starts, uncertain book amounts, or negative
+taints.
+
+\section{One-start design: unbiasedness, failure, and a sharp safeguard}
+\label{sec:one-start}
+
+The key split is between first-moment calibration and dependence: the sample
+average is design-unbiased, but the complete grid can behave as a single
+random observation. We first prove that separation, then derive the resulting
+failure family and use the same first-moment identity to construct a
+closed-form valid reporting rule.
+
+\subsection{Finite-population model and the two-phase construction}
+
+Let an ordered finite population have positive recorded amounts
+$w_1,\ldots,w_N$ and taints $t_1,\ldots,t_N\in[0,1]$. Put
+\[
+ W=\sum_{i=1}^Nw_i,
+ \qquad
+ \theta=\frac1W\sum_{i=1}^Nw_it_i.
+\]
+Place the items consecutively on $[0,W)$ and let $\tau(u)$ equal the taint
+of the item containing $u$. For intended sample size $n$, write $h=W/n$,
+draw $R\sim\operatorname{Unif}[0,h)$, and observe
+\[
+ T_k=\tau(R+kh),\qquad k=0,\ldots,n-1.
+\]
+Endpoints have probability zero and may be assigned by any fixed convention.
+This is the continuous book-unit form of one-start systematic PPS; the
+integer-book-unit version chooses one of the positions in an integer interval.
+
+\begin{proposition}[Design-unbiased systematic mean]
+\label{prop:sysunbiased}
+For every such ordered population,
+\[
+ \E_R\overline T=\theta,
+ \qquad
+ \overline T=\frac1n\sum_{k=0}^{n-1}T_k.
+\]
+\end{proposition}
+
+\begin{proof}
+Integration over the systematic cells gives
+\[
+ \E_R\overline T
+ =\frac1n\sum_{k=0}^{n-1}\frac1h
+   \int_0^h\tau(r+kh)\,dr
+ =\frac1W\int_0^W\tau(u)\,du
+ =\theta.
+\]
+\end{proof}
+
+Unbiasedness does not imply a binomial count law. Fix $0\le y<1$ and
+$0<q<1$. In each of the $n$ systematic cells put first an item of weight
+$qh$ and taint one, then an item of weight $(1-q)h$ and taint $y$. The
+complete sample is
+\begin{equation}\label{eq:systematictwophase}
+ (T_0,\ldots,T_{n-1})=
+ \begin{cases}
+ (1,\ldots,1),&\text{with probability }q,\\
+ (y,\ldots,y),&\text{with probability }1-q,
+ \end{cases}
+ \qquad
+ \theta=y+q(1-y).
+\end{equation}
+All items are smaller than one systematic interval, so this construction
+does not depend on duplicate-hit or certainty-item conventions.
+
+\begin{theorem}[Exact systematic-PPS failure family]
+\label{thm:systematicfailure}
+For every $n\ge2$ and every $\alpha\in(0,1)$, some ordered finite population
+of the form \eqref{eq:systematictwophase} gives ordinary binomial Stringer
+coverage strictly below $1-\alpha$. For ordinary Poisson factors the same
+conclusion holds whenever
+\begin{equation}\label{eq:poissonsystematiccondition}
+ \frac{-\log\alpha}{n}<1-\alpha.
+\end{equation}
+Thus Poisson Stringer fails on some population at 90\%, 95\%, and 99\%
+confidence for every $n\ge3,4,5$, respectively. Final capping at one does
+not alter these conclusions.
+\end{theorem}
+
+\begin{proof}
+For binomial factors, $p_n(0)=1-\alpha^{1/n}$ and telescoping the increments
+on the low phase gives
+\[
+ \SB_{\rm B}(y,\ldots,y)
+ =p_n(0)+\{1-p_n(0)\}y
+ =1-\alpha^{1/n}(1-y).
+\]
+Because $\alpha^{1/n}>\alpha$, choose
+\[
+ 1-\alpha^{1/n}<q<1-\alpha.
+\]
+Then the low-phase bound is below $\theta$, while that phase has probability
+$1-q>\alpha$. This proves binomial undercoverage. The high-phase binomial
+bound is one, so coverage in this family is exactly $q$.
+
+For Poisson factors take $y=0$. The all-zero bound is
+$\lambda_0/n=(-\log\alpha)/n$. Under
+\eqref{eq:poissonsystematiccondition}, choose
+$(-\log\alpha)/n<q<1-\alpha$. Again the low phase is a noncoverage event of
+probability greater than $\alpha$. The stated integer thresholds follow by
+direct substitution. In both arguments the open interval for $q$ contains a
+rational $a/m$; taking systematic interval $h=m$ gives the same construction
+with integer book amounts $a$ and $m-a$ in every cell.
+\end{proof}
+
+The smallest exact witness in a unit-item census at 95\% confidence has only
+nine book units. With $n=3$, interval three, and ordered taints
+\[
+ (1,1,0\mid1,1,0\mid1,1,0),
+\]
+the three starts return three ones, three ones, and three zeros. The target is
+$2/3$, whereas $p_3(0)=1-0.05^{1/3}<2/3$, so exact coverage is $2/3$ rather
+than $0.95$. Exact enumeration of all $2{,}188$ ordered binary populations
+and $4{,}444$ phases through total size nine finds no smaller unit-item
+witness; this finite minimality statement is limited to that enumerated class.
+
+A practical-size version makes the failure scale explicit. Take total
+recorded amount 1,000, $n=100$, and interval 10. Repeat 100 times an item of
+amount one and taint one followed by an item of amount nine and taint zero.
+One start gives 100 ones and the other nine starts give 100 zeros, while
+$\theta=0.1$. On the high phase the binomial bound is one. For Poisson
+factors, the exact inequality
+$\pr\{\operatorname{Pois}(10)\le10\}>0.10$ implies
+$\lambda_{100}>10$, so that phase also covers at all three levels below.
+Consequently, both ordinary factor conventions have exact coverage 0.1.
+
+\begin{table}[htbp]
+\centering
+\small
+\begin{tabular}{@{}rrrrrrr@{}}
+\toprule
+confidence & B zero & P zero & ordinary coverage & safe output & B uplift & P uplift\\
+\midrule
+$90\%$ & 0.0227628 & 0.0230259 & 0.1000000 & 0.1000000 & 0.0772372 & 0.0769741\\
+$95\%$ & 0.0295130 & 0.0299573 & 0.1000000 & 0.1000000 & 0.0704870 & 0.0700427\\
+$99\%$ & 0.0450074 & 0.0460517 & 0.1000000 & 0.1000000 & 0.0549926 & 0.0539483\\
+\bottomrule
+\end{tabular}
+\caption{The 100-draw periodic population. ``B zero'' and ``P zero'' are the
+binomial- and Poisson-factor all-zero outputs. The design-valid safe output is
+defined below. Displays are rounded from exact rational brackets in the
+systematic-PPS calculation.}
+\label{tab:systematicexample}
+\end{table}
+
+\subsection{A sharp taint-only floor and an item-aware improvement}
+
+The construction also identifies the unavoidable price of robustness if a
+rule sees only the taint vector. Item identities and book weights will then
+provide a separate, strictly useful information channel.
+
+\begin{proposition}[Necessary taint-only diagonal]
+\label{prop:systematicfloor}
+If $V_\alpha:[0,1]^n\to[0,1]$ has systematic-design coverage at least
+$1-\alpha$ for every ordered finite population and depends only on the
+observed taints, then, for every $0\le y<1$,
+\[
+ V_\alpha(y,\ldots,y)\ge1-\alpha+\alpha y.
+\]
+\end{proposition}
+
+\begin{proof}
+If the inequality failed, choose
+\[
+ \frac{V_\alpha(y,\ldots,y)-y}{1-y}<q<1-\alpha
+\]
+and use \eqref{eq:systematictwophase}. Its target
+$y+q(1-y)$ would exceed the reported low-phase value, and that phase would
+have probability $1-q>\alpha$.
+\end{proof}
+
+The lower bound is attained on every diagonal by
+\begin{equation}\label{eq:systematicmarkov}
+ M_\alpha=1-\alpha+\alpha\overline T.
+\end{equation}
+Indeed, with $X=1-\overline T$, Proposition~\ref{prop:sysunbiased} gives
+$\E_R X=1-\theta$. The event $M_\alpha<\theta$ is
+$X>(\E_R X)/\alpha$, whose probability is at most $\alpha$ by Markov's
+inequality. Thus one random start can carry only one observation's worth of
+distribution-free information, regardless of the number of points in its
+grid.
+
+For a sampled set $S$ of distinct item identities, define the deterministic
+completion bound
+\[
+ C(S)=\frac1W\left(\sum_{i\in S}w_it_i+\sum_{i\notin S}w_i\right).
+\]
+Because each unobserved taint is at most one, $C(S)\ge\theta$ pointwise.
+This extra information permits a smaller valid floor.
+
+\begin{proposition}[Systematic-safe Stringer overlay]
+\label{prop:systematicsafeguard}
+Put
+\begin{equation*}
+ H_\alpha=\min\{M_\alpha,C(S)\},
+ \qquad
+ \SB_\alpha^{\rm sys}
+ =\max\{\min(1,\SB_\alpha),H_\alpha\}.
+\tag{SYS}\label{eq:systematicsafe}
+\end{equation*}
+For either the binomial- or Poisson-factor ordinary calculation,
+$\SB_\alpha^{\rm sys}$ has coverage at least $1-\alpha$ under the one-start
+systematic design for every ordered finite population. It is never below
+the ordinary output after its natural cap at one.
+\end{proposition}
+
+\begin{proof}
+Whenever $M_\alpha\ge\theta$, the deterministic inequality
+$C(S)\ge\theta$ implies $H_\alpha\ge\theta$. Hence $H_\alpha$ has
+noncoverage at most $\alpha$. The maximum in \eqref{eq:systematicsafe} is at
+least $H_\alpha$, which proves coverage, and at least the capped ordinary
+output by definition.
+\end{proof}
+
+In the all-zero phase of Table~\ref{tab:systematicexample}, the 100 audited
+taint-zero items comprise 900 of the 1,000 recorded units. At 95\% confidence,
+$M_{0.05}=0.95$ but $C(S)=0.10$, so $H_{0.05}=0.10$. The safe output is
+therefore exactly 0.10, an uplift of about 0.070487 over binomial Stringer and
+0.070043 over Poisson Stringer, rather than the 0.92 uplift of the taint-only
+floor. On the all-one phase, $H_\alpha=1$.
+
+\section{Exact finite-frame minimax inversion}
+\label{sec:finite-frame}
+
+The closed-form bound uses the observed identities only through $C(S)$. A
+fixed known frame contains more information: it specifies which items every
+other random start would have selected. We now invert that complete finite
+randomization distribution.
+
+Combine random-start intervals having the same item-hit multiplicities into
+phase atoms $a=1,\ldots,K$, with probabilities $\pi_a>0$. Let $m_{ai}$ be
+the number of hits on item $i$ in atom $a$, and for a complete candidate
+taint vector $u\in[0,1]^N$ put
+\[
+ Y_a(u)=\frac1n\sum_{i=1}^N m_{ai}u_i,
+ \qquad
+ \theta(u)=\frac1W\sum_{i=1}^Nw_iu_i.
+\]
+Suppose the observed phase audits the distinct set $S$, returns values
+$x=(x_i)_{i\in S}$, and has grid mean $y$. Define the exact lower-tail rank
+\[
+ F_u(y)=\sum_{a=1}^K\pi_a\mathbf 1\{Y_a(u)\le y\}
+\]
+and the least-favourable-completion bound
+\begin{equation*}\label{eq:finiteframebound}
+ B^{\rm ff}_\alpha(S,x)
+ =\max\left(
+ \left\{\theta(u):0\le u\le1,\ u_S=x,\ F_u(y)>\alpha\right\}
+ \cup\{0\}
+ \right).
+\tag{FF}
+\end{equation*}
+Here ``minimax'' refers only to maximizing the target over nuisance-taint
+completions for this pre-specified grid-mean ordering. It does not assert
+optimality among all possible test orderings or confidence procedures.
+
+\begin{proposition}[Exact finite-frame inversion]
+\label{prop:systematicminimax}
+For every fixed ordered frame, $B^{\rm ff}_\alpha$ has one-start systematic
+design coverage at least $1-\alpha$. Pointwise,
+\begin{equation}\label{eq:finiteframedominance}
+ B^{\rm ff}_\alpha(S,x)
+ \le \min\{M_\alpha,C(S)\}=H_\alpha.
+\end{equation}
+Moreover, for rational book weights and observed taints, the value in
+\eqref{eq:finiteframebound} is the maximum of finitely many rational linear
+programs indexed by inclusion-minimal phase coalitions of probability
+strictly greater than $\alpha$.
+\end{proposition}
+
+\begin{proof}
+Fix the true population $t$, and let $F_t$ be the CDF of its grid mean over
+the random start. If $B^{\rm ff}_\alpha(S_R,t_{S_R})<\theta(t)$, then the true
+completion is absent from the feasible set in \eqref{eq:finiteframebound};
+therefore $F_t(Y_R(t))\le\alpha$. For any discrete random variable $Y$,
+\[
+ \Pr\{F_Y(Y)\le\alpha\}\le\alpha,
+\]
+because the event, when nonempty, has probability equal to the CDF at its
+largest included support point. This proves design coverage.
+
+Every compatible completion is bounded by $C(S)$. For the other inequality,
+take a feasible $u$ and view $Y$ as the random phase mean $Y_a(u)$. By
+Proposition~\ref{prop:sysunbiased}, $\E Y=\theta(u)$. If $y<1$, Markov's
+inequality applied to $1-Y$ gives
+\[
+ \alpha<F_u(y)=\Pr\{1-Y\ge1-y\}
+ \le\frac{1-\theta(u)}{1-y},
+\]
+so $\theta(u)<1-\alpha+\alpha y=M_\alpha$. If $y=1$, the inequality follows
+from the unit range. The feasible set is a finite union of compact polytopes,
+so its maximum is attained; this proves \eqref{eq:finiteframedominance}.
+
+Finally, for a phase coalition $A$ with
+$\sum_{a\in A}\pi_a>\alpha$, impose the linear constraints
+\[
+ 0\le u_i\le1,\qquad u_i=x_i\ (i\in S),\qquad
+ \sum_i m_{ai}u_i\le ny\ (a\in A),
+\]
+and maximize the linear objective $\theta(u)$. The condition $F_u(y)>
+\alpha$ holds exactly when the low-mean phase set contains such a coalition.
+Every coalition of mass above $\alpha$ contains an inclusion-minimal one, and
+deleting constraints cannot lower a maximum. Taking the maximum of these
+rational LP values therefore gives exactly \eqref{eq:finiteframebound}.
+\end{proof}
+
+Thus the sharper pre-specified overlay
+\begin{equation*}\label{eq:finiteframesafe}
+ \SB_{\alpha}^{\rm ff-sys}
+ =\max\{\min(1,\SB_\alpha),B^{\rm ff}_\alpha\}
+\tag{FF-SYS}
+\end{equation*}
+is design-valid, never below capped ordinary Stringer, and never above the
+earlier overlay \eqref{eq:systematicsafe}. For rational inputs, the finite maximum can be evaluated exactly by rational
+linear programming; equality of feasible primal and dual objectives certifies
+each optimum.
+
+\section{Phase partitions, exact algorithms, and independent starts}
+\label{sec:disjoint}
+
+The general LP representation simplifies when random starts see separate
+parts of the frame. Call a frame \emph{phase-partitioned} when the supports of
+the distinct phase-incidence atoms are pairwise disjoint and cover all items.
+Design unbiasedness then has the decomposition
+\[
+ \theta(u)=\sum_{a=1}^K\pi_aY_a(u),
+\]
+and the unobserved phase means can be varied independently.
+
+\begin{proposition}[Unequal- and equal-phase formulas]
+\label{prop:disjointphase}
+Suppose phase $j$ is observed with mean $y$ on a phase-partitioned frame. Put
+\[
+ \rho_j(\alpha)
+ =\min\{\pi(A):j\in A,\ \pi(A)>\alpha\},
+ \qquad \pi(A)=\sum_{a\in A}\pi_a.
+\]
+Then
+\begin{equation}\label{eq:disjointphase}
+ B^{\rm ff}_\alpha(j,y)=1-(1-y)\rho_j(\alpha).
+\end{equation}
+If there are $m$ equiprobable phases, this becomes
+\begin{equation}\label{eq:equalphase}
+ B^{\rm ff}_\alpha(j,y)
+ =1-\frac{\lfloor m\alpha\rfloor+1}{m}(1-y).
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+For any feasible completion let $A=\{a:Y_a(u)\le y\}$. It contains the
+observed phase and has $\pi(A)>\alpha$. Therefore
+\[
+ \theta(u)
+ \le y\pi(A)+1-\pi(A)
+ =1-(1-y)\pi(A)
+ \le1-(1-y)\rho_j(\alpha).
+\]
+Choose a minimizing coalition $A_\star$. Keep the observed taints fixed, set
+every taint in each other phase of $A_\star$ equal to $y$, and set every
+taint outside $A_\star$ equal to one. The resulting phase means are $y$ on
+$A_\star$ and one elsewhere, so the completion is feasible and attains the
+displayed upper bound. This proves \eqref{eq:disjointphase}. With equal
+phase probabilities, the least cardinality having mass strictly above
+$\alpha$ is $\lfloor m\alpha\rfloor+1$, proving \eqref{eq:equalphase}.
+\end{proof}
+
+For rational unequal probabilities, the minimum in
+\eqref{eq:disjointphase} is a minimum-excess subset sum. The next result gives
+both an exact algorithm and the obstruction to a bit-polynomial algorithm.
+
+\begin{proposition}[Exact dynamic program and weak NP-hardness]
+\label{prop:disjointdp}
+Write $\pi_a=c_a/D$ with positive integers $c_a$ summing to $D$. There is an
+exact algorithm for \eqref{eq:disjointphase} using $O(KD)$ time and $O(D)$
+memory. Under binary encoding, exact evaluation is weakly NP-hard even for
+$n=1$ and an observed taint of zero.
+\end{proposition}
+
+\begin{proof}
+The smallest integer coalition mass strictly above $\alpha$ is
+\[
+ h=\lfloor\alpha D\rfloor+1.
+\]
+Starting with the compulsory mass $c_j$, list the other phase masses as
+$d_1,\ldots,d_{K-1}$ and form the reachable sets
+\[
+ R_0=\{0\},\qquad R_{\ell+1}=R_\ell\cup(R_\ell+d_{\ell+1}).
+\]
+Every optional coalition yields one reachable sum and conversely. Hence the
+first reachable $s$ satisfying $c_j+s\ge h$ gives
+$\rho_j(\alpha)=(c_j+s)/D$. A Boolean array with back-pointers implements
+the recurrence in the stated time and memory.
+
+For hardness, reduce from \textsc{Subset Sum} \cite{gareyjohnson1979}. Given
+positive integers $a_1,\ldots,a_k$ and target
+$1\le T\le A:=\sum_i a_i$, take a one-draw systematic-PPS frame with weights
+\[
+ w_0=1,\qquad w_i=2a_i,\qquad W=1+2A,
+\]
+set $\alpha=2T/W$, and observe item $0$ with taint zero. Each item is then a
+disjoint phase of probability $w_i/W$. A zero-taint coalition containing
+item $0$ has weight $1+2\sum_{i\in I}a_i$ and probability strictly above
+$\alpha$ exactly when $\sum_{i\in I}a_i\ge T$. If
+\[
+ s_\star=\min\{\textstyle\sum_{i\in I}a_i:
+                     \sum_{i\in I}a_i\ge T\},
+\]
+then Proposition~\ref{prop:disjointphase} gives
+\[
+ B^{\rm ff}_\alpha=1-\frac{1+2s_\star}{W}.
+\]
+Thus the original instance has a subset summing exactly to $T$ if and only if
+the exact bound equals $1-(1+2T)/W$. The reduction has polynomial encoding
+length. Together with the pseudo-polynomial dynamic program, this proves the
+claim.
+\end{proof}
+
+Formula \eqref{eq:equalphase} gives a practical-size strict improvement
+without solving an LP. Take 2,000 unit items,
+$n=100$, and systematic interval 20. The 20 equiprobable phases select
+disjoint sets of 100 items. After one all-zero phase at 95\% confidence,
+\[
+ M_{0.05}=C(S)=H_{0.05}=0.95.
+\]
+Here $\lfloor20(0.05)\rfloor+1=2$, so
+\begin{equation}\label{eq:finiteframebenchmark}
+ B^{\rm ff}_{0.05}=\frac{1800}{2000}=0.90.
+\end{equation}
+The general LP solver independently enumerates all
+$\binom{20}{2}=190$ minimal coalitions and returns the same witness with
+lower-tail mass $0.10$; the specialized dynamic program returns the same
+minimum mass directly. Both ordinary all-zero
+Stringer outputs are below 0.03, so the finite-frame overlay reports 0.90
+under either factor convention, five percentage points below the previous
+valid fallback.
+
+\subsection{Independent starts}
+
+The disjoint equal-phase case also gives an exact replication law rather than
+only a generic bounded-mean reduction.
+
+\begin{proposition}[Independent-start all-zero formula]
+\label{prop:multistartzero}
+Use $r\ge1$ independent starts on $m$ equiprobable disjoint phases, and
+invert the lower-tail rank of the mean of the $r$ grid averages. Suppose all
+observed taints are zero and the starts visit $d$ distinct phases. Put
+\[
+ q_{m,r,\alpha,d}
+ =\max\{d,\lfloor m\alpha^{1/r}\rfloor+1\}.
+\]
+Then
+\begin{equation}\label{eq:multistartzero}
+ B^{\rm ff}_{\alpha,r}=1-\frac{q_{m,r,\alpha,d}}m.
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+For a candidate completion, let $Z$ be the set of zero-mean phases. Since
+taints are nonnegative, the mean of $r$ independently selected phase means is
+at most its observed value zero exactly when every selected phase lies in
+$Z$. Its lower-tail probability is therefore $(|Z|/m)^r$. Compatibility
+forces all $d$ observed phases into $Z$, and feasibility requires this
+probability to exceed $\alpha$. Thus $|Z|\ge q_{m,r,\alpha,d}$. Such phases
+contribute zero to the target and the others contribute at most $1/m$ each,
+which proves the upper bound. Assigning taint zero to exactly
+$q_{m,r,\alpha,d}$ phases containing the observed ones, and taint one to all
+remaining phases, attains equality.
+\end{proof}
+
+For $m=20$ and $\alpha=0.05$, distinct all-zero starts give exact bounds
+$0.90$, $0.75$, and $0.60$ for $r=1,2,3$. For unequal rational phases, the
+same dynamic program replaces its one-start threshold by the least integer
+$h$ satisfying $(h/D)^r>\alpha$ and makes every distinct observed phase
+compulsory.
+
+If $r$ independent random starts are used, their $r$ grid averages are i.i.d.
+variables in $[0,1]$ with mean $\theta$. Any valid distribution-free
+bounded-mean procedure may be applied to those averages. The effective
+replication is the number of independent starts, not the number of points
+within one grid.
+
+\section{Exact calculations and mathematical scope}
+\label{sec:calculation-boundary}
+
+The universal failure family, unbiasedness identity, sharp taint-only floor,
+valid overlays, finite-frame inversion, phase-partition formulas, complexity
+result, and independent-start formula are ordinary mathematical proofs.  No
+finite experiment is extrapolated to establish those statements.
+
+Exact rational programs establish the finite claims reported above.  The
+nine-unit calculation enumerates all $2{,}188$ ordered binary unit-item
+populations and all $4{,}444$ associated phases in its stated search class.
+The 100-draw calculation uses rational phase probabilities and rigorous
+brackets for the binomial and Poisson factors.  For the 2,000-item example,
+the general finite-frame solver enumerates the 190 inclusion-minimal
+coalitions and certifies each rational LP optimum by matching feasible primal
+and dual objectives; a separate denominator-cleared subset-sum program gives
+the same minimum coalition mass.  These computations certify only the
+displayed census and examples.  The programs use exact rational arithmetic
+apart from outward enclosures of transcendental confidence factors.
+
+The sampling-design scope is also exact.  One-start results average over one
+uniform start on a fixed ordered frame.  The multiple-start proposition
+changes the design to independent starts and, in its closed form, assumes
+equiprobable disjoint phases and an all-zero observation.  Alternative test
+orderings, overlapping-phase multiple-start formulas, stratification,
+successive PPS, nonrandom starts, uncertain book amounts, negative taints,
+and different audit estimands require separate arguments.
+
+\section{Discussion}
+
+The first lesson is that unbiasedness and replication are different
+properties.  Averaging over the random start recovers the finite-population
+taint ratio, yet a periodic ordering can make all $n$ observed taints encode
+one phase.  Consequently no i.i.d. coverage theorem for the ordinary
+Stringer calculation could by itself validate its use under one-start
+systematic PPS.  The reusable statistical object is the mean of each
+independently randomized grid.
+
+The second lesson is an exact value-of-information statement.  If the rule
+sees only the taint vector, every universally design-valid procedure must pay
+the one-observation diagonal floor $1-\alpha+\alpha y$.  Sampled item
+identities and book weights can lower that floor because they determine how
+much of the total recorded amount has already been resolved.  The complete
+ordered frame contributes still more: it turns every possible start into a
+constraint on nuisance-taint completions.  Randomization-rank inversion
+combines these constraints and is pointwise no larger than both closed-form
+fallbacks.
+
+The phase-partition formula isolates the combinatorial core of this
+inversion.  Disjoint phase supports make the target a weighted average of
+independently adjustable phase means, so inference becomes the problem of
+finding the least phase mass strictly above $\alpha$.  Equal phases expose
+the discrete correction in closed form; unequal rational phases connect the
+exact bound to subset sum, explaining both the pseudo-polynomial algorithm
+and the weak NP-hardness boundary.  With independent starts, the required
+zero-phase mass rises from $\alpha$ to $\alpha^{1/r}$.  These formulas make
+the inferential gain from additional random starts quantitative rather than
+merely qualitative.
+
+\section*{Data and code availability}
+
+Source code and the exact calculation data used in the finite examples are
+available in the project repository at
+\href{https://github.com/RichieSater/stringer-bound}
+{github.com/RichieSater/stringer-bound}.
+
+\section*{Funding}
+
+The author received no external funding for this work.
+
+\section*{Competing interests}
+
+The author declares no competing interests.
+
+\begin{thebibliography}{99}
+
+\bibitem{aicpa2012} American Institute of Certified Public Accountants,
+\emph{Audit Sampling}, AICPA Audit Guide, 2012.
+
+\bibitem{berger2021} Y.~G. Berger, P.~M. Chiodini and M.~Zenga, Bounds for
+monetary-unit sampling in auditing: an adjusted empirical likelihood
+approach, \emph{Statistical Papers} \textbf{62} (2021), 2739--2761,
+\url{https://doi.org/10.1007/s00362-020-01209-w}.
+
+\bibitem{fienberg1977} S.~E. Fienberg, J.~Neter and R.~A. Leitch,
+Estimating the total overstatement error in accounting populations,
+\emph{Journal of the American Statistical Association} \textbf{72} (1977),
+295--302, \url{https://doi.org/10.1080/01621459.1977.10480993}.
+
+\bibitem{gareyjohnson1979} M.~R. Garey and D.~S. Johnson,
+\emph{Computers and Intractability: A Guide to the Theory of
+NP-Completeness}, W.~H. Freeman, San Francisco, 1979.
+
+\bibitem{hoogduin2015} E.~Hoogduin, T.~W. Hall, B.-Y. Tsay and B.~Pierce,
+Does systematic selection lead to unreliable risk assessments in
+monetary-unit sampling applications?, \emph{Auditing: A Journal of Practice
+\& Theory} \textbf{34} (2015), no.~4, 85--107,
+\url{https://doi.org/10.2308/ajpt-51081}.
+
+\bibitem{pcaob2315} Public Company Accounting Oversight Board, AS~2315:
+Audit sampling,
+\href{https://pcaobus.org/oversight/standards/auditing-standards/details/AS2315}
+{PCAOB standard page} (accessed August 31, 2026).
+
+\bibitem{stringer1963} K.~W. Stringer, Practical aspects of statistical
+sampling in auditing, in \emph{Proceedings of the Business and Economic
+Statistics Section}, American Statistical Association, 1963, pp.~405--411.
+
+\bibitem{vanberkel2026} K.~van Berkel and E.~Vondenhoff, Exact and
+approximation formulas for second-order inclusion probabilities in randomized
+systematic sampling with unequal probabilities and without replacement,
+\emph{Survey Methodology} \textbf{52} (2026), no.~1, 235--258,
+\url{https://www150.statcan.gc.ca/n1/pub/12-001-x/2026001/article/00003-eng.htm}.
+
+\end{thebibliography}
+
+\end{document}

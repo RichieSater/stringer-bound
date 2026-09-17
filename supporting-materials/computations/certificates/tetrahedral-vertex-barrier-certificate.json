@@ -1,0 +1,851 @@
+{
+  "arithmetic": {
+    "coefficient_signs": "Python Fraction arithmetic",
+    "floating_point_role": "none in verification or certificate output",
+    "symbolic_identities": "SymPy exact integer polynomial arithmetic"
+  },
+  "bernstein_basis": {
+    "comparison_degree": [
+      9,
+      9,
+      11
+    ],
+    "multiplier_degree": [
+      6,
+      7,
+      7
+    ],
+    "order_factor_degree": [
+      3,
+      2,
+      4
+    ],
+    "residual_degree": [
+      9,
+      9,
+      11
+    ],
+    "variables": [
+      "u",
+      "v",
+      "t"
+    ]
+  },
+  "identity": {
+    "comparison": "I_M(2,2)-p=t^2*P/Delta with Delta>0",
+    "logic": "R<=0 and H,S>=0 imply P>=0",
+    "multiplier": "H=P+R*S, equivalently P=H-R*S",
+    "order_factor": "R=t^4*v^2*(u^2+u+1)+2*t^3*u*v*(u+1)*(v+1)+t^2*u^2*(v^2+4*v+1)-u^3",
+    "repeated_upper_boundary": "At v=1, gamma_2-gamma_1 has numerator G; P_boundary=H_boundary+G*2*(1-u)^2*t^2, with both G and H_boundary nonnegative under centroid ordering."
+  },
+  "multiplier": {
+    "largest": {
+      "denominator": "5",
+      "numerator": "1728"
+    },
+    "negative_coefficients": 0,
+    "nonzero_coefficients": [
+      {
+        "denominator": "1",
+        "index": [
+          0,
+          7,
+          7
+        ],
+        "numerator": "16"
+      },
+      {
+        "denominator": "10640",
+        "index": [
+          3,
+          1,
+          7
+        ],
+        "numerator": "561"
+      },
+      {
+        "denominator": "5320",
+        "index": [
+          3,
+          2,
+          7
+        ],
+        "numerator": "1749"
+      },
+      {
+        "denominator": "35",
+        "index": [
+          4,
+          1,
+          7
+        ],
+        "numerator": "11"
+      },
+      {
+        "denominator": "1995",
+        "index": [
+          4,
+          2,
+          7
+        ],
+        "numerator": "7796"
+      },
+      {
+        "denominator": "525",
+        "index": [
+          4,
+          3,
+          7
+        ],
+        "numerator": "4078"
+      },
+      {
+        "denominator": "2800",
+        "index": [
+          5,
+          0,
+          4
+        ],
+        "numerator": "2173"
+      },
+      {
+        "denominator": "720",
+        "index": [
+          5,
+          0,
+          5
+        ],
+        "numerator": "1873"
+      },
+      {
+        "denominator": "56",
+        "index": [
+          5,
+          0,
+          6
+        ],
+        "numerator": "289"
+      },
+      {
+        "denominator": "4",
+        "index": [
+          5,
+          0,
+          7
+        ],
+        "numerator": "25"
+      },
+      {
+        "denominator": "537600",
+        "index": [
+          5,
+          1,
+          3
+        ],
+        "numerator": "3460739"
+      },
+      {
+        "denominator": "19600",
+        "index": [
+          5,
+          1,
+          4
+        ],
+        "numerator": "167807"
+      },
+      {
+        "denominator": "8820",
+        "index": [
+          5,
+          1,
+          5
+        ],
+        "numerator": "85367"
+      },
+      {
+        "denominator": "49",
+        "index": [
+          5,
+          1,
+          6
+        ],
+        "numerator": "641"
+      },
+      {
+        "denominator": "7",
+        "index": [
+          5,
+          1,
+          7
+        ],
+        "numerator": "122"
+      },
+      {
+        "denominator": "125440",
+        "index": [
+          5,
+          2,
+          1
+        ],
+        "numerator": "132193"
+      },
+      {
+        "denominator": "161280",
+        "index": [
+          5,
+          2,
+          2
+        ],
+        "numerator": "738323"
+      },
+      {
+        "denominator": "39200",
+        "index": [
+          5,
+          2,
+          3
+        ],
+        "numerator": "248303"
+      },
+      {
+        "denominator": "29400",
+        "index": [
+          5,
+          2,
+          4
+        ],
+        "numerator": "316997"
+      },
+      {
+        "denominator": "8820",
+        "index": [
+          5,
+          2,
+          5
+        ],
+        "numerator": "168013"
+      },
+      {
+        "denominator": "49",
+        "index": [
+          5,
+          2,
+          6
+        ],
+        "numerator": "1420"
+      },
+      {
+        "denominator": "7",
+        "index": [
+          5,
+          2,
+          7
+        ],
+        "numerator": "299"
+      },
+      {
+        "denominator": "78400",
+        "index": [
+          5,
+          3,
+          1
+        ],
+        "numerator": "212979"
+      },
+      {
+        "denominator": "19600",
+        "index": [
+          5,
+          3,
+          2
+        ],
+        "numerator": "90327"
+      },
+      {
+        "denominator": "14000",
+        "index": [
+          5,
+          3,
+          3
+        ],
+        "numerator": "132423"
+      },
+      {
+        "denominator": "12250",
+        "index": [
+          5,
+          3,
+          4
+        ],
+        "numerator": "214063"
+      },
+      {
+        "denominator": "3675",
+        "index": [
+          5,
+          3,
+          5
+        ],
+        "numerator": "113236"
+      },
+      {
+        "denominator": "245",
+        "index": [
+          5,
+          3,
+          6
+        ],
+        "numerator": "13002"
+      },
+      {
+        "denominator": "7",
+        "index": [
+          5,
+          3,
+          7
+        ],
+        "numerator": "618"
+      },
+      {
+        "denominator": "10",
+        "index": [
+          5,
+          4,
+          0
+        ],
+        "numerator": "9"
+      },
+      {
+        "denominator": "35",
+        "index": [
+          5,
+          4,
+          1
+        ],
+        "numerator": "72"
+      },
+      {
+        "denominator": "2",
+        "index": [
+          5,
+          4,
+          2
+        ],
+        "numerator": "9"
+      },
+      {
+        "denominator": "35",
+        "index": [
+          5,
+          4,
+          3
+        ],
+        "numerator": "333"
+      },
+      {
+        "denominator": "35",
+        "index": [
+          5,
+          4,
+          4
+        ],
+        "numerator": "684"
+      },
+      {
+        "denominator": "35",
+        "index": [
+          5,
+          4,
+          5
+        ],
+        "numerator": "1368"
+      },
+      {
+        "denominator": "35",
+        "index": [
+          5,
+          4,
+          6
+        ],
+        "numerator": "2664"
+      },
+      {
+        "denominator": "1",
+        "index": [
+          5,
+          4,
+          7
+        ],
+        "numerator": "144"
+      },
+      {
+        "denominator": "7",
+        "index": [
+          5,
+          5,
+          0
+        ],
+        "numerator": "3"
+      },
+      {
+        "denominator": "14",
+        "index": [
+          5,
+          5,
+          1
+        ],
+        "numerator": "15"
+      },
+      {
+        "denominator": "7",
+        "index": [
+          5,
+          5,
+          2
+        ],
+        "numerator": "18"
+      },
+      {
+        "denominator": "1",
+        "index": [
+          5,
+          5,
+          3
+        ],
+        "numerator": "6"
+      },
+      {
+        "denominator": "7",
+        "index": [
+          5,
+          5,
+          4
+        ],
+        "numerator": "96"
+      },
+      {
+        "denominator": "7",
+        "index": [
+          5,
+          5,
+          5
+        ],
+        "numerator": "216"
+      },
+      {
+        "denominator": "7",
+        "index": [
+          5,
+          5,
+          6
+        ],
+        "numerator": "480"
+      },
+      {
+        "denominator": "7",
+        "index": [
+          5,
+          5,
+          7
+        ],
+        "numerator": "1056"
+      },
+      {
+        "denominator": "1",
+        "index": [
+          6,
+          0,
+          7
+        ],
+        "numerator": "6"
+      },
+      {
+        "denominator": "2450",
+        "index": [
+          6,
+          1,
+          4
+        ],
+        "numerator": "23523"
+      },
+      {
+        "denominator": "735",
+        "index": [
+          6,
+          1,
+          5
+        ],
+        "numerator": "21464"
+      },
+      {
+        "denominator": "1",
+        "index": [
+          6,
+          1,
+          6
+        ],
+        "numerator": "42"
+      },
+      {
+        "denominator": "7",
+        "index": [
+          6,
+          1,
+          7
+        ],
+        "numerator": "396"
+      },
+      {
+        "denominator": "70560",
+        "index": [
+          6,
+          2,
+          2
+        ],
+        "numerator": "882311"
+      },
+      {
+        "denominator": "3675",
+        "index": [
+          6,
+          2,
+          3
+        ],
+        "numerator": "104311"
+      },
+      {
+        "denominator": "3675",
+        "index": [
+          6,
+          2,
+          4
+        ],
+        "numerator": "169606"
+      },
+      {
+        "denominator": "2205",
+        "index": [
+          6,
+          2,
+          5
+        ],
+        "numerator": "134912"
+      },
+      {
+        "denominator": "49",
+        "index": [
+          6,
+          2,
+          6
+        ],
+        "numerator": "4392"
+      },
+      {
+        "denominator": "7",
+        "index": [
+          6,
+          2,
+          7
+        ],
+        "numerator": "888"
+      },
+      {
+        "denominator": "560",
+        "index": [
+          6,
+          3,
+          1
+        ],
+        "numerator": "6327"
+      },
+      {
+        "denominator": "3675",
+        "index": [
+          6,
+          3,
+          2
+        ],
+        "numerator": "77806"
+      },
+      {
+        "denominator": "6125",
+        "index": [
+          6,
+          3,
+          3
+        ],
+        "numerator": "214691"
+      },
+      {
+        "denominator": "6125",
+        "index": [
+          6,
+          3,
+          4
+        ],
+        "numerator": "353344"
+      },
+      {
+        "denominator": "3675",
+        "index": [
+          6,
+          3,
+          5
+        ],
+        "numerator": "348836"
+      },
+      {
+        "denominator": "245",
+        "index": [
+          6,
+          3,
+          6
+        ],
+        "numerator": "36864"
+      },
+      {
+        "denominator": "35",
+        "index": [
+          6,
+          3,
+          7
+        ],
+        "numerator": "8208"
+      },
+      {
+        "denominator": "5",
+        "index": [
+          6,
+          4,
+          0
+        ],
+        "numerator": "27"
+      },
+      {
+        "denominator": "35",
+        "index": [
+          6,
+          4,
+          1
+        ],
+        "numerator": "351"
+      },
+      {
+        "denominator": "35",
+        "index": [
+          6,
+          4,
+          2
+        ],
+        "numerator": "648"
+      },
+      {
+        "denominator": "35",
+        "index": [
+          6,
+          4,
+          3
+        ],
+        "numerator": "1188"
+      },
+      {
+        "denominator": "7",
+        "index": [
+          6,
+          4,
+          4
+        ],
+        "numerator": "432"
+      },
+      {
+        "denominator": "35",
+        "index": [
+          6,
+          4,
+          5
+        ],
+        "numerator": "3888"
+      },
+      {
+        "denominator": "35",
+        "index": [
+          6,
+          4,
+          6
+        ],
+        "numerator": "6912"
+      },
+      {
+        "denominator": "5",
+        "index": [
+          6,
+          4,
+          7
+        ],
+        "numerator": "1728"
+      },
+      {
+        "denominator": "7",
+        "index": [
+          6,
+          5,
+          0
+        ],
+        "numerator": "18"
+      },
+      {
+        "denominator": "7",
+        "index": [
+          6,
+          5,
+          1
+        ],
+        "numerator": "36"
+      },
+      {
+        "denominator": "7",
+        "index": [
+          6,
+          5,
+          2
+        ],
+        "numerator": "72"
+      },
+      {
+        "denominator": "7",
+        "index": [
+          6,
+          5,
+          3
+        ],
+        "numerator": "144"
+      },
+      {
+        "denominator": "7",
+        "index": [
+          6,
+          5,
+          4
+        ],
+        "numerator": "288"
+      },
+      {
+        "denominator": "7",
+        "index": [
+          6,
+          5,
+          5
+        ],
+        "numerator": "576"
+      },
+      {
+        "denominator": "7",
+        "index": [
+          6,
+          5,
+          6
+        ],
+        "numerator": "1152"
+      },
+      {
+        "denominator": "7",
+        "index": [
+          6,
+          5,
+          7
+        ],
+        "numerator": "2304"
+      }
+    ],
+    "positive_coefficients": 79,
+    "sha256_all_coefficients": "afb8866bc01d71958c448eb27d011476096ea333ddbd4283fc19bf79a4fe5f23",
+    "smallest_positive": {
+      "denominator": "10640",
+      "numerator": "561"
+    },
+    "total_coefficients": 448,
+    "zero_coefficients": 369
+  },
+  "n3_stringer_application": {
+    "alpha_star": "((19+sqrt(21))/34)^3",
+    "first_weight_identity": "1-z^3-f(2*z-1)=(1-z)*(17*z^2-19*z+5)",
+    "last_weight_identity": "(1-x)^3-f(2*x)=x*(-3+15*x-17*x^2)",
+    "middle_weight_identity": "4*(f((1-r+z)/2)-r^3)=3*(z-r)*(z^2+r^2-1) when r^3+z^3=1",
+    "pointwise_comparison_sharpness": "For alpha>alpha_star, c_2>c_3 and the cap along knots (0,0,h,1) has derivative g_alpha*(c_3-c_2)/2<0 at h=1; therefore its value exceeds alpha for h<1 sufficiently close to one.",
+    "x_star": "(15-sqrt(21))/34"
+  },
+  "repeated_upper_boundary": {
+    "largest": {
+      "denominator": "1",
+      "numerator": "1728"
+    },
+    "multiplier_degree": [
+      2,
+      0,
+      2
+    ],
+    "multiplier_nonzero_coefficients": [
+      {
+        "denominator": "1",
+        "index": [
+          0,
+          0,
+          2
+        ],
+        "numerator": "2"
+      }
+    ],
+    "order_numerator_degree": [
+      2,
+      0,
+      3
+    ],
+    "residual_degree": [
+      4,
+      0,
+      5
+    ],
+    "residual_negative_coefficients": 0,
+    "residual_positive_coefficients": 19,
+    "residual_zero_coefficients": 11,
+    "sha256_all_residual_coefficients": "d9c7692618e0308fe6a33c63640a6ebcaa8ba0a1bcac87232e8216e1778f787f",
+    "smallest_positive": {
+      "denominator": "5",
+      "numerator": "7"
+    },
+    "variables": [
+      "u",
+      "v (degree zero)",
+      "t"
+    ]
+  },
+  "residual": {
+    "largest": {
+      "denominator": "1",
+      "numerator": "3072"
+    },
+    "negative_coefficients": 0,
+    "positive_coefficients": 631,
+    "sha256_all_coefficients": "723a3280030541feff5c41949ca999e6d43deab254e76ce921c99c4da773c545",
+    "smallest_positive": {
+      "denominator": "99792",
+      "numerator": "5"
+    },
+    "total_coefficients": 1200,
+    "zero_coefficients": 569
+  },
+  "schema_version": 1,
+  "status": "Exact rational certificate for the ordinary four-coordinate two-versus-two section-centroid value barrier.",
+  "theorem": {
+    "conclusion": "For p=Pr{x dot D>0} and M=E[D0+D1|x dot D=0], p<=I_M(2,2)=3*M^2-2*M^3.",
+    "domain": "0<u<1, 0<v<1, t>0",
+    "global_consequence": "Together with the elementary one-versus-three strata, this proves vertex maximization for every nondecreasing four-coordinate barycentric weight vector.",
+    "hypothesis": "The section centroid is ordered; its upper endpoint inequality implies R(u,v,t)<=0 and t<1.",
+    "normalized_knots": [
+      "-1",
+      "-u",
+      "t*v",
+      "t"
+    ]
+  }
+}

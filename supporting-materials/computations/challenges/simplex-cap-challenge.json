@@ -1,0 +1,121 @@
+{
+  "schema_version": 1,
+  "interface": "ordered-simplex-cap-comparison",
+  "purpose": "State the exact finite proposition needed to transfer Gaffke validity to an affine ordered-sample upper bound, without embedding any proof data.",
+  "inputs": {
+    "sample_size": "integer n >= 2",
+    "tail_probability": "alpha in a declared subset of (0,1)",
+    "factors": "upper Clopper-Pearson roots p_n(0),...,p_n(n), with p_n(n)=1",
+    "normalized_knots": "0=z_0 <= z_1 <= ... <= z_n=1",
+    "dirichlet_weights": "(D_0,...,D_n) distributed as Dirichlet(1,...,1)"
+  },
+  "threshold": "s=p_n(0)+sum_{k=1}^{n-1}(p_n(n-k)-p_n(n-k-1))*z_k",
+  "target": "For every declared alpha and every normalized ordered knot vector, P(sum_{k=1}^{n-1} z_k D_k + D_n > s) <= alpha.",
+  "transfer_rule": "The target implies pointwise domination of the finite-sample-valid Gaffke bounded-mean upper limit and hence coverage at least 1-alpha for every i.i.d. distribution on [0,1].",
+  "verification_obligations": [
+    {
+      "id": "factor_scope",
+      "statement": "Enclose every factor over the complete declared alpha domain and prove every factor ordering or algebraic identity used."
+    },
+    {
+      "id": "region_partition",
+      "statement": "Partition the complete ordered-knot simplex by the position of s among the knots, including all boundary faces."
+    },
+    {
+      "id": "cap_identity",
+      "statement": "Derive the uniform-Dirichlet cap expressions and reduce the target either directly to residual signs or to an exact section derivative plus local step-cap barriers; clear only denominators whose signs are proved."
+    },
+    {
+      "id": "triangulation",
+      "statement": "Give a fixed oriented simplex chain whose support is exactly each polynomial region, with boundary cancellation, or an equivalent exact maximum/face-induction argument."
+    },
+    {
+      "id": "structural_zeros",
+      "statement": "Prove every omitted Bernstein coefficient vanishes identically on the declared factor locus or boundary face."
+    },
+    {
+      "id": "coefficient_signs",
+      "statement": "Prove every remaining coefficient in every residual used by the selected direct or face-induction route nonnegative by exact arithmetic or outward-rounded enclosures."
+    },
+    {
+      "id": "degenerate_knots",
+      "statement": "Transfer the inequalities to repeated-knot faces by direct formulas or continuity."
+    },
+    {
+      "id": "artifact_closure",
+      "statement": "Expose the complete finite sign statement and enough deterministic inputs to regenerate it."
+    }
+  ],
+  "instances": [
+    {
+      "id": "binomial-n3-confidence-range",
+      "sample_size": 3,
+      "alpha_domain": {
+        "type": "closed_interval",
+        "lower": "1/100",
+        "upper": "1/5"
+      },
+      "arithmetic_requirement": "exact rational interval arithmetic"
+    },
+    {
+      "id": "binomial-n4-confidence-range",
+      "sample_size": 4,
+      "alpha_domain": {
+        "type": "algebraic_right_closed_interval",
+        "lower": "0",
+        "lower_inclusive": false,
+        "upper": "r_4^4",
+        "upper_inclusive": true,
+        "defining_polynomial": "49*r_4^3-79*r_4^2+41*r_4-7",
+        "root_interval": ["1/2", "7/8"]
+      },
+      "arithmetic_requirement": "exact rational interval arithmetic"
+    },
+    {
+      "id": "binomial-n5-confidence-range",
+      "sample_size": 5,
+      "alpha_domain": {
+        "type": "algebraic_right_closed_interval",
+        "lower": "0",
+        "lower_inclusive": false,
+        "upper": "r_5^5",
+        "upper_inclusive": true,
+        "defining_polynomial": "129*r_5^4-271*r_5^3+209*r_5^2-71*r_5+9",
+        "root_interval": ["1/2", "9/10"]
+      },
+      "arithmetic_requirement": "exact rational arithmetic and rigorously enclosed binary64 Bernstein arithmetic with exact rational forward-error bounds"
+    },
+    {
+      "id": "binomial-n5-conventional-levels",
+      "sample_size": 5,
+      "alpha_domain": {
+        "type": "finite_set",
+        "values": ["1/100", "1/20", "1/10"]
+      },
+      "arithmetic_requirement": "integer-directed dyadic interval arithmetic"
+    },
+    {
+      "id": "binomial-n6-conventional-levels",
+      "sample_size": 6,
+      "alpha_domain": {
+        "type": "finite_set",
+        "values": ["1/100", "1/20", "1/10"]
+      },
+      "arithmetic_requirement": "exact symbolic identities and integer-directed dyadic interval arithmetic"
+    },
+    {
+      "id": "binomial-n7-conventional-levels",
+      "sample_size": 7,
+      "alpha_domain": {
+        "type": "finite_set",
+        "values": ["1/100", "1/20", "1/10"]
+      },
+      "arithmetic_requirement": "exact symbolic identities and outward-rounded Arb real-ball arithmetic"
+    }
+  ],
+  "non_goals": [
+    "No claim is made for alpha values or sample sizes outside an instance's declared domain.",
+    "No ordinary all-sample-size Stringer theorem follows from the interface alone.",
+    "No finite-population or sampling-without-replacement design bridge is included."
+  ]
+}

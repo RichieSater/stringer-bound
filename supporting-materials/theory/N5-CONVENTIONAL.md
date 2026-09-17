@@ -1,8 +1,9 @@
-# Certified finite-sample conservatism at `n = 5`
+# An independent fixed-level certificate at `n = 5`
 
-This note gives the complete reduction and exact-computation details for the
-manuscript's `n = 5` result. It proves the binomial-factor Stringer bound
-conservative for every distribution on `[0,1]` at:
+This note gives an independent direct reduction and exact-computation proof
+for three points in the manuscript's expanded `n = 5` range. It proves the
+binomial-factor Stringer bound conservative for every distribution on
+`[0,1]` at:
 
 | `alpha` | nominal confidence |
 |---:|---:|

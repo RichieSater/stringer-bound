@@ -41,14 +41,24 @@ jobs:
       - name: Regenerate symbolic and exact proof certificates
         run: |
           make proof-check all-n-reduction-check \
+            tetrahedral-vertex-barrier-check \
+            five-coordinate-mixed-section-check \
+            five-coordinate-block-faces-check \
+            n4-weight-monotonicity-check \
+            n5-weight-monotonicity-check \
+            terminal-edge-bifurcation-check \
             n3-formula-check n3-certificate-check \
             n4-structure-check n4-certificate-check \
             n5-structure-check n5-certificate-check \
             poisson-band-certificate-check one-cap-all-n-check \
-            one-cap-certificate-check
+            one-cap-certificate-check two-cap-certificate-check \
+            three-exponential-interior-check srswor-conditioning-check \
+            systematic-pps-check systematic-minimax-check \
+            systematic-disjoint-dp-check \
+            audit-benchmark-check simplex-cap-interface-check
 
-      - name: Verify generated certificate summary and claim manifest
-        run: make certificate-summary-check claim-manifest-check
+      - name: Verify generated certificate summary, claim manifest, and public corpus
+        run: make certificate-summary-check claim-manifest-check public-corpus-check
 
       - name: Set up Tectonic
         uses: WtfJoke/setup-tectonic@eb29fd68b7d3f76011906b6e45ea4320c8de5d2f # v4.0.5
@@ -81,6 +91,54 @@ jobs:
 
       - name: Regenerate the complete n=6 Poissonization certificate
         run: make dirichlet-poissonization-check
+
+  six-coordinate-repeated-top:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+
+      - name: Set up uv
+        uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v9.0.0
+        with:
+          version: "0.11.14"
+          enable-cache: true
+
+      - name: Install pinned Python environment
+        run: uv sync --frozen
+
+      - name: Regenerate all six-coordinate repeated-top barriers
+        run: make six-coordinate-repeated-top-check
+
+  six-coordinate-unique-top:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+
+      - name: Set up uv
+        uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v9.0.0
+        with:
+          version: "0.11.14"
+          enable-cache: true
+
+      - name: Install pinned Python environment
+        run: uv sync --frozen
+
+      - name: Regenerate the unique-top L=4 barrier
+        run: make six-coordinate-unique-top-check
 
   poisson-band-calibration:
     runs-on: ubuntu-24.04
@@ -328,3 +386,35 @@ jobs:
           uv run --frozen python
           supporting-materials/computations/python/n7_gaffke_certificate.py
           --check-alpha ${{ matrix.alpha }}
+
+  principal-article:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+      - name: Set up uv
+        uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v9.0.0
+        with:
+          version: "0.11.14"
+          enable-cache: true
+      - name: Install pinned Python environment
+        run: uv sync --frozen
+      - name: Check principal theorem, mathematical scope, and public text
+        run: |
+          make tetrahedral-vertex-barrier-check terminal-edge-bifurcation-check
+          make claim-manifest-check public-corpus-check simplex-cap-interface-check
+          uv run --frozen python -m unittest discover -s supporting-materials/computations/tests -p test_tetrahedral_vertex_barrier.py -v
+          uv run --frozen python -m unittest discover -s supporting-materials/computations/tests -p test_terminal_edge_bifurcation.py -v
+          uv run --frozen python -m unittest discover -s supporting-materials/computations/tests -p test_claim_manifest.py -v
+          uv run --frozen python -m unittest discover -s supporting-materials/computations/tests -p test_public_corpus.py -v
+      - name: Set up Tectonic
+        uses: WtfJoke/setup-tectonic@eb29fd68b7d3f76011906b6e45ea4320c8de5d2f # v4.0.5
+        with:
+          tectonic-version: "0.17.0"
+      - name: Build manuscripts without warnings
+        run: bash .github/scripts/build-paper.sh

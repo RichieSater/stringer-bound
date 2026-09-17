@@ -1,0 +1,273 @@
+{
+  "arithmetic_status": "exact for threshold rows; rounded display only for illustrative large-N rows",
+  "fixed_level_population_thresholds": [
+    {
+      "95pct_iid_to_90pct_srswor": {
+        "factor_at_minimum": {
+          "decimal_18": "0.504000000000000000",
+          "denominator": "125",
+          "numerator": "63"
+        },
+        "factor_at_previous_population_size": {
+          "decimal_18": "0.460905349794238683",
+          "denominator": "243",
+          "numerator": "112"
+        },
+        "minimum_population_size": 10,
+        "required_factor": {
+          "decimal_18": "0.500000000000000000",
+          "denominator": "2",
+          "numerator": "1"
+        }
+      },
+      "99pct_iid_to_90pct_srswor": {
+        "factor_at_minimum": {
+          "decimal_18": "0.192000000000000000",
+          "denominator": "125",
+          "numerator": "24"
+        },
+        "factor_at_previous_population_size": {
+          "decimal_18": "0.093750000000000000",
+          "denominator": "32",
+          "numerator": "3"
+        },
+        "minimum_population_size": 5,
+        "required_factor": {
+          "decimal_18": "0.100000000000000000",
+          "denominator": "10",
+          "numerator": "1"
+        }
+      },
+      "99pct_iid_to_95pct_srswor": {
+        "factor_at_minimum": {
+          "decimal_18": "0.277777777777777778",
+          "denominator": "18",
+          "numerator": "5"
+        },
+        "factor_at_previous_population_size": {
+          "decimal_18": "0.192000000000000000",
+          "denominator": "125",
+          "numerator": "24"
+        },
+        "minimum_population_size": 6,
+        "required_factor": {
+          "decimal_18": "0.200000000000000000",
+          "denominator": "5",
+          "numerator": "1"
+        }
+      },
+      "sample_size": 4
+    },
+    {
+      "95pct_iid_to_90pct_srswor": {
+        "factor_at_minimum": {
+          "decimal_18": "0.522982243986542307",
+          "denominator": "83521",
+          "numerator": "43680"
+        },
+        "factor_at_previous_population_size": {
+          "decimal_18": "0.499877929687500000",
+          "denominator": "8192",
+          "numerator": "4095"
+        },
+        "minimum_population_size": 17,
+        "required_factor": {
+          "decimal_18": "0.500000000000000000",
+          "denominator": "2",
+          "numerator": "1"
+        }
+      },
+      "99pct_iid_to_90pct_srswor": {
+        "factor_at_minimum": {
+          "decimal_18": "0.149937526030820491",
+          "denominator": "2401",
+          "numerator": "360"
+        },
+        "factor_at_previous_population_size": {
+          "decimal_18": "0.092592592592592593",
+          "denominator": "54",
+          "numerator": "5"
+        },
+        "minimum_population_size": 7,
+        "required_factor": {
+          "decimal_18": "0.100000000000000000",
+          "denominator": "10",
+          "numerator": "1"
+        }
+      },
+      "99pct_iid_to_95pct_srswor": {
+        "factor_at_minimum": {
+          "decimal_18": "0.205078125000000000",
+          "denominator": "512",
+          "numerator": "105"
+        },
+        "factor_at_previous_population_size": {
+          "decimal_18": "0.149937526030820491",
+          "denominator": "2401",
+          "numerator": "360"
+        },
+        "minimum_population_size": 8,
+        "required_factor": {
+          "decimal_18": "0.200000000000000000",
+          "denominator": "5",
+          "numerator": "1"
+        }
+      },
+      "sample_size": 5
+    },
+    {
+      "95pct_iid_to_90pct_srswor": {
+        "factor_at_minimum": {
+          "decimal_18": "0.507104190779320988",
+          "denominator": "331776",
+          "numerator": "168245"
+        },
+        "factor_at_previous_population_size": {
+          "decimal_18": "0.490974455525443563",
+          "denominator": "6436343",
+          "numerator": "3160080"
+        },
+        "minimum_population_size": 24,
+        "required_factor": {
+          "decimal_18": "0.500000000000000000",
+          "denominator": "2",
+          "numerator": "1"
+        }
+      },
+      "99pct_iid_to_90pct_srswor": {
+        "factor_at_minimum": {
+          "decimal_18": "0.113803790072651527",
+          "denominator": "19683",
+          "numerator": "2240"
+        },
+        "factor_at_previous_population_size": {
+          "decimal_18": "0.076904296875000000",
+          "denominator": "4096",
+          "numerator": "315"
+        },
+        "minimum_population_size": 9,
+        "required_factor": {
+          "decimal_18": "0.100000000000000000",
+          "denominator": "10",
+          "numerator": "1"
+        }
+      },
+      "99pct_iid_to_95pct_srswor": {
+        "factor_at_minimum": {
+          "decimal_18": "0.222800925925925926",
+          "denominator": "1728",
+          "numerator": "385"
+        },
+        "factor_at_previous_population_size": {
+          "decimal_18": "0.187766608093088525",
+          "denominator": "161051",
+          "numerator": "30240"
+        },
+        "minimum_population_size": 12,
+        "required_factor": {
+          "decimal_18": "0.200000000000000000",
+          "denominator": "5",
+          "numerator": "1"
+        }
+      },
+      "sample_size": 6
+    },
+    {
+      "95pct_iid_to_90pct_srswor": {
+        "factor_at_minimum": {
+          "decimal_18": "0.505206676171153262",
+          "denominator": "15944049",
+          "numerator": "8055040"
+        },
+        "factor_at_previous_population_size": {
+          "decimal_18": "0.493714883923530579",
+          "denominator": "67108864",
+          "numerator": "33132645"
+        },
+        "minimum_population_size": 33,
+        "required_factor": {
+          "decimal_18": "0.500000000000000000",
+          "denominator": "2",
+          "numerator": "1"
+        }
+      },
+      "99pct_iid_to_90pct_srswor": {
+        "factor_at_minimum": {
+          "decimal_18": "0.111400462962962963",
+          "denominator": "3456",
+          "numerator": "385"
+        },
+        "factor_at_previous_population_size": {
+          "decimal_18": "0.085348458224131148",
+          "denominator": "1771561",
+          "numerator": "151200"
+        },
+        "minimum_population_size": 12,
+        "required_factor": {
+          "decimal_18": "0.100000000000000000",
+          "denominator": "10",
+          "numerator": "1"
+        }
+      },
+      "99pct_iid_to_95pct_srswor": {
+        "factor_at_minimum": {
+          "decimal_18": "0.214791297912597656",
+          "denominator": "1048576",
+          "numerator": "225225"
+        },
+        "factor_at_previous_population_size": {
+          "decimal_18": "0.189819259259259259",
+          "denominator": "84375",
+          "numerator": "16016"
+        },
+        "minimum_population_size": 16,
+        "required_factor": {
+          "decimal_18": "0.200000000000000000",
+          "denominator": "5",
+          "numerator": "1"
+        }
+      },
+      "sample_size": 7
+    }
+  ],
+  "illustrative_collision_factors": [
+    {
+      "adjusted_tail_at_alpha_0.05_decimal_18": "0.036949146832753306",
+      "collision_free_probability_decimal_18": "0.738982936655066128",
+      "population_size": 1000,
+      "sample_size": 25
+    },
+    {
+      "adjusted_tail_at_alpha_0.05_decimal_18": "0.048521086438434738",
+      "collision_free_probability_decimal_18": "0.970421728768694767",
+      "population_size": 10000,
+      "sample_size": 25
+    },
+    {
+      "adjusted_tail_at_alpha_0.05_decimal_18": "0.030428298247863900",
+      "collision_free_probability_decimal_18": "0.608565964957278000",
+      "population_size": 10000,
+      "sample_size": 100
+    },
+    {
+      "adjusted_tail_at_alpha_0.05_decimal_18": "0.047584476293385939",
+      "collision_free_probability_decimal_18": "0.951689525867718779",
+      "population_size": 100000,
+      "sample_size": 100
+    },
+    {
+      "adjusted_tail_at_alpha_0.05_decimal_18": "0.040972066853751763",
+      "collision_free_probability_decimal_18": "0.819441337075035259",
+      "population_size": 100000,
+      "sample_size": 200
+    },
+    {
+      "adjusted_tail_at_alpha_0.05_decimal_18": "0.049014770033552397",
+      "collision_free_probability_decimal_18": "0.980295400671047939",
+      "population_size": 1000000,
+      "sample_size": 200
+    }
+  ],
+  "schema_version": 1,
+  "theorem": "SRSWOR noncoverage <= eta / ((N)_n/N^n)"
+}

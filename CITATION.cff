@@ -1,22 +1,25 @@
 cff-version: 1.2.0
 message: "If you use this research software, please cite the archived Zenodo release."
-title: "The Stringer Bound Conjecture: Proofs, Computations, and Exact Certificates"
+title: "Ordered simplex caps and the three-observation Stringer bound: source and supporting computations"
 type: software
 authors:
   - family-names: Sater
     given-names: Richie
     affiliation: Independent Researcher
-version: 1.0.0
-date-released: 2026-08-08
-doi: 10.5281/zenodo.21850820
+version: 1.1.0
+date-released: 2026-09-17
+doi: 10.5281/zenodo.21850819
 license: MIT
 repository-code: "https://github.com/RichieSater/stringer-bound"
 url: "https://github.com/RichieSater/stringer-bound"
 abstract: >-
-  A certificate-backed investigation of finite-sample conservatism for the
-  Stringer monetary-unit-sampling bound, including a proof for n = 2, exact
-  rational counterexamples at low confidence, reproducible computation code,
-  and machine-checkable certificates.
+  Source and exact rational computations for the nine-page preprint
+  Ordered simplex caps and the three-observation Stringer bound. The
+  tetrahedral cap theorem gives the sharp pointwise Stringer-Gaffke
+  comparison range for three observations. Proposed five- and six-coordinate
+  global extensions remain conjectural because of an explicit active-prefix
+  proof obligation. Separate research notes and a systematic-PPS manuscript
+  retain their own mathematical scopes.
 keywords:
   - Stringer bound
   - monetary-unit sampling

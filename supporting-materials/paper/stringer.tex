@@ -1,8 +1,8 @@
 \documentclass[11pt]{article}
 \usepackage[margin=1.2in]{geometry}
 \usepackage{amsmath,amssymb,amsthm}
-\usepackage{booktabs}
 \usepackage[hidelinks]{hyperref}
+
 
 \newtheorem{theorem}{Theorem}
 \newtheorem{proposition}[theorem]{Proposition}
@@ -15,2396 +15,529 @@
 \newcommand{\pr}{\mathbb{P}}
 \newcommand{\E}{\mathbb{E}}
 
-\title{Finite-sample conservatism of the Stringer bound: sharpness at $n=2$ and certified guarantees at conventional confidence levels}
+\title{Ordered simplex caps and the three-observation Stringer bound}
 \author{Richie Sater\\
 \small Independent researcher, Silver Spring, Maryland, USA\\
 \small \texttt{richiesater@gmail.com}}
-\date{August 2026}
+\date{September 2026}
 
 \begin{document}
 \maketitle
 
 \begin{abstract}
-The Stringer bound is widely used to evaluate monetary-unit samples in
-auditing, but its finite-sample coverage is not known in general. For sample
-size $n=2$, we prove that the binomial-factor bound is conservative for every
-distribution on $[0,1]$ and every nominal confidence level. The result is
-sharp: the supremum of noncoverage is $\alpha$ and is not attained. At
-$90\%$, $95\%$, and $99\%$ confidence, rigorous Bernstein certificates extend
-binomial-factor conservatism through $n=7$. For the Poisson factors used in
-audit practice, a corrected simultaneous-survival-band argument and exact
-rational certificates establish conservatism through $n=8$, $n=11$, and
-$n=20$, respectively. For every sample size and confidence level, scalar
-calibration of the Poisson factor curve yields a distribution-free valid
-modified rule. At nominal confidence at least $2/e\approx73.6\%$, the
-multiplier two is valid uniformly in the sample size. Retaining the first
-200 Poisson crossing probabilities gives certified uniform multipliers
-$1.525906$, $1.436135$, and $1.320081$ at $90\%$, $95\%$, and $99\%$,
-respectively.
-An anchored variant leaves the all-zero-sample result unchanged. A separate all-sample-size rule
-reports the maximum of Stringer and a distribution-free bounded-mean limit.
-We also give explicit
-finite-sample counterexamples at selected confidence levels between $30\%$
-and $37\%$ and sample sizes $n=50,100,200,400$; exact rational certificates
-show coverage below nominal. In searches at $50\%$, $90\%$, and $95\%$, no
-violation was found, and the smallest coverage found agreed with nominal to
-within $10^{-10}$. Finally, we identify an index shift in a previous
-finite-sample certification. These results give sharp distribution-free
-theory at $n=2$, prove conventional-level coverage over new finite ranges,
-provide valid all-sample-size reporting alternatives, and narrow the
-unresolved regime for ordinary Stringer.
+We prove that a cap of the uniform distribution on a tetrahedron, cut through an ordered
+barycentric point, has maximal volume at a step normal within the matching
+order cone. The proof reduces stationary caps to a section-centroid
+inequality, whose only nonsimplicial case is established by exact rational
+computation. Applied to the binomial Stringer bound for three i.i.d.\ observations in $[0,1]$, the theorem gives distribution-free coverage at
+every confidence of at least $66.6314788\ldots\%$. This range is sharp for
+pointwise domination of Gaffke's valid mean bound. In every sample size, a
+two-knot perturbation gives an explicit obstruction to that comparison;
+its critical tail levels converge to $0.2846681370\ldots$.
 \end{abstract}
 
-\noindent\textbf{Keywords:} Stringer bound; finite-sample coverage;
-bounded means; monetary-unit sampling; Poisson confidence factors;
-simultaneous bands; Clopper--Pearson limits.
+\noindent\textbf{Keywords:} Stringer bound; bounded mean; simplex cap;
+Dirichlet average.
 
 \section{Introduction}
 
-Monetary-unit sampling (MUS) draws $n$ dollar units at random from an
-audited population. The \emph{taint} of a drawn unit is $T\in[0,1]$,
-the overstated fraction of the account item associated with that dollar.
-With taints $t_{(1)}\ge\cdots\ge t_{(n)}$ arranged in nonincreasing
-order, the Stringer bound \cite{stringer1963} at nominal confidence
-$1-\alpha$ is
+The Stringer bound \cite{stringer1963} estimates the mean of a distribution
+on $[0,1]$ from independent observations. In monetary-unit sampling these
+observations are taints, the fractions by which sampled account items are
+overstated. For a sample arranged as $t_{(1)}\ge\cdots\ge t_{(n)}$, the
+binomial-factor bound at confidence $1-\alpha$, where $0<\alpha<1$, is
 \begin{equation}\label{eq:sb}
-\SB \;=\; p_n(0) \;+\; \sum_{j=1}^{n}\bigl(p_n(j)-p_n(j-1)\bigr)\,t_{(j)},
+ \SB=p_n(0)+\sum_{j=1}^n\{p_n(j)-p_n(j-1)\}t_{(j)},
 \end{equation}
-where $p_n(j)$ is the upper Clopper--Pearson limit for $j$ successes in
-$n$ trials, i.e.\ the root of $\sum_{i=0}^{j}\binom{n}{i}p^i(1-p)^{n-i}
-=\alpha$, with $p_n(n)=1$. Audit guidance also tabulates Poisson-based
-confidence factors for MUS evaluation \cite[Appendix~C]{aicpa2012}.
-Proposition~\ref{prop:poissondomination} below proves that these factors
-dominate the binomial factors, at every sample size, whenever nominal
-confidence exceeds $1-e^{-1}\approx63.2\%$. The method is commonly
-justified by the conjecture that
+where, for $j<n$, the Clopper--Pearson factor $p_n(j)$ is the unique solution
+in $(0,1)$ of
+\[
+ \sum_{i=0}^j\binom ni p^i(1-p)^{n-i}=\alpha,
+ \qquad p_n(n)=1.
+\]
+Its finite-sample conservatism asks whether
 \begin{equation}\label{eq:conj}
-\pr\bigl(\SB \ge \mu(F)\bigr) \;\ge\; 1-\alpha
-\qquad\text{for all } n \text{ and all } F \text{ on } [0,1],
+ \pr_F\{\SB\ge\mu(F)\}\ge1-\alpha
 \end{equation}
-where $T_1,\dots,T_n$ are drawn independently from the common
-distribution $F$, with mean $\mu(F)$. This is the standard i.i.d.\ model
-used in published analyses of the bound. A National Research Council
-panel noted that the formulation of the Stringer bound had not been
-satisfactorily explained \cite{panel1989}. The principal prior results
-are as follows. Bickel \cite{bickel1992} proved
-\eqref{eq:conj} for $n=1$, gave the lower bound $(1-\alpha)^{n+1}$ for
-$n\ge2$ under conditions on $F$, and derived the expansion
-$\SB = \bar T + c(F)z_{1-\alpha}n^{-1/2}+o_p(n^{-1/2})$ with
-$c^2(F)\ge\operatorname{Var}(T)$. Pap and van Zuijlen
-\cite{papvz1996} established an almost-sure version of this expansion
-and concluded that the
-bound is asymptotically conservative for $\alpha\in(0,\tfrac12]$ and
-asymptotically \emph{anti}-conservative for $\alpha\in(\tfrac12,1)$.
-In \cite{papvz1995}, they exhibited non-conservatism for uniform-type
-taints at sub-$50\%$ confidence using exact recursions. De Jager, Pap,
-and van Zuijlen \cite{djpvz1997} proved that, for taint distributions
-supported on $\{0,1\}$, the
-bound reduces to Clopper--Pearson (where \eqref{eq:conj} holds exactly)
-and that Stringer's coefficients are minimal with that property. A 2021
-survey of confidence bounds for bounded means categorized the Stringer
-bound among methods conjectured to have guaranteed coverage and
-described its coverage for $\alpha<0.5$ as unknown
-\cite[p.~8569]{phan2021}.
-Vlassis and Thomas \cite{vlassis2026} recently proved the finite-sample
-validity of Gaffke's distribution-free mean test \cite{gaffke2005}.
-Inversion for observations in $[0,1]$ gives an upper confidence limit that
-is a quantile of a uniform Dirichlet average
-\cite{learnedmiller2020,ming2026}. This development supplies the valid
-comparison bound used for our $n=3$ through $n=7$ results.
+for every distribution $F$ on $[0,1]$, with mean $\mu(F)$. The general
+question at conventional confidence levels remains open. Bickel
+\cite{bickel1992} established asymptotic conservatism; Pap and van Zuijlen
+\cite{papvz1996} identified the asymptotic confidence threshold of $1/2$,
+and their finite-sample examples \cite{papvz1995} show that low-confidence
+failure is possible. Bernoulli taints reduce the bound to Clopper--Pearson
+\cite{djpvz1997}. The present paper concerns independent draws, not
+systematic or other dependent sampling designs.
 
-This paper makes five contributions.
+Our main result is geometric. Write $I_z(a,b)$ for the distribution
+function at $z$ of a $\operatorname{Beta}(a,b)$ random variable. A
+$\operatorname{Dirichlet}(1,\ldots,1)$ vector is uniform on the simplex
+$\{d_i\ge0:\sum_i d_i=1\}$.
 
-\emph{(1) A theorem at $n=2$} (Section~\ref{sec:thm}). The conjecture
-\eqref{eq:conj} holds at $n=2$ for every $F$ and every
-$\alpha\in(0,1)$, including $\alpha>1/2$. Thus the known asymptotic
-failures do not occur at $n=2$, and the result is sharp. To our
-knowledge, this is the first distribution-free finite-sample proof for
-$n=2$.
-
-\emph{(2) Conventional confidence levels from $n=3$ through $n=7$}
-(Section~\ref{sec:n3}). At nominal confidence $90\%$, $95\%$, and $99\%$,
-the binomial Stringer bound pointwise dominates the valid Gaffke upper
-limit. The comparison is proved by exact symbolic reductions and
-directed-arithmetic Bernstein certificates for the relevant uniform-simplex
-cap volumes. It yields distribution-free
-finite-sample conservatism at each of these levels for $n=3,4,5,6,7$. A
-rigorous real-ball Bernstein certificate handles the six-dimensional case.
-The same comparison suggests a direct all-sample-size implementation
-safeguard (Section~\ref{sec:safeguard}): pre-specifying the maximum of
-Stringer and the valid Gaffke limit
-retains Stringer whenever it is larger and has distribution-free coverage
-without assuming the unresolved conjecture. A dimension-free cap lemma and
-an analytic Clopper--Pearson comparison further prove a directly checkable
-zero-uplift region for every $n$ whenever nominal confidence is at least
-$75\%$: binomial Stringer dominates Gaffke whenever it is
-at least the largest observed taint.
-
-\emph{(3) Guarantees for the factors used in practice}
-(Section~\ref{sec:poisson}). Whenever nominal confidence exceeds
-$1-e^{-1}\approx63.2\%$, the Poisson factors dominate the binomial
-factors coordinatewise for every $n$. A summation-by-parts identity then
-shows that the Poisson-factor Stringer bound is pointwise no smaller on
-every observed sample. A separate corrected simultaneous-band argument,
-certified by exact rational boundary-crossing calculations, proves
-Poisson-factor coverage for every $n\le8$ at $90\%$, every $n\le11$ at
-$95\%$, and every $n\le20$ at $99\%$ confidence. The same argument yields
-an all-sample-size calibrated rule that retains the shape of the ordinary
-Poisson factor curve: multiply every factor, equivalently the complete bound, by one
-precomputed scalar. We prove validity for every $n$ and give exact rational
-certificates for representative audit sample sizes. An anchored variant
-fixes the zero-taint factor and scales only the error increments. Capping
-the calibrated factors at one gives pointwise no-larger valid versions. A
-sample-size-uniform analytic bound shows that doubling the Poisson curve is
-valid whenever nominal confidence is at least $2/e\approx73.6\%$; at the
-three conventional levels, a finite-prefix refinement gives substantially
-smaller choices.
-
-\emph{(4) Exact counterexamples at low confidence}
-(Section~\ref{sec:counter}). Thirty-three certified three-point
-distributions, each with two nonzero taint values and an atom at zero,
-give counterexamples at selected nominal confidence levels between
-$30\%$ and $37\%$, for sample sizes $n=50,100,200,$ and $400$. Their
-coverage is evaluated in exact rational arithmetic with margin
-certificates. In searches at $50\%$, $90\%$, and $95\%$, no violation
-was found. At every sample size searched, the smallest coverage found
-agreed with the nominal level to within $10^{-10}$.
-
-\emph{(5) Reassessment of a previous certification}
-(Section~\ref{sec:bimpeh}). A proposed finite-sample certification
-\cite{bimpeh2008} contains an index shift in its band-containment
-argument. We give hand-checkable examples for which the stated
-containment inequality fails and examine the corrected event.
-
-\section{Finite-sample conservatism at \texorpdfstring{$n=2$}{n=2}}\label{sec:thm}
-
-For $n=2$, the factors are explicit: $p_2(0)=1-\sqrt{\alpha}$,
-$p_2(1)=\sqrt{1-\alpha}$, $p_2(2)=1$. Write
-\[
-\beta=\sqrt{\alpha},\quad \gamma=\sqrt{1-\alpha}\quad(\beta^2+\gamma^2=1),
-\qquad A = \beta+\gamma-1,\quad B=1-\gamma,
-\]
-so $A,B>0$ and $A+B=\beta$.
-
-\begin{theorem}\label{thm:n2}
-Let $\alpha\in(0,1)$ and let $T_1,T_2$ be i.i.d.\ with common
-distribution $F$ on $[0,1]$ and mean $\mu$. Then
-$\pr(\SB\ge\mu)\ge 1-\alpha$. Moreover
-$\sup_F \pr(\SB<\mu)=\alpha$, and the supremum is not attained.
+\begin{theorem}[Four-coordinate monotone cap theorem]\label{thm:fourcap}
+Let $D\sim\operatorname{Dirichlet}(1,1,1,1)$, let
+$c_0\le c_1\le c_2\le c_3$ be nonnegative with $\sum_i c_i=1$, and let
+$x_0\le x_1\le x_2\le x_3$.  Put $C_r=\sum_{i<r}c_i$.  Then
+\begin{equation}\label{eq:fourcaptheorem}
+ \Pr\{x\mathbin{\cdot}D>c\mathbin{\cdot}x\}
+ \le\max_{r=1,2,3}I_{C_r}(r,4-r).
+\end{equation}
+Moreover, the maximum over all nonconstant ordered $x$ equals the right side:
+each candidate is attained by the step vector with its first $r$ coordinates
+zero and its remaining coordinates one.
 \end{theorem}
 
-\subsection{Reduction}
 
-Substituting $U_i=1-T_i$, $w=1-\mu=\E[U]$, $m=\min(U_1,U_2)$,
-$M=\max(U_1,U_2)$ into \eqref{eq:sb} and telescoping gives
-\begin{equation}\label{eq:red}
-\SB \;=\; 1-\bigl(A\,m+B\,M\bigr),
+Thus a cap cut through the barycentric point $c$ is largest when the
+normal $x$ takes only two values. The assertion holds for every ordered
+$c$, not only for confidence-bound coefficients.
+
+For observations $t_1,\ldots,t_n\in[0,1]$, define
+\begin{equation}\label{eq:gaffke}
+ G_\alpha(t)=Q_{1-\alpha}\!\left(D_0+\sum_{i=1}^n t_iD_i\right),
+ \qquad D\sim\operatorname{Dirichlet}(1,\ldots,1),
 \end{equation}
-so $\SB\ge\mu\iff Am+BM\le w$. The theorem is implied by the
-\emph{wedge inequality}: for $U_1,U_2$ i.i.d.\ on $[0,1]$ with mean
-$w>0$,
-\begin{equation}\label{eq:wedge}
-\pr\bigl(Am+BM< w\bigr)\;\ge\;\gamma^2.
-\end{equation}
-(If $w=0$ then $U\equiv0$ a.s.\ and $\SB=1\ge\mu$ almost surely.)
+where $Q_q(X)=\inf\{z:\pr(X\le z)\ge q\}$. Gaffke's mean test
+\cite{gaffke2005}, proved valid by Vlassis and Thomas
+\cite[Theorem~1]{vlassis2026}, gives
+$\pr_F\{G_\alpha\ge\mu(F)\}\ge1-\alpha$.
+The quantile formulation follows by test inversion
+\cite[Theorem~5.1 and Corollary~5.2]{ming2026}.
+The geometric theorem yields the following exact comparison range.
 
-If $w>\beta$ the event $\{Am+BM\ge w\}$ is empty, since the left side
-is at most $A+B=\beta$; if $w=\beta$ it is exactly $\{U_1=U_2=1\}$
-(as $A,B>0$), of probability $\pr(U=1)^2\le w^2=\alpha$ by Markov's
-inequality.
-
-Henceforth, assume $0<w<\beta$. The proof has three steps. First, the
-rectangle lemma converts a hypothetical failure of the wedge inequality
-into pointwise lower bounds on the survival function $G$. Second,
-boundary rectangles relate values of $G$ on opposite sides of $u^*$.
-Third, the potential inequality combines those bounds and forces the
-integral of $G$ to exceed its prescribed value $w$, producing a
-contradiction.
-
-\subsection{Rectangle bounds}
-
-Let $F(x)=\pr(U\le x)$, $G=1-F$, and recall $w=\int_0^1G$. Define
-\[
-u^*=\frac{w}{\beta}\in(0,1),\qquad
-a_0=\max\Bigl(0,\frac{w-B}{A}\Bigr),\qquad
-T^\dagger=\min\Bigl(\frac{w}{B},1\Bigr),
-\]
-and note $a_0<u^*<T^\dagger$.
-
-\begin{lemma}[Rectangle lemma]\label{lem:rect}
-If $0\le a\le b\le 1$ and $Aa+Bb<w$, then
-$\pr(Am+BM<w)\ge 2F(a)F(b)-F(a)^2$.
-\end{lemma}
-
-\begin{proof}
-On $\{U_1\le a,U_2\le b\}\cup\{U_1\le b,U_2\le a\}$ we have $m\le a$,
-$M\le b$, hence $Am+BM\le Aa+Bb<w$ (using $A,B\ge0$). By
-inclusion--exclusion (the intersection is $\{U_1\le a, U_2\le a\}$
-since $a\le b$) the union has probability $2F(a)F(b)-F(a)^2$.
-\end{proof}
-
-Assume for contradiction that \eqref{eq:wedge} fails. Then
-\begin{equation*}\label{eq:H}
-\tag{H}
-2F(a)F(b)-F(a)^2<\gamma^2
-\quad\text{whenever } 0\le a\le b\le 1,\; Aa+Bb<w.
-\end{equation*}
-Three families of admissible rectangles give pointwise bounds on $G$:
-
-\emph{(i) Squares.} For $t<u^*$, $(a,b)=(t,t)$ gives $F(t)^2<\gamma^2$,
-i.e.\ $G(t)>1-\gamma=B$ for all $t\in[0,u^*)$.
-
-\emph{(ii) Full-height rectangles} (nonvacuous if and only if $w>B$).
-For $a<a_0$,
-$(a,1)$ gives $1-G(a)^2<\gamma^2$, i.e.\ $G(a)>\beta$ on $[0,a_0)$.
-
-\emph{(iii) Boundary pairs.} Let $h(g)=\dfrac{\beta^2-g^2}{2(1-g)}$ on
-$[0,1)$. For $b\in(u^*,T^\dagger)$ set $\bar a(b)=(w-Bb)/A\in
-(a_0,u^*)$. Every $a'<\bar a(b)$ is admissible with $b$; letting
-$a'\uparrow\bar a(b)$ and writing $g=G(\bar a(b)^-)<1$,
-inequality \eqref{eq:H} rearranges to
-\[
-G(b)\;\ge\;h\bigl(G(\bar a(b)^-)\bigr)
-\qquad\text{for all } b\in(u^*,T^\dagger)
-\]
-because $2(1-g)-\gamma^2-(1-g)^2=\beta^2-g^2$. If
-$g=1$ the bound $G(b)\ge0$ is used instead, consistent with the
-convention $h_+(1)=0$ below.
-
-\subsection{Potential function and budget}
-
-The function $\tilde k$ below is chosen to combine the contribution of
-$G(a)$ with the corresponding lower bound for $G(b(a))$ after the
-change of variables used below. Let $h_+=\max(h,0)$, extended
-continuously by $h_+(1)=0$, and define
-\[
-\tilde k(g)\;=\;g+\frac{A}{B}\,h_+(g),\qquad g\in[B,1].
-\]
-
-\begin{lemma}\label{lem:pot}
-$\tilde k(g)\ge\beta$ on $[B,1]$, with equality exactly when
-$g\in\{B,\beta\}$.
-\end{lemma}
-
-\begin{proof}
-Since $\beta^2-B^2=\alpha-(1-\gamma)^2=2\gamma(1-\gamma)$, we get
-$h(B)=B$, hence $\tilde k(B)=B+\frac{A}{B}B=A+B=\beta$; also
-$h(\beta)=0$ so $\tilde k(\beta)=\beta$. Differentiating,
-$h'(g)=\frac{(1-g)^2-\gamma^2}{2(1-g)^2}$, so $h$ has its unique
-critical point at $g=B$ (where $(1-g)^2=\gamma^2$) and decreases on
-$(B,1)$; hence $h\ge0$ on $[B,\beta]$ (it decreases from $B>0$ to $0$)
-and $h<0$ on $(\beta,1)$. Further
-$h''(g)=-\gamma^2/(1-g)^3<0$: $h$, and therefore
-$\tilde k=g+\frac{A}{B}h$, is strictly concave on $[B,\beta]$. A
-strictly concave function with equal endpoint values $\beta$ satisfies
-$\tilde k\ge\beta$ on $[B,\beta]$, with equality only at the endpoints.
-On
-$(\beta,1]$, $h_+=0$ and $\tilde k(g)=g>\beta$.
-\end{proof}
-
-\begin{proof}[Proof of Theorem~\ref{thm:n2}]
-Assume \eqref{eq:H}. The substitution $t=b(a)=(w-Aa)/B$ is a
-decreasing bijection from $[a_0,u^*]$ onto $[u^*,T^\dagger]$, with
-$|dt|=(A/B)\,da$ (endpoints: $b(u^*)=u^*$; $b(a_0)=1=T^\dagger$ if
-$w\ge B$, $b(0)=w/B=T^\dagger$ if $w\le B$). Using
-$w=\int_0^1G\ge\int_0^{a_0}G+\int_{a_0}^{u^*}G+\int_{u^*}^{T^\dagger}G$,
-we bound the tail with (iii) (the left-limit $G(a^-)$ agrees with $G(a)$
-for all but countably many $a$, so the integrals coincide):
-\[
-\int_{u^*}^{T^\dagger}G
-=\frac{A}{B}\int_{a_0}^{u^*}G(b(a))\,da
-\;\ge\;\frac{A}{B}\int_{a_0}^{u^*}h_+\bigl(G(a)\bigr)\,da.
-\]
-By (i), $G>B$ pointwise on $[a_0,u^*)$, so Lemma~\ref{lem:pot} applies
-under the integral:
-\[
-w\;\ge\;\int_0^{a_0}G+\int_{a_0}^{u^*}\tilde k\bigl(G(a)\bigr)\,da
-\;\ge\;\beta a_0+\beta(u^*-a_0)\;=\;\beta u^*\;=\;w,
-\]
-where $\int_0^{a_0}G\ge\beta a_0$ by (ii). Equality is forced
-throughout; we exhibit a strict inequality in every case:
-\begin{itemize}
-\item If $a_0>0$: (ii) is pointwise strict on $[0,a_0)$, so
-$\int_0^{a_0}G>\beta a_0$.
-\item If $a_0=0$ and $G\ne\beta$ on a positive-measure subset of
-$(0,u^*)$: since $G>B$ there, $\tilde k(G)>\beta$ strictly
-(Lemma~\ref{lem:pot}), so $\int_0^{u^*}\tilde k(G)>\beta u^*$.
-\item If $a_0=0$ and $G=\beta$ a.e.\ on $(0,u^*)$: for each
-$b\in(u^*,T^\dagger)$ choose $a'<\bar a(b)$ with $G(a')=\beta$
-(possible, as such $a'$ have full measure in a nonempty interval);
-the \emph{strict} inequality \eqref{eq:H} at the admissible corner
-$(a',b)$ reads $(1-\beta)(1+\beta-2G(b))<\gamma^2=(1-\beta)(1+\beta)$,
-forcing $G(b)>0$ for every $b\in(u^*,T^\dagger)$; hence
-$\int_{u^*}^{T^\dagger}G>0$ and $w\ge\int_0^{u^*}G+
-\int_{u^*}^{T^\dagger}G>\beta u^*=w$.
-\end{itemize}
-Each case yields $w>w$, a contradiction. Thus \eqref{eq:H} is
-impossible, proving
-\eqref{eq:wedge} and the coverage statement.
-
-\emph{Sharpness.} Distributions supported on $\{0,u\}$, with
-$F=(1-q)\delta_0+q\delta_u$, give failure probability $q^2$ when
-$q<\beta$ (the pair $(u,u)$, since
-$\beta u> qu=w$) and additionally the mixed pairs when $q<B$
-(since $Bu>qu$), totalling $1-(1-q)^2$; letting $q\uparrow\beta$ and
-$q\uparrow B$ respectively yields failure probabilities approaching
-$\beta^2=\alpha$ and $1-\gamma^2=\alpha$. Hence $\sup_F\pr(\SB<\mu)
-=\alpha$.
-
-\emph{Non-attainment.} If some distribution $F$ attained the supremum,
-then $\pr(Am+BM>w)=\alpha$. Such a distribution must have
-$0<w<\beta$, since the strict failure event is empty in the boundary
-regimes handled above. The coverage result just proved gives
-$\pr(Am+BM<w)\ge\gamma^2$; since $\alpha+\gamma^2=1$, attainment would
-therefore require
-\begin{equation}\label{eq:attainzero}
-\pr(Am+BM<w)=\gamma^2,
-\qquad \pr(Am+BM=w)=0.
-\end{equation}
-The rectangle bounds consequently hold with weak inequalities. Repeating
-the budget argument in that form forces equality at every step. Equality
-on the first interval gives $G=\beta$ almost everywhere on $(0,a_0)$,
-and equality in the potential bound permits
-$G\in\{B,\beta\}$ almost everywhere on $(a_0,u^*)$. Because $G$ is
-nonincreasing, there is a $c\in[a_0,u^*]$ such that its almost-everywhere
-level is $\beta$ before $c$ and $B$ after $c$. Set
-$d=b(c)=(w-Ac)/B$. Equality in the tail comparison, together with
-$h_+(\beta)=0$ and $h_+(B)=B$, gives $G(b(a))=0$ for almost every
-$a\in(a_0,c)$ and $G(b(a))=B$ for almost every $a\in(c,u^*)$.
-Because $b$ is decreasing, this is the corresponding switch at $d$ on
-the other side of $u^*$. Equality in the discarded tail and
-right-continuity then force
-\begin{equation}\label{eq:equalitysurvival}
-G(x)=
-\begin{cases}
-\beta, & 0\le x<c,\\
-B, & c\le x<d,\\
-0, & d\le x\le1,
-\end{cases}
-\qquad Ac+Bd=w.
-\end{equation}
-The change of variables gives $c\le u^*\le d$. Every distribution in
-\eqref{eq:equalitysurvival} places positive probability on the boundary
-$Am+BM=w$. If $0<c<d$, it has masses $A$ and $B$ at $c$ and $d$, so
-the mixed pair $(c,d)$ has probability $2AB>0$. If $c=0<d$, the atoms
-at $0$ and $d$ have masses $1-B$ and $B$, so their mixed pair has
-positive probability. The remaining case $c=d$ forces $c=d=u^*$, and
-the pair $(u^*,u^*)$ has probability $\beta^2>0$. Each case contradicts
-\eqref{eq:attainzero}. Hence the supremum is not attained.
-\end{proof}
-
-\begin{remark}[Relation to known inequalities]\label{rem:known}
-The equal-weights case of \eqref{eq:wedge}, which bounds
-$\pr(X_1+X_2\ge t)$ for nonnegative i.i.d.\ variables with a given
-mean, is the classical sharp inequality of Hoeffding and Shrikhande
-\cite{hs1955} (extended to general $k$ in \cite{lms2016}); the wedge
-inequality is its order-statistic-weighted analogue, with genuinely
-unequal weights except at $\alpha=16/25$, where $A=B$. The sharp-bound
-literature for order statistics and L-statistics under moment
-conditions (see \cite{balrych2024}) concerns expectations or
-distribution functions of single order statistics, not
-mean-constrained tail probabilities of weighted combinations; we are
-not aware of a prior result implying \eqref{eq:wedge}. Other
-distribution-free upper bounds for bounded means include those of
-Anderson \cite{anderson1969} and Gaffke \cite{gaffke2005}; the latter's
-finite-sample validity for independent variables was proved recently
-\cite{vlassis2026}. Those results are not used here, and the proof of
-Theorem~\ref{thm:n2} is self-contained.
-\end{remark}
-
-\section{Conventional confidence levels from
-\texorpdfstring{$n=3$ through $n=7$}{n=3 through n=7}}\label{sec:n3}
-
-The recent validity proof for Gaffke's mean test \cite{vlassis2026}
-provides a second route to finite-sample coverage. For a real random
-variable $X$, write $Q_q(X)=\inf\{z:\Pr(X\le z)\ge q\}$. Given $n$
-observed taints $t_1,\ldots,t_n$, define
-\[
-G_\alpha(t_1,\ldots,t_n)
-=Q_{1-\alpha}\!\left(D_0+\sum_{i=1}^nt_iD_i\right),
-\qquad (D_0,\ldots,D_n)\sim\operatorname{Dirichlet}(1,\ldots,1).
-\]
-This is the one-sided Gaffke--Learned-Miller--Thomas upper limit
-\cite{gaffke2005,learnedmiller2020,ming2026}; it has coverage at least
-$1-\alpha$ for independent observations from every distribution on
-$[0,1]$. We prove that Stringer is pointwise no smaller at three
-conventional confidence levels for $n=3$, $n=4$, $n=5$, $n=6$, and $n=7$.
-
-\subsection{The case \texorpdfstring{$n=3$}{n=3}}
-
-\begin{theorem}\label{thm:n3}
-Let $n=3$ and let $T_1,T_2,T_3$ be i.i.d. with common distribution $F$
-on $[0,1]$ and mean $\mu$. If
-$\alpha\in\{0.10,0.05,0.01\}$, then
-\[
-\SB\ge G_\alpha(T_1,T_2,T_3)
-\quad\text{for every observed sample},
-\qquad
-\Pr_F(\SB\ge\mu)\ge1-\alpha.
-\]
-Thus the binomial Stringer bound is distribution-free conservative at
-$90\%$, $95\%$, and $99\%$ nominal confidence when $n=3$.
-\end{theorem}
-
-\begin{proof}
-Put
-\[
-a=1-p_3(2),\quad b=p_3(2)-p_3(1),\quad
-c=p_3(1)-p_3(0),\quad d=p_3(0).
-\]
-For ascending sample taints $t_1\le t_2\le t_3$,
-$\SB=at_1+bt_2+ct_3+d$. The four coefficients are positive and sum to
-one. Unless $t_1=1$, affine equivariance permits subtraction of $t_1$
-and division by $1-t_1$. It therefore suffices to use the four knots
-$(0,x,y,1)$, where $0\le x\le y\le1$, and the Stringer threshold
-\[
-s=bx+cy+d.
-\]
-By exchangeability of the Dirichlet weights, pointwise domination of
-$G_\alpha$ is equivalent to
-\begin{equation}\label{eq:n3capgoal}
-V(x,y):=\Pr_D\{xD_1+yD_2+D_3>s\}\le\alpha.
-\end{equation}
-The uniform-simplex cap formula gives
-\begin{equation}\label{eq:n3caps}
-V(x,y)=
-\begin{cases}
-\dfrac{(1-s)^3}{(1-x)(1-y)},&s\ge y,\\[6pt]
-\dfrac{1}{1-y}\left\{
-\dfrac{(1-s)^3}{1-x}-\dfrac{(y-s)^3}{y(y-x)}\right\},
-&x\le s\le y,\\[8pt]
-1-\dfrac{s^3}{xy},&s\le x,
-\end{cases}
-\end{equation}
-with boundary values defined by continuity. The Clopper--Pearson
-equations imply
-\begin{equation}\label{eq:n3identities}
-(a+b+c)^3=\alpha,\qquad (b+c+d)^3=1-\alpha,\qquad
-(a+b)^2\{3-2(a+b)\}=\alpha.
-\end{equation}
-
-We verify \eqref{eq:n3capgoal} in the three regions of
-\eqref{eq:n3caps}. If $s\le x$, put $g=b+c+d=(1-\alpha)^{1/3}$.
-The exact factor enclosures certify $b,c\le g/3$ at each of the three
-values of $\alpha$. Weighted AM--GM therefore gives
-\[
-\frac{s}{g}=\frac bgx+\frac cgy+\frac dg
-\ge x^{b/g}y^{c/g}\ge(xy)^{1/3},
-\]
-and the third line of \eqref{eq:n3caps} is at most $\alpha$.
-
-For $s\ge y$, set $X=1-x$, $Y=1-y$, $L=1-s=a+bX+cY$, and
-$A=1-b-c=a+d$. The domain is the triangle with vertices
-\[
-\left(\frac aA,\frac aA\right),\qquad (1,1),\qquad
-\left(1,\frac{a+b}{1-c}\right).
-\]
-On that triangle the desired inequality is
-\begin{equation}\label{eq:n3regiona}
-P_A(X,Y):=\alpha XY-(a+bX+cY)^3\ge0.
-\end{equation}
-After an affine map from the standard triangle, all degree-three
-Bernstein coefficients of $P_A$ are positive except the coefficient at
-$(X,Y)=(1,1)$, which is zero by the first identity in
-\eqref{eq:n3identities}. The coefficient signs are certified by exact
-rational intervals as described below.
-
-It remains to consider $x\le s\le y$. Write
-$\rho=s-x\ge0$ and $\tau=y-s\ge0$. Solving for $x,y$ shows that the
-$(\rho,\tau)$ domain is the quadrilateral with vertices
-\[
-(0,0),\quad\left(\frac d{1-c},0\right),\quad
-(c+d,a+b),\quad\left(0,\frac a{1-b}\right).
-\]
-Triangulate it along the diagonal from $(0,0)$ to $(c+d,a+b)$.
-Differentiating the middle line of \eqref{eq:n3caps} and cancelling common
-factors gives
-\[
-\frac{\partial V}{\partial y}
-=\frac{Q(x,y)}{y^2(1-x)(y-x)^2},
-\]
-where $Q$ is a degree-five polynomial. On both triangles, every
-degree-five Bernstein coefficient of $A^3Q$ is nonnegative. Three on each
-triangle are structural zeros, and all remaining coefficients are
-strictly positive. Hence $V$ is nondecreasing in $y$ at fixed $x$.
-Increasing $y$ preserves both middle-region inequalities, so it is enough
-to take the limit $y\uparrow1$.
-
-At $y=1$, put $q=1-x$. The constraint is
-$q\ge q_0:=a/(1-b)$, and direct simplification yields
-\[
-V(x,1)=
-\frac{(a+bq)^2\{3q-(a+bq)(1+q)\}}{q^2}.
-\]
-After mapping $[q_0,1]$ to $[0,1]$, the degree-four Bernstein
-coefficients of
-\[
-\alpha q^2-(a+bq)^2\{3q-(a+bq)(1+q)\}
-\]
-are positive except the coefficient at $q=1$, which is zero by the final
-identity in \eqref{eq:n3identities}. This completes
-\eqref{eq:n3capgoal}.
-
-For completeness, Table~\ref{tab:n3certificate} reports the smallest
-positive Bernstein lower bound in each exact check. The factors are
-enclosed on a dyadic grid of width $2^{-120}$; endpoint signs of their
-binomial CDF equations and every subsequent coefficient sign are evaluated
-with integer or rational arithmetic. The symbolic derivation starts from
-\eqref{eq:n3caps} and regenerates all coefficient formulas. Both the
-derivation and sign certificate are reproduced by the repository commands
-\texttt{make n3-formula-check} and
-\texttt{make n3-certificate-check}. Thus this is an exact
-computer-assisted proof, not a grid search. Finally, validity of
-$G_\alpha$ gives the stated coverage inequality.
-\end{proof}
-
-\begin{table}[htbp]\centering
-\begin{tabular}{lrrrr}
-\toprule
-$\alpha$ & region $s\ge y$ & middle triangle 1 & middle triangle 2
-& $y=1$ boundary\\
-\midrule
-$0.01$ & $1.04\times10^{-7}$ & $9.45\times10^{-5}$
-& $1.37\times10^{-9}$ & $3.67\times10^{-8}$\\
-$0.05$ & $1.63\times10^{-5}$ & $1.38\times10^{-4}$
-& $7.52\times10^{-8}$ & $4.40\times10^{-6}$\\
-$0.10$ & $1.45\times10^{-4}$ & $1.04\times10^{-4}$
-& $3.27\times10^{-7}$ & $3.28\times10^{-5}$\\
-\bottomrule
-\end{tabular}
-\caption{Smallest positive exact rational lower bound among the relevant
-Bernstein coefficients in the $n=3$ certificate. Displayed values are
-decimal approximations; the complete rational bounds are in the
-machine-readable certificate.}\label{tab:n3certificate}
-\end{table}
-
-\subsection{The case \texorpdfstring{$n=4$}{n=4}}
-
-The same comparison can be carried out one dimension higher. The additional
-dimension changes the cap geometry substantially: after clearing boundary
-factors, two degree-six polynomials must be certified on six tetrahedra.
-
-\begin{theorem}\label{thm:n4}
-Let $n=4$ and let $T_1,\ldots,T_4$ be i.i.d. with common distribution $F$
-on $[0,1]$ and mean $\mu$. If
-$\alpha\in\{0.10,0.05,0.01\}$, then
-\[
-\SB\ge G_\alpha(T_1,\ldots,T_4)
-\quad\text{for every observed sample},
-\qquad
-\Pr_F(\SB\ge\mu)\ge1-\alpha.
-\]
-Thus the binomial Stringer bound is distribution-free conservative at
-$90\%$, $95\%$, and $99\%$ nominal confidence when $n=4$.
-\end{theorem}
-
-\begin{proof}
-Write $p_j=p_4(j)$ and put
-\[
-a=1-p_3,\quad b=p_3-p_2,\quad c=p_2-p_1,\quad
-d=p_1-p_0,\quad e=p_0.
-\]
-For ascending taints $t_1\le t_2\le t_3\le t_4$,
-$\SB=at_1+bt_2+ct_3+dt_4+e$. The five coefficients are positive and
-sum to one. As in the $n=3$ proof, affine equivariance reduces the sample
-knots to
-\[
-(0,x,y,z,1),\qquad 0\le x\le y\le z\le1,
-\qquad s=bx+cy+dz+e.
-\]
-It is therefore enough to prove that
-\begin{equation}\label{eq:n4capgoal}
-V(x,y,z):=\Pr_D\{xD_1+yD_2+zD_3+D_4>s\}\le\alpha,
-\end{equation}
-where $(D_0,\ldots,D_4)\sim\operatorname{Dirichlet}(1,\ldots,1)$.
-Put
-\[
-H_1=\frac{(1-s)^4}{(1-x)(1-y)(1-z)},\quad
-H_z=\frac{(z-s)^4}{z(z-x)(z-y)(1-z)},\quad
-H_y=\frac{(y-s)^4}{y(y-x)(z-y)(1-y)}.
-\]
-The uniform-simplex cap formula is
-\begin{equation}\label{eq:n4caps}
-V=\begin{cases}
-H_1,&s\ge z,\\
-H_1-H_z,&y\le s\le z,\\
-H_1-H_z+H_y,&x\le s\le y,\\
-1-\dfrac{s^4}{xyz},&s\le x,
-\end{cases}
-\end{equation}
-with boundary values defined by continuity. The factor equations give
-\begin{align}
-\alpha&=(1-e)^4,\nonumber\\
-\alpha&=(1-d-e)^3\{1+3(d+e)\},\nonumber\\
-\alpha&=(1-c-d-e)^2\{1+2(c+d+e)+3(c+d+e)^2\},\label{eq:n4identities}\\
-1-\alpha&=(b+c+d+e)^4.\nonumber
-\end{align}
-
-First suppose $s\le x$ and set $g=b+c+d+e=p_3$. The exact factor
-enclosures certify $b,c,d\le g/4$ at each stated value of $\alpha$.
-Weighted AM--GM gives
-\[
-\frac{s}{g}=\frac bgx+\frac cgy+\frac dgz+\frac eg
-\ge x^{b/g}y^{c/g}z^{d/g}\ge(xyz)^{1/4}.
-\]
-The last identity in \eqref{eq:n4identities} now makes the last line of
-\eqref{eq:n4caps} at most $\alpha$.
-
-For the other three regions, clear the positive denominators in
-\eqref{eq:n4caps}. In the region $s\ge z$, the required residual is
-\[
-P_A=\alpha(1-x)(1-y)(1-z)-(1-s)^4.
-\]
-In the region $y\le s\le z$, use
-\begin{align*}
-P_B={}&\alpha(1-x)(1-y)(1-z)z(z-x)(z-y)\\
-&-(1-s)^4z(z-x)(z-y)+(z-s)^4(1-x)(1-y).
-\end{align*}
-Exact polynomial division, using the second identity in
-\eqref{eq:n4identities}, gives $P_B=(1-z)R_B$, where $R_B$ has degree
-six. In the region $x\le s\le y$, the corresponding cleared residual is
-\begin{align*}
-P_C={}&\alpha(1-x)(1-y)(1-z)z(z-x)(z-y)y(y-x)\\
-&-(1-s)^4z(z-x)(z-y)y(y-x)\\
-&+(z-s)^4(1-x)(1-y)y(y-x)\\
-&-(y-s)^4(1-x)(1-z)z(z-x).
-\end{align*}
-The third identity in \eqref{eq:n4identities} gives
-$P_C=(1-z)(1-y)(z-y)R_C$, with $R_C$ of degree six. Every extracted
-factor is nonnegative on the ordered-knot domain.
-
-It remains to certify $P_A,R_B,R_C$. Define
-\[
-\begin{gathered}
-r_0=(0,0,0),\quad r_1=\left(0,0,\frac e{1-d}\right),\quad
-r_2=\left(0,\frac e{1-c-d},\frac e{1-c-d}\right),\\
-r_3=(t,t,t),\quad t=\frac e{1-b-c-d},\qquad v_{001}=(0,0,1),\\
-q_2=\left(0,\frac{d+e}{1-c},1\right),\quad
-q_3=(u,u,1),\quad u=\frac{d+e}{1-b-c},\\
-v_{011}=(0,1,1),\qquad
-q_4=\left(\frac{c+d+e}{1-b},1,1\right).
-\end{gathered}
-\]
-Intersecting $0\le x\le y\le z\le1$ successively with the planes
-$s=z$, $s=y$, and $s=x$ gives the following tetrahedralizations:
-\begin{align*}
-s\ge z:\quad&[r_0,r_1,r_2,r_3],\\
-y\le s\le z:\quad&[r_3,r_2,r_1,v_{001}],\ [r_3,q_2,q_3,v_{001}],\
-[r_3,q_2,r_2,v_{001}],\\
-x\le s\le y:\quad&[r_3,q_2,r_2,v_{011}],\ [q_3,r_3,q_4,v_{011}],\
-[q_3,r_3,q_2,v_{011}].
-\end{align*}
-The listed tetrahedra meet only on common faces and cover the respective
-convex polytopes; this also follows directly by slicing at the common
-diagonals $[r_3,v_{001}]$ and $[r_3,v_{011}]$.
-
-Map each tetrahedron affinely to the standard tetrahedron. The exact
-symbolic calculation finds one structural-zero coefficient in the
-degree-four Bernstein expansion of $P_A$. For $R_B$, the three
-degree-six expansions have respectively $10$, $5$, and $10$ structural
-zeros; for $R_C$, they have $5$, $10$, and $10$. These coefficients
-vanish identically over $\mathbb Q(b,c,d,e)$. Every remaining coefficient
-has a strictly positive exact rational interval enclosure at each stated
-level. Table~\ref{tab:n4certificate} reports the smallest positive lower
-bounds by region. Factor endpoints lie on a dyadic grid of width
-$2^{-120}$, their binomial-CDF signs are checked with integer arithmetic,
-and all polynomial, vertex, and Bernstein calculations thereafter use
-exact rational arithmetic. The symbolic and numerical layers are
-regenerated by \texttt{make n4-structure-check} and
-\texttt{make n4-certificate-check}. Hence $P_A,R_B,R_C\ge0$, and
-\eqref{eq:n4capgoal} follows in all four regions. Validity of $G_\alpha$
-then proves the coverage statement.
-\end{proof}
-
-\begin{table}[htbp]\centering
-\begin{tabular}{lrrr}
-\toprule
-$\alpha$ & region $s\ge z$ & region $y\le s\le z$
-& region $x\le s\le y$\\
-\midrule
-$0.01$ & $3.10\times10^{-10}$ & $4.78\times10^{-14}$
-& $5.84\times10^{-12}$\\
-$0.05$ & $3.47\times10^{-7}$ & $2.66\times10^{-10}$
-& $4.60\times10^{-9}$\\
-$0.10$ & $7.74\times10^{-6}$ & $1.18\times10^{-8}$
-& $7.93\times10^{-8}$\\
-\bottomrule
-\end{tabular}
-\caption{Smallest positive exact rational lower bound among the relevant
-Bernstein coefficients in the $n=4$ certificate. Displayed values are
-decimal approximations; the exact bounds and all structural-zero indices
-are machine-readable.}\label{tab:n4certificate}
-\end{table}
-
-\subsection{The case \texorpdfstring{$n=5$}{n=5}}
-
-At $n=5$ the normalized knot domain is four-dimensional and all five cap
-regions require polynomial certificates. The exact computation is larger,
-but the comparison principle is unchanged.
-
-\begin{theorem}\label{thm:n5}
-Let $n=5$ and let $T_1,\ldots,T_5$ be i.i.d.\ with common distribution $F$
-on $[0,1]$ and mean $\mu$. If
-$\alpha\in\{0.10,0.05,0.01\}$, then
-\[
-\SB\ge G_\alpha(T_1,\ldots,T_5)
-\quad\text{for every observed sample},
-\qquad
-\Pr_F(\SB\ge\mu)\ge1-\alpha.
-\]
-Thus the binomial Stringer bound is distribution-free conservative at
-$90\%$, $95\%$, and $99\%$ nominal confidence when $n=5$.
-\end{theorem}
-
-\begin{proof}
-Write $p_j=p_5(j)$ and put
-\[
-a=1-p_4,\quad b=p_4-p_3,\quad c=p_3-p_2,\quad
-d=p_2-p_1,\quad e=p_1-p_0,\quad f=p_0.
-\]
-For ascending taints the Stringer bound is
-$at_1+bt_2+ct_3+dt_4+et_5+f$. After affine normalization, it is enough to
-consider
-\[
-(0,x,y,z,w,1),\qquad 0\le x\le y\le z\le w\le1,
-\qquad s=bx+cy+dz+ew+f.
-\]
-With $(D_0,\ldots,D_5)\sim\operatorname{Dirichlet}(1,\ldots,1)$, define
-\[
-V=\Pr_D\{xD_1+yD_2+zD_3+wD_4+D_5>s\}.
-\]
-Put
-\[
-\begin{split}
-H_1&=\frac{(1-s)^5}{(1-x)(1-y)(1-z)(1-w)},\\
-H_w&=\frac{(w-s)^5}{w(w-x)(w-y)(w-z)(1-w)},\\
-H_z&=\frac{(z-s)^5}{z(z-x)(z-y)(w-z)(1-z)},\\
-H_y&=\frac{(y-s)^5}{y(y-x)(z-y)(w-y)(1-y)}.
-\end{split}
-\]
-The uniform-simplex cap formula gives
-\begin{equation}\label{eq:n5caps}
-V=\begin{cases}
-H_1,&s\ge w,\\
-H_1-H_w,&z\le s\le w,\\
-H_1-H_w+H_z,&y\le s\le z,\\
-H_1-H_w+H_z-H_y,&x\le s\le y,\\
-1-s^5/(xyzw),&s\le x,
-\end{cases}
-\end{equation}
-with boundary values defined by continuity. If
-$q_1=e+f$, $q_2=d+e+f$, $q_3=c+d+e+f$, and
-$g=b+c+d+e+f$, the factor equations imply
-\begin{align}
-\alpha&=(1-f)^5,\nonumber\\
-\alpha&=(1-q_1)^4(1+4q_1),\nonumber\\
-\alpha&=(1-q_2)^3(1+3q_2+6q_2^2),\label{eq:n5identities}\\
-\alpha&=(1-q_3)^2(1+2q_3+3q_3^2+4q_3^3),\nonumber\\
-1-\alpha&=g^5.\nonumber
-\end{align}
-
-Let $K=(1-x)(1-y)(1-z)(1-w)$,
-$W=w(w-x)(w-y)(w-z)$, $Z=z(z-x)(z-y)$, and $Y=y(y-x)$.
-In the first four regions, multiply $\alpha-V$ by, respectively,
-$K,KW,KWZ,$ and $KWZY$, and denote the cleared residuals by
-$P_A,P_B,P_C,P_D$. For the final region use
-$P_E=s^5-g^5xyzw$. Exact polynomial division after
-\eqref{eq:n5identities} gives
-\begin{align*}
-P_B&=(1-w)R_B,\\
-P_C&=(1-w)(1-z)(w-z)R_C,\\
-P_D&=(1-w)(1-z)(1-y)(w-z)(w-y)(z-y)R_D.
-\end{align*}
-The remaining polynomials $P_A,R_B,R_C,R_D,P_E$ have degrees
-$5,8,9,8,5$, respectively, and every extracted factor is nonnegative.
-
-For completeness, we describe the exact four-simplex decomposition on
-which their Bernstein coefficients are evaluated. Let
-$v_i=(0^{,4-i},1^i)$ be the vertices of the ordered-knot simplex. If
-$x_r$ denotes $x,y,z,w$ for $r=1,2,3,4$, let $h_{r,ij}$ be the
-intersection of the edge $v_iv_j$ with $s=x_r$. Successive slicing by
-$s=w,z,y,x$ gives the following triangulations:
-\begingroup\small
-\begin{align*}
-\mathcal T_A={}&[v_0,h_{4,01},h_{4,02},h_{4,03},h_{4,04}],\\
-\mathcal T_B={}&[h_{4,04},h_{3,12},h_{4,01},h_{4,03},h_{4,02}],\\
-&[h_{3,13},h_{4,04},h_{3,12},h_{4,01},h_{3,14}],\\
-&[h_{3,13},h_{4,04},h_{3,12},h_{4,01},h_{4,03}],\\
-\mathcal T_C={}&[h_{2,23},h_{3,04},h_{3,02},h_{3,12},h_{3,03}],\\
-&[h_{2,23},h_{3,04},h_{3,02},h_{3,12},h_{2,24}],\\
-&[h_{2,23},h_{3,13},h_{3,04},h_{3,12},h_{3,03}],\\
-&[h_{3,14},h_{2,23},h_{3,04},h_{3,12},h_{2,24}],\\
-&[h_{3,14},h_{2,23},h_{3,13},h_{3,04},h_{3,12}],\\
-\mathcal T_D={}&[h_{2,13},h_{2,04},h_{2,23},h_{1,34},h_{2,03}],\\
-&[h_{2,14},h_{2,13},h_{2,04},h_{2,23},h_{1,34}],\\
-&[h_{2,24},h_{2,14},h_{2,04},h_{2,23},h_{1,34}],\\
-\mathcal T_E={}&[h_{1,04},h_{1,14},h_{1,24},h_{1,34},v_4].
-\end{align*}
-\endgroup
-The listed simplices meet only on common faces and cover their respective
-convex regions. Their vertex formulas follow by solving one affine equation
-on an edge; all denominators are positive sums of the six weights.
-
-Map each four-simplex affinely to the standard four-simplex. The respective
-structural-zero counts are
-\[
-\begin{array}{c|c|c|c}
-\text{region}&\text{degree}&\text{number of simplices}
-&\text{zero counts by simplex}\\ \hline
-A&5&1&1\\
-B&8&3&66,15,39\\
-C&9&5&59,35,92,59,92\\
-D&8&3&15,39,66\\
-E&5&1&1.
-\end{array}
-\]
-These zeros are exact identities: the symbolic derivation proves the
-corresponding face-ideal powers by Gr\"obner reduction over
-$\mathbb Q(b,c,d,e,f)$. Each factor root is then enclosed on a
-$2^{-240}$ dyadic grid with integer-checked binomial-CDF endpoint signs.
-All vertex, polynomial, and Bernstein operations use integer-directed
-outward rounding on a $2^{-256}$ dyadic grid. Every coefficient not forced
-to zero has a strictly positive lower endpoint, and every four-simplex
-affine determinant is enclosed away from zero. The smallest bounds by
-region are shown in Table~\ref{tab:n5certificate}. The commands
-\texttt{make n5-structure-check} and
-\texttt{make n5-certificate-check} regenerate both exact layers
-byte-for-byte, and the numerical certificate records the SHA-256 digest of
-the symbolic structure. Hence every residual is nonnegative, so
-$V\le\alpha$ in all five regions. Validity of $G_\alpha$ proves the result.
-\end{proof}
-
-\begin{table}[htbp]\centering
-\begin{tabular}{lrrrrr}
-\toprule
-$\alpha$ & $s\ge w$ & $z\le s\le w$ & $y\le s\le z$
-& $x\le s\le y$ & $s\le x$\\
-\midrule
-$0.01$ & $8.16\times10^{-13}$ & $7.45\times10^{-20}$
-& $3.23\times10^{-21}$ & $7.81\times10^{-16}$ & $3.47\times10^{-4}$\\
-$0.05$ & $6.70\times10^{-9}$ & $1.89\times10^{-14}$
-& $6.24\times10^{-16}$ & $3.57\times10^{-12}$ & $1.38\times10^{-3}$\\
-$0.10$ & $3.81\times10^{-7}$ & $4.93\times10^{-12}$
-& $1.36\times10^{-13}$ & $1.34\times10^{-10}$ & $2.20\times10^{-3}$\\
-\bottomrule
-\end{tabular}
-\caption{Smallest positive dyadic lower bound among the relevant Bernstein
-coefficients in the $n=5$ certificate. The displayed values are decimal
-approximations; all endpoints and structural-zero proofs are
-machine-readable.}\label{tab:n5certificate}
-\end{table}
-
-\subsection{The case \texorpdfstring{$n=6$}{n=6}}
-
-The next dimension has six cap regions. A larger exact certificate proves
-all three conventional levels.
-
-\begin{theorem}\label{thm:n6}
-Let $n=6$ and let $T_1,\ldots,T_6$ be i.i.d.\ with common distribution $F$
-on $[0,1]$ and mean $\mu$. For
-$\alpha\in\{0.10,0.05,0.01\}$,
-\[
-\SB\ge G_{\alpha}(T_1,\ldots,T_6)
-\quad\text{for every observed sample},
-\qquad
-\Pr_F(\SB\ge\mu)\ge1-\alpha.
-\]
-Thus the binomial Stringer bound is distribution-free conservative at
-$90\%$, $95\%$, and $99\%$ nominal confidence when $n=6$.
-\end{theorem}
-
-\begin{proof}
-Write $p_j=p_6(j)$ and put
-\[
-\begin{split}
-a&=1-p_5,\quad b=p_5-p_4,\quad c=p_4-p_3,\quad
-d=p_3-p_2,\\
-e&=p_2-p_1,\quad f=p_1-p_0,\quad g=p_0.
-\end{split}
-\]
-If the smallest taint is one, all taints, Stringer, and the Gaffke limit
-equal one. Otherwise, subtracting the smallest taint and dividing by its
-distance from one gives the ascending knots and Stringer threshold
-\[
-\begin{gathered}
-(t_0,\ldots,t_6)=(0,x,y,z,w,u,1),\qquad
-0\le x\le y\le z\le w\le u\le1,\\
-s=bx+cy+dz+ew+fu+g.
-\end{gathered}
-\]
-For $(D_0,\ldots,D_6)\sim\operatorname{Dirichlet}(1,\ldots,1)$, let
-\[
-V=\Pr_D\!\left\{\sum_{i=0}^6t_iD_i>s\right\}.
-\]
-For distinct knots, the uniform-simplex cap formula is
-\begin{equation}\label{eq:n6cap}
-V=\sum_{i:t_i>s}\frac{(t_i-s)^6}
- {\prod_{j\ne i}(t_i-t_j)},
-\end{equation}
-and coincident-knot values follow by continuity. It is enough to prove
-$V\le\alpha$ at each listed value of $\alpha$.
-
-For $k=0,\ldots,4$, set
-\[
-q_0=g,\quad q_1=f+g,\quad q_2=e+f+g,\quad
-q_3=d+e+f+g,\quad q_4=c+d+e+f+g.
-\]
-The Clopper--Pearson equations give
-\begin{equation}\label{eq:n6identities}
-\alpha=\sum_{j=0}^{k}\binom{6}{j}q_k^j(1-q_k)^{6-j}
-\quad(k=0,\ldots,4),
-\qquad
-1-\alpha=(b+c+d+e+f+g)^6.
-\end{equation}
-In the first five regions of \eqref{eq:n6cap}, clear the positive common
-denominator in $\alpha-V$ and substitute \eqref{eq:n6identities}; in the
-last region use
-$s^6-(b+c+d+e+f+g)^6xyzwu$. Exact polynomial division extracts the
-following nonnegative boundary factors:
-\[
-\begin{array}{c|c|l}
-\text{region}&\text{residual degree}&\text{extracted factors}\\ \hline
-s\ge u&6&1\\
-w\le s\le u&10&1-u\\
-z\le s\le w&12&(1-w)(1-u)(u-w)\\
-y\le s\le z&12&(1-z)(1-w)(1-u)(w-z)(u-z)(u-w)\\
-x\le s\le y&10&\displaystyle
- \prod_{r\in\{y,z,w,u\}}(1-r)
- \prod_{r<r';\ r,r'\in\{y,z,w,u\}}(r'-r)\\
-s\le x&6&1.
-\end{array}
-\]
-The divisions are performed in an exact polynomial ring and reject any
-nonzero remainder.
-
-Let $v_i=(0^{,5-i},1^i)$, $i=0,\ldots,5$, be the ordered-knot simplex
-vertices. Intersecting its edges with $s=u,w,z,y,x$ and slicing
-successively gives fixed triangulations containing respectively
-$1,5,10,10,5,1$ five-simplices. Every intersection coordinate is retained
-as an exact rational function of $b,\ldots,g$. Exact boundary identities
-and directed strict-sign checks place every vertex in its claimed convex
-region, and all 210 pairs of the 21 named vertices are certified as
-distinct. The oriented-chain check
-pairs all 48 internal four-facets with opposite orientations. The 96
-unpaired four-facets lie on the six outer ordered-simplex hyperplanes, 16
-on each, and the directed determinant sum lies strictly between $1/2$ and
-$3/2$. Thus the chain represents an integer multiple of the generator of
-$H_5(\Delta,\partial\Delta;\mathbb Z)$, and its determinant sum is that
-integer times the normalized volume of $\Delta$, which is one. The integer
-is therefore one. Because every simplex has positive orientation and lies
-in $\Delta$, the 32 simplices cover the domain without interior
-multiplicity. After mapping each five-simplex to the standard
-five-simplex, the six residual degrees, simplex counts, and total
-structural-zero counts are
-\[
-\begin{array}{c|rrr}
-\text{region}&\text{degree}&\text{five-simplices}&\text{structural zeros}
-\\ \hline
-A&6&1&1\\
-B&10&5&1433\\
-C&12&10&7514\\
-D&12&10&7514\\
-E&10&5&1433\\
-F&6&1&1.
-\end{array}
-\]
-
-The structural zeros are exact. For each relevant affine face ideal $I$,
-the symbolic layer verifies the required membership in $I^q$ by reducing
-the residual and every ordinary partial derivative of total order less than
-$q$ modulo $I$. These are exact Singular calculations over
-$\mathbb Q(b,c,d,e,f,g)$; the weights are not specialized. A rational
-specialization is used only to select independent generators from redundant
-face equations. At the certified weights, directed intervals enclose a
-full-rank normal minor away from zero for every selected generator set, so
-the generic face identities specialize validly. For the remaining
-coefficients, each factor root is bracketed on a $2^{-320}$
-dyadic grid with integer-checked binomial-CDF endpoint signs. All subsequent
-vertex, determinant, polynomial, and Bernstein operations use
-integer-directed outward rounding on a $2^{-384}$ grid. Every five-simplex
-determinant is enclosed away from zero, and every nonstructural coefficient
-has a strictly positive lower endpoint. The commands
-\texttt{make n6-structure-check} and
-\texttt{make n6-certificate-check} regenerate the two machine-readable
-layers, whose link is fixed by a SHA-256 digest. Hence every cleared
-residual is nonnegative and $V\le\alpha$ at all three listed levels.
-Validity of $G_\alpha$ proves the coverage statement.
-\end{proof}
-
-\begin{table}[htbp]\centering
-\small
-\setlength{\tabcolsep}{4pt}
-\begin{tabular}{lrrrrrr}
-\toprule
-$\alpha$ & A & B & C & D & E & F\\
-\midrule
-$0.10$ & $1.80\times10^{-8}$ & $1.85\times10^{-15}$
-& $1.93\times10^{-19}$ & $4.24\times10^{-19}$
-& $1.35\times10^{-13}$ & $1.53\times10^{-3}$\\
-$0.05$ & $1.23\times10^{-10}$ & $1.17\times10^{-18}$
-& $6.57\times10^{-23}$ & $4.01\times10^{-22}$
-& $1.66\times10^{-15}$ & $9.57\times10^{-4}$\\
-$0.01$ & $2.02\times10^{-15}$ & $9.63\times10^{-26}$
-& $1.22\times10^{-30}$ & $6.05\times10^{-29}$
-& $6.29\times10^{-20}$ & $2.41\times10^{-4}$\\
-\bottomrule
-\end{tabular}
-\caption{Smallest positive dyadic lower bound by cap region in the $n=6$
-certificate. The displayed values are decimal approximations; every
-interval endpoint and structural-zero proof is machine-readable.}
-\label{tab:n6certificate}
-\end{table}
-
-\subsection{The case \texorpdfstring{$n=7$}{n=7}}
-
-At $n=7$, the ordered-knot domain is six-dimensional. Exact reflection
-reduces seven cap regions to four source polynomials, and a fixed
-64-simplex chain permits a rigorous Bernstein certificate.
-
-\begin{theorem}\label{thm:n7}
-Let $n=7$ and let $T_1,\ldots,T_7$ be i.i.d.\ with common distribution $F$
-on $[0,1]$ and mean $\mu$. For
-$\alpha\in\{0.10,0.05,0.01\}$,
-\[
-\SB\ge G_{\alpha}(T_1,\ldots,T_7)
-\quad\text{for every observed sample},
-\qquad
-\Pr_F(\SB\ge\mu)\ge1-\alpha.
-\]
-Thus the binomial Stringer bound is distribution-free conservative at
-$90\%$, $95\%$, and $99\%$ nominal confidence when $n=7$.
-\end{theorem}
-
-\begin{proof}
-Write $p_j=p_7(j)$ and put
-\[
-\begin{split}
-a&=1-p_6,\quad b=p_6-p_5,\quad c=p_5-p_4,\quad
-d=p_4-p_3,\quad e=p_3-p_2,\\
-f&=p_2-p_1,\quad g=p_1-p_0,\quad h=p_0.
-\end{split}
-\]
-As before, affine equivariance reduces every nonconstant sample to the
-ascending knots and threshold
-\[
-\begin{gathered}
-(t_0,\ldots,t_7)=(0,x,y,z,w,u,v,1),\qquad
-0\le x\le y\le z\le w\le u\le v\le1,\\
-s=bx+cy+dz+ew+fu+gv+h.
-\end{gathered}
-\]
-For $(D_0,\ldots,D_7)\sim\operatorname{Dirichlet}(1,\ldots,1)$, let
-\[
-V=\Pr_D\!\left\{\sum_{i=0}^7t_iD_i>s\right\}.
-\]
-For distinct knots, the uniform-simplex cap formula is
-\begin{equation}\label{eq:n7cap}
-V=\sum_{i:t_i>s}\frac{(t_i-s)^7}
- {\prod_{j\ne i}(t_i-t_j)},
-\end{equation}
-with coincident-knot values obtained by continuity. It is enough to prove
-$V\le\alpha$.
-
+\begin{corollary}[Three-observation Stringer range]\label{cor:n3expanded}
 Set
-\[
-\begin{aligned}
-q_0&=h,&q_1&=g+h,&q_2&=f+g+h,\\
-q_3&=e+f+g+h,&q_4&=d+e+f+g+h,&q_5&=c+d+e+f+g+h.
-\end{aligned}
-\]
-The factor equations give
-\begin{equation}\label{eq:n7identities}
-\alpha=\sum_{j=0}^{k}\binom{7}{j}q_k^j(1-q_k)^{7-j}
-\quad(k=0,\ldots,5),
-\qquad
-1-\alpha=(b+c+d+e+f+g+h)^7.
+\begin{equation}\label{eq:alphastar}
+ \alpha_\star=\left(\frac{19+\sqrt{21}}{34}\right)^3
+ =0.3336852118672717\ldots .
 \end{equation}
-In the first six regions of \eqref{eq:n7cap}, clear the positive common
-denominator in $\alpha-V$ and substitute the corresponding identity in
-\eqref{eq:n7identities}. In the final region use
-\[
-s^7-(b+c+d+e+f+g+h)^7xyzwuv.
-\]
-Exact polynomial division extracts nonnegative upper-endpoint and
-coincident-knot factors. Label the seven threshold regions, in descending
-order, by $A$ through $G$. After factor removal, their residual degrees are
-$7,12,15,16,15,12,7$, respectively.
-Only $P_A,P_B,P_C,P_D$ need to be stored. Reversing the eight Dirichlet
-spacings sends
-\[
-\begin{aligned}
-(a,b,c,d,e,f,g,h)&\mapsto(h,g,f,e,d,c,b,a),\\
-(x,y,z,w,u,v)&\mapsto(1-v,1-u,1-w,1-z,1-y,1-x),
-\end{aligned}
-\]
-and interchanges $V$ with $1-V$ and $\alpha$ with $1-\alpha$.
-Writing $R$ for this substitution, the remaining residuals satisfy the
-exact identities
-$P_G=-R(P_A)$, $P_F=-R(P_B)$, and $P_E=-R(P_C)$.
-
-Let $v_i$ be the point with $6-i$ leading zeros and $i$ trailing ones,
-$i=0,\ldots,6$. These are the vertices of the ordered knot simplex.
-Intersect its edges successively with
-$s=v,u,w,z,y,x$. Fixed triangulations of the resulting slices contain
-$1,6,15,20,15,6,1$ six-simplices. Every intersection coordinate is stored
-as an exact rational function of $b,\ldots,h$. At each certified level,
-rigorous ball arithmetic encloses every affine determinant away from zero,
-places every vertex in its claimed convex region, and certifies all 378
-pairs of the 28 named vertices as distinct. The oriented-chain calculation
-pairs 112 internal five-facets with opposite orientations. Its 224 unpaired
-five-facets lie on the seven outer ordered-simplex hyperplanes, 32 on each.
-The normalized determinant sum contains one and lies strictly between
-$1/2$ and $3/2$, so the integer relative-chain degree is one. Because every
-simplex lies in the ordered domain with positive orientation, the 64
-simplices cover it without interior multiplicity.
-
-After affine maps to the standard six-simplex, the residual degrees,
-simplex counts, and total structural-zero counts are
-\[
-\begin{array}{c|rrr}
-\text{region}&\text{degree}&\text{six-simplices}&\text{structural zeros}
-\\ \hline
-A&7&1&1\\
-B&12&6&10{,}462\\
-C&15&15&99{,}507\\
-D&16&20&193{,}352\\
-E&15&15&99{,}507\\
-F&12&6&10{,}462\\
-G&7&1&1.
-\end{array}
-\]
-The zero classification is exact. For an affine face ideal $I$ and required
-order $q$, write the exact source derivation as $N=FP$, where $N$ is the
-compact cleared residual, $F$ is the product of extracted linear factors,
-and $P$ is the stored residual. After an affine change of coordinates,
-$I$ is generated by normal variables, so its associated graded ring is a
-polynomial ring and the $I$-adic order is additive on nonzero products.
-For 22 threshold-only ideals, exact restriction checks count the linear
-factors belonging to $I$. Every summand of $N$ has order at least
-$\nu_I(F)+q$; hence $P\in I^q$. The four remaining outer-face statements
-are evaluated by sparse multivariate Horner steps in the quotient by all
-normal monomials of total degree $q$, and Singular verifies a zero remainder
-over $\mathbb Q(b,c,d,e,f,g,h)$. Reflection links these 26 generic statements
-to all 322 simplex-face conditions. Rigorous nonzero normal minors prove that every
-geometric face basis and every proof-source ideal basis specializes with
-full rank in the corresponding original or reflected weight box. In
-particular, every proof-source pivot used for a restriction or inverse chart
-is enclosed away from zero.
-
-For all other coefficients, the Clopper--Pearson roots are bracketed by
-adjacent dyadic rationals on a $2^{-512}$ grid, with every endpoint sign
-checked by integer arithmetic. All subsequent weight, vertex, determinant,
-residual, affine-substitution, and Bernstein operations use outward-rounded
-Arb real-ball arithmetic at 768-bit precision \cite{johansson2017}. Every
-nonstructural Bernstein coefficient has a strictly positive lower endpoint.
-The commands \texttt{make n7-structure-data-check}, the nine
-\texttt{n7-face-*} targets, and the three \texttt{n7-certificate-*} targets
-regenerate the proof layers. The combined sign certificate records the
-SHA-256 digest of the symbolic structure artifact. Hence every cleared
-residual is nonnegative, $V\le\alpha$, and validity of $G_\alpha$ proves the
-coverage statement.
-\end{proof}
-
-\begin{table}[htbp]\centering
-\scriptsize
-\setlength{\tabcolsep}{3pt}
-\begin{tabular}{lrrrrrrr}
-\toprule
-$\alpha$ & A & B & C & D & E & F & G\\
-\midrule
-$0.10$ & $8.29\times10^{-10}$ & $6.54\times10^{-19}$
-& $2.41\times10^{-25}$ & $1.13\times10^{-27}$
-& $4.97\times10^{-25}$ & $9.07\times10^{-17}$ & $1.12\times10^{-3}$\\
-$0.05$ & $2.21\times10^{-12}$ & $6.73\times10^{-23}$
-& $5.89\times10^{-30}$ & $3.54\times10^{-32}$
-& $9.75\times10^{-29}$ & $5.17\times10^{-19}$ & $7.01\times10^{-4}$\\
-$0.01$ & $4.80\times10^{-18}$ & $1.11\times10^{-31}$
-& $3.65\times10^{-40}$ & $3.21\times10^{-42}$
-& $4.35\times10^{-37}$ & $3.41\times10^{-24}$ & $1.76\times10^{-4}$\\
-\bottomrule
-\end{tabular}
-\caption{Smallest positive rigorous lower bound by cap region in the $n=7$
-certificate. The displayed values are decimal approximations; exact
-rational endpoints of the Arb balls and all structural-zero proofs are
-machine-readable.}
-\label{tab:n7certificate}
-\end{table}
-
-\section{Poisson factors at conventional audit confidence levels}
-\label{sec:poisson}
-
-For $0\le j\le n$, let $p_n^{\mathrm B}(j)$ denote the binomial factor
-used above, and let
-\[
-p_n^{\mathrm P}(j)=\frac{\lambda_j}{n},
-\qquad
-\sum_{i=0}^{j}e^{-\lambda_j}\frac{\lambda_j^i}{i!}=\alpha,
-\]
-denote its Poisson analogue. The Poisson factors are not truncated at
-one; as in audit factor tables, a factor may exceed one.
-
-\begin{proposition}[All-$n$ factor domination]
-\label{prop:poissondomination}
-If $0<\alpha<e^{-1}$, then
-\[
-p_n^{\mathrm P}(j)\ge p_n^{\mathrm B}(j),
-\qquad j=0,\ldots,n,\quad n\ge1.
-\]
-Consequently, the Poisson-factor Stringer bound is at least the
-binomial-factor Stringer bound for every observed sample.
-\end{proposition}
-
-\begin{proof}
-Write $B(j;n,p)=\Pr\{\operatorname{Bin}(n,p)\le j\}$ and
-$P(j;\lambda)=\Pr\{\operatorname{Pois}(\lambda)\le j\}$.
-Anderson and Samuels \cite[Corollary~2.1 and Section~4.2]{andsam1967}
-show that
-\[
-B(j;n,\lambda/n)<P(j;\lambda)
-\quad\text{when }j<\lambda-1\text{ and }\lambda<n.
-\]
-Because $P(j;\lambda_j)=\alpha<e^{-1}=P(0;1)$, their
-Theorem~4.1 gives $\lambda_j>j+1$. If $\lambda_j<n$, the displayed
-inequality yields
-$B(j;n,p_n^{\mathrm P}(j))<\alpha$; since $B(j;n,p)$ is decreasing in
-$p$, its root satisfies
-$p_n^{\mathrm B}(j)<p_n^{\mathrm P}(j)$. If $\lambda_j\ge n$, the
-conclusion follows instead from
-$p_n^{\mathrm P}(j)\ge1\ge p_n^{\mathrm B}(j)$.
-
-For the pointwise comparison, put
-$d_j=p_n^{\mathrm P}(j)-p_n^{\mathrm B}(j)\ge0$. If
-$t_{(1)}\ge\cdots\ge t_{(n)}$, summation by parts gives
-\[
-\SB_{\mathrm P}-\SB_{\mathrm B}
-=d_0(1-t_{(1)})
- +\sum_{j=1}^{n-1}d_j(t_{(j)}-t_{(j+1)})
- +d_n t_{(n)}\ge0.
-\]
-\end{proof}
-
-\begin{corollary}\label{cor:poissoncoverage}
-The Poisson-factor Stringer bound is distribution-free conservative
-at $n=2$ whenever $0<\alpha<e^{-1}$, and at
-$n=3,4,5,6,7$ for $\alpha\in\{0.10,0.05,0.01\}$.
+For $n=3$, the binomial Stringer bound dominates $G_\alpha$ on every
+sample if and only if $0<\alpha\le\alpha_\star$. Consequently
+\eqref{eq:conj} holds for every $F$ at every nominal confidence of at least
+$66.6314788\ldots\%$.
 \end{corollary}
 
-\begin{proof}
-Combine Proposition~\ref{prop:poissondomination} with
-Theorems~\ref{thm:n2}, \ref{thm:n3}, \ref{thm:n4}, \ref{thm:n5},
-\ref{thm:n6}, and \ref{thm:n7}.
-\end{proof}
+The endpoint concerns pointwise comparison, not the coverage threshold of
+Stringer itself. Proposition~\ref{prop:terminalbifurcation} gives the
+corresponding obstruction in every dimension.
 
-The factor comparison is not the only route to a Poisson guarantee. The
-following lemma uses a simultaneous survival band with the index required
-at the right side of each sample point.
+The obstacle is that a simplex cap moves both its normal and its threshold:
+ordinary stochastic ordering of Dirichlet averages does not directly
+compare these probabilities. The Dirichlet-average and spline formulas
+are classical \cite{carlson1991,lasserre2015}. The centroid case is related
+to the simplex halfspace-depth calculation of Paindaveine and Van Bever
+\cite{paindaveine2017}; here the barycentric point is arbitrary and the
+normal is restricted to its order cone. The correspondence
+between stationary cuts and section centroids
+\cite[Proposition~1.11]{patakova2022} is also classical. These facts calculate a cap and locate
+its stationary points, but do not identify its global maximum in an order
+cone.
 
-\begin{lemma}[Simultaneous-band lower bound]\label{lem:poissonband}
-Let $T_1,\ldots,T_n$ be i.i.d.\ with common distribution $F$ on $[0,1]$
-and mean $\mu$, and let $t_{(1)}\ge\cdots\ge t_{(n)}$ be the observed order
-statistics. Let $0\le c_0\le\cdots\le c_n$ with $c_n\ge1$, and form
-\[
-L_c=c_0+\sum_{j=1}^n(c_j-c_{j-1})t_{(j)}.
-\]
-Put $a_i=\min\{1,c_{i-1}\}$ and let
-\[
-Q_n(a_1,\ldots,a_n)
-=\Pr\{V_{i:n}\le a_i,\ i=1,\ldots,n\},
-\]
-where $V_{1:n}\le\cdots\le V_{n:n}$ are uniform order statistics. Then
-\[
-\Pr_F\{L_c\ge\mu\}\ge Q_n(a_1,\ldots,a_n).
-\]
-If $\bar c_j=\min\{1,c_j\}$ and $L_{\bar c}$ is formed from those
-factorwise-capped coefficients, then the same lower bound holds and
-$L_{\bar c}\le\min\{1,L_c\}$ pointwise.
+The key additional inequality bounds a cap by a beta probability formed
+from its section centroid. On a face where knots coincide, stationarity
+identifies the centroid's block masses with those of $c$. It is therefore
+essential to use prefixes ending at strict knot gaps. The resulting local
+inequality bounds every face maximum by a step cap. For a tetrahedron,
+the only nonelementary section has two knots on each side of the cut.
+
+In that case, centroid order provides a polynomial constraint, and a
+nonnegative Bernstein multiplier proves the required inequality. A separate
+identity treats the repeated-upper-knot boundary. The finite calculation
+uses exact rational arithmetic; the stationary-face reduction, the
+Clopper--Pearson weight inequalities, and the limiting obstruction are
+ordinary proofs.
+
+\section{Section centroids and tetrahedral caps}\label{sec:fourcap}
+
+For $N\ge2$, let $D\sim\operatorname{Dirichlet}(1,\ldots,1)$, let
+$x_0\le\cdots\le x_{N-1}$, put $T=x\mathbin{\cdot}D$, and consider a
+regular section $T=q$.  Write
+\begin{equation}\label{eq:sectioncentroid}
+ p=\Pr(T>q),\qquad
+ \gamma_i=\E(D_i\mid T=q),\qquad
+ M_r=\sum_{i<r}\gamma_i.
+\end{equation}
+At the step vector with its first $r$ knots zero and its remaining knots one,
+the cap at the barycentric threshold $c\mathbin{\cdot}x$ has value
+$I_{C_r}(r,N-r)$, where $C_r=\sum_{i<r}c_i$.
+
+\begin{lemma}[Section-centroid maximum principle]\label{lem:sectionmaximum}
+Suppose that, in dimension $N$, every regular ordered section with
+$\gamma_0\le\cdots\le\gamma_{N-1}$ satisfies
+\begin{equation}\label{eq:localbarrier}
+ p\le \max_{r:\,x_{r-1}<x_r} I_{M_r}(r,N-r).
+\end{equation}
+Assume the same inequality on singular sections by continuity.  Then, for
+every nondecreasing probability vector $c=(c_0,\ldots,c_{N-1})$, every
+ordered $x$, and $C_r=\sum_{i<r}c_i$,
+\begin{equation}\label{eq:globalcap}
+ \Pr\{x\mathbin{\cdot}D>c\mathbin{\cdot}x\}
+ \le \max_{1\le r<N} I_{C_r}(r,N-r).
+\end{equation}
 \end{lemma}
 
 \begin{proof}
-Write $G(x)=\Pr_F\{T>x\}$ and
-$N_x=\#\{r:T_r>x\}$. Apart from the finitely many sampled values, which
-do not affect the integral,
-\begin{equation}\label{eq:integral-band}
-L_c=\int_0^1c_{N_x}\,dx,
-\qquad \mu=\int_0^1G(x)\,dx.
+For constant $x$ the cap is empty. Otherwise, first take every $c_i>0$;
+then $q=c\mathbin{\cdot}x$ lies strictly between the endpoint knots.
+Translation and positive scaling of $x$ leave the cap unchanged, so normalize
+its least and greatest distinct knots to zero and one.  On any face of this
+compact ordered-knot polytope, collect the equal consecutive knots into
+blocks.  If their distinct values are $y_1<\cdots<y_k$, put
+$W_b=\sum_{i\text{ in block }b}D_i$ and let $A_b$ be the corresponding sum
+of the $c_i$.  Differentiation of the cap at a regular section gives
+\begin{equation}\label{eq:capderivative}
+ \frac{\partial}{\partial y_b}
+ \Pr\!\left\{\sum_a y_aW_a>\sum_a y_aA_a\right\}
+ =f(q)\{\E(W_b\mid T=q)-A_b\},
 \end{equation}
-To include atomic $F$, augment the experiment with independent
-$R_r\sim\operatorname{Unif}(0,1)$ and define
+where $f$ is the density of $T$. At an interior knot level this identity
+extends by continuity of the section integrals.
+
+At a relative-interior stationary point, the right side vanishes for every
+nonendpoint block.  The two identities
 \[
-V_r=\Pr_F\{T>T_r\}+R_r\Pr_F\{T=T_r\}.
+ \sum_b\{\E(W_b\mid T=q)-A_b\}=0,
+ \qquad
+ \sum_b y_b\{\E(W_b\mid T=q)-A_b\}=0
 \]
-The randomized probability integral transform makes the $V_r$ i.i.d.
-uniform. If $N_x=j<n$, the $j$ observations above $x$ have $V_r\le G(x)$
-and the remaining observations have $V_r\ge G(x)$. Hence
-$G(x)\le V_{j+1:n}$. On the event in the definition of $Q_n$, this gives
-$G(x)\le a_{j+1}\le c_j$. If $N_x=n$, use $G(x)\le1\le c_n$.
-Integration in \eqref{eq:integral-band} proves the event inclusion and
-hence the result. The coverage event depends only on the original sample,
-so its probability in the augmented experiment is its ordinary sampling
-probability. The capped factors are nondecreasing, end at one, and induce
-the same boundaries $a_i$. The first conclusion therefore applies to them.
-Finally, summation by parts gives
-\[
-L_c=c_0(1-t_{(1)})+
-\sum_{j=1}^{n-1}c_j(t_{(j)}-t_{(j+1)})+c_nt_{(n)}.
-\]
-All displayed weights are nonnegative and sum to one. Since
-$\bar c_j\le c_j$ and $\bar c_n=1$, this representation gives
-$L_{\bar c}\le L_c$ and $L_{\bar c}\le1$.
+then give the same conclusion for the endpoint blocks.  Conditional symmetry
+within a block makes each $\gamma_i$ its block mass divided by the block
+size.  These values are consecutive block averages of the nondecreasing
+vector $c$, and hence are nondecreasing.  Moreover, at every strict knot gap,
+$M_r=C_r$.  The local barrier \eqref{eq:localbarrier} therefore bounds the
+value at every relative-interior stationary point by the right side of
+\eqref{eq:globalcap}.  A nonstationary face maximum lies on a proper face;
+induction over the faces ends at a step vector, where the cap equals
+$I_{C_r}(r,N-r)$.  Approximation and continuity cover the singular and
+nonstrict cases.
 \end{proof}
 
-For nondecreasing boundaries $a_1,\ldots,a_n$, Bolshev's recursion
-\cite[pp.~366--367]{shorackwellner1986} evaluates the probability in the
-lemma exactly. With $Q_0=1$, it is
-\begin{equation}\label{eq:bolshev-corrected}
-Q_m=1-\sum_{i=1}^m\binom mi(1-a_{m-i+1})^iQ_{m-i},
-\qquad m=1,\ldots,n.
+The first section with a nonsimplicial cross-section occurs when $N=4$ and
+two knots lie on either side of the threshold.  The next proposition is the
+local barrier needed in Lemma~\ref{lem:sectionmaximum}.
+
+\begin{proposition}[Tetrahedral section barrier]\label{prop:tetrahedralbarrier}
+Let $N=4$ and use the notation in \eqref{eq:sectioncentroid}.  If the section
+centroid is ordered, then
+\begin{equation}\label{eq:tetrahedralbarrier}
+ p\le\max_{r:\,x_{r-1}<x_r}I_{M_r}(r,4-r).
 \end{equation}
-
-\begin{theorem}[Direct Poisson guarantees at larger sample sizes]
-\label{thm:poissonband}
-Let the observations be i.i.d.\ with an arbitrary common distribution $F$
-on $[0,1]$. The Poisson-factor Stringer bound is conservative throughout
-the following ranges:
+In the two-versus-two crossing $x_0<x_1<q<x_2<x_3$, the stronger inequality
 \[
-\begin{array}{c|c}
-\text{nominal confidence}&\text{every certified sample size}\\ \hline
-90\%&1\le n\le8\\
-95\%&1\le n\le11\\
-99\%&1\le n\le20.
-\end{array}
+ p\le I_{M_2}(2,2)=3M_2^2-2M_2^3
 \]
-The conclusion also holds if the Poisson factors are capped at one before
-forming the bound.
-\end{theorem}
-
-\begin{proof}
-Use Lemma~\ref{lem:poissonband} with
-$c_j=p_n^{\mathrm P}(j)=\lambda_j/n$; these factors are increasing in $j$.
-At the listed levels,
-$\alpha<e^{-1}$, so $\lambda_n>n+1$ by the argument in
-Proposition~\ref{prop:poissondomination}; hence $c_n>1$.
-
-For each required $j$, the certificate encloses $\lambda_j$ between
-adjacent dyadic rationals $L_j<U_j$ on the grid $2^{-80}\mathbb Z$.
-The endpoint signs
-\[
-e^{-L_j}\sum_{k=0}^j\frac{L_j^k}{k!}>\alpha,
-\qquad
-e^{-U_j}\sum_{k=0}^j\frac{U_j^k}{k!}<\alpha
-\]
-are checked with exact rational bounds for the exponential. Thus
-$L_j<\lambda_j<U_j$. Substitution of the smaller boundaries
-$a_i^- =\min\{1,L_{i-1}/n\}$ into
-\eqref{eq:bolshev-corrected} gives an exact rational lower bound for the
-event probability in Lemma~\ref{lem:poissonband}. The certificate checks
-every positive $n$ in the three stated ranges. At the largest $n$ its
-lower bounds are as follows; the displayed decimals summarize exact
-rationals.
-\begin{center}
-\begin{tabular}{rrrr}
-\toprule
-$\alpha$ & largest $n$ & $Q_n(a_1^-,\ldots,a_n^-)$
-& margin over $1-\alpha$\\
-\midrule
-$0.10$ & $8$  & $0.9028501343687063$ & $0.0028501343687063$\\
-$0.05$ & $11$ & $0.9532937128380234$ & $0.0032937128380234$\\
-$0.01$ & $20$ & $0.9906297230587641$ & $0.0006297230587641$\\
-\bottomrule
-\end{tabular}
-\end{center}
-Lemma~\ref{lem:poissonband} completes the proof. Replacing each $c_j$ by
-$\min(1,c_j)$ preserves the same pointwise-band argument.
-\end{proof}
-
-All arithmetic in this certificate is exact. After power-of-two range
-reduction to $[0,1]$, consecutive odd and even partial sums of the
-alternating exponential series enclose $e^{-x}$; the code then evaluates
-\eqref{eq:bolshev-corrected} with rational arithmetic. At the next sample
-size, even the upper endpoint brackets give simultaneous-event probabilities
-$0.8903656999$, $0.9482646529$, and $0.9899786984$, respectively, each
-below nominal. This limits the sufficient-event proof, not the Stringer
-bound: the integral inequality can hold when the pointwise band crosses
-$G$.
-
-The same sufficient event gives an all-sample-size calibration while
-retaining the familiar Poisson factor curve. For $0<\alpha<1$, define
-$\lambda_j$ as above and put
-\begin{equation}\label{eq:kappaband}
-\begin{split}
-\kappa_0&=\max\left\{1,\frac n{\lambda_n}\right\},\\
-a_i(\kappa)&=\min\left\{1,\frac{\kappa\lambda_{i-1}}n\right\},
-\qquad i=1,\ldots,n,\\
-Q_{n,\alpha}(\kappa)
-&=Q_n\bigl(a_1(\kappa),\ldots,a_n(\kappa)\bigr),\\
-\kappa_{n,\alpha}
-&=\inf\{\kappa\ge\kappa_0:Q_{n,\alpha}(\kappa)\ge1-\alpha\}.
-\end{split}
-\end{equation}
-The function $Q_{n,\alpha}$ is continuous and nondecreasing; its superlevel
-set in \eqref{eq:kappaband} is therefore closed.
-
-\begin{theorem}[All-sample-size scalar Poisson calibration]
-\label{thm:poissoncalibration}
-Let the observations be i.i.d.\ with an arbitrary common distribution on
-$[0,1]$, and let $0<\alpha<1$. Then
-\[
-U_{n,\alpha}
-=\min\{1,\kappa_{n,\alpha}\SB_{\mathrm P}\}
-\]
-has coverage at least $1-\alpha$ for every $n\ge1$. The same conclusion
-holds with any certified $\kappa\ge\kappa_{n,\alpha}$. It also holds if each
-Poisson factor is capped at one before the complete factor-capped Stringer
-expression is multiplied by $\kappa$. A pointwise no-larger valid rule uses
-the calibrated factors
-\[
-\widehat c_j=\min\left\{1,\frac{\kappa\lambda_j}{n}\right\}
-\]
-directly in the Stringer formula; the same curve results if the ordinary
-factors are capped before calibration.
-\end{theorem}
-
-\begin{proof}
-Multiplying every Poisson factor by $\kappa$ multiplies the complete
-Stringer expression by $\kappa$. Thus use Lemma~\ref{lem:poissonband} with
-$c_j=\kappa\lambda_j/n$. These factors are nondecreasing, and
-$c_n\ge1$ for every $\kappa\ge\kappa_0$. The lemma and \eqref{eq:kappaband} give
-\[
-\pr\{\kappa\SB_{\mathrm P}\ge\mu\}
-\ge Q_{n,\alpha}(\kappa).
-\]
-The set in \eqref{eq:kappaband} is nonempty: because the $\lambda_j$
-are increasing, $\kappa=\max\{1,n/\lambda_0\}$ belongs to the permitted
-domain, makes every $a_i(\kappa)$ equal to one, and hence makes
-$Q_{n,\alpha}(\kappa)=1$. Continuity shows that the
-infimum is attained. Use $\kappa=\kappa_{n,\alpha}$ in the preceding
-inequality. Finally, capping at one preserves coverage because $\mu\le1$.
-
-For the factor-capped convention, put
-$\bar p_j=\min\{1,\lambda_j/n\}$ and use $c_j=\kappa\bar p_j$.
-Because $\kappa\ge1$,
-\[
-\min\{1,c_{i-1}\}
-=\min\left\{1,\frac{\kappa\lambda_{i-1}}n\right\}
-=a_i(\kappa),
-\]
-and the definition of $\kappa_0$ gives $c_n\ge1$. Thus the same event and
-the same argument apply. Finally, apply the factorwise-capping conclusion of
-Lemma~\ref{lem:poissonband}. Because $\kappa\ge1$,
-$\min\{1,\kappa\bar p_j\}=\widehat c_j$, so both base-factor conventions
-give the stated common curve, pointwise no larger than their final-cap
-reports.
-\end{proof}
-
-The exact joint calibration in \eqref{eq:kappaband} is readily precomputed,
-but the next result gives a closed-form upper bound that does not depend on
-the sample size.
-
-\begin{corollary}[Sample-size-uniform multiplier]
-\label{cor:poissonuniform}
-Suppose $0<\alpha\le e^{-1}$ and $\kappa>1$ satisfies
-\begin{equation}\label{eq:uniformkappa}
-\alpha^{\kappa-1}\le 1-\kappa e^{1-\kappa}.
-\end{equation}
-Then $\kappa_{n,\alpha}\le\kappa$ for every $n\ge1$. Consequently,
-both the final-cap and calibrated-factor-capped full-scale rules formed with
-this $\kappa$ have coverage at least $1-\alpha$ at every sample size. In
-particular,
-\[
-\kappa_{n,\alpha}\le2
-\qquad\text{whenever}\qquad
-\alpha\le1-\frac2e.
-\]
-Thus the multiplier two is a distribution-free valid choice, uniformly in
-$n$, at every nominal confidence level at least
-$2/e\approx73.5759\%$.
-\end{corollary}
-
-\begin{proof}
-Let $\lambda_0=-\log\alpha$ and let
-$X_a\sim\operatorname{Gamma}(a,1)$. Because $\alpha\le e^{-1}$,
-$c=\lambda_0-1\ge0$. The gamma-tail monotonicity theorem of
-Pinelis \cite{pinelisgamma2021} states that
-$\Pr\{X_a-a>c\}$ is increasing in $a$. Hence, for every integer $j\ge0$,
-\begin{equation}\label{eq:gammashift}
-\Pr\{X_{j+1}>j+\lambda_0\}
-\ge \Pr\{X_1>\lambda_0\}=\alpha,
-\qquad\text{so}\qquad \lambda_j\ge j+\lambda_0.
-\end{equation}
-Here we used the Erlang--Poisson identity
-$\Pr\{X_{j+1}>x\}=P(j;x)$ and the definition $P(j;\lambda_j)=\alpha$.
-In particular, the terminal condition in Lemma~\ref{lem:poissonband}
-holds for every $\kappa>1$.
-
-Put $\rho=\kappa e^{1-\kappa}<1$. If
-$a_{j+1}(\kappa)=\kappa\lambda_j/n<1$, the
-Anderson--Samuels comparison used in
-Proposition~\ref{prop:poissondomination} gives
-\[
-\begin{aligned}
-\Pr\{V_{j+1:n}>a_{j+1}(\kappa)\}
-&=B\left(j;n,\frac{\kappa\lambda_j}{n}\right)\\
-&<P(j;\kappa\lambda_j)\\
-&\le \alpha\,\kappa^j e^{-(\kappa-1)\lambda_j}
- \le \alpha^\kappa\rho^j.
-\end{aligned}
-\]
-The comparison applies because \eqref{eq:gammashift}, $\lambda_0\ge1$,
-and $\kappa>1$ imply $j<\kappa\lambda_j-1$. The first weak inequality in
-the last two lines uses
-$\sum_{r=0}^j\kappa^r\lambda_j^r/r!
- \le\kappa^j\sum_{r=0}^j\lambda_j^r/r!$; the last uses
-\eqref{eq:gammashift}. If the boundary is one, the probability on the left
-is zero. A union bound therefore yields
-\[
-1-Q_{n,\alpha}(\kappa)
-\le \alpha^\kappa\sum_{j=0}^{n-1}\rho^j
-\le \frac{\alpha^\kappa}{1-\rho}
-\le\alpha
-\]
-by \eqref{eq:uniformkappa}. Thus $\kappa$ belongs to the defining set in
-\eqref{eq:kappaband}. The coverage statements follow from
-Theorem~\ref{thm:poissoncalibration}. For $\kappa=2$,
-\eqref{eq:uniformkappa} reduces to $\alpha\le1-2/e$.
-\end{proof}
-
-The geometric bound need not be used on the first few crossing events.
-Retaining their exact Poisson probabilities gives a sharper criterion.
-
-\begin{corollary}[Finite-prefix uniform multiplier]
-\label{cor:poissonuniformrefined}
-Under the assumptions of Corollary~\ref{cor:poissonuniform}, fix an integer
-$J\ge1$. If
-\begin{equation}\label{eq:uniformprefix}
-\sum_{j=0}^{J-1}P(j;\kappa\lambda_j)
-+\frac{\alpha^\kappa\rho^J}{1-\rho}\le\alpha,
-\qquad \rho=\kappa e^{1-\kappa},
-\end{equation}
-then $\kappa_{n,\alpha}\le\kappa$ for every $n\ge1$.
-\end{corollary}
-
-\begin{proof}
-In the union bound from the preceding proof, retain
-$P(j;\kappa\lambda_j)$ for $j<J$. For $j\ge J$, the same calculation gives
-$P(j;\kappa\lambda_j)\le\alpha^\kappa\rho^j$. For $n<J$, retain only
-the available terms and then enlarge the bound by adding the missing
-nonnegative terms through $J-1$. Thus, for every $n$,
-\[
-1-Q_{n,\alpha}(\kappa)
-\le \sum_{j=0}^{J-1}P(j;\kappa\lambda_j)
-   +\alpha^\kappa\sum_{j=J}^{\infty}\rho^j
-\le\alpha.
-\]
-The conclusion follows as in Corollary~\ref{cor:poissonuniform}.
-\end{proof}
-
-The following table compares the refined choices with the elementary
-closed-form choices from \eqref{eq:uniformkappa}. Exact rational exponential
-enclosures certify both columns; the refined column uses $J=200$.
-\begin{table}[htbp]\centering
-\begin{tabular}{rrr}
-\toprule
-nominal confidence & $200$-term certified $\kappa$ & closed-form $\kappa$\\
-\midrule
-$90\%$ & $1.525906$ & $1.76$\\
-$95\%$ & $1.436135$ & $1.66$\\
-$99\%$ & $1.320081$ & $1.52$\\
-\bottomrule
-\end{tabular}
-\caption{Simple full-scale Poisson calibration multipliers valid for every
-sample size. These are sufficient choices, not optimality claims.}
-\label{tab:poissonuniform}
-\end{table}
-
-The full-scale rule raises the no-error factor. An anchored calibration can
-leave that factor unchanged. Put
-$\bar p_j=\min\{1,\lambda_j/n\}$. If $\bar p_0<1$, define
-\begin{equation}\label{eq:etaband}
-\begin{split}
-\eta_0&=\max\left\{1,
-\frac{1-\bar p_0}{\bar p_n-\bar p_0}\right\},\\
-d_j(\eta)&=\bar p_0+\eta(\bar p_j-\bar p_0),\\
-b_i(\eta)&=\min\{1,d_{i-1}(\eta)\},\\
-R_{n,\alpha}(\eta)
-&=Q_n\bigl(b_1(\eta),\ldots,b_n(\eta)\bigr),\\
-\eta_{n,\alpha}
-&=\inf\{\eta\ge\eta_0:R_{n,\alpha}(\eta)\ge1-\alpha\}.
-\end{split}
-\end{equation}
-If $\bar p_0=1$, set $\eta_{n,\alpha}=1$.
-
-\begin{corollary}[Zero-taint-preserving Poisson calibration]
-\label{cor:poissonanchor}
-Let $\SB_{\bar{\mathrm P}}$ use the factor-capped curve $\bar p_j$, and
-let $p_j^{\mathrm P}=\lambda_j/n$ denote the untruncated factors. Both
-\[
-\begin{split}
-U^{\mathrm A}_{n,\alpha}
-&=\min\{1,\bar p_0+\eta_{n,\alpha}
-(\SB_{\bar{\mathrm P}}-\bar p_0)\},\\
-U^{\mathrm A,u}_{n,\alpha}
-&=\min\{1,p_0^{\mathrm P}+\eta_{n,\alpha}
-(\SB_{\mathrm P}-p_0^{\mathrm P})\}
-\end{split}
-\]
-have coverage at least $1-\alpha$ for every $n\ge1$ and every
-$0<\alpha<1$. Moreover,
-$\eta_{n,\alpha}\ge\kappa_{n,\alpha}$. On an all-zero sample, each returns
-its ordinary zero-taint factor before the final cap. The same coverage holds
-after capping every effective anchored factor at one; the capped and
-untruncated base curves then give the same factor sequence and a report
-pointwise no larger than either displayed rule.
-\end{corollary}
-
-\begin{proof}
-If $\bar p_0=1$, monotonicity gives $\bar p_j=1$ for every $j$, while
-$p_0^{\mathrm P}\ge1$. Moreover, $\kappa_0=1$ and
-$Q_{n,\alpha}(1)=1$, so
-$\kappa_{n,\alpha}=\eta_{n,\alpha}=1$. Both displayed rules equal one after
-the final cap. Hence assume $\bar p_0<1$.
-The factors $d_j(\eta)$ are nondecreasing and
-$d_n(\eta)\ge1$ on the permitted domain, so
-Lemma~\ref{lem:poissonband} gives coverage at least
-$R_{n,\alpha}(\eta)$. The feasible set in \eqref{eq:etaband} is nonempty.
-Indeed, every boundary except the first tends to one as
-$\eta\to\infty$, whereas $b_1(\eta)=\bar p_0$. In the nontrivial case,
-$\bar p_0=\lambda_0/n<1$ and $\lambda_0=-\log\alpha$, so
-\[
-\lim_{\eta\to\infty}R_{n,\alpha}(\eta)
-=1-(1-\lambda_0/n)^n
->1-e^{-\lambda_0}=1-\alpha.
-\]
-Continuity shows that the infimum is finite and attained. Linearity of the
-Stringer formula gives the first displayed rule.
-
-For the untruncated curve, use
-$d_j^{u}=p_0^{\mathrm P}+\eta(p_j^{\mathrm P}-p_0^{\mathrm P})$.
-If $p_j^{\mathrm P}<1$, it has the same capped boundary as $d_j$; if
-$p_j^{\mathrm P}\ge1$, both boundaries equal one because $\eta\ge1$.
-The terminal condition also holds. Thus the same event proves the second
-rule. Capping either effective factor curve at one preserves the event and
-gives identical factors, so the final assertion follows from
-Lemma~\ref{lem:poissonband}. If $\bar p_n<1$, then
-\[
-\eta_0=\frac{1-\bar p_0}{\bar p_n-\bar p_0}
-\ge\frac1{\bar p_n}=\kappa_0;
-\]
-if $\bar p_n=1$, both domain lower bounds equal one. For every
-$x\ge\eta_0$,
-\[
-b_i(x)\le \min\{1,x\bar p_{i-1}\}=a_i(x),
-\]
-so $R_{n,\alpha}(x)\le Q_{n,\alpha}(x)$. Minimality therefore gives
-$\eta_{n,\alpha}\ge\kappa_{n,\alpha}$. If every taint is zero, all
-factor-increment terms vanish.
-\end{proof}
-
-The anchored multiplier is never smaller, but it applies only to the error
-increments. The calibration path must be
-pre-specified; taking the smaller of the two bounds after observing the
-sample is not justified by these results. At $95\%$ confidence, simple
-six-decimal valid anchored multipliers at $n=25,50,100,$ and $200$ are
-$1.511563$, $1.947538$, $2.367560$, and $2.778290$, respectively; exact
-dyadic brackets are recorded with the full-scale certificates below.
-
-For the full-scale path, an explicit analytic upper bound is available at
-the conventional levels considered here. Put $\theta=\alpha/n$, let
-$\lambda_j(\theta)$ solve
-\[
-e^{-\lambda_j(\theta)}\sum_{r=0}^j
-\frac{\lambda_j(\theta)^r}{r!}=\theta,
-\]
-and define
-\[
-\kappa_{\mathrm B}=\max\left\{\kappa_0,
-\max_{0\le j<n}\frac{\lambda_j(\theta)}{\lambda_j}\right\}.
-\]
-For $b_i=\min\{1,\lambda_{i-1}(\theta)/n\}$, the
-Anderson--Samuels comparison used in
-Proposition~\ref{prop:poissondomination} gives
-\[
-\pr(V_{i:n}>b_i)
-=\pr\{\operatorname{Bin}(n,b_i)\le i-1\}\le\theta.
-\]
-If $\lambda_{i-1}(\theta)\ge n$, the probability is zero; otherwise the
-comparison applies directly.
-The union bound gives
-$\pr(V_{i:n}\le b_i\ \forall i)\ge1-n\theta=1-\alpha$.
-Since $a_i(\kappa_{\mathrm B})\ge b_i$,
-\begin{equation}\label{eq:kappabound}
-\kappa_{n,\alpha}\le\kappa_{\mathrm B}<\infty.
-\end{equation}
-
-The exact joint calculation yields a scalar no larger than the union-bound
-construction in \eqref{eq:kappabound}. Bolshev's recursion and opposite endpoints of
-exact dyadic brackets for the $\lambda_j$ certify the smallest scalar under
-this sufficient-event criterion to within $2^{-28}$. The following entries
-are simple six-decimal valid choices obtained by rounding the certified
-upper endpoints upward.
-
-\begin{table}[ht]
-\centering
-\begin{tabular}{rrrrr}
-\toprule
-nominal confidence & $n=25$ & $n=50$ & $n=100$ & $n=200$\\
-\midrule
-$90\%$ & $1.189306$ & $1.251208$ & $1.286176$ & $1.305049$\\
-$95\%$ & $1.126246$ & $1.195804$ & $1.235956$ & $1.257979$\\
-$99\%$ & $1.027950$ & $1.111273$ & $1.161122$ & $1.189239$\\
-\bottomrule
-\end{tabular}
-\caption{Certified scalar multipliers for the full-scale all-sample-size
-band-calibrated Poisson rule. Each displayed value is an upward rounding of
-an exact dyadic upper endpoint.}
-\label{tab:poissoncalibration}
-\end{table}
-
-These values multiply the complete ordinary Poisson result. They are not
-evidence that ordinary Stringer undercovers, nor are they claimed to be the
-smallest corrections among all valid procedures; they are the smallest
-scalar multipliers certified by \eqref{eq:kappaband}, at the stated dyadic
-resolution. This construction is related in motivation to Bimpeh's
-exploration of adjusted significance levels \cite[Section~5.4]{bimpeh2008},
-but it uses the corrected order-statistic event and its exact joint
-probability. In an implementation, the underlying Poisson factors must also
-be exact or conservatively rounded; upward rounding of the scalar alone does
-not control factor-table rounding.
-
-Thus the factor comparison previously checked numerically at $90\%$ and
-$95\%$ is analytic and holds at every sample size. In particular,
-Theorem~\ref{thm:n2} implies finite-sample conservatism of the
-Poisson-factor Stringer bound at $n=2$ throughout this confidence range.
-Theorems~\ref{thm:n3}, \ref{thm:n4}, \ref{thm:n5}, \ref{thm:n6}, and
-\ref{thm:n7} give the same conclusion from $n=3$ through $n=7$ for the three certified
-conventional levels. Theorem~\ref{thm:poissonband} extends the proved
-Poisson ranges to $n=8$, $n=11$, and $n=20$ at $90\%$, $95\%$, and
-$99\%$, respectively.
-Theorem~\ref{thm:poissoncalibration} supplies a conservative
-scalar-calibrated rule beyond those ranges without claiming coverage for the
-ordinary Poisson bound.
-Corollary~\ref{cor:poissonuniform} supplies closed-form full-scale
-multipliers that are valid simultaneously for every sample size.
-Corollary~\ref{cor:poissonuniformrefined} sharpens them by retaining a finite
-prefix of the crossing probabilities.
-More generally, any distributional class for which the binomial-factor
-bound is proved conservative inherits the same conclusion for the
-Poisson-factor bound. Proposition~\ref{prop:poissondomination} does not,
-by itself, settle coverage in the remaining cases, because the
-binomial-factor conjecture remains unresolved there.
-
-\section{An all-sample-size reporting safeguard}\label{sec:safeguard}
-
-The valid comparison bound also gives a directly computable fallback
-outside the sample sizes for which ordinary Stringer has been proved.
-For $M\in\{\mathrm B,\mathrm P\}$, define
-\[
-\SB^{\mathrm{safe}}_{M,\alpha}(t_1,\ldots,t_n)
-=\max\{\SB_{M,\alpha}(t_1,\ldots,t_n),
-        G_\alpha(t_1,\ldots,t_n)\}.
-\]
-
-\begin{proposition}[Stringer--Gaffke safeguard]\label{prop:safeguard}
-Let $T_1,\ldots,T_n$ be independent $[0,1]$-valued observations with a
-common mean $\mu$. For every $n\ge1$, every $\alpha\in(0,1)$, and either
-factor convention $M$,
-\[
-\Pr\{\SB^{\mathrm{safe}}_{M,\alpha}\ge\mu\}\ge1-\alpha.
-\]
-For $n\in\{3,4,5,6,7\}$ and $\alpha\in\{0.10,0.05,0.01\}$, the
-safeguarded value equals the ordinary Stringer value pointwise for both
-factor conventions.
+holds.
 \end{proposition}
 
 \begin{proof}
-Finite-sample validity of the Gaffke limit gives
-$\Pr\{G_\alpha(T_1,\ldots,T_n)\ge\mu\}\ge1-\alpha$. Since the maximum is
-pointwise at least $G_\alpha$, the first conclusion follows. At the listed
-sample sizes and levels, Theorems~\ref{thm:n3}, \ref{thm:n4},
-\ref{thm:n5}, \ref{thm:n6}, and \ref{thm:n7} give
-$\SB_{\mathrm B,\alpha}\ge G_\alpha$ on every sample.
-Proposition~\ref{prop:poissondomination} gives
-$\SB_{\mathrm P,\alpha}\ge\SB_{\mathrm B,\alpha}$, proving the second
-conclusion.
-\end{proof}
-
-The proposition validates the pre-specified maximum, not ordinary Stringer
-in cases where Stringer is smaller. The repository implementation evaluates
-the Dirichlet-average tail at rational points by exact confluent divided
-differences and returns an exact-sign dyadic upper bracket for $G_\alpha$.
-Thus the operational floor does not depend on trusting a floating-point
-B-spline calculation.
-
-\subsection{An all-sample-size one-cap region}\label{sec:onecap}
-
-The safeguard is known to be identical to Stringer on every sample at
-$n=3,4,5,6,7$ at the three certified levels. The following
-result identifies a directly checkable identity region without a sample-size
-cutoff.
-
-\begin{proposition}[One-cap comparison]\label{prop:onecap}
-Let $n\ge1$ and $0<\alpha\le 1/4$. Arrange the observed taints as
-$x_0\le\cdots\le x_{n-1}$, and let $s_{\mathrm B}$ be their
-binomial-factor Stringer value. If
-$s_{\mathrm B}\ge x_{n-1}$, then
+There are three crossing types.  If only $x_3$ is above $q$, set
+$a_i=(x_3-q)/(x_3-x_i)$ for $i<3$.  The cap is a tetrahedron and its section
+is its base, so
 \[
-s_{\mathrm B}\ge G_\alpha(x_0,\ldots,x_{n-1}).
+ p=a_0a_1a_2,\qquad M_3=(a_0+a_1+a_2)/3.
 \]
-Consequently, on that sample the pre-specified safeguard equals ordinary
-Stringer for both the binomial and Poisson factor conventions.
-\end{proposition}
-
-\begin{proof}
-We first give an analytic cap bound with no restriction on $n$. Let
-$x_n=1$, let $c_i>0$ with $\sum_{i=0}^n c_i=1$, and put
+Thus $p\le M_3^3=I_{M_3}(3,1)$ by AM--GM.  If only $x_0$ is below $q$, set
+$b_i=(q-x_0)/(x_i-x_0)$ for $i>0$.  Then
 \[
-s=\sum_{i=0}^n c_ix_i,\qquad
-C_r=\sum_{i=0}^{r-1}c_i\quad(1\le r\le n).
+ p=1-b_1b_2b_3,\qquad
+ \gamma_0=1-(b_1+b_2+b_3)/3,\qquad \gamma_i=b_i/3.
 \]
-For $D\sim\operatorname{Dirichlet}(1,\ldots,1)$, if
-$s\ge x_{n-1}$, the one-upper-knot cap formula gives
-\begin{equation}\label{eq:onecapformula}
-V:=\Pr_D\!\left\{\sum_{i=0}^nx_iD_i>s\right\}
-=\frac{(1-s)^n}{\prod_{i=0}^{n-1}(1-x_i)}.
+The knot order gives $b_1\ge b_2\ge b_3$, while the centroid order gives the
+reverse inequalities.  Hence all three equal a common $b$, and
+$p=1-b^3=I_{M_1}(1,3)$.
+
+It remains to treat two knots on each side.  Translation and scaling put the
+centered knots in the form
+\begin{equation}\label{eq:normalizedfourknots}
+ (-1,-u,tv,t),\qquad 0<u,v<1,\quad t>0.
 \end{equation}
-Degenerate boundary cases follow directly or by continuity. Otherwise set
-$S=1-s$, $y_i=1-x_i$, and $u_i=y_i/S-1$. Then
-\[
-u_0\ge\cdots\ge u_{n-1}\ge0,\qquad
-\sum_{i=0}^{n-1}c_iu_i=c_n,\qquad
-V=\prod_{i=0}^{n-1}(1+u_i)^{-1}.
-\]
-Writing $u_n=0$ and letting $v_r$ denote the vector with its first $r$
-entries equal to one and the rest zero, define
-\[
-\lambda_r=\frac{C_r(u_{r-1}-u_r)}{c_n}.
-\]
-The $\lambda_r$ are nonnegative, sum to one, and
-\[
-u=\sum_{r=1}^n\lambda_r\frac{c_n}{C_r}v_r.
-\]
-Since $\sum_i\log(1+u_i)$ is concave, its value on this convex hull is at
-least its smallest vertex value. Hence
-\begin{equation}\label{eq:onecapbound}
-V\le\max_{1\le r\le n}
-\left(\frac{C_r}{C_r+c_n}\right)^r.
-\end{equation}
-
-For the ascending-knot binomial Stringer representation,
-\[
-c_0=1-p_n(n-1),\quad
-c_j=p_n(n-j)-p_n(n-j-1)\ (1\le j<n),\quad
-c_n=p_n(0),
-\]
-so $C_r=1-p_n(n-r)$. The $r=n$ term in
-\eqref{eq:onecapbound} equals
-$(1-p_n(0))^n=\alpha$. For every $r<n$, every
-$n$, and $0<\alpha\le 1/4$, we now prove
-\begin{equation}\label{eq:onecapfactor}
-\left(
-\frac{1-p_n(n-r)}{1-p_n(n-r)+p_n(0)}
-\right)^{r}\le\alpha.
-\end{equation}
-
-Write $\alpha=e^{-x}$, $a=e^{-x/n}$, and $b=e^{-x/r}$, and define
-\begin{equation}\label{eq:qbar}
-q_{n,r}=\frac{b(1-a)}{1-b}
-=\frac{1-e^{-x/n}}{e^{x/r}-1}.
-\end{equation}
-By binomial symmetry, $q=1-p_n(n-r)$ is the unique solution of
-$\Pr\{\operatorname{Bin}(n,q)\ge r\}=\alpha$. Inequality
-\eqref{eq:onecapfactor} is equivalent to $q\le q_{n,r}$. It therefore
-suffices to show
-\begin{equation}\label{eq:qbartail}
-\Pr\{\operatorname{Bin}(n,q_{n,r})\ge r\}\ge\alpha.
-\end{equation}
-
-First suppose $r\ge2$, and put $\mu_n=nq_{n,r}$. For fixed $r$,
-$\mu_n$ increases with $n$, because
-\[
-\frac{d}{dz}\{z(1-e^{-x/z})\}
-=1-(1+x/z)e^{-x/z}>0.
-\]
-Also $q_{n,r}<r/n$, because the numerator in \eqref{eq:qbar} is less
-than $x/n$ and the denominator is greater than $x/r$. If
-$\mu_n\ge r-1$, then a binomial variable $X$ with this mean satisfies
-$\{X\ge r\}=\{X>\E X\}$. Since
-$nq_{n,r}\ge1>\log(4/3)$, the sharp binomial-mean inequality of Pinelis
-\cite{pinelis2021} gives
-\[
-\Pr(X\ge r)\ge\frac14\ge\alpha.
-\]
-If instead $\mu_n<r-1$, let $\mu_0=\mu_{r+1}$. Monotonicity in the
-success probability, followed by the fixed-mean binomial monotonicity of
-Anderson and Samuels \cite[Theorem~2.1]{andsam1967}, gives
+For positive temporary variables $A,B,C,D$, the divided-difference formula \cite{carlson1991,lasserre2015}
+and its derivative give
 \begin{align}
-\Pr\{\operatorname{Bin}(n,q_{n,r})\ge r\}
-&\ge\Pr\{\operatorname{Bin}(n,\mu_0/n)\ge r\}\notag\\
-&\ge\Pr\{\operatorname{Bin}(r+1,q_{r+1,r})\ge r\},
-\label{eq:fixedmeanreduce}
+ p(A,B,C,D)&=
+ \frac{C^3}{(C+A)(C+B)(C-D)}
+ +\frac{D^3}{(D+A)(D+B)(D-C)},\label{eq:fourcapformula}\\
+ \gamma&=f(0)^{-1}(-p_A,-p_B,p_C,p_D),
 \end{align}
-because $r-1>\mu_0$.
-
-It remains to bound the last probability. Set
-\[
-u=\frac{x}{r+1},\qquad v=\frac{x}{r},\qquad
-A=\frac{1-e^{-u}}{1-e^{-v}},
-\]
-so $q_{r+1,r}=bA$ and $\alpha=b^r$. The two-term boundary tail is
-\begin{equation}\label{eq:boundarytail}
-\Pr\{\operatorname{Bin}(r+1,bA)\ge r\}
-=\alpha A^r(r+1-rbA).
+where the density $f(0)$ is obtained from \eqref{eq:fourcapformula} by
+replacing $C^3,D^3$ with $3C^2,3D^2$.  This is followed by
+$(A,B,C,D)=(1,u,tv,t)$.  Exact simplification of the upper
+centroid-order condition gives
+\begin{equation}\label{eq:orderfactor}
+ \gamma_3-\gamma_2=\frac{(v-1)R(u,v,t)}{\Delta_0(u,v,t)},
+ \qquad \Delta_0>0,
 \end{equation}
-Write
-\[
-M_r(x)=A^r(r+1-rbA),
-\]
-the multiplier of $\alpha$ in \eqref{eq:boundarytail}. This multiplier is
-strictly increasing in $x$. Indeed, with
-$\psi(z)=z/(e^z-1)$,
-\[
-\frac{d}{dx}\log A=\frac{\psi(u)-\psi(v)}x>0.
-\]
-Moreover, $\psi$ is decreasing and
-\[
-\psi'(z)+1
-=\frac{e^z(e^z-1-z)}{(e^z-1)^2}>0.
-\]
-Consequently,
-\[
-\frac{d}{dx}\log(bA)
-=-\frac1r+\frac{\psi(u)-\psi(v)}x
-<-\frac1r+\frac{v-u}{x}=-\frac1{r+1}<0.
-\]
-Thus both factors defining $M_r(x)$ increase with $x$.
-
-It remains to prove $M_r(1)>1$. Put $t=1/r$ and
-$d=t^2/(1+t)$. At $x=1$,
-\[
-1-A=\frac{e^d-1}{e^t-1}=: \delta.
-\]
-For $0<z<2$, the elementary bounds
-\[
-z+\frac{z^2}{2}<e^z-1<\frac{z}{1-z/2},
-\qquad
-1-z<e^{-z}<1-z+\frac{z^2}{2}
-\]
-follow from the exponential series and
-$2\operatorname{arctanh}(z/2)>z$. They give
-\[
-\delta<\frac{d/(1-d/2)}{t+t^2/2},
-\qquad
-\delta>\frac{d(1-t/2)}t.
-\]
-Since $(e^z-1)/z$ is increasing, we also have
-$\delta<d/t=1/(r+1)$ and hence $A>r/(r+1)$. The second bound, together
-with $b=e^{-t}>1-t$ and $1-b>t-t^2/2$, gives
+where
 \begin{align*}
-r+1-rbA
-&=1+r(1-b)+rb\delta\\
-&>1+\left(1-\frac t2\right)
-+\frac{(1-t)(1-t/2)}{1+t}
-=\frac3{1+t}=\frac{3r}{r+1}.
+ R={}&t^4v^2(u^2+u+1)+2t^3uv(u+1)(v+1)\\
+    &+t^2u^2(v^2+4v+1)-u^3.
 \end{align*}
-Therefore, for $r\ge5$,
-\[
-M_r(1)>3\left(\frac r{r+1}\right)^{r+1}
-\ge3\left(\frac56\right)^6>1,
-\]
-because the sequence $(r/(r+1))^{r+1}$ is increasing. For the remaining
-cases, the first bound on $\delta$ gives the following exact rational lower
-margins:
-\[
-\begin{array}{c|c|c}
-r&A\text{ is greater than}&
-\dfrac{3r}{r+1}A^r-1\text{ is greater than}\\ \hline
-2&39/55&17/3025\\
-3&125/161&885001/16693124\\
-4&287/351&1841131309/25297477335.
-\end{array}
-\]
-Thus $M_r(1)>1$ for every $r\ge2$. Because
-$x\ge\log4>1$ throughout the stated range, the boundary probability in
-\eqref{eq:fixedmeanreduce} is at least $\alpha$.
+Since $v<1$, orderedness gives $R\le0$.  The last positive term in $R$
+also gives $t^2(v^2+4v+1)\le u<1$, so \eqref{eq:normalizedfourknots} lies
+in the unit cube.
 
-For $r=1$, direct calculation completes the argument. In this case
-\[
-q_{n,1}=\frac{\alpha}{1-\alpha}(1-\alpha^{1/n}),
-\qquad
-nq_{n,1}\ge\frac{2\alpha}{1+\sqrt\alpha}
-\ge\frac{\alpha}{1-\alpha}\ge-\log(1-\alpha),
-\]
-where the middle inequality holds for $\alpha\le1/4$, as it does throughout
-the stated range. Therefore
-\[
-\Pr\{\operatorname{Bin}(n,q_{n,1})\ge1\}
-=1-(1-q_{n,1})^n\ge1-e^{-nq_{n,1}}\ge\alpha.
-\]
-This proves \eqref{eq:qbartail}, hence \eqref{eq:onecapfactor}, for all
-$n$ in the stated confidence range.
-
-Thus \eqref{eq:onecapbound} is at most $\alpha$, which gives
-$G_\alpha\le s_{\mathrm B}$. Proposition~\ref{prop:poissondomination}
-gives $s_{\mathrm P}\ge s_{\mathrm B}$ throughout this range, proving the
-claim for both safeguarded conventions.
-\end{proof}
-
-The proposition is a pointwise identity statement for the pre-specified
-safeguard, not a conditional-coverage theorem for ordinary Stringer. The
-analytic proof has no finite sample-size cutoff. The repository retains the
-earlier $59{,}700$ exact dyadic comparisons through $n=200$ at $90\%$,
-$95\%$, and $99\%$ as an independent regression, not as the logical basis
-of the result. Controlling the remaining cap regions is a separate open
-problem.
-
-\section{Exact counterexamples at low confidence}\label{sec:counter}
-
-Theorem~\ref{thm:n2} covers every confidence level, so the asymptotic
-anti-conservatism at $\alpha>1/2$ \cite{papvz1996} must manifest itself
-only at larger $n$. Before giving explicit finite-sample counterexamples, we
-exclude the smallest possible nontrivial support.
-
-\begin{proposition}[One nonzero taint value]\label{prop:twopoint}
-If $F$ is supported on $\{0,v\}$ with $v\in(0,1]$, then, for every
-$n$ and $\alpha$, $\pr(\SB\ge\mu)\ge1-\alpha$.
-\end{proposition}
-
-\begin{proof}
-Let $K$ denote the number of nonzero taints. Then
-$K\sim\mathrm{Bin}(n,q)$,
-\[
-\SB=(1-v)p_n(0)+v\,p_n(K)\ge v\,p_n(K),
-\qquad \mu=qv.
-\]
-The Clopper--Pearson coverage event
-$\{p_n(K)\ge q\}$ has probability at least $1-\alpha$; on that
-event, $\SB\ge vq=\mu$.
-\end{proof}
-
-Each counterexample below is certified: its distributional parameters are
-exact dyadic rationals, its coverage is computed as an exact rational by
-full multinomial enumeration, and every comparison $\SB\ge\mu$ is made
-with rational factor intervals. Their endpoints lie on a dyadic grid with
-denominator $2^{80}$, and the sign of the binomial CDF at each endpoint is
-evaluated exactly with integer arithmetic.
-The table rows are regenerated from the version-2 certificate files by
-\path{summarize_certificates.py}.
-
-\begin{table}[htbp]\centering
-\begin{tabular}{lrrr}
-\toprule
-confidence & $n$ & smallest certified coverage & certified examples\\
-\midrule
-$30\%$ & $50$ & $0.29815$ & $3$\\
-$32\%$ & $100$ & $0.30956$ & $9$\\
-$35\%$ & $200$ & $0.33729$ & $1$\\
-$35\%$ & $400$ & $0.32630$ & $1$\\
-$37\%$ & $200$ & $0.36079$ & $6$\\
-$37\%$ & $400$ & $0.36777$ & $13$\\
-\bottomrule
-\end{tabular}
-\caption{Certified finite-sample violations (binomial factors,
-three-point taint distributions with two nonzero taint values). The
-listed results illustrate the onset of failure in the examined parameter
-ranges.}\label{tab:counter}
-\end{table}
-
-A representative certificate has nominal confidence $30\%$
-($\alpha=0.7$) and $n=50$. Set
-\[
-\begin{aligned}
-v_1&=1,
-&q_1&=\frac{8984394653678481}{2^{55}},\\[5pt]
-v_2&=\frac{8384891858230937}{2^{54}},
-&q_2&=\frac{5642023711000999}{2^{53}},\\[5pt]
-&&q_0&=\frac{4476307521281491}{2^{55}}.
-\end{aligned}
-\]
-The complete distribution is
-$\pr(T=v_1)=q_1$, $\pr(T=v_2)=q_2$, and $\pr(T=0)=q_0$.
-Thus the two nonzero taint values are $1$ and approximately $0.465455$,
-and the corresponding probabilities are approximately $0.249367$ and
-$0.626390$. These parameters appear in the third record of the
-\href{https://github.com/RichieSater/stringer-bound/blob/main/supporting-materials/computations/certificates/certified-alpha0.7-n50.json}{$n=50$, $\alpha=0.7$ certificate}
-(\path{certified-alpha0.7-n50.json}). The certificate prints the exact
-rational coverage in full. Its decimal value is approximately
-$0.2988790828$, below the nominal level $0.30$. The minimum comparison
-gap certified by rational interval arithmetic is approximately
-$2.10\times10^{-14}$; each factor interval has width at most
-$2^{-80}\approx8.27\times10^{-25}$. Pap and van Zuijlen
-\cite{papvz1995} established non-conservatism for uniform-type taints
-through exact recursions; the finite-support examples here are readily
-reproducible and illustrate the onset of failure in the examined
-parameter ranges.
-
-By contrast, searches at nominal confidence levels $50\%$, $90\%$, and
-$95\%$ found no violation. Grid-plus-optimizer searches examined
-distributions with two nonzero taint values ($n\le100$ at $95\%$ and
-$90\%$; $n\le300$ at $50\%$) and distributions with three nonzero taint
-values ($n\le25$ at $95\%$), in each case allowing mass at zero. At every
-sample size searched, the smallest coverage found agreed with the
-nominal level to within $10^{-10}$. Near-minimizers occurred as the
-largest taint approached $1$, consistent with
-Proposition~\ref{prop:twopoint}, the $\{0,1\}$-support minimality result
-of \cite{djpvz1997}, and the conjectured coverage infimum $1-\alpha$.
-For the Poisson factors, the smallest coverage found in the corresponding
-searches remained above nominal. At $95\%$, for example, the values were
-approximately $0.9716$ ($n=10$), $0.9573$ ($n=50$), and $0.9549$
-($n=100$), a positive numerical cushion that decreases over the listed
-sample sizes.
-
-\section{Reassessment of a previous finite-sample certification}\label{sec:bimpeh}
-
-Let
-\[
-C_n(F)=\pr_F\bigl(\SB\ge\mu(F)\bigr)
-\]
-denote the coverage probability. In this section,
-$t_{1:n}\le\cdots\le t_{n:n}$ are the sample taints arranged in
-nondecreasing order, with $t_{0:n}=0$ and $t_{n+1:n}=1$. Let $q_n(i)$
-be the lower one-sided Clopper--Pearson limit for $i$ successes, with
-$q_n(0)=0$. The lower and upper limits used here satisfy
-$q_n(i)=1-p_n(n-i)$.
-
-Bimpeh \cite[pp.~76--79]{bimpeh2008} writes the Stringer bound as
-$\SB=\int_0^1[1-\widehat F_{n,L}(t)]\,dt$, where the stepwise band is
-defined by
-\[
-\widehat F_{n,L}(t)=q_n(i-1)
-\quad\text{for }t_{i-1:n}\le t<t_{i:n},\qquad 1\le i\le n+1.
-\]
-Let $V_{1:n}\le\cdots\le V_{n:n}$ denote the order statistics of $n$
-independent $\operatorname{Unif}(0,1)$ random variables. Using the
-probability integral transform and the reversal symmetry of uniform
-order statistics, Bimpeh proposes the lower bound
-\begin{equation}\label{eq:bimpeh}
-C_n(F)\;\ge\;\bar P_n
-\;:=\;\pr\bigl(V_{i:n}\le p_n(i),\ 1\le i\le n\bigr).
+With $M=\gamma_0+\gamma_1$, exact rational simplification gives
+\begin{equation}\label{eq:fourcomparison}
+ 3M^2-2M^3-p=\frac{t^2P(u,v,t)}{\Delta(u,v,t)},
 \end{equation}
-Bimpeh evaluates $\bar P_n$ using Bolshev's recursion for uniform
-order-statistic boundary-crossing probabilities
-\cite[pp.~366--367]{shorackwellner1986}. Because the computed values
-satisfy $\bar P_n\ge1-\alpha$ for $n\le11$ when $\alpha=0.05$, the
-thesis concludes that \eqref{eq:conj} holds in that range. It also notes
-that
+where $P$ has tensor degree $(9,9,11)$ and
 \[
-\bar P_2=2\sqrt{1-\alpha}-(1-\alpha)\ge1-\alpha
+ \Delta=27(t+1)^3(t+u)^3(tv+1)^3(tv+u)^3
+ (tuv+tv+uv+u)^3>0.
 \]
-for every $\alpha$ and claims a proof for $n\le2$.
+The remaining inequality follows from an exact Bernstein-multiplier
+identity. Recall that the tensor products of
+$B_i^d(z)=\binom di z^i(1-z)^{d-i}$ are nonnegative on a unit cube;
+thus nonnegative coefficients in this basis imply polynomial
+nonnegativity.  There is a polynomial $S$ of tensor degree
+$(6,7,7)$ with 79 positive Bernstein coefficients and all others zero.  Exact integer and rational calculation shows that
+\[
+ H=P+RS
+\]
+has 631 positive Bernstein coefficients of degree $(9,9,11)$ and all 569
+remaining coefficients zero. The rational coefficients of $S$, and the
+integer-arithmetic derivation and sign calculation, are supplied with the
+code cited below. Hence on $R\le0$,
+$P=H-RS\ge0$, proving \eqref{eq:fourcomparison}.
 
-\begin{proposition}\label{prop:bimpehwrong}
-Inequality \eqref{eq:bimpeh} fails for both continuous and atomic
-distributions $F$.
+When $v=1$, equality of the upper knots removes the information in
+\eqref{eq:orderfactor}.  The remaining centroid inequality has positive
+denominator and numerator
+\[
+ G=-2t^3u-t^3+t^2u^2-4t^2u+3tu^2+3u^2.
+\]
+Orderedness gives $G\ge0$.  If $t\ge1$, then
+\[
+ G\le(u-1)\{(3u+1)t+4u\}\le0,
+\]
+so the nondegenerate ordered domain again has $t<1$.  After the positive
+factor $t^2(1-u)^2$ is removed from the comparison numerator, the boundary
+certificate checks the exact identity
+\[
+ P_\partial=H_\partial+2G(1-u)^2t^2,
+\]
+where all 30 degree-$(4,5)$ Bernstein coefficients of $H_\partial$ are
+nonnegative (19 are positive, 11 are zero).  This closes the repeated-upper
+boundary. The identity for $v<1$ remains valid at $u=1$, so
+repeated lower knots cause no further case. If $u=v=1$, there are two
+knot blocks and the cap equals $I_{M_2}(2,2)$. In the mixed crossing
+$r=2$ is always a strict gap; in the endpoint crossings the active gap is
+respectively $r=3$ or $r=1$. For an interior knot level $q=x_2<x_3$, the one-above formulas still
+hold with $a_2=1$. If $x_0<q=x_1<x_2$, the section is a triangle with
+$\gamma_1=1/3$ and $\gamma_2=(q-x_0)/(3(x_2-x_0))<1/3$,
+contrary to centroid order. These exhaust the interior knot levels,
+including $x_1=x_2$ in the first case.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:fourcap}]
+Proposition~\ref{prop:tetrahedralbarrier} proves the hypothesis of
+Lemma~\ref{lem:sectionmaximum} in every crossing stratum for $N=4$, yielding
+\eqref{eq:fourcaptheorem}.  At the stated step vector,
+$\sum_{i<r}D_i\sim\operatorname{Beta}(r,4-r)$ and the cap event is
+$\sum_{i<r}D_i<C_r$, which proves attainment.
+\end{proof}
+
+\section{The sharp Stringer comparison}
+
+Affine normalization turns comparison with \eqref{eq:gaffke} into the
+cap problem above. The normalization is useful for any sample size.
+
+\begin{proposition}[Simplex-cap criterion]\label{prop:capcriterion}
+Arrange a sample as $t_1\le\cdots\le t_n$. If $t_1<1$, put
+\[
+z_0=0,\qquad z_k=\frac{t_{k+1}-t_1}{1-t_1}\ (1\le k\le n-1),
+\qquad z_n=1,
+\]
+and
+\[
+s_{n,\alpha}(z)=p_n(0)+\sum_{k=1}^{n-1}
+ \bigl(p_n(n-k)-p_n(n-k-1)\bigr)z_k.
+\]
+Then $\SB\ge G_\alpha(t_1,\ldots,t_n)$ if and only if
+\begin{equation}\label{eq:capcriterion}
+ \Pr_D\!\left\{\sum_{k=1}^{n-1}z_kD_k+D_n
+        >s_{n,\alpha}(z)\right\}\le\alpha,
+ \qquad 0\le z_1\le\cdots\le z_{n-1}\le1.
+\end{equation}
+Consequently, proving \eqref{eq:capcriterion} on the complete ordered
+knot simplex proves distribution-free Stringer coverage at $(n,\alpha)$.
 \end{proposition}
 
 \begin{proof}
-Let $\alpha=0.05$ and let $F$ be the mixture assigning probability
-$0.99$ to a uniform distribution on $(0.99,1)$ and probability $0.01$
-to a uniform distribution on $(0,0.01)$, so $\mu=0.9851$. For $n=1$,
-$\SB=0.95+0.05\,T_1$ and $\bar P_1=1$. Moreover,
-$\SB<\mu$ if and only if $T_1<0.702$, an event of probability $0.01$.
-Thus $C_1(F)=0.99<1=\bar P_1$. For $n=2$,
-$\bar P_2=2\sqrt{0.95}-0.95\approx0.99936$. A sample containing one
-taint from each mixture component fails, as does a sample containing
-two taints from the lower component. Therefore
-$C_2(F)=1-2(0.99)(0.01)-0.01^2=0.9801<\bar P_2$.
-
-For an atomic example at $n=5$, let
-$\pr(T=1)=\tfrac12$ and
-$\pr(T=\tfrac1{10})=\pr(T=0)=\tfrac14$. Its exact coverage is
-$C_5(F)=\tfrac{31}{32}=0.96875<\bar P_5\approx0.98746$. The failure
-event is precisely the event of drawing no taint-$1$ unit, which has
-probability $2^{-5}$.
+Rewrite \eqref{eq:sb} for ascending observations and subtract $t_1$ from
+both the Stringer threshold and the $n+1$ knots
+$(t_1,\ldots,t_n,1)$ in the Dirichlet average. Division by $1-t_1$
+gives the displayed threshold and knots. Exchangeability of the Dirichlet
+weights permits the stated labeling. Because the normalized average has
+knots zero and one, its distribution is continuous, so its
+$(1-\alpha)$-quantile is at most the threshold exactly when its strict
+upper tail there is at most $\alpha$. If $t_1=1$, every observation and
+both bounds equal one. The coverage conclusion follows from the validity
+of $G_\alpha$.
 \end{proof}
 
-The issue is an index shift. Pointwise domination
-$F\ge\widehat F_{n,L}$ on $[0,1]$ requires
-$F(t_{i:n})\ge q_n(i)$ for all $i$, because $q_n(i)$ is the band's
-value at the jump point $t_{i:n}$. The cited argument instead uses the
-left limit $q_n(i-1)$. In particular, it omits the constraint
-$F(t_{n:n})\ge q_n(n)=\alpha^{1/n}$. Correcting the index does not
-recover the claimed coverage guarantee.
+\begin{proof}[Proof of Corollary~\ref{cor:n3expanded}]
+Write $x=p_3(0)$, $y=p_3(1)$, and $z=p_3(2)$.  In the ascending-knot form of
+Proposition~\ref{prop:capcriterion}, Stringer's threshold has weight vector
+\[
+ c=(1-z,z-y,y-x,x).
+\]
+At the three step vectors, the beta--binomial identity makes the corresponding
+cap probability exactly $\alpha$.  Theorem~\ref{thm:fourcap} therefore proves
+the cap criterion once $c$ is nondecreasing.
 
-\begin{proposition}\label{prop:cannot}
-For every continuous $F$ and every $n$, the corrected containment
-probability satisfies
-$\pr\bigl(F(t_{i:n})\ge q_n(i)\ \forall i\bigr)
-=\pr\bigl(V_{i:n}\ge q_n(i)\ \forall i\bigr)\le1-\alpha$.
+Put
+\[
+ f(s)=1-3s^2+2s^3,\qquad f(y)=\alpha,\qquad
+ x=1-\alpha^{1/3},\qquad z=(1-\alpha)^{1/3}.
+\]
+The function $f$ is strictly decreasing on $(0,1)$.  The last weight
+inequality is $y\le2x$.  It is automatic if $2x\ge1$; otherwise it is
+equivalent to
+\begin{equation}\label{eq:lastweight}
+ \alpha-f(2x)=x(-3+15x-17x^2)\ge0.
+\end{equation}
+The first root of the quadratic factor is
+$x_\star=(15-\sqrt{21})/34$, and $\alpha=(1-x)^3$, so
+the last weight inequality holds exactly through $\alpha_\star$.
+
+For the middle inequality, put $r=\alpha^{1/3}=1-x$.  Since
+$\alpha\le\alpha_\star<1/2$, we have $z\ge r$ and $z^3+r^3=1$, while
+\[
+ 4\left\{f\left(\frac{x+z}{2}\right)-\alpha\right\}
+ =3(z-r)(z^2+r^2-1)\ge0.
+\]
+Thus $y\ge(x+z)/2$.  Finally, $z>3/4$ and
+\[
+ \alpha-f(2z-1)=(1-z)(17z^2-19z+5)>0,
+\]
+so $y\le2z-1$.  These are precisely the three inequalities saying that $c$
+is nondecreasing.  The cap criterion and finite-sample validity of $G_\alpha$
+prove the first assertion.
+
+For sharpness, suppose $\alpha>\alpha_\star$.  Then
+$x<x_\star<1/2$, and \eqref{eq:lastweight} has the opposite strict sign;
+since $f$ is decreasing, $y>2x$.  Thus the last two threshold weights satisfy
+$c_2=y-x>c_3=x$.  Consider the ordered knot family
+$k(h)=(0,0,h,1)$ and write
+\[
+ \Phi(h)=\Pr\{k(h)\mathbin{\cdot}D>c\mathbin{\cdot}k(h)\}.
+\]
+At $h=1$, the beta--binomial identity gives $\Phi(1)=\alpha$.
+Conditional on $D_2+D_3=c_2+c_3$, symmetry gives
+$\E(D_2\mid D_2+D_3=c_2+c_3)=(c_2+c_3)/2$.  The derivative formula
+\eqref{eq:capderivative} therefore yields
+\[
+ \Phi'(1)=\frac{g_\alpha}{2}(c_3-c_2)<0,
+\]
+where $g_\alpha>0$ is the density of $D_2+D_3$ at $c_2+c_3$.
+Consequently $\Phi(h)>\alpha$ for $h<1$ sufficiently close to one, and
+Proposition~\ref{prop:capcriterion} gives $\SB<G_\alpha$ on the corresponding
+sample.
+\end{proof}
+
+\section{A terminal-edge obstruction in every dimension}
+
+The same perturbation identifies a necessary condition for the comparison
+at every sample size.
+
+\begin{proposition}[Terminal-edge phase transition]
+\label{prop:terminalbifurcation}
+For each $n\ge2$, let $r_n$ be the unique solution in
+$(1/2,1-1/(2n))$ of
+\begin{equation}\label{eq:terminalcritical}
+ (2r-1)^{n-1}\{2n-1-2(n-1)r\}=r^n,
+\end{equation}
+and put $\alpha_n=r_n^n$.  If $\alpha>\alpha_n$, then some ordered sample
+satisfies $\SB<G_\alpha$.  Moreover,
+\begin{equation}\label{eq:terminalcritical-limit}
+ \alpha_n\longrightarrow\alpha_\infty
+ =0.28466813704083846168\ldots,
+ \qquad \alpha_\infty(1-2\log\alpha_\infty)=1.
+\end{equation}
+Thus for every $\alpha>\alpha_\infty$, pointwise Stringer--Gaffke
+domination fails for all sufficiently large $n$.
 \end{proposition}
 
 \begin{proof}
-For continuous $F$, the probability integral transform gives
-$F(t_{i:n})=V_{i:n}$ in distribution. The corrected event includes its
-$i=n$ constraint, and $q_n(n)=\alpha^{1/n}$. Hence
+Write $p_0=p_n(0)$ and $p_1=p_n(1)$, and consider
+$x(\varepsilon)=(0^{\,n-1},1-\varepsilon,1)$.  If
+$D\sim\operatorname{Dirichlet}(1,\ldots,1)$, then
 \[
-\pr\bigl(V_{i:n}\ge q_n(i)\ \forall i\bigr)
-\le \pr\bigl(V_{n:n}\ge\alpha^{1/n}\bigr)=1-\alpha,
+ S=D_{n-1}+D_n\sim\operatorname{Beta}(2,n-1),\qquad
+ W=D_{n-1}/S\sim\operatorname{Unif}(0,1)
 \]
-because $\pr(V_{n:n}<x)=x^n$.
+independently.  The random score is $S(1-\varepsilon W)$ and its barycentric
+threshold is $p_1-\varepsilon(p_1-p_0)$.  Differentiating the conditional
+beta survival probability at zero gives
+\begin{equation}\label{eq:terminalderivative}
+ \left.\frac{d}{d\varepsilon}\Phi_c(x(\varepsilon))
+ \right|_{\varepsilon=0}
+ =f_{2,n-1}(p_1)\left(\frac{p_1}{2}-p_0\right).
+\end{equation}
+Here $\Phi_c(x)=\pr\{x\mathbin{\cdot}D>c\mathbin{\cdot}x\}$,
+and $f_{2,n-1}$ is the beta density. The cap at zero is the calibrated
+step cap of probability $\alpha$.
+Consequently it rises above $\alpha$ exactly when $p_1>2p_0$; equivalently,
+the last two threshold weights reverse order because
+$c_{n-1}=p_1-p_0>p_0=c_n$.  The cap criterion then gives
+$\SB<G_\alpha$ for the corresponding sample.
+
+Put $r=\alpha^{1/n}$, so $p_0=1-r$.  Substituting $p_1=2p_0$ in its
+defining binomial tail gives \eqref{eq:terminalcritical}.  For
+\[
+ H_n(r)=\frac{(2r-1)^{n-1}\{2n-1-2(n-1)r\}}{r^n},
+\]
+direct differentiation yields
+\[
+ \frac{d}{dr}\log H_n(r)
+ =\frac{n(2nr-2n+1)}
+ {r(2r-1)(2nr-2n-2r+1)}.
+\]
+The last denominator factor is negative.  Hence $H_n$ increases to
+$r=1-1/(2n)$ and then decreases strictly to $H_n(1)=1$, proving the unique
+nontrivial crossing and the stated direction of its sign.  Finally, for
+fixed $\alpha$,
+\[
+ H_n(\alpha^{1/n})\longrightarrow
+ \alpha(1-2\log\alpha).
+\]
+The limiting function has exactly one nontrivial root in $(0,1)$; the
+convergence is locally uniform around that root, so the unique finite roots
+converge to it.  This proves \eqref{eq:terminalcritical-limit}
+and the eventual-failure assertion.
 \end{proof}
 
-Thus the corrected pointwise-containment event has probability no
-greater than nominal coverage. The integral inequality
-$\int\widehat F_{n,L}\le\int F$ may hold on a larger event than
-pointwise domination, but the cited containment argument does not
-establish that fact. Our implementation reproduces the values of
-$\bar P_n$ and Bimpeh's Table~5.1 exactly; those values are
-boundary-crossing probabilities, not established coverage bounds.
-Consequently, the cited argument does not establish finite-sample
-conservatism at $n=2$. Theorem~\ref{thm:n2} supplies that result directly.
 
-\section{Discussion}
+For $n=3$, this critical level is exactly $\alpha_\star$.
+The derivative identifies why comparison fails: the last two barycentric
+weights reverse order. It does not construct an i.i.d. distribution with
+Stringer undercoverage. The tetrahedral theorem therefore suggests two
+distinct questions: extending the active-gap section inequality to higher
+dimensions, and proving coverage beyond the range of pointwise comparison.
 
-Three observations suggest directions for future work. First, the reformulation behind
-\eqref{eq:red} generalizes: with $u_{(1)}\le\cdots\le u_{(n)}$ the
-increasing order statistics of $U_i=1-T_i$,
-\[
-\SB\;=\;1-\sum_{j=1}^{n}e_j\,u_{(j)},\qquad
-e_j=p_n(j)-p_n(j-1),
-\]
-so \eqref{eq:conj} is a family of weighted order-statistic exceedance
-inequalities, with the audit-specific confidence-factor structure
-encoded in the positive increments $e_j$. Second, the $n=2$ proof
-combines rectangle lower bounds on the covering event, a
-survival-integral budget, and a concave potential with equal endpoint
-values. The $n=3$ through $n=7$ proofs use a different route: they compare
-Stringer with a valid Dirichlet-average bound and certify the resulting
-simplex-cap inequalities. At $n=7$ the rigorous computation certifies all
-three conventional levels. In higher
-dimensions, the analogous pointwise comparison is a concrete geometric
-problem for caps of a uniform simplex.
-Proposition~\ref{prop:onecap} solves the complete one-upper-knot region at
-every sample size whenever nominal confidence is at least
-$75\%$. For the
-binomial factors at $90\%$, $95\%$, and $99\%$, $n=8$ is the first sample
-size with unresolved cap regions. A
-dimension-free route recorded in the
-repository writes the Poisson
-bound as an ordered interpolation of gamma quantiles and reduces its
-pointwise Gaffke comparison to two high-quantile inequalities for weighted
-exponentials and uniform Dirichlet averages. Those inequalities remain
-conjectural. Third, the near-equality
-observed at every searched $n$, together with the certified failures at
-several nominal confidence levels below $50\%$, suggests that
-\eqref{eq:conj} may hold whenever nominal confidence is at least $50\%$,
-equivalently whenever $\alpha\le1/2$, with coverage infimum $1-\alpha$
-at every $n$. This is a concrete conjecture for future work.
-
-From an auditing perspective, the binomial Stringer bound has no uniform
-safety margin above nominal coverage: at $n=2$, its coverage infimum is
-$1-\alpha$. Theorems~\ref{thm:n3}, \ref{thm:n4}, and \ref{thm:n5}
-supply exact guarantees at the three conventional levels for $n=3$,
-$n=4$, and $n=5$; Theorems~\ref{thm:n6} and \ref{thm:n7} add all three
-guarantees at $n=6$ and $n=7$. At conventional confidence levels, the Poisson version
-pointwise dominates the binomial version by
-Proposition~\ref{prop:poissondomination}. The corrected simultaneous-band
-argument in Theorem~\ref{thm:poissonband} extends the rigorous Poisson
-guarantees to every $n\le8$ at $90\%$, every $n\le11$ at $95\%$, and every
-$n\le20$ at $99\%$ confidence; the reported Poisson searches at larger
-sizes retain a positive but decreasing numerical cushion.
-For those larger sizes, Theorem~\ref{thm:poissoncalibration} supplies a
-second distribution-free option that stays within the Poisson Stringer
-factor family: multiply the complete result by the precomputed
-$\kappa_{n,\alpha}$ and cap at one, or use the pointwise no-larger
-calibrated-factor-capped curve. This is a guarantee for the calibrated rule,
-not evidence about coverage of the ordinary rule.
-Corollary~\ref{cor:poissonuniform} gives a closed-form alternative: the
-multiplier two works whenever nominal confidence is at least $2/e$.
-Corollary~\ref{cor:poissonuniformrefined} retains the first 200 crossing
-probabilities and reduces the uniform choices to $1.525906$, $1.436135$, and
-$1.320081$
-at $90\%$, $95\%$, and $99\%$, respectively. The exact joint calibration is
-appreciably smaller in the reported examples.
-Corollary~\ref{cor:poissonanchor} gives a second calibration path that
-preserves the ordinary all-zero-sample result and scales only the error
-increments. The path must be chosen before the sample is observed. The
-certified examples show that
-anti-conservatism can occur at several nominal confidence levels below
-$50\%$, at sample sizes $n=50,100,200,$ and $400$. Coverage for ordinary
-audit sample sizes at conventional confidence remains an open problem, so
-the search evidence alone does not justify a general validity claim for
-ordinary Stringer. Proposition~\ref{prop:safeguard}, however, supplies an
-all-sample-size distribution-free reporting option under the model of this
-paper: pre-specify the maximum of the familiar Stringer calculation and the
-validated Gaffke floor. This fallback requires professional-standards and
-workflow evaluation before practice adoption, but it does not require the
-unresolved Stringer conjecture. Proposition~\ref{prop:onecap} additionally
-proves that the fallback has zero uplift at every sample size and nominal
-confidence level of at least $75\%$ whenever binomial
-Stringer is at least the largest observed taint.
-
-\section*{Reproducibility}
-
-The repository contains exact rational coverage calculations, margin
-certificates, exact-sign dyadic enclosures for the binomial confidence
-factors, rigorous Bernstein certificates for Theorems~\ref{thm:n3},
-\ref{thm:n4}, \ref{thm:n5}, \ref{thm:n6}, and \ref{thm:n7}, symbolic regeneration checks for
-their simplex-cap formulas, exact rational Poisson-limit and
-boundary-crossing certificates for Theorem~\ref{thm:poissonband},
-exact rational opposite-endpoint certificates for the representative
-full-scale and zero-taint-preserving calibrations in
-Theorem~\ref{thm:poissoncalibration} and
-Corollary~\ref{cor:poissonanchor}, exact rational exponential enclosures for
-both uniform-multiplier criteria in Table~\ref{tab:poissonuniform},
-high-precision Poisson search calculations, exact-sign rational brackets for the all-sample-size
-Gaffke safeguard, symbolic and rational checks for the analytic all-$n$
-one-cap comparison, an independent finite regression containing $59{,}700$
-exact dyadic comparisons through $n=200$, search logs,
-symbolic checks of the identities used
-in the $n=2$ proof, and stress tests over approximately $200{,}000$
-distributions. It also contains records of two separate adversarial review
-passes.
-
-The canonical source for this development revision is
-\href{https://github.com/RichieSater/stringer-bound}
-{github.com/RichieSater/stringer-bound}. The earlier release
-v1.0.0 is
-preserved on Zenodo at
-\url{https://doi.org/10.5281/zenodo.21850820}; the version-independent
-DOI, which resolves to the latest archived release, is
-\url{https://doi.org/10.5281/zenodo.21850819}.
+\section*{Data and code availability}
+The exact rational multiplier, the boundary identity, and their derivation
+and sign checks are available in the accompanying
+\href{https://github.com/RichieSater/stringer-bound}{source repository}.
 
 \section*{AI disclosure}
+Anthropic Claude and OpenAI Codex were used for mathematical exploration,
+code development, literature searches, and drafting; the author accepts
+responsibility for the manuscript.
 
-Anthropic Claude and OpenAI Codex were used for the exploration and
-criticism of candidate arguments, code development, literature searches,
-and manuscript drafting; the author directed and reviewed this work and
-accepts responsibility for the manuscript.
-
-\section*{Funding}
-
-The author received no external funding for this work.
-
-\section*{Competing interests}
-
-The author declares no competing interests.
+\noindent The author received no external funding and declares no competing
+interests.
 
 \begin{thebibliography}{99}
 
-\bibitem{aicpa2012} American Institute of Certified Public Accountants,
-\emph{Audit Sampling}, AICPA Audit Guide, 2012.
-
-\bibitem{anderson1969} T.~W. Anderson, Confidence limits for the
-expected value of an arbitrary bounded random variable with a
-continuous distribution function, \emph{Bulletin of the International
-Statistical Institute} \textbf{43} (1969), 249--251.
-
-\bibitem{andsam1967} T.~W. Anderson and S.~M. Samuels, Some
-inequalities among binomial and Poisson probabilities, in
-\emph{Proceedings of the Fifth Berkeley Symposium on Mathematical
-Statistics and Probability}, Vol.~1, University of California Press,
-Berkeley, 1967, pp.~1--12.
-
-\bibitem{balrych2024} N.~Balakrishnan and T.~Rychlik, \emph{Sharp
-Inequalities for Ordered Random Variables in Statistics and
-Reliability}, Vol.~I, Springer, 2024.
+\bibitem{carlson1991} B.~C. Carlson, B-splines, hypergeometric functions,
+and Dirichlet averages, \emph{Journal of Approximation Theory} \textbf{67}
+(1991), 311--325,
+\url{https://doi.org/10.1016/0021-9045(91)90006-V}.
 
 \bibitem{bickel1992} P.~J. Bickel, Inference and auditing: the Stringer
 bound, \emph{International Statistical Review} \textbf{60} (1992),
 197--209.
-
-\bibitem{bimpeh2008} Y.~Bimpeh, \emph{Statistical modelling and
-inference for financial auditing}, PhD thesis, Dublin City University,
-2008.
 
 \bibitem{djpvz1997} N.~G. de~Jager, G.~Pap and M.~C.~A. van~Zuijlen,
 Facts, phantasies, and a new proposal concerning the Stringer bound,
@@ -2415,30 +548,23 @@ Facts, phantasies, and a new proposal concerning the Stringer bound,
 one-sided hypothesis on the mean of a nonnegative variable,
 \emph{Mathematical Methods of Statistics} \textbf{14} (2005), 451--467.
 
-\bibitem{hs1955} W.~Hoeffding and S.~S. Shrikhande, Bounds for the
-distribution function of a sum of independent, identically distributed
-random variables, \emph{Annals of Mathematical Statistics} \textbf{26}
-(1955), 439--449.
-
-\bibitem{johansson2017} F.~Johansson, Arb: efficient arbitrary-precision
-midpoint-radius interval arithmetic, \emph{IEEE Transactions on Computers}
-\textbf{66} (2017), 1281--1292.
-
-\bibitem{lms2016} T.~{\L}uczak, K.~Mieczkowska and M.~\v{S}ileikis, On
-maximal tail probability of sums of nonnegative, independent and
-identically distributed random variables, arXiv:1602.03547 (2016).
-
-\bibitem{learnedmiller2020} E.~Learned-Miller and P.~S. Thomas, A new
-confidence interval for the mean of a bounded random variable,
-arXiv:1905.06208v2 (2020).
+\bibitem{lasserre2015} J.~B. Lasserre, Volume of slices and sections of the
+simplex in closed form, \emph{Optimization Letters} \textbf{9} (2015),
+1263--1269, \url{https://doi.org/10.1007/s11590-015-0898-z}.
 
 \bibitem{ming2026} J.~Ming, A.~Ramdas, Y.~Shen, R.~Wang and
 I.~Waudby-Smith, Gaffke's confidence interval for the mean of bounded data
 is inadmissible but asymptotically efficient, arXiv:2607.18661 (2026).
 
-\bibitem{panel1989} Panel on Nonstandard Mixtures of Distributions,
-Statistical models and analysis in auditing, \emph{Statistical Science}
-\textbf{4} (1989), 2--33.
+\bibitem{patakova2022} Z.~Pat\'akov\'a, M.~Tancer and U.~Wagner,
+Barycentric cuts through a convex body, \emph{Discrete \& Computational
+Geometry} \textbf{68} (2022), 1133--1154,
+\url{https://doi.org/10.1007/s00454-021-00364-7}.
+
+\bibitem{paindaveine2017} D.~Paindaveine and G.~Van Bever,
+On the maximal halfspace depth of permutation-invariant distributions on
+the simplex, \emph{Statistics \& Probability Letters} \textbf{129}
+(2017), 335--339, \url{https://doi.org/10.1016/j.spl.2017.06.019}.
 
 \bibitem{papvz1995} G.~Pap and M.~C.~A. van~Zuijlen, The Stringer bound
 in case of uniform taintings, \emph{Computers \& Mathematics with
@@ -2447,25 +573,6 @@ Applications} \textbf{29} (1995), 51--59.
 \bibitem{papvz1996} G.~Pap and M.~C.~A. van~Zuijlen, On the asymptotic
 behaviour of the Stringer bound, \emph{Statistica Neerlandica}
 \textbf{50} (1996), 367--389.
-
-\bibitem{pinelis2021} I.~Pinelis, Best lower bound on the probability of a
-binomial exceeding its expectation, \emph{Statistics \& Probability Letters}
-\textbf{179} (2021), 109224,
-\url{https://doi.org/10.1016/j.spl.2021.109224}.
-
-\bibitem{pinelisgamma2021} I.~Pinelis, Monotonicity properties of the gamma
-family of distributions, \emph{Statistics \& Probability Letters}
-\textbf{171} (2021), 109027,
-\url{https://doi.org/10.1016/j.spl.2020.109027}.
-
-\bibitem{phan2021} M.~Phan, P.~S. Thomas and E.~Learned-Miller, Towards
-practical mean bounds for small samples, \emph{Proceedings of the 38th
-International Conference on Machine Learning}, \emph{Proceedings of
-Machine Learning Research} \textbf{139} (2021), 8567--8576.
-
-\bibitem{shorackwellner1986} G.~R. Shorack and J.~A. Wellner,
-\emph{Empirical Processes with Applications to Statistics}, Wiley, New
-York, 1986.
 
 \bibitem{vlassis2026} N.~Vlassis and P.~S. Thomas, An exact
 distribution-free test for means of nonnegative random variables,
@@ -2476,5 +583,4 @@ sampling in auditing, \emph{Proceedings of the Business and Economic
 Statistics Section, American Statistical Association} (1963), 405--411.
 
 \end{thebibliography}
-
 \end{document}

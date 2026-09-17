@@ -24,6 +24,11 @@ guarantee continues to belong to the pre-specified maximum rule; (1) proves
 that the maximum returns the familiar Stringer value on one complete region
 of the sample space.
 
+A separate result crosses this boundary: `TWO-CAP-COMPARISON.md` proves
+complete relative-gap collars in the adjacent two-upper-knot region through
+`n=200` at 90%, 95%, and 99% confidence. It does not change the all-`n`
+status of the one-cap theorem or settle the residual two-cap region.
+
 ## 1. A dimension-free one-cap lemma
 
 Let
@@ -399,7 +404,10 @@ comparison at every sample size and every nominal confidence level of at
 least `75%`.  It does **not** prove any of the following:
 
 - unrestricted pointwise Stringer--Gaffke domination outside the separately
-  certified sample-size/level pairs (`n=3,4,5,6,7` at 90%, 95%, and 99%);
+  proved regimes (`n=3` at every confidence of at least 66.6314788...%;
+  and `n=4,5,6,7` at 90%, 95%, and 99%). The proposed `n=4,5`
+  continua remain conjectural; see
+  [`ORDERED-COLLISION-OBLIGATION.md`](ORDERED-COLLISION-OBLIGATION.md);
 - ordinary Stringer coverage at arbitrary sample size;
 - the one-cap factor inequalities when nominal confidence is below
   `75%`; or

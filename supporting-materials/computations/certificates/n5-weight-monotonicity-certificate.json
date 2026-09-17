@@ -1,0 +1,182 @@
+{
+  "arithmetic": {
+    "floating_point_role": "none; displayed decimal intervals denote exact rationals",
+    "resultants": "SymPy exact integer polynomial elimination",
+    "root_counts": "SymPy exact Sturm counts over rational intervals",
+    "sign_witnesses": "exact rational binomial-tail evaluations"
+  },
+  "critical_endpoint": {
+    "alpha_display_interval": "[0.3141689898050253, 0.3141689898050254]",
+    "alpha_display_interval_verified_exactly": true,
+    "alpha_lower": {
+      "denominator": "8872543021186607550650925389257867850996598641202613040545534657966788184978001993727918099533246649911651875076491429852717305036800000000000000000000",
+      "numerator": "2787477877967823937826885506591880862141194803930312298596253993039663942412253330625570664726936863820699741744912849030010574501140006233455874575701"
+    },
+    "alpha_upper": {
+      "denominator": "290735489718242756219729523155201813741456544274927224112596079672255715245359169330476420285505426224305008642506471173413840651445862400000000000000000000",
+      "numerator": "91340075105249654794711384280049257031439827595623071600863940149969996628727610975426821371232221957059303432286550920330375103187626953654134700710808649"
+    },
+    "confidence_display_interval": "[0.6858310101949746, 0.6858310101949747]",
+    "definition": "alpha_5=r_5^5, where r_5 is the unique root in (1/2,9/10) of 129*r^4-271*r^3+209*r^2-71*r+9",
+    "lower_sign": "negative",
+    "r_lower": {
+      "denominator": "1547425049106725343623905280000",
+      "numerator": "1227558748860333817040013899941"
+    },
+    "r_upper": {
+      "denominator": "12379400392853802748991242240000",
+      "numerator": "9820469990882670536320111199529"
+    },
+    "upper_sign": "positive"
+  },
+  "d2_resultant": {
+    "domain_exclusion": "At a genuine d_2 zero, q=2*p_2-p_1=p_3<1, which forces p_1 below the positive root of 67*x^2-39*x-8 and hence below 3/4. The sole B_8 root is above 8209/10000, while A_5=0 is exactly alpha=1/2.",
+    "extraneous_factor": {
+      "coefficients_descending": [
+        "1597696",
+        "-14379264",
+        "57099936",
+        "-128866064",
+        "177551071",
+        "-148524550",
+        "69152775",
+        "-13296000",
+        "-304000"
+      ],
+      "degree": 8,
+      "isolating_interval": {
+        "lower": {
+          "denominator": "10000",
+          "numerator": "8209"
+        },
+        "lower_sign": "-1",
+        "root_count": 1,
+        "upper": {
+          "denominator": "1000",
+          "numerator": "821"
+        },
+        "upper_sign": "1"
+      },
+      "roots_in_open_unit_interval": 1,
+      "sha256": "73fa013ec096ef0580a30b227d5239d6207d95d73a42f1c1024c22796f66ac06"
+    },
+    "half_factor": {
+      "degree": 5,
+      "identity": "A_5(x)=2*F_1(x)-1",
+      "sha256": "a6b1e112f5e9615b992f8f862812d45d2cc6017f35e7502cb8d22880378a400b"
+    },
+    "meaning": "If F_1(x)=F_2(y)=F_3(2y-x), then 1600000*x^6*(x-1)^6*A_5(x)*B_8(x)=0.",
+    "q_equals_one_identity": "F_1(x)-F_2((1+x)/2)=(x-1)^3*(67*x^2-39*x-8)/16"
+  },
+  "d3_resultant": {
+    "coefficients_descending": [
+      "682456",
+      "-8871928",
+      "53222168",
+      "-193600856",
+      "472259515",
+      "-807107237",
+      "980133686",
+      "-838362386",
+      "487990767",
+      "-179494185",
+      "35660800",
+      "-2508800"
+    ],
+    "degree": 11,
+    "domain_exclusion": "For alpha<=alpha_5, p_0>2067/10000; for the reflected tail beta>=1-alpha_5>2/3, p_0<1/10. The sole root lies between 1356/10000 and 1357/10000.",
+    "isolating_interval": {
+      "lower": {
+        "denominator": "2500",
+        "numerator": "339"
+      },
+      "lower_sign": "-1",
+      "root_count": 1,
+      "upper": {
+        "denominator": "10000",
+        "numerator": "1357"
+      },
+      "upper_sign": "1"
+    },
+    "meaning": "If F_0(x)=F_1(y)=F_2(2y-x), then 400000*x^2*(x-1)^12*P_11(x)=0.",
+    "roots_in_open_unit_interval": 1,
+    "sha256": "88cd52e2df765e4e144e8e3a3af663e9401472c4d0d63a712ad50a91dde64000"
+  },
+  "mathematical_status": "ordinary monotonicity reduction with exact resultants, Sturm counts, domain exclusions, and rational sign witnesses",
+  "rational_sign_witnesses": {
+    "low_alpha": {
+      "alpha": {
+        "denominator": "1024",
+        "numerator": "243"
+      },
+      "d2_lower_bound": {
+        "denominator": "50",
+        "numerator": "1"
+      },
+      "d3_lower_bound": {
+        "denominator": "50",
+        "numerator": "1"
+      },
+      "p0": {
+        "denominator": "4",
+        "numerator": "1"
+      },
+      "tail_differences": {
+        "F1_at_463_over_1000_minus_alpha": {
+          "denominator": "250000000000000",
+          "numerator": "-35458920207"
+        },
+        "F1_at_46_over_100_minus_alpha": {
+          "denominator": "10000000000",
+          "numerator": "41821029"
+        },
+        "F2_at_648_over_1000_minus_alpha": {
+          "denominator": "31250000000000",
+          "numerator": "30569475881"
+        },
+        "F2_at_65_over_100_minus_alpha": {
+          "denominator": "3200000",
+          "numerator": "-6833"
+        },
+        "F3_at_813_over_1000_minus_alpha": {
+          "denominator": "250000000000000",
+          "numerator": "-242740160957"
+        }
+      }
+    },
+    "reflected_high_alpha": {
+      "beta": {
+        "denominator": "3200000",
+        "numerator": "2476099"
+      },
+      "d3_upper_bound": {
+        "denominator": "100",
+        "numerator": "-3"
+      },
+      "p0": {
+        "denominator": "20",
+        "numerator": "1"
+      },
+      "tail_differences": {
+        "F1_at_182_over_1000_minus_beta": {
+          "denominator": "31250000000000",
+          "numerator": "-3400218571"
+        },
+        "F2_at_344_over_1000_minus_beta": {
+          "denominator": "31250000000000",
+          "numerator": "9103749333"
+        }
+      }
+    }
+  },
+  "schema_version": 1,
+  "scope": {
+    "conclusion": "The six ascending-knot Stringer threshold weights are nondecreasing. The endpoint alpha_5 is sharp for this property and for the terminal-edge pointwise comparison mechanism.",
+    "dependency": "Coverage throughout the weight-order interval would follow from the unresolved six-coordinate monotone cap theorem; the exact weight calculation alone does not prove it. The first-coordinate beta bound is not an active-prefix bound on repeated-lowest faces. The global monotone cap theorem remains unresolved.",
+    "hypothesis": "Five-trial Clopper--Pearson factors at 0<alpha<=alpha_5."
+  },
+  "symmetry": {
+    "identity": "p_j(1-alpha)=1-p_(4-j)(alpha)",
+    "spacing_relations": "d_0(alpha)=-d_4(1-alpha), d_1(alpha)=-d_3(1-alpha), d_2(alpha)=-d_2(1-alpha)"
+  }
+}

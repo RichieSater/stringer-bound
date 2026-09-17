@@ -275,8 +275,9 @@ case, and a joint expansion proves positivity in a punctured neighborhood of
 its only zero-margin corner.  An analytic boundary-versus-bulk comparison
 also proves every point at which both gaps are at least `13`, while a direct
 tail comparison, preceded by a fixed-total-gap minimization, proves the
-triangle in which the gaps sum to at most `8/9`.  The remaining finite
-off-symmetry region has total gap above `8/9` and smaller gap below `13`.
+triangle in which the gaps sum to at most `8/9`.  A serial 256-bit Arb
+certificate additionally proves the compact square `1<=z,w<=4`.  The
+remaining finite off-symmetry region lies outside all of those sets.
 
 Random Jensen tests conducted during exploration found no violation of (A)
 at or below (8) in dimensions through 12 and found the failures predicted by
@@ -599,7 +600,8 @@ seemingly simpler but false domination claim.
    inward from each finite axis, and the corresponding second derivative is
    strictly negative at each positive diagonal point.  The region in which
    both gaps are at least `13` and the triangle in which their sum is at most
-   `8/9` are also proved.  Then seek a dimension-free argument for (11).
+   `8/9` are also proved, as is the certified square `1<=z,w<=4`.  Then seek
+   a dimension-free argument for (11).
 2. Prove the constrained divided-difference inequality (16), or find an
    actual B-spline counterexample satisfying the sum-of-knots constraint;
    the complete `n=2`, `n=3`, `n=4`, `n=5`, and `n=6` cases and every two-level

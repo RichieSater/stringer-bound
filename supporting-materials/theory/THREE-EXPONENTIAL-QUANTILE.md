@@ -10,8 +10,10 @@
 > infinite-gap boundary to the two-exponential theorem, and proves positivity
 > in a punctured neighborhood of the only zero-margin corner.  It also proves
 > the full regions in which the total gap is at most `8/9` or both gaps are at
-> least `13`.  The remaining finite off-symmetry region with larger gap above
-> `4/9`, total gap above `8/9`, and smaller gap below `13` is open.  Nothing in this
+> least `13`, and a rigorous Arb certificate closes the compact interior
+> square `1<=z,w<=4`.  The remaining finite off-symmetry region outside those
+> sets, with larger gap above `4/9`, total gap above `8/9`, and smaller gap
+> below `13`, is open.  Nothing in this
 > note is a general-`n` Stringer coverage theorem.
 
 Let `E_1,E_2,E_3` be independent unit exponentials and put
@@ -226,7 +228,8 @@ This representation gives a particularly simple route for a rigorous
 interior certificate.  To prove `h(z,w)<=x`, it is enough to prove the
 two-by-two matrix inequality `xK(z,w)-L(z,w)\succeq0`.  If the tail in
 (15) at the same `x` is at least `4e^{-3}`, monotonicity then proves (16).
-No such full interior certificate is asserted here.
+Section 3 gives such a certificate on the compact square `1<=z,w<=4`; a
+certificate for the full remaining interior is not asserted.
 
 ## 3. The remaining two-variable inequality
 
@@ -305,7 +308,9 @@ infinity; the limit is the equal-weight two-exponential problem,
 
 These endpoint calculations explain both the candidate constant and where
 equality must occur.  Sections 4--6 prove the coordinate axes, the diagonal,
-and the infinite-gap boundary; the finite off-symmetry interior remains.
+the infinite-gap boundary, two unbounded analytic regions, and one compact
+interior square; the residual finite off-symmetry region outside those sets
+remains.
 Because `Z`, `A`, and every entry of `K` are elementary divided differences
 of the exponential, (16) is an explicit two-variable analytic inequality
 rather than an optimization over distributions.
@@ -394,6 +399,80 @@ Consequently,
 \]
 
 Equations (18b)--(18g) yield `S_{z,w}(h)>4e^{-3}`, proving the theorem.
+
+**Certified compact-interior theorem.** Inequality (16) holds strictly on
+the closed square
+
+```text
+1 <= z <= 4,        1 <= w <= 4.                       (18h)
+```
+
+This result uses the trace identity (13b), but it avoids interval evaluation
+of a generalized eigenvalue. On each parameter box the certificate produces
+a rational witness `x` and proves
+
+```text
+x K(z,w) - L(z,w) is positive definite,
+S_{z,w}(x) > 4e^-3.                                  (18i)
+```
+
+Because `K` is positive definite, the first condition implies `h(z,w)<x`.
+The tail is strictly decreasing in `x`, so the second condition implies
+`S_{z,w}(h)>4e^-3`.
+
+Here is the exact enclosure architecture. Put
+
+```text
+I_ij(z,w) = integral_Delta u^i v^j exp(-zu-wv) du dv,
+J_ij(z,w) = integral_0^1 u^i(1-u)^j
+                         exp(-zu-w(1-u)) du.
+```
+
+At the rational center of each box, these moments are evaluated from
+
+```text
+F_m(r) = integral_0^1 t^m exp(-rt) dt
+```
+
+using its elementary incomplete-exponential formula away from zero and a
+120-term series with an explicit exponential remainder near zero. A
+fourth-order Taylor expansion in the two box coordinates encloses every
+moment throughout the box. If the half-widths sum to `H`, the absolute
+remainder for every centered Gram polynomial is bounded by
+
+```text
+I_00 exp(H) H^5 / 5!
+```
+
+and the analogous bound using `J_00` holds on the boundary. Centering at a
+fixed rational approximation to the midpoint tilted mean is an exact
+algebraic re-expression and prevents dependency loss from subtracting broad
+raw-moment intervals.
+
+The initial `150 x 150` grid has step `1/50`. Exactly `15,587` boxes certify
+at that width; the other `6,913` boxes split into four step-`1/100` boxes.
+All `27,652` refined boxes certify, for `43,239` leaves in total. At 256-bit
+Arb precision, the smallest rigorous lower enclosures selected in the three
+checks are approximately
+
+```text
+1.02265e-3   (leading principal minor),
+2.36299e-11  (determinant),
+7.66225e-3   (tail margin).
+```
+
+Floating-point eigensolvers and root finding only propose each 30-bit dyadic
+witness; Arb decides every sign. The complete partition counts, exact lower
+enclosures, and a digest of every leaf and witness are in
+`three-exponential-interior-certificate.json`. Reproduce the theorem with
+
+```sh
+make three-exponential-interior-check
+```
+
+The run is serial, peaks below 85 MB on the development machine, and leaves
+the domain outside (18h) unresolved except for the analytic regions proved
+elsewhere in this note.
 
 ## 4. A proved boundary: two equal maximal weights
 
@@ -704,7 +783,7 @@ Write `F(s)=sum_(j>=0) f_j s^j/j!`.  Its coefficients vanish through
 `j=11`, and
 
 \[
- f_{12}=18480,qquad f_{13}=240240,qquad f_{14}=480480.       \tag{39}
+ f_{12}=18480,\qquad f_{13}=240240,\qquad f_{14}=480480.       \tag{39}
 \]
 
 For every `j>=4`, direct expansion gives
@@ -748,10 +827,10 @@ regenerates every inequality:
  <\frac{3678794412}{10^{10}},\\
  \frac{3011942119}{10^{10}}<e^{-6/5}
  <\frac{3011942120}{10^{10}},                         \tag{41}\\
- F(1)>0,qquad F(6/5)<0,\\
- h(1,1)<\frac{347}{100},qquad
+ F(1)>0,\qquad F(6/5)<0,\\
+ h(1,1)<\frac{347}{100},\qquad
  h(6/5,6/5)>\frac{84}{25},\\
- A(6/5,6/5)>\frac{43}{50},qquad
+ A(6/5,6/5)>\frac{43}{50},\qquad
  Z(6/5,6/5)>\frac{117}{500}.
  \end{gathered}
 \]
@@ -1275,10 +1354,11 @@ The last inequality is equivalent to `e^7>4^5`; it follows from
 
 Hence every finite point on the coordinate axes, every point on the
 diagonal, the complete infinite-gap boundary, the small-total-gap triangle (18a),
-and the two-large-gap region (52a) satisfy the target.  What remains is the
+the compact interior square (18h), and the two-large-gap region (52a) satisfy
+the target.  What remains is the
 finite off-symmetry domain
-`0<z<w<infinity` with `z<13`, `w>4/9`, and `z+w>8/9`, up to interchange of
-`z` and `w`.
+`0<z<w<infinity` with `z<13`, `w>4/9`, and `z+w>8/9`, outside
+`1<=z,w<=4`, up to interchange of `z` and `w`.
 
 ## 7. A positive neighborhood of the sharp corner
 

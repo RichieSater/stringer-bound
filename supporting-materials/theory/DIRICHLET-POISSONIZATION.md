@@ -1803,7 +1803,7 @@ continuity.
 For the remainder, set
 
 \[
- (b,c,d)=(b,b+s,b+s+t),qquad 3b+2s+t\le4.
+ (b,c,d)=(b,b+s,b+s+t),\qquad 3b+2s+t\le4.
 \]
 
 Since a partial derivative of `E r(bW_0+cW_1+dW_2)` with respect to any
@@ -1908,7 +1908,7 @@ It remains to certify the boxes not covered by `d<=19/15`, `d>=3`,
 `a>=9/16`, or (15bv).  Parameterize them by
 
 \[
- (a,b,c,d)=(a,a+r,a+r+s,a+r+s+t),qquad
+ (a,b,c,d)=(a,a+r,a+r+s,a+r+s+t),\qquad
  4a+3r+2s+t\le4.                                  \tag{15bw}
 \]
 

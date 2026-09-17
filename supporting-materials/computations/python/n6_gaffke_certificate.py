@@ -758,7 +758,11 @@ def certify_level(alpha_text, structure):
         _SIMPLEX_CONTEXT = (polynomial_coefficients, vertices, degree)
         tasks = [(region_name, index, simplex)
                  for index, simplex in enumerate(region["simplices"])]
-        workers = min(len(tasks), os.cpu_count() or 1)
+        requested_workers = int(
+            os.environ.get("N6_WORKERS", str(os.cpu_count() or 1)))
+        if requested_workers < 1:
+            raise ValueError("N6_WORKERS must be positive")
+        workers = min(len(tasks), requested_workers, os.cpu_count() or 1)
         if workers == 1:
             results = [_certify_simplex(task) for task in tasks]
         else:

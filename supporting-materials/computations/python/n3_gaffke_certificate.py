@@ -1,10 +1,10 @@
-"""Exact certificate for the ``n=3`` conventional-level theorem.
+"""Exact certificate for the ``n=3`` confidence-range theorem.
 
-For ``alpha`` equal to 0.01, 0.05, or 0.10, this module certifies that
-the binomial-factor Stringer bound pointwise dominates the one-sided
-Gaffke/Learned--Miller--Thomas bound.  The latter has finite-sample
+For every ``alpha`` in the closed interval ``[0.01, 0.20]``, this module
+certifies that the binomial-factor Stringer bound pointwise dominates the
+one-sided Gaffke/Learned--Miller--Thomas bound.  The latter has finite-sample
 distribution-free coverage, so the pointwise comparison proves Stringer
-coverage at 99%, 95%, and 90% confidence when ``n=3``.
+coverage throughout the 80%--99% nominal-confidence range when ``n=3``.
 
 The proof reduces the comparison to the volume of a halfspace cap of the
 uniform three-simplex.  On each of the three possible knot regions, the
@@ -13,12 +13,15 @@ low-degree polynomial.  Polynomial nonnegativity is certified by expressing
 the polynomial in a Bernstein basis over one or two triangles and checking
 every coefficient.
 
-All arithmetic in this file is rational interval arithmetic.  The
-Clopper--Pearson factors are enclosed by dyadic intervals whose endpoint
-signs are checked using integer arithmetic in :mod:`stringer`.  The static
-formula file was derived symbolically from the displayed cap-volume formula;
-it contains the 42 degree-five Bernstein coefficients used for the middle
-region.  No floating-point result is used to decide a sign.
+All arithmetic in this file is rational interval arithmetic.  Monotonicity
+of each Clopper--Pearson factor in ``alpha`` turns exact factor brackets at
+the endpoints of an alpha interval into a simultaneous enclosure throughout
+that interval.  An adaptive dyadic subdivision then checks every required
+sign on ``[0.01, 0.20]``.  Factor-endpoint signs are checked with integer
+arithmetic in :mod:`stringer`.  The static formula file was derived
+symbolically from the displayed cap-volume formula; it contains the 42
+degree-five Bernstein coefficients used for the middle region.  No
+floating-point result is used to decide a sign.
 
 Usage::
 
@@ -35,6 +38,7 @@ import json
 import math
 from dataclasses import dataclass
 from fractions import Fraction
+from functools import lru_cache
 from pathlib import Path
 from typing import Dict, Iterable, Mapping, Tuple
 
@@ -42,6 +46,8 @@ from stringer import exact_binomial_factor_brackets
 
 
 ALPHAS = ("0.01", "0.05", "0.10")
+ALPHA_RANGE = (Fraction(1, 100), Fraction(1, 5))
+MAX_RANGE_DEPTH = 18
 FACTOR_BITS = 120
 HERE = Path(__file__).resolve().parent
 CERTIFICATE_DIR = HERE.parent / "certificates"
@@ -294,6 +300,188 @@ def _load_formulas():
     return data, hashlib.sha256(raw).hexdigest()
 
 
+def _fraction_text(value: Fraction) -> str:
+    """Render a rational canonically and without passing through a float."""
+    value = Fraction(value)
+    if value.denominator == 1:
+        return str(value.numerator)
+    return f"{value.numerator}/{value.denominator}"
+
+
+@lru_cache(maxsize=None)
+def _factor_brackets_at(alpha: Fraction):
+    """Return exact factor brackets at one rational alpha endpoint."""
+    return exact_binomial_factor_brackets(
+        3, _fraction_text(alpha), FACTOR_BITS)
+
+
+def _range_constraint_intervals(
+        alpha_lower: Fraction,
+        alpha_upper: Fraction,
+        formula_data):
+    """Enclose every nonstructural sign condition on an alpha interval.
+
+    For ``j < 3``, the binomial lower-tail probability is strictly decreasing
+    in its success probability.  Hence its inverse factor ``p_j(alpha)`` is
+    decreasing in ``alpha``.  Brackets at the two alpha endpoints therefore
+    give a simultaneous enclosure on the full interval.  Each returned
+    interval contains the corresponding coefficient or margin at every
+    alpha in the cell.
+
+    The two omitted Bernstein coefficients are identically zero along the
+    Clopper--Pearson curve, by
+
+    ``alpha = (a+b+c)^3`` and
+    ``alpha = (a+b)^2*(3-2*(a+b))``.
+    """
+    alpha_lower = Fraction(alpha_lower)
+    alpha_upper = Fraction(alpha_upper)
+    if not 0 < alpha_lower < alpha_upper < 1:
+        raise ValueError("alpha cell must lie strictly inside (0,1)")
+
+    lower_endpoint = _factor_brackets_at(alpha_lower)
+    upper_endpoint = _factor_brackets_at(alpha_upper)
+    # p_j(alpha) is decreasing, so p_j(alpha_upper) is the lower endpoint.
+    p = [
+        Interval(upper_endpoint[j][0], lower_endpoint[j][1])
+        for j in range(4)
+    ]
+    alpha = Interval(alpha_lower, alpha_upper)
+
+    a = 1 - p[2]
+    b = p[2] - p[1]
+    c = p[1] - p[0]
+    d = p[0]
+    A = 1 - b - c
+
+    constraints = {
+        "weight:a": a,
+        "weight:b": b,
+        "weight:c": c,
+        "weight:d": d,
+        "denominator:A": A,
+        "denominator:1-b": 1 - b,
+        "denominator:1-c": 1 - c,
+        "region-C:p2/3-b": p[2] / 3 - b,
+        "region-C:p2/3-c": p[2] / 3 - c,
+    }
+
+    # Region A: all degree-three Bernstein coefficients other than the
+    # structural zero at (3,0,0).
+    x0 = a / A
+    y2 = (a + b) / (1 - c)
+    X = x0 + U * (1 - x0) + W * (1 - x0)
+    Y = x0 + U * (1 - x0) + W * (y2 - x0)
+    L = a + b * X + c * Y
+    region_a = bernstein_coefficients(alpha * X * Y - L ** 3, 3)
+    for index, value in region_a.items():
+        if index != (3, 0, 0):
+            constraints[f"region-A:{index}"] = value
+
+    # Region B: every formula not marked as a structural zero.
+    formula_values = {"b": b, "c": c, "d": d}
+    for triangle_number, formulas in enumerate(formula_data["triangles"]):
+        for item in formulas:
+            if item["expression"] == "0":
+                continue
+            index = tuple(item["index"])
+            constraints[
+                f"region-B:triangle-{triangle_number}:{index}"
+            ] = _evaluate_formula(item["expression"], formula_values)
+
+    # Region-B y=1 boundary: omit the structural zero at (4,0,0).
+    q0 = a / (1 - b)
+    q = q0 + (1 - q0) * U
+    h = a + b * q
+    boundary = bernstein_coefficients(
+        alpha * q ** 2 - h ** 2 * (3 * q - h * (1 + q)), 4)
+    for index, value in boundary.items():
+        if index != (4, 0, 0):
+            constraints[f"region-B-boundary:{index}"] = value
+
+    return constraints
+
+
+def _certify_range_cell(alpha_lower, alpha_upper, formula_data):
+    """Return a compact cell record, or ``None`` if subdivision is needed."""
+    try:
+        constraints = _range_constraint_intervals(
+            alpha_lower, alpha_upper, formula_data)
+    except ZeroDivisionError:
+        return None
+    if any(value.lower <= 0 for value in constraints.values()):
+        return None
+    weakest_name, weakest = min(
+        constraints.items(), key=lambda item: (item[1].lower, item[0]))
+    return {
+        "alpha_lower": _fraction_text(alpha_lower),
+        "alpha_upper": _fraction_text(alpha_upper),
+        "weakest_constraint": weakest_name,
+        "weakest_lower_bound": _fraction_record(weakest.lower),
+    }
+
+
+def certify_uniform_range(formula_data):
+    """Certify every alpha in ``ALPHA_RANGE`` by exact interval subdivision."""
+    start, stop = ALPHA_RANGE
+    stack = [(start, stop, 0)]
+    leaves = []
+    while stack:
+        lower, upper, depth = stack.pop()
+        record = _certify_range_cell(lower, upper, formula_data)
+        if record is not None:
+            record["depth"] = depth
+            leaves.append(record)
+            continue
+        if depth >= MAX_RANGE_DEPTH:
+            raise AssertionError(
+                "uniform n=3 range certificate exceeded its maximum depth "
+                f"on [{_fraction_text(lower)}, {_fraction_text(upper)}]")
+        midpoint = (lower + upper) / 2
+        # Push right first so the serialized leaves are ordered left to right.
+        stack.append((midpoint, upper, depth + 1))
+        stack.append((lower, midpoint, depth + 1))
+
+    if Fraction(leaves[0]["alpha_lower"]) != start:
+        raise AssertionError("uniform range partition has the wrong start")
+    if Fraction(leaves[-1]["alpha_upper"]) != stop:
+        raise AssertionError("uniform range partition has the wrong end")
+    for left, right in zip(leaves, leaves[1:]):
+        if Fraction(left["alpha_upper"]) != Fraction(right["alpha_lower"]):
+            raise AssertionError("uniform range partition contains a gap")
+
+    global_weakest = min(
+        leaves,
+        key=lambda item: Fraction(
+            int(item["weakest_lower_bound"]["numerator"]),
+            int(item["weakest_lower_bound"]["denominator"]),
+        ),
+    )
+    return {
+        "alpha_interval": [_fraction_text(start), _fraction_text(stop)],
+        "nominal_confidence_interval": ["4/5", "99/100"],
+        "factor_bits": FACTOR_BITS,
+        "factor_monotonicity": (
+            "For j<3 the binomial lower-tail CDF is strictly decreasing in "
+            "p, so its inverse Clopper--Pearson factor is decreasing in alpha."
+        ),
+        "subdivision": "adaptive exact dyadic bisection",
+        "maximum_allowed_depth": MAX_RANGE_DEPTH,
+        "maximum_used_depth": max(item["depth"] for item in leaves),
+        "leaf_count": len(leaves),
+        "structural_zero_identities": [
+            "alpha=(a+b+c)^3",
+            "alpha=(a+b)^2*(3-2*(a+b))",
+        ],
+        "global_weakest_leaf": global_weakest,
+        "leaves": leaves,
+        "conclusion": (
+            "For n=3 and every alpha in [0.01,0.20], the binomial "
+            "Stringer bound pointwise dominates the one-sided Gaffke bound."
+        ),
+    }
+
+
 def certify_level(alpha_text: str, formula_data):
     alpha = Fraction(alpha_text)
     brackets = exact_binomial_factor_brackets(
@@ -440,11 +628,12 @@ def certify_level(alpha_text: str, formula_data):
 def build_certificate():
     formulas, formula_sha256 = _load_formulas()
     levels = [certify_level(alpha, formulas) for alpha in ALPHAS]
+    uniform_range = certify_uniform_range(formulas)
     return {
-        "schema_version": 1,
+        "schema_version": 2,
         "claim": (
-            "At n=3 and nominal confidence 90%, 95%, or 99%, the "
-            "binomial-factor Stringer bound pointwise dominates the "
+            "At n=3 and every nominal confidence from 80% through 99%, "
+            "the binomial-factor Stringer bound pointwise dominates the "
             "one-sided Gaffke bound and is therefore distribution-free "
             "conservative under independent sampling."
         ),
@@ -454,6 +643,8 @@ def build_certificate():
         ),
         "formula_file": str(FORMULA_PATH.relative_to(HERE.parents[2])),
         "formula_sha256": formula_sha256,
+        "uniform_range": uniform_range,
+        "representative_levels": ALPHAS,
         "levels": levels,
     }
 
@@ -476,6 +667,12 @@ def main(argv=None):
             f"{rb[1]['minimum_positive_coefficient']['lower']['decimal']}; "
             f"boundary min={level['region_b_y_equals_1_boundary']['minimum_positive_coefficient']['lower']['decimal']}"
         )
+    uniform = certificate["uniform_range"]
+    print(
+        "alpha in [0.01,0.20]: certified with "
+        f"{uniform['leaf_count']} exact interval cells; "
+        f"maximum depth={uniform['maximum_used_depth']}"
+    )
     print("n3_gaffke_certificate: all exact sign checks passed")
     return 0
 

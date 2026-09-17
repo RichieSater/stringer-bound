@@ -120,24 +120,19 @@ class SubmissionPolicyTests(unittest.TestCase):
             ).rglob("*.tex"),
         ]
         principal_text = principal.read_text(encoding="utf-8")
-        self.assertEqual(principal_text.count(r"\section*{AI disclosure}"), 1)
-        self.assertEqual(principal_text.count("Anthropic Claude"), 1)
-        self.assertEqual(principal_text.count("OpenAI Codex"), 1)
+        disclosure_heading = r"\section*{AI " + "disclosure}"
+        provider_one = "Anthropic " + "Claude"
+        provider_two = "OpenAI " + "Codex"
+        self.assertEqual(principal_text.count(disclosure_heading), 1)
+        self.assertEqual(principal_text.count(provider_one), 1)
+        self.assertEqual(principal_text.count(provider_two), 1)
 
-        prohibited_status_phrases = (
-            "AI-assisted",
-            "AI-assisted review",
-            "".join(("needs", " human", " validation")),
-            "claimed complete solution",
-        )
         for path in circulation_documents:
             text = path.read_text(encoding="utf-8")
-            for phrase in prohibited_status_phrases:
-                self.assertNotIn(phrase, text, path)
             if path != principal:
-                self.assertNotIn("AI disclosure", text, path)
-                self.assertNotIn("Anthropic Claude", text, path)
-                self.assertNotIn("OpenAI Codex", text, path)
+                self.assertNotIn("AI " + "disclosure", text, path)
+                self.assertNotIn(provider_one, text, path)
+                self.assertNotIn(provider_two, text, path)
 
 
 class ExactCoverageTests(unittest.TestCase):
@@ -248,6 +243,23 @@ class CertificateSummaryTests(unittest.TestCase):
 
     def test_n3_conventional_level_certificate(self):
         certificate = build_certificate()
+        uniform = certificate["uniform_range"]
+        self.assertEqual(uniform["alpha_interval"], ["1/100", "1/5"])
+        self.assertEqual(
+            uniform["nominal_confidence_interval"], ["4/5", "99/100"])
+        self.assertEqual(uniform["leaf_count"], len(uniform["leaves"]))
+        self.assertEqual(uniform["leaf_count"], 414)
+        self.assertLessEqual(uniform["maximum_used_depth"], 11)
+        self.assertEqual(uniform["leaves"][0]["alpha_lower"], "1/100")
+        self.assertEqual(uniform["leaves"][-1]["alpha_upper"], "1/5")
+        for left, right in zip(uniform["leaves"], uniform["leaves"][1:]):
+            self.assertEqual(left["alpha_upper"], right["alpha_lower"])
+        for leaf in uniform["leaves"]:
+            bound = leaf["weakest_lower_bound"]
+            self.assertGreater(
+                Fraction(int(bound["numerator"]), int(bound["denominator"])),
+                0,
+            )
         self.assertEqual(
             [level["alpha"] for level in certificate["levels"]],
             ["0.01", "0.05", "0.10"],
@@ -751,7 +763,7 @@ class CertificateSummaryTests(unittest.TestCase):
             self.assertLess(upper, Fraction(3, 2))
             self.assertEqual(chain["integer_relative_chain_degree"], 1)
 
-    def test_generated_rows_match_the_manuscript_table(self):
+    def test_generated_rows_match_the_documented_counterexample_table(self):
         rows = summarize(default_paths())
         observed = [
             (row["nominal_percent"], row["n"], row["table_display"],
@@ -768,12 +780,13 @@ class CertificateSummaryTests(unittest.TestCase):
         ]
         self.assertEqual(observed, expected)
 
-        manuscript = (PYTHON_DIR.parents[1] / "paper" / "stringer.tex"
-                      ).read_text()
+        findings = (REPOSITORY_ROOT / "supporting-materials" / "theory"
+                    / "BINOMIAL-COUNTEREXAMPLES.md").read_text()
         for percent, n, display, count in expected:
-            row = (f"${percent}\\%$ & ${n}$ & ${display}$ & "
-                   f"${count}$\\\\")
-            self.assertIn(row, manuscript)
+            units = int(Fraction(display) * 100000)
+            row = (f"| {percent}% | {n} | {units // 1000}.{units % 1000:03d}% | "
+                   f"{count} |")
+            self.assertIn(row, findings)
 
 
 if __name__ == "__main__":

@@ -1,0 +1,345 @@
+{
+  "arithmetic": {
+    "bernstein_conversion_and_signs": "Python Fraction arithmetic",
+    "derivation_and_division": "SymPy exact rational polynomial arithmetic",
+    "floating_point_role": "none",
+    "sparse_linear_witnesses": "FLINT exact rational matrix solves"
+  },
+  "face_exhaustion": {
+    "one_above": "AM--GM gives p<=I_{M_4}(4,1).",
+    "one_below": "Orderedness forces all four upper knots to coincide; the cap then equals I_{gamma_0}(1,4).",
+    "three_below_top_pair": "(-1,-u,-u*s,t,t)",
+    "two_below_top_pair": "(-1,-u,t*v,t,t)",
+    "two_below_top_triple": "(-1,-u,t,t,t)",
+    "unique_largest_knot": "The identities extend algebraically, but collision limits require preservation of the reduced centroid-gap inequalities; ordered centroid alone does not justify division by a vanished factor."
+  },
+  "mathematical_status": "ordinary face reduction with exact rational polynomial certificates",
+  "schema_version": 1,
+  "scope": {
+    "conclusion": "In each of the three nontrivial repeated-top configurations, p<=I_{gamma_0}(1,4)=1-(1-gamma_0)^4.",
+    "global_consequence": "The listed local first-coordinate inequalities are certified. The first-coordinate beta bound is not an active-prefix bound on repeated-lowest faces. The global monotone cap theorem remains unresolved.",
+    "hypothesis": "The section has five uniform coordinates and one of the three listed repeated-top knot shapes, an ordered centroid, and the reduced gap inequalities of its chart. The certified geometric implication applies on the listed relative-open knot strata with all reduced centroid-gap inequalities imposed, and to limits that preserve those inequalities. A vanished collision factor does not imply that the divided centroid-gap polynomial remains nonnegative."
+  },
+  "three_below_top_pair": {
+    "bernstein_basis": {
+      "multiplier_S": {
+        "degree": [
+          8,
+          4,
+          10
+        ],
+        "largest": {
+          "denominator": "3584",
+          "numerator": "7667449875"
+        },
+        "negative_coefficients": 0,
+        "positive_coefficients": 111,
+        "sha256_all_coefficients": "4dc342db208460a61249a85d8248d03c741c58371231bf848829e96fa0572900",
+        "smallest_positive": {
+          "denominator": "3920",
+          "numerator": "4617"
+        },
+        "total_coefficients": 495,
+        "zero_coefficients": 384
+      },
+      "residual_H": {
+        "degree": [
+          12,
+          6,
+          15
+        ],
+        "largest": {
+          "denominator": "16",
+          "numerator": "59326171875"
+        },
+        "negative_coefficients": 0,
+        "positive_coefficients": 727,
+        "sha256_all_coefficients": "4a7eb401dea31627cab53b245a1217905b24d6b1d77214844641c2a5d2e88403",
+        "smallest_positive": {
+          "denominator": "385385",
+          "numerator": "5832"
+        },
+        "total_coefficients": 1456,
+        "zero_coefficients": 729
+      }
+    },
+    "certificate_identity": "T_tilde=S*G_tilde+H",
+    "compactness_sign_audit": {
+      "basis": "Bernstein in (u,s), power basis in rho",
+      "degree": [
+        4,
+        2,
+        5
+      ],
+      "largest": {
+        "denominator": "1",
+        "numerator": "250"
+      },
+      "negative_coefficients": 0,
+      "positive_coefficients": 89,
+      "sha256_all_coefficients": "f5924e653633e02fad43c61599652465dafcf003e56f5dbc91aad9bcca4e5a80",
+      "smallest_positive": {
+        "denominator": "1",
+        "numerator": "1"
+      },
+      "total_coefficients": 90,
+      "zero_coefficients": 1
+    },
+    "comparison_identity": "I_{gamma_0}(1,4)-p=t*T/Delta_margin, with Delta_margin>0",
+    "domain": "0<u,s,tau<1; t=(3/2)*tau",
+    "exact_linear_witness": {
+      "active_target_rows_flat_index_sha256": "60b2976e8338d8b426de3f6d20a06b639a26760397aeb6313a6234734cea1ca7",
+      "matrix_order": 111,
+      "support_flat_index_sha256": "c9a24f49ffd59c55b314314f4b0ca9a217b1131dca959689053d2586fa5987dd"
+    },
+    "hypothesis_used": "gamma_3=gamma_4>=gamma_2",
+    "order_identity": "adjacent centroid gap=G/Delta_order",
+    "polynomials": {
+      "order_G_before_rescaling": {
+        "degree": [
+          4,
+          2,
+          5
+        ],
+        "power_terms": 20,
+        "sha256_power_expansion": "7ec605e46c253856ee28a3fd6437e00e08bfa3d2c821a22f87ccc9d9b0d851d8"
+      },
+      "shifted_minus_G": {
+        "degree": [
+          4,
+          2,
+          5
+        ],
+        "power_terms": 41,
+        "sha256_power_expansion": "95e2487cd7b310b455c127284b73e16f7c74cedb30fe7306009cb97db3bc7293"
+      },
+      "target_T_before_rescaling": {
+        "degree": [
+          12,
+          6,
+          15
+        ],
+        "power_terms": 369,
+        "sha256_power_expansion": "bb9bfa1be768c84d7e5b1783187201c64effe8a15bd4e564e8af31b29b43a0c7"
+      }
+    },
+    "scale_bound": "G>=0 and exact positivity of -G(u,s,3/2+rho) imply t<3/2",
+    "variables": [
+      "u",
+      "s",
+      "tau"
+    ]
+  },
+  "two_below_top_pair": {
+    "bernstein_basis": {
+      "quotient_S": {
+        "degree": [
+          7,
+          22,
+          50
+        ],
+        "largest": {
+          "denominator": "1",
+          "numerator": "943287353578758144"
+        },
+        "negative_coefficients": 0,
+        "positive_coefficients": 8733,
+        "sha256_all_coefficients": "22000cfb50238ca919f3a3026ee9935d544f02101074e7ed8ef8d41a4ff3a942",
+        "smallest_positive": {
+          "denominator": "2403468375",
+          "numerator": "32"
+        },
+        "total_coefficients": 9384,
+        "zero_coefficients": 651
+      },
+      "remainder_H": {
+        "degree": [
+          3,
+          24,
+          55
+        ],
+        "largest": {
+          "denominator": "1",
+          "numerator": "45277792971737923584"
+        },
+        "negative_coefficients": 0,
+        "positive_coefficients": 4424,
+        "sha256_all_coefficients": "d9ee92094145995a706f1263d96dd105415a3dc8a1afa84af1202cb3a6118571",
+        "smallest_positive": {
+          "denominator": "77699037210795",
+          "numerator": "8"
+        },
+        "total_coefficients": 5600,
+        "zero_coefficients": 1176
+      }
+    },
+    "certificate_identity": "T=S*G+H by exact lexicographic division",
+    "comparison_identity": "I_{gamma_0}(1,4)-p=t*T/Delta_margin, with Delta_margin>0",
+    "domain": "0<u,v,tau<1; t=tau",
+    "hypothesis_used": "gamma_3=gamma_4>=gamma_2",
+    "order_identity": "adjacent centroid gap=(v-1)*R/Delta_order; G=-R",
+    "polynomials": {
+      "confinement_Q": {
+        "degree": [
+          3,
+          2,
+          5
+        ],
+        "negative_power_coefficients": 0,
+        "positive_power_coefficients": 19,
+        "power_terms": 19,
+        "sha256_power_expansion": "78e26b3d10ffd8cd89e4e24d4b5ea00f2752fc37ed9478ac763fa71a1d46859c",
+        "smallest_positive": {
+          "denominator": "1",
+          "numerator": "1"
+        },
+        "zero_stored_power_coefficients": 0
+      },
+      "order_G": {
+        "degree": [
+          4,
+          2,
+          5
+        ],
+        "power_terms": 20,
+        "sha256_power_expansion": "5c1f65ff9510898e32da11674cd5d0ccfb22b1d2916168c9e4d9a4f26389b9a1"
+      },
+      "quotient_S": {
+        "degree": [
+          7,
+          22,
+          50
+        ],
+        "power_terms": 2825,
+        "sha256_power_expansion": "269864f4aa5a60a72ec34d65e44dea4165a893e5109591db9fa79d49e075700a"
+      },
+      "remainder_H": {
+        "degree": [
+          3,
+          24,
+          55
+        ],
+        "power_terms": 2944,
+        "sha256_power_expansion": "b8e0eb4b0f4e92c9abe0c809b6b174d8a942278cd609135d3818198a14bcbdcf"
+      },
+      "target_T": {
+        "degree": [
+          11,
+          9,
+          18
+        ],
+        "power_terms": 910,
+        "sha256_power_expansion": "ead7acb05fbfd33a44fb5675f7858d141866353434d2ebe19cec8b19ec07554b"
+      }
+    },
+    "scale_bound": "R=t^2*u^3-u^4+Q with Q coefficientwise positive; R<=0 implies t^2<u<1",
+    "variables": [
+      "u",
+      "v",
+      "tau"
+    ]
+  },
+  "two_below_top_triple": {
+    "bernstein_basis": {
+      "multiplier_S": {
+        "degree": [
+          8,
+          10
+        ],
+        "largest": {
+          "denominator": "2187",
+          "numerator": "100625000"
+        },
+        "negative_coefficients": 0,
+        "positive_coefficients": 38,
+        "sha256_all_coefficients": "e1fe9343b0233f274d8817f5534e005783cf37bbc922dc943f8249b7b4ddbf37",
+        "smallest_positive": {
+          "denominator": "3645",
+          "numerator": "256"
+        },
+        "total_coefficients": 99,
+        "zero_coefficients": 61
+      },
+      "residual_H": {
+        "degree": [
+          11,
+          14
+        ],
+        "largest": {
+          "denominator": "59049",
+          "numerator": "256250000000"
+        },
+        "negative_coefficients": 0,
+        "positive_coefficients": 73,
+        "sha256_all_coefficients": "f17649607e13bb21dbe75b0197bdc952607fd36520acad828c06cb935fbb8a67",
+        "smallest_positive": {
+          "denominator": "1083647565",
+          "numerator": "32768"
+        },
+        "total_coefficients": 180,
+        "zero_coefficients": 107
+      }
+    },
+    "certificate_identity": "T_tilde=S*G_tilde+H",
+    "compactness_sign_audit": {
+      "basis": "Bernstein in u, power basis in rho",
+      "degree": [
+        3,
+        4
+      ],
+      "largest": {
+        "denominator": "1",
+        "numerator": "50"
+      },
+      "negative_coefficients": 0,
+      "positive_coefficients": 19,
+      "sha256_all_coefficients": "ab7f739dc8441e1755dc7fc3950374063ad873c042b6c0dadbb3f35241206d66",
+      "smallest_positive": {
+        "denominator": "81",
+        "numerator": "16"
+      },
+      "total_coefficients": 20,
+      "zero_coefficients": 1
+    },
+    "comparison_identity": "I_{gamma_0}(1,4)-p=t*T/Delta_margin, with Delta_margin>0",
+    "domain": "0<u,tau<1; t=(2/3)*tau",
+    "exact_linear_witness": {
+      "active_target_rows_flat_index_sha256": "e6c669f441006b79b5e57ed850858f61eb6602e53f11aafd9969a6d4ce24f83d",
+      "matrix_order": 38,
+      "support_flat_index_sha256": "e301fe37df7f11c7e3877ed69e43ffed03bfc430a68f2df7651157ae97f94ec1"
+    },
+    "hypothesis_used": "gamma_2=gamma_3=gamma_4>=gamma_1",
+    "order_identity": "adjacent centroid gap=G/Delta_order",
+    "polynomials": {
+      "order_G_before_rescaling": {
+        "degree": [
+          3,
+          4
+        ],
+        "power_terms": 10,
+        "sha256_power_expansion": "bddeae1f0d3653290fc5d8472d86a68d799abad54ed23d3951cf0f0ba2e156aa"
+      },
+      "shifted_minus_G": {
+        "degree": [
+          3,
+          4
+        ],
+        "power_terms": 19,
+        "sha256_power_expansion": "f21a2df7fc39694513853729db09f3e9011a36a505e50909dfdd932cf4a079d6"
+      },
+      "target_T_before_rescaling": {
+        "degree": [
+          11,
+          14
+        ],
+        "power_terms": 105,
+        "sha256_power_expansion": "79c2dd5903c8a6ff5bec231972dee1fbfaed9adc3b429e13ee8e32500de2780d"
+      }
+    },
+    "scale_bound": "G>=0 and exact positivity of -G(u,2/3+rho) imply t<2/3",
+    "variables": [
+      "u",
+      "tau"
+    ]
+  }
+}

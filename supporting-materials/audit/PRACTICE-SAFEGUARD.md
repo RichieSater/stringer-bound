@@ -17,8 +17,15 @@ finite-sample coverage at least the selected confidence level for every
 sample size.  It never lowers a Stringer result.  When Stringer is already
 larger, the reported number is unchanged.
 
-This is a candidate statistical control for technical-methodology review,
+This is a candidate statistical control for technical-methodology analysis,
 not a statement that any audit standard has adopted the procedure.
+
+The rule above is for independent taints. A separate proved rule now covers
+the exact one-uniform-start systematic-PPS design. It combines capped
+ordinary Stringer with a sharp randomization floor and a deterministic
+item-weight completion bound. When the complete fixed frame is available, an
+exact randomization inversion uses every possible start and is pointwise no
+larger than that closed-form fallback; see the design-specific section below.
 
 ## The rule
 
@@ -43,9 +50,14 @@ has coverage at least `1-alpha`; the maximum is never below that limit.
 Coverage therefore belongs to the **pre-specified maximum rule**, not to an
 after-the-fact assertion that ordinary Stringer was valid.
 
-At `n=3,4,5,6,7` and 90%, 95%, and 99% confidence, rigorous pointwise theorems in
-this repository prove that the rule is ordinary Stringer on every possible
-sample. At other sample-size and confidence-level combinations, the Gaffke
+At `n=3` for every nominal confidence of at least `66.6314788...%`,
+and at `n=4,5,6,7` for 90%, 95%, and 99%, pointwise theorems in this
+repository prove that the rule is ordinary Stringer on every possible
+sample. The proposed full confidence intervals at `n=4,5` remain
+conjectural; their repeated-lowest-knot face implication is unresolved
+([exact obligation](../theory/ORDERED-COLLISION-OBLIGATION.md)).
+The direct fixed-level certificates do not use that implication. At other sample-size and
+confidence-level combinations, the Gaffke
 component is a valid floor while
 the general pointwise comparison and the Stringer conjecture remain open.
 
@@ -61,6 +73,21 @@ statement about the safeguard's output, not a conditional-coverage guarantee
 for unmodified Stringer. The proof and supporting checks are in
 [`ONE-CAP-COMPARISON.md`](../theory/ONE-CAP-COMPARISON.md).
 
+For `2<=n<=200`, a certified two-cap test extends the zero-uplift region when
+binomial Stringer lies between the second-largest and largest observed
+taints. Put
+
+\[
+q=\frac{1-t_{\max}}{1-U_{\rm Stringer,B}}.
+\]
+
+The Gaffke endpoint is no larger than binomial Stringer when `q>=5/12` at
+90%, `q>=1/3` at 95%, or `q>=1/4` at 99%. This is again a sufficient
+sample-wise identity test for the pre-specified safeguard, not a
+conditional-coverage statement. The exact formula and 59,700 endpoint
+certificates are in
+[`TWO-CAP-COMPARISON.md`](../theory/TWO-CAP-COMPARISON.md).
+
 A separate theorem validates the ordinary **Poisson-factor** Stringer bound
 for every `n<=8` at 90%, every `n<=11` at 95%, and every `n<=20` at 99%
 confidence. It uses a corrected simultaneous survival band rather than the
@@ -68,6 +95,100 @@ Gaffke comparison. Consequently, it proves coverage in those ranges but does
 not assert that the safeguard's Gaffke component is pointwise inactive there.
 Beyond those ranges, the safeguard remains the proved all-sample-size option
 under the stated model.
+
+## Separate rule for one-start systematic PPS
+
+Let the ordered population have known positive book weights `w_i`, audited
+taints in `[0,1]`, total weight `W`, and one uniform random start in an
+interval of length `W/n`. For the `n` equally spaced sample hits, let
+`sample_mean` be the mean taint and let `S` be the set of distinct sampled
+item identities. Compute
+
+```text
+M = 1 - alpha + alpha * sample_mean
+C = (sum_{i in S} w_i*t_i + sum_{i not in S} w_i) / W
+H = min(M, C)
+U_systematic = max(min(1, ordinary Stringer), H)
+```
+
+The sample mean is exactly design-unbiased. Markov's inequality proves that
+`M` has at least nominal coverage, and no universally design-valid taint-only
+rule can be smaller on a constant sample. The completion value `C` is a
+deterministic upper bound because every unobserved taint is set to its maximum
+one. Therefore `H` and `U_systematic` retain nominal design coverage, while
+the last maximum never lowers capped ordinary Stringer.
+
+For a complete known rational frame, the sharper exact calculation is
+
+```text
+B_ff = maximum population target over all taint completions that
+       (a) match the audited item identities and taints, and
+       (b) give the observed grid mean exact lower-tail mass > alpha
+U_systematic_ff = max(min(1, ordinary Stringer), B_ff)
+```
+
+Exact randomization-rank inversion proves that `B_ff` has nominal design
+coverage. It also proves `B_ff <= H` on every observation. The implementation
+enumerates every inclusion-minimal phase coalition of probability above
+`alpha`, solves its least-favourable-completion LP by exact rational simplex,
+checks matching feasible primal and dual objectives, and checks a full witness
+population. It does not treat a floating-point MILP gap as a certificate. The
+word *minimax* refers to maximizing over compatible
+taint completions for this fixed grid-mean ordering, not to global optimality
+among confidence rules.
+
+If the phase atoms partition the frame, the LPs collapse to an exact
+minimum-mass coalition. For observed phase `j` with mean `y`, compute
+
+```text
+rho = min{phase_probability(A): j in A and phase_probability(A) > alpha}
+B_ff = 1 - (1-y)*rho.
+```
+
+For equal phases, `rho=(floor(m*alpha)+1)/m`. For rational unequal masses,
+`systematic_disjoint_dp.py` clears denominators and solves the resulting
+subset-sum problem exactly with checked back-pointers. Its scaled-state limit
+fails closed independently of the general LP limits.
+
+In the committed 95% benchmark, 2,000 unit items and sample size 100 produce
+20 equiprobable disjoint phases. After one all-zero phase, `M=C=H=0.95`, but
+the exact 190-coalition calculation gives `B_ff=0.90`. Both ordinary all-zero
+Stringer calculations are below 0.03, so the exact-frame overlay reports 0.90.
+See [`SYSTEMATIC-MINIMAX.md`](../theory/SYSTEMATIC-MINIMAX.md) and the
+regenerated certificate. The phase-partition formula, exact DP, and its
+complexity boundary are in
+[`SYSTEMATIC-DISJOINT-PHASES.md`](../theory/SYSTEMATIC-DISJOINT-PHASES.md).
+If an explicit exact-search limit is reached, the
+implementation reports no finite-frame certificate; the closed-form `H`
+remains a proved fallback and is pointwise at least the mathematical `B_ff`.
+
+With independent starts, each complete grid average is one replication. In
+the equal-disjoint-phase all-zero case, `r` starts visiting `d` distinct
+phases give the exact finite-frame value
+
+```text
+1 - max(d, floor(m*alpha^(1/r))+1)/m.
+```
+
+For nonzero observations, the proved generic route applies a validated
+bounded-mean procedure to the independently randomized grid averages; the
+displayed finite-frame formula is not asserted outside the all-zero case.
+
+This correction is necessary in the stated distribution-free model:
+ordinary binomial Stringer fails on some ordered population for every
+`n>=2` and every confidence level. Ordinary Poisson Stringer likewise fails
+at 90%, 95%, and 99% on some population whenever `n>=3`, `n>=4`, and `n>=5`.
+In the exact 100-draw example, both ordinary conventions have 10% coverage at
+all three levels. On its all-zero phase at 95%, the safe output is 10%, about
+7.0487 percentage points above binomial Stringer and 7.0043 points above
+Poisson Stringer. The proof, exact finite census, and uplift brackets are in
+[`SYSTEMATIC-PPS.md`](../theory/SYSTEMATIC-PPS.md).
+
+This design-specific rule assumes one genuinely uniform start, a fixed
+ordered frame, known book weights, and taints bounded above by one. It does
+not inherit the i.i.d. Gaffke or Poisson-calibration calculations above, and
+it does not cover successive PPS, stratified combinations, nonrandom starts,
+negative taints, or uncertain book amounts.
 
 ## Alternative all-sample-size calibrations within the Poisson factor family
 
@@ -247,7 +368,7 @@ Stringer result.  That observation is sample-specific, not a proof of the
 unmodified rule at `n=100`.
 
 For an arbitrary specified sample size and a conventional tail probability
-`alpha < exp(-1)`, write the exact calibration certificate to a review file
+`alpha < exp(-1)`, write the exact calibration certificate to an evidence file
 and extract its conservative upper endpoint:
 
 ```sh
@@ -315,6 +436,9 @@ If a methodology owner authorizes evaluation of the rule, retain at least:
   multiplier is sample-size-specific or uniform, the exact certified
   multiplier and its applicable certificate fields, the uncapped ordinary
   Poisson result, and the calibrated result;
+- if the systematic rule is used, the ordered frame total, random-start
+  convention, sampled item identities and book weights, `sample_mean`, `M`,
+  `C`, `H`, capped ordinary Stringer, and the final maximum;
 - the repository commit and locked dependency file used; and
 - the unedited JSON output.
 
@@ -324,12 +448,17 @@ interpretation, the population mean taint is the population overstatement
 divided by the relevant recorded amount, but that identity depends on the
 sampling frame and taint definition actually used.
 
-## Scope boundaries requiring methodology review
+## Scope boundaries for deployment
 
-The theorem and command do not, by themselves, validate:
+The i.i.d. theorem and command at their unadjusted tail do not, by themselves,
+validate:
 
-- sampling without replacement or systematic PPS designs that are not
-  represented by the independent model;
+- ordinary unadjusted evaluation under systematic or successive PPS designs.
+  The one-start systematic design has the separate rule above; uniform
+  sampling of distinct finite-population indices has a different exact
+  bridge that requires the
+  pre-specified adjustment `eta=alpha*(N)_n/N^n`; see
+  [`SRSWOR-CONDITIONING.md`](../theory/SRSWOR-CONDITIONING.md);
 - negative taints, credits, understatements, or taints outside `[0,1]`;
 - contaminated or incorrectly constructed sampling frames;
 - stratification, certainty items, or separately evaluated high-value items;
@@ -338,11 +467,10 @@ The theorem and command do not, by themselves, validate:
 - compliance with AICPA, PCAOB, IAASB, governmental, or firm-specific
   requirements.
 
-Before production use, an audit organization should obtain an independent
-independent proof checking, validate the implementation against approved factor
-tables and test vectors, decide how the rule interacts with its sampling
-designs, and subject the workflow to its normal model-risk and software-change
-controls.
+The theorem does not by itself authorize production deployment. A deployed
+implementation must be tested against the certified factor tables and test
+vectors, integrated explicitly with the sampling design actually used, and
+covered by the organization's model-risk and software-change controls.
 
 ## Relationship to the research program
 

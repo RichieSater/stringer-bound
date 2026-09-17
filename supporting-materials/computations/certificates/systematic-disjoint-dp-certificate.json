@@ -1,0 +1,433 @@
+{
+  "arithmetic_status": "all phase masses, strict product-tail comparisons, DP states, back-pointers, and bound calculations are exact",
+  "complexity": {
+    "failure_mode": "the implementation raises DPComplexityLimitError before allocation when D exceeds max_scaled_total",
+    "memory": "O(D)",
+    "parameters": "K is the number of phase atoms and D is their least common scaled total mass after exact denominator clearing",
+    "time": "O(KD)"
+  },
+  "equal_20_phase_independent_starts_all_zero": [
+    {
+      "distinct_observed_phases": 1,
+      "dp": {
+        "added_scaled_mass": 1,
+        "coalition_probability": {
+          "decimal_18": "0.100000000000000000",
+          "denominator": "10",
+          "numerator": "1"
+        },
+        "coalition_scaled_mass": 2,
+        "independent_starts": 1,
+        "minimizing_coalition_zero_based": [
+          0,
+          1
+        ],
+        "product_lower_tail_probability": {
+          "decimal_18": "0.100000000000000000",
+          "denominator": "10",
+          "numerator": "1"
+        },
+        "reachable_sum_count": 20,
+        "required_phase_indices_zero_based": [
+          0
+        ],
+        "required_scaled_mass": 1,
+        "scaled_phase_masses": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "scaled_total_mass": 20,
+        "strict_scaled_threshold": 2,
+        "transitions_considered": 190
+      },
+      "exact_bound": {
+        "decimal_18": "0.900000000000000000",
+        "denominator": "10",
+        "numerator": "9"
+      },
+      "exact_product_lower_tail_probability": {
+        "decimal_18": "0.100000000000000000",
+        "denominator": "10",
+        "numerator": "1"
+      },
+      "independent_starts": 1,
+      "required_zero_phases": 2
+    },
+    {
+      "distinct_observed_phases": 2,
+      "dp": {
+        "added_scaled_mass": 3,
+        "coalition_probability": {
+          "decimal_18": "0.250000000000000000",
+          "denominator": "4",
+          "numerator": "1"
+        },
+        "coalition_scaled_mass": 5,
+        "independent_starts": 2,
+        "minimizing_coalition_zero_based": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "product_lower_tail_probability": {
+          "decimal_18": "0.062500000000000000",
+          "denominator": "16",
+          "numerator": "1"
+        },
+        "reachable_sum_count": 19,
+        "required_phase_indices_zero_based": [
+          0,
+          1
+        ],
+        "required_scaled_mass": 2,
+        "scaled_phase_masses": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "scaled_total_mass": 20,
+        "strict_scaled_threshold": 5,
+        "transitions_considered": 171
+      },
+      "exact_bound": {
+        "decimal_18": "0.750000000000000000",
+        "denominator": "4",
+        "numerator": "3"
+      },
+      "exact_product_lower_tail_probability": {
+        "decimal_18": "0.062500000000000000",
+        "denominator": "16",
+        "numerator": "1"
+      },
+      "independent_starts": 2,
+      "required_zero_phases": 5
+    },
+    {
+      "distinct_observed_phases": 3,
+      "dp": {
+        "added_scaled_mass": 5,
+        "coalition_probability": {
+          "decimal_18": "0.400000000000000000",
+          "denominator": "5",
+          "numerator": "2"
+        },
+        "coalition_scaled_mass": 8,
+        "independent_starts": 3,
+        "minimizing_coalition_zero_based": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "product_lower_tail_probability": {
+          "decimal_18": "0.064000000000000000",
+          "denominator": "125",
+          "numerator": "8"
+        },
+        "reachable_sum_count": 18,
+        "required_phase_indices_zero_based": [
+          0,
+          1,
+          2
+        ],
+        "required_scaled_mass": 3,
+        "scaled_phase_masses": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "scaled_total_mass": 20,
+        "strict_scaled_threshold": 8,
+        "transitions_considered": 153
+      },
+      "exact_bound": {
+        "decimal_18": "0.600000000000000000",
+        "denominator": "5",
+        "numerator": "3"
+      },
+      "exact_product_lower_tail_probability": {
+        "decimal_18": "0.064000000000000000",
+        "denominator": "125",
+        "numerator": "8"
+      },
+      "independent_starts": 3,
+      "required_zero_phases": 8
+    }
+  ],
+  "equal_20_phase_one_start": {
+    "alpha": {
+      "decimal_18": "0.050000000000000000",
+      "denominator": "20",
+      "numerator": "1"
+    },
+    "dp": {
+      "added_scaled_mass": 1,
+      "coalition_probability": {
+        "decimal_18": "0.100000000000000000",
+        "denominator": "10",
+        "numerator": "1"
+      },
+      "coalition_scaled_mass": 2,
+      "independent_starts": 1,
+      "minimizing_coalition_zero_based": [
+        0,
+        1
+      ],
+      "product_lower_tail_probability": {
+        "decimal_18": "0.100000000000000000",
+        "denominator": "10",
+        "numerator": "1"
+      },
+      "reachable_sum_count": 20,
+      "required_phase_indices_zero_based": [
+        0
+      ],
+      "required_scaled_mass": 1,
+      "scaled_phase_masses": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "scaled_total_mass": 20,
+      "strict_scaled_threshold": 2,
+      "transitions_considered": 190
+    },
+    "exact_bound": {
+      "decimal_18": "0.900000000000000000",
+      "denominator": "10",
+      "numerator": "9"
+    },
+    "observed_mean": {
+      "decimal_18": "0.000000000000000000",
+      "denominator": "1",
+      "numerator": "0"
+    },
+    "phase_count": 20,
+    "required_low_phases": 2,
+    "verified_systematic_frame": {
+      "exact_bound": {
+        "decimal_18": "0.900000000000000000",
+        "denominator": "10",
+        "numerator": "9"
+      },
+      "observed_atom_zero_based": 0,
+      "observed_phase_zero_based": 0,
+      "phase_atom_count": 20,
+      "population_items": 2000,
+      "raw_phase_count": 20,
+      "sample_size": 100
+    }
+  },
+  "method": "exact denominator-cleared subset-sum dynamic programming for disjoint phase coalitions",
+  "schema_version": 1,
+  "subset_sum_reduction_fixtures": {
+    "no_instance": {
+      "alpha": {
+        "decimal_18": "0.400000000000000000",
+        "denominator": "5",
+        "numerator": "2"
+      },
+      "decodes_exact_target": false,
+      "exact_bound": {
+        "decimal_18": "0.514285714285714286",
+        "denominator": "35",
+        "numerator": "18"
+      },
+      "integers": [
+        3,
+        5,
+        9
+      ],
+      "minimum_coalition_probability": {
+        "decimal_18": "0.485714285714285714",
+        "denominator": "35",
+        "numerator": "17"
+      },
+      "phase_weights": [
+        1,
+        6,
+        10,
+        18
+      ],
+      "target": 7
+    },
+    "yes_instance": {
+      "alpha": {
+        "decimal_18": "0.551724137931034483",
+        "denominator": "29",
+        "numerator": "16"
+      },
+      "decodes_exact_target": true,
+      "exact_bound": {
+        "decimal_18": "0.413793103448275862",
+        "denominator": "29",
+        "numerator": "12"
+      },
+      "integers": [
+        3,
+        5,
+        6
+      ],
+      "minimum_coalition_probability": {
+        "decimal_18": "0.586206896551724138",
+        "denominator": "29",
+        "numerator": "17"
+      },
+      "phase_weights": [
+        1,
+        6,
+        10,
+        12
+      ],
+      "target": 8
+    }
+  },
+  "unequal_phase_fixture": {
+    "alpha": {
+      "decimal_18": "0.350000000000000000",
+      "denominator": "20",
+      "numerator": "7"
+    },
+    "dp": {
+      "added_scaled_mass": 3,
+      "coalition_probability": {
+        "decimal_18": "0.400000000000000000",
+        "denominator": "5",
+        "numerator": "2"
+      },
+      "coalition_scaled_mass": 4,
+      "independent_starts": 1,
+      "minimizing_coalition_zero_based": [
+        0,
+        2
+      ],
+      "product_lower_tail_probability": {
+        "decimal_18": "0.400000000000000000",
+        "denominator": "5",
+        "numerator": "2"
+      },
+      "reachable_sum_count": 8,
+      "required_phase_indices_zero_based": [
+        0
+      ],
+      "required_scaled_mass": 1,
+      "scaled_phase_masses": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "scaled_total_mass": 10,
+      "strict_scaled_threshold": 4,
+      "transitions_considered": 10
+    },
+    "exact_bound": {
+      "decimal_18": "0.733333333333333333",
+      "denominator": "15",
+      "numerator": "11"
+    },
+    "observed_mean": {
+      "decimal_18": "0.333333333333333333",
+      "denominator": "3",
+      "numerator": "1"
+    },
+    "observed_phase_zero_based": 0,
+    "phase_probabilities": [
+      {
+        "decimal_18": "0.100000000000000000",
+        "denominator": "10",
+        "numerator": "1"
+      },
+      {
+        "decimal_18": "0.200000000000000000",
+        "denominator": "5",
+        "numerator": "1"
+      },
+      {
+        "decimal_18": "0.300000000000000000",
+        "denominator": "10",
+        "numerator": "3"
+      },
+      {
+        "decimal_18": "0.400000000000000000",
+        "denominator": "5",
+        "numerator": "2"
+      }
+    ]
+  }
+}

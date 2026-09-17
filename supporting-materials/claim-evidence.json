@@ -1,15 +1,13 @@
 {
   "schema_version": 1,
-  "as_of": "2026-08-19",
+  "as_of": "2026-09-17",
   "manuscript": "supporting-materials/paper/stringer.tex",
   "claims": [
     {
       "id": "binomial-n2-conservatism",
       "classification": "proved_theorem",
       "statement": "For n=2, the binomial-factor Stringer bound has coverage at least 1-alpha for every distribution on [0,1] and every alpha in (0,1).",
-      "manuscript_labels": [
-        "thm:n2"
-      ],
+      "manuscript_labels": [],
       "evidence": [
         {
           "path": "supporting-materials/theory/N2-PROOF.md",
@@ -20,134 +18,514 @@
           "path": "supporting-materials/computations/python/n2_proof_check.py",
           "role": "symbolic identities and stress tests",
           "trust": "corroboration_only"
-        },
-        {
-          "path": "supporting-materials/audit/N2-CORRECTION-LEDGER.md",
-          "role": "recorded adversarial proof audit",
-          "trust": "audit_record"
         }
       ],
       "verification_commands": [
         "make proof-check"
       ],
-      "limitations": "The written proof establishes the theorem; the stress test is corroborating evidence only."
+      "limitations": "The written proof, not the stress test, establishes the theorem.",
+      "manuscript": "supporting-materials/theory/N2-PROOF.md",
+      "source_markers": [
+        "## Reduction"
+      ]
     },
     {
       "id": "binomial-n2-sharpness-nonattainment",
       "classification": "proved_theorem",
       "statement": "At n=2 the supremum noncoverage probability is alpha, and no distribution attains it.",
-      "manuscript_labels": [
-        "thm:n2",
-        "eq:equalitysurvival"
-      ],
+      "manuscript_labels": [],
       "evidence": [
         {
           "path": "supporting-materials/theory/N2-PROOF.md",
           "role": "sharpness construction and equality-case proof",
           "trust": "proof_essential"
-        },
-        {
-          "path": "supporting-materials/audit/N2-CORRECTION-LEDGER.md",
-          "role": "audit record including repaired equality analysis",
-          "trust": "audit_record"
         }
       ],
       "verification_commands": [
         "make proof-check"
       ],
-      "limitations": "Non-attainment depends on the explicit boundary-mass analysis in the written proof."
+      "limitations": "Non-attainment depends on the explicit boundary-mass analysis in the written proof.",
+      "manuscript": "supporting-materials/theory/N2-PROOF.md",
+      "source_markers": [
+        "## Sharpness"
+      ]
+    },
+    {
+      "id": "four-coordinate-monotone-cap-theorem",
+      "classification": "proved_theorem",
+      "statement": "Let D be uniform on the four-coordinate simplex, let c be any nondecreasing probability vector, and let x be any nondecreasing four-knot vector. If C_r is the sum of the first r entries of c, then Pr{x dot D > c dot x} is at most max_{r=1,2,3} I_{C_r}(r,4-r).",
+      "manuscript_labels": [
+        "thm:fourcap",
+        "prop:tetrahedralbarrier"
+      ],
+      "evidence": [
+        {
+          "path": "supporting-materials/theory/TETRAHEDRAL-VERTEX-BARRIER.md",
+          "role": "ordinary stationary-face reduction, elementary crossing strata, exact two-versus-two reduction, and global four-coordinate theorem",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/certificates/tetrahedral-vertex-barrier-certificate.json",
+          "role": "machine-readable exact rational Bernstein multiplier and repeated-upper boundary witness",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/python/tetrahedral_vertex_barrier.py",
+          "role": "symbolic derivation and exact integer/Fraction verification of all identities and coefficient signs",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/tests/test_tetrahedral_vertex_barrier.py",
+          "role": "regression, exact regeneration, and theorem-parameter tests",
+          "trust": "corroboration_only"
+        }
+      ],
+      "verification_commands": [
+        "make tetrahedral-vertex-barrier-check"
+      ],
+      "limitations": "This theorem is for four original uniform Dirichlet coordinates; the separate five-coordinate theorem does not follow from it. Neither theorem establishes the corresponding maximum barrier in six or more coordinates or for arbitrary nonuniform Dirichlet parameters. The two-versus-two polynomial sign is computer-assisted but checked using exact rational arithmetic."
+    },
+    {
+      "id": "five-coordinate-monotone-cap-theorem",
+      "classification": "unresolved_claim",
+      "statement": "Unresolved: For D uniform on the five-coordinate simplex, every nondecreasing probability vector c and every ordered knot vector x satisfy P(x dot D > c dot x) <= max_{r=1,...,4} I_{C_r}(r,5-r), and the maximum is attained at a step vector.",
+      "manuscript_labels": [],
+      "evidence": [
+        {
+          "path": "supporting-materials/theory/FIVE-COORDINATE-MIXED-SECTION.md",
+          "role": "ordinary divided-difference reduction, both endpoint-order implications, both mixed-crossing Bernstein arguments, elementary endpoint crossings, and explicit repeated-knot boundary",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/python/five_coordinate_mixed_section.py",
+          "role": "exact symbolic derivation, lexicographic division for one crossing, exact rational solve for the other, and rational conversion and sign checks of more than 281,000 tensor-Bernstein coefficients",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/python/five_coordinate_mixed_witness.py",
+          "role": "sparse multiplier-support and target-row index witness defining the 363-by-363 rational system, with no approximate coefficients stored",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/certificates/five-coordinate-mixed-section-certificate.json",
+          "role": "machine-readable degrees, term and sign counts, coefficient extrema, exact-system dimensions, and full expansion digests for both mixed crossings",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/tests/test_five_coordinate_mixed_section.py",
+          "role": "byte-for-byte regeneration, coefficient-count and digest regression, and exact rational fixtures for both mixed crossings",
+          "trust": "corroboration_only"
+        },
+        {
+          "path": "supporting-materials/theory/FIVE-COORDINATE-VERTEX-BARRIER.md",
+          "role": "local section arguments and proposed global reduction with unresolved repeated-lowest-face implication",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/python/five_coordinate_block_faces.py",
+          "role": "exact derivation of all repeated-top cap and centroid formulas, rational compactness proofs, lexicographic division, two exact rational multiplier solves, and all Bernstein sign checks",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/python/five_coordinate_block_witness.py",
+          "role": "index-only support and active-row witnesses for the 111-by-111 and 38-by-38 exact rational systems, with no approximate coefficients stored",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/certificates/five-coordinate-block-faces-certificate.json",
+          "role": "machine-readable face exhaustion, polynomial degrees, exact-system dimensions, coefficient extrema, sign counts, and full expansion digests",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/tests/test_five_coordinate_block_faces.py",
+          "role": "byte-for-byte regeneration, digest regression, and exact rational fixtures for all three repeated-top faces",
+          "trust": "corroboration_only"
+        }
+      ],
+      "verification_commands": [
+        "make five-coordinate-mixed-section-check five-coordinate-block-faces-check"
+      ],
+      "limitations": "The first-coordinate beta bound is not an active-prefix bound on repeated-lowest faces. The missing active-prefix section inequality is an unresolved proof obligation; no counterexample to the global theorem is asserted. Independent fixed-level certificates at alpha in {0.10, 0.05, 0.01} are unaffected.",
+      "proof_obligation": "The first-coordinate beta bound is not an active-prefix bound on repeated-lowest faces. The missing active-prefix section inequality is an unresolved proof obligation; no counterexample to the global theorem is asserted.",
+      "manuscript": "supporting-materials/theory/FIVE-COORDINATE-VERTEX-BARRIER.md",
+      "source_markers": [
+        "## 1. Conditional implication from the active-prefix inequality"
+      ]
     },
     {
       "id": "binomial-n3-conventional-conservatism",
       "classification": "proved_theorem",
-      "statement": "For n=3 and alpha in {0.10, 0.05, 0.01}, the binomial-factor Stringer bound pointwise dominates the valid Gaffke bounded-mean upper confidence limit and therefore has coverage at least 1-alpha for every distribution on [0,1].",
+      "statement": "For n=3 and every 0 < alpha <= ((19+sqrt(21))/34)^3 = 0.3336852118672717..., the binomial-factor Stringer bound pointwise dominates the valid Gaffke bounded-mean upper confidence limit and therefore has coverage at least 1-alpha for every distribution on [0,1]. The alpha endpoint is sharp for pointwise Stringer--Gaffke domination: that domination fails on some ordered sample for every larger alpha.",
       "manuscript_labels": [
-        "sec:n3",
-        "thm:n3",
-        "tab:n3certificate"
+        "cor:n3expanded",
+        "eq:alphastar"
       ],
       "evidence": [
         {
+          "path": "supporting-materials/theory/TETRAHEDRAL-VERTEX-BARRIER.md",
+          "role": "four-coordinate monotone-weight cap theorem and analytic proof of the exact Clopper--Pearson weight-order range",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/certificates/tetrahedral-vertex-barrier-certificate.json",
+          "role": "exact rational certificate for the nontrivial two-versus-two section barrier",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/python/tetrahedral_vertex_barrier.py",
+          "role": "exact symbolic and rational verification of the tetrahedral barrier certificate",
+          "trust": "proof_essential"
+        },
+        {
           "path": "supporting-materials/theory/N3-CONVENTIONAL.md",
-          "role": "complete reduction from Gaffke validity to the certified simplex-cap inequalities",
-          "trust": "proof_essential"
-        },
-        {
-          "path": "supporting-materials/computations/certificates/n3-gaffke-bernstein-formulas.json",
-          "role": "machine-readable exact symbolic Bernstein formulas",
-          "trust": "proof_essential"
-        },
-        {
-          "path": "supporting-materials/computations/python/derive_n3_bernstein_formulas.py",
-          "role": "symbolic regeneration of all 42 middle-region coefficient formulas from the cap-volume expression",
-          "trust": "proof_essential"
+          "role": "independent direct reduction and cell certificate on the subrange 0.01 <= alpha <= 0.20",
+          "trust": "corroboration_only"
         },
         {
           "path": "supporting-materials/computations/certificates/n3-gaffke-certificate.json",
-          "role": "exact rational factor brackets and coefficient-sign certificate at all three levels",
-          "trust": "proof_essential"
-        },
-        {
-          "path": "supporting-materials/computations/python/n3_gaffke_certificate.py",
-          "role": "integer endpoint checks and exact Fraction interval propagation",
-          "trust": "proof_essential"
+          "role": "independent exact rational cell certificate on the subrange 0.01 <= alpha <= 0.20",
+          "trust": "corroboration_only"
         }
       ],
       "verification_commands": [
+        "make tetrahedral-vertex-barrier-check",
         "make n3-formula-check n3-certificate-check"
       ],
-      "limitations": "This is an exact computer-assisted theorem only for n=3 and the three specified alpha values. It relies on the finite-sample validity of the Gaffke test established in the cited work and does not establish every confidence level at n=3."
+      "limitations": "The coverage theorem is confined to n=3 and the displayed alpha range. It relies on the finite-sample validity of the Gaffke test established in the cited work. Failure of pointwise Gaffke domination above the endpoint is not a Stringer undercoverage result and does not settle Stringer coverage there."
     },
     {
-      "id": "binomial-n4-conventional-conservatism",
+      "id": "terminal-edge-pointwise-bifurcation",
       "classification": "proved_theorem",
-      "statement": "For n=4 and alpha in {0.10, 0.05, 0.01}, the binomial-factor Stringer bound pointwise dominates the valid Gaffke bounded-mean upper confidence limit and therefore has coverage at least 1-alpha for every distribution on [0,1].",
+      "statement": "For every n>=2 there is a unique nontrivial alpha_n such that the terminal two-knot cap rises above its calibrated step value for alpha>alpha_n, so pointwise binomial Stringer--Gaffke domination fails. The critical levels converge to alpha_infinity=0.28466813704083846..., the nontrivial root of alpha*(1-2*log(alpha))=1; hence the pointwise comparison fails for every sufficiently large n whenever alpha>alpha_infinity.",
       "manuscript_labels": [
-        "sec:n3",
-        "thm:n4",
-        "tab:n4certificate"
+        "prop:terminalbifurcation",
+        "eq:terminalcritical",
+        "eq:terminalcritical-limit",
+        "eq:terminalderivative"
       ],
       "evidence": [
         {
-          "path": "supporting-materials/theory/N4-CONVENTIONAL.md",
-          "role": "complete reduction from Gaffke validity to the four certified simplex-cap regions",
+          "path": "supporting-materials/theory/TERMINAL-EDGE-BIFURCATION.md",
+          "role": "complete edge-derivative, uniqueness, and limiting-transition proof",
           "trust": "proof_essential"
         },
         {
-          "path": "supporting-materials/computations/certificates/n4-gaffke-bernstein-structure.json",
-          "role": "machine-readable exact residual polynomials, tetrahedral substitutions, and structural-zero indices",
-          "trust": "proof_essential"
+          "path": "supporting-materials/computations/python/terminal_edge_bifurcation.py",
+          "role": "symbolic identity checker and exact rational finite- and limiting-root bracketer",
+          "trust": "corroboration_only"
         },
         {
-          "path": "supporting-materials/computations/python/derive_n4_bernstein_structure.py",
-          "role": "exact symbolic regeneration of the residual factorizations and tetrahedral Bernstein structure",
-          "trust": "proof_essential"
+          "path": "supporting-materials/computations/certificates/terminal-edge-bifurcation-certificate.json",
+          "role": "machine-readable exact rational brackets for n=2 through n=30 and the limiting root",
+          "trust": "corroboration_only"
         },
         {
-          "path": "supporting-materials/computations/certificates/n4-gaffke-certificate.json",
-          "role": "exact rational factor brackets and coefficient-sign certificate at all three levels",
-          "trust": "proof_essential"
-        },
-        {
-          "path": "supporting-materials/computations/python/n4_gaffke_certificate.py",
-          "role": "integer endpoint checks and exact Fraction interval propagation",
-          "trust": "proof_essential"
+          "path": "supporting-materials/computations/tests/test_terminal_edge_bifurcation.py",
+          "role": "special-case, limiting-root, and byte-for-byte regeneration tests",
+          "trust": "corroboration_only"
         }
       ],
       "verification_commands": [
+        "make terminal-edge-bifurcation-check"
+      ],
+      "limitations": "This theorem identifies a sharp local failure of pointwise Stringer--Gaffke domination. It does not prove Stringer undercoverage, does not disprove the i.i.d. coverage conjecture, and does not assert global pointwise domination below alpha_n."
+    },
+    {
+      "id": "simplex-cap-certification-interface",
+      "classification": "exact_computational_certificate",
+      "statement": "A solution-free challenge states eight obligations for six scoped Stringer--Gaffke comparisons. Its separate index binds four proved instances and two unresolved continuum targets to explicit source files and regeneration commands.",
+      "manuscript_labels": [],
+      "evidence": [
+        {
+          "path": "supporting-materials/theory/SIMPLEX-CAP-CERTIFICATION.md",
+          "role": "certificate-soundness proposition, reusable obligations, instance adapters, and verification boundary",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/challenges/simplex-cap-challenge.json",
+          "role": "solution-free theorem template, exact instance scopes, and verification obligations",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/certificates/simplex-cap-solution-index.json",
+          "role": "hashed bindings from each challenge instance to its written and computational evidence",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/python/simplex_cap_interface.py",
+          "role": "fail-closed challenge/solution separation and deterministic solution-index regeneration",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/tests/test_simplex_cap_interface.py",
+          "role": "scope, digest, and byte-for-byte index regression tests",
+          "trust": "corroboration_only"
+        }
+      ],
+      "verification_commands": [
+        "make simplex-cap-interface-check",
+        "make n3-certificate-check n4-certificate-check n5-certificate-check n6-certificate-check n7-certificate-check"
+      ],
+      "limitations": "The index validates scope, document links, and artifact integrity, not the mathematical inference. The n=4 and n=5 continuum targets remain unresolved because the local first-coordinate beta inequalities do not supply active-prefix inequalities on repeated-lowest faces. It is not a proof-assistant formalization.",
+      "manuscript": "supporting-materials/theory/SIMPLEX-CAP-CERTIFICATION.md",
+      "source_markers": [
+        "## 1. The mathematical interface"
+      ]
+    },
+    {
+      "id": "finite-adjacent-block-hierarchy",
+      "classification": "proved_theorem",
+      "statement": "Every ordered-knot face of a uniform Dirichlet simplex is an ordered-composition Dirichlet-block problem. Local beta-step inequalities at the active block prefixes on every composition stratum imply the global monotone-weight step-maximum theorem. A first-coordinate inequality alone does not supply those inequalities on repeated-lowest faces.",
+      "manuscript_labels": [
+        "lem:sectionmaximum"
+      ],
+      "evidence": [
+        {
+          "path": "supporting-materials/theory/ADJACENT-BLOCK-HIERARCHY.md",
+          "role": "complete Dirichlet aggregation, stationary-face induction, canonical-family count, and explicit six-coordinate checklist",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/paper/stringer.tex",
+          "role": "section-centroid derivative and global maximum-principle proof",
+          "trust": "proof_essential"
+        }
+      ],
+      "verification_commands": [],
+      "limitations": "This is a conditional reduction, not a proof of the global theorem in arbitrary dimension. The first-coordinate beta bound is not an active-prefix bound on repeated-lowest faces. The missing active-prefix section inequality is an unresolved proof obligation; no counterexample to the global theorem is asserted."
+    },
+    {
+      "id": "six-coordinate-repeated-top-local-barriers",
+      "classification": "exact_computational_certificate",
+      "statement": "Exact rational polynomial identities and Bernstein signs imply p<=I_{gamma_0}(1,5) for the encoded six repeated-top shapes 42,33,24,23,22,32 under their reduced centroid-gap constraints.",
+      "manuscript_labels": [],
+      "evidence": [
+        {
+          "path": "supporting-materials/theory/SIX-COORDINATE-REPEATED-TOP.md",
+          "role": "ordinary intercept-coordinate and confluent-interpolation reductions, the quadratic scale law, projective charts, exact polynomial identities, and theorem scope",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/python/six_coordinate_repeated_top.py",
+          "role": "exact symbolic derivation, rational sparse matrix solves, exact division, and composition of all six face certificates",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/python/six_coordinate_face32.py",
+          "role": "exact derivation of all adjacent centroid gaps, scale confinements, projective charts, dyadic leaf identities, and complete rational Bernstein sign checks for face 32",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/python/six_coordinate_face32_witness.py",
+          "role": "complete prefix-free dyadic leaf partitions and exact nonnegative multipliers for face 32",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/python/six_coordinate_repeated_top_witness.py",
+          "role": "sparse support and active-row indices from which all multiplier coefficients are reconstructed exactly",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/certificates/six-coordinate-repeated-top-certificate.json",
+          "role": "machine-readable polynomial degrees, exact sign counts, scale confinements, and division statistics",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/tests/test_six_coordinate_repeated_top.py",
+          "role": "scope, derivation, rational-fixture, and certificate-statistics regressions",
+          "trust": "corroboration_only"
+        }
+      ],
+      "verification_commands": [
+        "make six-coordinate-repeated-top-check"
+      ],
+      "limitations": "The certified geometric implication applies on the listed relative-open knot strata with all reduced centroid-gap inequalities imposed, and to limits that preserve those inequalities. A vanished collision factor does not imply that the divided centroid-gap polynomial remains nonnegative. The first-coordinate beta bound is not an active-prefix bound on repeated-lowest faces. The global monotone cap theorem remains unresolved.",
+      "manuscript": "supporting-materials/theory/SIX-COORDINATE-REPEATED-TOP.md",
+      "source_markers": [
+        "## Status and theorem"
+      ]
+    },
+    {
+      "id": "six-coordinate-unique-top-l4-local-barrier",
+      "classification": "exact_computational_certificate",
+      "statement": "Exact rational polynomial identities and Bernstein signs imply p<=I_{gamma_0}(1,5) for the encoded unique-top L=4 shape under their reduced centroid-gap constraints.",
+      "manuscript_labels": [],
+      "evidence": [
+        {
+          "path": "supporting-materials/theory/SIX-COORDINATE-UNIQUE-TOP.md",
+          "role": "ordinary interpolation reduction, central-cluster projective charts, exact scale implications, and theorem scope",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/python/six_coordinate_unique_top.py",
+          "role": "exact symbolic derivation, rational chart construction, and exact Bernstein verification of every covering box",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/python/six_coordinate_unique_top_witness.py",
+          "role": "complete prefix-free rational-box partitions and exact nonnegative integer multipliers",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/certificates/six-coordinate-unique-top-certificate.json",
+          "role": "polynomial degrees, exact scale bounds, chart partitions, multipliers, and coefficient-sign counts",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/tests/test_six_coordinate_unique_top.py",
+          "role": "scope, polynomial-structure, partition, multiplier, and sign regressions",
+          "trust": "corroboration_only"
+        }
+      ],
+      "verification_commands": [
+        "make six-coordinate-unique-top-check"
+      ],
+      "limitations": "The certified geometric implication applies on the listed relative-open knot strata with all reduced centroid-gap inequalities imposed, and to limits that preserve those inequalities. A vanished collision factor does not imply that the divided centroid-gap polynomial remains nonnegative. The first-coordinate beta bound is not an active-prefix bound on repeated-lowest faces. The global monotone cap theorem remains unresolved.",
+      "manuscript": "supporting-materials/theory/SIX-COORDINATE-UNIQUE-TOP.md",
+      "source_markers": [
+        "## Status and theorem"
+      ]
+    },
+    {
+      "id": "six-coordinate-unique-top-l2-l3-local-certificates",
+      "classification": "exact_computational_certificate",
+      "statement": "Exact rational Bernstein covers and one binary64 cover with exact rational forward-error bounds establish the encoded first-coordinate beta inequalities for the six-coordinate unique-top L=2 and L=3 chart families. These finite sign calculations do not establish the global monotone-cap theorem.",
+      "manuscript_labels": [],
+      "evidence": [
+        {
+          "path": "supporting-materials/theory/SIX-COORDINATE-UNIQUE-TOP-L2-L3.md",
+          "role": "ordinary interpolation reduction, central-cluster charts, scale bounds, finite sign conclusion, and theorem scope",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/python/six_coordinate_unique_top_l2_l3.py",
+          "role": "exact symbolic derivation, exact scale-bound checks, exact rational Bernstein covers, and composition of the rigorous binary64-enclosed cover",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/python/certified_binary64_bernstein.py",
+          "role": "binary64 Bernstein centers with exact rational conversion and forward-error propagation through subdivision and integer-multiplier operations",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/python/six_coordinate_unique_top_l2_l3_witness.py",
+          "role": "complete prefix-free leaf partitions and explicit nonnegative integer multipliers",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/certificates/six-coordinate-unique-top-l2-l3-certificate.json",
+          "role": "machine-readable polynomial degrees, exact scale signs, terminal covers, multipliers, coefficient digests, and rigorous enclosure margins",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/tests/test_six_coordinate_unique_top_l2_l3.py",
+          "role": "minorant, scope, cover, multiplier-mutation, and incomplete-tree regressions",
+          "trust": "corroboration_only"
+        }
+      ],
+      "verification_commands": [
+        "make six-coordinate-unique-top-l2-l3-check"
+      ],
+      "limitations": "The certified geometric implication applies on the listed relative-open knot strata with all reduced centroid-gap inequalities imposed, and to limits that preserve those inequalities. A vanished collision factor does not imply that the divided centroid-gap polynomial remains nonnegative. The first-coordinate beta bound is not an active-prefix bound on repeated-lowest faces. The missing active-prefix section inequality is an unresolved proof obligation; no counterexample to the global theorem is asserted. All terminal covers use exact rational arithmetic except one rigorously enclosed binary64 chart. The encoded local inequalities and the global maximum principle are distinct statements.",
+      "manuscript": "supporting-materials/theory/SIX-COORDINATE-UNIQUE-TOP-L2-L3.md",
+      "source_markers": [
+        "## Status and theorem"
+      ]
+    },
+    {
+      "id": "binomial-n4-expanded-conservatism",
+      "classification": "unresolved_claim",
+      "statement": "Unresolved: For n=4 and every 0 < alpha <= alpha_4=0.3214292869970077..., where alpha_4=r_4^4 and 49*r_4^3-79*r_4^2+41*r_4-7=0, the binomial-factor Stringer bound pointwise dominates the valid Gaffke bounded-mean upper confidence limit and therefore has coverage at least 1-alpha for every distribution on [0,1]. The endpoint is sharp for pointwise Stringer--Gaffke domination.",
+      "manuscript_labels": [],
+      "evidence": [
+        {
+          "path": "supporting-materials/theory/FIVE-COORDINATE-VERTEX-BARRIER.md",
+          "role": "local section arguments and proposed global reduction with unresolved repeated-lowest-face implication",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/theory/N4-MONOTONE-RANGE.md",
+          "role": "proved Clopper--Pearson spacing range and conditional coverage implication",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/python/n4_weight_monotonicity.py",
+          "role": "exact resultant derivation, Sturm root counts, rational domain exclusions, and terminal-root bracket",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/certificates/n4-weight-monotonicity-certificate.json",
+          "role": "machine-readable degree-eight resultant, exact root isolating intervals, domain identities, and alpha_4 bracket",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/tests/test_n4_weight_monotonicity.py",
+          "role": "byte-for-byte regeneration and exact identity, root-count, digest, and endpoint regressions",
+          "trust": "corroboration_only"
+        },
+        {
+          "path": "supporting-materials/theory/N4-CONVENTIONAL.md",
+          "role": "independent direct cap-triangulation proof at alpha 0.10, 0.05, and 0.01",
+          "trust": "corroboration_only"
+        },
+        {
+          "path": "supporting-materials/computations/certificates/n4-gaffke-certificate.json",
+          "role": "independent exact rational coefficient-sign certificate at the three conventional levels",
+          "trust": "corroboration_only"
+        }
+      ],
+      "verification_commands": [
+        "make five-coordinate-mixed-section-check five-coordinate-block-faces-check n4-weight-monotonicity-check",
         "make n4-structure-check n4-certificate-check"
       ],
-      "limitations": "This is an exact computer-assisted theorem only for n=4 and the three specified alpha values. It relies on the finite-sample validity of the Gaffke test established in the cited work and does not establish every confidence level at n=4."
+      "limitations": "The first-coordinate beta bound is not an active-prefix bound on repeated-lowest faces. The missing active-prefix section inequality is an unresolved proof obligation; no counterexample to the global theorem is asserted. Independent fixed-level certificates at alpha in {0.10, 0.05, 0.01} are unaffected.",
+      "proof_obligation": "The first-coordinate beta bound is not an active-prefix bound on repeated-lowest faces. The missing active-prefix section inequality is an unresolved proof obligation; no counterexample to the global theorem is asserted.",
+      "manuscript": "supporting-materials/theory/N4-MONOTONE-RANGE.md",
+      "source_markers": [
+        "## 3. Completion and Stringer consequence"
+      ]
+    },
+    {
+      "id": "binomial-n5-monotone-weight-range",
+      "classification": "proved_theorem",
+      "statement": "For n=5, the six ascending-knot Clopper--Pearson Stringer weights are nondecreasing exactly for 0 < alpha <= alpha_5=0.3141689898050253288..., where alpha_5=r_5^5 and r_5 is the unique root in (1/2,9/10) of 129*r^4-271*r^3+209*r^2-71*r+9. This is the sharp possible tail range for the six-coordinate monotone-cap route.",
+      "manuscript_labels": [],
+      "evidence": [
+        {
+          "path": "supporting-materials/theory/N5-MONOTONE-RANGE.md",
+          "role": "ordinary spacing reduction, exact elimination, and weight-order endpoint; coverage composition remains conditional",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/python/n5_weight_monotonicity.py",
+          "role": "exact resultant derivations, Sturm root counts, rational branch exclusions, sign witnesses, and terminal-root bracket",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/certificates/n5-weight-monotonicity-certificate.json",
+          "role": "machine-readable resultant factors, exact root-isolating intervals, branch identities, rational sign witnesses, and alpha_5 bracket",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/tests/test_n5_weight_monotonicity.py",
+          "role": "byte-for-byte regeneration and exact identity, root-count, digest, sign-witness, and endpoint regressions",
+          "trust": "corroboration_only"
+        }
+      ],
+      "verification_commands": [
+        "make n5-weight-monotonicity-check"
+      ],
+      "limitations": "The exact weight-order range is proved independently of the unresolved six-coordinate global cap theorem. It alone does not establish the n=5 coverage continuum. Independent direct certificates cover alpha in {0.10, 0.05, 0.01}. The first-coordinate beta bound is not an active-prefix bound on repeated-lowest faces. The missing active-prefix section inequality is an unresolved proof obligation; no counterexample to the global theorem is asserted.",
+      "manuscript": "supporting-materials/theory/N5-MONOTONE-RANGE.md",
+      "source_markers": [
+        "## 1. The five spacing inequalities"
+      ]
     },
     {
       "id": "binomial-n5-conventional-conservatism",
       "classification": "proved_theorem",
       "statement": "For n=5 and alpha in {0.10, 0.05, 0.01}, the binomial-factor Stringer bound pointwise dominates the valid Gaffke bounded-mean upper confidence limit and therefore has coverage at least 1-alpha for every distribution on [0,1].",
-      "manuscript_labels": [
-        "sec:n3",
-        "thm:n5",
-        "tab:n5certificate"
-      ],
+      "manuscript_labels": [],
       "evidence": [
         {
           "path": "supporting-materials/theory/N5-CONVENTIONAL.md",
@@ -178,18 +556,17 @@
       "verification_commands": [
         "make n5-structure-check n5-certificate-check"
       ],
-      "limitations": "This is an exact computer-assisted theorem only for n=5 and the three specified alpha values. It relies on the finite-sample validity of the Gaffke test established in the cited work and does not establish every confidence level at n=5."
+      "limitations": "This independent direct certificate covers only n=5 and alpha in {0.10,0.05,0.01}, using the cited finite-sample validity theorem for Gaffke. The broader continuum from the six-coordinate maximum principle remains unresolved.",
+      "manuscript": "supporting-materials/theory/N5-CONVENTIONAL.md",
+      "source_markers": [
+        "## 1. Reduction to a five-simplex cap"
+      ]
     },
     {
       "id": "binomial-n6-conventional-conservatism",
       "classification": "proved_theorem",
       "statement": "For n=6 and alpha in {0.10, 0.05, 0.01}, the binomial-factor Stringer bound pointwise dominates the valid Gaffke bounded-mean upper confidence limit and therefore has at least 90%, 95%, and 99% coverage, respectively, for every distribution on [0,1].",
-      "manuscript_labels": [
-        "sec:n3",
-        "thm:n6",
-        "eq:n6cap",
-        "eq:n6identities"
-      ],
+      "manuscript_labels": [],
       "evidence": [
         {
           "path": "supporting-materials/theory/N6-CONVENTIONAL.md",
@@ -220,19 +597,17 @@
       "verification_commands": [
         "make n6-structure-check n6-certificate-check"
       ],
-      "limitations": "These exact computer-assisted theorems are only for n=6 and alpha in {0.10, 0.05, 0.01}. They rely on the finite-sample validity of the Gaffke test established in the cited work and do not establish any other confidence level at n=6."
+      "limitations": "These exact computer-assisted theorems are only for n=6 and alpha in {0.10, 0.05, 0.01}. They rely on the finite-sample validity of the Gaffke test established in the cited work and do not establish any other confidence level at n=6.",
+      "manuscript": "supporting-materials/theory/N6-CONVENTIONAL.md",
+      "source_markers": [
+        "## 1. Reduction to a six-simplex cap"
+      ]
     },
     {
       "id": "binomial-n7-conventional-conservatism",
       "classification": "proved_theorem",
       "statement": "For n=7 and alpha in {0.10, 0.05, 0.01}, the binomial-factor Stringer bound pointwise dominates the valid Gaffke bounded-mean upper confidence limit and therefore has at least 90%, 95%, and 99% coverage, respectively, for every distribution on [0,1].",
-      "manuscript_labels": [
-        "sec:n3",
-        "thm:n7",
-        "eq:n7cap",
-        "eq:n7identities",
-        "tab:n7certificate"
-      ],
+      "manuscript_labels": [],
       "evidence": [
         {
           "path": "supporting-materials/theory/N7-CONVENTIONAL.md",
@@ -271,16 +646,17 @@
         "make n7-face-a-check n7-face-b-basic-check n7-face-b5-check n7-face-c-basic-check n7-face-c6-check n7-face-c8-check n7-face-d-basic-check n7-face-d6-check n7-face-d9-check",
         "make n7-certificate-001-check n7-certificate-005-check n7-certificate-010-check"
       ],
-      "limitations": "These rigorous computer-assisted theorems are only for n=7 and alpha in {0.10, 0.05, 0.01}. They rely on the finite-sample validity of the Gaffke test established in the cited work and do not establish any other confidence level at n=7 or any n>=8."
+      "limitations": "These rigorous computer-assisted theorems are only for n=7 and alpha in {0.10, 0.05, 0.01}. They rely on the finite-sample validity of the Gaffke test established in the cited work and do not establish any other confidence level at n=7 or any n>=8.",
+      "manuscript": "supporting-materials/theory/N7-CONVENTIONAL.md",
+      "source_markers": [
+        "## 1. Reduction to a seven-simplex cap"
+      ]
     },
     {
       "id": "poisson-practical-factor-domination",
       "classification": "proved_theorem",
       "statement": "For every n and alpha<exp(-1), Poisson audit factors dominate binomial Clopper-Pearson factors coordinatewise, so the Poisson Stringer bound is pointwise no smaller for every sample.",
-      "manuscript_labels": [
-        "sec:poisson",
-        "prop:poissondomination"
-      ],
+      "manuscript_labels": [],
       "evidence": [
         {
           "path": "supporting-materials/theory/POISSON-DOMINATION.md",
@@ -296,15 +672,17 @@
       "verification_commands": [
         "uv run --frozen python supporting-materials/computations/python/two_point_lemma.py --alpha 0.05 --n-max 100 --brute-n"
       ],
-      "limitations": "This is a factor and sample-wise bound comparison, not a proof of general-n coverage. The theorem does not claim domination for alpha>=exp(-1)."
+      "limitations": "This is a factor and sample-wise bound comparison, not a proof of general-n coverage. The theorem does not claim domination for alpha>=exp(-1).",
+      "manuscript": "supporting-materials/theory/POISSON-DOMINATION.md",
+      "source_markers": [
+        "## Statement"
+      ]
     },
     {
       "id": "poisson-proved-small-n-coverage",
       "classification": "proved_theorem",
-      "statement": "The Poisson-factor Stringer bound is distribution-free conservative at n=2 for alpha<exp(-1), and from n=3 through n=7 for alpha in {0.10, 0.05, 0.01}.",
-      "manuscript_labels": [
-        "cor:poissoncoverage"
-      ],
+      "statement": "Poisson-factor Stringer is conservative at n=2 for alpha<exp(-1), at n=3 for 0 < alpha <= ((19+sqrt(21))/34)^3, and at n=4,5,6,7 for alpha in {0.10,0.05,0.01}, by factor domination and independent proved binomial comparisons.",
+      "manuscript_labels": [],
       "evidence": [
         {
           "path": "supporting-materials/theory/POISSON-DOMINATION.md",
@@ -317,13 +695,8 @@
           "trust": "proof_essential"
         },
         {
-          "path": "supporting-materials/theory/N3-CONVENTIONAL.md",
-          "role": "binomial coverage theorem at n=3 for the three specified levels",
-          "trust": "proof_essential"
-        },
-        {
-          "path": "supporting-materials/theory/N4-CONVENTIONAL.md",
-          "role": "binomial coverage theorem at n=4 for the three specified levels",
+          "path": "supporting-materials/theory/TETRAHEDRAL-VERTEX-BARRIER.md",
+          "role": "binomial coverage theorem at n=3 on the full analytic range 0 < alpha <= ((19+sqrt(21))/34)^3",
           "trust": "proof_essential"
         },
         {
@@ -340,22 +713,27 @@
           "path": "supporting-materials/theory/N7-CONVENTIONAL.md",
           "role": "binomial coverage theorem at n=7 for the three specified levels",
           "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/theory/N4-CONVENTIONAL.md",
+          "role": "independent direct binomial comparison at the three specified levels",
+          "trust": "proof_essential"
         }
       ],
       "verification_commands": [
-        "make proof-check n3-certificate-check n4-certificate-check n5-certificate-check n6-certificate-check n7-certificate-check"
+        "make proof-check tetrahedral-vertex-barrier-check n4-certificate-check n5-certificate-check n6-certificate-check n7-certificate-check"
       ],
-      "limitations": "The n=2 transfer is stated only in the range covered by the all-n factor-domination theorem. The n=3 through n=7 statements cover only 90%, 95%, and 99%; they are not general-n audit-practice guarantees."
+      "limitations": "The continuum at n=4 and n=5 is not asserted here; only the independent fixed-level certificates are used at n=4 through n=7. These are not general-n sampling-design guarantees.",
+      "manuscript": "supporting-materials/theory/POISSON-DOMINATION.md",
+      "source_markers": [
+        "## Statement"
+      ]
     },
     {
       "id": "poisson-simultaneous-band-coverage",
       "classification": "proved_theorem",
       "statement": "For arbitrary distributions on [0,1], the Poisson-factor Stringer bound has coverage at least 1-alpha for every n<=8 at 90%, every n<=11 at 95%, and every n<=20 at 99% nominal confidence.",
-      "manuscript_labels": [
-        "lem:poissonband",
-        "thm:poissonband",
-        "eq:bolshev-corrected"
-      ],
+      "manuscript_labels": [],
       "evidence": [
         {
           "path": "supporting-materials/theory/POISSON-SIMULTANEOUS-BAND.md",
@@ -387,26 +765,17 @@
         "make poisson-band-certificate-check",
         "make test"
       ],
-      "limitations": "This is a finite-range theorem for the Poisson factors, not a general-n result, and it does not transfer backward to the binomial factors. The sufficient simultaneous-band event is certified below nominal at n=9, 12, and 21 for 90%, 95%, and 99%, respectively; that limits this proof route but does not show Stringer undercoverage. The model assumes independent observations with a common distribution on [0,1]."
+      "limitations": "This is a finite-range theorem for the Poisson factors, not a general-n result, and it does not transfer backward to the binomial factors. The sufficient simultaneous-band event is certified below nominal at n=9, 12, and 21 for 90%, 95%, and 99%, respectively; that limits this proof route but does not show Stringer undercoverage. The model assumes independent observations with a common distribution on [0,1].",
+      "manuscript": "supporting-materials/theory/POISSON-SIMULTANEOUS-BAND.md",
+      "source_markers": [
+        "## Result"
+      ]
     },
     {
       "id": "band-calibrated-poisson-all-n",
       "classification": "proved_theorem",
       "statement": "For every n>=1 and alpha in (0,1), the corrected simultaneous-band criterion yields two distribution-free valid Poisson Stringer calibrations: a full-scale multiplier and a zero-taint-preserving affine path that fixes the ordinary no-error factor and scales only error increments; both cover untruncated and factorwise-capped Poisson conventions after the final cap at one, the anchored multiplier is never smaller than the full-scale multiplier, and capping the calibrated factors themselves at one preserves coverage while giving a pointwise no-larger report. For nominal confidence at least 2/e, the full-scale multiplier two is valid uniformly in n; a finite-prefix refinement gives smaller certified uniform multipliers at 90%, 95%, and 99%.",
-      "manuscript_labels": [
-        "eq:kappaband",
-        "thm:poissoncalibration",
-        "cor:poissonuniform",
-        "eq:uniformkappa",
-        "eq:gammashift",
-        "cor:poissonuniformrefined",
-        "eq:uniformprefix",
-        "tab:poissonuniform",
-        "eq:etaband",
-        "cor:poissonanchor",
-        "tab:poissoncalibration",
-        "eq:kappabound"
-      ],
+      "manuscript_labels": [],
       "evidence": [
         {
           "path": "supporting-materials/theory/POISSON-BAND-CALIBRATION.md",
@@ -433,16 +802,17 @@
         "make poisson-band-calibration-check",
         "make test"
       ],
-      "limitations": "These results validate modified calibration paths, not ordinary Poisson Stringer outside its proved ranges. Each displayed sample-size-specific conventional-level multiplier is minimal only on its stated one-parameter sufficient-band path and to the certified dyadic resolution. The sample-size-uniform multipliers are sufficient analytic choices, not minimality claims. Neither calibration path uniformly dominates the other, selection must be pre-specified, and no global optimality among valid procedures is claimed."
+      "limitations": "These results validate modified calibration paths, not ordinary Poisson Stringer outside its proved ranges. Each displayed sample-size-specific conventional-level multiplier is minimal only on its stated one-parameter sufficient-band path and to the certified dyadic resolution. The sample-size-uniform multipliers are sufficient analytic choices, not minimality claims. Neither calibration path uniformly dominates the other, selection must be pre-specified, and no global optimality among valid procedures is claimed.",
+      "manuscript": "supporting-materials/theory/POISSON-BAND-CALIBRATION.md",
+      "source_markers": [
+        "## 1. Definition"
+      ]
     },
     {
       "id": "all-n-stringer-gaffke-safeguard",
       "classification": "proved_theorem",
       "statement": "For every n and alpha in (0,1), the pre-specified maximum of either Stringer factor convention and the valid Gaffke bounded-mean upper limit has coverage at least 1-alpha for independent [0,1]-valued observations with a common mean.",
-      "manuscript_labels": [
-        "sec:safeguard",
-        "prop:safeguard"
-      ],
+      "manuscript_labels": [],
       "evidence": [
         {
           "path": "supporting-materials/theory/GAFFKE-SAFEGUARD.md",
@@ -463,16 +833,17 @@
       "verification_commands": [
         "make test"
       ],
-      "limitations": "This validates the maximum procedure, not ordinary Stringer when Stringer is below the Gaffke component. It assumes independent bounded observations with a common mean and does not address finite-population design or professional-standard adoption."
+      "limitations": "This validates the maximum procedure, not ordinary Stringer when Stringer is below the Gaffke component. It assumes independent bounded observations with a common mean and does not address finite-population design or professional-standard adoption.",
+      "manuscript": "supporting-materials/theory/GAFFKE-SAFEGUARD.md",
+      "source_markers": [
+        "## Purpose"
+      ]
     },
     {
       "id": "one-cap-zero-uplift-all-n",
       "classification": "proved_theorem",
       "statement": "For every 0<alpha<=1/4 and every sample size n, if the binomial Stringer value is at least the largest observed taint, then it pointwise dominates the valid Gaffke upper limit; the pre-specified Stringer-Gaffke safeguard consequently equals ordinary Stringer on that sample for both factor conventions.",
-      "manuscript_labels": [
-        "sec:onecap",
-        "prop:onecap"
-      ],
+      "manuscript_labels": [],
       "evidence": [
         {
           "path": "supporting-materials/theory/ONE-CAP-COMPARISON.md",
@@ -510,15 +881,54 @@
         "make one-cap-certificate-check",
         "make test"
       ],
-      "limitations": "This is a pointwise zero-uplift result on a specified region of the sample space, not a conditional-coverage theorem or an unrestricted ordinary-Stringer guarantee beyond the separately proved sample-size-and-level cases. The theorem is restricted to nominal confidence of at least 75%; the sufficient condition is evaluated using binomial Stringer even when Poisson factors are reported."
+      "limitations": "This is a pointwise zero-uplift result on a specified region of the sample space, not a conditional-coverage theorem or an unrestricted ordinary-Stringer guarantee beyond the separately proved sample-size-and-level cases. The theorem is restricted to nominal confidence of at least 75%; the sufficient condition is evaluated using binomial Stringer even when Poisson factors are reported.",
+      "manuscript": "supporting-materials/theory/ONE-CAP-COMPARISON.md",
+      "source_markers": [
+        "## Operational statement"
+      ]
+    },
+    {
+      "id": "audit-decision-benchmark",
+      "classification": "exact_computational_certificate",
+      "statement": "Ten fixed zero-heavy profiles at n=25, 100, and 200 have reproducible exact upper-rate enclosures and exact threshold-switch intervals for ordinary Stringer references, Gaffke, the Stringer-Gaffke maximum, and both proved calibrated Poisson paths.",
+      "manuscript_labels": [],
+      "evidence": [
+        {
+          "path": "supporting-materials/audit/DECISION-BENCHMARK.md",
+          "role": "decision interpretation, method-status separation, representative table, and design limitations",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/python/audit_decision_benchmark.py",
+          "role": "exact bracket propagation, fixed case definitions, threshold intervals, and rational rate conversions",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/certificates/audit-decision-benchmark.json",
+          "role": "machine-readable exact outputs, source hashes, and all ten fixed profiles",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/tests/test_audit_decision_benchmark.py",
+          "role": "byte-for-byte regeneration and exact relationship regression tests",
+          "trust": "corroboration_only"
+        }
+      ],
+      "verification_commands": [
+        "make audit-benchmark-check",
+        "uv run --frozen python -m unittest supporting-materials/computations/tests/test_audit_decision_benchmark.py"
+      ],
+      "limitations": "This is a fixed-profile method-comparison benchmark, not a coverage experiment, an ordinary-Stringer theorem at practical n, a selected audit threshold, a sampling-without-replacement bridge, or professional guidance. The full-scale and zero-anchor paths cannot be selected post hoc by taking the smaller result.",
+      "manuscript": "supporting-materials/audit/DECISION-BENCHMARK.md",
+      "source_markers": [
+        "## Methods and mathematical status"
+      ]
     },
     {
       "id": "one-nonzero-taint-value",
       "classification": "proved_theorem",
       "statement": "A taint distribution supported on {0,v} cannot under-cover under binomial Stringer factors, for any n, alpha, and v in (0,1].",
-      "manuscript_labels": [
-        "prop:twopoint"
-      ],
+      "manuscript_labels": [],
       "evidence": [
         {
           "path": "supporting-materials/computations/python/two_point_lemma.py",
@@ -529,16 +939,17 @@
       "verification_commands": [
         "uv run --frozen python supporting-materials/computations/python/two_point_lemma.py --alpha 0.05 --n-max 40"
       ],
-      "limitations": "This does not cover distributions with two distinct nonzero taint values."
+      "limitations": "This does not cover distributions with two distinct nonzero taint values.",
+      "manuscript": "supporting-materials/theory/BINOMIAL-COUNTEREXAMPLES.md",
+      "source_markers": [
+        "## One nonzero taint value"
+      ]
     },
     {
       "id": "certified-low-confidence-counterexamples",
       "classification": "exact_computational_certificate",
       "statement": "Thirty-three exact three-point counterexamples establish binomial-factor undercoverage at the six selected (confidence,n) combinations in the counterexample table.",
-      "manuscript_labels": [
-        "sec:counter",
-        "tab:counter"
-      ],
+      "manuscript_labels": [],
       "evidence": [
         {
           "path": "supporting-materials/computations/certificates/certificate-summary.json",
@@ -564,15 +975,17 @@
       "verification_commands": [
         "make test certificate-summary-check"
       ],
-      "limitations": "The examples establish existence only at the listed confidence levels and sample sizes; they do not characterize every level below 50%."
+      "limitations": "The examples establish existence only at the listed confidence levels and sample sizes; they do not characterize every level below 50%.",
+      "manuscript": "supporting-materials/theory/BINOMIAL-COUNTEREXAMPLES.md",
+      "source_markers": [
+        "## Certified counterexamples"
+      ]
     },
     {
       "id": "standard-confidence-searches",
       "classification": "numerical_search_evidence",
       "statement": "No violation was found in the reported searches at nominal confidence 50%, 90%, and 95%; the smallest binomial coverage found agreed with nominal to within 1e-10.",
-      "manuscript_labels": [
-        "sec:counter"
-      ],
+      "manuscript_labels": [],
       "evidence": [
         {
           "path": "supporting-materials/computations/certificates/search-alpha0.05-n35-100.log",
@@ -591,15 +1004,17 @@
         }
       ],
       "verification_commands": [],
-      "limitations": "These are finite grid-plus-optimizer searches, not exhaustive optimization and not a proof of coverage or of the infimum."
+      "limitations": "These are finite grid-plus-optimizer searches, not exhaustive optimization and not a proof of coverage or of the infimum.",
+      "manuscript": "supporting-materials/theory/BINOMIAL-COUNTEREXAMPLES.md",
+      "source_markers": [
+        "## Numerical searches"
+      ]
     },
     {
       "id": "poisson-search-cushion",
       "classification": "numerical_search_evidence",
       "statement": "The reported two-nonzero-value Poisson searches at 90% and 95% found coverage above nominal, with a decreasing positive cushion over the listed sample sizes.",
-      "manuscript_labels": [
-        "sec:counter"
-      ],
+      "manuscript_labels": [],
       "evidence": [
         {
           "path": "supporting-materials/computations/certificates/search-practical-poisson-90-95.log",
@@ -608,17 +1023,17 @@
         }
       ],
       "verification_commands": [],
-      "limitations": "The reported minimum is only the smallest value found in the searched family, not a global worst case."
+      "limitations": "The reported minimum is only the smallest value found in the searched family, not a global worst case.",
+      "manuscript": "supporting-materials/theory/BINOMIAL-COUNTEREXAMPLES.md",
+      "source_markers": [
+        "## Numerical searches"
+      ]
     },
     {
       "id": "bimpeh-containment-reassessment",
       "classification": "proved_literature_correction",
       "statement": "The cited Bimpeh band-containment inequality fails; the corrected pointwise-containment event has probability at most 1-alpha for continuous distributions and therefore does not establish the desired coverage guarantee.",
-      "manuscript_labels": [
-        "sec:bimpeh",
-        "prop:bimpehwrong",
-        "prop:cannot"
-      ],
+      "manuscript_labels": [],
       "evidence": [
         {
           "path": "supporting-materials/audit/BIMPEH-GAP.md",
@@ -639,7 +1054,11 @@
       "verification_commands": [
         "uv run --frozen python supporting-materials/computations/python/bolshev.py"
       ],
-      "limitations": "The conclusion concerns the cited containment argument; it does not claim that no different proof of coverage could exist."
+      "limitations": "The conclusion concerns the cited containment argument; it does not claim that no different proof of coverage could exist.",
+      "manuscript": "supporting-materials/audit/BIMPEH-GAP.md",
+      "source_markers": [
+        "## The error"
+      ]
     },
     {
       "id": "two-exponential-quantile-convexity",
@@ -666,7 +1085,11 @@
       "verification_commands": [
         "make all-n-reduction-check"
       ],
-      "limitations": "This proves only the two-coordinate exponential-quantile theorem. It does not prove convexity in three or more coordinates, Dirichlet Poissonization, or general-n Stringer coverage."
+      "limitations": "This proves only the two-coordinate exponential-quantile theorem. It does not prove convexity in three or more coordinates, Dirichlet Poissonization, or general-n Stringer coverage.",
+      "manuscript": "supporting-materials/theory/TWO-EXPONENTIAL-QUANTILE.md",
+      "source_markers": [
+        "## Status and result"
+      ]
     },
     {
       "id": "equal-weight-exponential-quantile-hessian",
@@ -693,7 +1116,11 @@
       "verification_commands": [
         "make all-n-reduction-check"
       ],
-      "limitations": "This is a pointwise Hessian theorem at equal weights. It does not establish global convexity at unequal weights in dimensions three or higher or general-n Stringer coverage."
+      "limitations": "This is a pointwise Hessian theorem at equal weights. It does not establish global convexity at unequal weights in dimensions three or higher or general-n Stringer coverage.",
+      "manuscript": "supporting-materials/theory/ALL-N-POISSON-PROGRAM.md",
+      "source_markers": [
+        "## 1. An exact ordered-weight identity"
+      ]
     },
     {
       "id": "three-exponential-quantile-reduction",
@@ -720,7 +1147,11 @@
       "verification_commands": [
         "make all-n-reduction-check"
       ],
-      "limitations": "The two-variable inequality is proved separately on the coordinate axes and diagonal, on the small-total-gap triangle, and on the two-large-gap region; its infinite-gap boundary reduces to the two-coordinate theorem, and a punctured sharp-corner neighborhood is positive. The remaining finite off-symmetry interior is open. This record certifies the equivalence and reduction only, not three-coordinate convexity or general-n Stringer coverage."
+      "limitations": "The two-variable inequality is proved separately on the coordinate axes and diagonal, on the small-total-gap triangle, on the compact square 1<=z,w<=4, and on the two-large-gap region; its infinite-gap boundary reduces to the two-coordinate theorem, and a punctured sharp-corner neighborhood is positive. The remaining finite off-symmetry interior outside those sets is open. This record certifies the equivalence and reduction only, not full three-coordinate convexity or general-n Stringer coverage.",
+      "manuscript": "supporting-materials/theory/THREE-EXPONENTIAL-QUANTILE.md",
+      "source_markers": [
+        "## 1. Normalization and the tilted simplex"
+      ]
     },
     {
       "id": "three-exponential-boundary-trace-identity",
@@ -747,7 +1178,47 @@
       "verification_commands": [
         "make all-n-reduction-check"
       ],
-      "limitations": "This identity simplifies certification of the reduced inequality but does not itself prove that inequality in the finite off-symmetry interior, three-coordinate convexity, or general-n Stringer coverage."
+      "limitations": "This identity simplifies certification of the reduced inequality but does not itself prove that inequality in the finite off-symmetry interior, three-coordinate convexity, or general-n Stringer coverage.",
+      "manuscript": "supporting-materials/theory/THREE-EXPONENTIAL-QUANTILE.md",
+      "source_markers": [
+        "## 1. Normalization and the tilted simplex"
+      ]
+    },
+    {
+      "id": "three-exponential-certified-interior-square",
+      "classification": "proved_theorem",
+      "statement": "At tail threshold 4 exp(-3), the explicit three-exponential tilted-simplex inequality holds strictly throughout the closed gap-coordinate square 1<=z,w<=4; consequently the weighted-exponential quantile Hessian is positive semidefinite there for every alpha<=4 exp(-3).",
+      "manuscript_labels": [],
+      "evidence": [
+        {
+          "path": "supporting-materials/theory/THREE-EXPONENTIAL-QUANTILE.md",
+          "role": "boundary-trace reduction, witness-matrix implication, moment formulas, Taylor remainder proof, and certified-square theorem",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/python/three_exponential_interior_certificate.py",
+          "role": "serial 256-bit Arb proof of positive-definite witness matrices and positive tail margins on every leaf",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/certificates/three-exponential-interior-certificate.json",
+          "role": "machine-readable partition counts, rigorous minimum lower enclosures, witness-trace digest, and scope",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/tests/test_three_exponential_interior.py",
+          "role": "targeted boundary, weak-margin, and refinement regressions",
+          "trust": "corroboration_only"
+        }
+      ],
+      "verification_commands": [
+        "make three-exponential-interior-check"
+      ],
+      "limitations": "This closes only 1<=z,w<=4 in the reduced three-coordinate problem. It does not prove the remaining off-symmetry domain, full three-coordinate convexity, higher-dimensional convexity, the separate Dirichlet-Poissonization inequality, or general-n Stringer coverage.",
+      "manuscript": "supporting-materials/theory/THREE-EXPONENTIAL-QUANTILE.md",
+      "source_markers": [
+        "## 1. Normalization and the tilted simplex"
+      ]
     },
     {
       "id": "three-exponential-repeated-max-boundary",
@@ -774,7 +1245,11 @@
       "verification_commands": [
         "make all-n-reduction-check"
       ],
-      "limitations": "This proves only the coordinate-axis boundary of the reduced three-exponential inequality. The diagonal and infinite-gap boundary are covered separately, but the finite off-symmetry interior, full three-coordinate convexity, and general-n Stringer coverage remain open."
+      "limitations": "This proves only the coordinate-axis boundary of the reduced three-exponential inequality. Other regions, including the diagonal, infinite-gap boundary, and compact square, are covered separately, but the residual finite off-symmetry domain, full three-coordinate convexity, and general-n Stringer coverage remain open.",
+      "manuscript": "supporting-materials/theory/THREE-EXPONENTIAL-QUANTILE.md",
+      "source_markers": [
+        "## 1. Normalization and the tilted simplex"
+      ]
     },
     {
       "id": "three-exponential-axis-transversality",
@@ -801,7 +1276,11 @@
       "verification_commands": [
         "make all-n-reduction-check"
       ],
-      "limitations": "This proves local one-sided transversality at the repeated-maximum boundary. It does not prove global monotonicity in gap asymmetry, the finite off-symmetry interior inequality, three-coordinate convexity, or general-n Stringer coverage."
+      "limitations": "This proves local one-sided transversality at the repeated-maximum boundary. It does not prove global monotonicity in gap asymmetry, the residual finite off-symmetry domain outside separately proved regions, three-coordinate convexity, or general-n Stringer coverage.",
+      "manuscript": "supporting-materials/theory/THREE-EXPONENTIAL-QUANTILE.md",
+      "source_markers": [
+        "## 1. Normalization and the tilted simplex"
+      ]
     },
     {
       "id": "three-exponential-equal-smaller-symmetry-line",
@@ -828,7 +1307,11 @@
       "verification_commands": [
         "make all-n-reduction-check"
       ],
-      "limitations": "This proves only the diagonal z=w of the reduced three-exponential inequality. The coordinate axes and infinite-gap boundary are covered separately, but the finite off-symmetry interior, full three-coordinate convexity, and general-n Stringer coverage remain open."
+      "limitations": "This proves only the diagonal z=w of the reduced three-exponential inequality. Other regions, including the coordinate axes, infinite-gap boundary, and compact square, are covered separately, but the residual finite off-symmetry domain, full three-coordinate convexity, and general-n Stringer coverage remain open.",
+      "manuscript": "supporting-materials/theory/THREE-EXPONENTIAL-QUANTILE.md",
+      "source_markers": [
+        "## 1. Normalization and the tilted simplex"
+      ]
     },
     {
       "id": "three-exponential-diagonal-transversality",
@@ -855,7 +1338,11 @@
       "verification_commands": [
         "make all-n-reduction-check"
       ],
-      "limitations": "This proves strict local transverse concavity at the positive diagonal only. It does not prove global monotonicity in gap asymmetry, the finite off-symmetry interior inequality, three-coordinate convexity, or general-n Stringer coverage."
+      "limitations": "This proves strict local transverse concavity at the positive diagonal only. It does not prove global monotonicity in gap asymmetry, the residual finite off-symmetry domain outside separately proved regions, three-coordinate convexity, or general-n Stringer coverage.",
+      "manuscript": "supporting-materials/theory/THREE-EXPONENTIAL-QUANTILE.md",
+      "source_markers": [
+        "## 1. Normalization and the tilted simplex"
+      ]
     },
     {
       "id": "three-exponential-small-gap-region",
@@ -882,7 +1369,11 @@
       "verification_commands": [
         "make all-n-reduction-check"
       ],
-      "limitations": "This proves only the triangle z+w<=8/9. It does not prove the remaining finite off-symmetry region with total gap above 8/9 and smaller gap below 13, full three-coordinate convexity, or general-n Stringer coverage."
+      "limitations": "This proves only the triangle z+w<=8/9. The compact square and two-large-gap region are covered separately; the residual finite off-symmetry domain, full three-coordinate convexity, and general-n Stringer coverage remain open.",
+      "manuscript": "supporting-materials/theory/THREE-EXPONENTIAL-QUANTILE.md",
+      "source_markers": [
+        "## 1. Normalization and the tilted simplex"
+      ]
     },
     {
       "id": "three-exponential-two-large-gap-region",
@@ -909,7 +1400,11 @@
       "verification_commands": [
         "make all-n-reduction-check"
       ],
-      "limitations": "This proves only the region min(z,w)>=13. It does not prove the remaining finite off-symmetry region with total gap above 8/9 and smaller gap below 13, full three-coordinate convexity, or general-n Stringer coverage."
+      "limitations": "This proves only the region min(z,w)>=13. The small-gap triangle and compact square are covered separately; the residual finite off-symmetry domain, full three-coordinate convexity, and general-n Stringer coverage remain open.",
+      "manuscript": "supporting-materials/theory/THREE-EXPONENTIAL-QUANTILE.md",
+      "source_markers": [
+        "## 1. Normalization and the tilted simplex"
+      ]
     },
     {
       "id": "three-exponential-infinite-gap-boundary",
@@ -941,7 +1436,11 @@
       "verification_commands": [
         "make all-n-reduction-check"
       ],
-      "limitations": "This proves only the compactified infinite-gap boundary. The finite off-symmetry interior 0<z<w<infinity, full three-coordinate convexity, and general-n Stringer coverage remain open."
+      "limitations": "This proves only the compactified infinite-gap boundary. Several finite regions are covered separately, including the compact square, but the residual finite off-symmetry domain, full three-coordinate convexity, and general-n Stringer coverage remain open.",
+      "manuscript": "supporting-materials/theory/THREE-EXPONENTIAL-QUANTILE.md",
+      "source_markers": [
+        "## 1. Normalization and the tilted simplex"
+      ]
     },
     {
       "id": "three-exponential-sharp-corner-neighborhood",
@@ -968,7 +1467,11 @@
       "verification_commands": [
         "make all-n-reduction-check"
       ],
-      "limitations": "The neighborhood radius is proved to exist but is not numerically optimized or stated explicitly. The finite off-symmetry interior, full three-coordinate convexity, and general-n Stringer coverage remain open."
+      "limitations": "The neighborhood radius is proved to exist but is not numerically optimized or stated explicitly. Several other regions are covered separately, including the compact square, but the residual finite off-symmetry domain, full three-coordinate convexity, and general-n Stringer coverage remain open.",
+      "manuscript": "supporting-materials/theory/THREE-EXPONENTIAL-QUANTILE.md",
+      "source_markers": [
+        "## 1. Normalization and the tilted simplex"
+      ]
     },
     {
       "id": "dirichlet-poissonization-two-positive-knots",
@@ -1000,7 +1503,11 @@
       "verification_commands": [
         "make dirichlet-poissonization-check"
       ],
-      "limitations": "This theorem itself covers only profiles with at most two nonzero coefficients; separate theorems complete every three-positive face and the full comparison at n=4, n=5, and n=6. In dimensions n>=7, profiles with four or more nonzero coordinates outside the proved regions remain open, as do general Dirichlet--Poissonization, higher-dimensional exponential-quantile convexity, and general-n Stringer coverage."
+      "limitations": "This theorem itself covers only profiles with at most two nonzero coefficients; separate theorems complete every three-positive face and the full comparison at n=4, n=5, and n=6. In dimensions n>=7, profiles with four or more nonzero coordinates outside the proved regions remain open, as do general Dirichlet--Poissonization, higher-dimensional exponential-quantile convexity, and general-n Stringer coverage.",
+      "manuscript": "supporting-materials/theory/DIRICHLET-POISSONIZATION.md",
+      "source_markers": [
+        "## 1. Threshold form"
+      ]
     },
     {
       "id": "dirichlet-poissonization-three-positive-convex-core",
@@ -1032,7 +1539,11 @@
       "verification_commands": [
         "make dirichlet-poissonization-check"
       ],
-      "limitations": "This analytic subtheorem covers only the stated convex core; separate theorems complete every three-positive face and the full comparison at n=4, n=5, and n=6. In dimensions n>=7, profiles with four or more nonzero coordinates outside the proved regions remain open, as do general Dirichlet--Poissonization, higher-dimensional exponential-quantile convexity, and general-n Stringer coverage."
+      "limitations": "This analytic subtheorem covers only the stated convex core; separate theorems complete every three-positive face and the full comparison at n=4, n=5, and n=6. In dimensions n>=7, profiles with four or more nonzero coordinates outside the proved regions remain open, as do general Dirichlet--Poissonization, higher-dimensional exponential-quantile convexity, and general-n Stringer coverage.",
+      "manuscript": "supporting-materials/theory/DIRICHLET-POISSONIZATION.md",
+      "source_markers": [
+        "## 1. Threshold form"
+      ]
     },
     {
       "id": "dirichlet-poissonization-sparse-convex-core",
@@ -1064,7 +1575,11 @@
       "verification_commands": [
         "make dirichlet-poissonization-check"
       ],
-      "limitations": "This proves only the stated convex core on each coordinate face. Separate theorems complete every three-positive face, prove the four-positive far cap d>=n-1, and complete the full comparison at n=4, n=5, and n=6. In dimensions n>=7, intervening four-positive regions and profiles with still more nonzero coordinates outside their corresponding cores remain open, as do general Dirichlet--Poissonization, higher-dimensional exponential-quantile convexity, and general-n Stringer coverage."
+      "limitations": "This proves only the stated convex core on each coordinate face. Separate theorems complete every three-positive face, prove the four-positive far cap d>=n-1, and complete the full comparison at n=4, n=5, and n=6. In dimensions n>=7, intervening four-positive regions and profiles with still more nonzero coordinates outside their corresponding cores remain open, as do general Dirichlet--Poissonization, higher-dimensional exponential-quantile convexity, and general-n Stringer coverage.",
+      "manuscript": "supporting-materials/theory/DIRICHLET-POISSONIZATION.md",
+      "source_markers": [
+        "## 1. Threshold form"
+      ]
     },
     {
       "id": "dirichlet-poissonization-four-positive-far-cap",
@@ -1096,7 +1611,11 @@
       "verification_commands": [
         "make dirichlet-poissonization-check"
       ],
-      "limitations": "This proves only the four-positive far cap d>=n-1. The sparse-core theorem separately proves d<=n^2/(3(n+1)); other theorems complete the full comparison at n=4, n=5, and n=6. In dimensions n>=7, intervening four-positive regions and profiles with still more nonzero coordinates outside their sparse cores remain open, as do general Dirichlet--Poissonization, higher-dimensional exponential-quantile convexity, and general-n Stringer coverage."
+      "limitations": "This proves only the four-positive far cap d>=n-1. The sparse-core theorem separately proves d<=n^2/(3(n+1)); other theorems complete the full comparison at n=4, n=5, and n=6. In dimensions n>=7, intervening four-positive regions and profiles with still more nonzero coordinates outside their sparse cores remain open, as do general Dirichlet--Poissonization, higher-dimensional exponential-quantile convexity, and general-n Stringer coverage.",
+      "manuscript": "supporting-materials/theory/DIRICHLET-POISSONIZATION.md",
+      "source_markers": [
+        "## 1. Threshold form"
+      ]
     },
     {
       "id": "dirichlet-poissonization-three-positive-far-cap",
@@ -1128,7 +1647,11 @@
       "verification_commands": [
         "make dirichlet-poissonization-check"
       ],
-      "limitations": "This analytic subtheorem covers only the stated far cap; separate theorems complete every three-positive face and the full comparison at n=4, n=5, and n=6. In dimensions n>=7, profiles with four or more nonzero coordinates outside the proved regions remain open, as do general Dirichlet--Poissonization, higher-dimensional exponential-quantile convexity, and general-n Stringer coverage."
+      "limitations": "This analytic subtheorem covers only the stated far cap; separate theorems complete every three-positive face and the full comparison at n=4, n=5, and n=6. In dimensions n>=7, profiles with four or more nonzero coordinates outside the proved regions remain open, as do general Dirichlet--Poissonization, higher-dimensional exponential-quantile convexity, and general-n Stringer coverage.",
+      "manuscript": "supporting-materials/theory/DIRICHLET-POISSONIZATION.md",
+      "source_markers": [
+        "## 1. Threshold form"
+      ]
     },
     {
       "id": "dirichlet-poissonization-three-positive-middle-knot",
@@ -1160,7 +1683,11 @@
       "verification_commands": [
         "make dirichlet-poissonization-check"
       ],
-      "limitations": "This analytic subtheorem covers only the stated middle-knot region; separate theorems complete every three-positive face and the full comparison at n=4, n=5, and n=6. In dimensions n>=7, profiles with four or more nonzero coordinates outside the proved regions remain open, as do general Dirichlet--Poissonization, higher-dimensional exponential-quantile convexity, and general-n Stringer coverage."
+      "limitations": "This analytic subtheorem covers only the stated middle-knot region; separate theorems complete every three-positive face and the full comparison at n=4, n=5, and n=6. In dimensions n>=7, profiles with four or more nonzero coordinates outside the proved regions remain open, as do general Dirichlet--Poissonization, higher-dimensional exponential-quantile convexity, and general-n Stringer coverage.",
+      "manuscript": "supporting-materials/theory/DIRICHLET-POISSONIZATION.md",
+      "source_markers": [
+        "## 1. Threshold form"
+      ]
     },
     {
       "id": "dirichlet-poissonization-three-positive-full-face",
@@ -1192,7 +1719,11 @@
       "verification_commands": [
         "make dirichlet-poissonization-check"
       ],
-      "limitations": "This proves every profile with at most three nonzero coordinates; separate theorems complete the full comparison at n=4, n=5, and n=6. In dimensions n>=7, profiles with four or more nonzero coordinates are proved only inside the separate sparse convex cores and, for four-positive profiles, the far cap. General Dirichlet--Poissonization, higher-dimensional exponential-quantile convexity, and general-n Stringer coverage remain open."
+      "limitations": "This proves every profile with at most three nonzero coordinates; separate theorems complete the full comparison at n=4, n=5, and n=6. In dimensions n>=7, profiles with four or more nonzero coordinates are proved only inside the separate sparse convex cores and, for four-positive profiles, the far cap. General Dirichlet--Poissonization, higher-dimensional exponential-quantile convexity, and general-n Stringer coverage remain open.",
+      "manuscript": "supporting-materials/theory/DIRICHLET-POISSONIZATION.md",
+      "source_markers": [
+        "## 1. Threshold form"
+      ]
     },
     {
       "id": "dirichlet-poissonization-n2",
@@ -1224,7 +1755,11 @@
       "verification_commands": [
         "make dirichlet-poissonization-check"
       ],
-      "limitations": "This proves the Dirichlet--Poissonization comparison only for n=2. The comparison remains open in general dimensions, and this theorem alone does not establish three-coordinate exponential-quantile convexity or general-n Stringer coverage."
+      "limitations": "This proves the Dirichlet--Poissonization comparison only for n=2. The comparison remains open in general dimensions, and this theorem alone does not establish three-coordinate exponential-quantile convexity or general-n Stringer coverage.",
+      "manuscript": "supporting-materials/theory/DIRICHLET-POISSONIZATION.md",
+      "source_markers": [
+        "## 1. Threshold form"
+      ]
     },
     {
       "id": "dirichlet-poissonization-n3",
@@ -1256,7 +1791,11 @@
       "verification_commands": [
         "make dirichlet-poissonization-check"
       ],
-      "limitations": "This theorem proves the Dirichlet--Poissonization comparison at n=3; separate theorems now prove n=4, n=5, and n=6. The comparison remains open for general n, and this theorem alone does not establish four-coordinate exponential-quantile convexity or general-n Stringer coverage."
+      "limitations": "This theorem proves the Dirichlet--Poissonization comparison at n=3; separate theorems now prove n=4, n=5, and n=6. The comparison remains open for general n, and this theorem alone does not establish four-coordinate exponential-quantile convexity or general-n Stringer coverage.",
+      "manuscript": "supporting-materials/theory/DIRICHLET-POISSONIZATION.md",
+      "source_markers": [
+        "## 1. Threshold form"
+      ]
     },
     {
       "id": "dirichlet-poissonization-n4",
@@ -1288,7 +1827,11 @@
       "verification_commands": [
         "make dirichlet-poissonization-check"
       ],
-      "limitations": "This is a computer-assisted theorem for n=4, not a proof of the general-dimensional comparison. Separate theorems now complete n=5 and n=6, so the first open complete simplex dimension is n=7. The result does not prove higher-dimensional exponential-quantile convexity or general-n Stringer coverage by itself."
+      "limitations": "This is a computer-assisted theorem for n=4, not a proof of the general-dimensional comparison. Separate theorems now complete n=5 and n=6, so the first open complete simplex dimension is n=7. The result does not prove higher-dimensional exponential-quantile convexity or general-n Stringer coverage by itself.",
+      "manuscript": "supporting-materials/theory/DIRICHLET-POISSONIZATION.md",
+      "source_markers": [
+        "## 1. Threshold form"
+      ]
     },
     {
       "id": "dirichlet-poissonization-n5-four-positive-face",
@@ -1320,7 +1863,11 @@
       "verification_commands": [
         "make dirichlet-poissonization-check"
       ],
-      "limitations": "This computer-assisted theorem closes every n=5 profile with at most four nonzero coordinates. A separate recursive certificate closes the remaining five-positive boundary and proves the complete n=5 comparison. This face theorem does not prove higher-dimensional exponential-quantile convexity or general-n Stringer coverage by itself."
+      "limitations": "This computer-assisted theorem closes every n=5 profile with at most four nonzero coordinates. A separate recursive certificate closes the remaining five-positive boundary and proves the complete n=5 comparison. This face theorem does not prove higher-dimensional exponential-quantile convexity or general-n Stringer coverage by itself.",
+      "manuscript": "supporting-materials/theory/DIRICHLET-POISSONIZATION.md",
+      "source_markers": [
+        "## 1. Threshold form"
+      ]
     },
     {
       "id": "dirichlet-poissonization-n5",
@@ -1352,7 +1899,11 @@
       "verification_commands": [
         "make dirichlet-poissonization-check"
       ],
-      "limitations": "This is a computer-assisted theorem for n=5, not a proof of the general-dimensional comparison. The first open complete simplex dimension is n=7. The result does not prove higher-dimensional exponential-quantile convexity or general-n Stringer coverage by itself."
+      "limitations": "This is a computer-assisted theorem for n=5, not a proof of the general-dimensional comparison. The first open complete simplex dimension is n=7. The result does not prove higher-dimensional exponential-quantile convexity or general-n Stringer coverage by itself.",
+      "manuscript": "supporting-materials/theory/DIRICHLET-POISSONIZATION.md",
+      "source_markers": [
+        "## 1. Threshold form"
+      ]
     },
     {
       "id": "dirichlet-poissonization-n6",
@@ -1384,15 +1935,391 @@
       "verification_commands": [
         "make dirichlet-poissonization-check"
       ],
-      "limitations": "This is a computer-assisted theorem for n=6, not a proof of the general-dimensional comparison. The first open complete simplex dimension is n=7. The result does not prove higher-dimensional exponential-quantile convexity or general-n Stringer coverage by itself."
+      "limitations": "This is a computer-assisted theorem for n=6, not a proof of the general-dimensional comparison. The first open complete simplex dimension is n=7. The result does not prove higher-dimensional exponential-quantile convexity or general-n Stringer coverage by itself.",
+      "manuscript": "supporting-materials/theory/DIRICHLET-POISSONIZATION.md",
+      "source_markers": [
+        "## 1. Threshold form"
+      ]
+    },
+    {
+      "id": "two-cap-certified-collars",
+      "classification": "exact_computational_certificate",
+      "statement": "For every 2<=n<=200, if binomial Stringer lies between the second-largest and largest observed taints and q=(1-largest)/(1-Stringer), then Stringer pointwise dominates the valid Gaffke endpoint whenever q>=5/12 at 90% confidence, q>=1/3 at 95%, or q>=1/4 at 99%.",
+      "manuscript_labels": [],
+      "evidence": [
+        {
+          "path": "supporting-materials/theory/TWO-CAP-COMPARISON.md",
+          "role": "exact two-active-knot formula, dimension-free prefix-step cap bound, and endpoint-maximization proof",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/python/two_cap_certificate.py",
+          "role": "exact dyadic Clopper-Pearson brackets and rational endpoint inequalities",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/certificates/two-cap-certificate.json",
+          "role": "regenerated worst margins, factor widths, check counts, and transcript digests for 59,700 endpoint inequalities",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/tests/test_two_cap_certificate.py",
+          "role": "exact divided-difference cross-check, derivative sign-pattern tests, and certificate regressions",
+          "trust": "corroboration_only"
+        }
+      ],
+      "verification_commands": [
+        "make two-cap-certificate-check"
+      ],
+      "limitations": "The certificate covers only the stated collars through n=200 at three fixed levels. It proves a pointwise identity region for the pre-specified safeguard, not conditional coverage for ordinary Stringer; the residual two-cap region, regions with three or more upper knots, and general-n Stringer coverage remain open.",
+      "manuscript": "supporting-materials/theory/TWO-CAP-COMPARISON.md",
+      "source_markers": [
+        "## Operational statement"
+      ]
+    },
+    {
+      "id": "srswor-conditioning-bridge",
+      "classification": "proved_theorem",
+      "statement": "If an upper confidence rule has with-replacement noncoverage at most eta for every distribution on [0,1], then under simple random sampling without replacement from N finite-population items its noncoverage is at most min(1, eta/c), where c=(N)_n/N^n; hence eta<=alpha*c gives coverage at least 1-alpha.",
+      "manuscript_labels": [],
+      "evidence": [
+        {
+          "path": "supporting-materials/theory/SRSWOR-CONDITIONING.md",
+          "role": "complete conditioning proof, Stringer applications, and exact design boundary",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/python/srswor_conditioning.py",
+          "role": "exact no-collision factors and minimum finite-population threshold regeneration",
+          "trust": "corroboration_only"
+        },
+        {
+          "path": "supporting-materials/computations/certificates/srswor-conditioning-certificate.json",
+          "role": "deterministic exact fixed-level threshold record and illustrative large-population factors",
+          "trust": "corroboration_only"
+        },
+        {
+          "path": "supporting-materials/computations/tests/test_srswor_conditioning.py",
+          "role": "exhaustive small-space conditioning identities and certificate regression",
+          "trust": "corroboration_only"
+        }
+      ],
+      "verification_commands": [
+        "make srswor-conditioning-check"
+      ],
+      "limitations": "The theorem covers only uniform sampling of distinct finite-population indices and validates an adjusted pre-specified tail level. It does not prove nominal coverage for ordinary unadjusted Stringer under SRSWOR, systematic PPS, successive PPS, stratification, certainty selections, or other dependent audit designs.",
+      "manuscript": "supporting-materials/theory/SRSWOR-CONDITIONING.md",
+      "source_markers": [
+        "## Status and scope"
+      ]
+    },
+    {
+      "id": "systematic-pps-ordinary-stringer-failure",
+      "classification": "proved_theorem",
+      "statement": "For every n>=2 and every alpha in (0,1), an ordered finite population with all items smaller than one systematic interval makes ordinary binomial-factor Stringer undercover under one-start systematic PPS. The same holds for ordinary Poisson factors whenever -log(alpha)/n < 1-alpha.",
+      "manuscript_labels": [
+        "sec:one-start",
+        "thm:systematicfailure",
+        "eq:poissonsystematiccondition"
+      ],
+      "evidence": [
+        {
+          "path": "supporting-materials/theory/SYSTEMATIC-PPS.md",
+          "role": "complete finite-population model and analytic two-phase counterexample proof",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/python/systematic_pps.py",
+          "role": "exact rational phase enumerator and periodic-population implementation",
+          "trust": "corroboration_only"
+        },
+        {
+          "path": "supporting-materials/computations/tests/test_systematic_pps.py",
+          "role": "exact phase-law and design-unbiasedness regressions",
+          "trust": "corroboration_only"
+        }
+      ],
+      "verification_commands": [
+        "make systematic-pps-check"
+      ],
+      "limitations": "The theorem concerns the stated one-uniform-start systematic PPS design on a fixed ordered population with taints in [0,1]. It does not cover successive PPS, stratification, nonrandom starts, negative taints, uncertain book amounts, or other audit estimands.",
+      "manuscript": "supporting-materials/paper/systematic-pps.tex"
+    },
+    {
+      "id": "systematic-pps-design-safe-overlay",
+      "classification": "proved_theorem",
+      "statement": "Under one-start systematic PPS, M_alpha=1-alpha+alpha times the sample mean has coverage at least 1-alpha and is sharp on every constant sample among taint-only universally design-valid rules. Taking its minimum with the deterministic item-completion bound and then the maximum with capped ordinary Stringer remains design-valid and never lowers capped Stringer.",
+      "manuscript_labels": [
+        "prop:sysunbiased",
+        "prop:systematicfloor",
+        "prop:systematicsafeguard",
+        "eq:systematicsafe"
+      ],
+      "evidence": [
+        {
+          "path": "supporting-materials/theory/SYSTEMATIC-PPS.md",
+          "role": "complete design-unbiasedness, Markov, diagonal-necessity, completion, and maximum-composition proofs",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/python/systematic_pps.py",
+          "role": "exact implementation of the randomization, completion, hybrid, and phase calculations",
+          "trust": "corroboration_only"
+        },
+        {
+          "path": "supporting-materials/computations/tests/test_systematic_pps.py",
+          "role": "exact finite-population regressions for unbiasedness and coverage across every enumerated phase",
+          "trust": "corroboration_only"
+        }
+      ],
+      "verification_commands": [
+        "make systematic-pps-check"
+      ],
+      "limitations": "Diagonal sharpness applies only to procedures that ignore sampled item identities, book weights, and ordering. The item-aware rule assumes known positive book weights and taints bounded above by one.",
+      "manuscript": "supporting-materials/paper/systematic-pps.tex"
+    },
+    {
+      "id": "systematic-pps-exact-finite-certificates",
+      "classification": "exact_computational_certificate",
+      "statement": "At 95% confidence, exhaustive binary unit-item enumeration through total size nine finds its first systematic binomial failure at N=9, n=3, with exact coverage 2/3. In a separate n=100, total-book-amount-1000 periodic population, ordinary binomial and Poisson Stringer each have exact coverage 0.1 at 90%, 95%, and 99%, while the systematic-safe all-zero output is exactly 0.1 with rigorously bracketed uplift.",
+      "manuscript_labels": [
+        "tab:systematicexample"
+      ],
+      "evidence": [
+        {
+          "path": "supporting-materials/computations/python/systematic_pps.py",
+          "role": "deterministic exact rational census, phase enumeration, factor enclosure, and certificate generator",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/certificates/systematic-pps-certificate.json",
+          "role": "regenerated exact census transcript, finite-population phases, factor brackets, coverage, and uplift records",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/tests/test_systematic_pps.py",
+          "role": "certificate regression and independent exact identities for the enumerated designs",
+          "trust": "corroboration_only"
+        },
+        {
+          "path": "supporting-materials/theory/SYSTEMATIC-PPS.md",
+          "role": "written interpretation and exact boundary of the finite certificates",
+          "trust": "proof_essential"
+        }
+      ],
+      "verification_commands": [
+        "make systematic-pps-check"
+      ],
+      "limitations": "The nine-unit minimality statement is exhaustive only within ordered binary-taint populations of unit-book-value items and integer systematic intervals through total size nine. The 100-draw coverage and uplift values apply only to the explicitly stated periodic population.",
+      "manuscript": "supporting-materials/paper/systematic-pps.tex"
+    },
+    {
+      "id": "systematic-finite-frame-minimax-inversion",
+      "classification": "proved_theorem",
+      "statement": "For a fixed known one-start systematic-PPS frame, inversion of the exact lower-tail randomization rank of the grid mean gives a design-valid least-favourable-completion upper bound B_ff. Pointwise B_ff is no larger than either the Markov randomization bound or the deterministic item-completion bound, and it equals the maximum of rational LPs indexed by inclusion-minimal phase coalitions of probability above alpha.",
+      "manuscript_labels": [
+        "eq:finiteframebound",
+        "prop:systematicminimax",
+        "eq:finiteframedominance",
+        "eq:finiteframesafe"
+      ],
+      "evidence": [
+        {
+          "path": "supporting-materials/theory/SYSTEMATIC-MINIMAX.md",
+          "role": "complete rank-inversion, coverage, dominance, and coalition-LP proofs",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/theory/SYSTEMATIC-PPS.md",
+          "role": "integration with the one-start design model and Stringer overlay",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/python/systematic_minimax.py",
+          "role": "exact rational implementation with checked primal-dual optimality, witness expansion, and fail-closed search limits",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/tests/test_systematic_minimax.py",
+          "role": "exact coalition, dominance, finite-grid coverage, and certificate regressions",
+          "trust": "corroboration_only"
+        }
+      ],
+      "verification_commands": [
+        "make systematic-minimax-check"
+      ],
+      "limitations": "Minimax means worst compatible nuisance-taint completion for the pre-specified grid-mean ordering, not optimality among all confidence procedures. The theorem assumes one uniform start, a fixed known ordered frame, positive known weights, and taints in [0,1]. The exact implementation requires rational inputs and can fail closed at explicit exponential-search limits.",
+      "manuscript": "supporting-materials/paper/systematic-pps.tex"
+    },
+    {
+      "id": "systematic-finite-frame-minimax-certificate",
+      "classification": "exact_computational_certificate",
+      "statement": "At 95% confidence on a frame of 2,000 unit items with sample size 100 and 20 equiprobable disjoint phases, an observed all-zero phase has exact finite-frame bound 0.90, while both the Markov and item-completion bounds equal 0.95. The exact solver enumerates all 190 minimal coalitions and returns a complete witness with lower-tail mass 0.10.",
+      "manuscript_labels": [
+        "eq:finiteframebenchmark"
+      ],
+      "evidence": [
+        {
+          "path": "supporting-materials/computations/python/systematic_minimax.py",
+          "role": "deterministic exact phase, coalition, rational primal-dual LP, witness, and certificate generator",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/certificates/systematic-minimax-certificate.json",
+          "role": "regenerated exact optimum, dominance comparison, ordinary-factor brackets, and witness summary",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/tests/test_systematic_minimax.py",
+          "role": "certificate regression, exact 2,000-item result, and independent small-frame checks",
+          "trust": "corroboration_only"
+        },
+        {
+          "path": "supporting-materials/theory/SYSTEMATIC-MINIMAX.md",
+          "role": "written derivation and exact computational boundary",
+          "trust": "proof_essential"
+        }
+      ],
+      "verification_commands": [
+        "make systematic-minimax-check"
+      ],
+      "limitations": "The numerical optimum applies to the explicitly stated unit-item frame and all-zero observation. It certifies the grid-mean inversion defined in the manuscript, not global optimality over other test orderings or confidence rules.",
+      "manuscript": "supporting-materials/paper/systematic-pps.tex"
+    },
+    {
+      "id": "systematic-disjoint-phase-formulas",
+      "classification": "proved_theorem",
+      "statement": "On a phase-partitioned finite frame, if phase j is observed with mean y, the exact finite-frame bound is 1-(1-y)rho_j(alpha), where rho_j(alpha) is the minimum probability mass above alpha of a phase coalition containing j. For m equiprobable phases this equals 1-(floor(m alpha)+1)(1-y)/m.",
+      "manuscript_labels": [
+        "prop:disjointphase",
+        "eq:disjointphase",
+        "eq:equalphase"
+      ],
+      "evidence": [
+        {
+          "path": "supporting-materials/theory/SYSTEMATIC-DISJOINT-PHASES.md",
+          "role": "complete phase-partition decomposition, upper bound, and attaining-completion proofs for unequal and equal phases",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/python/systematic_disjoint_dp.py",
+          "role": "exact implementation of the minimum phase-mass formula",
+          "trust": "corroboration_only"
+        },
+        {
+          "path": "supporting-materials/computations/tests/test_systematic_disjoint_dp.py",
+          "role": "exhaustive small-coalition checks and independent comparisons with the general rational-LP solver",
+          "trust": "corroboration_only"
+        }
+      ],
+      "verification_commands": [
+        "make systematic-disjoint-dp-check"
+      ],
+      "limitations": "The closed forms require phase atoms whose supports partition the frame and use the pre-specified grid-mean ordering. They do not apply to overlapping phase supports or establish optimality among confidence procedures.",
+      "manuscript": "supporting-materials/paper/systematic-pps.tex"
+    },
+    {
+      "id": "systematic-disjoint-phase-dp-hardness",
+      "classification": "proved_theorem",
+      "statement": "For rational phase probabilities pi_a=c_a/D, the disjoint-phase minimum coalition and bound are computable exactly in O(KD) time and O(D) memory by subset-sum dynamic programming. Under binary encoding, exact evaluation is weakly NP-hard even for a one-draw disjoint frame with observed taint zero.",
+      "manuscript_labels": [
+        "prop:disjointdp"
+      ],
+      "evidence": [
+        {
+          "path": "supporting-materials/theory/SYSTEMATIC-DISJOINT-PHASES.md",
+          "role": "complete reachable-mass recurrence, correctness proof, complexity analysis, and polynomial SUBSET SUM reduction",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/python/systematic_disjoint_dp.py",
+          "role": "exact denominator-cleared DP with strict threshold, coalition back-pointers, and fail-closed scaled-state limit",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/tests/test_systematic_disjoint_dp.py",
+          "role": "exhaustive coalition comparisons, strict-boundary regression, state-limit test, and finite reduction fixtures",
+          "trust": "corroboration_only"
+        }
+      ],
+      "verification_commands": [
+        "make systematic-disjoint-dp-check"
+      ],
+      "limitations": "The running time is pseudo-polynomial in scaled total mass D, which can be exponential in the bit length of rational inputs. The hardness statement concerns exact evaluation, not approximation, overlapping-phase LPs, or every possible sampling design.",
+      "manuscript": "supporting-materials/paper/systematic-pps.tex"
+    },
+    {
+      "id": "systematic-independent-start-all-zero-formula",
+      "classification": "proved_theorem",
+      "statement": "For r independent starts on m equiprobable disjoint phases, if all observed taints are zero and d distinct phases are observed, exact inversion of the mean grid average gives B_ff=1-max(d,floor(m alpha^(1/r))+1)/m.",
+      "manuscript_labels": [
+        "prop:multistartzero",
+        "eq:multistartzero"
+      ],
+      "evidence": [
+        {
+          "path": "supporting-materials/theory/SYSTEMATIC-DISJOINT-PHASES.md",
+          "role": "complete product-tail probability, necessity, and attaining-completion proof",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/python/systematic_disjoint_dp.py",
+          "role": "exact equal-phase formula and generic rational unequal-phase product-tail DP",
+          "trust": "corroboration_only"
+        },
+        {
+          "path": "supporting-materials/computations/tests/test_systematic_disjoint_dp.py",
+          "role": "formula-to-DP comparisons across small phase counts, start counts, and exact tail levels",
+          "trust": "corroboration_only"
+        }
+      ],
+      "verification_commands": [
+        "make systematic-disjoint-dp-check"
+      ],
+      "limitations": "The theorem assumes independent starts, equal disjoint phase atoms, nonnegative taints, an all-zero observation, and the pre-specified mean-grid ordering. Nonzero observations and overlapping phases require different optimization arguments.",
+      "manuscript": "supporting-materials/paper/systematic-pps.tex"
+    },
+    {
+      "id": "systematic-disjoint-dp-certificate",
+      "classification": "exact_computational_certificate",
+      "statement": "The exact DP certificate verifies the phase partition of the 2,000-item systematic-PPS frame and reproduces its one-start bound 0.90, an unequal four-phase bound 11/15, finite yes/no instances of the SUBSET SUM reduction, and equal-20-phase all-zero bounds 0.90, 0.75, and 0.60 for one, two, and three distinct independent starts.",
+      "manuscript_labels": [
+        "eq:finiteframebenchmark",
+        "eq:multistartzero"
+      ],
+      "evidence": [
+        {
+          "path": "supporting-materials/computations/python/systematic_disjoint_dp.py",
+          "role": "deterministic exact certificate generator and checked DP implementation",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/certificates/systematic-disjoint-dp-certificate.json",
+          "role": "regenerated actual-frame partition check, exact scaled masses, thresholds, coalitions, product-tail probabilities, bounds, and finite reduction records",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/tests/test_systematic_disjoint_dp.py",
+          "role": "certificate regression plus exhaustive and independent general-solver comparisons",
+          "trust": "corroboration_only"
+        },
+        {
+          "path": "supporting-materials/theory/SYSTEMATIC-DISJOINT-PHASES.md",
+          "role": "written interpretation and exact computational boundary",
+          "trust": "proof_essential"
+        }
+      ],
+      "verification_commands": [
+        "make systematic-disjoint-dp-check"
+      ],
+      "limitations": "The certificate establishes only the listed finite rational calculations. The general formulas, hardness result, and multiple-start theorem are established by the ordinary proofs, not by extrapolation from these fixtures.",
+      "manuscript": "supporting-materials/paper/systematic-pps.tex"
     },
     {
       "id": "general-n-standard-confidence-status",
       "classification": "date_stamped_literature_status",
-      "statement": "General finite-sample coverage for arbitrary n and arbitrary taint distributions at conventional confidence levels remains unresolved in the reviewed literature. This repository proves the binomial-factor result through n=7 at 90%, 95%, and 99%; the direct Poisson-factor ranges reach n=8, n=11, and n=20, respectively.",
-      "manuscript_labels": [
-        "eq:conj"
-      ],
+      "statement": "General finite-sample coverage at conventional confidence levels remains unresolved. Proved binomial results include n=3 throughout 0<alpha<=((19+sqrt(21))/34)^3 and independent fixed-level certificates at n=4 through n=7 for alpha in {0.10,0.05,0.01}. Direct Poisson-factor ranges reach n=8,n=11,n=20 at 90%,95%,99%, respectively. The proposed n=4 and n=5 continuum extensions remain unresolved.",
+      "manuscript_labels": [],
       "evidence": [
         {
           "path": "supporting-materials/audit/OPENNESS.md",
@@ -1406,7 +2333,7 @@
         },
         {
           "path": "supporting-materials/theory/THREE-EXPONENTIAL-QUANTILE.md",
-          "role": "exact reduction of the first unequal exponential-quantile dimension, with proved coordinate-axis, diagonal, small-gap, two-large-gap, infinite-gap, and sharp-corner-neighborhood results and an explicitly open residual finite off-symmetry interior",
+          "role": "exact reduction of the first unequal exponential-quantile dimension, with proved coordinate-axis, diagonal, small-gap, compact-square, two-large-gap, infinite-gap, and sharp-corner-neighborhood results and an explicitly open residual finite off-symmetry domain",
           "trust": "corroboration_only"
         },
         {
@@ -1423,7 +2350,83 @@
       "verification_commands": [
         "make all-n-reduction-check"
       ],
-      "limitations": "This is a qualified, date-stamped literature conclusion, not a mathematical theorem or a guarantee of exhaustive priority searching. The binomial n=3 through n=7 proofs cover only the three specified levels, and the Poisson ranges are level-dependent."
+      "limitations": "This is a qualified literature status, not an exhaustive priority claim. The unresolved active-prefix inequality on repeated-lowest faces prevents inference of the n=4 and n=5 continuum extensions from the existing local geometric certificates; independent fixed-level calculations are separate.",
+      "manuscript": "supporting-materials/audit/OPENNESS.md",
+      "source_markers": [
+        "## What is proved"
+      ]
+    },
+    {
+      "id": "six-coordinate-monotone-cap-theorem",
+      "classification": "unresolved_claim",
+      "statement": "Unresolved: for uniform Dirichlet D in six coordinates and every nondecreasing probability vector c, the cap probability P(x dot D > c dot x) over ordered knots x is at most the largest beta step cap.",
+      "manuscript": "supporting-materials/theory/SIX-COORDINATE-UNIQUE-TOP-L2-L3.md",
+      "manuscript_labels": [],
+      "source_markers": [
+        "## 6. Consequence and reusable idea"
+      ],
+      "evidence": [
+        {
+          "path": "supporting-materials/theory/SIX-COORDINATE-UNIQUE-TOP-L2-L3.md",
+          "role": "ordinary interpolation reduction, central-cluster charts, scale bounds, finite sign conclusion, and theorem scope",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/python/six_coordinate_unique_top_l2_l3.py",
+          "role": "exact symbolic derivation, exact scale-bound checks, exact rational Bernstein covers, and composition of the rigorous binary64-enclosed cover",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/python/certified_binary64_bernstein.py",
+          "role": "binary64 Bernstein centers with exact rational conversion and forward-error propagation through subdivision and integer-multiplier operations",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/python/six_coordinate_unique_top_l2_l3_witness.py",
+          "role": "complete prefix-free leaf partitions and explicit nonnegative integer multipliers",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/certificates/six-coordinate-unique-top-l2-l3-certificate.json",
+          "role": "machine-readable polynomial degrees, exact scale signs, terminal covers, multipliers, coefficient digests, and rigorous enclosure margins",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/computations/tests/test_six_coordinate_unique_top_l2_l3.py",
+          "role": "minorant, scope, cover, multiplier-mutation, and incomplete-tree regressions",
+          "trust": "corroboration_only"
+        }
+      ],
+      "verification_commands": [],
+      "limitations": "The first-coordinate beta bound is not an active-prefix bound on repeated-lowest faces. The missing active-prefix section inequality is an unresolved proof obligation; no counterexample to the global theorem is asserted.",
+      "proof_obligation": "The first-coordinate beta bound is not an active-prefix bound on repeated-lowest faces. The missing active-prefix section inequality is an unresolved proof obligation; no counterexample to the global theorem is asserted."
+    },
+    {
+      "id": "binomial-n5-expanded-conservatism",
+      "classification": "unresolved_claim",
+      "statement": "Unresolved: binomial-factor Stringer pointwise dominates Gaffke at n=5 throughout 0 < alpha <= 0.3141689898050253288..., and has coverage at least 1-alpha there.",
+      "manuscript": "supporting-materials/theory/N5-MONOTONE-RANGE.md",
+      "manuscript_labels": [],
+      "source_markers": [
+        "## 4. Completion and Stringer consequence"
+      ],
+      "evidence": [
+        {
+          "path": "supporting-materials/theory/N5-MONOTONE-RANGE.md",
+          "role": "proved weight-order range and conditional coverage argument",
+          "trust": "proof_essential"
+        },
+        {
+          "path": "supporting-materials/theory/SIX-COORDINATE-UNIQUE-TOP-L2-L3.md",
+          "role": "local calculations and unresolved global implication",
+          "trust": "proof_essential"
+        }
+      ],
+      "verification_commands": [
+        "make n5-weight-monotonicity-check"
+      ],
+      "limitations": "The first-coordinate beta bound is not an active-prefix bound on repeated-lowest faces. The missing active-prefix section inequality is an unresolved proof obligation; no counterexample to the global theorem is asserted. Independent direct certificates retain coverage at alpha in {0.10, 0.05, 0.01}; failure of pointwise domination above the endpoint is not undercoverage.",
+      "proof_obligation": "The first-coordinate beta bound is not an active-prefix bound on repeated-lowest faces. The missing active-prefix section inequality is an unresolved proof obligation; no counterexample to the global theorem is asserted."
     }
   ]
 }

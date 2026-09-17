@@ -1,0 +1,111 @@
+{
+  "arithmetic": {
+    "collar_endpoint_comparisons": "exact Fraction arithmetic",
+    "factor_bracket_bits": 64,
+    "factor_endpoint_signs": "exact integer binomial-CDF comparisons",
+    "floating_point_role": "decimal rendering only"
+  },
+  "results": [
+    {
+      "alpha": "0.10",
+      "endpoint_inequalities_checked": 19900,
+      "maximum_factor_bracket_width": {
+        "decimal": "0.000000000000000000",
+        "denominator": "18446744073709551616",
+        "numerator": "1"
+      },
+      "nominal_confidence": "0.90",
+      "q_min": {
+        "decimal": "0.416666666666666667",
+        "denominator": "12",
+        "numerator": "5"
+      },
+      "sample_sizes_checked": "2 through 200",
+      "sha256_all_endpoint_upper_bounds": "648efe8374f82de11245ab4e53ab67a3844ab0188bce5a6279c2f50ad060c657",
+      "worst_endpoint_case": {
+        "certified_upper_bound": {
+          "decimal": "0.098668425090392199",
+          "denominator": "663743481743224537511935876609626995876437368621252977647500034338711863810742041860786967103400095293627329000000",
+          "numerator": "65490524007617452717789464222304430002507808525596238639505142491324234829232492761420390104512398594841706721237"
+        },
+        "n": 7,
+        "r": 6,
+        "strict_margin_below_alpha": {
+          "decimal": "0.001331574909607801",
+          "denominator": "663743481743224537511935876609626995876437368621252977647500034338711863810742041860786967103400095293627329000000",
+          "numerator": "883824166705001033404123438658269585135928336529059125244860942546951551841711424658306605827610934521026178763"
+        }
+      }
+    },
+    {
+      "alpha": "0.05",
+      "endpoint_inequalities_checked": 19900,
+      "maximum_factor_bracket_width": {
+        "decimal": "0.000000000000000000",
+        "denominator": "18446744073709551616",
+        "numerator": "1"
+      },
+      "nominal_confidence": "0.95",
+      "q_min": {
+        "decimal": "0.333333333333333333",
+        "denominator": "3",
+        "numerator": "1"
+      },
+      "sample_sizes_checked": "2 through 200",
+      "sha256_all_endpoint_upper_bounds": "6a3bc4ff1aa28a49be743a9a61c12e6abd17b9bf06b0ce9b66d7e5fc3a8d5af4",
+      "worst_endpoint_case": {
+        "certified_upper_bound": {
+          "decimal": "0.049123035329079264",
+          "denominator": "59017574901246774555530396129427076358758186781909087926233921571335975456371484130659144576196287721347267950801864822662764205030799965291943009551875390625",
+          "numerator": "2899122416910526948668216447476175370263424409897448472799461993555870423423883885276618441620113728416227097682988824192550107819226679839744146562369897216"
+        },
+        "n": 9,
+        "r": 8,
+        "strict_margin_below_alpha": {
+          "decimal": "0.000876964670920736",
+          "denominator": "236070299604987098222121584517708305435032747127636351704935686285343901825485936522636578304785150885389071803207459290651056820123199861167772038207501562500",
+          "numerator": "207025312607247116433213435980713790697939716792023694048936340043713397578761285025355148758802630604545199428417667762352409729253273699412015660895489261"
+        }
+      }
+    },
+    {
+      "alpha": "0.01",
+      "endpoint_inequalities_checked": 19900,
+      "maximum_factor_bracket_width": {
+        "decimal": "0.000000000000000000",
+        "denominator": "18446744073709551616",
+        "numerator": "1"
+      },
+      "nominal_confidence": "0.99",
+      "q_min": {
+        "decimal": "0.250000000000000000",
+        "denominator": "4",
+        "numerator": "1"
+      },
+      "sample_sizes_checked": "2 through 200",
+      "sha256_all_endpoint_upper_bounds": "5288b6940975dcb9eb5442cc91461c7cc657366b82794f1e84145d492cd5da77",
+      "worst_endpoint_case": {
+        "certified_upper_bound": {
+          "decimal": "0.009302102269702486",
+          "denominator": "29122800333778960238592411425181028331195008338841748959009637140896950455097382919285223122506971319108005997959176371877410562471755299881770555283435858780310630788304949402275227268991631852575391694197",
+          "numerator": "270903267084937575590144959060399938095824070159967084721670165303283329209351800507727692577342369568142542049498169977254976331300413084022524375481757085358914843449598260695133067296964110518950297600"
+        },
+        "n": 12,
+        "r": 11,
+        "strict_margin_below_alpha": {
+          "decimal": "0.000697897730297514",
+          "denominator": "2912280033377896023859241142518102833119500833884174895900963714089695045509738291928522312250697131910800599795917637187741056247175529988177055528343585878031063078830494940227522726899163185257539169419700",
+          "numerator": "2032473625285202679577915519141034521612601322845040486842620610568617534162202868512453864772734362293751793009359374151912929341713991479518117735260150244419146443345123332761920539295220800680361934197"
+        }
+      }
+    }
+  ],
+  "schema_version": 1,
+  "status": "Exact finite-range certificate for the stated two-cap collars; not a certificate for the residual two-cap region or ordinary Stringer coverage.",
+  "theorem": {
+    "analytic_bound": "cap <= g_n(q)*max_{1<=r<n} (C_r/(C_r+c_n+c_(n-1)*(1-q)))^r",
+    "collar_maximization": "Each r-term has no interior maximum in x=1-q by a one-sign-change derivative polynomial; q=1 follows from the analytic one-cap theorem and this certificate checks q=q_min.",
+    "conclusion": "The binomial Stringer value is at least the valid Gaffke upper limit, so the pre-specified maximum has zero uplift.",
+    "sample_condition": "The binomial Stringer threshold s lies between the second-largest and largest observed taints, and q=(1-largest_taint)/(1-s) is at least q_min."
+  }
+}

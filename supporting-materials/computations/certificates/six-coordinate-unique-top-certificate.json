@@ -1,0 +1,1657 @@
+{
+  "arithmetic": {
+    "bernstein_signs": "FLINT exact rational multihomogenization",
+    "floating_point_role": "none",
+    "symbolic_derivation": "SymPy exact rational arithmetic"
+  },
+  "base_parameterization": "u=U, v=U*V, w=U*V*W, a=A, t=q",
+  "base_variables": [
+    "U",
+    "V",
+    "W",
+    "A",
+    "q"
+  ],
+  "bernstein_covers": {
+    "b_ge_v": {
+      "bernstein_signs": {
+        "basis": "local tensor-Bernstein basis; coefficients are recorded after positive binomial scaling",
+        "largest_scaled": {
+          "denominator": "549755813888",
+          "numerator": "1702110261201245317571534715679736730054018825"
+        },
+        "negative_coefficients": 0,
+        "positive_coefficients": 8019720,
+        "sha256_leaf_sign_summaries": "fa4d9c3ad27192e24f7cdc9ea062ba16f4539ddb52fd6dc09b71d0b4cb88b7d6",
+        "smallest_positive_scaled": {
+          "denominator": "1",
+          "numerator": "1"
+        },
+        "total_coefficients": 8020224,
+        "zero_coefficients": 504
+      },
+      "box_count": 9,
+      "closure_counts": {
+        "G4": 4,
+        "T": 5
+      },
+      "exact_multipliers": [],
+      "subdivision": {
+        "axis_cycle": [
+          2,
+          0,
+          1,
+          3,
+          4
+        ],
+        "leaves": 9,
+        "maximum_depth": 5,
+        "nodes": 17
+      }
+    },
+    "lower_large": {
+      "bernstein_signs": {
+        "basis": "local tensor-Bernstein basis; coefficients are recorded after positive binomial scaling",
+        "largest_scaled": {
+          "denominator": "262144",
+          "numerator": "1226924562552835406242310407694356622873345"
+        },
+        "negative_coefficients": 0,
+        "positive_coefficients": 19906560,
+        "sha256_leaf_sign_summaries": "2710a266b7971fda48befe7f4bcfda6f026e9a7e60bf8bc7bbb64e64fc2925e5",
+        "smallest_positive_scaled": {
+          "denominator": "3",
+          "numerator": "3125"
+        },
+        "total_coefficients": 19906560,
+        "zero_coefficients": 0
+      },
+      "box_count": 4,
+      "closure_counts": {
+        "T": 4
+      },
+      "exact_multipliers": [],
+      "subdivision": null
+    },
+    "lower_low": {
+      "bernstein_signs": {
+        "basis": "local tensor-Bernstein basis; coefficients are recorded after positive binomial scaling",
+        "largest_scaled": {
+          "denominator": "117640273407315333844303872",
+          "numerator": "732528194317320688106641661366746658532440590841113992918975783635"
+        },
+        "negative_coefficients": 0,
+        "positive_coefficients": 99913032,
+        "sha256_leaf_sign_summaries": "854b330ee819f0ccd68c135d0c047d47cda18e880d145c0cdc29ed73e004c724",
+        "smallest_positive_scaled": {
+          "denominator": "4608",
+          "numerator": "25"
+        },
+        "total_coefficients": 99913032,
+        "zero_coefficients": 0
+      },
+      "box_count": 27,
+      "closure_counts": {
+        "G4": 14,
+        "T": 13
+      },
+      "exact_multipliers": [],
+      "subdivision": {
+        "axis_cycle": [
+          0,
+          3,
+          0,
+          1
+        ],
+        "leaves": 27,
+        "maximum_depth": 8,
+        "nodes": 53
+      }
+    },
+    "lower_mid_corner": {
+      "bernstein_signs": {
+        "basis": "local tensor-Bernstein basis; coefficients are recorded after positive binomial scaling",
+        "largest_scaled": {
+          "denominator": "10820843684757504",
+          "numerator": "1715480268426383782967504933129456714518169503316495"
+        },
+        "negative_coefficients": 0,
+        "positive_coefficients": 9962884,
+        "sha256_leaf_sign_summaries": "f997122a6aaee30fc238af67821ef6688a421f3cd4b7eaa63ba784b8c1d759ba",
+        "smallest_positive_scaled": {
+          "denominator": "1536",
+          "numerator": "551"
+        },
+        "total_coefficients": 9962884,
+        "zero_coefficients": 0
+      },
+      "box_count": 3,
+      "closure_counts": {
+        "G4": 1,
+        "T": 2
+      },
+      "exact_multipliers": [],
+      "subdivision": {
+        "axis_cycle": [
+          3,
+          0,
+          1,
+          2,
+          4
+        ],
+        "leaves": 3,
+        "maximum_depth": 2,
+        "nodes": 5
+      }
+    },
+    "middle_high": {
+      "bernstein_signs": {
+        "basis": "local tensor-Bernstein basis; coefficients are recorded after positive binomial scaling",
+        "largest_scaled": {
+          "denominator": "32768",
+          "numerator": "178218895239593961122852706356755263095"
+        },
+        "negative_coefficients": 0,
+        "positive_coefficients": 3317760,
+        "sha256_leaf_sign_summaries": "b04324068afdae0858aabf4c3797ce8aece3fc822f8af1b8f358de7908c4f23a",
+        "smallest_positive_scaled": {
+          "denominator": "2",
+          "numerator": "3125"
+        },
+        "total_coefficients": 3317760,
+        "zero_coefficients": 0
+      },
+      "box_count": 2,
+      "closure_counts": {
+        "T": 2
+      },
+      "exact_multipliers": [],
+      "subdivision": null
+    },
+    "middle_low": {
+      "bernstein_signs": {
+        "basis": "local tensor-Bernstein basis; coefficients are recorded after positive binomial scaling",
+        "largest_scaled": {
+          "denominator": "16777216",
+          "numerator": "834715256646967983777315402353383766756025"
+        },
+        "negative_coefficients": 0,
+        "positive_coefficients": 15372864,
+        "sha256_leaf_sign_summaries": "25a74ddd82d28b4e8649e276e9fad83bb19a44d7d54a5b3a33f6dabc838f5323",
+        "smallest_positive_scaled": {
+          "denominator": "32",
+          "numerator": "3"
+        },
+        "total_coefficients": 15372864,
+        "zero_coefficients": 0
+      },
+      "box_count": 10,
+      "closure_counts": {
+        "G4": 4,
+        "T": 6
+      },
+      "exact_multipliers": [],
+      "subdivision": {
+        "axis_cycle": [
+          2,
+          0,
+          1,
+          3,
+          4
+        ],
+        "leaves": 10,
+        "maximum_depth": 7,
+        "nodes": 19
+      }
+    },
+    "q_le_u": {
+      "bernstein_signs": {
+        "basis": "local tensor-Bernstein basis; coefficients are recorded after positive binomial scaling",
+        "largest_scaled": {
+          "denominator": "1",
+          "numerator": "476343332145947549303904080"
+        },
+        "negative_coefficients": 0,
+        "positive_coefficients": 776265,
+        "sha256_leaf_sign_summaries": "02a2a0207044fbdbacd00858539be3a40f394dabf4e6c0a8e573010ffdc0509c",
+        "smallest_positive_scaled": {
+          "denominator": "1",
+          "numerator": "3125"
+        },
+        "total_coefficients": 1339200,
+        "zero_coefficients": 562935
+      },
+      "box_count": 1,
+      "closure_counts": {
+        "T": 1
+      },
+      "exact_multipliers": [],
+      "subdivision": null
+    },
+    "z_le_a": {
+      "bernstein_signs": {
+        "basis": "local tensor-Bernstein basis; coefficients are recorded after positive binomial scaling",
+        "largest_scaled": {
+          "denominator": "2475880078570760549798248448",
+          "numerator": "265094575994372369672757109560600710230030971360216385075377880110021778695"
+        },
+        "negative_coefficients": 0,
+        "positive_coefficients": 78583824,
+        "sha256_leaf_sign_summaries": "ccd2bfe17708e900c0d8a4f6df7559c8c464413697af22eaf9d60e90975d9ec0",
+        "smallest_positive_scaled": {
+          "denominator": "2048",
+          "numerator": "6275"
+        },
+        "total_coefficients": 78583824,
+        "zero_coefficients": 0
+      },
+      "box_count": 27,
+      "closure_counts": {
+        "G4": 8,
+        "M4": 11,
+        "T": 8
+      },
+      "exact_multipliers": [
+        {
+          "multiplier": {
+            "denominator": "1",
+            "numerator": "43931"
+          },
+          "path": "00011"
+        },
+        {
+          "multiplier": {
+            "denominator": "1",
+            "numerator": "490678"
+          },
+          "path": "00111"
+        },
+        {
+          "multiplier": {
+            "denominator": "1",
+            "numerator": "14783"
+          },
+          "path": "01000"
+        },
+        {
+          "multiplier": {
+            "denominator": "1",
+            "numerator": "27645"
+          },
+          "path": "0100100"
+        },
+        {
+          "multiplier": {
+            "denominator": "1",
+            "numerator": "5053830"
+          },
+          "path": "0100101"
+        },
+        {
+          "multiplier": {
+            "denominator": "1",
+            "numerator": "64274491"
+          },
+          "path": "0100111"
+        },
+        {
+          "multiplier": {
+            "denominator": "1",
+            "numerator": "5692665"
+          },
+          "path": "01010"
+        },
+        {
+          "multiplier": {
+            "denominator": "1",
+            "numerator": "2389"
+          },
+          "path": "10000"
+        },
+        {
+          "multiplier": {
+            "denominator": "1",
+            "numerator": "9509"
+          },
+          "path": "10010"
+        },
+        {
+          "multiplier": {
+            "denominator": "1",
+            "numerator": "3637"
+          },
+          "path": "10100"
+        },
+        {
+          "multiplier": {
+            "denominator": "1",
+            "numerator": "15232"
+          },
+          "path": "10110"
+        }
+      ],
+      "subdivision": {
+        "axis_cycle": [
+          4,
+          1,
+          0
+        ],
+        "leaves": 27,
+        "maximum_depth": 7,
+        "nodes": 53
+      }
+    }
+  },
+  "comparison_identity": "I_{gamma_0}(1,5)-p is a positive rational factor times T",
+  "gap_identity": "gamma_{i+1}-gamma_i is a nonnegative collision factor times G_i over a coefficientwise-positive denominator",
+  "mathematical_status": "ordinary interpolation and projective reductions with exact rational polynomial certificates",
+  "normalized_shape": "(-1,-u,-v,-w,t*a,t)",
+  "polynomials": {
+    "b_ge_v_final_target": {
+      "degree": [
+        14,
+        7,
+        36,
+        23,
+        14
+      ],
+      "power_terms": 87047,
+      "sha256_power_expansion": "fd27bcf7d27e424afbf703ea580dc6fabde2b87810bd39505f433256888ef93c"
+    },
+    "centroid_gaps": [
+      {
+        "degree": [
+          4,
+          2,
+          1,
+          5,
+          6
+        ],
+        "power_terms": 74,
+        "sha256_power_expansion": "f518de4f6648ff38c17a02754db5d51ae4620c6a742b57e95d459c14216f7b52"
+      },
+      {
+        "degree": [
+          5,
+          3,
+          1,
+          5,
+          6
+        ],
+        "power_terms": 74,
+        "sha256_power_expansion": "7a383fa8e904e26e4be65c12a53c2cb73c9a1207e5d1ce2ed4ad63856923c709"
+      },
+      {
+        "degree": [
+          5,
+          4,
+          2,
+          5,
+          6
+        ],
+        "power_terms": 74,
+        "sha256_power_expansion": "a21ea9c01d94e2ab30ad47b166f78c952d4e86571af471e6151d4e60e4be9152"
+      },
+      {
+        "degree": [
+          7,
+          5,
+          3,
+          7,
+          8
+        ],
+        "power_terms": 218,
+        "sha256_power_expansion": "74aba0defa815d7b963a42c15b2e489cc08366cd1528d4df18fa05c7aae51a21"
+      },
+      {
+        "degree": [
+          9,
+          6,
+          3,
+          6,
+          10
+        ],
+        "power_terms": 572,
+        "sha256_power_expansion": "f5b9397199cbb1d831aa700a894e79ddab81275459bd8ed6ed938edec9033feb"
+      }
+    ],
+    "lower_low_target": {
+      "degree": [
+        14,
+        23,
+        23,
+        36,
+        23
+      ],
+      "power_terms": 87047,
+      "sha256_power_expansion": "4913021375933007f8f127382a5bd9ebd95559fa5a9488bea2916448dfb50c4c"
+    },
+    "lower_scale_target": {
+      "degree": [
+        14,
+        23,
+        23,
+        23,
+        23
+      ],
+      "power_terms": 87047,
+      "sha256_power_expansion": "4914c771f75e367094edf08a354d47adc0a59db3e317824bbcfbff44fc61dcab"
+    },
+    "middle_low_target": {
+      "degree": [
+        14,
+        23,
+        36,
+        23,
+        7
+      ],
+      "power_terms": 87047,
+      "sha256_power_expansion": "25a0b335a71e534f1b516b53e81afb6c32376e683a4627717c2053f8957b5f2a"
+    },
+    "middle_scale_target": {
+      "degree": [
+        14,
+        23,
+        23,
+        23,
+        7
+      ],
+      "power_terms": 87047,
+      "sha256_power_expansion": "dd0e855e711b3f286d0d5198b346d09ad5e1dc543b8cb4bbd6044c1acd529289"
+    },
+    "q_le_u_target": {
+      "degree": [
+        14,
+        14,
+        7,
+        23,
+        30
+      ],
+      "power_terms": 87047,
+      "sha256_power_expansion": "8f33d05c9903459d5433d56ed001d41e4a284255e328e4cde9766167c730a78f"
+    },
+    "target_T": {
+      "degree": [
+        21,
+        14,
+        7,
+        23,
+        30
+      ],
+      "power_terms": 87047,
+      "sha256_power_expansion": "f3482494e5b5e07c36fc3058fef2ab69fa9cc31c7d16b7ac60dc3bd9303b5389"
+    },
+    "z_le_a_final_target": {
+      "degree": [
+        36,
+        61,
+        14,
+        7,
+        14
+      ],
+      "power_terms": 87047,
+      "sha256_power_expansion": "24a37199b213b60c84e8c1c48076f756853d0694c4b3ee32065abe23bf6b5d31"
+    }
+  },
+  "positive_gap_factors": [
+    {
+      "degree": [
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "largest": {
+        "denominator": "1",
+        "numerator": "1"
+      },
+      "negative_coefficients": 0,
+      "positive_coefficients": 1,
+      "sha256_all_coefficients": "65bce2680d393f1129b633d576cd17b735db9c6b8b3066dbe4f20b0a53eda464",
+      "smallest_positive": {
+        "denominator": "1",
+        "numerator": "1"
+      },
+      "total_coefficients": 4,
+      "zero_coefficients": 3
+    },
+    {
+      "degree": [
+        1,
+        1,
+        0,
+        0,
+        1
+      ],
+      "largest": {
+        "denominator": "1",
+        "numerator": "1"
+      },
+      "negative_coefficients": 0,
+      "positive_coefficients": 1,
+      "sha256_all_coefficients": "ee058096bb2209bae47e6cbe54b20bd61d35b31194e9a39da498509b4ec1f858",
+      "smallest_positive": {
+        "denominator": "1",
+        "numerator": "1"
+      },
+      "total_coefficients": 8,
+      "zero_coefficients": 7
+    },
+    {
+      "degree": [
+        1,
+        1,
+        1,
+        0,
+        1
+      ],
+      "largest": {
+        "denominator": "1",
+        "numerator": "1"
+      },
+      "negative_coefficients": 0,
+      "positive_coefficients": 1,
+      "sha256_all_coefficients": "7120327f0c6e6535c75fafcbfbb7f19d439a65372a340e527f2ce41db667c29f",
+      "smallest_positive": {
+        "denominator": "1",
+        "numerator": "1"
+      },
+      "total_coefficients": 16,
+      "zero_coefficients": 15
+    },
+    {
+      "degree": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "largest": {
+        "denominator": "1",
+        "numerator": "1"
+      },
+      "negative_coefficients": 0,
+      "positive_coefficients": 1,
+      "sha256_all_coefficients": "5c42632d0264bdce6b5521e9b90af4b52c01701baf0eca994ca954e7d6b5e38e",
+      "smallest_positive": {
+        "denominator": "1",
+        "numerator": "1"
+      },
+      "total_coefficients": 1,
+      "zero_coefficients": 0
+    },
+    {
+      "degree": [
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      "largest": {
+        "denominator": "1",
+        "numerator": "1"
+      },
+      "negative_coefficients": 0,
+      "positive_coefficients": 1,
+      "sha256_all_coefficients": "410bd64d60c9061187fd6d73dcefd24ca33a152654c3a8ae2f14cfe8fcba10b9",
+      "smallest_positive": {
+        "denominator": "1",
+        "numerator": "1"
+      },
+      "total_coefficients": 2,
+      "zero_coefficients": 1
+    }
+  ],
+  "projective_cover": "Split q<=U and U<=q.  In the latter write U=q*Z and split Z<=A from A<=Z.  The first branch is resolved by nested scale bounds; the second by comparing B=A/Z with V and V*W.",
+  "removed_positive_monomials": {
+    "a_le_z": {
+      "gaps": [
+        [
+          0,
+          0,
+          0,
+          4,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          5,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          5,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          7,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          6,
+          0
+        ]
+      ],
+      "target": [
+        0,
+        0,
+        0,
+        18,
+        0
+      ]
+    },
+    "b_ge_v": {
+      "gaps": [
+        [
+          0,
+          0,
+          0,
+          2,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          3,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          4,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          5,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          4,
+          0
+        ]
+      ],
+      "target": [
+        0,
+        0,
+        0,
+        12,
+        0
+      ]
+    },
+    "b_ge_v_final": {
+      "gaps": [
+        [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1,
+          0,
+          0
+        ]
+      ],
+      "target": [
+        0,
+        0,
+        1,
+        0,
+        0
+      ]
+    },
+    "cube_target": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "initial_target": [
+      0,
+      0,
+      0,
+      0,
+      1
+    ],
+    "lower": {
+      "gaps": [
+        [
+          0,
+          2,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          3,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          4,
+          2,
+          0,
+          0
+        ],
+        [
+          0,
+          5,
+          3,
+          0,
+          0
+        ],
+        [
+          0,
+          4,
+          2,
+          0,
+          0
+        ]
+      ],
+      "target": [
+        0,
+        12,
+        6,
+        0,
+        0
+      ]
+    },
+    "lower_low": {
+      "gaps": [
+        [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0
+        ]
+      ],
+      "target": [
+        0,
+        0,
+        0,
+        1,
+        0
+      ]
+    },
+    "lower_scale": {
+      "gaps": [
+        [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "target": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "middle": {
+      "gaps": [
+        [
+          0,
+          2,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          3,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          4,
+          0,
+          2,
+          0
+        ],
+        [
+          0,
+          5,
+          0,
+          3,
+          0
+        ],
+        [
+          0,
+          4,
+          0,
+          2,
+          0
+        ]
+      ],
+      "target": [
+        0,
+        12,
+        0,
+        6,
+        0
+      ]
+    },
+    "middle_low": {
+      "gaps": [
+        [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1,
+          0,
+          0
+        ]
+      ],
+      "target": [
+        0,
+        0,
+        1,
+        0,
+        0
+      ]
+    },
+    "middle_scale": {
+      "gaps": [
+        [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "target": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "q_le_u": {
+      "gaps": [
+        [
+          4,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          5,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          5,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          7,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          9,
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "target": [
+        21,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "u_le_q": {
+      "gaps": [
+        [
+          4,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          5,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          5,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          7,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          9,
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "target": [
+        21,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "z_le_a": {
+      "gaps": [
+        [
+          0,
+          0,
+          0,
+          4,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          5,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          5,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          7,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          6,
+          0
+        ]
+      ],
+      "target": [
+        0,
+        0,
+        0,
+        18,
+        0
+      ]
+    },
+    "z_le_a_c": {
+      "gaps": [
+        [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0,
+          0,
+          0
+        ]
+      ],
+      "target": [
+        0,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "z_le_a_final": {
+      "gaps": [
+        [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0,
+          0,
+          0
+        ]
+      ],
+      "target": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "z_le_a_r": {
+      "gaps": [
+        [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "target": [
+        1,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "z_le_a_s": {
+      "gaps": [
+        [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0,
+          0,
+          0
+        ]
+      ],
+      "target": [
+        0,
+        1,
+        0,
+        0,
+        0
+      ]
+    }
+  },
+  "scale_bounds": {
+    "b_ge_v": {
+      "bernstein_signs": {
+        "degree": [
+          9,
+          3,
+          6,
+          6,
+          3
+        ],
+        "largest": {
+          "denominator": "1",
+          "numerator": "3200"
+        },
+        "negative_coefficients": 0,
+        "positive_coefficients": 6356,
+        "sha256_all_coefficients": "ad9c7b54eae49cd39f02da3c97593222aceb0578c51e0b4e4ce7a096fa5baa87",
+        "smallest_positive": {
+          "denominator": "540",
+          "numerator": "1"
+        },
+        "total_coefficients": 7840,
+        "zero_coefficients": 1484
+      },
+      "polynomial": {
+        "degree": [
+          9,
+          3,
+          6,
+          6,
+          3
+        ],
+        "power_terms": 882,
+        "sha256_power_expansion": "aca2e487b3d4b3d1e24ac8e37334a1069d47b89d112c14d28c0ca8b9c74b2f74"
+      }
+    },
+    "global": {
+      "bernstein_signs": {
+        "degree": [
+          9,
+          6,
+          3,
+          6,
+          10
+        ],
+        "largest": {
+          "denominator": "1",
+          "numerator": "17694720"
+        },
+        "negative_coefficients": 0,
+        "positive_coefficients": 10279,
+        "sha256_all_coefficients": "1828177c456e95207e8965a6d5fc07130f0daaa0db862bf6400844105eb9d5b6",
+        "smallest_positive": {
+          "denominator": "28350",
+          "numerator": "1"
+        },
+        "total_coefficients": 21560,
+        "zero_coefficients": 11281
+      },
+      "conclusion": "orderedness forces q<3",
+      "polynomial": {
+        "degree": [
+          9,
+          6,
+          3,
+          6,
+          10
+        ],
+        "power_terms": 1607,
+        "sha256_power_expansion": "9944a42f8667c8baae78143b329a715a9c0bc7422b94901267df1e4994ac59ce"
+      }
+    },
+    "lower_low": {
+      "bernstein_signs": {
+        "degree": [
+          9,
+          6,
+          6,
+          6,
+          3
+        ],
+        "largest": {
+          "denominator": "243",
+          "numerator": "278528"
+        },
+        "negative_coefficients": 0,
+        "positive_coefficients": 9460,
+        "sha256_all_coefficients": "9d68ba784984dcf25032816f2ff6655d2cb23bc2b5224a7dfd7cf1b816b0322a",
+        "smallest_positive": {
+          "denominator": "1093500",
+          "numerator": "1"
+        },
+        "total_coefficients": 13720,
+        "zero_coefficients": 4260
+      },
+      "polynomial": {
+        "degree": [
+          9,
+          6,
+          6,
+          6,
+          3
+        ],
+        "power_terms": 890,
+        "sha256_power_expansion": "ee8a38c5a8cef340b2b3b0cf643abc884dbb67bc1df21c8ca9e31304ad48d3e2"
+      }
+    },
+    "middle_low": {
+      "bernstein_signs": {
+        "degree": [
+          9,
+          6,
+          6,
+          3,
+          3
+        ],
+        "largest": {
+          "denominator": "16",
+          "numerator": "14823"
+        },
+        "negative_coefficients": 0,
+        "positive_coefficients": 5816,
+        "sha256_all_coefficients": "f1bf8898cd6a4c88699e1cf1fb0ad89bff413401ee45bd33463594ce95f5340b",
+        "smallest_positive": {
+          "denominator": "32400",
+          "numerator": "1"
+        },
+        "total_coefficients": 7840,
+        "zero_coefficients": 2024
+      },
+      "polynomial": {
+        "degree": [
+          9,
+          6,
+          6,
+          3,
+          3
+        ],
+        "power_terms": 890,
+        "sha256_power_expansion": "71ee55d30e400489c68ece58189e521c256e5a9d68bf69dbc2c70eec71389d0c"
+      }
+    },
+    "z_le_a_c": {
+      "bernstein_signs": {
+        "degree": [
+          8,
+          16,
+          6,
+          3,
+          3
+        ],
+        "largest": {
+          "denominator": "1",
+          "numerator": "427648"
+        },
+        "negative_coefficients": 0,
+        "positive_coefficients": 16884,
+        "sha256_all_coefficients": "b45ab7312d45d599c41e3b06db3dbbe9697165c6ef9059bc4b12229b88eb328d",
+        "smallest_positive": {
+          "denominator": "8",
+          "numerator": "1"
+        },
+        "total_coefficients": 17136,
+        "zero_coefficients": 252
+      },
+      "polynomial": {
+        "degree": [
+          8,
+          16,
+          6,
+          3,
+          3
+        ],
+        "power_terms": 1203,
+        "sha256_power_expansion": "dc6f9388e01d46ce64f1ecc4562beb6b4ec576533c46eb34047ad768b0361689"
+      }
+    },
+    "z_le_a_q": {
+      "bernstein_signs": {
+        "degree": [
+          9,
+          9,
+          6,
+          3,
+          3
+        ],
+        "largest": {
+          "denominator": "1",
+          "numerator": "3200"
+        },
+        "negative_coefficients": 0,
+        "positive_coefficients": 9380,
+        "sha256_all_coefficients": "8ee2001ef12d90157bcc8d19cb56a10b67546148f6d1c854865e8f758c4f2666",
+        "smallest_positive": {
+          "denominator": "1296",
+          "numerator": "1"
+        },
+        "total_coefficients": 11200,
+        "zero_coefficients": 1820
+      },
+      "polynomial": {
+        "degree": [
+          9,
+          9,
+          6,
+          3,
+          3
+        ],
+        "power_terms": 924,
+        "sha256_power_expansion": "0ef4c3cb5e480f511d6de6f4c3c2a1a150362ed5d7e3d76b1940737a68327a41"
+      }
+    },
+    "z_le_a_r": {
+      "bernstein_signs": {
+        "degree": [
+          8,
+          12,
+          6,
+          3,
+          3
+        ],
+        "largest": {
+          "denominator": "1",
+          "numerator": "14208"
+        },
+        "negative_coefficients": 0,
+        "positive_coefficients": 12852,
+        "sha256_all_coefficients": "ff96ce7334bd08977cf9a764808e221b7b6e3fc0fe7d6b8e57870b09a6371d56",
+        "smallest_positive": {
+          "denominator": "6",
+          "numerator": "1"
+        },
+        "total_coefficients": 13104,
+        "zero_coefficients": 252
+      },
+      "polynomial": {
+        "degree": [
+          8,
+          12,
+          6,
+          3,
+          3
+        ],
+        "power_terms": 882,
+        "sha256_power_expansion": "026922ec551eff4d81820a1e6954663b1f0b5f6ef42f9f381f20d3695d7cf866"
+      }
+    },
+    "z_le_a_s": {
+      "bernstein_signs": {
+        "degree": [
+          8,
+          14,
+          6,
+          3,
+          3
+        ],
+        "largest": {
+          "denominator": "1",
+          "numerator": "14208"
+        },
+        "negative_coefficients": 0,
+        "positive_coefficients": 14868,
+        "sha256_all_coefficients": "037db4de6d9188b9a1ad6da39a3031f9906b92cc57620e2462698129b60ec036",
+        "smallest_positive": {
+          "denominator": "7",
+          "numerator": "1"
+        },
+        "total_coefficients": 15120,
+        "zero_coefficients": 252
+      },
+      "polynomial": {
+        "degree": [
+          8,
+          14,
+          6,
+          3,
+          3
+        ],
+        "power_terms": 1073,
+        "sha256_power_expansion": "0bf83e3d33099835fad41a2fff6c46dc233423f6cf68132b71dbc73a84b7237a"
+      }
+    }
+  },
+  "schema_version": 1,
+  "scope": {
+    "companion_unique_top_families": [
+      "L=2",
+      "L=3"
+    ],
+    "conclusion": "p<=I_{gamma_0}(1,5)=1-(1-gamma_0)^5",
+    "global_consequence": "The companion certificates address all nine local first-coordinate families. The first-coordinate beta bound is not an active-prefix bound on repeated-lowest faces. The global monotone cap theorem remains unresolved.",
+    "hypothesis": "The regular uniform six-coordinate section has normalized knots (-1,-u,-v,-w,t*a,t), ordered centroid, and the reduced gap inequalities of its chart. The certified geometric implication applies on the listed relative-open knot strata with all reduced centroid-gap inequalities imposed, and to limits that preserve those inequalities. A vanished collision factor does not imply that the divided centroid-gap polynomial remains nonnegative.",
+    "proved_unique_top_families": [
+      "L=4"
+    ]
+  }
+}

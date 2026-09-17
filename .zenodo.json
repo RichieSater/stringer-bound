@@ -1,25 +1,25 @@
 {
-  "title": "The Stringer Bound Conjecture: Proofs, Computations, and Exact Certificates",
-  "description": "A certificate-backed investigation of finite-sample conservatism for the Stringer monetary-unit-sampling bound. This release includes a proof for n = 2 at every confidence level, exact rational counterexamples at low confidence, a documented gap in the strongest prior finite-sample certification, reproducible search and certification code, and machine-checkable certificates.",
+  "title": "Ordered simplex caps and the three-observation Stringer bound: source and supporting computations",
+  "description": "Source and supporting computations for the nine-page preprint Ordered simplex caps and the three-observation Stringer bound. An exact rational tetrahedral cap calculation and a stationary-face argument prove the sharp pointwise Stringer-Gaffke comparison for three independent, identically distributed observations. A terminal-edge derivative gives an all-dimensional obstruction. The proposed five- and six-coordinate global cap extensions and their dependent confidence continua remain conjectural: the existing first-coordinate beta inequalities do not establish the required active-prefix inequality on repeated-lowest-knot faces. The archive preserves the local computations, independent fixed-level results, other research notes, and the mathematically separate systematic-PPS manuscript with their stated scopes.",
   "creators": [
     {
       "name": "Sater, Richie",
-      "affiliation": "Independent Researcher",
-      "type": "ProjectLeader"
+      "affiliation": "Independent Researcher"
     }
   ],
-  "version": "1.0.0",
+  "version": "1.1.0",
   "access_right": "open",
   "license": "mit",
   "upload_type": "software",
   "language": "eng",
   "keywords": [
     "Stringer bound",
-    "monetary-unit sampling",
-    "audit sampling",
+    "simplex caps",
+    "Dirichlet averages",
     "finite-sample coverage",
     "Clopper-Pearson",
-    "exact arithmetic",
-    "computer-assisted proof"
-  ]
+    "exact rational arithmetic",
+    "monetary-unit sampling"
+  ],
+  "publication_date": "2026-09-17"
 }

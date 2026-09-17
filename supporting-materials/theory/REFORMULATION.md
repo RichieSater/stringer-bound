@@ -4,13 +4,17 @@
 > theorem — see [`N2-PROOF.md`](N2-PROOF.md) for the complete proof
 > (all F, all confidence levels). This note is kept as the derivation
 > of the reformulation and the record of the partial results that led
-> there. Separate Gaffke/simplex-cap arguments now prove the cases
-> n = 3 through n = 7 at 90%, 95%, and 99%; see
-> [`N3-CONVENTIONAL.md`](N3-CONVENTIONAL.md),
-> [`N4-CONVENTIONAL.md`](N4-CONVENTIONAL.md), and
+> there. A four-coordinate section-centroid theorem now proves n = 3 at
+> every nominal confidence of at least 66.6314788...%; see
+> [`TETRAHEDRAL-VERTEX-BARRIER.md`](TETRAHEDRAL-VERTEX-BARRIER.md).
+> Independent direct certificates prove n = 4, 5, 6, 7 at 90%, 95%, and
+> 99%; see [`N4-CONVENTIONAL.md`](N4-CONVENTIONAL.md),
 > [`N5-CONVENTIONAL.md`](N5-CONVENTIONAL.md),
 > [`N6-CONVENTIONAL.md`](N6-CONVENTIONAL.md), and
-> [`N7-CONVENTIONAL.md`](N7-CONVENTIONAL.md).**
+> [`N7-CONVENTIONAL.md`](N7-CONVENTIONAL.md). The five-/six-coordinate
+> global step-normal theorems and the dependent n = 4/n = 5 confidence
+> continua remain conjectural; see
+> [`ORDERED-COLLISION-OBLIGATION.md`](ORDERED-COLLISION-OBLIGATION.md).**
 
 *Everything in this note is elementary algebra plus case analysis; each
 claim states its verification status. Nothing here is a proof of the
